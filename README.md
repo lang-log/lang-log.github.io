@@ -6,7 +6,7 @@ Live site: https://nguekwang.github.io/languer/
 
 ## Run locally
 
-Serve the static site with `python -m http.server 8000 --directory dist`, then open http://localhost:8000. No build step is required for the checked-in site.
+Run `python3 prepare_static.py` and `python3 build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
 ## Shareable URLs
 
@@ -43,7 +43,15 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and publishes `dist/` to https://nguekwang.github.io/languer/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer/` prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and `python3 build_paths.py` and publishes `dist/` to https://nguekwang.github.io/languer/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer/` prefix. No environment variables or secrets are required.
+
+## Record pages
+
+`build_paths.py` writes one page and one `record.json` for each Glottolog record, at a URL that follows its classification, for example `t/indo-european/.../castilic/spanish/`. `t/` lists all families and isolates. The pages need no JavaScript; the atlas links to them with the same rules (`dist/lineage-paths.js`).
+
+- Each segment is an ASCII slug of the name. Siblings with the same slug both get `-<glottocode>`.
+- Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
+- `dist/t/` is built by the Pages workflow and is not committed.
 
 ## Search from the address bar
 
