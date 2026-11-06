@@ -20,6 +20,15 @@ import json
 
 from build_paths import PROFILE_URL
 
+# TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
+# - Data sources band: names (and logos only where each source's brand terms
+#   allow) of Glottolog, Hugging Face and the other inputs, headed "Data
+#   sources" so it does not read as a list of partners.
+# - Updates: a news list (date, one line, link), newest first, 3 to 5 items,
+#   kept in a data file in this repository and added in the same pull request
+#   as the change it announces.
+# - Sponsors: a section for sponsors of Lang Log.
+
 DIST = Path(__file__).resolve().parent / "dist"
 SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
 
