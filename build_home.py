@@ -79,7 +79,7 @@ def main():
         '</head><body class="home-page">\n'
         '<header><div class="brand"><a class="home" href="./" aria-current="page"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> '
         f'<span class="by">by <a href="{escape(PROFILE_URL)}" title="MATSUURA Yoshihiro">yoshi</a></span></div>'
-        '<a href="families/">All families</a></header>\n'
+        '</header>\n'
         '<main class="home-main">'
         '<section class="home-intro">'
         '<h1 class="home-logo"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></h1>'

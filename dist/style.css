@@ -140,7 +140,7 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 /* Heading kept for screen readers and search engines on the atlas pages; the domain menu already shows it */
 .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 /* Top page (dist/index.html, written by build_home.py) */
-.home-page header .tools>a{font-size:14px}
+
 /* The big centred logo replaces the small header logo on the top page; the header keeps its layout */
 .home-page header .brand{visibility:hidden}
 .home-page header{border-bottom:0}
@@ -174,7 +174,7 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .home-more li{font-size:14px;line-height:1.8}
 .home-page footer{max-width:1080px;margin:0 auto;padding:22px 34px 30px;font-size:12px}
 @media(max-width:900px){.home-cards{grid-template-columns:1fr}}
-@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.search-pill input{padding:11px 16px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}.home-page header .tools>a{min-height:44px;display:inline-flex;align-items:center}}
+@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.search-pill input{padding:11px 16px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}}
 h1.visually-hidden+main{margin-top:14px}
 /* Logo: asterisk and "LANG LOG" in one SVG (dist/logo.svg, written by build_logo.py), so the link is one rectangle */
 .logo{display:block;height:26px;width:auto;aspect-ratio:861/180;color:var(--ink);overflow:visible}
@@ -192,10 +192,10 @@ header .theme-toggle{flex:none;align-self:center;box-sizing:border-box;width:var
 .theme-toggle .sun,.theme-toggle[aria-pressed=true] .moon{display:none}
 .theme-toggle[aria-pressed=true] .sun{display:block}
 .langmenu{position:relative}
-header .langmenu>summary{list-style:none;min-height:0;margin:0;line-height:1.2;display:flex;align-items:center;cursor:pointer;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:999px;box-sizing:border-box;height:var(--ctl);padding:0 14px;white-space:nowrap}
-header .langmenu>summary::-webkit-details-marker{display:none}
-header .langmenu>summary::after{content:"\25BE";margin-left:5px;color:var(--muted)}
-@media(hover:hover){header .langmenu>summary:hover{background:var(--line)}}
+header details.langmenu>summary{list-style:none;min-height:0;margin:0;line-height:1.2;display:flex;align-items:center;cursor:pointer;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:999px;box-sizing:border-box;height:var(--ctl);padding:0 14px;white-space:nowrap}
+header details.langmenu>summary::-webkit-details-marker{display:none}
+header details.langmenu>summary::after{content:"\25BE";margin-left:5px;color:var(--muted)}
+@media(hover:hover){header details.langmenu>summary:hover{background:var(--line)}}
 .langmenu .panel{position:absolute;right:0;top:calc(100% + 6px);z-index:50;min-width:180px;max-height:70vh;max-height:70dvh;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.12);padding:6px}
 .langmenu ul{list-style:none;margin:0;padding:0}
 .langmenu li{margin:0}
@@ -209,4 +209,4 @@ header .langmenu>summary::after{content:"\25BE";margin-left:5px;color:var(--mute
    shows a short code (EN, JA) instead of the full name. */
 header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .langmenu .short{display:none}
-@media(max-width:560px){header .brand{gap:6px}header .tools>a,header .tools>button:not(.theme-toggle){font-size:13px}header .tools{--ctl:40px}.langmenu .full{display:none}.langmenu .short{display:inline}header .langmenu>summary{padding:0 10px}}
+@media(max-width:560px){header .brand{gap:6px}header .tools>a,header .tools>button:not(.theme-toggle){font-size:13px}header .tools{--ctl:40px}.langmenu .full{display:none}.langmenu .short{display:inline}header details.langmenu>summary{padding:0 10px}}
