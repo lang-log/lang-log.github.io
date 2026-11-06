@@ -44,7 +44,7 @@ jobs:
       - name: Check that every page and data file is present
         run: |
           for f in index.html language-families.html visual-atlas.html variant-detail.html \
-                   favicon.svg apple-touch-icon.png theme.js i18n.js lang.js \
+                   favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js \
                    data.json integrated.json language-atlas.xml \
                    lineage-paths.js stages.json families/index.html \
                    afro-asiatic/berber/index.html \

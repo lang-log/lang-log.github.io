@@ -37,6 +37,10 @@ Record pages (`variant-detail.html`): `domain`, `id` and `task`.
 
 Older links of the form `language-families.html#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
 
+## Logo
+
+The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `build_logo.py` writes it from Liberation Sans Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and is run only when the logo changes.
+
 ## License
 
 The code and the site of Lang Log are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.
