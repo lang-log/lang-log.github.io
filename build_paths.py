@@ -290,7 +290,7 @@ def page(depth, title, body):
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"icon\" href=\"{up}favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"{up}apple-touch-icon.png\">"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"><script src=\"{up}theme.js\"></script><script src=\"{up}i18n.js\"></script><script src=\"{up}lang.js\"></script></head>"
-            f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><svg class=\"logo\" role=\"img\" aria-label=\"LANG LOG\"><use href=\"{up}logo.svg#logo\"/></svg></a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div><a href=\"{up}families/\">All families</a></header>"
+            f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><svg class=\"logo\" role=\"img\" aria-label=\"LANG LOG\"><use href=\"{up}logo.svg#logo\"/></svg></a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div></header>"
             f"<main>{body}</main>{FOOTER}</body></html>")
 
 
