@@ -1,0 +1,56 @@
+# Build the static site and publish it with GitHub Pages at
+# https://nguekwang.github.io/languer/ (a project site under the owner's
+# user site). All paths in dist/ are relative, so the /languer/ prefix
+# needs no change in the site files.
+#
+# One-time setup by the owner: Settings > Pages > Build and deployment >
+# Source: "GitHub Actions".
+name: pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Restores dist/data.json and dist/language-atlas.xml from
+      # source-data/packed/ and checks their SHA-256.
+      - run: python3 prepare_static.py
+      - name: Check that every page and data file is present
+        run: |
+          for f in index.html visual-atlas.html variant-detail.html \
+                   data.json integrated.json language-atlas.xml; do
+            test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
+          done
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
