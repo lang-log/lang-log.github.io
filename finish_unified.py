@@ -41,7 +41,7 @@ E.ElementTree(root).write(p/'language-atlas.xml',encoding='utf-8',xml_declaratio
 childmap=collections.defaultdict(list)
 for e in u['assertions']:
  if e['parent']:childmap[(e['source'],e['parent'])].append(e)
-op=E.Element('opml',{'version':'2.0'});E.SubElement(E.SubElement(op,'head'),'title').text='Languer — source-conditioned hypotheses';body=E.SubElement(op,'body')
+op=E.Element('opml',{'version':'2.0'});E.SubElement(E.SubElement(op,'head'),'title').text='Lang Log — source-conditioned hypotheses';body=E.SubElement(op,'body')
 def outline(id,parent,sid='glottolog',path=None):
  path=set() if path is None else path
  if (sid,id) in path:return

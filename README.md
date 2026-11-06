@@ -1,12 +1,14 @@
-# Languer
+# Lang Log
 
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.
 
-Live site: https://nguekwang.github.io/languer/
+It will also hold corpora and data for low-resource languages (planned).
+
+Live site: https://lang-log.github.io/
 
 ## Run locally
 
-Run `python3 prepare_static.py`, `python3 build_paths.py` and `python3 split_data.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+Run `python3 prepare_static.py` and `python3 build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
 ## Shareable URLs
 
@@ -35,7 +37,7 @@ Older links of the form `#<id>` still open the selected record and are rewritten
 
 ## License
 
-The code and the site of Languer Map are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.
+The code and the site of Lang Log are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.
 
 Copyright (C) 2026 MATSUURA Yoshihiro
 
@@ -43,7 +45,7 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `python3 build_paths.py` and `python3 split_data.py` and publishes `dist/` to https://nguekwang.github.io/languer/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer/` prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `python3 build_paths.py` and `python3 split_data.py` and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
 
 ## Record pages
 
@@ -55,9 +57,9 @@ The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `py
 
 ## Search from the address bar
 
-`https://nguekwang.github.io/languer/?q=<text>` opens the language page with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+`https://lang-log.github.io/?q=<text>` opens the language page with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
 
-`dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Languer Map" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
+`dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Lang Log" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
 
 ---
 
