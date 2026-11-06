@@ -2,7 +2,7 @@
 
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.
 
-Live site: https://atlas-of-language-families.agileduck5.chatgpt.site
+Live site: https://nguekwang.github.io/languer-map/
 
 ## Run locally
 
@@ -16,9 +16,9 @@ Copyright (C) 2026 MATSUURA Yoshihiro
 
 Source datasets keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/visual-atlas-licenses.txt`, the source registers in the site and the documentation below.
 
-## Cloudflare Pages
+## GitHub Pages
 
-Connect this repository, select `main`, use framework preset `None`, set the build command to `python3 prepare_static.py`, and set the output directory to `dist`. No environment variables or secrets are required by the site.
+The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and publishes `dist/` to https://nguekwang.github.io/languer-map/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer-map/` prefix. No environment variables or secrets are required.
 
 ---
 
