@@ -8,7 +8,13 @@ Live site: https://atlas-of-language-families.agileduck5.chatgpt.site
 
 Serve the static site with `python -m http.server 8000 --directory dist`, then open http://localhost:8000. No build step is required for the checked-in site.
 
-Source datasets keep their own licenses and attribution. See `dist/visual-atlas-licenses.txt`, the source registers in the site and the documentation below.
+## License
+
+The code and the site of Languer Map are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.
+
+Copyright (C) 2026 MATSUURA Yoshihiro
+
+Source datasets keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/visual-atlas-licenses.txt`, the source registers in the site and the documentation below.
 
 ## Cloudflare Pages
 
