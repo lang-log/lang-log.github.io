@@ -8,7 +8,7 @@
 //   without a flash of the other one.
 // - The button is added by this script, because it does nothing without JavaScript; without
 //   JavaScript the page follows the system setting.
-// - A "themechange" event on document tells the canvas tree (app.js) to redraw.
+// - A "themechange" event on document tells the canvas tree (tree.js) to redraw.
 (function () {
   var root = document.documentElement;
   var KEY = 'theme';

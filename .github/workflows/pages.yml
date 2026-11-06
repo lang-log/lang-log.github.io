@@ -30,12 +30,14 @@ jobs:
       # Restores dist/data.json and dist/language-families.xml from
       # source-data/packed/ and checks their SHA-256.
       - run: python3 tools/prepare_static.py
-      # Writes the top page dist/index.html and dist/random.json, the
-      # records its Random buttons draw from.
+      # Writes the top page dist/index.html (the list of top-level families,
+      # the whole tree, Sources & scope) and dist/random.json, the records its
+      # Random buttons draw from.
       - run: python3 tools/build_home.py
       # Writes one page and one record.json per Glottolog record under
-      # dist/<family>/.../<language>/ and the list dist/families/ (not
-      # committed; built here).
+      # dist/<family>/.../<language>/, and per source-only record under
+      # dist/<source>/.../ with dist/source-paths.json (not committed; built
+      # here).
       - run: python3 tools/build_paths.py
       # Writes the small files the pages load (dist/data/, not committed):
       # the atlas tree, the search text and the names split into 64 files.
@@ -44,11 +46,11 @@ jobs:
       - run: node tools/check_atlas_data.js
       - name: Check that every page and data file is present
         run: |
-          for f in index.html language-families.html signs-and-scripts.html record.html 404.html \
+          for f in index.html signs-and-scripts.html record.html 404.html \
                    favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js \
                    data.json integrated.json language-families.xml \
-                   lineage-paths.js stages.json families/index.html \
-                   afro-asiatic/berber/index.html \
+                   lineage-paths.js stages.json tree.js record-page.js source-paths.json \
+                   afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
                    map/land.svg map/land-pacific.svg data/atlas.json \
                    data/search.json data/names/0.json atlas-data.js \
                    home.js random.json; do
