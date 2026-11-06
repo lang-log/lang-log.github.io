@@ -53,6 +53,12 @@ The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and 
 - Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
 - `dist/t/` is built by the Pages workflow and is not committed.
 
+## Search from the address bar
+
+`https://nguekwang.github.io/languer/?q=<text>` opens the language page with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+
+`dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Languer Map" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
+
 ---
 
 # Integrated Language Atlas
