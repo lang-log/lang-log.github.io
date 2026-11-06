@@ -61,7 +61,7 @@ The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and 
 
 ---
 
-# Integrated Language Atlas
+# Data integration
 
 ## Rebuild
 
