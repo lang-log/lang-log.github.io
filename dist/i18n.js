@@ -22,6 +22,11 @@ window.LANGLOG_I18N = {
       'Writing systems': '文字体系',
       'Dark theme': 'ダークテーマ',
 
+      // Not-found page (dist/404.html)
+      'Page not found': 'ページが見つかりません',
+      'There is no page at this address. It may have moved, or the link may be mistyped.': 'このアドレスにはページがありません。移動したか、リンクが間違っている可能性があります。',
+      'Top page': 'トップページ',
+
       // Top page (build_home.py)
       'Search': '検索',
       'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.': '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
@@ -280,6 +285,7 @@ window.LANGLOG_I18N = {
       [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 語族 · Lang Log by yoshi'],
       [/^Language families · Lang Log by yoshi$/, '語族 · Lang Log by yoshi'],
       [/^Signs & Scripts · Lang Log by yoshi$/, '手話と文字 · Lang Log by yoshi'],
+      [/^Page not found · Lang Log by yoshi$/, 'ページが見つかりません · Lang Log by yoshi'],
       [/^All families · Lang Log by yoshi$/, 'すべての語族 · Lang Log by yoshi'],
       [/^All families and isolates · ([\d,]+)$/, 'すべての語族と孤立言語 · $1'],
       [/^Members · ([\d,]+)$/, '下位の記録 · $1'],

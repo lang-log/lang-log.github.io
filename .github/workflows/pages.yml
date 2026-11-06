@@ -43,7 +43,7 @@ jobs:
       - run: node check_atlas_data.js
       - name: Check that every page and data file is present
         run: |
-          for f in index.html language-families.html visual-atlas.html variant-detail.html \
+          for f in index.html language-families.html visual-atlas.html variant-detail.html 404.html \
                    favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js \
                    data.json integrated.json language-atlas.xml \
                    lineage-paths.js stages.json families/index.html \
@@ -52,6 +52,15 @@ jobs:
                    data/search.json data/names/0.json atlas-data.js; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
+      # The asterisk and "LANG LOG" are always the one SVG, dist/logo.svg
+      # (.claude/rules/logo.md): every page draws it, and no page writes the
+      # word mark as text.
+      - name: Check that every page draws the SVG logo
+        run: |
+          missing=$(find dist -name '*.html' -print0 | xargs -0 grep -L 'logo.svg#logo' || true)
+          [ -z "$missing" ] || { echo "pages without the SVG logo:"; echo "$missing" | head; exit 1; }
+          text=$(find dist -name '*.html' -print0 | xargs -0 grep -il '>[[:space:]]*\(✱\|\*\|★\)\?[[:space:]]*lang log[[:space:]]*<' || true)
+          [ -z "$text" ] || { echo "pages with a text logo:"; echo "$text" | head; exit 1; }
       # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
       # pages, so a browser never pairs new HTML with an old cached file
       # (Pages caches files for ten minutes). Runs after every page is written.
