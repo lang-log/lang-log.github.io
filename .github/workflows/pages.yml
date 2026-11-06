@@ -1,6 +1,6 @@
 # Build the static site and publish it with GitHub Pages at
-# https://nguekwang.github.io/languer-map/ (a project site under the owner's
-# user site). All paths in dist/ are relative, so the /languer-map/ prefix
+# https://nguekwang.github.io/languer/ (a project site under the owner's
+# user site). All paths in dist/ are relative, so the /languer/ prefix
 # needs no change in the site files.
 #
 # One-time setup by the owner: Settings > Pages > Build and deployment >

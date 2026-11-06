@@ -2,7 +2,7 @@
 
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.
 
-Live site: https://nguekwang.github.io/languer-map/
+Live site: https://nguekwang.github.io/languer/
 
 ## Run locally
 
@@ -18,7 +18,7 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and publishes `dist/` to https://nguekwang.github.io/languer-map/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer-map/` prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and publishes `dist/` to https://nguekwang.github.io/languer/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer/` prefix. No environment variables or secrets are required.
 
 ---
 
