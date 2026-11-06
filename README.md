@@ -39,7 +39,7 @@ Older links of the form `language-families.html#<id>` still open the selected re
 
 ## Logo
 
-The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `build_logo.py` writes it from Liberation Sans Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and is run only when the logo changes.
+The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `build_logo.py` writes it from Liberation Sans Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (see `.claude/rules/logo.md`; the `pages` workflow checks it).
 
 ## License
 
