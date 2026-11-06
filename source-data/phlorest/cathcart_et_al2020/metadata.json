@@ -1,0 +1,20 @@
+{
+    "id": "cathcart_et_al2020",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "10.1163/22105832-bja10013",
+    "citation": "Cathcart, C., Hölzl, A., Jäger, G., Widmer, P., & Bickel, B. (2020). Numeral classifiers and number marking in Indo-Iranian: A phylogenetic approach. Language Dynamics and Change, 11(2), 273-325. https://doi.org/10.1163/22105832-bja10013",
+    "name": "Numeral classifiers and number marking in Indo-Iranian: A phylogenetic approach",
+    "author": "Cathcart et al.",
+    "year": 2020,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Indo-European",
+    "cldf": "",
+    "artefacts": ["https://github.com/chundrac/clf-iir-evo/tree/master"],
+    "missing": {
+        "data": "not available",
+        "nexus": "none used",
+        "characters": "not available"
+    }
+}
+

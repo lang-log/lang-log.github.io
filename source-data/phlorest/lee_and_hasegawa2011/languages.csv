@@ -1,0 +1,61 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+AICHI,AICHI,,,,gifu1238,,,Gifu-Aichi
+AKITA,AKITA,,,,akit1240,,,Akita
+AOMORI,AOMORI,,40.7435,140.6873,tsug1237,,,Tsugaru
+CHIBA,CHIBA,,,,chib1248,,,Chiba
+EHIME,EHIME,,,,iyob1237,,,Iyo-ben
+FUKUI,FUKUI,,,,fuku1241,,,Fukui
+FUKUOKA,FUKUOKA,,,,yana1269,,,Yanagawa-ben
+FUKUSHIMA,FUKUSHIMA,,,,fuku1243,,,Fukushima
+GIFU,GIFU,,,,gifu1238,,,Gifu-Aichi
+GUNMA,GUNMA,,,,gunm1237,,,Gunma
+HIROSHIMA,HIROSHIMA,,,,hiro1237,,,Hiroshima
+HOKKAIDO,HOKKAIDO,,,,hokk1249,,,Hokkaidō
+HYOGO,HYOGO,,,,bans1249,,,Banshū
+HACHIJO,HACHIJO,,33.109444,139.791389,hach1239,,,Hachijo
+HATERUMA,HATERUMA,,24.059,123.78,hate1238,,,Hateruma
+HIRARA,HIRARA,,,,miya1260,,xd642,Miyako-Jima
+IBARAGI,IBARAGI,,,,ibar1242,,,Ibaraki
+IKEMA,IKEMA,,24.93149,125.245,ikem1235,,,Ikema-Jima
+IRAFU,IRAFU,,24.831088,125.18956,irab1238,,,Irabu-Jima
+ISHIGAKI,ISHIGAKI,,,,ishi1240,,xd640,Ishigaki
+ISHIKAWA,ISHIKAWA,,,,kana1289,,,Kanazawa
+IWATE,IWATE,,,,sout2953,,,Southern Tōhoku
+KAGAWA,KAGAWA,,,,kaga1258,,,Kagawa-ben
+KAGOSHIMA,KAGOSHIMA,,28.20991,129.45346,nort2935,,,Northern Amami-Oshima
+KANAGAWA,KANAGAWA,,,,kana1290,,,Kanagawa
+KOCHI,KOCHI,,,,west2607,,,Western Japanese
+KUMAMOTO,KUMAMOTO,,,,kuma1281,,,Kumamoto-ben
+KYOTO,KYOTO,,,,kyot1238,,,Kyoto
+MIDDLE_JAPANESE,MIDDLE_JAPANESE,,,,,,,
+MIE,MIE,,,,miee1237,,,Mie
+MIYAGI,MIYAGI,,,,send1240,,,Sendai
+MIYAZAKI,MIYAZAKI,,,,miya1258,,,Miyazaki-ben
+NAGANO,NAGANO,,,,naga1408,,,Nagano
+NAGASAKI,NAGASAKI,,,,naga1405,,,Nagasaki-ben
+NARA,NARA,,,,kink1238,,,Kinki
+NAZE,NAZE,,,,naze1238,,,Naze
+NIGATA,NIGATA,,,,niig1237,,,Niigata
+OITA,OITA,,,,oita1237,,,Ōita-ben
+OKAYAMA,OKAYAMA,,,,okay1237,,xd648,Okayama
+OKINAWA,OKINAWA,,26.14854,127.7816,cent2126,,xd650,Central Okinawan
+OLD_JAPANESE,OLD_JAPANESE,,34.68333,135.8,oldj1239,,,Old Japanese
+OSAKA,OSAKA,,,,osak1237,,,Ōsaka
+SAGA,SAGA,,,,saga1265,,,Saga-ben
+SAITAMA,SAITAMA,,,,west2608,,,Western Kantō
+SHIGA,SHIGA,,,,shig1237,,,Shiga
+SHIMANE,SHIMANE,,,,izum1237,,,Izumo-ben
+SHIZUOKA,SHIZUOKA,,,,shiz1237,,,Shizuoka
+TAKETOMI,TAKETOMI,,,,take1256,,,Taketomi
+TARAMA,TARAMA,,24.6584,124.6998,tara1319,,,Tarama-Minna
+TOCHIGI,TOCHIGI,,,,toch1258,,,Tochigi
+TOKUSHIMA,TOKUSHIMA,,,,toku1245,,,Tokushima-ben
+TOKYO,TOKYO,,,,toky1238,,,Tōkyō
+TOTTORI,TOTTORI,,,,tott1237,,,Tottori
+TOYAMA,TOYAMA,,,,toya1237,,,Toyama
+WAKAYAMA,WAKAYAMA,,,,waka1279,,,Wakayama
+YAMAGATA,YAMAGATA,,,,yama1262,,,Yamagata
+YAMAGUCHI,YAMAGUCHI,,,,yama1261,,,Yamaguchi
+YAMANASHI,YAMANASHI,,,,yama1263,,,Yamanashi
+YONAGUNI,YONAGUNI,,24.44997,122.99075,yona1241,,,Yonaguni
+

@@ -1,0 +1,20 @@
+{
+    "id": "dunn_et_al2011_utoaztecan",
+    "zenodo_concept_doi": "10.5281/zenodo.8250052",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1038/nature09923",
+    "citation": "Dunn M, Greenhill SJ, Levinson SC & Gray RD. 2011. Evolved structure of language shows lineage-specific trends in word-order universals. Nature, 473(7345), 79-82.",
+    "name": "Evolved structure of language shows lineage-specific trends in word-order universals",
+    "author": "Dunn et al.",
+    "year": 2011,
+    "scaling": "substitutions",
+    "analysis": "bayesian",
+    "family": "Uto-Aztecan",
+    "artefacts": ["raw/utoaztecan.nex"],
+    "missing": {
+        "data": "not retrievable",
+        "cldf": "not available",
+        "characters": "not retrievable"
+    }
+}
+

@@ -1,0 +1,24 @@
+{
+    "id": "sagart_et_al2019",
+    "zenodo_concept_doi": "10.5281/zenodo.8250294",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1073/pnas.1817972116",
+    "citation": "Sagart L, Jacques G, Lai Y, Ryder RJ, Thouzeau V, Greenhill SJ, List J- M. 2019 Dated language phylogenies shed light on the ancestry of Sino-Tibetan. Proceedings of the National Academy of Sciences, 201817972.",
+    "name": "Dated language phylogenies shed light on the ancestry of Sino-Tibetan",
+    "author": "Sagart et al.",
+    "year": 2019,
+    "scaling": "millennia",
+    "analysis": "bayesian",
+    "family": "Sino-Tibetan",
+    "artefacts": [
+        "sinotibetan-beast-covarion-relaxed-fbd.xml",
+        "https://github.com/lexibank/sagartst",
+        "https://zenodo.org/record/1465485",
+        "https://github.com/lingpy/sino-tibetan-paper",
+        "https://zenodo.org/record/2543222"
+    ],
+    "cldf": "https://doi.org/10.5281/zenodo.1465396"
+}
+
+
+

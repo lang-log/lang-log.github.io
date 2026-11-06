@@ -1,0 +1,52 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+BodicTshangla,BodicTshangla,,27.3694,91.7741,tsha1245,,,Tshangla
+BurmishAchang,BurmishAchang,,24.3479,97.7438,acha1249,,,Longchuan Achang
+BurmishAtsi,BurmishAtsi,,24.1726,98.3643,zaiw1241,,,Zaiwa
+BurmishBola,BurmishBola,,24.2142,97.9183,pela1242,,,Pela
+BurmishLashi,BurmishLashi,,26.0992,98.5481,lash1243,,,Lashi
+BurmishMaru,BurmishMaru,,24.942535,99.8338,maru1249,,,Maru
+BurmishOldBurmese,BurmishOldBurmese,,21.161961,94.897306,oldb1235,,,Old Burmese
+BurmishRangoon,BurmishRangoon,,20.7926,93.9665,nucl1310,,xd709,Burmese
+BurmishXiandao,BurmishXiandao,,24.5458,97.9052,xian1249,,,Xiandao
+ChepangChepang,ChepangChepang,,27.7206,84.9017,chep1245,,,Chepang
+ChinHakha,ChinHakha,,22.8735,92.8208,haka1240,,,Haka Chin
+DengDarangTaraon,DengDarangTaraon,,28.4993,96.8803,diga1241,,,Tawra
+DengYidu,DengYidu,,29.4473,95.6472,idum1241,,,Idu
+GaroGaro,GaroGaro,,25.2954,90.462,garo1247,,xd696,Garo
+JingphoJingpho,JingphoJingpho,,25.4634,97.3278,kach1280,,,Southern Jinghpaw
+Karbi,Karbi,,25.7317,93.0462,karb1241,,xd704,Hills Karbi
+KhroskyabsWobzi,KhroskyabsWobzi,,,,eree1240,,,Ere (China)
+KirantiBahing,KirantiBahing,,27.3323,86.3949,bahi1252,,,Bahing
+KirantiBantawa,KirantiBantawa,,27.12147,87.04738,bant1281,,,Bantawa
+KirantiHayu,KirantiHayu,,27.3047,86.1227,wayu1241,,,Wayu
+KirantiKhaling,KirantiKhaling,,27.3912,87.5053,khal1275,,,Khaling
+KirantiKulung,KirantiKulung,,27.1606,87.5717,kulu1253,,,Kulung (Nepal)
+KirantiLimbu,KirantiLimbu,,27.2703,87.8859,limb1266,,,Limbu
+KirantiThulung,KirantiThulung,,27.5389,87.6063,thul1246,,,Thulung
+LoloishLisu,LoloishLisu,,26.91,98.94,lisu1250,,,Lisu
+MizoLushai,MizoLushai,,22.6138,92.6247,lush1249,,xd708,Mizo
+NagaUkhrul,NagaUkhrul,,,,ukhr1238,,,Ukhrul
+NungicDulong,NungicDulong,,28.00792,98.49449,drun1238,,,Drung
+QiangicZhaba,QiangicZhaba,,30.7416,100.983,zhab1238,,,Zhaba
+Rabha,Rabha,,25.8248,91.1689,rabh1238,,,Rabha
+rGyalrongDaofu,rGyalrongDaofu,,31.1026,101.72,horp1239,,,Stau-Dgebshes
+rGyalrongJaphug,rGyalrongJaphug,,32.1,102.36,japh1234,,,Japhug
+rGyalrongMaerkang,rGyalrongMaerkang,,31.590536,102.660664,situ1238,,,Situ
+SiniticBeijing,SiniticBeijing,,,,beij1235,,,Beijingic
+SiniticChaozhou,SiniticChaozhou,,23.666667,116.633333,chao1238,,,Chaozhou
+SiniticGuangzhou,SiniticGuangzhou,,23.1253503,112.9476548,guan1279,,,Guangzhou
+SiniticJieyang,SiniticJieyang,,,,chao1239,,,Chaoshan
+SiniticLonggang,SiniticLonggang,,25.0,116.0,hakk1236,,,Hakka Chinese
+SiniticOldChinese,SiniticOldChinese,,36.12,114.32,oldc1244,,,Old Chinese
+SiniticXingning,SiniticXingning,,25.0,116.0,hakk1236,,,Hakka Chinese
+Tangut,Tangut,,38.894904,102.246464,tang1334,,,Tangut
+TaniBokar,TaniBokar,,28.61433,94.066429,boka1249,,,Bokar-Ramo
+TibetanAlike,TibetanAlike,,34.5177,100.485,amdo1237,,,Amdo Tibetan
+TibetanBatang,TibetanBatang,,31.9313,91.7062,kham1282,,,Khams Tibetan
+TibetanLhasa,TibetanLhasa,,,,utsa1239,,,Lhasa Tibetan
+TibetanOldTibetan,TibetanOldTibetan,,29.24,92.01,clas1254,,,Classical Tibetan
+TibetanXiahe,TibetanXiahe,,34.5177,100.485,amdo1237,,,Amdo Tibetan
+TibetoKinauriBunan,TibetoKinauriBunan,,32.2168,77.9596,gahr1239,,,Bunan
+TibetoKinauriByangsi,TibetoKinauriByangsi,,29.92002,80.63653,byan1241,,,Byangsi
+TibetoKinauriRongpo,TibetoKinauriRongpo,,30.528,79.567,rong1264,,,Rongpo
+

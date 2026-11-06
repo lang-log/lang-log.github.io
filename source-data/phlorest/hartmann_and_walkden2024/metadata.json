@@ -1,0 +1,19 @@
+{
+    "id": "hartmann_and_walkden2024",
+    "zenodo_concept_doi": "10.5281/zenodo.17578197",
+    "title": "Phlorest phylogeny hartmann_and_walkden2024",
+    "description": null,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://github.com/frithureiks/The-strength-of-the-phylogenetic-signal-in-syntactic-data",
+    "citation": "Hartmann, F. & Walkden, G. (2024) The strength of the phylogenetic signal in syntactic data, Glossa: a journal of general linguistics 9(1). doi: https://doi.org/10.16995/glossa.10598",
+    "name": "The strength of the phylogenetic signal in syntactic data",
+    "author": "Hartmann & Walkden",
+    "year": "2024",
+    "scaling": "none",
+    "analysis": "bayesian",
+    "family": "Global",
+    "cldf": "",
+    "missing": {
+        "characters": "listed in supplement but hard to identify which is which"
+    }
+}

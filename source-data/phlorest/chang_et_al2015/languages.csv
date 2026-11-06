@@ -1,0 +1,54 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+Adapazar,Adapazar,,40.0,45.0,nucl1235,,,Eastern Armenian
+Ancient_Greek,Ancient_Greek,,39.8155,21.9129,anci1242,,,Ionic-Attic Ancient Greek
+Assamese,Assamese,,26.0876,91.2932,assa1263,,,Assamese
+Avestan,Avestan,,34.217,62.112,aves1237,,,Avestan
+Bengali,Bengali,,24.0,90.0,beng1280,,xd664,Bengali
+Bihari,Bihari,,26.3817,86.2211,mait1250,,xd662,Maithili
+Cagliari,Cagliari,,39.0566,9.03935,camp1261,,,Campidanese Sardinian
+Catalan,Catalan,,41.453,1.569,stan1289,,,Catalan
+Classical_Armenian,Classical_Armenian,,38.592316,41.346422,clas1249,,,Classical-Middle Armenian
+Eastern_Armenian,Eastern_Armenian,,40.0,45.0,nucl1235,,,Eastern Armenian
+English,English,,53.0,-1.0,stan1293,,xd536 xd538,English
+Faroese,Faroese,,62.0732,-6.88497,faro1244,,,Faroese
+French,French,,48.0,2.0,stan1290,,xd540,French
+Friulian,Friulian,,46.1473,13.0493,friu1240,,,Friulian
+German,German,,48.649,12.4676,stan1295,,,German
+Gothic,Gothic,,46.9304,29.9786,goth1244,,,Gothic
+Gujarati,Gujarati,,22.687,71.0962,guja1252,,xd671,Gujarati
+Hindi,Hindi,,25.0,77.0,hind1269,,,Hindi
+Hittite,Hittite,,40.0,35.0,hitt1242,,,Hittite
+Icelandic,Icelandic,,63.4837,-19.0212,icel1247,,xd542,Icelandic
+Irish,Irish,,53.2186,-7.61509,iris1253,,xd543,Irish
+Italian,Italian,,43.0464,12.6489,ital1282,,,Italian
+Kashmiri,Kashmiri,,34.166825,74.330455,kash1277,,xd670,Kashmiri
+Ladin,Ladin,,46.60651,11.89498,ladi1250,,,Ladin
+Lahnda,Lahnda,,30.0948,75.3474,west2386,,,Western Panjabi
+Latin,Latin,,41.9026,12.4502,lati1261,,xd530,Latin
+Luxembourgish,Luxembourgish,,49.6839,6.14931,luxe1241,,,Moselle Franconian
+Marathi,Marathi,,17.9344,76.6665,mara1378,,,Marathi
+Modern_Greek,Modern_Greek,,38.36,23.13,mode1248,,xd534,Modern Greek
+Nepali,Nepali,,28.0,85.0,nepa1254,,,Nepali
+Norwegian,Norwegian,,59.92,10.71,norw1258,,,Norwegian
+Nuorese,Nuorese,,,,nuor1238,,,Nuorese
+Old_Church_Slavic,Old_Church_Slavic,,43.7171,22.8442,chur1257,,,Church Slavic
+Old_English,Old_English,,51.06,-1.31,olde1238,,,Old English (ca. 450-1100)
+Old_High_German,Old_High_German,,52.0,10.0,oldh1241,,,Old High German (ca. 750-1050)
+Old_Irish,Old_Irish,,53.0,-8.0,oldi1245,,,Early Irish
+Old_West_Norse,Old_West_Norse,,63.42,10.38,oldn1244,,,Old Norse
+Oriya,Oriya,,21.0,85.0,oriy1255,,xd683,Odia
+Panjabi,Panjabi,,30.0368,75.6702,panj1256,,xd600,Eastern Panjabi
+Portuguese,Portuguese,,39.91,-8.1,port1283,,xd529 xd539,Portuguese
+Provencal,Provencal,,44.1415,6.82979,occi1239,,,Occitan
+Romani,Romani,,42.67,21.17,balk1252,,,Balkan Romani
+Romanian,Romanian,,46.3913,24.2256,roma1327,,xd547 xd563,Romanian
+Romansh,Romansh,,46.5538,9.92812,roma1326,,,Romansh
+Scots_Gaelic,Scots_Gaelic,,56.7574,-5.24366,scot1245,,,Scottish Gaelic
+Singhalese,Singhalese,,8.0,81.0,sinh1246,,xd692,Sinhala
+Spanish,Spanish,,40.4414,-1.11788,stan1288,,xd533,Spanish
+Swiss_German,Swiss_German,,47.0516,8.46419,swis1247,,,Central Alemannic
+Tocharian_B,Tocharian_B,,41.65,82.9,tokh1243,,,Tokharian B
+Urdu,Urdu,,25.0,67.0,urdu1245,,,Urdu
+Vedic_Sanskrit,Vedic_Sanskrit,,20.0,77.0,sans1269,,xd665,Sanskrit
+Walloon,Walloon,,50.2235,5.14509,wall1255,,xd545,Walloon
+

@@ -1,0 +1,21 @@
+{
+    "id": "chacon_and_list2015",
+    "zenodo_concept_doi": "10.5281/zenodo.8249988",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "http://www.jolr.ru/files/(170)jlr2015-13-3-4(177-204).pdf",
+    "citation": "Chacon TC, List J-M (2015) Improved computational models of sound change shed light on the history of the Tukanoan languages. Journal of Language Relationship, 3:177\u2013203.",
+    "name": "Improved computational models of sound change shed light on the history of the Tukanoan languages",
+    "author": "Chacon & List",
+    "year": 2015,
+    "scaling": "change",
+    "analysis": "parsimony",
+    "family": "Tukanoan",
+    "artefacts": ["https://doi.org/10.5281/zenodo.45233"],
+    "missing": {
+        "posterior": "no posterior generated.",
+        "cldf": "not available.",
+        "nexus": "not available.",
+        "characters": "not available."
+    }
+}
+

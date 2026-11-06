@@ -1,0 +1,25 @@
+{
+    "id": "birchall_et_al2016",
+    "zenodo_concept_doi": "10.5281/zenodo.8248751",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1086/687383",
+    "citation": "Birchall, Joshua, Michael Dunn, and Simon J. Greenhill. 2016. A combined comparative and phylogenetic analysis of the Chapacuran language family. International Journal of American Linguistics 82 (3): 255-284. doi: 10.1086/687383",
+    "name": "A combined comparative and phylogenetic analysis of the Chapacuran language family",
+    "author": "Birchall et al.",
+    "year": 2016,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Chapacuran",
+    "artefacts": [
+        "raw/relaxed-binary-simple-gamma.xml",
+        "raw/relaxed-binary-simple.xml",
+        "raw/relaxed-covarion.xml",
+        "raw/relaxed-dollo.xml",
+        "raw/strict-binary-simple-gamma.xml",
+        "raw/strict-binary-simple.xml",
+        "raw/strict-covarion.xml",
+        "raw/strict-dollo.xml"
+    ],
+    "cldf": "https://doi.org/10.5281/zenodo.5115888"
+}
+

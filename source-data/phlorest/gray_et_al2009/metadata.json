@@ -1,0 +1,19 @@
+{
+    "id": "gray_et_al2009",
+    "zenodo_concept_doi": "10.5281/zenodo.8250067",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1126/science.1166858",
+    "citation": "Gray RD, Drummond AJ, & Greenhill SJ 2009. Language phylogenies reveal expansion pulses and pauses in Pacific settlement. Science, 323(5913), 479-483.",
+    "name": "Language phylogenies reveal expansion pulses and pauses in Pacific settlement",
+    "author": "Gray et al.",
+    "year": 2009,
+    "scaling": "millennia",
+    "analysis": "bayesian",
+    "family": "Austronesian",
+    "artefacts": ["raw/commands.txt"],
+    "missing": {
+        "data": "available online at https://abvd.eva.mpg.de",
+        "cldf": "not readily available"
+    }
+}
+

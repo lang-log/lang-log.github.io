@@ -1,0 +1,19 @@
+{
+    "id": "walker_and_ribeiro2011",
+    "zenodo_concept_doi": "10.5281/zenodo.8250306",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1098/rspb.2010.2579",
+    "citation": "Walker, R. S., & Ribeiro, L. A. (2011). Bayesian phylogeography of the Arawak expansion in lowland South America. Proceedings of the Royal Society B: Biological Sciences, 278(1718), 2562\u20132567.",
+    "name": "Bayesian phylogeography of the Arawak expansion in lowland South America",
+    "author": "Walker & Ribeiro",
+    "year": 2011,
+    "scaling": "substitutions",
+    "analysis": "bayesian",
+    "family": "Arawakan",
+    "cldf": "https://doi.org/10.5281/zenodo.8177536",
+    "missing": {
+        "characters": "not readily available.",
+        "artefacts": "not readily available."
+    }
+}
+
