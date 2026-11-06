@@ -288,6 +288,7 @@ def page(depth, title, body):
     return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
+            f"<link rel=\"icon\" href=\"{up}favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"{up}apple-touch-icon.png\">"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
             f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><span class=\"mark\">✳</span> LANG LOG</a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div><a href=\"{up}families/\">All families</a></header>"
             f"<main>{body}</main>{FOOTER}</body></html>")
