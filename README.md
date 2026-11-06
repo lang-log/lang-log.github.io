@@ -52,7 +52,6 @@ The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and 
 - Each segment is an ASCII slug of the name. Siblings with the same slug both get `-<glottocode>`.
 - Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
 - The record pages (one directory per top-level family under `dist/`), `dist/families/` and `dist/stages.json` are built by the Pages workflow and are not committed.
-- The pages first lived under `t/`. `dist/t/` now holds only small pages that send each old URL (for example `t/afro-asiatic/berber/`) to the new one, keeping any `#anchor`.
 
 ## Search from the address bar
 
