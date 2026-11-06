@@ -57,6 +57,15 @@ The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `py
 - Each page has a static map (inline SVG, no JavaScript; `languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
 - The land behind the points is `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `build_land.py` from Natural Earth 1:50m land v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once.
 
+## Interface language and theme
+
+The right end of the header on every page has a light/dark theme toggle and a language menu (English, 日本語), which work like the ones on the owner's profile site.
+
+- `dist/theme.js` adds the toggle and applies a saved theme before the page is drawn. Without a saved choice the page follows the system setting. Every colour is a variable at the top of `dist/style.css` (`--c-<light hex>`), with one light and one dark value; the canvas tree in `dist/app.js` reads the same variables.
+- `dist/lang.js` adds the language menu. The pages are written in English; in Japanese the script translates the interface text with `dist/i18n.js` and keeps translating what the atlas scripts add later. Record names, source titles, citations and codes are data and stay as the sources give them. Without a saved choice the language follows the browser.
+- Both choices are kept in `localStorage` (`theme`, `lang`) for every page. Switching keeps the URL and adds no history entry. Without JavaScript the pages are English, follow the system theme, and show neither control.
+- When you add interface text to a page or a script, add its translation to `dist/i18n.js`.
+
 ## Search from the address bar
 
 `https://lang-log.github.io/?q=<text>` opens the language page with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
