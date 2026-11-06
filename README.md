@@ -45,6 +45,12 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py` and publishes `dist/` to https://nguekwang.github.io/languer/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works under the `/languer/` prefix. No environment variables or secrets are required.
 
+## Search from the address bar
+
+`https://nguekwang.github.io/languer/?q=<text>` opens the language page with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+
+`dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Languer Map" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
+
 ---
 
 # Integrated Language Atlas
