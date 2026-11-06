@@ -121,6 +121,8 @@ def names_html(n):
     out = "<h3>Name in this language</h3>"
     out += (f'<p dir="auto">{" / ".join(escape(x) for x in own)}</p>' if own
             else '<p class="muted">Not recorded in the imported sources. No name inferred.</p>')
+    if not seen:  # an empty toggle opens onto nothing, so say so in plain text
+        return out + '<p class="muted">No other names or spellings recorded.</p>'
     out += f"<details><summary>Recorded names and spellings · {len(seen)}</summary><ul class=\"name-list\">"
     out += "".join(f'<li dir="auto">{escape(t)} <span class="muted">{escape(l or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
                    for (t, l), p in sorted(seen.items()))
@@ -158,7 +160,8 @@ def children_html(depth, i):
         return ""
     kids.sort(key=lambda c: nodes[c]["name"].lower())
     rows = "".join(f'<li><a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a> <span class="muted">{escape(nodes[c]["level"])}</span></li>' for c in kids)
-    return f'<h2>Members · {len(kids)}</h2><ul class="record-links">{rows}</ul>'
+    # A section gets the rule and spacing that set it apart from the names above.
+    return f'<section class="members"><h2>Members · {len(kids)}</h2><ul class="record-links">{rows}</ul></section>'
 
 
 def meta_html(n):
