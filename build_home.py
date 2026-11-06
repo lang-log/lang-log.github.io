@@ -74,6 +74,7 @@ def main():
         '<title>Lang Log by yoshi</title>'
         '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
         '<link rel="stylesheet" href="style.css">'
+        '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'
         '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
         '</head><body class="home-page">\n'
         '<header><div class="brand"><a class="home" href="./" aria-current="page"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> '
