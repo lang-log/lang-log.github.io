@@ -1,14 +1,9 @@
 """Write the top page of Lang Log, dist/index.html.
 
-The top page introduces the tool and links to its three atlases: language
-families (dist/language-families.html), sign languages and writing systems
-(dist/signs-and-scripts.html?domain=...). The record counts are shown here only,
-not on the atlas pages themselves. They are read from the committed data
-files, so the page stays in step with the data:
-
-- dist/integrated.json `stats`: Glottolog records, study trees, records in
-  conflicting clades;
-- dist/signs-and-scripts.json `counts`: sign-language and writing-system records.
+The top page shows the logo, a search box and a short introduction. The
+language families, sign languages and writing systems are reached from the
+search and from the atlas pages' own menu; the top page has no section for
+each of them (owner, 2026-11-06).
 
 The page needs no JavaScript. The search box is a plain GET form that opens
 the language-families atlas with ?q=.
@@ -16,7 +11,6 @@ the language-families atlas with ?q=.
 
 from html import escape
 from pathlib import Path
-import json
 
 from build_paths import PROFILE_URL
 
@@ -33,38 +27,7 @@ DIST = Path(__file__).resolve().parent.parent / "dist"
 SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
 
 
-def stat(value, label):
-    return f'<div><b>{value:,}</b><span>{escape(label)}</span></div>'
-
-
-def card(href, title, text, stats):
-    return (f'<li class="home-card"><h2><a href="{escape(href)}">{escape(title)}</a></h2>'
-            f'<p>{escape(text)}</p><div class="stats">{"".join(stats)}</div></li>')
-
-
 def main():
-    lang = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))["stats"]
-    visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["counts"]
-    cards = "".join([
-        card("language-families.html", "Language families",
-             "Glottolog's classification of every language family, language and dialect, "
-             "with WALS and published study trees side by side and the clades they disagree on.",
-             [stat(lang["glottologRecords"], "Glottolog records"),
-              stat(lang["summaryTrees"], "Imported study trees"),
-              stat(lang["recordsWithConflicts"], "Records in conflicting clades")]),
-        card("signs-and-scripts.html?domain=sign", "Sign languages",
-             "Sign languages and their proposed relationships, from catalogs, "
-             "manual alphabets and lexical studies.",
-             [stat(visual["glottologSignRecords"], "Glottolog sign records"),
-              stat(visual["manualAlphabetSamples"], "Manual-alphabet samples"),
-              stat(visual["distinctLexicalSamples"], "Languages in lexical study")]),
-        card("signs-and-scripts.html?domain=scripts", "Writing systems",
-             "Scripts and notations, how they descend from and influence each other, "
-             "and which languages use them.",
-             [stat(visual["scriptRecords"], "Script / notation records"),
-              stat(visual["scriptRelationships"], "Reviewed relationships"),
-              stat(visual["usageAssertions"], "CLDR usage assertions")]),
-    ])
     description = ("Lang Log: an atlas of language families, sign languages and writing systems, "
                    "with source-linked classifications, alternative hypotheses and exportable data.")
     html = (
@@ -96,7 +59,6 @@ def main():
         'Every placement says which source it follows, competing classifications are shown together, '
         'and the data can be downloaded.</p></section>\n'
 
-        f'<ul class="home-cards">{cards}</ul>\n'
         '<section class="home-more"><h2>Also</h2><ul>'
         '<li><a href="families/">All families and isolates</a>: one plain page per Glottolog record, '
         'with its classification and a map.</li>'

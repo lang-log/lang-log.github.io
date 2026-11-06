@@ -30,7 +30,7 @@ jobs:
       # Restores dist/data.json and dist/language-families.xml from
       # source-data/packed/ and checks their SHA-256.
       - run: python3 tools/prepare_static.py
-      # Writes the top page dist/index.html with the current record counts.
+      # Writes the top page dist/index.html.
       - run: python3 tools/build_home.py
       # Writes one page and one record.json per Glottolog record under
       # dist/<family>/.../<language>/ and the list dist/families/ (not
