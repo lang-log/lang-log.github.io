@@ -36,8 +36,9 @@ FAMILIES = DIST / "families"
 # Top-level names in dist/ that a family slug must not take.
 RESERVED = {"families", "map"}
 TITLE_SUFFIX = " · Lang Log by yoshi"
-# "yoshi" in the header links to the owner's profile (the English page of the personal site).
-PROFILE_URL = "https://nguekwang.github.io/en/"
+# "yoshi" in the header links to the owner's profile (the English page of the personal site),
+# tagged with ?ref=langlog so the profile site can tell where the visit came from.
+PROFILE_URL = "https://nguekwang.github.io/en/?ref=langlog"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
