@@ -1,22 +1,17 @@
 """Write the top page of Lang Log, dist/index.html.
 
-The top page introduces the tool and links to its three atlases: language
-families (dist/language-families.html), sign languages and writing systems
-(dist/signs-and-scripts.html?domain=...). The record counts are shown here only,
-not on the atlas pages themselves. They are read from the committed data
-files, so the page stays in step with the data:
-
-- dist/integrated.json `stats`: Glottolog records, study trees, records in
-  conflicting clades;
-- dist/signs-and-scripts.json `counts`: sign-language and writing-system records.
+The top page shows the logo, a search box and a short introduction. The
+language families, sign languages and writing systems are reached from the
+search and from the atlas pages' own menu; the top page has no section for
+each of them (owner, 2026-11-06).
 
 The page works without JavaScript. The search box is a plain GET form that
 opens the language-families atlas with ?q=.
 
-The Random buttons live on this page only (owner, 2026-11-06), one in each
-card. dist/home.js shows them and, on a click, opens the record page
-(record.html?domain=...&id=...) of a record drawn from dist/random.json,
-which this script writes (not committed):
+Random lives on this page only (owner, 2026-11-06): a row of three buttons
+under the search box, one per atlas. dist/home.js shows the row and, on a
+click, opens the record page (record.html?domain=...&id=...) of a record
+drawn from dist/random.json, which this script writes (not committed):
 
 - language: Glottolog languages and dialects, without bookkeeping records;
 - sign: sign languages and dialects of the signs-and-scripts data;
@@ -42,16 +37,12 @@ DIST = Path(__file__).resolve().parent.parent / "dist"
 SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
 
 
-def stat(value, label):
-    return f'<div><b>{value:,}</b><span>{escape(label)}</span></div>'
-
-
-# Button label for each pool in random.json.
-RANDOM_TITLES = {
-    "language": "Choose a random language or dialect",
-    "sign": "Choose a random sign language or dialect",
-    "scripts": "Choose a random writing system",
-}
+# Buttons of the Random row: (pool in random.json, label, title).
+RANDOM_BUTTONS = [
+    ("language", "Language", "Choose a random language or dialect"),
+    ("sign", "Sign language", "Choose a random sign language or dialect"),
+    ("scripts", "Writing system", "Choose a random writing system"),
+]
 
 
 def random_pools():
@@ -67,37 +58,16 @@ def random_pools():
     }
 
 
-def card(href, title, text, stats, domain):
-    label = RANDOM_TITLES[domain]
-    return (f'<li class="home-card"><h2><a href="{escape(href)}">{escape(title)}</a></h2>'
-            f'<p>{escape(text)}</p><div class="stats">{"".join(stats)}</div>'
-            f'<button class="home-random" type="button" data-domain="{domain}" hidden '
-            f'title="{escape(label)}" aria-label="{escape(label)}">Random</button></li>')
+def random_row():
+    buttons = "".join(
+        f'<button type="button" data-domain="{domain}" title="{escape(title)}" '
+        f'aria-label="{escape(title)}">{escape(label)}</button>'
+        for domain, label, title in RANDOM_BUTTONS)
+    return (f'<div class="home-random" role="group" aria-labelledby="home-random-label" hidden>'
+            f'<span id="home-random-label">Random</span>{buttons}</div>')
 
 
 def main():
-    lang = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))["stats"]
-    visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["counts"]
-    cards = "".join([
-        card("language-families.html", "Language families",
-             "Glottolog's classification of every language family, language and dialect, "
-             "with WALS and published study trees side by side and the clades they disagree on.",
-             [stat(lang["glottologRecords"], "Glottolog records"),
-              stat(lang["summaryTrees"], "Imported study trees"),
-              stat(lang["recordsWithConflicts"], "Records in conflicting clades")], "language"),
-        card("signs-and-scripts.html?domain=sign", "Sign languages",
-             "Sign languages and their proposed relationships, from catalogs, "
-             "manual alphabets and lexical studies.",
-             [stat(visual["glottologSignRecords"], "Glottolog sign records"),
-              stat(visual["manualAlphabetSamples"], "Manual-alphabet samples"),
-              stat(visual["distinctLexicalSamples"], "Languages in lexical study")], "sign"),
-        card("signs-and-scripts.html?domain=scripts", "Writing systems",
-             "Scripts and notations, how they descend from and influence each other, "
-             "and which languages use them.",
-             [stat(visual["scriptRecords"], "Script / notation records"),
-              stat(visual["scriptRelationships"], "Reviewed relationships"),
-              stat(visual["usageAssertions"], "CLDR usage assertions")], "scripts"),
-    ])
     description = ("Lang Log: an atlas of language families, sign languages and writing systems, "
                    "with source-linked classifications, alternative hypotheses and exportable data.")
     html = (
@@ -125,11 +95,11 @@ def main():
         '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" '
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         '</button></div></form>'
+        f'{random_row()}'
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         'Every placement says which source it follows, competing classifications are shown together, '
         'and the data can be downloaded.</p></section>\n'
 
-        f'<ul class="home-cards">{cards}</ul>\n'
         '<section class="home-more"><h2>Also</h2><ul>'
         '<li><a href="families/">All families and isolates</a>: one plain page per Glottolog record, '
         'with its classification and a map.</li>'
@@ -141,8 +111,7 @@ def main():
         '</body></html>\n'
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")
-    pools = random_pools()
-    (DIST / "random.json").write_text(json.dumps(pools, separators=(",", ":")), encoding="utf-8")
+    (DIST / "random.json").write_text(json.dumps(random_pools(), separators=(",", ":")), encoding="utf-8")
 
 
 if __name__ == "__main__":

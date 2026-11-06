@@ -14,7 +14,7 @@ The scripts live in `tools/`; run them from the repository root. Run `python3 to
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
 
-The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `tools/build_home.py` from `dist/integrated.json` and `dist/signs-and-scripts.json`; run it again when the data changes. The atlas pages themselves show no counts. Each of the three cards has a Random button, which opens the record page of a random language or dialect, sign language or writing system; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the buttons stay hidden.
+The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Neither the top page nor the atlas pages show record counts. Under the search box, a Random row (Language, Sign language, Writing system) opens the record page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
 Language families (`language-families.html`):
 
@@ -35,7 +35,7 @@ Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `i
 
 Record pages (`record.html`): `domain`, `id` and `task`.
 
-Older links of the form `language-families.html#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, and scroll position.
+Older links of the form `language-families.html#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
 
 ## Logo
 
@@ -134,9 +134,9 @@ Source files and their original licenses remain attributed. See `source-data/sig
 
 Removed decorative hero copy and fixed “Start exploring” suggestions. Persistent dice controls select canonical language/dialect records (not families or study samples); the scripts section samples writing-system records and excludes special/collection codes. The currently selected record is excluded from the next draw.
 
-`record.html?domain=language&id=<record-id>` provides standalone details for base language records and imported source-specific nodes. `domain=sign` and `domain=scripts` use the signs/scripts graph. Tree-node names and sidebar links open the record page. Pages include aliases, native-label evidence, source-conditioned parents and children, competing research accounts, script usage where applicable, and language-tagged Hugging Face results. Shareable URLs, copy-link control, and return-to-tree links are included. Unknown IDs render a not-found state. No new decorative explanatory copy was added.
+`record.html?domain=language&id=<record-id>` provides standalone details for base language records and imported source-specific nodes. `domain=sign` and `domain=scripts` use the signs/scripts graph. Tree-node names and sidebar links open the record page. Pages include aliases, native-label evidence, source-conditioned parents and children, competing research accounts, script usage where applicable, and language-tagged Hugging Face results. Shareable URLs, copy-link control, return-to-tree links and random selection are included. Unknown IDs render a not-found state. No new decorative explanatory copy was added.
 
-Syntax and DOM checks cover both list views, detail routes for language/dialect/source-node/sign/script records, copying URLs, navigation and unknown-ID handling. Real-browser visual QA remains unverified in this managed environment.
+Syntax and DOM checks cover both list views, random selection, detail routes for language/dialect/source-node/sign/script records, copying URLs, navigation and unknown-ID handling. Real-browser visual QA remains unverified in this managed environment.
 
 ## Page data
 

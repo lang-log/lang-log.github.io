@@ -1,13 +1,14 @@
 'use strict';
-// Random buttons on the top page (the only page that has them). Each button
-// opens the record page of a record drawn from random.json, which
+// The Random row on the top page (the only page that has Random). Each
+// button opens the record page of a record drawn from random.json, which
 // tools/build_home.py writes: {language: [ids], sign: [ids], scripts: [ids]}.
-// The buttons stay hidden without JavaScript.
+// The row stays hidden without JavaScript.
 (()=>{
+ const row=document.querySelector('.home-random');if(!row)return;
  let pools=null;
  const load=()=>pools||(pools=fetch('random.json').then(r=>{if(!r.ok)throw Error('Could not load random.json');return r.json()}));
- for(const b of document.querySelectorAll('.home-random')){
-  b.hidden=false;
+ row.hidden=false;
+ for(const b of row.querySelectorAll('button[data-domain]')){
   b.addEventListener('click',async()=>{
    b.disabled=true;
    try{
