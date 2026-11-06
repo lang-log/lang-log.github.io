@@ -35,12 +35,18 @@ jobs:
       # dist/<family>/.../<language>/ and the list dist/families/ (not
       # committed; built here).
       - run: python3 build_paths.py
+      # Writes the small files the pages load (dist/data/, not committed):
+      # the atlas tree, the search text and the names split into 64 files.
+      - run: python3 split_data.py
+      # The browser rebuilds the same objects as data.json and integrated.json.
+      - run: node check_atlas_data.js
       - name: Check that every page and data file is present
         run: |
           for f in index.html visual-atlas.html variant-detail.html \
                    data.json integrated.json language-atlas.xml \
                    lineage-paths.js stages.json families/index.html \
-                   afro-asiatic/berber/index.html; do
+                   afro-asiatic/berber/index.html data/atlas.json \
+                   data/search.json data/names/0.json atlas-data.js; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
       - uses: actions/upload-pages-artifact@v3

@@ -8,7 +8,7 @@ async function get(file){const r=await fetch(file);if(!r.ok)throw Error('Could n
 try{
 let N,S,E,notes=[],usage=[],conflicts=[],debates=[],base;
 if(domain==='language'){
- const [d,u]=await Promise.all([get('data.json'),get('integrated.json')]);base=d.nodes;N={...base,...u.extraNodes};await window.LineagePaths.init(base,d.roots);S=u.sources;E=u.assertions;
+ const [{d,u},names]=await Promise.all([window.AtlasData.load(),window.AtlasData.names(id||'')]);base=d.nodes;if(base[id])base[id].names=names;N={...base,...u.extraNodes};await window.LineagePaths.init(base,d.roots);S=u.sources;E=u.assertions;
  const path=new Set();let p=id;while(base[p]&&!path.has(p)){path.add(p);p=base[p].parent;}
  debates=(u.debates||[]).filter(d=>d.appliesTo.some(i=>path.has(i)));
  conflicts=(u.conflictIndex[id]||[]).map(i=>u.conflicts[i]);
