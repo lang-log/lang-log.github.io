@@ -20,11 +20,14 @@ Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 """
 from pathlib import Path
 from html import escape
+import csv
 import json
 import re
 import shutil
 import sys
 import unicodedata
+
+from languoid_map import map_svg
 
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist"
@@ -67,6 +70,44 @@ for n in nodes.values():
     segment.update(segments_for(kids))
 
 path_cache = {}
+
+# Glottolog's representative point of each record, as (longitude, latitude).
+coords = {}
+with open(ROOT / "source-data" / "languages.csv", encoding="utf-8", newline="") as f:
+    for row in csv.DictReader(f):
+        if row["Latitude"] and row["Longitude"] and row["ID"] in nodes:
+            coords[row["ID"]] = (float(row["Longitude"]), float(row["Latitude"]))
+
+
+def _points_under():
+    """For a family: the languages below it; for a language: its dialects."""
+    langs, dials = {}, {}
+
+    def walk(i):
+        la, di = [], []
+        for c in nodes[i]["children"]:
+            if c not in nodes:
+                continue
+            cl, cd = walk(c)
+            la += cl
+            di += cd
+            lvl = nodes[c]["level"]
+            if c in coords and lvl == "language":
+                la.append(c)
+            elif c in coords and lvl == "dialect":
+                di.append(c)
+        langs[i], dials[i] = la, di
+        return la, di
+
+    for r in data["roots"]:
+        walk(r)
+    for i in nodes:  # records not reached from a root
+        if i not in langs:
+            walk(i)
+    return {i: (dials[i] if nodes[i]["level"] != "family" else langs[i]) for i in nodes}
+
+
+points_under = _points_under()
 
 
 def path_of(i):
@@ -181,7 +222,56 @@ def record_body(depth, i, heading="h1"):
     body += (f'<p><a href="{"../" * depth}#{escape(i)}">Open in the atlas</a> · '
              f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a> · '
              f'<a href="{"../" * depth}variant-detail.html?domain=language&amp;id={escape(i)}">Full source detail</a></p>')
+    if heading == "h1":
+        body += map_html(depth, i)
     return body + names_html(n) + placements_html(i)
+
+
+def map_html(depth, i):
+    n = nodes[i]
+    family = n["level"] == "family"
+    own = None if family else coords.get(i)
+    # Many dialects carry their language's own point; those add nothing to show.
+    main = [coords[c] for c in points_under[i] if coords[c] != own]
+    parent = n.get("parent")
+    context = []
+    if parent in nodes:
+        mine = set(points_under[i]) | {i}
+        context = [coords[c] for c in points_under[parent] if c not in mine]
+    kind = "languages" if family else ("dialects" if n["level"] == "language" else "")
+    if family:
+        label = f"Map: {len(main)} languages of {n['name']}"
+    else:
+        label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
+    svg = map_svg("../" * depth + "map/", main, context, own, label)
+    if not svg:
+        return ""
+    notes = []
+    if family:
+        total = sum(1 for c in languages_under_all(i))
+        missing = total - len(main)
+        notes.append(f"{len(main)} languages shown" + (f"; {missing} have no coordinates in Glottolog" if missing else "") + ".")
+    if context:
+        notes.append("Faint points: other members of " + escape(nodes[parent]["name"]) + ".")
+    legend = " ".join(notes)
+    return (f'<figure class="lmap-figure">{svg}<figcaption>{legend} '
+            "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
+            'Points: Glottolog 5.3 (CC BY 4.0). Land: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> (public domain). '
+            "Projection: Equal Earth.</figcaption></figure>")
+
+
+def languages_under_all(i):
+    """Every language below a family, with or without coordinates."""
+    out = []
+    stack = list(nodes[i]["children"])
+    while stack:
+        c = stack.pop()
+        if c not in nodes:
+            continue
+        if nodes[c]["level"] == "language":
+            out.append(c)
+        stack.extend(nodes[c]["children"])
+    return out
 
 
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
@@ -206,6 +296,7 @@ def record_json(i):
     n = nodes[i]
     return {
         "id": i, "name": n["name"], "level": n["level"], "iso": n.get("iso", ""),
+        "coordinates": ({"latitude": coords[i][1], "longitude": coords[i][0]} if i in coords else None),
         "area": n.get("area", ""), "countries": n.get("countries", ""), "isolate": n.get("isolate", False),
         "path": path_of(i),
         "lineage": [{"id": a, "name": nodes[a]["name"], "path": path_of(a)} for a in lineage(i)[:-1]],
