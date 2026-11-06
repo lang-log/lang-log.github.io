@@ -184,28 +184,29 @@ h1.visually-hidden+main{margin-top:14px}
    theme toggle and the language menu, as on the profile site. The toggle stretches to the
    height of the language pill; both are hidden without JavaScript, which they need. */
 header .tools{display:flex;align-items:center;gap:8px}
-header .theme-toggle{flex:none;align-self:stretch;width:32px;min-height:32px;padding:0;margin:0;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px}
-header .theme-toggle:hover{background:var(--line)}
+header .tools{--ctl:34px}
+header .theme-toggle{flex:none;align-self:center;box-sizing:border-box;width:var(--ctl);height:var(--ctl);min-width:var(--ctl);min-height:0;aspect-ratio:1;padding:0;margin:0;display:inline-flex;align-items:center;justify-content:center;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px}
+@media(hover:hover){header .theme-toggle:hover{background:var(--line)}}
 .theme-toggle svg{fill:currentColor;stroke:currentColor;stroke-width:0}
 .theme-toggle .sun path{fill:none;stroke-width:2;stroke-linecap:round}
 .theme-toggle .sun,.theme-toggle[aria-pressed=true] .moon{display:none}
 .theme-toggle[aria-pressed=true] .sun{display:block}
 .langmenu{position:relative}
-header .langmenu>summary{list-style:none;min-height:0;margin:0;line-height:1.2;display:flex;align-items:center;cursor:pointer;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;white-space:nowrap}
+header .langmenu>summary{list-style:none;min-height:0;margin:0;line-height:1.2;display:flex;align-items:center;cursor:pointer;font-size:14px;color:var(--ink);border:1px solid var(--line);border-radius:999px;box-sizing:border-box;height:var(--ctl);padding:0 14px;white-space:nowrap}
 header .langmenu>summary::-webkit-details-marker{display:none}
 header .langmenu>summary::after{content:"\25BE";margin-left:5px;color:var(--muted)}
-header .langmenu>summary:hover{background:var(--line)}
+@media(hover:hover){header .langmenu>summary:hover{background:var(--line)}}
 .langmenu .panel{position:absolute;right:0;top:calc(100% + 6px);z-index:50;min-width:180px;max-height:70vh;max-height:70dvh;overflow-y:auto;background:var(--bg);border:1px solid var(--line);border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.12);padding:6px}
 .langmenu ul{list-style:none;margin:0;padding:0}
 .langmenu li{margin:0}
 .langmenu li button,.langmenu li span{display:block;width:100%;text-align:left;border:0;border-radius:6px;padding:7px 10px;font-size:14px;color:var(--ink);background:transparent;min-height:0}
 .langmenu li button:hover{background:var(--line)}
 .langmenu li span{font-weight:700;color:var(--teal)}
-@media(max-width:700px){header .tools{gap:6px}header .theme-toggle{width:44px;min-height:44px}header .langmenu>summary{padding:12px 12px}}
+@media(max-width:700px){header .tools{gap:6px}}
 /* Japanese interface (lang.js sets <html lang="ja">): text that comes from CSS. */
 :root[lang=ja] .language-atlas .explore:has(#search:placeholder-shown) .sidehead #searchcount::after{content:" 件の根"}
 /* Phones: the brand, the page link and both controls stay on one line; the language pill
    shows a short code (EN, JA) instead of the full name. */
 header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .langmenu .short{display:none}
-@media(max-width:560px){header .brand{gap:6px}header .tools>a,header .tools>button:not(.theme-toggle){font-size:13px}header .theme-toggle{width:40px;min-height:40px}.langmenu .full{display:none}.langmenu .short{display:inline}header .langmenu>summary{padding:0 10px;height:40px}}
+@media(max-width:560px){header .brand{gap:6px}header .tools>a,header .tools>button:not(.theme-toggle){font-size:13px}header .tools{--ctl:40px}.langmenu .full{display:none}.langmenu .short{display:inline}header .langmenu>summary{padding:0 10px}}
