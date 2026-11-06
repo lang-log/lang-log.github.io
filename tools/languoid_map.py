@@ -1,4 +1,4 @@
-"""Static distribution maps for the record pages under dist/t/.
+"""Static distribution maps for the record pages under dist/<family>/.../<language>/.
 
 Each map is a small inline SVG: the shared background dist/map/land.svg
 (drawn by build_land.py) is referenced with <use>, so it is downloaded once

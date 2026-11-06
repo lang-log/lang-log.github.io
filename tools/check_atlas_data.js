@@ -1,7 +1,7 @@
 // Checks that dist/atlas-data.js rebuilds exactly what dist/data.json and
 // dist/integrated.json hold (record names come from dist/data/names/).
-// Run after split_data.py: node check_atlas_data.js
-const fs=require('fs'),path=require('path'),assert=require('assert'),dist=path.join(__dirname,'dist');
+// Run after split_data.py, from the repository root: node tools/check_atlas_data.js
+const fs=require('fs'),path=require('path'),assert=require('assert'),dist=path.join(__dirname,'..','dist');
 global.window={};global.fetch=async f=>({ok:true,json:async()=>JSON.parse(fs.readFileSync(path.join(dist,f),'utf8'))});
 eval(fs.readFileSync(path.join(dist,'atlas-data.js'),'utf8'));
 (async()=>{

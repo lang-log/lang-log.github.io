@@ -3,7 +3,6 @@ __pycache__/
 node_modules/
 .env
 .env.*
-.openai/
 
 /dist/data.json
 /dist/language-atlas.xml

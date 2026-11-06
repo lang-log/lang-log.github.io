@@ -17,7 +17,7 @@ import urllib.request
 
 from languoid_map import CENTRES, project, wrap, WORLD_W
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "dist" / "map"
 URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_50m_land.geojson"
 SHA256 = "e874b27a51d146452be360cafb3cc50c86001074a67d534113e6534682f9826b"

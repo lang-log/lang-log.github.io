@@ -29,7 +29,7 @@ import unicodedata
 
 from languoid_map import map_svg
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 OUT = DIST
 FAMILIES = DIST / "families"

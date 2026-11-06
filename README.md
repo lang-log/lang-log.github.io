@@ -8,13 +8,13 @@ Live site: https://lang-log.github.io/
 
 ## Run locally
 
-Run `python3 prepare_static.py`, `python3 build_home.py` and `python3 build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+The scripts live in `tools/`; run them from the repository root. Run `python3 tools/prepare_static.py`, `python3 tools/build_home.py` and `python3 tools/build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
 ## Shareable URLs
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
 
-The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `build_home.py` from `dist/integrated.json` and `dist/visual-atlas.json`; run it again when the data changes. The atlas pages themselves show no counts.
+The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `tools/build_home.py` from `dist/integrated.json` and `dist/visual-atlas.json`; run it again when the data changes. The atlas pages themselves show no counts.
 
 Language families (`language-families.html`):
 
@@ -39,7 +39,7 @@ Older links of the form `language-families.html#<id>` still open the selected re
 
 ## Logo
 
-The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `build_logo.py` writes it from Liberation Sans Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (see `.claude/rules/logo.md`; the `pages` workflow checks it).
+The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `tools/build_logo.py` writes it from Liberation Sans Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (see `.claude/rules/logo.md`; the `pages` workflow checks it).
 
 ## License
 
@@ -51,17 +51,17 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `python3 build_home.py`, `python3 build_paths.py` and `python3 split_data.py` and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `python3 tools/prepare_static.py`, `python3 tools/build_home.py`, `python3 tools/build_paths.py` and `python3 tools/split_data.py` and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
 
 ## Record pages
 
-`build_paths.py` writes one page and one `record.json` for each Glottolog record, at a URL that follows its classification, for example `indo-european/.../castilic/spanish/`. `families/` lists all families and isolates. The pages need no JavaScript; the atlas links to them with the same rules (`dist/lineage-paths.js`).
+`tools/build_paths.py` writes one page and one `record.json` for each Glottolog record, at a URL that follows its classification, for example `indo-european/.../castilic/spanish/`. `families/` lists all families and isolates. The pages need no JavaScript; the atlas links to them with the same rules (`dist/lineage-paths.js`).
 
 - Each segment is an ASCII slug of the name. Siblings with the same slug both get `-<glottocode>`.
 - Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
 - The record pages (one directory per top-level family under `dist/`), `dist/families/` and `dist/stages.json` are built by the Pages workflow and are not committed.
-- Each page has a static map (inline SVG, no JavaScript; `languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
-- The land behind the points is `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `build_land.py` from Natural Earth 1:50m land v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once.
+- Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
+- The land behind the points is `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `tools/build_land.py` from Natural Earth 1:50m land v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once.
 
 ## Interface language and theme
 
@@ -84,7 +84,7 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ## Rebuild
 
-Run `python build_data.py`, `python enrich.py`, `python unify.py`, then `python finish_unified.py`. Serve `dist/` as static files.
+Run `python tools/build_data.py`, `python tools/enrich.py`, `python tools/unify.py`, then `python tools/finish_unified.py`. Serve `dist/` as static files.
 
 ## Integration model
 
@@ -118,7 +118,7 @@ The Sources panel documents this integration. XML and OPML remain classification
 
 `visual-atlas.html?domain=sign` and `visual-atlas.html?domain=scripts` extend the same public atlas. Domain navigation is added to the existing page without replacing its language data or controls.
 
-Rebuild with `python build_visual.py`; validate with `python validate_visual.py` and `node --check dist/visual-atlas.js`.
+Rebuild with `python tools/build_visual.py`; validate with `python tools/validate_visual.py` and `node --check dist/visual-atlas.js`.
 
 Coverage: all 344 Glottolog 5.3 Sign Language-category records (including categories, families and dialects), all 76 Power et al. CLDF manual-alphabet samples, three Abner et al. consensus trees spanning 19 distinct language samples, all 226 rows of the downloaded ISO 15924 table, and all 325 SIL Scripts Index rows. Exact script codes are merged; SIL-local IDs remain distinct. There are 334 script/notation records, 63 reviewed historical/influence assertions and 1,001 explicit CLDR language/script usage entries. These counts measure different units. They do not establish exhaustive coverage of world literature or all proposed genealogies.
 
@@ -140,10 +140,10 @@ Syntax and DOM checks cover both list views, random selection, detail routes for
 
 ## Page data
 
-The atlas and the record detail page (`variant-detail.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
+The atlas and the record detail page (`variant-detail.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `tools/split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
 
 - `data/atlas.json` (about 0.8 MB compressed): the tree, native names, sources, study trees and conflicts. Glottolog records are stored as columns, and values the browser can recompute (ids inside records, children, root, size, Glottolog assertions, placements) are left out.
 - `data/names/<n>.json`: recorded names and spellings, split into 64 files by a hash of the record id. A page loads one when it shows a record's names.
 - `data/search.json`: the text of all recorded names. The atlas loads it after the tree is shown, so searching by an alternative name (for example 日本語) works a moment later than searching by name, Glottocode or ISO code.
 
-The WALS genus lists in `data.json` are not used by the pages and are not in these files. `split_data.py` rebuilds the objects the same way and stops if anything differs from `data.json` and `integrated.json`.
+The WALS genus lists in `data.json` are not used by the pages and are not in these files. `tools/split_data.py` rebuilds the objects the same way and stops if anything differs from `data.json` and `integrated.json`.

@@ -24,7 +24,7 @@ the browser does and fails if anything differs from the originals.
 from pathlib import Path
 import json
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 OUT = DIST / "data"
 SHARDS = 64

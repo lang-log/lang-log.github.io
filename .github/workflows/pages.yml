@@ -29,18 +29,18 @@ jobs:
           python-version: "3.12"
       # Restores dist/data.json and dist/language-atlas.xml from
       # source-data/packed/ and checks their SHA-256.
-      - run: python3 prepare_static.py
+      - run: python3 tools/prepare_static.py
       # Writes the top page dist/index.html with the current record counts.
-      - run: python3 build_home.py
+      - run: python3 tools/build_home.py
       # Writes one page and one record.json per Glottolog record under
       # dist/<family>/.../<language>/ and the list dist/families/ (not
       # committed; built here).
-      - run: python3 build_paths.py
+      - run: python3 tools/build_paths.py
       # Writes the small files the pages load (dist/data/, not committed):
       # the atlas tree, the search text and the names split into 64 files.
-      - run: python3 split_data.py
+      - run: python3 tools/split_data.py
       # The browser rebuilds the same objects as data.json and integrated.json.
-      - run: node check_atlas_data.js
+      - run: node tools/check_atlas_data.js
       - name: Check that every page and data file is present
         run: |
           for f in index.html language-families.html visual-atlas.html variant-detail.html 404.html \
@@ -64,7 +64,7 @@ jobs:
       # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
       # pages, so a browser never pairs new HTML with an old cached file
       # (Pages caches files for ten minutes). Runs after every page is written.
-      - run: python3 version_assets.py
+      - run: python3 tools/version_assets.py
       - name: Check that the asset links are versioned
         run: grep -q 'href="style.css?v=' dist/index.html
       - uses: actions/upload-pages-artifact@v3

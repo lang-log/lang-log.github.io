@@ -22,7 +22,7 @@ from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 
 FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
-OUT = Path(__file__).resolve().parent / "dist" / "logo.svg"
+OUT = Path(__file__).resolve().parent.parent / "dist" / "logo.svg"
 CSS = OUT.with_name("style.css")  # its .logo rule carries the same aspect ratio
 TEXT = "LANG LOG"
 SIZE = 100          # font size in logo units
