@@ -85,7 +85,7 @@ body .domain-nav a:first-child{border-radius:6px 0 0 6px;margin-left:0}
 body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .toolbar{justify-content:flex-start;gap:4px;padding:8px 10px}
 .toolbar button,.toolbar summary,.toolbar label{font-size:12px;padding:6px 7px;border:1px solid transparent;border-radius:5px;margin:0;min-height:0;line-height:1.4}
-.toolbar .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.toolbar .seg{display:inline-flex;flex-wrap:nowrap;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .toolbar .seg button{border:0;border-radius:0}
 .toolbar .seg button+button{border-left:1px solid var(--line)}
 .toolbar .active{background:var(--ink);color:white}
