@@ -10,8 +10,17 @@ files, so the page stays in step with the data:
   conflicting clades;
 - dist/signs-and-scripts.json `counts`: sign-language and writing-system records.
 
-The page needs no JavaScript. The search box is a plain GET form that opens
-the language-families atlas with ?q=.
+The page works without JavaScript. The search box is a plain GET form that
+opens the language-families atlas with ?q=.
+
+The Random buttons live on this page only (owner, 2026-11-06), one in each
+card. dist/home.js shows them and, on a click, opens the record page
+(record.html?domain=...&id=...) of a record drawn from dist/random.json,
+which this script writes (not committed):
+
+- language: Glottolog languages and dialects, without bookkeeping records;
+- sign: sign languages and dialects of the signs-and-scripts data;
+- scripts: writing systems, without special and collection codes.
 """
 
 from html import escape
@@ -37,9 +46,33 @@ def stat(value, label):
     return f'<div><b>{value:,}</b><span>{escape(label)}</span></div>'
 
 
-def card(href, title, text, stats):
+# Button label for each pool in random.json.
+RANDOM_TITLES = {
+    "language": "Choose a random language or dialect",
+    "sign": "Choose a random sign language or dialect",
+    "scripts": "Choose a random writing system",
+}
+
+
+def random_pools():
+    nodes = json.loads((DIST / "data.json").read_text(encoding="utf-8"))["nodes"]
+    visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["nodes"]
+    return {
+        "language": sorted(n["id"] for n in nodes.values()
+                           if n.get("level") in ("language", "dialect") and n.get("category") != "Bookkeeping"),
+        "sign": sorted(n["id"] for n in visual.values()
+                       if n.get("domain") == "sign" and n.get("kind") in ("language", "dialect")),
+        "scripts": sorted(n["id"] for n in visual.values()
+                          if n.get("domain") == "scripts" and n.get("kind") != "special / collection code"),
+    }
+
+
+def card(href, title, text, stats, domain):
+    label = RANDOM_TITLES[domain]
     return (f'<li class="home-card"><h2><a href="{escape(href)}">{escape(title)}</a></h2>'
-            f'<p>{escape(text)}</p><div class="stats">{"".join(stats)}</div></li>')
+            f'<p>{escape(text)}</p><div class="stats">{"".join(stats)}</div>'
+            f'<button class="home-random" type="button" data-domain="{domain}" hidden '
+            f'title="{escape(label)}" aria-label="{escape(label)}">Random</button></li>')
 
 
 def main():
@@ -51,19 +84,19 @@ def main():
              "with WALS and published study trees side by side and the clades they disagree on.",
              [stat(lang["glottologRecords"], "Glottolog records"),
               stat(lang["summaryTrees"], "Imported study trees"),
-              stat(lang["recordsWithConflicts"], "Records in conflicting clades")]),
+              stat(lang["recordsWithConflicts"], "Records in conflicting clades")], "language"),
         card("signs-and-scripts.html?domain=sign", "Sign languages",
              "Sign languages and their proposed relationships, from catalogs, "
              "manual alphabets and lexical studies.",
              [stat(visual["glottologSignRecords"], "Glottolog sign records"),
               stat(visual["manualAlphabetSamples"], "Manual-alphabet samples"),
-              stat(visual["distinctLexicalSamples"], "Languages in lexical study")]),
+              stat(visual["distinctLexicalSamples"], "Languages in lexical study")], "sign"),
         card("signs-and-scripts.html?domain=scripts", "Writing systems",
              "Scripts and notations, how they descend from and influence each other, "
              "and which languages use them.",
              [stat(visual["scriptRecords"], "Script / notation records"),
               stat(visual["scriptRelationships"], "Reviewed relationships"),
-              stat(visual["usageAssertions"], "CLDR usage assertions")]),
+              stat(visual["usageAssertions"], "CLDR usage assertions")], "scripts"),
     ])
     description = ("Lang Log: an atlas of language families, sign languages and writing systems, "
                    "with source-linked classifications, alternative hypotheses and exportable data.")
@@ -104,9 +137,12 @@ def main():
         '</ul></section></main>\n'
         '<footer><span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>'
         f'<span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
+        '<script src="home.js"></script>\n'
         '</body></html>\n'
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")
+    pools = random_pools()
+    (DIST / "random.json").write_text(json.dumps(pools, separators=(",", ":")), encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -70,7 +70,6 @@ window.LANGLOG_I18N = {
       'Selected branch': '選んだ系統',
       'Collapse all': 'すべて閉じる',
       'Random': 'ランダム',
-      '🎲 Random': '🎲 ランダム',
       'Choose a random language or dialect': '言語か方言をランダムに選ぶ',
       'Choose a random sign language or dialect': '手話か方言をランダムに選ぶ',
       'Choose a random writing system': '文字体系をランダムに選ぶ',
