@@ -2,7 +2,7 @@
 (async()=>{
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const params=new URLSearchParams(location.search),domain=['sign','scripts'].includes(params.get('domain'))?params.get('domain'):'language',id=params.get('id');
-const listURL=domain==='language'?'./':'visual-atlas.html?domain='+domain;
+const listURL=domain==='language'?'language-families.html':'visual-atlas.html?domain='+domain;
 $('back').href=listURL;
 async function get(file){const r=await fetch(file);if(!r.ok)throw Error('Could not load the record data.');return r.json();}
 try{

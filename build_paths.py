@@ -220,7 +220,7 @@ def meta_html(n):
 def record_body(depth, i, heading="h1"):
     n = nodes[i]
     body = f'<{heading}>{escape(n["name"])}</{heading}>{meta_html(n)}'
-    body += (f'<p><a href="{"../" * depth}#{escape(i)}">Open in the atlas</a> · '
+    body += (f'<p><a href="{"../" * depth}language-families.html?id={escape(i)}">Open in the atlas</a> · '
              f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a> · '
              f'<a href="{"../" * depth}variant-detail.html?domain=language&amp;id={escape(i)}">Full source detail</a></p>')
     if heading == "h1":
@@ -365,4 +365,5 @@ def main():
     print(f"Wrote {written} record pages under dist/")
 
 
-main()
+if __name__ == "__main__":
+    main()

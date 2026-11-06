@@ -22,6 +22,19 @@ window.LANGLOG_I18N = {
       'Writing systems': '文字体系',
       'Dark theme': 'ダークテーマ',
 
+      // Top page (build_home.py)
+      'Search': '検索',
+      'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.': '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
+      'Glottolog\'s classification of every language family, language and dialect, with WALS and published study trees side by side and the clades they disagree on.': 'Glottolog によるすべての語族、言語、方言の分類です。WALS や公開された研究の系統樹を並べ、意見が分かれる分岐も示します。',
+      'Sign languages and their proposed relationships, from catalogs, manual alphabets and lexical studies.': '手話と、唱えられているその関係です。カタログ、指文字、語彙の研究に基づきます。',
+      'Scripts and notations, how they descend from and influence each other, and which languages use them.': '文字と表記法の系統、互いの影響、使っている言語です。',
+      'Also': 'ほかに',
+      'All families and isolates': 'すべての語族と孤立言語',
+      ': one plain page per Glottolog record, with its classification and a map.': ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
+      'Corpora and data for low-resource languages: planned.': '資源の少ない言語のコーパスとデータ: 準備中です。',
+      'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': '出典: Glottolog、WALS、公開された研究の系統樹、文字のカタログ(それぞれのライセンスに従います)',
+      'Source code': 'ソースコード',
+
       // Atlas: search and filters
       'FIND A BRANCH': '系統を探す',
       'Find a branch': '系統を探す',
