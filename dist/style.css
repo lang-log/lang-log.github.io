@@ -159,22 +159,12 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .search-pill button:hover{background:var(--c-e3e9df)}
 .home-intro .sub{font-size:15px;line-height:1.7;max-width:40em;color:var(--c-52625c);margin:26px 0 0}
 .home-main{display:block;height:auto;min-height:0;border:0;background:none;overflow:visible;max-width:1080px;margin:0 auto;padding:0 34px}
-.home-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.home-card{border:1px solid var(--line);border-radius:9px;background:var(--c-fafbf6);padding:22px 20px;display:flex;flex-direction:column}
-.home-card h2{font-size:22px;font-weight:400;margin:0 0 10px}
-.home-card h2 a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
-.home-card p{font-size:14px;line-height:1.65;color:var(--c-52625c);margin:0 0 18px;flex:1}
-.home-card .stats{flex-direction:column;gap:12px}
-.home-card .stats div{flex-direction:row;align-items:baseline;gap:10px}
-.home-card .stats b{font-size:26px;min-width:3.6em;text-align:right}
-.home-card .stats span{font-size:13px}
 .home-more{padding:28px 0 8px}
 .home-more h2{font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
 .home-more ul{margin:0;padding-left:18px}
 .home-more li{font-size:14px;line-height:1.8}
 .home-page footer{max-width:1080px;margin:0 auto;padding:22px 34px 30px;font-size:12px}
-@media(max-width:900px){.home-cards{grid-template-columns:1fr}}
-@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.search-pill input{padding:11px 16px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}}
+@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.search-pill input{padding:11px 16px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}}
 h1.visually-hidden+main{margin-top:14px}
 /* Logo: asterisk and "LANG LOG" in one SVG (dist/logo.svg, written by build_logo.py), so the link is one rectangle */
 .logo{display:block;height:26px;width:auto;aspect-ratio:861/180;color:var(--ink);overflow:visible}

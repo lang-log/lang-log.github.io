@@ -14,7 +14,7 @@ The scripts live in `tools/`; run them from the repository root. Run `python3 to
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
 
-The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `tools/build_home.py` from `dist/integrated.json` and `dist/signs-and-scripts.json`; run it again when the data changes. The atlas pages themselves show no counts.
+The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Neither the top page nor the atlas pages show record counts.
 
 Language families (`language-families.html`):
 
