@@ -38,7 +38,8 @@ jobs:
         run: |
           for f in index.html visual-atlas.html variant-detail.html \
                    data.json integrated.json language-atlas.xml \
-                   lineage-paths.js t/index.html t/stages.json; do
+                   lineage-paths.js t/index.html t/stages.json \
+                   map/land.svg map/land-pacific.svg; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
       - uses: actions/upload-pages-artifact@v3
