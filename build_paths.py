@@ -182,6 +182,14 @@ def record_body(depth, i, heading="h1"):
     return body + names_html(n) + placements_html(i)
 
 
+# Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
+FOOTER = ('<footer class="credit"><p>Classification and names from '
+          '<a href="https://glottolog.org/" target="_blank" rel="noopener">Glottolog 5.3</a> '
+          '(Hammarström, Forkel, Haspelmath &amp; Bank 2026, '
+          '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener">doi:10.5281/zenodo.18840935</a>), '
+          'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p></footer>')
+
+
 def page(depth, title, body):
     up = "../" * depth
     return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
@@ -189,7 +197,7 @@ def page(depth, title, body):
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
             f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANG LOG <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
-            f"<main>{body}</main><footer><a href=\"{up}\">Lang Log</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
+            f"<main>{body}</main>{FOOTER}</body></html>")
 
 
 def record_json(i):
