@@ -52,6 +52,12 @@ jobs:
                    data/search.json data/names/0.json atlas-data.js; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
+      # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
+      # pages, so a browser never pairs new HTML with an old cached file
+      # (Pages caches files for ten minutes). Runs after every page is written.
+      - run: python3 version_assets.py
+      - name: Check that the asset links are versioned
+        run: grep -q 'href="style.css?v=' dist/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
