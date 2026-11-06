@@ -30,7 +30,8 @@ jobs:
       # Restores dist/data.json and dist/language-families.xml from
       # source-data/packed/ and checks their SHA-256.
       - run: python3 tools/prepare_static.py
-      # Writes the top page dist/index.html with the current record counts.
+      # Writes the top page dist/index.html and dist/random.json, the
+      # records its Random buttons draw from.
       - run: python3 tools/build_home.py
       # Writes one page and one record.json per Glottolog record under
       # dist/<family>/.../<language>/ and the list dist/families/ (not
@@ -49,7 +50,8 @@ jobs:
                    lineage-paths.js stages.json families/index.html \
                    afro-asiatic/berber/index.html \
                    map/land.svg map/land-pacific.svg data/atlas.json \
-                   data/search.json data/names/0.json atlas-data.js; do
+                   data/search.json data/names/0.json atlas-data.js \
+                   home.js random.json; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
       # The asterisk and "LANG LOG" are always the one SVG, dist/logo.svg

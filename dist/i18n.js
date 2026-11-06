@@ -30,9 +30,6 @@ window.LANGLOG_I18N = {
       // Top page (build_home.py)
       'Search': '検索',
       'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.': '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
-      'Glottolog\'s classification of every language family, language and dialect, with WALS and published study trees side by side and the clades they disagree on.': 'Glottolog によるすべての語族、言語、方言の分類です。WALS や公開された研究の系統樹を並べ、意見が分かれる分岐も示します。',
-      'Sign languages and their proposed relationships, from catalogs, manual alphabets and lexical studies.': '手話と、唱えられているその関係です。カタログ、指文字、語彙の研究に基づきます。',
-      'Scripts and notations, how they descend from and influence each other, and which languages use them.': '文字と表記法の系統、互いの影響、使っている言語です。',
       'Also': 'ほかに',
       'All families and isolates': 'すべての語族と孤立言語',
       ': one plain page per Glottolog record, with its classification and a map.': ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
@@ -76,7 +73,8 @@ window.LANGLOG_I18N = {
       'Selected branch': '選んだ系統',
       'Collapse all': 'すべて閉じる',
       'Random': 'ランダム',
-      '🎲 Random': '🎲 ランダム',
+      'Sign language': '手話',
+      'Writing system': '文字体系',
       'Choose a random language or dialect': '言語か方言をランダムに選ぶ',
       'Choose a random sign language or dialect': '手話か方言をランダムに選ぶ',
       'Choose a random writing system': '文字体系をランダムに選ぶ',
@@ -108,13 +106,7 @@ window.LANGLOG_I18N = {
 
       // Atlas: header numbers
       'Glottolog records': 'Glottolog の記録',
-      'Imported study trees': '取り込んだ研究の系統樹',
-      'Records in conflicting clades': '分岐が食い違う記録',
-      'Glottolog sign records': 'Glottolog の手話の記録',
       'Manual-alphabet samples': '指文字の標本',
-      'Languages in lexical study': '語彙研究の言語',
-      'Script / notation records': '文字 / 表記法の記録',
-      'Reviewed relationships': '確認済みの関係',
       'CLDR usage assertions': 'CLDR の使用データ',
 
       // Record details
