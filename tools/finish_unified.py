@@ -36,7 +36,7 @@ bs=E.SubElement(root,'paper-debates')
 for d in u['debates']:
  el=E.SubElement(bs,'debate',{'id':d['id'],'title':d['title'],'applies-to':' '.join(d['appliesTo']),'status':d['status']})
  for r in d['positions']:E.SubElement(el,'position',{k:v for k,v in r.items() if k!='claim'}).text=r['claim']
-E.ElementTree(root).write(p/'language-atlas.xml',encoding='utf-8',xml_declaration=True)
+E.ElementTree(root).write(p/'language-families.xml',encoding='utf-8',xml_declaration=True)
 # Outline export: shared identity is retained via node-id and source attributes on each occurrence.
 childmap=collections.defaultdict(list)
 for e in u['assertions']:
@@ -67,8 +67,8 @@ def outline(id,parent,sid='glottolog',path=None):
 for id in data['roots']:outline(id,body)
 un=E.SubElement(body,'outline',{'text':'Cross-family and otherwise unattached source trees','relation':'navigation-only'})
 for a in u['anchors'].get('__unplaced__',[]):outline(a['root'],E.SubElement(un,'outline',{'text':u['sources'][a['source']]['title'],'url':u['sources'][a['source']]['url']}),a['source'])
-E.ElementTree(op).write(p/'language-atlas.opml',encoding='utf-8',xml_declaration=True)
-for f in ['language-atlas.xml','language-atlas.opml']:
+E.ElementTree(op).write(p/'language-families.opml',encoding='utf-8',xml_declaration=True)
+for f in ['language-families.xml','language-families.opml']:
  raw=(p/f).read_bytes()
  if len(raw)>=25*1024*1024:
   with gzip.open(p/(f+'.gz'),'wb') as g:g.write(raw)

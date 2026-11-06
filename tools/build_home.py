@@ -2,13 +2,13 @@
 
 The top page introduces the tool and links to its three atlases: language
 families (dist/language-families.html), sign languages and writing systems
-(dist/visual-atlas.html?domain=...). The record counts are shown here only,
+(dist/signs-and-scripts.html?domain=...). The record counts are shown here only,
 not on the atlas pages themselves. They are read from the committed data
 files, so the page stays in step with the data:
 
 - dist/integrated.json `stats`: Glottolog records, study trees, records in
   conflicting clades;
-- dist/visual-atlas.json `counts`: sign-language and writing-system records.
+- dist/signs-and-scripts.json `counts`: sign-language and writing-system records.
 
 The page needs no JavaScript. The search box is a plain GET form that opens
 the language-families atlas with ?q=.
@@ -44,7 +44,7 @@ def card(href, title, text, stats):
 
 def main():
     lang = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))["stats"]
-    visual = json.loads((DIST / "visual-atlas.json").read_text(encoding="utf-8"))["counts"]
+    visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["counts"]
     cards = "".join([
         card("language-families.html", "Language families",
              "Glottolog's classification of every language family, language and dialect, "
@@ -52,13 +52,13 @@ def main():
              [stat(lang["glottologRecords"], "Glottolog records"),
               stat(lang["summaryTrees"], "Imported study trees"),
               stat(lang["recordsWithConflicts"], "Records in conflicting clades")]),
-        card("visual-atlas.html?domain=sign", "Sign languages",
+        card("signs-and-scripts.html?domain=sign", "Sign languages",
              "Sign languages and their proposed relationships, from catalogs, "
              "manual alphabets and lexical studies.",
              [stat(visual["glottologSignRecords"], "Glottolog sign records"),
               stat(visual["manualAlphabetSamples"], "Manual-alphabet samples"),
               stat(visual["distinctLexicalSamples"], "Languages in lexical study")]),
-        card("visual-atlas.html?domain=scripts", "Writing systems",
+        card("signs-and-scripts.html?domain=scripts", "Writing systems",
              "Scripts and notations, how they descend from and influence each other, "
              "and which languages use them.",
              [stat(visual["scriptRecords"], "Script / notation records"),

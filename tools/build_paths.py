@@ -15,7 +15,7 @@ Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 - dist/families/ lists the top-level families and isolates.
 - A top-level slug must not equal a name already used at the top of dist/
   (RESERVED); the build stops if one does.
-- The pages need no JavaScript. dist/app.js and dist/variant-detail.js use the
+- The pages need no JavaScript. dist/app.js and dist/record.js use the
   same rules (see pathOf in those files) to link here.
 """
 from pathlib import Path
@@ -222,7 +222,7 @@ def record_body(depth, i, heading="h1"):
     body = f'<{heading}>{escape(n["name"])}</{heading}>{meta_html(n)}'
     body += (f'<p><a href="{"../" * depth}language-families.html?id={escape(i)}">Open in the atlas</a> · '
              f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a> · '
-             f'<a href="{"../" * depth}variant-detail.html?domain=language&amp;id={escape(i)}">Full source detail</a></p>')
+             f'<a href="{"../" * depth}record.html?domain=language&amp;id={escape(i)}">Full source detail</a></p>')
     if heading == "h1":
         body += map_html(depth, i)
     return body + names_html(n) + placements_html(i)
@@ -289,7 +289,7 @@ def page(depth, title, body):
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"icon\" href=\"{up}favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"{up}apple-touch-icon.png\">"
-            f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"><script src=\"{up}theme.js\"></script><script src=\"{up}i18n.js\"></script><script src=\"{up}lang.js\"></script></head>"
+            f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}signs-and-scripts.css\"><link rel=\"stylesheet\" href=\"{up}record.css\"><script src=\"{up}theme.js\"></script><script src=\"{up}i18n.js\"></script><script src=\"{up}lang.js\"></script></head>"
             f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><svg class=\"logo\" role=\"img\" aria-label=\"LANG LOG\"><use href=\"{up}logo.svg#logo\"/></svg></a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div></header>"
             f"<main>{body}</main>{FOOTER}</body></html>")
 

@@ -20,5 +20,5 @@
     "sign2024-readme.txt": "https://raw.githubusercontent.com/GClarte/SignLanguagesPhylogeny/fb9981e8aa77bed7003366434165bea70cacbd23/README.md",
     "sign2024-results-readme.txt": "https://raw.githubusercontent.com/GClarte/SignLanguagesPhylogeny/fb9981e8aa77bed7003366434165bea70cacbd23/Results/README.md"
   },
-  "note": "Branch URLs are retrieval locations; exact retained snapshots are identified by SHA-256 in visual-atlas.json. GitHub tree snapshots also preserve commit/tree and blob identifiers."
+  "note": "Branch URLs are retrieval locations; exact retained snapshots are identified by SHA-256 in signs-and-scripts.json. GitHub tree snapshots also preserve commit/tree and blob identifiers."
 }
