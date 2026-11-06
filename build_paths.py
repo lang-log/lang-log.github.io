@@ -1,6 +1,6 @@
 """Write one static page and one JSON file per Glottolog record, at a URL
 that follows the classification: dist/<family>/<subgroup>/.../<language>/
-(served as https://nguekwang.github.io/languer/<family>/.../<language>/).
+(served as https://lang-log.github.io/<family>/.../<language>/).
 
 Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 
@@ -13,8 +13,6 @@ Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
   example .../english/#old). Their children live under
   <modern path>/<anchor>/<child>/.
 - dist/families/ lists the top-level families and isolates.
-- The pages used to live under dist/t/. Every old t/ URL is kept as a small
-  page that sends the visitor to the new URL (see write_old_t_redirects).
 - A top-level slug must not equal a name already used at the top of dist/
   (RESERVED); the build stops if one does.
 - The pages need no JavaScript. dist/app.js and dist/variant-detail.js use the
@@ -34,11 +32,10 @@ from languoid_map import map_svg
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist"
 OUT = DIST
-OLD = DIST / "t"  # former location of the record pages; now only redirects
 FAMILIES = DIST / "families"
 # Top-level names in dist/ that a family slug must not take.
-RESERVED = {"t", "families", "map"}
-TITLE_SUFFIX = " · Languer by yoshi"
+RESERVED = {"families", "map"}
+TITLE_SUFFIX = " · Lang Log by yoshi"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -278,8 +275,8 @@ def page(depth, title, body):
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
-            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANGUER <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
-            f"<main>{body}</main><footer><a href=\"{up}\">Languer</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
+            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANG LOG <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
+            f"<main>{body}</main><footer><a href=\"{up}\">Lang Log</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
 
 
 def record_json(i):
@@ -298,50 +295,13 @@ def record_json(i):
     }
 
 
-def redirect_page(target, title):
-    """A page that sends the visitor on to target (relative URL), keeping any #anchor."""
-    t = escape(target)
-    depth = target.count("../")
-    return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-            f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
-            f"<link rel=\"canonical\" href=\"{t}\"><meta name=\"robots\" content=\"noindex\">"
-            f"<meta http-equiv=\"refresh\" content=\"0; url={t}\">"
-            f"<script src=\"{'../' * depth}redirect.js\"></script></head>"
-            f"<body><p>This page has moved to <a href=\"{t}\">{t}</a>.</p></body></html>")
-
-
-def write_old_t_redirects():
-    """Keep every former t/... URL working: t/<path>/ sends the visitor to <path>/."""
-    if OLD.exists():
-        shutil.rmtree(OLD)
-    count = 0
-    for i in nodes:
-        if i in stage_of:
-            continue
-        p = path_of(i)
-        d = OLD / p
-        d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(redirect_page("../" * (p.count("/") + 2) + p + "/", nodes[i]["name"]), encoding="utf-8")
-        count += 1
-    for s, v in stage_of.items():
-        if nodes[s]["children"]:
-            p = path_of(v["modern"]) + "/" + v["anchor"]
-            d = OLD / p
-            if not (d / "index.html").exists():
-                d.mkdir(parents=True, exist_ok=True)
-                (d / "index.html").write_text(redirect_page("../" * (p.count("/") + 2) + p + "/", nodes[s]["name"]), encoding="utf-8")
-                count += 1
-    (OLD / "index.html").write_text(redirect_page("../families/", "All families"), encoding="utf-8")
-    return count
-
-
 def main():
     top = {segment[r] for r in data["roots"]}
     clash = sorted(top & RESERVED)
     if clash:
         sys.exit(f"Top-level slug(s) {clash} clash with names reserved in dist/; add a rule for them.")
-    # Remove pages from an earlier run: each family directory, families/ and t/.
-    for name in top | {"families", "t"}:
+    # Remove pages from an earlier run: each family directory and families/.
+    for name in top | {"families"}:
         if (OUT / name).is_dir():
             shutil.rmtree(OUT / name)
     written = 0
@@ -387,8 +347,7 @@ def main():
     (OUT / "stages.json").write_text(json.dumps({k: {"modern": v["modern"], "anchor": v["anchor"]} for k, v in stage_of.items()}), encoding="utf-8")
     if "--paths" in sys.argv:  # for checking dist/lineage-paths.js against these rules
         (OUT / "paths.json").write_text(json.dumps({i: (path_of(i) if "/#" in path_of(i) else path_of(i) + "/") for i in nodes}), encoding="utf-8")
-    moved = write_old_t_redirects()
-    print(f"Wrote {written} record pages under dist/ and {moved} redirects under dist/t/")
+    print(f"Wrote {written} record pages under dist/")
 
 
 main()

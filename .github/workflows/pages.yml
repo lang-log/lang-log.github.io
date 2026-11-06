@@ -1,7 +1,6 @@
 # Build the static site and publish it with GitHub Pages at
-# https://nguekwang.github.io/languer/ (a project site under the owner's
-# user site). All paths in dist/ are relative, so the /languer/ prefix
-# needs no change in the site files.
+# https://lang-log.github.io/ (the organization site of lang-log). All
+# paths in dist/ are relative, so the site files work at any prefix.
 #
 # One-time setup by the owner: Settings > Pages > Build and deployment >
 # Source: "GitHub Actions".
@@ -32,16 +31,15 @@ jobs:
       # source-data/packed/ and checks their SHA-256.
       - run: python3 prepare_static.py
       # Writes one page and one record.json per Glottolog record under
-      # dist/<family>/.../<language>/, the list dist/families/ and redirect
-      # pages at the old dist/t/... URLs (not committed; built here).
+      # dist/<family>/.../<language>/ and the list dist/families/ (not
+      # committed; built here).
       - run: python3 build_paths.py
       - name: Check that every page and data file is present
         run: |
           for f in index.html visual-atlas.html variant-detail.html \
                    data.json integrated.json language-atlas.xml \
-                   lineage-paths.js redirect.js stages.json families/index.html \
-                   afro-asiatic/berber/index.html t/index.html \
-                   t/afro-asiatic/berber/index.html \
+                   lineage-paths.js stages.json families/index.html \
+                   afro-asiatic/berber/index.html \
                    map/land.svg map/land-pacific.svg; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
