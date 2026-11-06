@@ -30,6 +30,8 @@ jobs:
       # Restores dist/data.json and dist/language-atlas.xml from
       # source-data/packed/ and checks their SHA-256.
       - run: python3 prepare_static.py
+      # Writes the top page dist/index.html with the current record counts.
+      - run: python3 build_home.py
       # Writes one page and one record.json per Glottolog record under
       # dist/<family>/.../<language>/ and the list dist/families/ (not
       # committed; built here).
@@ -41,7 +43,7 @@ jobs:
       - run: node check_atlas_data.js
       - name: Check that every page and data file is present
         run: |
-          for f in index.html visual-atlas.html variant-detail.html \
+          for f in index.html language-families.html visual-atlas.html variant-detail.html \
                    favicon.svg apple-touch-icon.png \
                    data.json integrated.json language-atlas.xml \
                    lineage-paths.js stages.json families/index.html \

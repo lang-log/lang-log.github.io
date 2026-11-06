@@ -8,13 +8,15 @@ Live site: https://lang-log.github.io/
 
 ## Run locally
 
-Run `python3 prepare_static.py` and `python3 build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+Run `python3 prepare_static.py`, `python3 build_home.py` and `python3 build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
 ## Shareable URLs
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
 
-Language families (`./`):
+The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `build_home.py` from `dist/integrated.json` and `dist/visual-atlas.json`; run it again when the data changes. The atlas pages themselves show no counts.
+
+Language families (`language-families.html`):
 
 | Parameter | Meaning |
 | --- | --- |
@@ -33,7 +35,7 @@ Signs and scripts (`visual-atlas.html`): `domain` (`sign` or `scripts`), `id`, `
 
 Record pages (`variant-detail.html`): `domain`, `id` and `task`.
 
-Older links of the form `#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
+Older links of the form `language-families.html#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
 
 ## License
 
@@ -45,7 +47,7 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `python3 build_paths.py` and `python3 split_data.py` and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `python3 build_home.py`, `python3 build_paths.py` and `python3 split_data.py` and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
 
 ## Record pages
 
@@ -59,7 +61,7 @@ The workflow `.github/workflows/pages.yml` runs `python3 prepare_static.py`, `py
 
 ## Search from the address bar
 
-`https://lang-log.github.io/?q=<text>` opens the language page with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+`https://lang-log.github.io/language-families.html?q=<text>` opens the language-families atlas with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
 
 `dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Lang Log" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
 
