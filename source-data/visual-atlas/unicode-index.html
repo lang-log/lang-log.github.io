@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-US" data-astro-cid-sckkx6r4>
+  <head>
+    <meta charset="utf-8">
+    <title>Core Spec – Unicode 17.0.0</title>
+    <meta name="revision" content="0f46b757d26c53c8ed2369ee76e773665fcfe459">
+    <meta name="author" content="The Unicode Consortium">
+    <meta name="generator" content="Astro v5.13.1">
+    <meta name="viewport" content="width=device-width">
+    
+    <link rel="icon" href="/versions/Unicode17.0.0/core-spec/favicon.png">
+    <script type="module">const n=document.querySelector("nav.sidebar"),c=document.querySelector("input#show-toc");n.addEventListener("click",({target:e})=>{e instanceof HTMLAnchorElement&&(c.checked=!1)});</script>
+  <style>blockquote.ui.svelte-r1erdl{background-color:var(--draft-color)}div.svelte-r1erdl{margin:1em 0}blockquote[data-astro-cid-j7pv25f6]#warning{border:1px solid var(--warning-color);color:var(--warning-color);background-color:transparent}
+</style>
+<link rel="stylesheet" href="/versions/Unicode17.0.0/core-spec/_astro/_chapter_.TLZ_wLcy.css">
+<style>h1.svelte-1tiu032{font-size:3em;line-height:1;margin:.75em 0 .1em}p.subtitle.svelte-1tiu032,p.author.svelte-1tiu032,div.publishing.svelte-1tiu032 p:where(.svelte-1tiu032){margin:0}p.subtitle.svelte-1tiu032,p.author.svelte-1tiu032{font-size:2em}p.author.svelte-1tiu032{margin:.75em 0}p.publisher.svelte-1tiu032{font-size:1.25em;font-weight:700}p.publisher.svelte-1tiu032 svg{margin:.25em .2em;width:1.5em;vertical-align:middle}div.publishing.svelte-1tiu032{margin:1.5em 0}@media print{h1.svelte-1tiu032{margin-top:2em}p.author.svelte-1tiu032{margin:2em 0}div.publishing.svelte-1tiu032{position:absolute;bottom:0}}
+</style>
+<link rel="stylesheet" href="/versions/Unicode17.0.0/core-spec/_astro/index.BjaYcxqd.css"></head>
+
+  <body data-astro-cid-sckkx6r4>
+    <header data-astro-cid-sckkx6r4>
+      <nav class="primary" data-astro-cid-sckkx6r4>
+        <div class="center" data-astro-cid-sckkx6r4>
+          <!--[--><!--[!--><span><a class="logo svelte-1bsfypd" href="https://home.unicode.org"><!----><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <path fill="currentColor" d="M103.9,91.8c0,.6-.3.8-.9.8h-12.1c-.6,0-1-.2-1.2-.7-.8-1.6-1.9-3.7-3.4-6.4-1.4-2.7-3-5.6-4.8-8.7-1.7-3.2-3.5-6.5-5.4-9.9-1.8-3.4-3.6-6.7-5.2-9.8s-3.1-6-4.4-8.6c-.7-1.5-1.3-2.7-1.8-3.8v24.1c0,4.4-.7,8.2-2,11.4s-3.1,5.7-5.3,7.7c-2.2,2-4.9,3.4-7.9,4.4-3.1.9-6.3,1.4-9.8,1.4s-7.1-.5-10.2-1.5c-3-1-5.6-2.5-7.8-4.5-2.1-2-3.8-4.5-4.9-7.6-1.1-3-1.7-6.6-1.7-10.7V31.1c0-.6.2-.9.8-.9h10c.5,0,.8.2.8.8v37.4c0,4.6,1.1,8.2,3.3,10.9,2.2,2.7,5.6,4.1,10.2,4.1s3.6-.2,5.2-.8c1.6-.5,3-1.3,4.1-2.5,1.2-1.2,2.1-2.7,2.8-4.7.7-1.9,1-4.4,1-7.3V31.1c0,0,0-.1,0-.2h0c0-.5.2-.7.7-.7h13.4c.4,0,.6,0,.8.1.1,0,.2.3.4.5,1.1,2.1,2.5,4.5,4,7.3s3.2,5.7,4.8,8.7,3.3,6.1,5,9.2c1.7,3.1,3.2,6,4.7,8.8,1.5,2.8,2.7,5.2,3.8,7.4,1.1,2.2,1.9,3.8,2.5,5h0c0-.6,0-1.3,0-2.1,0-.8,0-1.7,0-2.8,0-1.1,0-2.4,0-4,0-1.6,0-3.5,0-5.7v-16.1c0-.5.3-.8.8-.8h9.1c.6,0,.8.3.8.9v45.1h0ZM98.4,39.5c-3.6,0-6.6-2.9-6.6-6.6s2.9-6.6,6.6-6.6,6.6,2.9,6.6,6.6-2.9,6.6-6.6,6.6Z" />
+</svg>
+<!----></a> <a href="https://www.unicode.org/versions/Unicode17.0.0/">Unicode 17.0.0
+      </a></span> <span class="etc svelte-1bsfypd"><a href="https://www.unicode.org/main.html">Tech Site</a> • <a href="https://www.unicode.org/sitemap/">Site Map</a> • <a href="https://www.unicode.org/search/">Search</a></span><!--]--><!--]-->
+        </div>
+      </nav>
+
+      <nav class="secondary" data-astro-cid-sckkx6r4>
+        <div class="center split" data-astro-cid-sckkx6r4>
+          <div class="split-side" data-astro-cid-sckkx6r4>
+            <!--[--><a href="/versions/Unicode17.0.0/core-spec/">Core Spec</a> <!--[!--><!--]--><!--]-->
+          </div>
+
+          <div class="split-main" data-astro-cid-sckkx6r4>
+            <!--[--><!--[--><span aria-disabled="true" class="previous button svelte-38j95o"><span class="double-column svelte-38j95o">‹ Previous</span></span><!--]--> <span class="double-column svelte-38j95o">•</span> <!--[!--><a href="/versions/Unicode17.0.0/core-spec/preface/" class="next button svelte-38j95o"><span class="double-column svelte-38j95o">Next</span></a> <span class="double-column svelte-38j95o">›</span><!--]--><!--]-->
+            <label for="show-toc" class="single-column" data-astro-cid-sckkx6r4>Contents</label>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main data-astro-cid-sckkx6r4>
+      <div class="center split" data-astro-cid-sckkx6r4>
+        <input type="checkbox" id="show-toc" data-astro-cid-sckkx6r4>
+        <div class="split-side" data-astro-cid-sckkx6r4>
+          <nav class="sidebar" data-astro-cid-sckkx6r4>
+            
+              <ul class="root" data-astro-cid-og2xway5>
+  <li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/preface/" class="primary" data-astro-cid-og2xway5>
+                Preface
+              </a>
+              <p data-astro-cid-og2xway5>
+                
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-1/" class="primary" data-astro-cid-og2xway5>
+                1 Introduction
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-1/#G6600" data-astro-cid-og2xway5>Coverage</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-1/#G7110" data-astro-cid-og2xway5>Design Goals</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-1/#G9708" data-astro-cid-og2xway5>Text Handling</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-2/" class="primary" data-astro-cid-og2xway5>
+                2 General Structure
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G12888" data-astro-cid-og2xway5>Architectural Context</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G128" data-astro-cid-og2xway5>Unicode Design Principles</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G11062" data-astro-cid-og2xway5>Compatibility Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G25564" data-astro-cid-og2xway5>Code Points and Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G13708" data-astro-cid-og2xway5>Encoding Forms</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G19273" data-astro-cid-og2xway5>Encoding Schemes</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G18444" data-astro-cid-og2xway5>Unicode Strings</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G16417" data-astro-cid-og2xway5>Unicode Allocation</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G16482" data-astro-cid-og2xway5>Details of Allocation</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G6318" data-astro-cid-og2xway5>Writing Direction</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G1708" data-astro-cid-og2xway5>Combining Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G287424" data-astro-cid-og2xway5>Equivalent Sequences</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G27981" data-astro-cid-og2xway5>Special Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-2/#G13854" data-astro-cid-og2xway5>Conforming to the Unicode Standard</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-3/" class="primary" data-astro-cid-og2xway5>
+                3 Conformance
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G2131" data-astro-cid-og2xway5>Versions of the Unicode Standard</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G29705" data-astro-cid-og2xway5>Conformance Requirements</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G19002" data-astro-cid-og2xway5>Semantics</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G2212" data-astro-cid-og2xway5>Characters and Encoding</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G43463" data-astro-cid-og2xway5>Properties</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G30602" data-astro-cid-og2xway5>Combination</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G729" data-astro-cid-og2xway5>Decomposition</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G2630" data-astro-cid-og2xway5>Surrogates</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G7404" data-astro-cid-og2xway5>Unicode Encoding Forms</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G28070" data-astro-cid-og2xway5>Unicode Encoding Schemes</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G49537" data-astro-cid-og2xway5>Normalization Forms</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G24646" data-astro-cid-og2xway5>Conjoining Jamo Behavior</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-3/#G33992" data-astro-cid-og2xway5>Default Case Algorithms</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-4/" class="primary" data-astro-cid-og2xway5>
+                4 Character Properties
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124718" data-astro-cid-og2xway5>Unicode Character Database</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124722" data-astro-cid-og2xway5>Case</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G32493" data-astro-cid-og2xway5>Combining Classes</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G130746" data-astro-cid-og2xway5>Directionality</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124142" data-astro-cid-og2xway5>General Category</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124206" data-astro-cid-og2xway5>Numeric Value</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G30078" data-astro-cid-og2xway5>Bidi Mirrored</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G2082" data-astro-cid-og2xway5>Name</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G131216" data-astro-cid-og2xway5>Unicode 1.0 Names</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G91002" data-astro-cid-og2xway5>Letters, Alphabetic, and Ideographic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124804" data-astro-cid-og2xway5>Properties for Text Boundaries</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124820" data-astro-cid-og2xway5>Characters with Unusual Properties</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-4/#G124821" data-astro-cid-og2xway5>Characters and Sequences That Should Not Be Emitted</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-5/" class="primary" data-astro-cid-og2xway5>
+                5 Implementation Guidelines
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G11079" data-astro-cid-og2xway5>Data Structures for Character Conversion</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G23927" data-astro-cid-og2xway5>Programming Languages and Data Types</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G7730" data-astro-cid-og2xway5>Unknown and Missing Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G11318" data-astro-cid-og2xway5>Handling Surrogate Pairs in UTF-16</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G34360" data-astro-cid-og2xway5>Handling Numbers</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G7889" data-astro-cid-og2xway5>Normalization</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G518" data-astro-cid-og2xway5>Compression</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G10213" data-astro-cid-og2xway5>Newline Guidelines</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G12107" data-astro-cid-og2xway5>Regular Expressions</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G11552" data-astro-cid-og2xway5>Language Information in Plain Text</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G3067" data-astro-cid-og2xway5>Editing and Selection</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G1050" data-astro-cid-og2xway5>Strategies for Handling Nonspacing Marks</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G1095" data-astro-cid-og2xway5>Rendering Nonspacing Marks</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G780" data-astro-cid-og2xway5>Locating Text Element Boundaries</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G3248" data-astro-cid-og2xway5>Identifiers</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G664" data-astro-cid-og2xway5>Sorting and Searching</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G21249" data-astro-cid-og2xway5>Binary Order</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G21180" data-astro-cid-og2xway5>Case Mappings</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G37346" data-astro-cid-og2xway5>Mapping Compatibility Variants</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G37318" data-astro-cid-og2xway5>Unicode Security</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G40025" data-astro-cid-og2xway5>Ignoring Characters in Processing</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-5/#G40630" data-astro-cid-og2xway5>U+FFFD Substitution in Conversion</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-6/" class="primary" data-astro-cid-og2xway5>
+                6 Writing Systems and Punctuation
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-6/#G7382" data-astro-cid-og2xway5>Writing Systems</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-6/#G7981" data-astro-cid-og2xway5>General Punctuation</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-7/" class="primary" data-astro-cid-og2xway5>
+                7 Europe-I
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G4321" data-astro-cid-og2xway5>Latin</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G10832" data-astro-cid-og2xway5>Greek</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G16256" data-astro-cid-og2xway5>Coptic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G10850" data-astro-cid-og2xway5>Cyrillic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G15862" data-astro-cid-og2xway5>Glagolitic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G3334" data-astro-cid-og2xway5>Armenian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G3360" data-astro-cid-og2xway5>Georgian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G15832" data-astro-cid-og2xway5>Modifier Letters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-7/#G18195" data-astro-cid-og2xway5>Combining Marks</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-8/" class="primary" data-astro-cid-og2xway5>
+                8 Europe-II
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G27575" data-astro-cid-og2xway5>Linear A</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G29566" data-astro-cid-og2xway5>Linear B</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G26417" data-astro-cid-og2xway5>Cypriot Syllabary</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G39686" data-astro-cid-og2xway5>Cypro-Minoan</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G26505" data-astro-cid-og2xway5>Ancient Anatolian Alphabets</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G27379" data-astro-cid-og2xway5>Old Italic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G26624" data-astro-cid-og2xway5>Runic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G33926" data-astro-cid-og2xway5>Old Hungarian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G33932" data-astro-cid-og2xway5>Gothic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G27032" data-astro-cid-og2xway5>Elbasan</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G32223" data-astro-cid-og2xway5>Caucasian Albanian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G40863" data-astro-cid-og2xway5>Vithkuqi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G746332" data-astro-cid-og2xway5>Todhri</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G31220" data-astro-cid-og2xway5>Old Permic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G29182" data-astro-cid-og2xway5>Ogham</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G27260" data-astro-cid-og2xway5>Shavian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-8/#G27262" data-astro-cid-og2xway5>Sidetic</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-9/" class="primary" data-astro-cid-og2xway5>
+                9 Middle East-I
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-9/#G6528" data-astro-cid-og2xway5>Hebrew</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-9/#G20596" data-astro-cid-og2xway5>Arabic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-9/#G13005" data-astro-cid-og2xway5>Syriac</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-9/#G34422" data-astro-cid-og2xway5>Samaritan</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-9/#G46613" data-astro-cid-og2xway5>Mandaic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-9/#G59804" data-astro-cid-og2xway5>Yezidi</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-10/" class="primary" data-astro-cid-og2xway5>
+                10 Middle East-II
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G26432" data-astro-cid-og2xway5>Old North Arabian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G29209" data-astro-cid-og2xway5>Old South Arabian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G26686" data-astro-cid-og2xway5>Phoenician</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G29567" data-astro-cid-og2xway5>Imperial Aramaic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G27561" data-astro-cid-og2xway5>Manichaean</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G32800" data-astro-cid-og2xway5>Pahlavi and Parthian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G29021" data-astro-cid-og2xway5>Avestan</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G43165" data-astro-cid-og2xway5>Chorasmian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G41970" data-astro-cid-og2xway5>Elymaic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G29596" data-astro-cid-og2xway5>Nabataean</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G29599" data-astro-cid-og2xway5>Palmyrene</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-10/#G34825" data-astro-cid-og2xway5>Hatran</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-11/" class="primary" data-astro-cid-og2xway5>
+                11 Cuneiform and Hieroglyphs
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-11/#G26852" data-astro-cid-og2xway5>Sumero-Akkadian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-11/#G26461" data-astro-cid-og2xway5>Ugaritic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-11/#G26474" data-astro-cid-og2xway5>Old Persian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-11/#G26607" data-astro-cid-og2xway5>Egyptian Hieroglyphs</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-11/#G26724" data-astro-cid-og2xway5>Meroitic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-11/#G27920" data-astro-cid-og2xway5>Anatolian Hieroglyphs</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-12/" class="primary" data-astro-cid-og2xway5>
+                12 South and Central Asia-I
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G12284" data-astro-cid-og2xway5>Devanagari</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G664195" data-astro-cid-og2xway5>Bengali (Bangla)</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G668388" data-astro-cid-og2xway5>Gurmukhi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G34334" data-astro-cid-og2xway5>Gujarati</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G10153" data-astro-cid-og2xway5>Oriya (Odia)</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G10162" data-astro-cid-og2xway5>Tamil</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G81985" data-astro-cid-og2xway5>Telugu</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G38298" data-astro-cid-og2xway5>Kannada</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-12/#G22346" data-astro-cid-og2xway5>Malayalam</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-13/" class="primary" data-astro-cid-og2xway5>
+                13 South and Central Asia-II
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G26451" data-astro-cid-og2xway5>Thaana</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G26561" data-astro-cid-og2xway5>Sinhala</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G31609" data-astro-cid-og2xway5>Newa</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G31615" data-astro-cid-og2xway5>Tibetan</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27803" data-astro-cid-og2xway5>Mongolian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27263" data-astro-cid-og2xway5>Limbu</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27615" data-astro-cid-og2xway5>Meetei Mayek</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27701" data-astro-cid-og2xway5>Mro</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27702" data-astro-cid-og2xway5>Warang Citi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G29195" data-astro-cid-og2xway5>Ol Chiki</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G746334" data-astro-cid-og2xway5>Ol Onal</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G112439" data-astro-cid-og2xway5>Nag Mundari</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27486" data-astro-cid-og2xway5>Chakma</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G27253" data-astro-cid-og2xway5>Lepcha</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G28198" data-astro-cid-og2xway5>Saurashtra</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G33278" data-astro-cid-og2xway5>Masaram Gondi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G39306" data-astro-cid-og2xway5>Gunjala Gondi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G46061" data-astro-cid-og2xway5>Wancho</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G50178" data-astro-cid-og2xway5>Toto</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G51897" data-astro-cid-og2xway5>Tangsa</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G746336" data-astro-cid-og2xway5>Sunuwar</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G746338" data-astro-cid-og2xway5>Gurung Khema</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G746340" data-astro-cid-og2xway5>Kirat Rai</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-13/#G746342" data-astro-cid-og2xway5>Tolong Siki</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-14/" class="primary" data-astro-cid-og2xway5>
+                14 South and Central Asia-III
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G39063" data-astro-cid-og2xway5>Brahmi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G38474" data-astro-cid-og2xway5>Kharoshthi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G40424" data-astro-cid-og2xway5>Bhaiksuki</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G40430" data-astro-cid-og2xway5>Phags-pa</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G38187" data-astro-cid-og2xway5>Marchen</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G41935" data-astro-cid-og2xway5>Zanabazar Square</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G41941" data-astro-cid-og2xway5>Soyombo</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G41975" data-astro-cid-og2xway5>Old Turkic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G49463" data-astro-cid-og2xway5>Old Sogdian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G49476" data-astro-cid-og2xway5>Sogdian</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-14/#G58161" data-astro-cid-og2xway5>Old Uyghur</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-15/" class="primary" data-astro-cid-og2xway5>
+                15 South and Central Asia-IV
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G59104" data-astro-cid-og2xway5>Syloti Nagri</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G69704" data-astro-cid-og2xway5>Kaithi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G81154" data-astro-cid-og2xway5>Sharada</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G81184" data-astro-cid-og2xway5>Takri</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G80829" data-astro-cid-og2xway5>Siddham</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G89564" data-astro-cid-og2xway5>Mahajani</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G81423" data-astro-cid-og2xway5>Khojki</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G100066" data-astro-cid-og2xway5>Dogra</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G80879" data-astro-cid-og2xway5>Khudawadi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G95487" data-astro-cid-og2xway5>Multani</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G95493" data-astro-cid-og2xway5>Tirhuta</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G80897" data-astro-cid-og2xway5>Modi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G106413" data-astro-cid-og2xway5>Nandinagari</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G81052" data-astro-cid-og2xway5>Grantha</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G108027" data-astro-cid-og2xway5>Dives Akuru</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G95570" data-astro-cid-og2xway5>Ahom</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G95556" data-astro-cid-og2xway5>Sora Sompeng</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-15/#G746412" data-astro-cid-og2xway5>Tulu-Tigalari</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-16/" class="primary" data-astro-cid-og2xway5>
+                16 Southeast Asia-I
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G46485" data-astro-cid-og2xway5>Thai</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G10988" data-astro-cid-og2xway5>Lao</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G24999" data-astro-cid-og2xway5>Myanmar</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G64642" data-astro-cid-og2xway5>Khmer</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G32903" data-astro-cid-og2xway5>Tai Le</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G65706" data-astro-cid-og2xway5>New Tai Lue</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G53337" data-astro-cid-og2xway5>Tai Tham</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G59747" data-astro-cid-og2xway5>Tai Viet</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G61902" data-astro-cid-og2xway5>Kayah Li</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G55659" data-astro-cid-og2xway5>Cham</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G68320" data-astro-cid-og2xway5>Pahawh Hmong</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G81876" data-astro-cid-og2xway5>Nyiakeng Puachue Hmong</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G68308" data-astro-cid-og2xway5>Pau Cin Hau</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G73728" data-astro-cid-og2xway5>Hanifi Rohingya</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-16/#G73729" data-astro-cid-og2xway5>Tai Yo</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-17/" class="primary" data-astro-cid-og2xway5>
+                17 Southeast Asia-II
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G26433" data-astro-cid-og2xway5>Philippine Scripts: Tagalog, Hanunóo, Buhid, and Tagbanwa</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G26727" data-astro-cid-og2xway5>Buginese</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G26759" data-astro-cid-og2xway5>Balinese</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G27153" data-astro-cid-og2xway5>Javanese</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G27208" data-astro-cid-og2xway5>Rejang</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G27226" data-astro-cid-og2xway5>Batak</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G27244" data-astro-cid-og2xway5>Sundanese</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G29334" data-astro-cid-og2xway5>Makasar</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-17/#G40419" data-astro-cid-og2xway5>Kawi</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-18/" class="primary" data-astro-cid-og2xway5>
+                18 East Asia
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G29086" data-astro-cid-og2xway5>Han</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G28626" data-astro-cid-og2xway5>Ideographic Description Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G22467" data-astro-cid-og2xway5>Bopomofo</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G22462" data-astro-cid-og2xway5>Hiragana and Katakana</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G37555" data-astro-cid-og2xway5>Halfwidth and Fullwidth Forms</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G31028" data-astro-cid-og2xway5>Hangul</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G13042" data-astro-cid-og2xway5>Yi</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G42061" data-astro-cid-og2xway5>Nüshu</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G44587" data-astro-cid-og2xway5>Lisu</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G42236" data-astro-cid-og2xway5>Miao</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G43635" data-astro-cid-og2xway5>Tangut</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-18/#G59285" data-astro-cid-og2xway5>Khitan Small Script</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-19/" class="primary" data-astro-cid-og2xway5>
+                19 Africa
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G14116" data-astro-cid-og2xway5>Ethiopic</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G16914" data-astro-cid-og2xway5>Osmanya</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G43184" data-astro-cid-og2xway5>Tifinagh</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G18603" data-astro-cid-og2xway5>N’Ko</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G18604" data-astro-cid-og2xway5>Vai</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G45398" data-astro-cid-og2xway5>Bamum</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G54402" data-astro-cid-og2xway5>Bassa Vah</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G54425" data-astro-cid-og2xway5>Mende Kikakui</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G56860" data-astro-cid-og2xway5>Adlam</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G58353" data-astro-cid-og2xway5>Medefaidrin</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G746355" data-astro-cid-og2xway5>Garay</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-19/#G746359" data-astro-cid-og2xway5>Beria Erfe</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-20/" class="primary" data-astro-cid-og2xway5>
+                20 Americas
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-20/#G26612" data-astro-cid-og2xway5>Cherokee</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-20/#G26630" data-astro-cid-og2xway5>Canadian Aboriginal Syllabics</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-20/#G26674" data-astro-cid-og2xway5>Osage</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-20/#G27507" data-astro-cid-og2xway5>Deseret</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-21/" class="primary" data-astro-cid-og2xway5>
+                21 Notational Systems
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G26597" data-astro-cid-og2xway5>Braille</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G26709" data-astro-cid-og2xway5>Western Musical Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G29047" data-astro-cid-og2xway5>Byzantine Musical Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G35157" data-astro-cid-og2xway5>Znamenny Musical Notation</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G26878" data-astro-cid-og2xway5>Ancient Greek Musical Notation</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G27643" data-astro-cid-og2xway5>Duployan</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-21/#G28865" data-astro-cid-og2xway5>Sutton SignWriting</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-22/" class="primary" data-astro-cid-og2xway5>
+                22 Symbols
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G13244" data-astro-cid-og2xway5>Currency Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G14143" data-astro-cid-og2xway5>Letterlike Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G12146" data-astro-cid-og2xway5>Numerals</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G42931" data-astro-cid-og2xway5>Superscript and Subscript Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G51347" data-astro-cid-og2xway5>Mathematical Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G26223" data-astro-cid-og2xway5>Invisible Mathematical Operators</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G12243" data-astro-cid-og2xway5>Technical Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G27321" data-astro-cid-og2xway5>Geometrical Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G12367" data-astro-cid-og2xway5>Miscellaneous Symbols</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-22/#G41738" data-astro-cid-og2xway5>Enclosed and Square</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-23/" class="primary" data-astro-cid-og2xway5>
+                23 Special Areas and Format Characters
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G20365" data-astro-cid-og2xway5>Control Codes</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G12985" data-astro-cid-og2xway5>Layout Controls</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G19593" data-astro-cid-og2xway5>Deprecated Format Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G19053" data-astro-cid-og2xway5>Variation Selectors</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G19184" data-astro-cid-og2xway5>Private-Use Characters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G24089" data-astro-cid-og2xway5>Surrogates Area</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G12612" data-astro-cid-og2xway5>Noncharacters</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G19635" data-astro-cid-og2xway5>Specials</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-23/#G30110" data-astro-cid-og2xway5>Tag Characters</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/chapter-24/" class="primary" data-astro-cid-og2xway5>
+                24 About the Code Charts
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/chapter-24/#G2841" data-astro-cid-og2xway5>Character Names List</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-24/#G3563" data-astro-cid-og2xway5>CJK and Other Ideographs</a> • <a href="/versions/Unicode17.0.0/core-spec/chapter-24/#G8005" data-astro-cid-og2xway5>Hangul Syllables</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/appendix-a/" class="primary" data-astro-cid-og2xway5>
+                A Notational Conventions
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/appendix-a/#G12668" data-astro-cid-og2xway5>Typographic Conventions</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-a/#G7146" data-astro-cid-og2xway5>Extended BNF</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-a/#G7111" data-astro-cid-og2xway5>Rendering</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/appendix-b/" class="primary" data-astro-cid-og2xway5>
+                B Unicode Publications and Resources
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/appendix-b/#G5982" data-astro-cid-og2xway5>The Unicode Consortium</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-b/#G5406" data-astro-cid-og2xway5>Unicode Publications</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-b/#G5934" data-astro-cid-og2xway5>Other Unicode Online Resources</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/appendix-c/" class="primary" data-astro-cid-og2xway5>
+                C Relationship to ISO/IEC 10646
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G1824" data-astro-cid-og2xway5>History</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G8861" data-astro-cid-og2xway5>Encoding Forms in ISO/IEC 10646</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G4651" data-astro-cid-og2xway5>UTF-8 and UTF-16</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G1864" data-astro-cid-og2xway5>Synchronization of the Standards</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G1867" data-astro-cid-og2xway5>Identification of Features for Unicode</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G5401" data-astro-cid-og2xway5>Character Names</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-c/#G5447" data-astro-cid-og2xway5>Character Functional Specifications</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/appendix-d/" class="primary" data-astro-cid-og2xway5>
+                D Version History of the Standard
+              </a>
+              <p data-astro-cid-og2xway5>
+                
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/appendix-e/" class="primary" data-astro-cid-og2xway5>
+                E Han Unification History
+              </a>
+              <p data-astro-cid-og2xway5>
+                <a href="/versions/Unicode17.0.0/core-spec/appendix-e/#G1281" data-astro-cid-og2xway5>Development of the URO</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-e/#G17834" data-astro-cid-og2xway5>Continuing Research on Ideographs</a> • <a href="/versions/Unicode17.0.0/core-spec/appendix-e/#G15393" data-astro-cid-og2xway5>CJK Sources</a>
+              </p>
+            </li><li data-astro-cid-og2xway5>
+              <a href="/versions/Unicode17.0.0/core-spec/appendix-f/" class="primary" data-astro-cid-og2xway5>
+                F Documentation of CJK Strokes
+              </a>
+              <p data-astro-cid-og2xway5>
+                
+              </p>
+            </li>
+</ul>
+
+
+            
+          </nav>
+        </div>
+
+        <div class="split-main" data-astro-cid-sckkx6r4>
+          <div class="margin-wrapper" data-astro-cid-sckkx6r4>
+            
+  <script type="module" src="/versions/Unicode17.0.0/core-spec/_astro/index.astro_astro_type_script_index_0_lang.D71kfclg.js"></script>
+
+  <blockquote id="warning" hidden class="ui" data-astro-cid-j7pv25f6>
+    <h1 data-astro-cid-j7pv25f6>Warning</h1>
+    <p data-astro-cid-j7pv25f6>Unknown global ID in URL: <code data-astro-cid-j7pv25f6></code>.</p>
+  </blockquote>
+
+  <!--[--><hgroup><h1 class="svelte-1tiu032">The Unicode® Standard</h1> <p class="subtitle svelte-1tiu032">Version 17.0 – Core Specification</p></hgroup> <!--[-->
+    <!--[--><!--[!--><!--]--><!--]-->
+
+    <!--[--><!--[!--><!--]--><!--]-->
+
+    <!----><!--]--> <p class="author svelte-1tiu032">The Unicode Consortium</p> <blockquote class="svelte-wo4i1i"><!--[!--><!--]--> <!----><p>This <a href="https://www.unicode.org/versions/Unicode17.0.0/core-spec/">HTML version</a> is authoritative. For archival purposes, a <a href="https://www.unicode.org/versions/Unicode17.0.0/UnicodeStandard-17.0.pdf">PDF version</a> is produced directly from the HTML.</p><!----></blockquote><!----> <div class="publishing svelte-1tiu032"><p class="publisher svelte-1tiu032"><!----><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 144">
+  <path fill="currentColor" d="M119,0H1C.4,0,0,.4,0,1v118c0,.6.4,1,1,1h118c.6,0,1-.4,1-1V1c0-.6-.4-1-1-1ZM103.9,91.8c0,.6-.3.8-.9.8h-12.1c-.6,0-1-.2-1.2-.7-.8-1.6-1.9-3.7-3.4-6.4-1.4-2.7-3-5.6-4.8-8.7-1.7-3.2-3.5-6.5-5.4-9.9-1.8-3.4-3.6-6.7-5.2-9.8s-3.1-6-4.4-8.6c-.7-1.5-1.3-2.7-1.8-3.8v24.1c0,4.4-.7,8.2-2,11.4s-3.1,5.7-5.3,7.7c-2.2,2-4.9,3.4-7.9,4.4-3.1.9-6.3,1.4-9.8,1.4s-7.1-.5-10.2-1.5c-3-1-5.6-2.5-7.8-4.5-2.1-2-3.8-4.5-4.9-7.6-1.1-3-1.7-6.6-1.7-10.7V31.1c0-.6.2-.9.8-.9h10c.5,0,.8.2.8.8v37.4c0,4.6,1.1,8.2,3.3,10.9,2.2,2.7,5.6,4.1,10.2,4.1s3.6-.2,5.2-.8c1.6-.5,3-1.3,4.1-2.5,1.2-1.2,2.1-2.7,2.8-4.7.7-1.9,1-4.4,1-7.3V31.1c0,0,0-.1,0-.2h0c0-.5.2-.7.7-.7h13.4c.4,0,.6,0,.8.1.1,0,.2.3.4.5,1.1,2.1,2.5,4.5,4,7.3s3.2,5.7,4.8,8.7,3.3,6.1,5,9.2c1.7,3.1,3.2,6,4.7,8.8,1.5,2.8,2.7,5.2,3.8,7.4,1.1,2.2,1.9,3.8,2.5,5h0c0-.6,0-1.3,0-2.1,0-.8,0-1.7,0-2.8,0-1.1,0-2.4,0-4,0-1.6,0-3.5,0-5.7v-16.1c0-.5.3-.8.8-.8h9.1c.6,0,.8.3.8.9v45.1h0ZM98.4,39.5c-3.6,0-6.6-2.9-6.6-6.6s2.9-6.6,6.6-6.6,6.6,2.9,6.6,6.6-2.9,6.6-6.6,6.6Z" />
+  <path fill="currentColor" d="M108,142h12v-3.3h-7.6v-4.4h6.8v-3.2h-6.8v-4.3h7.6v-3.3h-12v18.6h0ZM92.5,138.7v-11.9h2.9c3.4,0,5.2,2.4,5.2,6s-1.9,6-5.2,6h-2.9ZM88.1,142h7.2c5.7,0,9.6-3.9,9.6-9.3s-4.1-9.3-9.6-9.3h-7.2v18.6ZM75.6,138.7c-3.5,0-5.2-2.4-5.2-5.9s1.7-5.9,5.2-5.9c3.5,0,5.3,2.5,5.2,5.9,0,3.5-1.8,5.9-5.2,5.9ZM57.6,142.2c2.8,0,5.2-.9,6.8-3l-1.7-1.8c-.2-.1-.4-.2-.6-.2s-.2,0-.4,0c-.2,0-.7.6-1.1.8-.9.6-1.8.6-2.8.6-3.1,0-4.9-2.6-4.9-5.9s2-5.9,5.3-5.9,1.5,0,2,.3c.4.2,1.4.8,1.6.9.1,0,.3.1.4.1.4,0,.6-.1.9-.5l1.5-1.9c-1.6-1.7-4.1-2.5-6.4-2.5-5.7,0-9.7,3.9-9.7,9.5s3.6,9.5,9,9.5h0ZM41,142.1h4.3v-18.6h-4.3v18.6ZM19.8,142.1h4.3v-9.7c0-.3,0-1.5,0-1.8l8.2,10.8c.4.6.9.7,1.5.7h2.8v-18.6h-4.3v9.6c0,.4,0,1.6,0,2l-8.3-10.9c-.2-.2-.4-.5-.6-.5-.2,0-.6-.1-.8-.1h-2.8v18.6h0ZM8,142.2c4.8,0,8-3.1,8-7.8v-11h-4.3v11c0,2.6-1.3,4.1-3.7,4.1s-3.7-1.7-3.7-4.2v-11H0v11c0,4.7,3.2,7.8,8,7.8ZM75.5,142.2c5.7,0,9.6-4.1,9.6-9.5s-4.1-9.5-9.6-9.5-9.7,4-9.7,9.5,4.1,9.5,9.7,9.5Z" />
+</svg>
+<!----> Unicode Consortium</p> <p class="svelte-1tiu032">South San Francisco</p></div><!--]-->
+
+  <h2 data-astro-cid-j7pv25f6>Copyright and Terms of Use</h2>
+
+  <!--[--><p>© 1991-2025 Unicode, Inc. Unicode and the Unicode Logo are registered trademarks of Unicode, Inc., in the United States and other countries.</p> <p>Use of all Unicode Products, including this publication, the Unicode Character Database and all associated materials and information, is governed by the Unicode <a href="https://www.unicode.org/copyright.html">Terms of Use</a>. This publication is protected by copyright, and permission must be obtained from Unicode, Inc. prior to any reproduction, modification, or other use not permitted by the <a href="https://www.unicode.org/copyright.html">Terms of Use</a>. For further information regarding permissions, inquire at <a href="https://www.unicode.org/reporting.html">https://www.unicode.org/reporting.html</a>.</p> <p>The authors, contributors, and publishers have taken care in the preparation of this publication, the Unicode Character Database, and all associated materials and information, but make no express or implied representation or warranty of any kind and assume no responsibility or liability for errors or omissions or for consequential or incidental damages that may arise therefrom. This publication, the Unicode Character Database, and all associated materials and information are provided “AS-IS” without charge as a convenience to users. The <a href="https://www.unicode.org/copyright.html">Terms of Use</a> apply.</p> <p><span class="svelte-qd2acw"><!----><!---->YOU ASSUME ALL RESPONSIBILITY AND RISK WITH RESPECT TO YOUR USE OF THIS PUBLICATION AND ASSOCIATED MATERIALS AND INFORMATION, WHICH ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF ACCURACY, COMPLETENESS, TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT OF THIRD PARTY RIGHTS. UNICODE AND ITS LICENSORS AND CONTRIBUTORS ASSUME NO RESPONSIBILITY FOR ERRORS OR OMISSIONS. IF YOU ARE DISSATISFIED WITH THIS PUBLICATION OR THE UNICODE PRODUCTS, YOUR SOLE REMEDY IS TO DISCONTINUE USE OF THIS PUBLICATION AND THE UNICODE PRODUCTS.<!----></span><!----></p> <p><span class="svelte-qd2acw"><!----><!---->IN NO EVENT SHALL UNICODE, ITS MEMBERS, OR ITS LICENSORS OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM OR DAMAGES WHATSOEVER OF ANY KIND, WHETHER DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, WHETHER OR NOT UNICODE WAS ADVISED OF THE POSSIBILITY OF SUCH DAMAGE, INCLUDING BUT NOT LIMITED TO DAMAGE RESULTING FROM LOSS OF USE, DATA, OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE, INABILITY TO USE, PERFORMANCE, FUNCTIONALITY, MODIFICATION, OR DISTRIBUTION OF THIS PUBLICATION AND ASSOCIATED MATERIALS AND INFORMATION.<!----></span><!----></p> <!--[!--><!--]--><!----> <p>ISBN 978-1-936213-35-1<br/> Published in South San Francisco<br/> September 9, 2025</p><!--]-->
+
+          </div>
+
+          <footer data-astro-cid-sckkx6r4>
+            <div class="margin-wrapper" data-astro-cid-sckkx6r4>
+              <p data-astro-cid-sckkx6r4>The Unicode Standard, Version 17.0</p>
+
+              <p data-astro-cid-sckkx6r4>© 1991-2025 Unicode, Inc. Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries. See <a href="https://www.unicode.org/copyright.html" data-astro-cid-sckkx6r4>Terms of Use</a>.</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </main>
+  </body></html>

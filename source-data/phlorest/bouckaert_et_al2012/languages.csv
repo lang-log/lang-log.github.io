@@ -1,0 +1,105 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+Afghan,Afghan,,34.0,71.33,nort2646,,xd598 xd601,Northern Pashto
+Albanian_C,Albanian_C,,38.911,16.7164,arbe1236,,,Arbëreshë Albanian
+Albanian_G,Albanian_G,,42.317,21.3837,gheg1238,,xd528,Gheg Albanian
+Albanian_K,Albanian_K,,38.283,23.3703,arva1236,,,Arvanitika Albanian
+Albanian_Top,Albanian_Top,,41.0,20.0,tosk1239,,,Northern Tosk Albanian
+Ancient_Greek,Ancient_Greek,,39.8155,21.9129,anci1242,,,Ionic-Attic Ancient Greek
+Armenian_List,Armenian_List,,40.0,45.0,nucl1235,,,Eastern Armenian
+Armenian_Mod,Armenian_Mod,,40.0,45.0,nucl1235,,xd575,Eastern Armenian
+Assamese,Assamese,,26.0876,91.2932,assa1263,,,Assamese
+Avestan,Avestan,,34.217,62.112,aves1237,,,Avestan
+Baluchi,Baluchi,,29.38213,69.05834,east2304,,xd597,Eastern Balochi
+Bengali,Bengali,,24.0,90.0,beng1280,,xd664,Bengali
+Bihari,Bihari,,26.3817,86.2211,mait1250,,xd662,Maithili
+Breton_List,Breton_List,,48.2452,-3.78934,bret1244,,,Breton
+Breton_SE,Breton_SE,,48.2452,-3.78934,bret1244,,,Breton
+Breton_ST,Breton_ST,,48.2452,-3.78934,bret1244,,,Breton
+Bulgarian,Bulgarian,,43.3646,25.047,bulg1262,,xd569,Bulgarian
+Byelorussian,Byelorussian,,53.2307,25.6038,bela1254,,xd570,Belarusian
+Catalan,Catalan,,41.453,1.569,stan1289,,,Catalan
+Classical_Armenian,Classical_Armenian,,38.592316,41.346422,clas1249,,,Classical-Middle Armenian
+Cornish,Cornish,,50.5233,-4.18619,corn1251,,,Cornish
+Czech,Czech,,49.873398,15.10437,czec1258,,xd567,Czech
+Czech_E,Czech_E,,49.873398,15.10437,czec1258,,,Czech
+Danish,Danish,,54.8655,9.36284,dani1285,,,Danish
+Digor_Ossetic,Digor_Ossetic,,43.158056,44.156944,digo1242,,xd582,Digor Ossetian
+Dutch_List,Dutch_List,,52.0,5.0,dutc1256,,xd541,Dutch
+English_ST,English_ST,,53.0,-1.0,stan1293,,xd536 xd538,English
+Faroese,Faroese,,62.0732,-6.88497,faro1244,,,Faroese
+Flemish,Flemish,,51.0754,3.11345,vlaa1240,,,Western Flemish
+French,French,,48.0,2.0,stan1290,,xd540,French
+Frisian,Frisian,,52.9713,7.73549,east2288,,,East Frisian Low Saxon
+Friulian,Friulian,,46.1473,13.0493,friu1240,,,Friulian
+German_ST,German_ST,,48.649,12.4676,stan1295,,,German
+Gothic,Gothic,,46.9304,29.9786,goth1244,,,Gothic
+Greek_ML,Greek_ML,,,,aeol1234,,,Aeolic Greek
+Greek_Mod,Greek_Mod,,38.36,23.13,mode1248,,xd534,Modern Greek
+Gujarati,Gujarati,,22.687,71.0962,guja1252,,xd671,Gujarati
+Hindi,Hindi,,25.0,77.0,hind1269,,,Hindi
+Hittite,Hittite,,40.0,35.0,hitt1242,,,Hittite
+Icelandic_ST,Icelandic_ST,,63.4837,-19.0212,icel1247,,xd542,Icelandic
+Irish_A,Irish_A,,53.2186,-7.61509,iris1253,,xd543,Irish
+Iron_Ossetic,Iron_Ossetic,,42.98,44.61,iron1242,,,Iron Ossetian
+Italian,Italian,,43.0464,12.6489,ital1282,,,Italian
+Kashmiri,Kashmiri,,34.166825,74.330455,kash1277,,xd670,Kashmiri
+Kurdish,Kurdish,,35.6539,45.8077,cent1972,,xd576,Central Kurdish
+Ladin,Ladin,,46.60651,11.89498,ladi1250,,,Ladin
+Lahnda,Lahnda,,30.0948,75.3474,west2386,,,Western Panjabi
+Latin,Latin,,41.9026,12.4502,lati1261,,xd530,Latin
+Latvian,Latvian,,56.826108,24.309118,latv1249,,xd559,Latvian
+Lithuanian_ST,Lithuanian_ST,,55.1429,23.9601,lith1251,,xd573,Lithuanian
+Lusatian_L,Lusatian_L,,51.6621,13.9407,lowe1385,,,Lower Sorbian
+Lusatian_U,Lusatian_U,,51.2403,14.4098,uppe1395,,,Upper Sorbian
+Luvian,Luvian,,40.019722,34.615278,hier1240,,,Hieroglyphic Luwian
+Luxembourgish,Luxembourgish,,49.6839,6.14931,luxe1241,,,Moselle Franconian
+Lycian,Lycian,,36.356111,29.318611,mily1238,,,Milyan
+Macedonian,Macedonian,,41.5957,21.7932,mace1250,,,Macedonian
+Marathi,Marathi,,17.9344,76.6665,mara1378,,,Marathi
+Marwari,Marwari,,27.002,75.0656,marw1260,,,Marwari (India)
+Nepali_List,Nepali_List,,28.0,85.0,nepa1254,,,Nepali
+Old_Church_Slavonic,Old_Church_Slavonic,,43.7171,22.8442,chur1257,,,Church Slavic
+Old_English,Old_English,,51.06,-1.31,olde1238,,,Old English (ca. 450-1100)
+Old_High_German,Old_High_German,,52.0,10.0,oldh1241,,,Old High German (ca. 750-1050)
+Old_Irish,Old_Irish,,53.0,-8.0,oldi1245,,,Early Irish
+Old_Norse,Old_Norse,,63.42,10.38,oldn1244,,,Old Norse
+Old_Persian,Old_Persian,,32.0,54.0,oldp1254,,,Old Persian (ca. 600-400 B.C.)
+Old_Prussian,Old_Prussian,,52.394,14.757,prus1238,,,Old Prussian
+Oriya,Oriya,,21.0,85.0,oriy1255,,xd683,Odia
+Oscan,Oscan,,40.98,15.67,osca1245,,,Oscan
+Persian_List,Persian_List,,32.9,53.3,west2369,,xd608 xd605,Western Farsi
+Polish,Polish,,51.8439,18.6255,poli1260,,,Polish
+Portuguese_ST,Portuguese_ST,,39.91,-8.1,port1283,,xd529 xd539,Portuguese
+Provencal,Provencal,,44.1415,6.82979,occi1239,,,Occitan
+Riksmal,Riksmal,,59.92,10.71,norw1258,,,Norwegian
+Romani,Romani,,42.67,21.17,balk1252,,,Balkan Romani
+Romanian_List,Romanian_List,,46.3913,24.2256,roma1327,,xd547 xd563,Romanian
+Romansh,Romansh,,46.5538,9.92812,roma1326,,,Romansh
+Russian,Russian,,59.0,50.0,russ1263,,xd548,Russian
+Sardinian_C,Sardinian_C,,39.0566,9.03935,camp1261,,,Campidanese Sardinian
+Sardinian_L,Sardinian_L,,40.49,9.09957,logu1236,,,Logudorese Sardinian
+Sardinian_N,Sardinian_N,,,,nuor1238,,,Nuorese
+Scots_Gaelic,Scots_Gaelic,,56.7574,-5.24366,scot1245,,,Scottish Gaelic
+Serbocroatian,Serbocroatian,,44.3238,21.9192,serb1264,,xd546,Serbian Standard
+Sindhi,Sindhi,,26.0,69.0,sind1272,,xd596,Sindhi
+Singhalese,Singhalese,,8.0,81.0,sinh1246,,xd692,Sinhala
+Slovak,Slovak,,48.545705,18.78479,slov1269,,,Slovak
+Slovenian,Slovenian,,46.2543,14.7766,slov1268,,,Slovenian
+Spanish,Spanish,,40.4414,-1.11788,stan1288,,xd533,Spanish
+Swedish_List,Swedish_List,,59.800634,17.389526,swed1254,,,Swedish
+Swedish_Up,Swedish_Up,,59.800634,17.389526,swed1254,,,Swedish
+Swedish_VL,Swedish_VL,,59.800634,17.389526,swed1254,,,Swedish
+Tadzik,Tadzik,,38.8213,68.5549,taji1245,,,Tajik
+Tocharian_A,Tocharian_A,,42.98,89.18,tokh1242,,,Tokharian A
+Tocharian_B,Tocharian_B,,41.65,82.9,tokh1243,,,Tokharian B
+Ukrainian,Ukrainian,,49.796,29.945,ukra1253,,xd571 xd557,Ukrainian
+Umbrian,Umbrian,,42.75,13.02,umbr1253,,,Umbrian
+Urdu,Urdu,,25.0,67.0,urdu1245,,,Urdu
+Vedic_Sanskrit,Vedic_Sanskrit,,20.0,77.0,sans1269,,xd665,Sanskrit
+Vlach,Vlach,,40.616,21.2,arom1237,,,Aromanian
+Wakhi,Wakhi,,37.1768,73.9777,wakh1245,,,Wakhi
+Walloon,Walloon,,50.2235,5.14509,wall1255,,xd545,Walloon
+Waziri,Waziri,,,,waci1238,,,Waciri
+Welsh_C,Welsh_C,,52.0,-4.0,wels1247,,,Welsh
+Welsh_N,Welsh_N,,52.0,-4.0,wels1247,,,Welsh
+

@@ -1,0 +1,21 @@
+{
+    "id": "honkola_et_al2013",
+    "zenodo_concept_doi": "10.5281/zenodo.8250097",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1111/jeb.12107",
+    "citation": "Honkola T, Vesakoski O, Korhonen K, Lehtinen J, Syrj\u00e4nen K & Wahlberg N. 2013. Cultural and climatic changes shape the evolutionary history of the Uralic languages. Journal of Evolutionary Biology, 26(6):1244\u20131253.",
+    "name": "Cultural and climatic changes shape the evolutionary history of the Uralic languages",
+    "author": "Honkola et al.",
+    "year": 2013,
+    "scaling": "centuries",
+    "analysis": "bayesian",
+    "family": "Uralic",
+    "missing": {
+        "artefacts": "not available.",
+        "nexus": "not available.",
+        "characters": "not available.",
+        "data": "not available.",
+        "cldf": "not available."
+    }
+}
+

@@ -1,0 +1,28 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,language,Glottolog_Name
+ALT,ALT,,50.1347,86.8705,sout2694,,,Oyrat,Southern Altai
+AZB,AZB,,36.5137,48.4302,sout2697,,,Azerbaidzhan,South Azerbaijani
+BAS,BAS,,53.59671,56.55937,bash1264,,xd549,Bashkir,Bashkir
+BLKX,BLKX,,41.170545,24.44567,balk1254,,,Balkar,Rumelian Turkish
+CHV,CHV,,55.48701,47.16298,chuv1255,,xd551,Chuvash,Chuvash
+DOLG,DOLG,,71.10828,94.29358,dolg1241,,,Dolgan,Dolgan
+GAGX,GAGX,,44.59876,28.02769,gaga1249,,xd554,Gagauz,Gagauz
+HAK,HAK,,52.66002,89.67409,khak1248,,,Khakassian,Khakas
+JAK,JAK,,61.69744,133.98031,yaku1245,,xd628,Yakut,Sakha
+KAZ,KAZ,,51.17,71.454,kaza1248,,xd609,Kazakh,Kazakh
+KHAL,KHAL,,34.42237,50.32223,turk1303,,,Halaj,Khalaj Turkic
+KLPX,KLPX,,39.98005,63.32233,kara1467,,,Karakalpak,Kara-Kalpak
+KRG,KRG,,42.0,74.0,kirg1245,,,Kirghiz,Kirghiz
+KRMX,KRMX,,54.5534,25.1054,kara1464,,xd560,Karaim,Karaim
+NOGX,NOGX,,44.89776,43.1656,noga1249,,,Nogai,Nogai
+QUM,QUM,,43.0,47.0,kumy1244,,xd579,Kumyk,Kumyk
+SAL,SAL,,35.5457,102.819,sala1264,,,Salar,Salar
+SHR,SHR,,53.70953,87.84468,shor1247,,,Shor,Mrassu Shor-Tutal
+SJG,SJG,,39.0548,99.3112,west2402,,,Sary-Yughur,West Yugur
+TAT,TAT,,55.79592,49.11577,tata1255,,,Tatar,Tatar
+TOF,TOF,,53.7145,98.3792,kara1462,,,Tofalar,Taiga Sayan Turkic
+TRK,TRK,,39.8667,32.8667,nucl1301,,xd581,Turkish,Turkish
+TRM,TRM,,37.08719,59.17574,turk1304,,xd613,Turkmen,Turkmen
+TUV,TUV,,51.7,94.36667,tuvi1240,,,Tuva,Tuvinian
+UIG,UIG,,43.88,87.38,uigh1240,,,Uighur,Uighur
+UZB,UZB,,40.886,69.211,nort2690,,xd616,Uzbek,Northern Uzbek
+

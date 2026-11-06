@@ -1,0 +1,19 @@
+{
+    "id": "chang_et_al2015",
+    "zenodo_concept_doi": "10.5281/zenodo.8250014",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1353/lan.2015.0005",
+    "citation": "Chang W, Cathcart C, Hall D, & Garrett A. 2015. Ancestry-constrained phylogenetic analysis supports the Indo-European steppe hypothesis. Language, 91(1):194-244.",
+    "name": "Ancestry-constrained phylogenetic analysis supports the Indo-European steppe hypothesis",
+    "author": "Chang et al.",
+    "year": 2015,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Indo-European",
+    "missing": {
+        "cldf": "not provided.",
+    "artefacts": ["raw/ieo.xml"],
+        "characters": "not readily available (extractable from comment in nexus)."
+    }
+}
+

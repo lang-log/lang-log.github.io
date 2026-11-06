@@ -1,0 +1,19 @@
+{
+    "id": "rexova_et_al2006",
+    "title": "Phlorest phylogeny rexova_et_al2006",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1007/s00114-006-0088-z",
+    "citation": "Rexová, K., Bastin, Y., & Frynta, D. (2006). Cladistic analysis of Bantu languages: a new tree based on combined lexical and grammatical data. Naturwissenschaften, 93(4), 189–194. https://doi.org/10.1007/s00114-006-0088-z",
+    "name": "Cladistic analysis of Bantu languages: a new tree based on combined lexical and grammatical data",
+    "author": "Rexová et al.",
+    "year": 2006,
+    "scaling": "substitutions",
+    "analysis": "bayesian",
+    "family": "Bantu",
+    "cldf": "",
+    "artefacts": ["raw/data.nex"],
+    "missing": {
+        "characters": "not readily available."
+    },
+    "zenodo_concept_doi": null
+}

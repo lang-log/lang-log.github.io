@@ -1,0 +1,89 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+A24Duala,A24Duala,,4.10208,9.61877,dual1243,,,Duala
+A43aBasaa,A43aBasaa,,3.80765,10.4213,basa1284,,,Basa (Cameroon)
+A44Nen,A44Nen,,4.75,10.67,tune1261,,,Tunen
+A53Rikpa,A53Rikpa,,4.72603,11.0982,bafi1243,,,Bafia
+A72Ewondo,A72Ewondo,,4.21141,11.93646,ewon1239,,,Ewondo
+A74Bulu,A74Bulu,,3.16141,11.6365,bulu1251,,,Bulu (Cameroon)
+B74Boma,B74Boma,,-2.384219,15.623277,teke1278,,,Teke-Eboo-Nzikou
+B78FumuW,B78FumuW,,,,wuum1238,,,Wuumu
+B85Yanz1,B85Yanz1,,-3.8231,18.2341,yans1239,,,Yansi
+C24Koyo1,C24Koyo1,,-0.69688,15.7508,koyo1242,,,Koyo
+C32Bobang,C32Bobang,,-0.87437,17.227,bang1354,,,Bobangi
+C34Sakata,C34Sakata,,-2.85653,17.9669,saka1287,,,Sakata
+C41Ngombe,C41Ngombe,,1.45357,20.14148,ngom1268,,,Ngombe (Democratic Republic of Congo)
+C45Angba,C45Angba,,1.81314,24.8754,ngel1238,,,Ngelima
+C52So4B,C52So4B,,1.6207,22.8389,mbes1238,,,Mbesa
+C55Kele2,C55Kele2,,0.36906,24.3098,kele1255,,,Kele-Foma
+C61Mongo,C61Mongo,,-1.54228,20.4259,mong1338,,,Mongo
+C71Tetela,C71Tetela,,-4.29314,24.546,tete1250,,,Tetela
+C76Ombo,C76Ombo,,-2.32162,25.1748,ombo1238,,,Ombo
+C83Bushon,C83Bushon,,-4.69463,21.4556,bush1247,,,Bushoong
+D12Lengol,D12Lengol,,-1.95874,25.3343,leng1258,,,Lengola
+D13Mituku,D13Mituku,,-1.57031,25.104,mitu1240,,,Mituku
+D14Enya1,D14Enya1,,-4.1,26.0,enya1249,,,Enya-Kindu
+D25Lega2,D25Lega2,,-3.83196,27.1424,lega1249,,,Lega-Shabunda
+D26Binja,D26Binja,,-4.013,26.6083,zimb1251,,,Zimba
+D28Holoho,D28Holoho,,-5.37545,28.3274,holo1240,,,Holoholo
+D35Bodo1,D35Bodo1,,6.0,26.0,bodo1272,,,Bodo (Central African Republic)
+D37Kumu1,D37Kumu1,,-0.76333,26.7144,komo1260,,,Komo (Democratic Republic of Congo)
+D43Nyanga,D43Nyanga,,-1.29357,28.31546,nyan1304,,,Nyanga
+E51Gikuyu,E51Gikuyu,,-0.29005,36.719,kiku1240,,,Kikuyu
+E55Kamba,E55Kamba,,-1.60827,37.9532,kamb1297,,,Kamba (Kenya)
+E62Caga1,E62Caga1,,-3.33743,37.3357,moch1256,,,Mochi
+E71Pokomo,E71Pokomo,,-2.31587,40.2897,poko1261,,,Pokomo
+F21Sukuma,F21Sukuma,,-3.16082,32.8765,suku1261,,,Sukuma
+F22Nyamwe,F22Nyamwe,,-5.08559,32.94452,nyam1276,,,Nyamwezi
+F23Sumbwa,F23Sumbwa,,-3.47335,31.9457,sumb1240,,,Sumbwa
+G23Shamba,G23Shamba,,-4.8,38.29,sham1280,,,Shambala
+G42Swahil,G42Swahil,,-8.25605,37.624,swah1253,,,Swahili
+G65Kinga,G65Kinga,,-9.35868,34.2321,nucl1379,,,Kinga
+H11Bembe,H11Bembe,,-3.95895,14.1,beem1239,,,Beembe
+H12bYombe,H12bYombe,,-5.1263,12.9657,yomb1244,,,Yombe
+H31Yaka1,H31Yaka1,,-5.984,16.775,yaka1269,,,Yaka-Pelende-Lonzo
+J13Hima,J13Hima,,,,hima1248,,,Hima
+J15Ganda,J15Ganda,,0.66884,32.15153,gand1255,,,Ganda
+J22HHaya,J22HHaya,,-1.70878,31.4846,haya1250,,,Haya
+J31cBukus,J31cBukus,,0.68043,34.7719,buku1249,,,Bukusu
+J34Samia,J34Samia,,0.3652,34.0335,saam1283,,,Saamia
+J42Nande,J42Nande,,,,yira1240,,,Yira
+J53Shi,J53Shi,,-2.55777,28.6122,shii1238,,,Shi
+J61Rwanda,J61Rwanda,,-1.56771,29.6441,kiny1244,,,Kinyarwanda
+J62Rundi,J62Rundi,,-2.94,29.97,rund1242,,,Rundi
+K11Ciokwe,K11Ciokwe,,-9.66082,21.3992,chok1245,,,Chokwe
+K14Lwena,K14Lwena,,-13.5382,22.2924,luva1239,,,Luvale
+K21Salamp,K21Salamp,,-17.7052,24.7398,lozi1239,,,Lozi
+K22Lunda,K22Lunda,,-11.1793,23.8662,lund1266,,,Lunda
+K23Ruund,K23Ruund,,-8.86971,21.4164,ruun1238,,,Ruund
+K31Luyi,K31Luyi,,-15.01,22.67,luya1241,,,Luyi
+K33Kwanga,K33Kwanga,,-17.9026,19.256,kwan1273,,,Kwangali
+K39Dcirik,K39Dcirik,,-18.1681,20.6678,diri1252,,,Diriku-Shambyu
+K50Holu,K50Holu,,-8.14754,17.572,holu1245,,,Holu
+K51Mbala,K51Mbala,,-5.11888,18.041,mbal1257,,,Mbala
+K53Kwezo,K53Kwezo,,-5.60445,18.5759,kwes1244,,,Kwese
+L21Kete1,L21Kete1,,-7.15104,22.9027,kete1252,,,Kete
+L23Songye,L23Songye,,-5.71993,25.2765,song1303,,,Songe
+L27Bangub,L27Bangub,,-4.31464,27.2438,bang1350,,,Bangubangu
+L31LubaK,L31LubaK,,-5.72717,22.4422,luba1249,,,Luba-Lulua
+L33LubaS,L33LubaS,,-8.2816,25.8918,luba1250,,,Luba-Katanga
+L35Sanga,L35Sanga,,-10.0236,26.8462,sang1331,,,Sanga (Democratic Republic of Congo)
+L42Kaonde,L42Kaonde,,-12.4129,25.7646,kaon1241,,,Kaonde
+M31Nyakyu,M31Nyakyu,,-9.71018,33.7763,nyak1260,,,Nyakyusa-Ngonde
+M41Tabwa,M41Tabwa,,,,shil1264,,,Shila
+M42Bemba,M42Bemba,,-10.6122,29.2993,bemb1257,,,Bemba (Zambia)
+M54Lamba,M54Lamba,,-12.3366,27.9026,lamb1271,,,Lamba
+M64Tonga,M64Tonga,,-17.422325,27.103495,tong1318,,,Tonga (Zambia)
+N31aNyanj,N31aNyanj,,-14.8047,32.8108,nyan1308,,,Nyanja
+N44Sena,N44Sena,,-19.7933,34.9829,nucl1396,,,Sena
+P21Yao1,P21Yao1,,-13.6119,35.2387,yaoo1241,,,Yao
+P31Makwa,P31Makwa,,-14.8509,38.8052,makh1264,,,Makhuwa
+R11Umbund,R11Umbund,,-12.4763,14.4148,umbu1257,,,Umbundu
+R21Kwanya,R21Kwanya,,-17.7176,16.58,kuan1247,,,Kuanyama
+R31Herero,R31Herero,,-21.0231,20.5655,here1253,,,Herero
+S10Shona,S10Shona,,-17.20849,29.75725,shon1251,,,Shona
+S21Venda,S21Venda,,-22.188,29.9523,vend1245,,,Venda
+S31dKhala,S31dKhala,,-24.368,24.7587,tswa1253,,,Tswana
+S42Zulu,S42Zulu,,-28.9,30.2,zulu1248,,,Zulu
+S53Tsonga,S53Tsonga,,-23.5754,31.8105,tson1249,,,Tsonga
+S54Ronga,S54Ronga,,-26.7329,32.6167,rong1268,,,Ronga
+

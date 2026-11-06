@@ -1,0 +1,20 @@
+{
+    "id": "kitchen_et_al2009",
+    "zenodo_concept_doi": "10.5281/zenodo.8250115",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1098/rspb.2009.0408",
+    "citation": "Kitchen A, Ehret C, Assefa S & Mulligan CJ. 2009. Bayesian phylogenetic analysis of Semitic languages identifies an Early Bronze Age origin of Semitic in the Near East. Proceedings of the Royal Society B: Biological Sciences, 270(1668), 2703-2710.",
+    "name": "Bayesian phylogenetic analysis of Semitic languages identifies an Early Bronze Age origin of Semitic in the Near East",
+    "author": "Kitchen et al.",
+    "year": 2009,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Semitic",
+    "cldf": "https://doi.org/10.5281/zenodo.8171664",
+    "artefacts": [
+        "raw/Kitchen-Semitic-covarion-relaxed.xml",
+        "raw/Kitchen-Semitic-covarion-strict.xml"
+    ],
+    "missing": {}
+}
+

@@ -1,0 +1,19 @@
+{
+    "id": "zhang_et_al2019",
+    "zenodo_concept_doi": "10.5281/zenodo.8250323",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1038/s41586-019-1153-z",
+    "citation": "Zhang M, Yan S, Pan W, & Jin L. 2019. Phylogenetic evidence for Sino-Tibetan origin in northern China in the Late Neolithic. Nature, 569, 112\u2013115.",
+    "name": "Phylogenetic evidence for Sino-Tibetan origin in northern China in the Late Neolithic",
+    "author": "Zhang et al",
+    "year": 2019,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Sino-Tibetan",
+    "artefacts": ["binarycovarion.relaxedlognormalclock.xml"],
+    "missing": {
+        "characters": "not readily available",
+        "cldf": "not readily available"
+    }
+}
+

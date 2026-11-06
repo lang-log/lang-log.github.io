@@ -1,0 +1,21 @@
+{
+    "id": "greenhill2015",
+    "zenodo_concept_doi": "10.5281/zenodo.8250076",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1371/journal.pone.0141563",
+    "citation": "Greenhill, S. J. (2015). TransNewGuinea.org: An Online Database of New Guinea Languages. PLOS ONE, 10(10), e0141563. doi:10.1371/journal.pone.0141563",
+    "name": "TransNewGuinea.org: An Online Database of New Guinea Languages",
+    "author": "Greenhill",
+    "year": 2015,
+    "scaling": "change",
+    "analysis": "bayesian",
+    "family": "Huon Peninsula",
+    "cldf": "https://doi.org/10.5281/zenodo.5127347",
+    "artefacts": ["raw/mcelhanon-1967-covarion.xml"],
+    "missing": {
+        "characters": "not retrievable",
+        "data": "database extraction, not published with paper",
+        "cldf": "no retrievable"
+    }
+}
+

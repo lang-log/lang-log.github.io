@@ -1,0 +1,19 @@
+{
+    "id": "lee_and_hasegawa2011",
+    "zenodo_concept_doi": "10.5281/zenodo.8250174",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1098/rspb.2011.0518",
+    "citation": "Lee S, Hasegawa T (2011) Bayesian phylogenetic analysis supports an agricultural origin of Japonic languages. Proceedings of the Royal Society B: Biological Sciences, 278(1725):3662\u20139.",
+    "name": "Bayesian phylogenetic analysis supports an agricultural origin of Japonic languages",
+    "author": "Lee & Hasegawa",
+    "year": 2011,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Japonic",
+    "cldf": "https://doi.org/10.5281/zenodo.5126800",
+    "missing": {
+        "characters": "not readily available",
+        "artefacts": "not available"
+    }
+}
+

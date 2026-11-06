@@ -1,0 +1,16 @@
+{
+    "id": "kolipakam_et_al2018",
+    "zenodo_concept_doi": "10.5281/zenodo.8250129",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1098/rsos.171504",
+    "citation": "Kolipakam V, Jordan FM, Dunn M, Greenhill SJ, Bouckaert R, Gray RD & Verkerk A. 2018. A Bayesian phylogenetic study of the Dravidian language family. R. Soc. Open Sci. 5: 171504.",
+    "name": "A Bayesian phylogenetic study of the Dravidian language family",
+    "author": "Kolipakam et al.",
+    "year": 2018,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Dravidian",
+    "cldf": "https://doi.org/10.5281/zenodo.5121579",
+    "artefacts": ["raw/drav_cov_est_ucln_yule.xml", "http://doi.org/10.5281/zenodo.1181715", "https://doi.org/10.6084/m9.figshare.c.4025020.v3"]
+}
+

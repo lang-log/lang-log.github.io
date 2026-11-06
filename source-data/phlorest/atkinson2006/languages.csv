@@ -1,0 +1,47 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+root,root,,,,maya1287,,,Mayan
+Acatec,Acatec,,15.5932,-91.8421,west2635,,,Akateko
+Achi,Achi,,15.073,-90.3513,achi1256,,,Achi
+Aguacatec,Aguacatec,,15.3307,-91.3153,agua1252,,,Aguacateco
+Chicomuceltec,Chicomuceltec,,15.6078,-91.2869,chic1271,,,Chicomuceltec
+Chol,Chol,,17.4897,-92.4698,chol1282,,,Chol
+Chontal,Chontal,,18.1713,-92.7367,taba1266,,,Tabasco Chontal
+Chorti,Chorti,,14.818,-89.2363,chor1273,,xd1319,Ch'orti'
+ClassicMaya,ClassicMaya,,18.993121,-88.768865,epig1241,,,Epigraphic Mayan
+ColonialCakchiquel,ColonialCakchiquel,,14.4662,-90.9881,kaqc1270,,,Kaqchikel
+ColonialYucatec,ColonialYucatec,,18.7757,-88.9567,yuca1254,,,Yucatec Maya
+Huastec,Huastec,,21.6153,-98.5028,huas1242,,xd1297,Huastec
+Itza,Itza,,17.0269,-89.8734,itza1241,,,Itza'
+Ixil,Ixil,,15.4569,-90.8935,ixil1251,,,Ixil
+Jacaltec,Jacaltec,,15.6609,-91.6633,popt1235,,xd1315,Popti'
+Kanjobal,Kanjobal,,15.6846,-91.3043,qanj1241,,,Q'anjob'al
+Kekchi,Kekchi,,15.3788,-89.2452,kekc1242,,,Q'eqchi'
+Lacandon,Lacandon,,17.02093,-91.42348,laca1243,,xd1310,Lacandon
+Mam,Mam,,14.8034,-91.7231,mamm1241,,xd1324,Mam
+Mopan,Mopan,,16.3533,-89.0673,mopa1243,,,Mopan
+Motozintlec,Motozintlec,,15.4538,-92.1734,moch1257,,,Mocho
+Pocomam,Pocomam,,14.73252,-89.73796,poqo1253,,xd1317,Poqomam
+Pocomchi,Pocomchi,,15.3586,-90.5813,poqo1254,,,Poqomchi'
+Quiche,Quiche,,14.5278,-91.1696,kich1262,,xd1313,K'iche'
+Sacapultec,Sacapultec,,15.274,-91.109,saca1238,,,Sacapulteco
+Sipacapa,Sipacapa,,15.23054,-91.7041,sipa1247,,,Sipacapense
+Teco,Teco,,15.4599,-92.1136,tekt1235,,,Tektiteko
+Tzeltal,Tzeltal,,16.6384,-92.2786,tzel1254,,xd1318,Tzeltal
+Tzotzil,Tzotzil,,16.6362,-92.7388,tzot1259,,,Tzotzil
+Tzutujil,Tzutujil,,14.6351,-91.2012,tzut1248,,,Tz'utujil
+Uspantec,Uspantec,,15.3648,-90.8893,uspa1245,,,Uspanteco
+Huastecan,Huastecan,,,,huas1241,,,Huastecan Mayan
+MayaProper,MayaProper,,,,core1254,,,Core Mayan
+Kanjobalan,Kanjobalan,,,,kanj1262,,,Kanjobalan
+EasternMayan,EasternMayan,,,,,,,
+Quichean,Quichean,,,,grea1276,,,Greater Quichean
+SipaSaca,SipaSaca,,,,,,,
+CakTzut,CakTzut,,,,cakc1244,,,Cakchiquel-Tzutujil
+Poco,Poco,,,,poco1241,,,Poqom
+Mamean,Mamean,,,,mame1240,,,Mamean
+CholTzetYuc,CholTzetYuc,,,,,,,
+CholYuc,CholYuc,,,,,,,
+Cholan,Cholan,,,,chol1287,,,Cholan
+Yucatecan,Yucatecan,,,,yuca1252,,,Yucatecan
+Tzeltalan,Tzeltalan,,,,tzel1253,,,Tzeltalan
+

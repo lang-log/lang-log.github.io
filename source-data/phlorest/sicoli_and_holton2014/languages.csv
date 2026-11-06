@@ -1,0 +1,42 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+aht,aht,,61.7068,-144.889,ahte1237,,,Ahtena
+apc,apc,,33.1291,-105.566,mesc1238,,xd1259,Mescalero-Chiricahua Apache
+apj,apj,,36.8079,-107.007,jica1244,,xd1266,Jicarilla Apache
+apk,apk,,34.9077,-98.2461,kiow1264,,xd1219,Kiowa Apache
+apl,apl,,29.93117,-98.94286,lipa1241,,xd1275,Lipan Apache
+apw,apw,,33.8574,-110.123,west2615,,xd1267,Western Apache
+bea,bea,,56.7984,-120.352,beav1236,,xd1045,Beaver
+cco,cco,,44.5177,-119.605,coqu1236,,,Coquille
+chp,chp,,58.98,-104.44,chip1261,,xd1046,Chipewyan
+crx,crx,,54.3768,-124.328,carr1249,,xd1035,Central Carrier
+dgr,dgr,,63.17,-117.25,dogr1252,,xd1032,Dogrib
+eya,eya,,60.4232,-144.762,eyak1241,,xd1102,Eyak
+gce,gce,,42.56343,-123.5854,gali1261,,xd1423,Galice
+gwi,gwi,,67.4307,-142.963,gwic1235,,xd1037,Gwich'in
+haa,haa,,64.5002,-140.352,hann1241,,xd1008,Han
+hax,hax,,53.2616,-132.008,sout2956,,xd1438,Southern Haida
+hoi,hoi,,62.7266,-159.831,holi1241,,xd1013,Holikachuk
+hup,hup,,41.0982,-123.68,hupa1239,,xd1096,Hupa-Chilula
+ing,ing,,62.0697,-160.044,dege1248,,xd1066,Degexit'an
+ket,ket,,63.7551,87.5466,kett1243,,xd636,Ket
+kkz,kkz,,61.0,-130.0,kask1239,,xd1056,Kaska
+koy,koy,,65.6093,-154.229,koyu1237,,xd1010,Koyukon
+kto,kto,,39.7002,-123.432,kato1244,,xd1425,Kato
+kuu,kuu,,62.2976,-155.951,uppe1438,,,Upper Kuskokwim
+mtl,mtl,,40.4321,-122.863,matt1238,,xd1099,Mattole-Bear River
+nav,nav,,36.33,-109.38,nava1243,,xd1279,Navajo
+scsh,scsh,,63.5,-125.67,nort2942,,xd1009,North Slavey
+srs,srs,,50.8822,-114.301,sars1236,,xd1226,Sarsi
+taa,taa,,64.8834,-149.451,lowe1425,,,Lower Tanana
+tau,tau,,62.6867,-141.37,uppe1437,,xd1026,Upper Tanana
+tcb,tcb,,63.4046,-143.338,tana1290,,,Tanacross
+tceS,tceS,,60.7823,-136.573,sout2957,,,Southern Tutchone
+tfn,tfn,,60.4712,-150.759,tana1289,,xd1042,Dena'ina
+tli,tli,,59.4447,-135.29,tlin1245,,xd1082 xd1431,Tlingit
+tol,tol,,41.9192,-124.1,tolo1259,,xd1103,Tolowa-Chetco
+ttmN,ttmN,,62.8235,-136.644,nort2941,,xd1012,Northern Tutchone
+txc,txc,,55.5,-130.08,tset1236,,,Tsetsaut
+wlk,wlk,,39.1513,-123.284,wail1244,,xd1100 xd1098 xd1434,Eel River Athabaskan
+xsl,xsl,,59.8794,-117.047,sout2959,,xd1034,South Slavey
+zko,zko,,55.0,94.0,kott1239,,,Kott-Assan
+

@@ -1,0 +1,17 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+Gangwon,Gangwon,,,,chun1248,,,Chungchong-Central Korean
+Gyeonggi,Gyeonggi,,37.54,126.98,seou1239,,xd638,Seoul
+Hwanghae,Hwanghae,,38.29,125.47,hwan1238,,,Hwanghaedo
+Jeju,Jeju,,33.3805,126.5554,jeju1234,,,Jejueo
+MiddleKorean,MiddleKorean,,37.93313,126.59918,midd1372,,,Middle Korean
+NorthChungcheong,NorthChungcheong,,36.63,127.31,chun1247,,,Ch'ungch'ongdo
+NorthGyeongsang,NorthGyeongsang,,35.3,128.3,kyon1247,,,Kyongsangdo
+NorthHamgyong,NorthHamgyong,,42.34,129.84,hamg1238,,,Hamgyongdo
+NorthJeolla,NorthJeolla,,35.14,126.84,chol1278,,,Jollado
+NorthPyongan,NorthPyongan,,39.44,126.16,pyon1239,,,P'yong'ando
+SouthChungcheong,SouthChungcheong,,36.63,127.31,chun1247,,,Ch'ungch'ongdo
+SouthGyeongsang,SouthGyeongsang,,35.3,128.3,kyon1247,,,Kyongsangdo
+SouthHamgyong,SouthHamgyong,,42.34,129.84,hamg1238,,,Hamgyongdo
+SouthJeolla,SouthJeolla,,35.14,126.84,chol1278,,,Jollado
+SouthPyongan,SouthPyongan,,39.44,126.16,pyon1239,,,P'yong'ando
+

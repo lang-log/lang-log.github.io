@@ -1,0 +1,21 @@
+{
+    "id": "bowern_and_atkinson2012",
+    "zenodo_concept_doi": "10.5281/zenodo.8249977",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1353/lan.2012.0081",
+    "citation": "Bowern C & Atkinson QD. 2012. Computational phylogenetics and the internal structure of Pama-Nyungan. Language, 88(4), 817-845.",
+    "name": "Computational phylogenetics and the internal structure of Pama-Nyungan",
+    "author": "Bowern & Atkinson",
+    "year": 2012,
+    "scaling": "arbitrary",
+    "analysis": "bayesian",
+    "family": "Pama-Nyungan",
+    "cldf": "https://doi.org/10.5281/zenodo.1312841",
+    "missing": {
+        "posterior": "not published, superseded by bouckaert_et_al2018",
+        "nexus": "not published, superseded by bouckaert_et_al2018",
+        "characters": "not published, superseded by bouckaert_et_al2018",
+        "artefacts": "not published"
+    }
+}
+

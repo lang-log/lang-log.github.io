@@ -1,0 +1,21 @@
+{
+    "id": "holden_et_al2005",
+    "title": "Phlorest phylogeny holden_et_al2005",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://www.taylorfrancis.com/chapters/edit/10.4324/9781315418612-5/comparison-maximum-parsimony-bayesian-bantu-language-trees-holden-clare-meade-andrew-pagel-mark",
+    "citation": "Holden CJ, Meade A, & Pagel M. 2005. Comparison of Maximum Parsimony and Bayesian Bantu Language trees. In R Mace, CJ Holden & SJ Shennan (Eds.) The Evolution of Cultural Diversity: A Phylogenetic Approach (pp. 53–66). UCL Press.",
+    "name": "Comparison of Maximum Parsimony and Bayesian Bantu Language trees",
+    "author": "Holden et al.",
+    "year": 2005,
+    "scaling": "none",
+    "analysis": "bayesian",
+    "family": "Bantu",
+    "artefacts": ["raw/BantuBinRed_m1pcv.nex"],
+    "missing": {
+        "data": "not available",
+        "cldf": "not available",
+        "characters": "not available"
+    },
+    "zenodo_concept_doi": null
+}
+

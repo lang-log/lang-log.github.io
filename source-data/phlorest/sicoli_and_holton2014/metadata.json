@@ -1,0 +1,18 @@
+{
+    "id": "sicoli_and_holton2014",
+    "zenodo_concept_doi": "10.5281/zenodo.8250302",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1371/journal.pone.0091722",
+    "citation": "Sicoli MA & Holton G (2014) Linguistic phylogenies support back-migration from Beringia to Asia. PLoS One 9(3):e91722.",
+    "name": "Linguistic phylogenies support back-migration from Beringia to Asia",
+    "author": "Sicoli & Holton",
+    "year": 2014,
+    "scaling": "substitutions",
+    "analysis": "bayesian",
+    "family": "Dene-Yenesian",
+    "artefacts": ["raw/analysis"],
+    "missing": {
+        "characters": "not available."
+    }
+}
+

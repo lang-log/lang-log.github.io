@@ -1,0 +1,830 @@
+{
+  "retrieved": "2026-10-12",
+  "sources": [
+    {
+      "name": "Glottolog 5.3",
+      "authors": "Hammarström, Harald; Forkel, Robert; Haspelmath, Martin; Bank, Sebastian",
+      "year": 2026,
+      "doi": "10.5281/zenodo.18840935",
+      "data": "https://github.com/glottolog/glottolog-cldf/tree/v5.3",
+      "classification": "https://github.com/glottolog/glottolog/tree/v5.3",
+      "license": "CC BY 4.0"
+    },
+    {
+      "name": "WALS Online CLDF",
+      "authors": "Dryer, Matthew S. & Haspelmath, Martin (eds.)",
+      "year": 2013,
+      "data": "https://github.com/cldf-datasets/wals",
+      "version": "default-branch file snapshot retrieved 2026-10-12; file hash below",
+      "license": "CC BY 4.0"
+    }
+  ],
+  "files": {
+    "classification.nex": {
+      "sha256": "e74106492e93034e18237dd232e2756d2c0a392bb4b9b73a0fd574a13a044439",
+      "bytes": 157446
+    },
+    "languages.csv": {
+      "sha256": "9f74346ddc3245fa732607d950a81b2a957c421f2a91916acc9126bcb7a834cc",
+      "bytes": 2477018
+    },
+    "dialects.md": {
+      "sha256": "ea9a9794eb83fdc3f38ab4eeb62b3527456951d3cb8febfdc4cb7a7a4d7b572c",
+      "bytes": 1651475
+    },
+    "wals.csv": {
+      "sha256": "5bca35a23a7c2bec81a77eae41f2266d6dabfd7fedc05345860855e3a4336da4",
+      "bytes": 471652
+    },
+    "names.csv": {
+      "sha256": "833cfb627eec4c97971976559311f4f3e8a1b1de149becc182f28c0a7ac4a345",
+      "source_blob_sha": "643f45dc3fa7acb3069f65d10a7450f35987666d",
+      "source": "https://github.com/glottolog/glottolog-cldf/blob/v5.3/cldf/names.csv",
+      "rows": 120216
+    }
+  },
+  "method": "Complete Glottolog languoid CSV; direct-parent edges from Glottolog v5.3 NEXUS plus all 27 dialect indexes. Separate WALS hierarchy. Exact Glottocode links only. No synthetic genealogical edges.",
+  "limitations": [
+    "No claim to include every language or every published classification worldwide.",
+    "All 30 Phlorest catalogued dataset summary trees were imported; posterior tree samples were not imported.",
+    "Entire Glottolog 5.3 node inventory and WALS classification snapshot retained. Underlying catalog bibliographies and all regional monographs are not fully ingested.",
+    "Exact Glottocode identity only. Unmatched samples remain separate. Multiple samples of one Glottocode are preserved as source edge labels and excluded from automatic common-tip conflict detection.",
+    "Computed topological incompatibility is not a judgment of scientific validity.",
+    "Explicit paper-level debate currently curated for Transeurasian only; other debates remain unreviewed.",
+    "Most languages lack a same-language label in the imported names dataset."
+  ],
+  "names_method": "All Glottolog names.csv rows retained with provider, language tag and original record ID. Names in the language itself are labels whose language tag matches the target ISO 639-3 code, using exact 639-1 to 639-3 equivalences only. These are source labels, not independently verified community autonyms. No macrolanguage or dialect inheritance.",
+  "iso_mapping": {
+    "source": "https://github.com/pycountry/pycountry/blob/main/src/pycountry/databases/iso639-3.json",
+    "source_blob_sha": "3e9e69f1f5eafd71c12cb7b6464a39df53115e71",
+    "note": "184 two-letter/three-letter equivalences extracted; source_blob_sha is a blob, not a commit URL. Repository file: https://github.com/pycountry/pycountry/blob/main/src/pycountry/databases/iso639-3.json"
+  },
+  "integrated_classifications": {
+    "method": "Canonical IDs are exact Glottocodes; unknown samples and internal study clades retain source-specific IDs. Original sample labels remain on source-tagged edges. Tree hypotheses are never combined across sources as one asserted ancestry. Incompatibility is computed only between rooted summary topologies restricted to at least three shared, non-repeated, non-ancestor tip IDs. Sample absence and polytomies alone are not classified as conflict. Source-specific summary trees, not posterior samples, are imported.",
+    "phlorest": "All 30 data repositories returned by the Phlorest organization repository search on 2026-10-12, excluding phlorest software and .github; second page empty.",
+    "stats": {
+      "canonicalRecords": 30885,
+      "glottologRecords": 27177,
+      "additionalRecords": 3708,
+      "summaryTrees": 30,
+      "assertions": 36369,
+      "topologicalConflicts": 2247,
+      "recordsWithConflicts": 433,
+      "sameLanguageLabels": 161
+    },
+    "source_files": [
+      {
+        "path": "source-data/phlorest/atkinson2006/metadata.json",
+        "sha256": "f142c155e55a1e25a0abfce55a4c95967596549687146a3f3d40d915ca8e3315"
+      },
+      {
+        "path": "source-data/phlorest/atkinson2006/summary.trees",
+        "sha256": "ffa4f46d28cfae30a3b439099dca5ba8aa8e91e3d960aab0713c7f9b9a0c0e27"
+      },
+      {
+        "path": "source-data/phlorest/atkinson2006/languages.csv",
+        "sha256": "f0cdbb8318552e19d947cde4310151c26f5cfbf8b9f271acd96f115316f62ada"
+      },
+      {
+        "path": "source-data/phlorest/atkinson2006/trees.csv",
+        "sha256": "6fd9936d0d2e8877f1aacc890c2f8089dca823fbcf7a08ee9e30e84ccc9f1590"
+      },
+      {
+        "path": "source-data/phlorest/birchall_et_al2016/metadata.json",
+        "sha256": "049118fbe60cf61eaddba5beb3b87b4cb4201f4870328723cdbf79151522ad97"
+      },
+      {
+        "path": "source-data/phlorest/birchall_et_al2016/summary.trees",
+        "sha256": "6fee12b9c97f727412f2fcdf926cf7dd43fa4dbc05d1105a05e3e2a59c26f1b5"
+      },
+      {
+        "path": "source-data/phlorest/birchall_et_al2016/languages.csv",
+        "sha256": "18792b6a9143d7c7464445e6734520266f469965b0edb5c772c3b248154b881f"
+      },
+      {
+        "path": "source-data/phlorest/birchall_et_al2016/trees.csv",
+        "sha256": "8040369fa184611197780a7b62de53502a2dc70afb3d916c8cdaacc4082d4421"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2012/metadata.json",
+        "sha256": "742ff001842e9d67e97b8c182301a2e2d0e0e2faf8a21d599480d1dc2f953ff7"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2012/summary.trees",
+        "sha256": "3bf48ce304e44bd3d07205dc891e1e978e9af6564fc42186a79a88fd2f53a040"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2012/languages.csv",
+        "sha256": "a91974d2a82dbb6c9b593d566f84738557516460fbbd95f2eb52501b7a4211eb"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2012/trees.csv",
+        "sha256": "561bd72092d8901944ae88e93ec6308eec23b7245d0840a5bc876d48613bba6f"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2018/metadata.json",
+        "sha256": "bf7a9a196c2e1ca8e19f381acbb9b4bc98e49eb4c45f46d466a6cf402110bdee"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2018/summary.trees",
+        "sha256": "2b1e42712ac7286ad97647874e4f0a464411482e12cf2a3a2f0e26a8fe6f9887"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2018/languages.csv",
+        "sha256": "d1f112ea22133fc49ff0c99f37d41e702081fef8e5ebb73c3c81e409ddc15a64"
+      },
+      {
+        "path": "source-data/phlorest/bouckaert_et_al2018/trees.csv",
+        "sha256": "e68a6ff38ff4c41bde637af19bbe5222b0b13648d98bcb949b20eea248ed1d68"
+      },
+      {
+        "path": "source-data/phlorest/bowern_and_atkinson2012/metadata.json",
+        "sha256": "7a98071562d7bfa0240f066f41cad9a0049857feb7221d389b8b3a418d0d7353"
+      },
+      {
+        "path": "source-data/phlorest/bowern_and_atkinson2012/summary.trees",
+        "sha256": "b372e059c65d33a88acde66459e8c917f12271bcf2d8666daa6524a9aa0270a4"
+      },
+      {
+        "path": "source-data/phlorest/bowern_and_atkinson2012/languages.csv",
+        "sha256": "a73e714a074935c3e75c7f83fd2ebbd752748cb876bf4011dbd3c932fb4bfdfb"
+      },
+      {
+        "path": "source-data/phlorest/bowern_and_atkinson2012/trees.csv",
+        "sha256": "95c5c7b46436f7ba7160f845fe52c7692386162d1b4d42886adabbe208c2330b"
+      },
+      {
+        "path": "source-data/phlorest/cathcart_et_al2020/metadata.json",
+        "sha256": "d5c95414b9235663c96d981453aee465a7a99585c800128dd01ba4428bb608ea"
+      },
+      {
+        "path": "source-data/phlorest/cathcart_et_al2020/summary.trees",
+        "sha256": "c5dfaeba4f73af4e5cf1039cfd9b32f65d993bb7045f8ea540abe03cfa618693"
+      },
+      {
+        "path": "source-data/phlorest/cathcart_et_al2020/languages.csv",
+        "sha256": "e221b384930a52881af052610d3d6cffb772d172c4b7c34416f306f17dd4406a"
+      },
+      {
+        "path": "source-data/phlorest/cathcart_et_al2020/trees.csv",
+        "sha256": "1317d4d06e4453dcda8a1bf9568b677f5ce8527e01ad682456c6df502b2cff2d"
+      },
+      {
+        "path": "source-data/phlorest/chacon_and_list2015/metadata.json",
+        "sha256": "2b018c678b89bee09eb8d3cea3b7b42e0613e216adfafbfe55ebbf23eda60590"
+      },
+      {
+        "path": "source-data/phlorest/chacon_and_list2015/summary.trees",
+        "sha256": "8572a0f631c291b768cc48743fc28f81f0c1d5c32cf7dfb0891de4895963c46e"
+      },
+      {
+        "path": "source-data/phlorest/chacon_and_list2015/languages.csv",
+        "sha256": "58702c03e2bb388da21da6d3aa65496ab93da793cf31487b33f2f3afc4e480ff"
+      },
+      {
+        "path": "source-data/phlorest/chacon_and_list2015/trees.csv",
+        "sha256": "d377d02ce85b4612fcfffd1e9764d9a72a72e1d0b07b00bfc451ac05392edacb"
+      },
+      {
+        "path": "source-data/phlorest/chang_et_al2015/metadata.json",
+        "sha256": "4e71bf456d181f3e16729240b6d2ee9e03184b5bf08838221ab3078afb668f41"
+      },
+      {
+        "path": "source-data/phlorest/chang_et_al2015/summary.trees",
+        "sha256": "79760de16c1653435ff3b1c214123bfdc9a27f7b20bff4bb23c113a3b8d29a92"
+      },
+      {
+        "path": "source-data/phlorest/chang_et_al2015/languages.csv",
+        "sha256": "e6a98959fc961d4973bbc441e5857314a2906b2021a14ed327cad1b78f5e5393"
+      },
+      {
+        "path": "source-data/phlorest/chang_et_al2015/trees.csv",
+        "sha256": "2e17dbb81247ad9c00b5ba4683014bee3137627ad921c93bbbb091ec66471b11"
+      },
+      {
+        "path": "source-data/phlorest/defilippo_et_al2012/metadata.json",
+        "sha256": "37d77475b3779267495a0b674136f49501ddaa33c8f99ae96c6e6b78701b5f70"
+      },
+      {
+        "path": "source-data/phlorest/defilippo_et_al2012/summary.trees",
+        "sha256": "ce0f12a318614633ee15b935b6296afc58ca86bd0c443ea1cbae4659f4a96d7d"
+      },
+      {
+        "path": "source-data/phlorest/defilippo_et_al2012/languages.csv",
+        "sha256": "6fd3b1bbb96dbc845bd33f8d79c0b3a655edc2f501eb832221462f44febfe253"
+      },
+      {
+        "path": "source-data/phlorest/defilippo_et_al2012/trees.csv",
+        "sha256": "a773ce4b1315bff10519f4e9eee3832e684d7c9eabea41a62e805185f88b0f9d"
+      },
+      {
+        "path": "source-data/phlorest/dunn_et_al2011/metadata.json",
+        "sha256": "518142316f0a6327460f71a9716b5562f0cf19e08770fac5a056cbc505692f90"
+      },
+      {
+        "path": "source-data/phlorest/dunn_et_al2011/summary.trees",
+        "sha256": "8218e43b4a24eddc790b4f3116c32aa31d50413085b53837654dfe9300ba51bc"
+      },
+      {
+        "path": "source-data/phlorest/dunn_et_al2011/languages.csv",
+        "sha256": "dc3593f21dba42de0e769c41a35e07ddd342b2d210f3b526855195f8f16e9609"
+      },
+      {
+        "path": "source-data/phlorest/dunn_et_al2011/trees.csv",
+        "sha256": "d25a37180cc1d72c4c220f93afe361f5e5b6ba0ff2db3ad568f0974e53245e6e"
+      },
+      {
+        "path": "source-data/phlorest/gray_et_al2009/metadata.json",
+        "sha256": "8438bc5a4fdab4c5c5d4a9b73e0a901447cbe860dfc5af98d0c7477a0bc6b9f7"
+      },
+      {
+        "path": "source-data/phlorest/gray_et_al2009/summary.trees",
+        "sha256": "3be1350cea92c266e97e353647e44b0a542e9488a8d40513cbfd45860722ae56"
+      },
+      {
+        "path": "source-data/phlorest/gray_et_al2009/languages.csv",
+        "sha256": "7118bf6633587087ff11db194ed8eb9ba5cad3cc159fe8f67398846638951d4b"
+      },
+      {
+        "path": "source-data/phlorest/gray_et_al2009/trees.csv",
+        "sha256": "38cf05832a77972dfc6a70316c6e0a93a9284eb42b9f98c7b0941cfc70a9c11f"
+      },
+      {
+        "path": "source-data/phlorest/greenhill2015/metadata.json",
+        "sha256": "dd10b167c672f00493aa92a568386027a0dac899689c018a34411e5184b4c521"
+      },
+      {
+        "path": "source-data/phlorest/greenhill2015/summary.trees",
+        "sha256": "b200923f57b147ced1b97ff2e69f22d53f985b4ad7a2503287f5555ba0e537ec"
+      },
+      {
+        "path": "source-data/phlorest/greenhill2015/languages.csv",
+        "sha256": "58f6eaec0b890b6fc1e55dff8b43807f60e769a4b4e58734dcfb9ecc1dfb7549"
+      },
+      {
+        "path": "source-data/phlorest/greenhill2015/trees.csv",
+        "sha256": "84ca57a9e9623eb201d60eb0ca2d0cec862a2284ac79e8ae8df8a66440d6b40f"
+      },
+      {
+        "path": "source-data/phlorest/greenhill_et_al2023/metadata.json",
+        "sha256": "fd79c86a9a0443db5ae621ec0c814219161a485b502d565942e067466cd0e4c9"
+      },
+      {
+        "path": "source-data/phlorest/greenhill_et_al2023/summary.trees",
+        "sha256": "91baf059bc1f19244bfdfe2f43163b7879a69a7eef846df3456227ae3553ffa4"
+      },
+      {
+        "path": "source-data/phlorest/greenhill_et_al2023/languages.csv",
+        "sha256": "de8d789ffbce1d66f8b64b67177f304c4591ec984ba1ad9974efbcf5d8bd7ad0"
+      },
+      {
+        "path": "source-data/phlorest/greenhill_et_al2023/trees.csv",
+        "sha256": "c90c90562f8d2a122de21ff3ab53648664b2aa4496a6a2b6243606156613c561"
+      },
+      {
+        "path": "source-data/phlorest/grollemund_et_al2015/metadata.json",
+        "sha256": "57f28cb4545e0103a5a6fd59a5f029d46e3f7edfb257efb136bf77cfced2e7d6"
+      },
+      {
+        "path": "source-data/phlorest/grollemund_et_al2015/summary.trees",
+        "sha256": "23a83a381afafb76c6ef49783837a4c27674b9756f811310d1c6827ecf199a4f"
+      },
+      {
+        "path": "source-data/phlorest/grollemund_et_al2015/languages.csv",
+        "sha256": "3fb2f18bc6197f6210b79ea4a89afc457c259e8cc12301e015bb16d7c2d063be"
+      },
+      {
+        "path": "source-data/phlorest/grollemund_et_al2015/trees.csv",
+        "sha256": "1b58606dd326b54a5e1cb122d6b4758529d26a322d7a4fcc736ae38c8dae606a"
+      },
+      {
+        "path": "source-data/phlorest/hartmann_and_walkden2024/metadata.json",
+        "sha256": "c3a0d3e6da921b3b4358dd96b8a2b9da4aadb00d4d81779fce5e4a2c672fa407"
+      },
+      {
+        "path": "source-data/phlorest/hartmann_and_walkden2024/summary.trees",
+        "sha256": "c9e77567f32b05b273aa2d31ebb3a969f3a602ffa7feb1a7f77d02b22ee7064f"
+      },
+      {
+        "path": "source-data/phlorest/hartmann_and_walkden2024/languages.csv",
+        "sha256": "7eac510e8298d30d3216529cef2514a490e542a98f357146580ab7f9f890808e"
+      },
+      {
+        "path": "source-data/phlorest/hartmann_and_walkden2024/trees.csv",
+        "sha256": "e5c24c957e0956cac4763020dadfa9b5187318b8582fe963a6d8c2a386794ca9"
+      },
+      {
+        "path": "source-data/phlorest/holden_et_al2005/metadata.json",
+        "sha256": "781957a25065277f71008986a108750148da0c5d62cb8c0c7b27a07eaae40ae7"
+      },
+      {
+        "path": "source-data/phlorest/holden_et_al2005/summary.trees",
+        "sha256": "d903658f5ddaa151b66552badec9f8ca6d10aeab7615b96301e6273a7ca6f68e"
+      },
+      {
+        "path": "source-data/phlorest/holden_et_al2005/languages.csv",
+        "sha256": "c72fdc4cb97374c020cef86f256169b955c3b277a48c4e49ca86cf5b44686982"
+      },
+      {
+        "path": "source-data/phlorest/holden_et_al2005/trees.csv",
+        "sha256": "cf257f3c59767e98c87f67e2423a1d4895a77f7c2c06e826744a52eeeed5114e"
+      },
+      {
+        "path": "source-data/phlorest/honkola_et_al2013/metadata.json",
+        "sha256": "24580f83526699a995323e8e551ef4597e48da8e004d171af52399e0cd926f38"
+      },
+      {
+        "path": "source-data/phlorest/honkola_et_al2013/summary.trees",
+        "sha256": "aa9e4cdd207a6aa7fc904d22e9e148348f418e6af548e5ed13d710828ddd6d69"
+      },
+      {
+        "path": "source-data/phlorest/honkola_et_al2013/languages.csv",
+        "sha256": "fe33cce1e6391be24f37f0ba4322bbe4f9a3fd43ffc019aa6f5085dc935e0dfe"
+      },
+      {
+        "path": "source-data/phlorest/honkola_et_al2013/trees.csv",
+        "sha256": "0e1cb416904acc67f239e8e7ecc338de9542b5476a4f07c2e19dc74c5df81b6f"
+      },
+      {
+        "path": "source-data/phlorest/hruschka_et_al2015/metadata.json",
+        "sha256": "78756f553a5590806f8b16198b97821e8ce93f2820473fccd25ad992a429fc83"
+      },
+      {
+        "path": "source-data/phlorest/hruschka_et_al2015/summary.trees",
+        "sha256": "dfb9b022c103f3c74ad6e8f2f2887744a3dbbef14ecf2a52286feb353dcdfa03"
+      },
+      {
+        "path": "source-data/phlorest/hruschka_et_al2015/languages.csv",
+        "sha256": "77358ec64be83ef19a16074a76ad1c3d743d414c63fdb2cb292e1e60e4517cc8"
+      },
+      {
+        "path": "source-data/phlorest/hruschka_et_al2015/trees.csv",
+        "sha256": "e057eb3203cbfb1445ce901154b3a976f957851fa26b93f321cd272aea90e8b6"
+      },
+      {
+        "path": "source-data/phlorest/kitchen_et_al2009/metadata.json",
+        "sha256": "27f125b7e6e181448732118e5f9d50b5828e38ba2e8a0089ce982e1fa5d32f2c"
+      },
+      {
+        "path": "source-data/phlorest/kitchen_et_al2009/summary.trees",
+        "sha256": "b925f7cc9599c8f183042426b9275c068a6d977296eb35816173f0d8c9a15d59"
+      },
+      {
+        "path": "source-data/phlorest/kitchen_et_al2009/languages.csv",
+        "sha256": "f16322171bf7300a0dda677956c79c2b32cf0419a4d7f656465cade324752a41"
+      },
+      {
+        "path": "source-data/phlorest/kitchen_et_al2009/trees.csv",
+        "sha256": "53c3a627bc5f998de6e96b8b12791a048d0e4427e0ec15cdbd89579935ca01a9"
+      },
+      {
+        "path": "source-data/phlorest/kolipakam_et_al2018/metadata.json",
+        "sha256": "d10a46e6c42c09533f73e1742747bb1b18adb26712991b7ffda159f5f879c07a"
+      },
+      {
+        "path": "source-data/phlorest/kolipakam_et_al2018/summary.trees",
+        "sha256": "8a21ae852c68585249238999ba1aa48a4dcd51b64523a66fae28e3803197faf0"
+      },
+      {
+        "path": "source-data/phlorest/kolipakam_et_al2018/languages.csv",
+        "sha256": "14d551cbeed3c31cdce398d73b6ffee5a1f778c9a01e9c432cfb33f6ff6b5db0"
+      },
+      {
+        "path": "source-data/phlorest/kolipakam_et_al2018/trees.csv",
+        "sha256": "3b039a119717be0bc1cf7da0863ee3b1ae5775e9f60037f333d0e148e9457642"
+      },
+      {
+        "path": "source-data/phlorest/lee2015/metadata.json",
+        "sha256": "44a6b49acea196191ad65ac60ac4db4d68637d9023d85873a1b2e0dd91971ee1"
+      },
+      {
+        "path": "source-data/phlorest/lee2015/summary.trees",
+        "sha256": "81d4f5d943b54b658c51d13112d81218b6f0d3edb9ef07202d68321ad02fc0a7"
+      },
+      {
+        "path": "source-data/phlorest/lee2015/languages.csv",
+        "sha256": "093e66c391b41e937b0a3e956a922a642ea48ccd1e511ee316e76b602f9a8e40"
+      },
+      {
+        "path": "source-data/phlorest/lee2015/trees.csv",
+        "sha256": "78570afec9d2fb38531eb85fece375403cd8fec145400ba13998adb0fabf5d26"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2011/metadata.json",
+        "sha256": "ea568d766fe43f81cb37af3a462b473dbfcc5c94965699faf849b9c36739d34e"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2011/summary.trees",
+        "sha256": "dc0bffde71729623e70ad19ffe6c2483e77f798f74a3906f705682914772f2f6"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2011/languages.csv",
+        "sha256": "f37090f025f959bed17ca45a613ddd80f7d51b9abdb51e785a4298767c1a6806"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2011/trees.csv",
+        "sha256": "711d1d475c92b8218c609a49a2fb31742c438a221accd6416c5ce95b8f611d58"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2013/metadata.json",
+        "sha256": "f8a921cee6f1c39b5999bb6562f261bedd69eaecf5cf8e2224f15eed085e41a2"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2013/summary.trees",
+        "sha256": "6eaea8db9d7e636581c8e8e3f5abd12aed7894e658a4f70e75e2ef7861666b0a"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2013/languages.csv",
+        "sha256": "df48cac220efe514915ca02ee313fc1c0e939ba932bea3db43607a0063e5f142"
+      },
+      {
+        "path": "source-data/phlorest/lee_and_hasegawa2013/trees.csv",
+        "sha256": "fb2c9f6c5577c71fa74dfd06ace56da743342227b6c12ad506c63f187b9809d8"
+      },
+      {
+        "path": "source-data/phlorest/michael_et_al2015/metadata.json",
+        "sha256": "fe5def93f7d47a4e49a647a6e2308d7601f87db08c0b6421101f01bc6bc80df1"
+      },
+      {
+        "path": "source-data/phlorest/michael_et_al2015/summary.trees",
+        "sha256": "e6a28db67d7f042708c3f9bd7235bebcd6df4b4686de1fef5ad486fb3a7fbbc1"
+      },
+      {
+        "path": "source-data/phlorest/michael_et_al2015/languages.csv",
+        "sha256": "43106e16bbb059f9f16f234c377cbda314014942a3ab1c5bdf89ff1808e52e7d"
+      },
+      {
+        "path": "source-data/phlorest/michael_et_al2015/trees.csv",
+        "sha256": "351af7782a6f85cfc9691dfd6478fa191d4640fe36b9740edaee176c6b35b6ef"
+      },
+      {
+        "path": "source-data/phlorest/rexova_et_al2006/metadata.json",
+        "sha256": "3fde2555e3dbe47cb6e0bb831990c6facfcfaee90cb686c89ed4576d9b0006b8"
+      },
+      {
+        "path": "source-data/phlorest/rexova_et_al2006/summary.trees",
+        "sha256": "8328d2666305c7a782c3e50513ed0a0e51072a0c1d942fb777257ee24404de64"
+      },
+      {
+        "path": "source-data/phlorest/rexova_et_al2006/languages.csv",
+        "sha256": "6848023810689463821115f18f31d657893fd521825e8910730c18ebffe8ee10"
+      },
+      {
+        "path": "source-data/phlorest/rexova_et_al2006/trees.csv",
+        "sha256": "a56a63872490c3ad3f27a4298da9329becc4ea96ae21260a9f1e802144fa9a4a"
+      },
+      {
+        "path": "source-data/phlorest/robinson_and_holton2012/metadata.json",
+        "sha256": "8adf1224ae53e4f53e9ab7782a71f79992d4d01327ce65f8fc713bd39d6c1d23"
+      },
+      {
+        "path": "source-data/phlorest/robinson_and_holton2012/summary.trees",
+        "sha256": "2fb3a23395aafe2a38fd20c2a1309e427be1c631e30d2ce3548822536804ae76"
+      },
+      {
+        "path": "source-data/phlorest/robinson_and_holton2012/languages.csv",
+        "sha256": "95a67b1934f11a69809d148a6ee32096d7961fd25596c2388a7102793a030444"
+      },
+      {
+        "path": "source-data/phlorest/robinson_and_holton2012/trees.csv",
+        "sha256": "a4b601b40882bdcb7513369049535b85e5135b7bbe4b79023adfb5714b4c4a18"
+      },
+      {
+        "path": "source-data/phlorest/sagart_et_al2019/metadata.json",
+        "sha256": "f68a81ebec2b08d966f2cc1530f969a5250a3cc5ecab0bdcf25d5ef15e5e0e9f"
+      },
+      {
+        "path": "source-data/phlorest/sagart_et_al2019/summary.trees",
+        "sha256": "7cc7fe140a7a64a659295c21a1f1ab71424819a7e978d1f6bace54497e997115"
+      },
+      {
+        "path": "source-data/phlorest/sagart_et_al2019/languages.csv",
+        "sha256": "7933b2388e57b6fd83e7b9b97750ec1ee9f4ee17b9bb0167bfcfd7ae4e3e0dfb"
+      },
+      {
+        "path": "source-data/phlorest/sagart_et_al2019/trees.csv",
+        "sha256": "c0d3046dd3828ac66078d3d63f8256ef0ec7f867533dc53072e054301985f64a"
+      },
+      {
+        "path": "source-data/phlorest/sicoli_and_holton2014/metadata.json",
+        "sha256": "bb7957372490a19268eada7f904164481cb984f53640403303fce12aa1a1d140"
+      },
+      {
+        "path": "source-data/phlorest/sicoli_and_holton2014/summary.trees",
+        "sha256": "7ab6d876fbf81a81606644d3ce478796a67baf999c8bb44d2195fc6fd4c16bc7"
+      },
+      {
+        "path": "source-data/phlorest/sicoli_and_holton2014/languages.csv",
+        "sha256": "122ea6364bca44a45683367376674394642c30a52b974e502fb30d44b2af94f2"
+      },
+      {
+        "path": "source-data/phlorest/sicoli_and_holton2014/trees.csv",
+        "sha256": "a7c10a38d8ea46cf7d16ea75d528457b6dc2f48bc73e20793c58ac76fc8daa42"
+      },
+      {
+        "path": "source-data/phlorest/walker_and_ribeiro2011/metadata.json",
+        "sha256": "18888601d11ee7eb0249bcb2299f6c5731ff247fe6c20ee311b9ac28c6d90fc8"
+      },
+      {
+        "path": "source-data/phlorest/walker_and_ribeiro2011/summary.trees",
+        "sha256": "b198e1059182ac61a6ab7aba1735b5b7fe8f73043ec3cba3042da41e0959c2a6"
+      },
+      {
+        "path": "source-data/phlorest/walker_and_ribeiro2011/languages.csv",
+        "sha256": "a5f070876ab74b702c9efec942f7ca7e182b532a8d1a6b671a5362789396424e"
+      },
+      {
+        "path": "source-data/phlorest/walker_and_ribeiro2011/trees.csv",
+        "sha256": "5ef13c352259df379c379ba6993b397bb6b67e45e023ec2ec4d3712d61e61401"
+      },
+      {
+        "path": "source-data/phlorest/zhang_et_al2019/metadata.json",
+        "sha256": "494a148f81f044196533c4330e6a443038c44f6ccd35a68fd969688164eb3ae9"
+      },
+      {
+        "path": "source-data/phlorest/zhang_et_al2019/summary.trees",
+        "sha256": "c212aa83f63285321558d57f6c6288913cd293bd5862e929afdfc21fa320da24"
+      },
+      {
+        "path": "source-data/phlorest/zhang_et_al2019/languages.csv",
+        "sha256": "e8a58be8b229b78d515e84c9ad317255a564db7ceafd1562a1262472dd10d588"
+      },
+      {
+        "path": "source-data/phlorest/zhang_et_al2019/trees.csv",
+        "sha256": "65cffe9d6747f2e74cf1969541874b498d57e2ef076b6f06a4a46e4aec0e3a56"
+      }
+    ],
+    "coverage": [
+      {
+        "source": "atkinson2006",
+        "tips": 30,
+        "uniqueMatched": 30,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:atkinson2006:1",
+        "anchor": "maya1287"
+      },
+      {
+        "source": "birchall_et_al2016",
+        "tips": 10,
+        "uniqueMatched": 10,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:birchall_et_al2016:1",
+        "anchor": "chap1271"
+      },
+      {
+        "source": "bouckaert_et_al2012",
+        "tips": 103,
+        "uniqueMatched": 96,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 5,
+        "root": "ph:bouckaert_et_al2012:1",
+        "anchor": "indo1319"
+      },
+      {
+        "source": "bouckaert_et_al2018",
+        "tips": 306,
+        "uniqueMatched": 225,
+        "unmatched": 2,
+        "ambiguousRepeatedGlottocodes": 44,
+        "root": "ph:bouckaert_et_al2018:1",
+        "anchor": null
+      },
+      {
+        "source": "bowern_and_atkinson2012",
+        "tips": 194,
+        "uniqueMatched": 161,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 23,
+        "root": "ph:bowern_and_atkinson2012:1",
+        "anchor": "pama1250"
+      },
+      {
+        "source": "cathcart_et_al2020",
+        "tips": 65,
+        "uniqueMatched": 65,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:cathcart_et_al2020:1",
+        "anchor": "indo1320"
+      },
+      {
+        "source": "chacon_and_list2015",
+        "tips": 21,
+        "uniqueMatched": 21,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:chacon_and_list2015:1",
+        "anchor": "tuca1253"
+      },
+      {
+        "source": "chang_et_al2015",
+        "tips": 52,
+        "uniqueMatched": 51,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 1,
+        "root": "ph:chang_et_al2015:1",
+        "anchor": "indo1319"
+      },
+      {
+        "source": "defilippo_et_al2012",
+        "tips": 412,
+        "uniqueMatched": 340,
+        "unmatched": 47,
+        "ambiguousRepeatedGlottocodes": 21,
+        "root": "ph:defilippo_et_al2012:1",
+        "anchor": "sout3152"
+      },
+      {
+        "source": "dunn_et_al2011",
+        "tips": 34,
+        "uniqueMatched": 33,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 1,
+        "root": "ph:dunn_et_al2011:1",
+        "anchor": "utoa1244"
+      },
+      {
+        "source": "gray_et_al2009",
+        "tips": 400,
+        "uniqueMatched": 367,
+        "unmatched": 1,
+        "ambiguousRepeatedGlottocodes": 25,
+        "root": "ph:gray_et_al2009:1",
+        "anchor": null
+      },
+      {
+        "source": "greenhill2015",
+        "tips": 14,
+        "uniqueMatched": 13,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 1,
+        "root": "ph:greenhill2015:1",
+        "anchor": "huon1246"
+      },
+      {
+        "source": "greenhill_et_al2023",
+        "tips": 36,
+        "uniqueMatched": 36,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:greenhill_et_al2023:1",
+        "anchor": null
+      },
+      {
+        "source": "grollemund_et_al2015",
+        "tips": 425,
+        "uniqueMatched": 334,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 53,
+        "root": "ph:grollemund_et_al2015:1",
+        "anchor": "sout3152"
+      },
+      {
+        "source": "hartmann_and_walkden2024",
+        "tips": 121,
+        "uniqueMatched": 120,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 1,
+        "root": "ph:hartmann_and_walkden2024:1",
+        "anchor": null
+      },
+      {
+        "source": "holden_et_al2005",
+        "tips": 95,
+        "uniqueMatched": 91,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 4,
+        "root": "ph:holden_et_al2005:1",
+        "anchor": "sout3152"
+      },
+      {
+        "source": "honkola_et_al2013",
+        "tips": 17,
+        "uniqueMatched": 17,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:honkola_et_al2013:1",
+        "anchor": "ural1272"
+      },
+      {
+        "source": "hruschka_et_al2015",
+        "tips": 26,
+        "uniqueMatched": 26,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:hruschka_et_al2015:1",
+        "anchor": "turk1311"
+      },
+      {
+        "source": "kitchen_et_al2009",
+        "tips": 25,
+        "uniqueMatched": 25,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:kitchen_et_al2009:1",
+        "anchor": "semi1276"
+      },
+      {
+        "source": "kolipakam_et_al2018",
+        "tips": 20,
+        "uniqueMatched": 20,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:kolipakam_et_al2018:1",
+        "anchor": "drav1251"
+      },
+      {
+        "source": "lee2015",
+        "tips": 15,
+        "uniqueMatched": 10,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 5,
+        "root": "ph:lee2015:1",
+        "anchor": "kore1284"
+      },
+      {
+        "source": "lee_and_hasegawa2011",
+        "tips": 59,
+        "uniqueMatched": 57,
+        "unmatched": 1,
+        "ambiguousRepeatedGlottocodes": 1,
+        "root": "ph:lee_and_hasegawa2011:1",
+        "anchor": "japo1237"
+      },
+      {
+        "source": "lee_and_hasegawa2013",
+        "tips": 19,
+        "uniqueMatched": 2,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 2,
+        "root": "ph:lee_and_hasegawa2013:1",
+        "anchor": "ainu1252"
+      },
+      {
+        "source": "michael_et_al2015",
+        "tips": 32,
+        "uniqueMatched": 32,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:michael_et_al2015:1",
+        "anchor": "mawe1252"
+      },
+      {
+        "source": "rexova_et_al2006",
+        "tips": 87,
+        "uniqueMatched": 87,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:rexova_et_al2006:1",
+        "anchor": "narr1281"
+      },
+      {
+        "source": "robinson_and_holton2012",
+        "tips": 13,
+        "uniqueMatched": 13,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:robinson_and_holton2012:1",
+        "anchor": "alor1249"
+      },
+      {
+        "source": "sagart_et_al2019",
+        "tips": 50,
+        "uniqueMatched": 48,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 2,
+        "root": "ph:sagart_et_al2019:1",
+        "anchor": "sino1245"
+      },
+      {
+        "source": "sicoli_and_holton2014",
+        "tips": 40,
+        "uniqueMatched": 40,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 0,
+        "root": "ph:sicoli_and_holton2014:1",
+        "anchor": null
+      },
+      {
+        "source": "walker_and_ribeiro2011",
+        "tips": 60,
+        "uniqueMatched": 57,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 3,
+        "root": "ph:walker_and_ribeiro2011:1",
+        "anchor": null
+      },
+      {
+        "source": "zhang_et_al2019",
+        "tips": 109,
+        "uniqueMatched": 89,
+        "unmatched": 0,
+        "ambiguousRepeatedGlottocodes": 14,
+        "root": "ph:zhang_et_al2019:1",
+        "anchor": "sino1245"
+      }
+    ]
+  }
+}

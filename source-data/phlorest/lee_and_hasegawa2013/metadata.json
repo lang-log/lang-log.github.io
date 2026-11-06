@@ -1,0 +1,19 @@
+{
+    "id": "lee_and_hasegawa2013",
+    "zenodo_concept_doi": "10.5281/zenodo.8250179",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "url": "https://doi.org/10.1371/journal.pone.0062243",
+    "citation": "Lee S, Hasegawa T (2013) Evolution of the Ainu Language in Space and Time. PLoS ONE 8(4): e62243. doi: 10.1371/journal.pone.0062243",
+    "name": "Evolution of the Ainu Language in Space and Time",
+    "author": "Lee & Hasegawa",
+    "year": 2013,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Ainu",
+    "cldf": "https://doi.org/10.5281/zenodo.5126889",
+    "artefacts": ["raw/ainu_ucld_grrw_sdollo.xml"],
+    "missing": {
+        "characters": "not readily available"
+    }
+}
+

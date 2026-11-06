@@ -1,0 +1,27 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+Akkadian,Akkadian,,33.1,44.1,akka1240,,,Akkadian
+Amharic,Amharic,,11.708182,39.543456,amha1245,,xd455,Amharic
+Aramaic,Aramaic,,33.905,42.185,impe1235,,,Imperial Aramaic (700-300 BCE)
+Argobba,Argobba,,10.6596,39.756,argo1244,,,Argobba
+Chaha,Chaha,,,,chah1248,,xd456,Chaha
+Gafat,Gafat,,10.11067,38.18108,gafa1240,,,Gafat
+Geez,Geez,,10.1342,40.6821,geez1241,,,Geez
+Geto,Geto,,8.11879,37.9891,seba1251,,,Sebat Bet Gurage
+Harari,Harari,,9.30485,42.1332,hara1271,,,Harari
+Harsusi,Harsusi,,19.6511,56.1562,hars1241,,,Harsusi
+Hebrew,Hebrew,,31.1056,35.0179,hebr1245,,xd589,Modern Hebrew
+Innemor,Innemor,,7.94883,37.7968,inor1238,,,Inoric
+Jibbali,Jibbali,,17.29154,53.99526,sheh1240,,,Jibbali
+Mehri,Mehri,,16.793,52.473,mehr1241,,,Mehri
+Mesmes,Mesmes,,7.53825,37.5742,mesm1243,,,Mesmes
+Mesqan,Mesqan,,8.10617,38.3386,mesq1240,,,Mesqan
+Moroccan_Arabic,Moroccan_Arabic,,32.5,-7.5,moro1292,,xd514 xd513,Moroccan Arabic
+Ogaden_Arabic,Ogaden_Arabic,,27.9625,43.8525,stan1318,,,Standard Arabic
+Soddo,Soddo,,,,sodd1242,,,Soddo
+Soqotri,Soqotri,,12.4892,53.9168,soqo1240,,,Soqotri
+Tigre,Tigre,,17.3494,38.2233,tigr1270,,xd446 xd444,Tigre
+Tigrinya,Tigrinya,,15.3359,38.9266,tigr1271,,xd437,Tigrinya
+Ugaritic,Ugaritic,,35.6,35.78,ugar1238,,,Ugaritic
+Walani,Walani,,8.23,38.14,wola1253,,,Wolane
+Zway,Zway,,8.01148,38.8258,zayy1238,,,Zay
+

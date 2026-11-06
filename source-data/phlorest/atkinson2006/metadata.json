@@ -1,0 +1,22 @@
+{
+    "id": "atkinson2006",
+    "zenodo_concept_doi": "10.5281/zenodo.8248388",
+    "license": "https://creativecommons.org/licenses/by/2.0/",
+    "url": "http://hdl.handle.net/2292/86",
+    "citation": "Atkinson, Quentin D. 2006. From Species to Languages: a phylogenetic approach to human prehistory. PhD Thesis, University of Auckland, New Zealand.",
+    "name": "From Species to Languages: a phylogenetic approach to human prehistory",
+    "author": "Atkinson",
+    "year": 2006,
+    "scaling": "millennia",
+    "analysis": "bayesian",
+    "family": "Mayan",
+    "missing": {
+        "nexus": "not retrievable.",
+        "data": "not retrievable.",
+        "cldf": "not available.",
+        "characters": "not retrievable.",
+        "posterior": "not retrievable.",
+        "artefacts": "not retrievable."
+    }
+}
+

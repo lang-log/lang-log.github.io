@@ -1,0 +1,123 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,language,Glottolog_Name
+Abidji,Abidji,,5.65656,-4.58421,abid1235,,,Abidji,Abidji
+Afrikaans,Afrikaans,,-31.63272,20.46356,afri1274,,,Afrikaans,Afrikaans
+AkanTwi,AkanTwi,,,,twii1234,,,AkanTwi,Twi
+Albanian,Albanian,,41.0,20.0,tosk1239,,,Albanian,Northern Tosk Albanian
+Amharic,Amharic,,11.708182,39.543456,amha1245,,,Amharic,Amharic
+ArabicGulf,ArabicGulf,,30.17,47.5,gulf1241,,,ArabicGulf,Gulf Arabic
+ArabicMoroccan,ArabicMoroccan,,32.5,-7.5,moro1292,,,ArabicMoroccan,Moroccan Arabic
+ArmenianEastern,ArmenianEastern,,40.0,45.0,nucl1235,,,ArmenianEastern,Eastern Armenian
+ArmenianWestern,ArmenianWestern,,40.1897,44.4839,homs1234,,,ArmenianWestern,Western Armenian
+Bafut,Bafut,,6.14153,10.1194,bafu1246,,,Bafut,Bafut
+Bambara,Bambara,,12.9,-7.65,bamb1269,,,Bambara,Bambara
+Bandial,Bandial,,12.5258,-16.4245,band1340,,,Bandial,Bandial
+Bangla,Bangla,,24.0,90.0,beng1280,,,Bangla,Bengali
+Basaa,Basaa,,3.80765,10.4213,basa1284,,,Basaá,Basa (Cameroon)
+CantoneseGuangzhou,CantoneseGuangzhou,,23.1253503,112.9476548,guan1279,,,CantoneseGuangzhou,Guangzhou
+Catalan,Catalan,,41.453,1.569,stan1289,,,Catalan,Catalan
+Chickasaw,Chickasaw,,34.0,-88.0,chic1270,,,Chickasaw,Chickasaw
+ChineseWuhu,ChineseWuhu,,,,wuhu1235,,,ChineseWuhu,Wuhua
+Croatian,Croatian,,45.555,15.982,croa1245,,,Croatian,Croatian Standard
+DagaraBurkina,DagaraBurkina,,11.0441,-3.0124,nort2780,,,DagaraBurkina,Northern Dagara
+Danish,Danish,,54.8655,9.36284,dani1285,,,Danish,Danish
+Dholuo,Dholuo,,-0.93296,34.4896,luok1236,,,Dholuo,Luo (Kenya and Tanzania)
+DidaLakotadieko,DidaLakotadieko,,5.86012,-5.40633,lako1244,,,DidaLakotadiéko,Lakota Dida
+Dutch,Dutch,,52.0,5.0,dutc1256,,,Dutch,Dutch
+English,English,,53.0,-1.0,stan1293,,,English,English
+EnglishOld,EnglishOld,,51.06,-1.31,olde1238,,,EnglishOld,Old English (ca. 450-1100)
+EnglishSingapore,EnglishSingapore,,,,sing1272,,,EnglishSingapore,Singlish
+Faroese,Faroese,,62.0732,-6.88497,faro1244,,,Faroese,Faroese
+Finnish,Finnish,,64.7628,25.5577,finn1318,,,Finnish,Finnish
+FlemishWest,FlemishWest,,51.0754,3.11345,vlaa1240,,,FlemishWest,Western Flemish
+French,French,,48.0,2.0,stan1290,,,French,French
+FrenchOld,FrenchOld,,48.8,1.11,oldf1239,,,FrenchOld,Old French (842-ca. 1400)
+Ga,Ga,,5.65488,-0.18598,gaaa1244,,,Ga,Ga
+galician,galician,,42.2446,-7.5343,gali1258,,,galician,Galician
+Garifuna,Garifuna,,15.3529,-86.9091,gari1256,,,Garifuna,Garifuna
+Georgian,Georgian,,41.850397,43.78613,nucl1302,,,Georgian,Georgian
+German,German,,48.649,12.4676,stan1295,,,German,German
+Gothic,Gothic,,46.9304,29.9786,goth1244,,,Gothic,Gothic
+Greek,Greek,,38.36,23.13,mode1248,,,Greek,Modern Greek
+GreekAncient,GreekAncient,,39.8155,21.9129,anci1242,,,GreekAncient,Ionic-Attic Ancient Greek
+GreekCalabria,GreekCalabria,,38.0166,15.88621,aspr1238,,,GreekCalabria,Greko (Calabrian Greek)
+GreekCappadocian,GreekCappadocian,,38.73,35.45,capp1239,,,GreekCappadocian,Cappadocian Greek
+GreekCypriot,GreekCypriot,,34.924591,32.978113,cypr1249,,,GreekCypriot,Cypriot Greek
+GreekHomer,GreekHomer,,39.8155,21.9129,anci1242,,,GreekHomer,Ionic-Attic Ancient Greek
+GreekMedieval,GreekMedieval,,41.013889,28.955556,medi1251,,,GreekMedieval,Medieval Greek
+Guebie,Guebie,,5.964761,-5.841819,gabo1234,,,Guébie,Gabogbo
+GungbePorto_Novo,GungbePorto-Novo,,6.48529,2.76767,gunn1250,,,GungbePorto-Novo,Gun
+Haitian,Haitian,,18.795135,-72.136115,hait1244,,,Haitian,Haitian
+Hausa,Hausa,,11.1513,8.7804,haus1257,,,Hausa,Hausa
+Hebrew,Hebrew,,31.1056,35.0179,hebr1245,,,Hebrew,Modern Hebrew
+HebrewBiblical,HebrewBiblical,,,,bibl1238,,,HebrewBiblical,Biblical Hebrew
+Hoan,Hoan,,-23.93447,24.69828,hoaa1235,,,Hoan,Amkoe
+Hungarian,Hungarian,,46.9068585714,19.6555271429,hung1274,,,Hungarian,Hungarian
+Ibibio,Ibibio,,5.15279,7.86688,ibib1240,,,Ibibio,Ibibio
+Icelandic,Icelandic,,63.4837,-19.0212,icel1247,,,Icelandic,Icelandic
+Igbo,Igbo,,4.62705,7.23441,nucl1417,,,Igbo,Igbo
+Indonesian,Indonesian,,-7.33458,109.716,indo1316,,,Indonesian,Standard Indonesian
+Italian,Italian,,43.0464,12.6489,ital1282,,,Italian,Italian
+ItalyNapoletanoAntico,ItalyNapoletanoAntico,,,,napo1241,,,ItalyNapoletanoAntico,Napoletano
+ItalyNorthernCalabrese,ItalyNorthernCalabrese,,,,nort2612,,,ItalyNorthernCalabrese,Northern Calabrese-Lucano
+ItalyReggiano,ItalyReggiano,,44.3536,11.5794,emil1241,,,ItalyReggiano,Emiliano
+ItalySiciliano,ItalySiciliano,,37.5735,14.0414,sici1248,,,ItalySiciliano,Sicilian
+ItalyTeramano,ItalyTeramano,,39.2288,16.4225,neap1235,,,ItalyTeramano,Continental Southern Italian
+Japanese,Japanese,,35.0,135.0,nucl1643,,,Japanese,Japanese
+Kiche,Kiche,,14.5278,-91.1696,kich1262,,,Kiche,K'iche'
+KiLega,KiLega,,-3.83196,27.1424,lega1249,,,KiLega,Lega-Shabunda
+Kiyaka,Kiyaka,,,,yaka1270,,,Kiyaka,Yaka
+Kom,Kom,,6.2596,10.3348,komc1235,,,Kom,Kom (Cameroon)
+Korean,Korean,,37.54,126.98,kore1280,,,Korean,Korean
+Kuot,Kuot,,-3.06952,151.537,kuot1243,,,Kuot,Kuot
+KurdishSorani,KurdishSorani,,,,sora1257,,,KurdishSorani,Sorani
+Kusaal,Kusaal,,10.9703,-0.38756,kusa1250,,,Kusaal,Kusaal
+Kusunda,Kusunda,,28.33,82.6,kusu1250,,,Kusunda,Kusunda
+Laal,Laal,,10.0063,17.6143,laal1242,,,Laal,Laal
+Latin,Latin,,41.9026,12.4502,lati1261,,,Latin,Latin
+LatinLate,LatinLate,,,,late1252,,,LatinLate,Late Latin
+Mada,Mada,,10.8806,14.1142,mada1293,,,Mada,Mada (Cameroon)
+Malagasy,Malagasy,,-19.5907,47.1211,plat1254,,,Malagasy,Plateau Malagasy
+Mandarin,Mandarin,,40.0209,116.228,mand1415,,,Mandarin,Mandarin Chinese
+Marshallese,Marshallese,,8.72,167.73,mars1254,,,Marshallese,Marshallese
+Miya,Miya,,10.9234,9.71505,miya1266,,,Miya,Miya
+Moduokru,Moduokru,,5.38228,-4.52522,adio1239,,,mɔ́dӡúkrù,Adioukrou
+Munduruku,Munduruku,,-8.41095,-57.691,mund1330,,,Mundurukú,Mundurukú
+Muyang,Muyang,,10.86047,14.21246,muya1243,,,Muyang,Muyang
+NahuatlCentralHuasteca,NahuatlCentralHuasteca,,21.0963,-98.4356,cent2134,,,NahuatlCentralHuasteca,Central Huasteca Nahuatl
+Nepali,Nepali,,28.0,85.0,nepa1254,,,Nepali,Nepali
+Norwegian,Norwegian,,59.92,10.71,norw1258,,,Norwegian,Norwegian
+Nupe,Nupe,,9.18404,5.40031,nupe1254,,,Nupe,Nupe-Nupe-Tako
+Nweh,Nweh,,5.49787,9.9028,ngwe1238,,,Nweh,Ngwe
+NzimaTiapoum,NzimaTiapoum,,5.1785,-2.81123,nzim1238,,,NzimaTiapoum,Nzima
+OluwangaEji,OluwangaEji,,0.343,34.477,wang1294,,,OluwangaEji,Wanga
+Pashto,Pashto,,,,pash1269,,,Pashto,Pashto
+Polish,Polish,,51.8439,18.6255,poli1260,,,Polish,Polish
+PomeranianBrazilian,PomeranianBrazilian,,,,east2293,,,PomeranianBrazilian,Mittelpommersch
+Portuguese,Portuguese,,39.91,-8.1,port1283,,,Portuguese,Portuguese
+PortugueseBrazilian,PortugueseBrazilian,,,,braz1246,,,PortugueseBrazilian,Brazilian Portuguese
+Qanjobal,Qanjobal,,15.6846,-91.3043,qanj1241,,,Qanjobal,Q'anjob'al
+QuichuaImbaburaQuichua,QuichuaImbaburaQuichua,,0.31776,-78.3729,imba1240,,,QuichuaImbaburaQuichua,Imbabura Highland Quichua
+Romanian,Romanian,,46.3913,24.2256,roma1327,,,Romanian,Romanian
+Russian,Russian,,59.0,50.0,russ1263,,,Russian,Russian
+Samoan,Samoan,,-13.92,-171.83,samo1305,,,Samoan,Samoan
+SaxonOld,SaxonOld,,52.37,9.72,olds1250,,,SaxonOld,Old Saxon
+Serbian,Serbian,,44.3238,21.9192,serb1264,,,Serbian,Serbian Standard
+Shupamem,Shupamem,,5.49017,10.8477,bamu1253,,,Shupamem,Bamun
+Skou,Skou,,-2.64378,140.902,nucl1634,,,Skou,Skou
+Spanish,Spanish,,40.4414,-1.11788,stan1288,,,Spanish,Spanish
+Swedish,Swedish,,59.800634,17.389526,swed1254,,,Swedish,Swedish
+Tagalog,Tagalog,,14.06,121.747,taga1270,,,Tagalog,Tagalog
+TaiwaneseSouthernMin,TaiwaneseSouthernMin,,25.0853403,121.4231642,taib1242,,,TaiwaneseSouthernMin,Taibei Hokkien
+Thai,Thai,,14.192,100.671,thai1261,,,Thai,Thai
+Tommo_So,Tommo-So,,14.756,-3.28,tomm1242,,,Tommo-So,Tommo So Dogon
+TukangBesi,TukangBesi,,-5.7478,123.948,tuka1249,,,TukangBesi,Tukang Besi South
+TukiTukombo,TukiTukombo,,4.64348,11.5353,tuki1240,,,TukiTukombo,Tuki
+TupiTupinamba,TupiTupinamba,,-22.807778,-42.106389,tupi1273,,,TupíTupinambá,Tupinambá
+Turkish,Turkish,,39.8667,32.8667,nucl1301,,,Turkish,Turkish
+Twi,Twi,,6.34756,-1.33254,akan1250,,,Twi,Akan
+Vata,Vata,,,,vata1239,,,Vata,Vata
+Vietnamese,Vietnamese,,20.681188,105.774071,viet1252,,,Vietnamese,Vietnamese
+Wolof,Wolof,,15.2534,-15.383,nucl1347,,,Wolof,Wolof
+Xhosa,Xhosa,,-31.0389,28.0769,xhos1239,,,Xhosa,Xhosa
+Yemba,Yemba,,5.47421,10.0214,yemb1246,,,Yémba,Yemba
+

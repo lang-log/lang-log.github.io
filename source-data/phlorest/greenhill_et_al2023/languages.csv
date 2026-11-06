@@ -1,0 +1,38 @@
+ID,Name,Macroarea,Latitude,Longitude,Glottocode,ISO639P3code,xd_ids,Glottolog_Name
+Aztec_Tetelcingo_30,Aztec_Tetelcingo-30,,18.8854,-98.893,tete1251,,,Tetelcingo Nahuatl
+Aztec_Zacapoaxtla_31,Aztec_Zacapoaxtla-31,,20.1554,-97.5556,high1278,,,Highland Puebla Nahuatl
+Cahuilla_12,Cahuilla-12,,33.5324,-116.691,cahu1264,,xd1131 xd1439 xd1440,Cahuilla
+Chemehuevi_7,Chemehuevi-7,,35.356093,-116.438436,chem1251,,xd1190,Chemehuevi
+Classical_Aztec_29,Classical_Aztec-29,,19.72,-96.97,clas1250,,xd1301,Classical Nahuatl
+Comanche_5,Comanche-5,,34.0,-101.0,coma1245,,xd1222,Comanche
+Cora_27,Cora-27,,22.4099,-104.467,elna1235,,,El Nayar Cora
+Cupeno_13,Cupeno-13,,33.3148,-116.515,cupe1243,,xd1132,Cupeño
+Eudeve_21,Eudeve-21,,28.5,-110.0,eude1234,,,Eudeve
+Gabrielino_15,Gabrielino-15,,34.1,-118.11,tong1329,,xd1128,Tongva
+Guarijio_22,Guarijio-22,,27.8685,-108.437,huar1255,,,Huarijio
+Hopi_16,Hopi-16,,35.7653,-110.535,hopi1249,,xd1268,Hopi
+Huichol_28,Huichol-28,,21.954,-104.062,huic1243,,xd1288,Huichol
+Kawaiisu_6,Kawaiisu-6,,36.0538,-118.679,kawa1283,,xd1126,Kawaiisu
+Kiowa_35,Kiowa-35,,34.9403,-98.9042,kiow1266,,xd1216,Kiowa
+Kitanemuk_34,Kitanemuk-34,,,,kita1252,,,Kitanemuk
+Luiseno_14,Luiseno-14,,33.3184,-116.939,luis1253,,xd1133,Luiseno-Juaneño
+Mayo_25,Mayo-25,,26.4522,-108.981,mayo1264,,,Mayo
+Mono_1,Mono-1,,37.1935,-119.347,mono1275,,xd1122 xd1162 xd1164 xd993,Mono (USA)
+Northern_Paiute_2,Northern_Paiute-2,,40.0799,-119.536,nort2954,,,Northern Paiute
+Northern_Tepehuan_19,Northern_Tepehuan-19,,26.4348,-107.379,nort2959,,xd1294,Northern Tepehuan
+Opata_20,Opata-20,,31.15211,-110.06212,opat1246,,xd1293,Teguima
+Pannamint_3,Pannamint-3,,36.0007,-117.901,pana1305,,xd1165 xd1166 xd1167,Panamint
+Papago_Pima_17,Papago-Pima-17,,31.7973,-111.995,toho1245,,,Tohono O'odham
+Pima_de_Onavas_18,Pima_de_Onavas-18,,28.654,-108.326,pima1248,,,Pima Bajo
+Pipil_32,Pipil-32,,13.8931,-89.443,pipi1250,,,Pipil
+San_Juan_Pueblo_Tewa_36,San_Juan_Pueblo_Tewa-36,,36.0542,-106.0703,sanj1276,,xd1429,San Juan (USA)
+Serrano_11,Serrano-11,,33.9479,-116.772,serr1255,,xd1130,Serrano
+Shoshoni_Gosiute_Dialect_4,Shoshoni_Gosiute_Dialect-4,,,,gosi1242,,xd1183,Gosiute
+Southeastern_Tepehuan_33,Southeastern_Tepehuan-33,,23.1584,-103.983,sout2976,,,Southeastern Tepehuan
+Southern_Paiute_8,Southern_Paiute-8,,37.0,-114.0,sout2969,,xd1187 xd1188 xd1189 xd1192,Southern Paiute
+Southern_Ute_9,Southern_Ute-9,,38.0,-109.0,utee1244,,xd1152 xd1184 xd1186 xd1193 xd1194 xd1195 xd1197 xd1198 xd1199 xd991,Ute
+Tarahumara_23,Tarahumara-23,,27.5648,-107.154,cent2131,,xd1286,Central Tarahumara
+Tubar_24,Tubar-24,,27.00003,-107.98934,tuba1279,,,Tubar
+Tubatulabel_10,Tubatulabel-10,,35.327,-117.163,tuba1278,,xd1118,Tübatulabal
+Yaqui_26,Yaqui-26,,29.9446,-110.681,yaqu1251,,xd1292,Yaqui
+

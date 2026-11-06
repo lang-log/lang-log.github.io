@@ -1,0 +1,17 @@
+{
+    "id": "greenhill_et_al2023",
+    "zenodo_concept_doi": "10.5281/zenodo.17572678",
+    "license": "https://creativecommons.org/licenses/by/2.0/",
+    "url": "https://doi.org/10.1353/lan.0.0276",
+    "citation": "Greenhill, S., Haynie, H., Ross, R., Chira, A., List, J.-M., Campbell, L., Botero, C., & Gray, R. (2023). A recent northern origin for the Uto-Aztecan family. Language. https://doi.org/10.1353/lan.0.0276",
+    "name": "A recent northern origin for the Uto-Aztecan family",
+    "author": "Greenhill, Haynie et al.",
+    "year": 2023,
+    "scaling": "years",
+    "analysis": "bayesian",
+    "family": "Uto-Aztecan",
+    "cldf": "https://doi.org/10.5281/zenodo.4691101",
+    "artefacts": ["raw/ua-covarion-relaxed.xml"],
+    "missing": {}
+}
+
