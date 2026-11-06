@@ -1,6 +1,6 @@
 import json,csv,re,collections,xml.etree.ElementTree as ET
 from pathlib import Path
-D=Path('dist');x=json.loads((D/'visual-atlas.json').read_text());n=x['nodes'];e=x['assertions'];b=json.loads((D/'data.json').read_text())['nodes']
+D=Path('dist');x=json.loads((D/'signs-and-scripts.json').read_text());n=x['nodes'];e=x['assertions'];b=json.loads((D/'data.json').read_text())['nodes']
 expected={i for i,v in b.items() if v['category']=='Sign Language'}
 assert len(expected)==344 and expected<=n.keys()
 for i in expected:
@@ -8,7 +8,7 @@ for i in expected:
  assert n[i]['nativeNames']==b[i]['nativeNames']
  p=b[i]['parent']
  if p:assert any(a['parent']==p and a['child']==i and a['source']=='glottolog' for a in e)
-iso={r.split(';')[0] for r in Path('source-data/visual-atlas/iso15924.txt').read_text().splitlines() if r and not r.startswith('#')};assert iso<=n.keys() and len(iso)==226
+iso={r.split(';')[0] for r in Path('source-data/signs-and-scripts/iso15924.txt').read_text().splitlines() if r and not r.startswith('#')};assert iso<=n.keys() and len(iso)==226
 for a in e:assert a['parent'] in n and a['child'] in n and a['source'] in x['sources']
 for note in x['notes']:assert set(note['nodes'])<=n.keys() and set(note['sources'])<=x['sources'].keys()
 assert [len(t['tips']) for t in x['studies']]==[4,15,15]
@@ -37,8 +37,8 @@ def decode(el):
  if t=='boolean':return el.text=='True'
  if t=='number':return json.loads(el.text)
  return el.text or ''
-assert decode(ET.parse(D/'visual-atlas.xml').getroot())==x
-refs={v.get('recordId') for v in ET.parse(D/'visual-atlas.opml').iter('outline') if v.get('recordId')};assert refs==set(n),(set(n)-refs)
+assert decode(ET.parse(D/'signs-and-scripts.xml').getroot())==x
+refs={v.get('recordId') for v in ET.parse(D/'signs-and-scripts.opml').iter('outline') if v.get('recordId')};assert refs==set(n),(set(n)-refs)
 assert len(x['usage'])==1001 and all(u['script'] in n and u['source']=='cldr' for u in x['usage'])
 assert all(not re.search(r'[<>]',i) for i in n)
 print('PASS: full snapshot coverage, aliases, sample mapping, source references, acyclic graph, competing Brahmi origins, lossless XML round-trip, complete OPML reachability and separate CLDR usage.')

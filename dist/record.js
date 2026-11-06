@@ -2,7 +2,7 @@
 (async()=>{
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const params=new URLSearchParams(location.search),domain=['sign','scripts'].includes(params.get('domain'))?params.get('domain'):'language',id=params.get('id');
-const listURL=domain==='language'?'language-families.html':'visual-atlas.html?domain='+domain;
+const listURL=domain==='language'?'language-families.html':'signs-and-scripts.html?domain='+domain;
 $('back').href=listURL;
 async function get(file){const r=await fetch(file);if(!r.ok)throw Error('Could not load the record data.');return r.json();}
 try{
@@ -12,10 +12,10 @@ if(domain==='language'){
  const path=new Set();let p=id;while(base[p]&&!path.has(p)){path.add(p);p=base[p].parent;}
  debates=(u.debates||[]).filter(d=>d.appliesTo.some(i=>path.has(i)));
  conflicts=(u.conflictIndex[id]||[]).map(i=>u.conflicts[i]);
-}else{const d=await get('visual-atlas.json');N=d.nodes;S=d.sources;E=d.assertions;notes=d.notes.filter(x=>x.nodes.includes(id));usage=d.usage.filter(x=>x.script===id);}
+}else{const d=await get('signs-and-scripts.json');N=d.nodes;S=d.sources;E=d.assertions;notes=d.notes.filter(x=>x.nodes.includes(id));usage=d.usage.filter(x=>x.script===id);}
 const n=N[id];if(!n||(domain!=='language'&&n.domain!==domain)){$('variant-content').innerHTML='<h1>Record not found</h1><p>This URL does not identify a record in this section.</p><a href="'+listURL+'">Return to the variant list</a>';return;}
 document.title=n.name+' · Lang Log by yoshi';
-const url=i=>'variant-detail.html?domain='+domain+'&id='+encodeURIComponent(i),nl=i=>N[i]?`<a href="${esc(url(i))}">${esc(N[i].name)}</a>`:esc(i),sl=s=>S[s]?`<a href="${esc(S[s].url)}" target="_blank" rel="noopener">${esc(S[s].title)}</a>`:esc(s);
+const url=i=>'record.html?domain='+domain+'&id='+encodeURIComponent(i),nl=i=>N[i]?`<a href="${esc(url(i))}">${esc(N[i].name)}</a>`:esc(i),sl=s=>S[s]?`<a href="${esc(S[s].url)}" target="_blank" rel="noopener">${esc(S[s].title)}</a>`:esc(s);
 const incoming=E.filter(e=>e.child===id&&e.parent),outgoing=E.filter(e=>e.parent===id),aliases=n.names||n.aliases||[],native=n.nativeNames||[];
 const evidence=e=>`<div class="evidence-card"><strong>${nl(e.parent)}</strong><p>According to ${sl(e.source)}</p>${e.kind?'<p>'+esc(e.kind)+'</p>':''}${e.status&&e.status!=='reported'?'<p>Status: '+esc(e.status)+'</p>':''}${e.hypothesis?'<p>'+esc(e.hypothesis)+'</p>':''}${e.sample?'<p>Source sample: '+esc(e.sample)+'</p>':''}${e.run?'<p>Run: '+esc(e.run)+'</p>':''}${e.posterior!=null?'<p>Posterior: '+esc(e.posterior)+'</p>':''}${e.reportedVia?'<p>Reported and discussed in '+sl(e.reportedVia)+'</p>':''}</div>`;
 const sourceIds=new Set([...(n.sources||[]),...incoming.map(e=>e.source),...outgoing.map(e=>e.source),...notes.flatMap(t=>t.sources)]);if(base?.[id])sourceIds.add('glottolog');

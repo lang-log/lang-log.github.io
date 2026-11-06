@@ -2,7 +2,7 @@
 import csv,json,re,hashlib,collections,xml.etree.ElementTree as ET
 from pathlib import Path
 from html.parser import HTMLParser
-P=Path('source-data/visual-atlas'); D=Path('dist'); B=json.loads((D/'data.json').read_text())['nodes']
+P=Path('source-data/signs-and-scripts'); D=Path('dist'); B=json.loads((D/'data.json').read_text())['nodes']
 N={}; E=[]; S={}; notes=[]; usage=[]
 def src(i,title,url,kind,**kw):S[i]=dict(id=i,title=title,url=url,kind=kind,**kw)
 def node(i,name,domain,kind,**kw):N[i]=dict(id=i,name=name,domain=domain,kind=kind,aliases=[],nativeNames=[],**kw);return i
@@ -170,7 +170,7 @@ files=[]
 for f in sorted(P.iterdir()):
  if f.is_file():files.append(dict(path=str(f),sha256=hashlib.sha256(f.read_bytes()).hexdigest(),bytes=f.stat().st_size))
 result=dict(schemaVersion=1,retrieved='2026-10-17',nodes=N,assertions=E,sources=S,notes=notes,usage=usage,studies=studies,counts=counts,files=files,limitations=['Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.','All 344 Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories.','Script catalog membership is much broader than the manually reviewed historical relationship set. A script with no edge has an unreviewed or unasserted placement, not a certified independent origin.','SIL-local IDs are preserved and never fuzzy-merged with ISO codes. Possible duplicate concepts remain source-specific.','Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.','English and French catalog labels and all Glottolog aliases are retained. Verified native names are sparse; script glyph samples are not autonyms. Sign-language self-names generally need video or sign notation and have not been fabricated.','Only selected source-backed disagreements are reviewed. No claim that every competing publication is incorporated.','Abner consensus branch lengths and posterior annotations are retained in JSON/XML; no time-scaled visual or posterior sample inference. Two European runs are replicates, not independent papers.'])
-(D/'visual-atlas.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':')))
+(D/'signs-and-scripts.json').write_text(json.dumps(result,ensure_ascii=False,separators=(',',':')))
 # Lossless nested XML for every JSON field, with explicit types.
 x=ET.Element('visualLanguageAtlas',schemaVersion='1')
 def xml(parent,value):
@@ -181,7 +181,7 @@ def xml(parent,value):
   parent.set('type','array')
   for v in value:xml(ET.SubElement(parent,'item'),v)
  else:parent.set('type','null' if value is None else 'boolean' if isinstance(value,bool) else 'number' if isinstance(value,(int,float)) else 'string');parent.text='' if value is None else str(value)
-xml(x,result);ET.ElementTree(x).write(D/'visual-atlas.xml',encoding='utf-8',xml_declaration=True)
+xml(x,result);ET.ElementTree(x).write(D/'signs-and-scripts.xml',encoding='utf-8',xml_declaration=True)
 # Outline repeats IDs across alternative parents; usage remains in JSON/XML.
 o=ET.Element('opml',version='2.0');ET.SubElement(ET.SubElement(o,'head'),'title').text='Sign languages and writing systems — source-conditioned outline';body=ET.SubElement(o,'body');out=collections.defaultdict(list);incoming=set()
 for e in E:out[e['parent']].append(e);incoming.add(e['child'])
@@ -195,5 +195,5 @@ for domain in ['sign','scripts']:
  q=ET.SubElement(body,'outline',text=domain)
  for i,n in N.items():
   if n['domain']==domain and i not in incoming:emit(q,i,set())
-ET.ElementTree(o).write(D/'visual-atlas.opml',encoding='utf-8',xml_declaration=True)
+ET.ElementTree(o).write(D/'signs-and-scripts.opml',encoding='utf-8',xml_declaration=True)
 print(json.dumps(counts,indent=2))

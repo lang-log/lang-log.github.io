@@ -14,7 +14,7 @@ The scripts live in `tools/`; run them from the repository root. Run `python3 to
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
 
-The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `tools/build_home.py` from `dist/integrated.json` and `dist/visual-atlas.json`; run it again when the data changes. The atlas pages themselves show no counts.
+The top page (`./`, `dist/index.html`) introduces the tool, shows the record counts and links to the three atlases. It is written by `tools/build_home.py` from `dist/integrated.json` and `dist/signs-and-scripts.json`; run it again when the data changes. The atlas pages themselves show no counts.
 
 Language families (`language-families.html`):
 
@@ -31,9 +31,9 @@ Language families (`language-families.html`):
 | `task` | Hugging Face model task in the record details (for example `translation`) |
 | `about=1` | Sources & scope dialog open |
 
-Signs and scripts (`visual-atlas.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
+Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
 
-Record pages (`variant-detail.html`): `domain`, `id` and `task`.
+Record pages (`record.html`): `domain`, `id` and `task`.
 
 Older links of the form `language-families.html#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
 
@@ -47,7 +47,7 @@ The code and the site of Lang Log are licensed under the GNU Affero General Publ
 
 Copyright (C) 2026 MATSUURA Yoshihiro
 
-Source datasets keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/visual-atlas-licenses.txt`, the source registers in the site and the documentation below.
+Source datasets keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/signs-and-scripts-licenses.txt`, the source registers in the site and the documentation below.
 
 ## GitHub Pages
 
@@ -116,9 +116,9 @@ The Sources panel documents this integration. XML and OPML remain classification
 
 ## Signs and scripts extension (17 October 2026)
 
-`visual-atlas.html?domain=sign` and `visual-atlas.html?domain=scripts` extend the same public atlas. Domain navigation is added to the existing page without replacing its language data or controls.
+`signs-and-scripts.html?domain=sign` and `signs-and-scripts.html?domain=scripts` extend the same public atlas. Domain navigation is added to the existing page without replacing its language data or controls.
 
-Rebuild with `python tools/build_visual.py`; validate with `python tools/validate_visual.py` and `node --check dist/visual-atlas.js`.
+Rebuild with `python tools/build_visual.py`; validate with `python tools/validate_visual.py` and `node --check dist/signs-and-scripts.js`.
 
 Coverage: all 344 Glottolog 5.3 Sign Language-category records (including categories, families and dialects), all 76 Power et al. CLDF manual-alphabet samples, three Abner et al. consensus trees spanning 19 distinct language samples, all 226 rows of the downloaded ISO 15924 table, and all 325 SIL Scripts Index rows. Exact script codes are merged; SIL-local IDs remain distinct. There are 334 script/notation records, 63 reviewed historical/influence assertions and 1,001 explicit CLDR language/script usage entries. These counts measure different units. They do not establish exhaustive coverage of world literature or all proposed genealogies.
 
@@ -128,19 +128,19 @@ JSON and XML preserve all fields, assertions, source metadata, notes, usage and 
 
 Validation passed for catalog coverage, mappings, acyclic relationships, complete OPML reachability and XML round-trip. A temporary LinkeDOM harness also exercised both domains: rendering, pagination, alias search, mobile-menu state, record details, lazy expansion, horizontal/list switching, collapse and source register. This is DOM logic validation, not real-browser rendering or device testing; the managed environment had no supported browser QA capability.
 
-Source files and their original licenses remain attributed. See `source-data/visual-atlas/input-provenance.json` and `dist/visual-atlas-licenses.txt`. The base language atlas is unchanged apart from domain navigation.
+Source files and their original licenses remain attributed. See `source-data/signs-and-scripts/input-provenance.json` and `dist/signs-and-scripts-licenses.txt`. The base language atlas is unchanged apart from domain navigation.
 
 ## Variant details and simplified copy (18 October 2026 JST)
 
 Removed decorative hero copy and fixed “Start exploring” suggestions. Persistent dice controls select canonical language/dialect records (not families or study samples); the scripts section samples writing-system records and excludes special/collection codes. The currently selected record is excluded from the next draw.
 
-`variant-detail.html?domain=language&id=<record-id>` provides standalone details for base language records and imported source-specific nodes. `domain=sign` and `domain=scripts` use the signs/scripts graph. Tree-node names and sidebar links open the record page. Pages include aliases, native-label evidence, source-conditioned parents and children, competing research accounts, script usage where applicable, and language-tagged Hugging Face results. Shareable URLs, copy-link control, return-to-tree links and random selection are included. Unknown IDs render a not-found state. No new decorative explanatory copy was added.
+`record.html?domain=language&id=<record-id>` provides standalone details for base language records and imported source-specific nodes. `domain=sign` and `domain=scripts` use the signs/scripts graph. Tree-node names and sidebar links open the record page. Pages include aliases, native-label evidence, source-conditioned parents and children, competing research accounts, script usage where applicable, and language-tagged Hugging Face results. Shareable URLs, copy-link control, return-to-tree links and random selection are included. Unknown IDs render a not-found state. No new decorative explanatory copy was added.
 
 Syntax and DOM checks cover both list views, random selection, detail routes for language/dialect/source-node/sign/script records, copying URLs, navigation and unknown-ID handling. Real-browser visual QA remains unverified in this managed environment.
 
 ## Page data
 
-The atlas and the record detail page (`variant-detail.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `tools/split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
+The atlas and the record detail page (`record.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `tools/split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
 
 - `data/atlas.json` (about 0.8 MB compressed): the tree, native names, sources, study trees and conflicts. Glottolog records are stored as columns, and values the browser can recompute (ids inside records, children, root, size, Glottolog assertions, placements) are left out.
 - `data/names/<n>.json`: recorded names and spellings, split into 64 files by a hash of the record id. A page loads one when it shows a record's names.

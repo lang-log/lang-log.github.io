@@ -32,7 +32,7 @@ for key,rs,label in [('nodes','roots','Glottolog 5.3'),('wals','walsRoots','WALS
    ET.SubElement(names,'name',attrs).text=r['text']
   for c in n['children']:node(c,el)
  for id in data[rs]:node(id,ds)
-ET.ElementTree(root).write(out/'language-atlas.xml',encoding='utf-8',xml_declaration=True)
+ET.ElementTree(root).write(out/'language-families.xml',encoding='utf-8',xml_declaration=True)
 op=ET.Element('opml',{'version':'2.0'});head=ET.SubElement(op,'head');ET.SubElement(head,'title').text='Lang Log — Glottolog 5.3 and WALS';body=ET.SubElement(op,'body')
 for key,rs,label in [('nodes','roots','Glottolog 5.3'),('wals','walsRoots','WALS CLDF snapshot')]:
  ds=ET.SubElement(body,'outline',{'text':label});d=data[key]
@@ -43,5 +43,5 @@ for key,rs,label in [('nodes','roots','Glottolog 5.3'),('wals','walsRoots','WALS
   el=ET.SubElement(parent,'outline',attrs)
   for c in n['children']:outline(c,el)
  for id in data[rs]:outline(id,ds)
-ET.ElementTree(op).write(out/'language-atlas.opml',encoding='utf-8',xml_declaration=True)
-print({k:v for k,v in data['stats'].items() if 'ame' in k});print([(p.name,p.stat().st_size) for p in out.glob('language-atlas.*')]);print('Japanese:',nodes['nucl1643']['nativeNames'])
+ET.ElementTree(op).write(out/'language-families.opml',encoding='utf-8',xml_declaration=True)
+print({k:v for k,v in data['stats'].items() if 'ame' in k});print([(p.name,p.stat().st_size) for p in out.glob('language-families.*')]);print('Japanese:',nodes['nucl1643']['nativeNames'])

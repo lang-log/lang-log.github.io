@@ -5,7 +5,7 @@ node_modules/
 .env.*
 
 /dist/data.json
-/dist/language-atlas.xml
+/dist/language-families.xml
 # Record pages and families/ written by build_paths.py (one directory per
 # top-level family). Committed directories under dist/ are listed with !.
 /dist/*/
