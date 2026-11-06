@@ -25,7 +25,7 @@ import unicodedata
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist"
 OUT = DIST / "t"
-TITLE_SUFFIX = " · Language Atlas by yoshi"
+TITLE_SUFFIX = " · Languer by yoshi"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -178,8 +178,8 @@ def page(depth, title, body):
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
-            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANGUAGE ATLAS</a><a href=\"{up}t/\">All families</a></header>"
-            f"<main>{body}</main><footer><a href=\"{up}\">Language Atlas</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
+            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANGUER <span class=\"by\">by yoshi</span></a><a href=\"{up}t/\">All families</a></header>"
+            f"<main>{body}</main><footer><a href=\"{up}\">Languer</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
 
 
 def record_json(i):

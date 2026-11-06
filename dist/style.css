@@ -124,3 +124,4 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 }
 /* Classification breadcrumb above each record name */
 .lineage{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;margin:0 0 8px;font-size:12px;line-height:1.5;color:var(--muted)}.lineage-path{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center}.lineage-path li{display:inline-flex;align-items:center;overflow-wrap:anywhere}.lineage-path li::after{content:"›";color:var(--muted);margin:0 6px}.lineage-path button{border:0;padding:2px 0;color:var(--teal);text-decoration:underline;text-underline-offset:2px;text-align:left;font-size:inherit}.lineage-source,.lineage-source a{font-size:10px;color:var(--muted)}.lineage-source::after{content:":"}@media(max-width:700px){.lineage{font-size:14px}.lineage-path button{min-height:44px;padding:7px 3px}}
+.brand .by{font-weight:400;letter-spacing:.5px;color:var(--muted)}
