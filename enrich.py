@@ -33,7 +33,7 @@ for key,rs,label in [('nodes','roots','Glottolog 5.3'),('wals','walsRoots','WALS
   for c in n['children']:node(c,el)
  for id in data[rs]:node(id,ds)
 ET.ElementTree(root).write(out/'language-atlas.xml',encoding='utf-8',xml_declaration=True)
-op=ET.Element('opml',{'version':'2.0'});head=ET.SubElement(op,'head');ET.SubElement(head,'title').text='Language Atlas — Glottolog 5.3 and WALS';body=ET.SubElement(op,'body')
+op=ET.Element('opml',{'version':'2.0'});head=ET.SubElement(op,'head');ET.SubElement(head,'title').text='Languer — Glottolog 5.3 and WALS';body=ET.SubElement(op,'body')
 for key,rs,label in [('nodes','roots','Glottolog 5.3'),('wals','walsRoots','WALS CLDF snapshot')]:
  ds=ET.SubElement(body,'outline',{'text':label});d=data[key]
  def outline(id,parent):

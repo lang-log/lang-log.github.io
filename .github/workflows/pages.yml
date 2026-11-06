@@ -32,13 +32,16 @@ jobs:
       # source-data/packed/ and checks their SHA-256.
       - run: python3 prepare_static.py
       # Writes one page and one record.json per Glottolog record under
-      # dist/t/<family>/.../<language>/ (not committed; built here).
+      # dist/<family>/.../<language>/, the list dist/families/ and redirect
+      # pages at the old dist/t/... URLs (not committed; built here).
       - run: python3 build_paths.py
       - name: Check that every page and data file is present
         run: |
           for f in index.html visual-atlas.html variant-detail.html \
                    data.json integrated.json language-atlas.xml \
-                   lineage-paths.js t/index.html t/stages.json \
+                   lineage-paths.js redirect.js stages.json families/index.html \
+                   afro-asiatic/berber/index.html t/index.html \
+                   t/afro-asiatic/berber/index.html \
                    map/land.svg map/land-pacific.svg; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done

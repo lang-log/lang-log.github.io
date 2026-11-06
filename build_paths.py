@@ -1,5 +1,6 @@
 """Write one static page and one JSON file per Glottolog record, at a URL
-that follows the classification: dist/t/<family>/<subgroup>/.../<language>/.
+that follows the classification: dist/<family>/<subgroup>/.../<language>/
+(served as https://nguekwang.github.io/languer/<family>/.../<language>/).
 
 Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 
@@ -11,6 +12,11 @@ Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
   the modern language's page, reached as <modern path>/#<anchor> (for
   example .../english/#old). Their children live under
   <modern path>/<anchor>/<child>/.
+- dist/families/ lists the top-level families and isolates.
+- The pages used to live under dist/t/. Every old t/ URL is kept as a small
+  page that sends the visitor to the new URL (see write_old_t_redirects).
+- A top-level slug must not equal a name already used at the top of dist/
+  (RESERVED); the build stops if one does.
 - The pages need no JavaScript. dist/app.js and dist/variant-detail.js use the
   same rules (see pathOf in those files) to link here.
 """
@@ -27,8 +33,12 @@ from languoid_map import map_svg
 
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist"
-OUT = DIST / "t"
-TITLE_SUFFIX = " · Language Atlas by yoshi"
+OUT = DIST
+OLD = DIST / "t"  # former location of the record pages; now only redirects
+FAMILIES = DIST / "families"
+# Top-level names in dist/ that a family slug must not take.
+RESERVED = {"t", "families", "map"}
+TITLE_SUFFIX = " · Languer by yoshi"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -102,7 +112,7 @@ points_under = _points_under()
 
 
 def path_of(i):
-    """URL path below t/, without leading or trailing slash; stages end in #anchor."""
+    """URL path below the atlas root, without leading or trailing slash; stages end in #anchor."""
     if i in path_cache:
         return path_cache[i]
     if i in stage_of:
@@ -130,7 +140,7 @@ def lineage(i):
 
 
 def href(from_dir_depth, target_id):
-    """Relative link from a page at depth from_dir_depth below t/ to a record."""
+    """Relative link from a page at depth from_dir_depth below the atlas root to a record."""
     p = path_of(target_id)
     if "/#" in p:
         d, a = p.split("/#")
@@ -207,9 +217,9 @@ def meta_html(n):
 def record_body(depth, i, heading="h1"):
     n = nodes[i]
     body = f'<{heading}>{escape(n["name"])}</{heading}>{meta_html(n)}'
-    body += (f'<p><a href="{"../" * (depth + 1)}#{escape(i)}">Open in the atlas</a> · '
+    body += (f'<p><a href="{"../" * depth}#{escape(i)}">Open in the atlas</a> · '
              f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a> · '
-             f'<a href="{"../" * (depth + 1)}variant-detail.html?domain=language&amp;id={escape(i)}">Full source detail</a></p>')
+             f'<a href="{"../" * depth}variant-detail.html?domain=language&amp;id={escape(i)}">Full source detail</a></p>')
     if heading == "h1":
         body += map_html(depth, i)
     return body + names_html(n) + placements_html(i)
@@ -218,8 +228,9 @@ def record_body(depth, i, heading="h1"):
 def map_html(depth, i):
     n = nodes[i]
     family = n["level"] == "family"
-    main = [coords[c] for c in points_under[i]]
     own = None if family else coords.get(i)
+    # Many dialects carry their language's own point; those add nothing to show.
+    main = [coords[c] for c in points_under[i] if coords[c] != own]
     parent = n.get("parent")
     context = []
     if parent in nodes:
@@ -230,7 +241,7 @@ def map_html(depth, i):
         label = f"Map: {len(main)} languages of {n['name']}"
     else:
         label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
-    svg = map_svg("../" * (depth + 1) + "map/", main, context, own, label)
+    svg = map_svg("../" * depth + "map/", main, context, own, label)
     if not svg:
         return ""
     notes = []
@@ -262,13 +273,13 @@ def languages_under_all(i):
 
 
 def page(depth, title, body):
-    up = "../" * (depth + 1)
+    up = "../" * depth
     return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
-            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANGUAGE ATLAS</a><a href=\"{up}t/\">All families</a></header>"
-            f"<main>{body}</main><footer><a href=\"{up}\">Language Atlas</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
+            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANGUER <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
+            f"<main>{body}</main><footer><a href=\"{up}\">Languer</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
 
 
 def record_json(i):
@@ -277,9 +288,9 @@ def record_json(i):
         "id": i, "name": n["name"], "level": n["level"], "iso": n.get("iso", ""),
         "coordinates": ({"latitude": coords[i][1], "longitude": coords[i][0]} if i in coords else None),
         "area": n.get("area", ""), "countries": n.get("countries", ""), "isolate": n.get("isolate", False),
-        "path": "t/" + path_of(i),
-        "lineage": [{"id": a, "name": nodes[a]["name"], "path": "t/" + path_of(a)} for a in lineage(i)[:-1]],
-        "children": [{"id": c, "name": nodes[c]["name"], "level": nodes[c]["level"], "path": "t/" + path_of(c)} for c in n["children"]],
+        "path": path_of(i),
+        "lineage": [{"id": a, "name": nodes[a]["name"], "path": path_of(a)} for a in lineage(i)[:-1]],
+        "children": [{"id": c, "name": nodes[c]["name"], "level": nodes[c]["level"], "path": path_of(c)} for c in n["children"]],
         "stages": [{"id": s, "name": nodes[s]["name"], "anchor": v["anchor"]} for s, v in stage_of.items() if v["modern"] == i],
         "names": n.get("names", []), "nativeNames": n.get("nativeNames", []),
         "placements": [e for e in unified["placements"].get(i, [])],
@@ -287,9 +298,52 @@ def record_json(i):
     }
 
 
+def redirect_page(target, title):
+    """A page that sends the visitor on to target (relative URL), keeping any #anchor."""
+    t = escape(target)
+    depth = target.count("../")
+    return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+            f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
+            f"<link rel=\"canonical\" href=\"{t}\"><meta name=\"robots\" content=\"noindex\">"
+            f"<meta http-equiv=\"refresh\" content=\"0; url={t}\">"
+            f"<script src=\"{'../' * depth}redirect.js\"></script></head>"
+            f"<body><p>This page has moved to <a href=\"{t}\">{t}</a>.</p></body></html>")
+
+
+def write_old_t_redirects():
+    """Keep every former t/... URL working: t/<path>/ sends the visitor to <path>/."""
+    if OLD.exists():
+        shutil.rmtree(OLD)
+    count = 0
+    for i in nodes:
+        if i in stage_of:
+            continue
+        p = path_of(i)
+        d = OLD / p
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(redirect_page("../" * (p.count("/") + 2) + p + "/", nodes[i]["name"]), encoding="utf-8")
+        count += 1
+    for s, v in stage_of.items():
+        if nodes[s]["children"]:
+            p = path_of(v["modern"]) + "/" + v["anchor"]
+            d = OLD / p
+            if not (d / "index.html").exists():
+                d.mkdir(parents=True, exist_ok=True)
+                (d / "index.html").write_text(redirect_page("../" * (p.count("/") + 2) + p + "/", nodes[s]["name"]), encoding="utf-8")
+                count += 1
+    (OLD / "index.html").write_text(redirect_page("../families/", "All families"), encoding="utf-8")
+    return count
+
+
 def main():
-    if OUT.exists():
-        shutil.rmtree(OUT)
+    top = {segment[r] for r in data["roots"]}
+    clash = sorted(top & RESERVED)
+    if clash:
+        sys.exit(f"Top-level slug(s) {clash} clash with names reserved in dist/; add a rule for them.")
+    # Remove pages from an earlier run: each family directory, families/ and t/.
+    for name in top | {"families", "t"}:
+        if (OUT / name).is_dir():
+            shutil.rmtree(OUT / name)
     written = 0
     stages_by_modern = {}
     for s, v in stage_of.items():
@@ -327,12 +381,14 @@ def main():
                 depth = path_of(v["modern"]).count("/") + 2
                 (d / "index.html").write_text(page(depth, nodes[s]["name"], f'<h1>{escape(nodes[s]["name"])}</h1><p><a href="../#{escape(v["anchor"])}">See {escape(nodes[s]["name"])} on the {escape(nodes[v["modern"]]["name"])} page</a></p>'), encoding="utf-8")
     roots = sorted(data["roots"], key=lambda r: nodes[r]["name"].lower())
-    rows = "".join(f'<li><a href="{escape(path_of(r))}/">{escape(nodes[r]["name"])}</a> <span class="muted">{escape("isolate" if nodes[r].get("isolate") else nodes[r]["level"])}</span></li>' for r in roots)
-    (OUT / "index.html").write_text(page(0, "All families", f"<h1>All families and isolates · {len(roots)}</h1><p class=\"muted\">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p><ul class=\"record-links\">{rows}</ul>"), encoding="utf-8")
+    rows = "".join(f'<li><a href="../{escape(path_of(r))}/">{escape(nodes[r]["name"])}</a> <span class="muted">{escape("isolate" if nodes[r].get("isolate") else nodes[r]["level"])}</span></li>' for r in roots)
+    FAMILIES.mkdir(parents=True, exist_ok=True)
+    (FAMILIES / "index.html").write_text(page(1, "All families", f"<h1>All families and isolates · {len(roots)}</h1><p class=\"muted\">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p><ul class=\"record-links\">{rows}</ul>"), encoding="utf-8")
     (OUT / "stages.json").write_text(json.dumps({k: {"modern": v["modern"], "anchor": v["anchor"]} for k, v in stage_of.items()}), encoding="utf-8")
     if "--paths" in sys.argv:  # for checking dist/lineage-paths.js against these rules
-        (OUT / "paths.json").write_text(json.dumps({i: "t/" + (path_of(i) if "/#" in path_of(i) else path_of(i) + "/") for i in nodes}), encoding="utf-8")
-    print(f"Wrote {written} record pages under dist/t/")
+        (OUT / "paths.json").write_text(json.dumps({i: (path_of(i) if "/#" in path_of(i) else path_of(i) + "/") for i in nodes}), encoding="utf-8")
+    moved = write_old_t_redirects()
+    print(f"Wrote {written} record pages under dist/ and {moved} redirects under dist/t/")
 
 
 main()
