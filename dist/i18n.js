@@ -60,6 +60,12 @@ window.LANGLOG_I18N = {
       'Spoken genealogy': '音声言語の系統',
       'Isolates': '孤立言語',
       'First 150 matches. Refine your search.': '最初の 150 件です。検索語を絞ってください。',
+      'Search results': '検索結果',
+      '1 matching record': '1 件が一致',
+      'Edit search': '検索語を変える',
+      'Clear search': '検索をやめる',
+      'Back to search results': '検索結果に戻る',
+      'genus': 'WALS の属',
       'Show 100 more': 'さらに 100 件表示',
 
       // Atlas: toolbar
@@ -275,6 +281,7 @@ window.LANGLOG_I18N = {
       'tag unspecified': 'タグなし'
     },
     patterns: [
+      [/^([\d,]+) matching records$/, '$1 件が一致'],
       [/^([\d,]+) Glottolog records retained; ([\d,]+) canonical records including source-specific clades\/samples\. All (\d+) discovered Phlorest dataset summary trees imported, plus WALS\.$/, 'Glottolog の記録 $1 件をすべて保持し、出典ごとの分岐と標本を含めて $2 件の記録にまとめています。見つかった Phlorest の要約系統樹 $3 本をすべて取り込み、WALS も加えています。'],
       [/^([\d,]+) source-tagged root\/parent assertions\. ([\d,]+) incompatible clade pairs across study trees involve ([\d,]+) canonical records\.$/, '出典つきの根と親の主張が $1 件あります。研究の系統樹どうしで両立しない分岐の組 $2 つが、$3 件の記録に関わっています。'],
       [/^(\d+) manual-alphabet samples; (\d+) lexical consensus trees covering (\d+) distinct language samples; (\d+) reviewed script relationships; ([\d,]+) CLDR usage assertions\. These are different units and should not be added as “languages\.”$/, '指文字の標本 $1、異なる言語標本 $3 を含む語彙の合意系統樹 $2 本、確認済みの文字の関係 $4、CLDR の使用データ $5。単位が違うので、足し合わせて「言語の数」とはしないでください。'],
