@@ -136,8 +136,8 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .home-page header .brand{visibility:hidden}
 .home-page header{border-bottom:0}
 .home-intro{min-height:min(62vh,560px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 0 40px}
-.home-logo{display:flex;align-items:center;gap:18px;margin:0;font-size:clamp(40px,7vw,72px);font-weight:700;letter-spacing:.08em;line-height:1;color:var(--ink)}
-.home-logo .mark{font-size:1.5em;color:var(--teal)}
+.home-logo{margin:0;line-height:0;color:var(--ink)}
+.home-logo .logo{height:clamp(52px,9vw,96px)}
 .home-by{margin:12px 0 30px;font-size:16px;color:var(--muted);letter-spacing:.5px}
 .home-by a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}.home-by a:hover{color:var(--teal)}
 .home-search{width:100%;max-width:620px}
@@ -165,5 +165,9 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .home-more li{font-size:14px;line-height:1.8}
 .home-page footer{max-width:1080px;margin:0 auto;padding:22px 34px 30px;font-size:12px}
 @media(max-width:900px){.home-cards{grid-template-columns:1fr}}
-@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.home-logo{gap:12px}.search-pill input{padding:11px 16px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}.home-page header>a{min-height:44px;display:inline-flex;align-items:center}}
+@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.search-pill input{padding:11px 16px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}.home-page header>a{min-height:44px;display:inline-flex;align-items:center}}
 h1.visually-hidden+main{margin-top:14px}
+/* Logo: asterisk and "LANG LOG" in one SVG (dist/logo.svg, written by build_logo.py), so the link is one rectangle */
+.logo{display:block;height:26px;width:auto;aspect-ratio:861/180;color:var(--ink);overflow:visible}
+.brand .home{line-height:0}
+@media(max-width:700px){.brand .logo{height:22px}}
