@@ -8,6 +8,31 @@ Live site: https://nguekwang.github.io/languer/
 
 Serve the static site with `python -m http.server 8000 --directory dist`, then open http://localhost:8000. No build step is required for the checked-in site.
 
+## Shareable URLs
+
+Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
+
+Language families (`./`):
+
+| Parameter | Meaning |
+| --- | --- |
+| `id` | Selected record (Glottocode or source-specific ID); its details are shown and its path is opened in the list |
+| `q` | Search text |
+| `evidence` | Evidence filter: `conflicts` or `studies` |
+| `category` | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) |
+| `dialects=0` | Hide dialects |
+| `branch`, `src` | Expanded grouping and the source it follows (`src` is omitted for Glottolog) |
+| `view=tree` | Horizontal tree instead of the list |
+| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming |
+| `task` | Hugging Face model task in the record details (for example `translation`) |
+| `about=1` | Sources & scope dialog open |
+
+Signs and scripts (`visual-atlas.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
+
+Record pages (`variant-detail.html`): `domain`, `id` and `task`.
+
+Older links of the form `#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
+
 ## License
 
 The code and the site of Languer Map are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.

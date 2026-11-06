@@ -54,7 +54,7 @@ window.LanguageModels = (() => {
     const license = m.cardData?.license;
     return `<article class="hf-model"><a href="${escape(modelLink(m.id))}" target="_blank" rel="noopener noreferrer">${escape(m.id)} ↗</a><div class="hf-tags"><span>${escape(m.pipeline_tag || 'Task unspecified')}</span><span>${escape(scope)}</span></div><small>Matched: ${m.matched.map(escape).join(', ')} · ${Number(m.downloads || 0).toLocaleString()} downloads${typeof license === 'string' ? ' · '+escape(license) : ''}</small></article>`;
   }
-  function mount(host, node) {
+  function mount(host, node, options = {}) {
     const codes = codesFor(node);
     host.innerHTML = `<h3>🤗 Hugging Face models</h3><p class="hf-intro">Models tagged for ${escape(node.name)}. Open a model card to check its intended use and evaluation.</p>`;
     if (!codes.length) {
@@ -81,7 +81,8 @@ window.LanguageModels = (() => {
       if (good.length) status.textContent += ' Loaded ' + new Date().toLocaleString() + '.';
       retry.hidden = !failed;
     }
-    task.addEventListener('change',load);retry.addEventListener('click',load);load();
+    if (tasks.some(([v]) => v === options.task)) task.value = options.task;
+    task.addEventListener('change',() => { if (typeof options.onTask === 'function') options.onTask(task.value); load(); });retry.addEventListener('click',load);load();
   }
   return {mount,codesFor,selectModels,modelLink};
 })();
