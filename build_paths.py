@@ -33,6 +33,8 @@ FAMILIES = DIST / "families"
 # Top-level names in dist/ that a family slug must not take.
 RESERVED = {"families", "map"}
 TITLE_SUFFIX = " · Lang Log by yoshi"
+# "yoshi" in the header links to the owner's profile (the English page of the personal site).
+PROFILE_URL = "https://nguekwang.github.io/en/"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -196,7 +198,7 @@ def page(depth, title, body):
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
-            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANG LOG <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
+            f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><span class=\"mark\">✳</span> LANG LOG</a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div><a href=\"{up}families/\">All families</a></header>"
             f"<main>{body}</main>{FOOTER}</body></html>")
 
 
