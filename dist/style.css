@@ -71,5 +71,56 @@
  dialog .close{font-size:16px;min-height:44px}.registry-source{font-size:16px}.registry-source small{font-size:14px}
  .downloadrow{flex-wrap:wrap;gap:8px 16px}.downloadrow a{font-size:15px;min-height:44px;padding:8px 0}
 }
+
+/* Simplified layout (2026-11): one toolbar, menus for downloads and help, compact heading */
+.intro{padding:20px 40px 16px;align-items:baseline}
+.intro h1{font-size:40px;margin:0}
+.stats{gap:20px}
+.stats div{flex-direction:row;align-items:baseline;gap:6px}
+.stats b,body.visual-atlas .stats b{font-family:inherit;font-weight:600;font-size:14px}
+.stats span{font-size:12px}
+body .domain-nav{gap:0;margin:16px 34px 0}
+body .domain-nav a{border-radius:0;margin-left:-1px;padding:8px 14px;font-size:14px}
+body .domain-nav a:first-child{border-radius:6px 0 0 6px;margin-left:0}
+body .domain-nav a:last-child{border-radius:0 6px 6px 0}
+.toolbar{justify-content:flex-start;gap:4px;padding:8px 10px}
+.toolbar button,.toolbar summary,.toolbar label{font-size:12px;padding:6px 7px;border:1px solid transparent;border-radius:5px;margin:0;min-height:0;line-height:1.4}
+.toolbar .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.toolbar .seg button{border:0;border-radius:0}
+.toolbar .seg button+button{border-left:1px solid var(--line)}
+.toolbar .active{background:var(--ink);color:white}
+.toolbar label{display:inline-flex;align-items:center;gap:5px;color:var(--ink)}
+.toolbar .menu{position:relative}
+.toolbar .menu summary{list-style:none;cursor:pointer;border-color:var(--line)}
+.toolbar .menu summary::-webkit-details-marker{display:none}
+.toolbar .menu summary::after{content:" ▾";font-size:10px}
+.toolbar .menu[open] summary{background:#e3e9df}
+.toolbar .downloads{margin-left:auto}
+.menu-panel{position:absolute;right:0;top:calc(100% + 4px);z-index:20;background:#fafbf6;border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.08);padding:6px;min-width:190px;display:flex;flex-direction:column;gap:2px}
+.menu-panel button,.menu-panel .exportlink{text-align:left;border:0;font-size:12px;padding:8px 10px}
+.help .menu-panel{width:min(360px,80vw);padding:6px 14px;gap:0}
+.help .menu-panel p{font-size:12px;line-height:1.6;color:#42594f;margin:8px 0;padding:0;background:none;border:0}
+.legend{min-height:0;padding:6px 16px}
+.legend span:last-child{margin-left:0}
+.language-atlas .explore:has(#search:placeholder-shown) #results{display:none}
+.language-atlas .explore:has(#search:placeholder-shown) .sidehead #searchcount::after{content:" roots in the list"}
+.detail .note{display:none}
+@media(max-width:700px){
+ .intro{padding:14px 20px 8px;display:flex;flex-wrap:wrap;gap:6px 16px}
+ .intro h1{font-size:30px}
+ .stats{margin-top:0;gap:14px;flex-wrap:wrap;justify-content:flex-start}
+ .stats div{flex:none}
+ .stats b,body.visual-atlas .stats b{font-size:14px;line-height:1.4}
+ .stats span{font-size:13px}
+ body .domain-nav{margin:10px 16px 0;flex-wrap:nowrap}
+ body .domain-nav a{flex:1;text-align:center;font-size:12px;padding:10px 2px;white-space:nowrap}
+ .toolbar{padding:8px;gap:6px}
+ .toolbar button,.toolbar summary,.toolbar label{font-size:14px;min-height:40px;padding:8px 10px;display:inline-flex;align-items:center}
+ .toolbar .downloads{margin-left:0}
+ .menu-panel{right:auto;left:0}
+ .help .menu-panel{left:auto;right:0}
+ .menu-panel button,.menu-panel .exportlink{font-size:14px;min-height:44px}
+ .help .menu-panel p{font-size:14px}
+}
 /* Classification breadcrumb above each record name */
 .lineage{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;margin:0 0 8px;font-size:12px;line-height:1.5;color:var(--muted)}.lineage-path{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center}.lineage-path li{display:inline-flex;align-items:center;overflow-wrap:anywhere}.lineage-path li::after{content:"›";color:var(--muted);margin:0 6px}.lineage-path button{border:0;padding:2px 0;color:var(--teal);text-decoration:underline;text-underline-offset:2px;text-align:left;font-size:inherit}.lineage-source,.lineage-source a{font-size:10px;color:var(--muted)}.lineage-source::after{content:":"}@media(max-width:700px){.lineage{font-size:14px}.lineage-path button{min-height:44px;padding:7px 3px}}
