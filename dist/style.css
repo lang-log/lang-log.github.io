@@ -140,15 +140,16 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .home-logo .mark{font-size:1.5em;color:var(--teal)}
 .home-by{margin:12px 0 30px;font-size:16px;color:var(--muted);letter-spacing:.5px}
 .home-by a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}.home-by a:hover{color:var(--teal)}
-.home-search{display:flex;gap:10px;align-items:center;width:100%;max-width:620px}
-.home-search .search{border-radius:999px;padding:10px 18px;box-shadow:0 1px 6px #24302e1f}
-.home-search button{border-radius:999px;padding:0 20px}
+.home-search{width:100%;max-width:620px}
+/* Search box and button form one pill; a vertical line divides them */
+.search-pill{display:flex;align-items:stretch;background:#fff;border:1px solid #cdd6ce;border-radius:999px;overflow:hidden;box-shadow:0 1px 6px #24302e1f}
+.search-pill:focus-within{border-color:var(--teal)}
+.search-pill input{flex:1;min-width:0;border:0;outline:none;background:transparent;font-size:16px;padding:12px 20px;color:var(--ink)}
+.search-pill input::-webkit-search-cancel-button{display:none}
+.search-pill button{border:0;border-left:1px solid #cdd6ce;border-radius:0;background:transparent;color:var(--teal);padding:0 20px;min-width:56px;min-height:48px;display:flex;align-items:center;justify-content:center}
+.search-pill button:hover{background:#e3e9df}
 .home-intro .sub{font-size:15px;line-height:1.7;max-width:40em;color:#52625c;margin:26px 0 0}
 .home-main{display:block;height:auto;min-height:0;border:0;background:none;overflow:visible;max-width:1080px;margin:0 auto;padding:0 34px}
-.home-search .search{flex:1;min-width:0}
-.home-search .search input{font-size:16px}
-.home-search button{background:var(--teal);color:#fff;border-color:var(--teal);min-height:42px}
-.home-search button:hover{background:var(--ink)}
 .home-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .home-card{border:1px solid var(--line);border-radius:9px;background:#fafbf6;padding:22px 20px;display:flex;flex-direction:column}
 .home-card h2{font-size:22px;font-weight:400;margin:0 0 10px}
@@ -164,5 +165,5 @@ body .domain-nav a:last-child{border-radius:0 6px 6px 0}
 .home-more li{font-size:14px;line-height:1.8}
 .home-page footer{max-width:1080px;margin:0 auto;padding:22px 34px 30px;font-size:12px}
 @media(max-width:900px){.home-cards{grid-template-columns:1fr}}
-@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.home-logo{gap:12px}.home-search .search{padding:9px 14px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}.home-page header>a{min-height:44px;display:inline-flex;align-items:center}}
+@media(max-width:700px){.home-main{padding:0 16px}.home-intro{min-height:0;padding:40px 0 32px}.home-logo{gap:12px}.search-pill input{padding:11px 16px}.home-card h2{font-size:21px}.home-page footer{padding:20px 16px 26px;font-size:12px}.home-page footer a{display:inline-block;min-height:44px;line-height:44px}.home-page header>a{min-height:44px;display:inline-flex;align-items:center}}
 h1.visually-hidden+main{margin-top:14px}
