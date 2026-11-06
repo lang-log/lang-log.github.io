@@ -31,10 +31,14 @@ jobs:
       # Restores dist/data.json and dist/language-atlas.xml from
       # source-data/packed/ and checks their SHA-256.
       - run: python3 prepare_static.py
+      # Writes one page and one record.json per Glottolog record under
+      # dist/t/<family>/.../<language>/ (not committed; built here).
+      - run: python3 build_paths.py
       - name: Check that every page and data file is present
         run: |
           for f in index.html visual-atlas.html variant-detail.html \
-                   data.json integrated.json language-atlas.xml; do
+                   data.json integrated.json language-atlas.xml \
+                   lineage-paths.js t/index.html t/stages.json; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
       - uses: actions/upload-pages-artifact@v3
