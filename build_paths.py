@@ -1,6 +1,6 @@
 """Write one static page and one JSON file per Glottolog record, at a URL
 that follows the classification: dist/<family>/<subgroup>/.../<language>/
-(served as https://nguekwang.github.io/languer/<family>/.../<language>/).
+(served as https://lang-log.github.io/<family>/.../<language>/).
 
 Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 
@@ -32,7 +32,7 @@ OUT = DIST
 FAMILIES = DIST / "families"
 # Top-level names in dist/ that a family slug must not take.
 RESERVED = {"families", "map"}
-TITLE_SUFFIX = " · Languer by yoshi"
+TITLE_SUFFIX = " · Lang Log by yoshi"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -185,8 +185,8 @@ def page(depth, title, body):
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}visual-atlas.css\"><link rel=\"stylesheet\" href=\"{up}variant-detail.css\"></head>"
-            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANGUER <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
-            f"<main>{body}</main><footer><a href=\"{up}\">Languer</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
+            f"<body class=\"variant-page\"><header><a class=\"brand\" href=\"{up}\"><span class=\"mark\">✳</span> LANG LOG <span class=\"by\">by yoshi</span></a><a href=\"{up}families/\">All families</a></header>"
+            f"<main>{body}</main><footer><a href=\"{up}\">Lang Log</a><span>Classification: Glottolog 5.3 (CC BY 4.0)</span></footer></body></html>")
 
 
 def record_json(i):
