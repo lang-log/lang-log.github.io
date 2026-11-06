@@ -200,3 +200,7 @@ header details.langmenu>summary::after{content:"\25BE";margin-left:5px;color:var
 header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .langmenu .short{display:none}
 @media(max-width:560px){header .brand{gap:6px}header .tools>a,header .tools>button:not(.theme-toggle){font-size:13px}header .tools{--ctl:40px}.langmenu .full{display:none}.langmenu .short{display:inline}header details.langmenu>summary{padding:0 10px}}
+.home-random{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:18px}
+.home-random[hidden]{display:none}
+.home-random span{font-size:14px;color:var(--muted);margin-right:4px}
+.home-random button{min-height:44px;padding:9px 18px;border-radius:999px;font-size:14px}

@@ -5,12 +5,22 @@ language families, sign languages and writing systems are reached from the
 search and from the atlas pages' own menu; the top page has no section for
 each of them (owner, 2026-11-06).
 
-The page needs no JavaScript. The search box is a plain GET form that opens
-the language-families atlas with ?q=.
+The page works without JavaScript. The search box is a plain GET form that
+opens the language-families atlas with ?q=.
+
+Random lives on this page only (owner, 2026-11-06): a row of three buttons
+under the search box, one per atlas. dist/home.js shows the row and, on a
+click, opens the record page (record.html?domain=...&id=...) of a record
+drawn from dist/random.json, which this script writes (not committed):
+
+- language: Glottolog languages and dialects, without bookkeeping records;
+- sign: sign languages and dialects of the signs-and-scripts data;
+- scripts: writing systems, without special and collection codes.
 """
 
 from html import escape
 from pathlib import Path
+import json
 
 from build_paths import PROFILE_URL
 
@@ -25,6 +35,36 @@ from build_paths import PROFILE_URL
 
 DIST = Path(__file__).resolve().parent.parent / "dist"
 SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
+
+
+# Buttons of the Random row: (pool in random.json, label, title).
+RANDOM_BUTTONS = [
+    ("language", "Language", "Choose a random language or dialect"),
+    ("sign", "Sign language", "Choose a random sign language or dialect"),
+    ("scripts", "Writing system", "Choose a random writing system"),
+]
+
+
+def random_pools():
+    nodes = json.loads((DIST / "data.json").read_text(encoding="utf-8"))["nodes"]
+    visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["nodes"]
+    return {
+        "language": sorted(n["id"] for n in nodes.values()
+                           if n.get("level") in ("language", "dialect") and n.get("category") != "Bookkeeping"),
+        "sign": sorted(n["id"] for n in visual.values()
+                       if n.get("domain") == "sign" and n.get("kind") in ("language", "dialect")),
+        "scripts": sorted(n["id"] for n in visual.values()
+                          if n.get("domain") == "scripts" and n.get("kind") != "special / collection code"),
+    }
+
+
+def random_row():
+    buttons = "".join(
+        f'<button type="button" data-domain="{domain}" title="{escape(title)}" '
+        f'aria-label="{escape(title)}">{escape(label)}</button>'
+        for domain, label, title in RANDOM_BUTTONS)
+    return (f'<div class="home-random" role="group" aria-labelledby="home-random-label" hidden>'
+            f'<span id="home-random-label">Random</span>{buttons}</div>')
 
 
 def main():
@@ -55,6 +95,7 @@ def main():
         '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" '
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         '</button></div></form>'
+        f'{random_row()}'
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         'Every placement says which source it follows, competing classifications are shown together, '
         'and the data can be downloaded.</p></section>\n'
@@ -66,9 +107,11 @@ def main():
         '</ul></section></main>\n'
         '<footer><span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>'
         f'<span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
+        '<script src="home.js"></script>\n'
         '</body></html>\n'
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")
+    (DIST / "random.json").write_text(json.dumps(random_pools(), separators=(",", ":")), encoding="utf-8")
 
 
 if __name__ == "__main__":
