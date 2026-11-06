@@ -44,7 +44,8 @@ jobs:
           for f in index.html visual-atlas.html variant-detail.html \
                    data.json integrated.json language-atlas.xml \
                    lineage-paths.js stages.json families/index.html \
-                   afro-asiatic/berber/index.html data/atlas.json \
+                   afro-asiatic/berber/index.html \
+                   map/land.svg map/land-pacific.svg data/atlas.json \
                    data/search.json data/names/0.json atlas-data.js; do
             test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
           done
