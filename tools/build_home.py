@@ -29,7 +29,7 @@ from build_paths import PROFILE_URL
 #   as the change it announces.
 # - Sponsors: a section for sponsors of Lang Log.
 
-DIST = Path(__file__).resolve().parent / "dist"
+DIST = Path(__file__).resolve().parent.parent / "dist"
 SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
 
 

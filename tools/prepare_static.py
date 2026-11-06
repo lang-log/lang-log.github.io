@@ -3,7 +3,7 @@ from pathlib import Path
 import gzip
 import hashlib
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 ASSETS = [{'name': 'data.json', 'sha256': '2e558da2b6d8832a2dd8a939182888b5fed94629e8e454ed9873e61552bcdba0'}, {'name': 'language-atlas.xml', 'sha256': '4e75be48f4b197a83d9da0d7f7f921bd151d67783cecb4e640aec1f7a1d99416'}]
 
 for asset in ASSETS:
