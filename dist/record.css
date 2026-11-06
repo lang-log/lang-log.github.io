@@ -9,7 +9,7 @@
 .variant-page .show-tree{font-size:16px;padding:12px 16px;min-height:46px}
 .variant-page .hf-models{border-top:1px solid var(--line);padding:24px 0;margin:0;background:none;border-radius:0;border-left:0;border-right:0;border-bottom:0}
 .variant-page>.domain-nav,body>.domain-nav{max-width:1100px;margin:16px auto 0;padding:0}
-@media(max-width:1164px){body>.domain-nav{margin:16px 32px 0}}
-@media(max-width:700px){body>.domain-nav{margin:12px 12px 0}}
+@media(max-width:1164px){.variant-page>.domain-nav,body>.domain-nav{margin:16px 32px 0}}
+@media(max-width:700px){.variant-page>.domain-nav,body>.domain-nav{margin:12px 12px 0}}
 .variant-page .toolbar details>summary{font-size:12px;padding:6px 7px}
 @media(max-width:700px){.variant-page .toolbar details>summary{font-size:14px;min-height:44px;padding:10px 8px}}
