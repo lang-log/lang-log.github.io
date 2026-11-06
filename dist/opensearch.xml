@@ -3,6 +3,6 @@
   <ShortName>Lang Log</ShortName>
   <Description>Search language families, languages, dialects, sign languages and writing systems in Lang Log.</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Url type="text/html" method="get" template="https://lang-log.github.io/?q={searchTerms}"/>
+  <Url type="text/html" method="get" template="https://lang-log.github.io/language-families.html?q={searchTerms}"/>
   <Url type="application/opensearchdescription+xml" rel="self" template="https://lang-log.github.io/opensearch.xml"/>
 </OpenSearchDescription>
