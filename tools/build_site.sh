@@ -19,6 +19,10 @@ python3 tools/build_paths.py
 # Writes the small files the pages load (dist/data/, not committed):
 # the atlas tree, the search text and the names split into 64 files.
 python3 tools/split_data.py
+# Writes the language feature map's data (dist/data/features/, not
+# committed) from source-data/wals-features/, source-data/wals.csv and
+# source-data/languages.csv.
+python3 tools/build_wals_map.py
 # The browser rebuilds the same objects as data.json and integrated.json.
 node tools/check_atlas_data.js
 # Every interface language has every string (.claude/rules/interface-text.md).
@@ -32,7 +36,10 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/land-pacific.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js random.json stats/index.html sources/index.html updates/index.html; do
+         home.js random.json \
+         feature-map.html feature-map.js feature-map.css data/features/languages.json \
+         data/features/features.json data/features/f/81A.json \
+         stats/index.html sources/index.html updates/index.html; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
 done
 

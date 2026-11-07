@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Every Glottolog language on a world map. Add conditions on WALS features, joined by AND or OR, colour the dots by one feature, and zoom into any area."><title>Language feature map · Lang Log by yoshi</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="style.css"><script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="feature-map.css"></head><body class="feature-map">
+<header><div class="brand"><a class="home" href="./"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> <span class="by">by <a href="https://nguekwang.github.io/en/?ref=langlog" title="MATSUURA Yoshihiro">yoshi</a></span></div><a href="#about">About</a></header>
+<main>
+<h1>Language feature map</h1>
+<p class="lead">Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.</p>
+<div class="wm-body">
+<div class="wm-map">
+<svg id="map" class="lmap" viewBox="-974.4 -487.2 1948.8 974.4" role="img" aria-label="World map of the languages that match the conditions" preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="30" data-world="-974.4 -487.2 1948.8 974.4">
+<use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>
+<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/>
+<g id="points"></g>
+</svg>
+<div id="card" class="wm-card" hidden></div>
+<p class="wm-hint">Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.</p>
+</div>
+<aside class="wm-legend">
+<p id="count" class="wm-count"></p>
+<label class="wm-colour">Colour by <span id="colour-slot"></span></label>
+<div id="colour-legend"></div>
+<h2 class="wm-conds-title">Conditions</h2>
+<p id="no-conditions" class="wm-empty">No conditions yet: every language is shown.</p>
+<div id="conditions"></div>
+<button type="button" id="add-condition" class="wm-add">+ Add condition</button>
+</aside>
+</div>
+<section id="about" class="wm-about">
+<h2>About this map</h2>
+<p>The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.</p>
+<p>The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition's feature does not match that condition.</p>
+<p><a href="https://glottolog.org/">Glottolog</a> · <a href="https://wals.info/">WALS Online</a> · <a href="https://github.com/cldf-datasets/wals">WALS CLDF data</a> · Land and borders: Natural Earth (public domain)</p>
+</section>
+</main>
+<noscript><p class="wm-noscript">This map needs JavaScript. The feature data is in <a href="https://wals.info/">WALS Online</a>.</p></noscript>
+<script src="map-zoom.js"></script><script src="feature-map.js"></script>
+</body></html>

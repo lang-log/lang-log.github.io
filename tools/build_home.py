@@ -304,6 +304,8 @@ def main():
 
         f'{families_html()}{tree_section()}'
         '<section class="home-more"><h2>Also</h2><ul>'
+        '<li><a href="feature-map.html">Language feature map</a>: every language on a world map, '
+        'narrowed by conditions on WALS features and coloured by one of them.</li>'
         '<li>Corpora and data for low-resource languages: planned.</li>'
         '</ul></section></main>\n'
         f'<footer><span>Glottolog 5.3 + WALS + {st["summaryTrees"]} Phlorest summary trees · Retrieved {retrieved}</span>'
