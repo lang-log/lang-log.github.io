@@ -34,7 +34,7 @@ DIST = ROOT / "dist"
 OUT = DIST
 FAMILIES = DIST / "families"
 # Top-level names in dist/ that a family slug must not take.
-RESERVED = {"families", "map"}
+RESERVED = {"families", "map", "i18n"}
 TITLE_SUFFIX = " · Lang Log by yoshi"
 # "yoshi" in the header links to the owner's profile (the English page of the personal site),
 # tagged with ?ref=langlog so the profile site can tell where the visit came from.

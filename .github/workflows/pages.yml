@@ -42,10 +42,12 @@ jobs:
       - run: python3 tools/split_data.py
       # The browser rebuilds the same objects as data.json and integrated.json.
       - run: node tools/check_atlas_data.js
+      # Every interface language has every string (.claude/rules/interface-text.md).
+      - run: node tools/check_i18n.js
       - name: Check that every page and data file is present
         run: |
           for f in index.html language-families.html signs-and-scripts.html record.html 404.html \
-                   favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js \
+                   favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js i18n/es.js i18n/ar.js i18n/fa.js \
                    data.json integrated.json language-families.xml \
                    lineage-paths.js stages.json families/index.html \
                    afro-asiatic/berber/index.html \
