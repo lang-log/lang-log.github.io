@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'Точки: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'Суша:',
       '(public domain).': '(общественное достояние).',
-      'Projection: Equal Earth.': 'Проекция: Equal Earth.',
+      'Projection: Web Mercator.': 'Проекция: Web Mercator.',
       'family': 'семья',
       'language': 'язык',
       'dialect': 'диалект',

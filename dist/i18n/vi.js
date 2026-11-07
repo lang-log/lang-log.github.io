@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'Điểm: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'Đất liền:',
       '(public domain).': '(phạm vi công cộng).',
-      'Projection: Equal Earth.': 'Phép chiếu: Equal Earth.',
+      'Projection: Web Mercator.': 'Phép chiếu: Web Mercator.',
       'family': 'ngữ hệ',
       'language': 'ngôn ngữ',
       'dialect': 'phương ngữ',

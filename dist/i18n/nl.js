@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'Punten: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'Land:',
       '(public domain).': '(publiek domein).',
-      'Projection: Equal Earth.': 'Projectie: Equal Earth.',
+      'Projection: Web Mercator.': 'Projectie: Web Mercator.',
       'family': 'familie',
       'language': 'taal',
       'dialect': 'dialect',

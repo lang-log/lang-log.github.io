@@ -479,7 +479,7 @@ def map_html(depth, i):
             "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
             'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> (public domain). '
             "Dashed borders are disputed or not settled. "
-            "Projection: Equal Earth.</figcaption></figure>")
+            "Projection: Web Mercator.</figcaption></figure>")
 
 
 def languages_under_all(i):

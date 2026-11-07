@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'نقطه‌ها: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'خشکی:',
       '(public domain).': '(مالکیت عمومی).',
-      'Projection: Equal Earth.': 'تصویر نقشه: Equal Earth.',
+      'Projection: Web Mercator.': 'تصویر نقشه: Web Mercator.',
       'family': 'خانواده',
       'language': 'زبان',
       'dialect': 'گویش',

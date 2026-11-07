@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'Точки: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'Суходіл:',
       '(public domain).': '(суспільне надбання).',
-      'Projection: Equal Earth.': 'Проєкція: Equal Earth.',
+      'Projection: Web Mercator.': 'Проєкція: Web Mercator.',
       'family': 'родина',
       'language': 'мова',
       'dialect': 'діалект',

@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'النقاط: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'اليابسة:',
       '(public domain).': '(ملك عام).',
-      'Projection: Equal Earth.': 'الإسقاط: Equal Earth.',
+      'Projection: Web Mercator.': 'الإسقاط: Web Mercator.',
       'family': 'أسرة',
       'language': 'لغة',
       'dialect': 'لهجة',

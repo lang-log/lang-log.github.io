@@ -355,7 +355,7 @@ window.LANGLOG_I18N = {
       'Reset': '戻す',
       'Reset view': '元の表示に戻す',
       '(public domain).': '(パブリックドメイン)。',
-      'Projection: Equal Earth.': '図法: Equal Earth 図法。',
+      'Projection: Web Mercator.': '図法: Web メルカトル図法。',
 
       // Levels and record kinds
       'family': '語族',

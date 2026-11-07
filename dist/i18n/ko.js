@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': '점: Glottolog 5.3(CC BY 4.0).',
       'Land:': '육지:',
       '(public domain).': '(퍼블릭 도메인).',
-      'Projection: Equal Earth.': '도법: Equal Earth 도법.',
+      'Projection: Web Mercator.': '도법: 웹 메르카토르 도법.',
       'family': '어족',
       'language': '언어',
       'dialect': '방언',

@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'बिंदु: Glottolog 5.3 (CC BY 4.0)।',
       'Land:': 'भूमि:',
       '(public domain).': '(सार्वजनिक डोमेन)।',
-      'Projection: Equal Earth.': 'प्रक्षेप: Equal Earth।',
+      'Projection: Web Mercator.': 'प्रक्षेप: Web Mercator।',
       'family': 'भाषा-परिवार',
       'language': 'भाषा',
       'dialect': 'बोली',

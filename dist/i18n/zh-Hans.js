@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': '点：Glottolog 5.3（CC BY 4.0）。',
       'Land:': '陆地：',
       '(public domain).': '（公有领域）。',
-      'Projection: Equal Earth.': '投影：Equal Earth 投影。',
+      'Projection: Web Mercator.': '投影：Web 墨卡托投影。',
       'family': '语系',
       'language': '语言',
       'dialect': '方言',
