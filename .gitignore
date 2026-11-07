@@ -13,3 +13,4 @@ node_modules/
 !/dist/map/
 /dist/stages.json
 /dist/paths.json
+/_preview/

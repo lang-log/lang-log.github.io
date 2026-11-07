@@ -1,0 +1,39 @@
+# Build and check the site for every pull request (tools/build_site.sh).
+# For pull requests from this repository (not forks or Dependabot) it also uploads a preview as
+# the artifact "preview"; pages.yml publishes it at /preview/pr-<number>/ and links it on the
+# pull request (shared rule: research-aide .claude/rules/pr-previews.md).
+# The whole site is about 500 MB and GitHub Pages allows 1 GB, so the preview holds every page
+# and data file but the record pages of only one family (afro-asiatic/); record links into other
+# families do not open in a preview.
+name: site
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: bash tools/build_site.sh
+      - name: Make the preview (all but the record pages of other families)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+        run: |
+          mkdir _preview
+          tar -C dist -cf - \
+            $(cd dist && for e in *; do if [ ! -d "$e" ] || [ "$e" = map ] || [ "$e" = data ] || [ "$e" = families ] || [ "$e" = afro-asiatic ]; then echo "$e"; fi; done) \
+            | tar -C _preview -xf -
+          du -sh _preview
+      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview
+          path: _preview
+          retention-days: 90
