@@ -4,7 +4,7 @@ The shared rule is `web-security.md` in the `research-aide` repository (security
 
 ## What every page carries
 
-- `tools/security_policy.py` holds the one policy, as `<meta>` tags right after `<meta charset="utf-8">`: a Content-Security-Policy (`default-src 'none'`, scripts, styles and images only from the site, connections only to the site and `https://huggingface.co` for `dist/hf-models.js`, `base-uri 'none'`, `form-action 'self'` for the top-page search form, `object-src 'none'`, `upgrade-insecure-requests`) and `<meta name="referrer" content="no-referrer">`.
+- `tools/security_policy.py` holds the one policy, as `<meta>` tags right after `<meta charset="utf-8">`: a Content-Security-Policy (`default-src 'none'`, scripts, styles and images only from the site, connections only to the site and `https://huggingface.co` for `dist/hf-models.js`, `base-uri 'none'`, `form-action 'self'` for the top-page search form, `object-src 'none'`; no `upgrade-insecure-requests`, see the comment in the file) and `<meta name="referrer" content="no-referrer">`.
 - `tools/build_home.py` and `tools/build_paths.py` write it from there. The hand-written pages (`dist/404.html`, `dist/record.html`, `dist/signs-and-scripts.html`) carry the same text: after changing the policy, run `python3 tools/security_policy.py --write`.
 - `tools/build_site.sh` runs `python3 tools/security_policy.py --check`, which fails if a page lacks the current policy, or has an inline script, an event handler (`onclick=`), a `style="..."` attribute or a `<base>` element.
 - No `style="..."` attributes, in pages or in HTML built by scripts: use a class in `dist/style.css`. Setting `element.style.x` from a script is allowed by the policy.

@@ -37,7 +37,9 @@ CSP = "; ".join([
     "base-uri 'none'",
     "form-action 'self'",  # the search form on the top page goes to ./
     "object-src 'none'",
-    "upgrade-insecure-requests",
+    # No upgrade-insecure-requests: no source above allows http:, so it would
+    # add nothing on the live HTTPS site, and WebKit applies it to
+    # http://127.0.0.1, which breaks the local browser check.
 ])
 
 HEAD = (f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
