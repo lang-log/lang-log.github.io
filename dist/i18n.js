@@ -69,6 +69,7 @@ window.LANGLOG_I18N = {
       'Random': 'ランダム',
       'Sign language': '手話',
       'Writing system': '文字体系',
+      'Choose a random language, sign language or writing system': '言語・手話・文字体系からランダムに選ぶ',
       'Choose a random language or dialect': '言語か方言をランダムに選ぶ',
       'Choose a random sign language or dialect': '手話か方言をランダムに選ぶ',
       'Choose a random writing system': '文字体系をランダムに選ぶ',
