@@ -27,7 +27,7 @@
       'By modality': 'بر پایهٔ وجه',
       'Other kinds of languages': 'گونه‌های دیگر زبان',
       'Families': 'خانواده‌ها',
-      'Languoids': 'واحدهای زبانی',
+      'Languoids': 'Languoids',
       'Glottolog records': 'رکوردهای Glottolog',
       'Records from study trees only': 'رکوردهایی که فقط در درخت‌های پژوهشی هستند',
       'Spoken languages': 'زبان‌های گفتاری',

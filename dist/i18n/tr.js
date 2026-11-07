@@ -27,7 +27,7 @@
       'By modality': 'Kipliğe göre',
       'Other kinds of languages': 'Diğer dil türleri',
       'Families': 'Aileler',
-      'Languoids': 'Dil birimleri',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Glottolog kayıtları',
       'Records from study trees only': 'Yalnızca çalışma ağaçlarındaki kayıtlar',
       'Spoken languages': 'Sözlü diller',

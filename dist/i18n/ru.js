@@ -27,7 +27,7 @@
       'By modality': 'По модальности',
       'Other kinds of languages': 'Другие виды языков',
       'Families': 'Семьи',
-      'Languoids': 'Лангоиды',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Записи Glottolog',
       'Records from study trees only': 'Записи только из деревьев исследований',
       'Spoken languages': 'Звуковые языки',

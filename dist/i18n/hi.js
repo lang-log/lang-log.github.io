@@ -27,7 +27,7 @@
       'By modality': 'माध्यम के अनुसार',
       'Other kinds of languages': 'भाषाओं के अन्य प्रकार',
       'Families': 'परिवार',
-      'Languoids': 'लैंग्वॉइड',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Glottolog रिकॉर्ड',
       'Records from study trees only': 'केवल अध्ययन-वृक्षों के रिकॉर्ड',
       'Spoken languages': 'मौखिक भाषाएँ',

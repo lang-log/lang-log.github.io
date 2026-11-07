@@ -27,7 +27,7 @@
       'By modality': 'ตามรูปแบบการสื่อสาร',
       'Other kinds of languages': 'ภาษาประเภทอื่น',
       'Families': 'ตระกูล',
-      'Languoids': 'หน่วยภาษา',
+      'Languoids': 'Languoids',
       'Glottolog records': 'ระเบียน Glottolog',
       'Records from study trees only': 'ระเบียนที่มีเฉพาะในแผนภูมิการศึกษา',
       'Spoken languages': 'ภาษาพูด',

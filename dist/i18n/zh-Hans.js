@@ -27,7 +27,7 @@
       'By modality': '按模态',
       'Other kinds of languages': '其他种类的语言',
       'Families': '语系',
-      'Languoids': '语言单位',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Glottolog 记录',
       'Records from study trees only': '仅见于研究谱系树的记录',
       'Spoken languages': '有声语言',

@@ -27,7 +27,7 @@
       'By modality': 'حسب الوسيط',
       'Other kinds of languages': 'أنواع أخرى من اللغات',
       'Families': 'الأسر',
-      'Languoids': 'الوحدات اللغوية',
+      'Languoids': 'Languoids',
       'Glottolog records': 'سجلات Glottolog',
       'Records from study trees only': 'سجلات من أشجار الدراسات فقط',
       'Spoken languages': 'اللغات المنطوقة',

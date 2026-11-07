@@ -27,7 +27,7 @@
       'By modality': 'Theo phương thức',
       'Other kinds of languages': 'Các loại ngôn ngữ khác',
       'Families': 'Ngữ hệ',
-      'Languoids': 'Đơn vị ngôn ngữ',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Bản ghi Glottolog',
       'Records from study trees only': 'Bản ghi chỉ có trong cây nghiên cứu',
       'Spoken languages': 'Ngôn ngữ nói',

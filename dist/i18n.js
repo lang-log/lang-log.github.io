@@ -29,7 +29,7 @@ window.LANGLOG_I18N = {
       'By modality': 'モダリティ別',
       'Other kinds of languages': 'そのほかの言語',
       'Families': '語族',
-      'Languoids': 'ラングオイド',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Glottolog の記録',
       'Records from study trees only': '研究の系統樹だけにある記録',
       'Spoken languages': '音声言語',

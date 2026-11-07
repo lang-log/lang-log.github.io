@@ -27,7 +27,7 @@
       'By modality': 'За модальністю',
       'Other kinds of languages': 'Інші види мов',
       'Families': 'Родини',
-      'Languoids': 'Лангоїди',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Записи Glottolog',
       'Records from study trees only': 'Записи лише з дерев досліджень',
       'Spoken languages': 'Звукові мови',

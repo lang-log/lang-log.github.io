@@ -27,7 +27,7 @@
       'By modality': '양식별',
       'Other kinds of languages': '그 밖의 언어 종류',
       'Families': '어족',
-      'Languoids': '언어 단위',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Glottolog 기록',
       'Records from study trees only': '연구 계통수에만 있는 기록',
       'Spoken languages': '음성 언어',

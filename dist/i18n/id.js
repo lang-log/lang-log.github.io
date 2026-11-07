@@ -27,7 +27,7 @@
       'By modality': 'Menurut modalitas',
       'Other kinds of languages': 'Jenis bahasa lainnya',
       'Families': 'Rumpun',
-      'Languoids': 'Languoid',
+      'Languoids': 'Languoids',
       'Glottolog records': 'Catatan Glottolog',
       'Records from study trees only': 'Catatan yang hanya ada di pohon studi',
       'Spoken languages': 'Bahasa lisan',
