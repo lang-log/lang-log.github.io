@@ -2,13 +2,14 @@
 (async()=>{
 const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const params=new URLSearchParams(location.search),domain=['sign','scripts'].includes(params.get('domain'))?params.get('domain'):'language',id=params.get('id');
-const listURL=domain==='language'?'language-families.html':'signs-and-scripts.html?domain='+domain;
+// Language records: the list is the top page, and every record has its own page there.
+const listURL=domain==='language'?'./':'signs-and-scripts.html?domain='+domain;
 $('back').href=listURL;
 async function get(file){const r=await fetch(file);if(!r.ok)throw Error('Could not load the record data.');return r.json();}
 try{
-let N,S,E,notes=[],usage=[],conflicts=[],debates=[],base;
+let N,S,E,notes=[],usage=[],conflicts=[],debates=[],base,sourcePaths={};
 if(domain==='language'){
- const [{d,u},names]=await Promise.all([window.AtlasData.load(),window.AtlasData.names(id||'')]);base=d.nodes;if(base[id])base[id].names=names;N={...base,...u.extraNodes};await window.LineagePaths.init(base,d.roots);S=u.sources;E=u.assertions;
+ const [{d,u},names,sp]=await Promise.all([window.AtlasData.load(),window.AtlasData.names(id||''),fetch('source-paths.json').then(r=>r.ok?r.json():{}).catch(()=>({}))]);sourcePaths=sp;base=d.nodes;if(base[id])base[id].names=names;N={...base,...u.extraNodes};await window.LineagePaths.init(base,d.roots);S=u.sources;E=u.assertions;
  const path=new Set();let p=id;while(base[p]&&!path.has(p)){path.add(p);p=base[p].parent;}
  debates=(u.debates||[]).filter(d=>d.appliesTo.some(i=>path.has(i)));
  conflicts=(u.conflictIndex[id]||[]).map(i=>u.conflicts[i]);
@@ -20,7 +21,7 @@ const incoming=E.filter(e=>e.child===id&&e.parent),outgoing=E.filter(e=>e.parent
 const evidence=e=>`<div class="evidence-card"><strong>${nl(e.parent)}</strong><p>According to ${sl(e.source)}</p>${e.kind?'<p>'+esc(e.kind)+'</p>':''}${e.status&&e.status!=='reported'?'<p>Status: '+esc(e.status)+'</p>':''}${e.hypothesis?'<p>'+esc(e.hypothesis)+'</p>':''}${e.sample?'<p>Source sample: '+esc(e.sample)+'</p>':''}${e.run?'<p>Run: '+esc(e.run)+'</p>':''}${e.posterior!=null?'<p>Posterior: '+esc(e.posterior)+'</p>':''}${e.reportedVia?'<p>Reported and discussed in '+sl(e.reportedVia)+'</p>':''}</div>`;
 const sourceIds=new Set([...(n.sources||[]),...incoming.map(e=>e.source),...outgoing.map(e=>e.source),...notes.flatMap(t=>t.sources)]);if(base?.[id])sourceIds.add('glottolog');
 const comparisons=new Map();for(const c of conflicts){const key=c.a+'|'+c.b;if(!comparisons.has(key))comparisons.set(key,c);}
-let html=`<h1>${esc(n.name)}</h1><div class="meta"><span>${esc(n.level||n.kind)}</span><span>${esc(id)}</span>${n.iso?'<span>ISO 639-3: '+esc(n.iso)+'</span>':''}${n.code?'<span>Script code: '+esc(n.code)+'</span>':''}${n.category?'<span>'+esc(n.category)+'</span>':''}</div><div class="variant-actions"><a href="${esc(listURL+(domain==='language'?'?':'&')+'id='+encodeURIComponent(id))}">Show in tree</a>${base?.[id]?`<a href="${esc(window.LineagePaths.url(id))}">Record page</a>`:''}<button id="copy-link" type="button">Copy link</button><span id="copy-status" role="status"></span></div>`;
+let html=`<h1>${esc(n.name)}</h1><div class="meta"><span>${esc(n.level||n.kind)}</span><span>${esc(id)}</span>${n.iso?'<span>ISO 639-3: '+esc(n.iso)+'</span>':''}${n.code?'<span>Script code: '+esc(n.code)+'</span>':''}${n.category?'<span>'+esc(n.category)+'</span>':''}</div><div class="variant-actions">${domain==='language'?(base?.[id]||sourcePaths[id]?`<a href="${esc(base?.[id]?window.LineagePaths.url(id):sourcePaths[id])}">Record page</a>`:''):`<a href="${esc(listURL+'&id='+encodeURIComponent(id))}">Show in tree</a>`}<button id="copy-link" type="button">Copy link</button><span id="copy-status" role="status"></span></div>`;
 // Classification path from the top of the family down to this record.
 const up={};for(const e of incoming)up[e.source]??=e.parent;
 let lineSource=base?.[id]?'glottolog':domain==='language'?(n.source||'glottolog'):(up.glottolog?'glottolog':Object.keys(up)[0]);

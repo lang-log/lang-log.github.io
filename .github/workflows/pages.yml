@@ -1,88 +1,42 @@
-# Build the static site and publish it with GitHub Pages at
-# https://lang-log.github.io/ (the organization site of lang-log). All
-# paths in dist/ are relative, so the site files work at any prefix.
+# Publish the site with GitHub Pages at https://lang-log.github.io/ (the organization site of
+# lang-log), plus a preview of every open pull request at /preview/pr-<number>/ with a link
+# comment on the pull request. The shared workflow in nguekwang/research-aide does the work
+# (rule: research-aide .claude/rules/pr-previews.md); site.yml builds and checks pull requests.
+# All paths in dist/ are relative, so the site files work at any prefix.
 #
 # One-time setup by the owner: Settings > Pages > Build and deployment >
 # Source: "GitHub Actions".
 name: pages
-
 on:
   push:
     branches: [main]
-  pull_request:
+  workflow_run:
+    workflows: [site]
+    types: [completed]
+  pull_request_target:
+    types: [closed]
   workflow_dispatch:
-
 permissions:
   contents: read
-
-concurrency:
-  group: pages-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      # Restores dist/data.json and dist/language-families.xml from
-      # source-data/packed/ and checks their SHA-256.
-      - run: python3 tools/prepare_static.py
-      # Writes the top page dist/index.html and dist/random.json, the
-      # records its Random buttons draw from.
-      - run: python3 tools/build_home.py
-      # Writes one page and one record.json per Glottolog record under
-      # dist/<family>/.../<language>/ and the list dist/families/ (not
-      # committed; built here).
-      - run: python3 tools/build_paths.py
-      # Writes the small files the pages load (dist/data/, not committed):
-      # the atlas tree, the search text and the names split into 64 files.
-      - run: python3 tools/split_data.py
-      # The browser rebuilds the same objects as data.json and integrated.json.
-      - run: node tools/check_atlas_data.js
-      - name: Check that every page and data file is present
-        run: |
-          for f in index.html language-families.html signs-and-scripts.html record.html 404.html \
-                   favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js \
-                   data.json integrated.json language-families.xml \
-                   lineage-paths.js stages.json families/index.html \
-                   afro-asiatic/berber/index.html \
-                   map/land.svg map/land-pacific.svg map/tiles.json map-zoom.js data/atlas.json \
-                   data/search.json data/names/0.json atlas-data.js \
-                   home.js random.json; do
-            test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
-          done
-      # The asterisk and "LANG LOG" are always the one SVG, dist/logo.svg
-      # (.claude/rules/logo.md): every page draws it, and no page writes the
-      # word mark as text.
-      - name: Check that every page draws the SVG logo
-        run: |
-          missing=$(find dist -name '*.html' -print0 | xargs -0 grep -L 'logo.svg#logo' || true)
-          [ -z "$missing" ] || { echo "pages without the SVG logo:"; echo "$missing" | head; exit 1; }
-          text=$(find dist -name '*.html' -print0 | xargs -0 grep -il '>[[:space:]]*\(✱\|\*\|★\)\?[[:space:]]*lang log[[:space:]]*<' || true)
-          [ -z "$text" ] || { echo "pages with a text logo:"; echo "$text" | head; exit 1; }
-      # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
-      # pages, so a browser never pairs new HTML with an old cached file
-      # (Pages caches files for ten minutes). Runs after every page is written.
-      - run: python3 tools/version_assets.py
-      - name: Check that the asset links are versioned
-        run: grep -q 'href="style.css?v=' dist/index.html
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    if: github.event_name != 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
+  publish:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success')
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     permissions:
+      contents: read
+      actions: read
+      pull-requests: write
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+    uses: nguekwang/research-aide/.github/workflows/pages-with-previews.yml@main
+    with:
+      build: bash tools/build_site.sh
+      site-dir: dist
+      preview-workflow: site.yml
+      links: |
+        Top page|
+        Language families|#families
+        Signs and scripts|signs-and-scripts.html
+        A record page|afro-asiatic/berber/

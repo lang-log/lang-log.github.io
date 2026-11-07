@@ -14,28 +14,29 @@ The scripts live in `tools/`; run them from the repository root. Run `python3 to
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
 
-The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Neither the top page nor the atlas pages show record counts. Under the search box, a Random row (Language, Sign language, Writing system) opens the record page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
+The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Under the search box, a Random row (Language, Sign language, Writing system) opens the page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
-Language families (`language-families.html`):
+The top page is also the top of the language-families tree. Below the introduction it lists all top-level families and isolates (each linked to its record page), draws the whole tree (`dist/tree.js`: list or zoomable tree, filters, dialects, SVG, XML and OPML downloads) and holds the Sources & scope text (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
+
+Language families (the top page and every record page):
 
 | Parameter | Meaning |
 | --- | --- |
-| `id` | Selected record (Glottocode or source-specific ID); its details are shown and its path is opened in the list |
-| `q` | Search text |
-| `evidence` | Evidence filter: `conflicts` or `studies` |
-| `category` | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) |
-| `dialects=0` | Hide dialects |
-| `branch`, `src` | Expanded grouping and the source it follows (`src` is omitted for Glottolog) |
+| `q` | Search text (top page); the matches are listed under the search box |
+| `evidence` | Evidence filter: `conflicts` or `studies` (top page) |
+| `category` | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
+| `dialects=0` | Hide dialects in the tree |
 | `view=tree` | Horizontal tree instead of the list |
 | `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming |
-| `task` | Hugging Face model task in the record details (for example `translation`) |
-| `about=1` | Sources & scope dialog open |
+| `task` | Hugging Face model task on a record page (for example `translation`) |
+
+On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view`, `dialects` or `x`.
 
 Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
 
 Record pages (`record.html`): `domain`, `id` and `task`.
 
-Older links of the form `language-families.html#<id>` still open the selected record and are rewritten to `?id=<id>`. Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
+Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
 
 ## Logo
 
@@ -55,11 +56,15 @@ The workflow `.github/workflows/pages.yml` runs `python3 tools/prepare_static.py
 
 ## Record pages
 
-`tools/build_paths.py` writes one page and one `record.json` for each Glottolog record, at a URL that follows its classification, for example `indo-european/.../castilic/spanish/`. `families/` lists all families and isolates. The pages need no JavaScript; the atlas links to them with the same rules (`dist/lineage-paths.js`).
+`tools/build_paths.py` writes one page and one `record.json` for each Glottolog record, at a URL that follows its classification, for example `indo-european/.../castilic/spanish/`. The breadcrumb starts at the top page, which lists all families and isolates. The pages need no JavaScript; `dist/lineage-paths.js` follows the same rules to link to them.
+
+Each page shows the record's names and map, its placement in every source (Glottolog, WALS and the study trees, with paper links and the other direct members), the other sources' trees attached below it, incompatible study branches, curated debates, its members, the tree of its branch (`dist/tree.js`, on request) and Hugging Face models (`dist/hf-models.js`, loaded when the section scrolls into view; `dist/record-page.js`).
+
+Records that exist only in another source's tree (WALS genera and families, study clades and unmatched samples, 3,708 records) get the same kind of page under that source, for example `wals/altaic/turkic/azerbaijani/`. A study tree's root is the source's page (`gray-et-al-2009/`); `wals/` lists the WALS families. `dist/source-paths.json` maps these records to their paths for the scripts. Family and source slugs share the top level; the build stops if two are equal.
 
 - Each segment is an ASCII slug of the name. Siblings with the same slug both get `-<glottocode>`.
 - Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
-- The record pages (one directory per top-level family under `dist/`), `dist/families/` and `dist/stages.json` are built by the Pages workflow and are not committed.
+- The record pages (one directory per top-level family or source under `dist/`), `dist/stages.json` and `dist/source-paths.json` are built by the Pages workflow and are not committed.
 - Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
 - The land and country borders behind the points are `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `tools/build_land.py` from Natural Earth 1:50m land and boundary lines v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once. Borders are thin solid lines; disputed, indefinite and unrecognised boundaries are dashed.
 - `dist/map-zoom.js` adds zoom and pan: drag, pinch, Ctrl/Cmd + wheel, double click, the + / − buttons (shown only when the device has a mouse or trackpad), Reset and the keyboard. Points and border lines keep their size on screen at every zoom. Once a visitor zooms in far enough, it draws the 1:10m tiles in `dist/map/tiles/<map>/` (listed in `dist/map/tiles.json`, also written by `tools/build_land.py`) for the part in view. Other pages can reuse it with `window.LangLogMap.mount(svg)`; see the comment at the top of the file.
@@ -68,14 +73,14 @@ The workflow `.github/workflows/pages.yml` runs `python3 tools/prepare_static.py
 
 The right end of the header on every page has a light/dark theme toggle and a language menu (English, 日本語), which work like the ones on the owner's profile site.
 
-- `dist/theme.js` adds the toggle and applies a saved theme before the page is drawn. Without a saved choice the page follows the system setting. Every colour is a variable at the top of `dist/style.css` (`--c-<light hex>`), with one light and one dark value; the canvas tree in `dist/app.js` reads the same variables.
+- `dist/theme.js` adds the toggle and applies a saved theme before the page is drawn. Without a saved choice the page follows the system setting. Every colour is a variable at the top of `dist/style.css` (`--c-<light hex>`), with one light and one dark value; the canvas tree in `dist/tree.js` reads the same variables.
 - `dist/lang.js` adds the language menu. The pages are written in English; in Japanese the script translates the interface text with `dist/i18n.js` and keeps translating what the atlas scripts add later. Record names, source titles, citations and codes are data and stay as the sources give them. Without a saved choice the language follows the browser.
 - Both choices are kept in `localStorage` (`theme`, `lang`) for every page. Switching keeps the URL and adds no history entry. Without JavaScript the pages are English, follow the system theme, and show neither control.
 - When you add interface text to a page or a script, add its translation to `dist/i18n.js`.
 
 ## Search from the address bar
 
-`https://lang-log.github.io/language-families.html?q=<text>` opens the language-families atlas with `<text>` in the search box (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+`https://lang-log.github.io/?q=<text>` opens the top page with `<text>` in the search box and its matches listed under it (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
 
 `dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Lang Log" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
 

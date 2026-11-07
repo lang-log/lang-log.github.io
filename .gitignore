@@ -7,9 +7,11 @@ node_modules/
 /dist/data.json
 /dist/language-families.xml
 /dist/random.json
-# Record pages and families/ written by build_paths.py (one directory per
-# top-level family). Committed directories under dist/ are listed with !.
+# Record pages written by build_paths.py (one directory per top-level family
+# and per source). Committed directories under dist/ are listed with !.
 /dist/*/
 !/dist/map/
 /dist/stages.json
 /dist/paths.json
+/dist/source-paths.json
+/_preview/
