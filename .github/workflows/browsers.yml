@@ -13,9 +13,8 @@ concurrency:
   cancel-in-progress: true
 jobs:
   browsers:
-    uses: nguekwang/research-aide/.github/workflows/browser-check.yml@claude/project-thread-svmmsn
+    uses: nguekwang/research-aide/.github/workflows/browser-check.yml@main
     with:
-      research-aide-ref: claude/project-thread-svmmsn
       build: bash tools/build_site.sh
       site-dir: dist
       locales: en-US ja-JP
