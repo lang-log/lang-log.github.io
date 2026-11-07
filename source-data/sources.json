@@ -26,7 +26,7 @@
       "id": "lang-log",
       "title": "Lang Log",
       "version": "1",
-      "license": "AGPL-3.0-only (the license of this repository, see LICENSE)",
+      "license": "All rights reserved (see LICENSE)",
       "url": "https://lang-log.github.io/",
       "note": "Lang Log's own data: the feature catalogue (lang-log/features.json) and, later, values entered by the owner with their references.",
       "files": ["lang-log/features.json"]
