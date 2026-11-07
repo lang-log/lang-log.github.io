@@ -1,12 +1,9 @@
-/* WALS feature map (wals-map.html). Colours are the variables at the top of style.css. */
-.wals-map main{display:block;height:auto;min-height:0;max-width:1400px;margin:20px auto;padding:0 24px;border:0;background:none;overflow:visible}
-.wals-map h1{font-size:clamp(28px,4vw,44px);letter-spacing:-1px;margin:8px 0 8px}
-.wals-map .lead{font-size:15px;line-height:1.6;color:var(--c-52625c);margin:0 0 16px}
-.wm-controls{display:flex;flex-wrap:wrap;gap:12px 20px;margin:0 0 14px}
-.wm-controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;flex:1 1 320px;min-width:0}
-.wm-controls select{font-size:14px;padding:9px 8px;min-height:42px;background:var(--c-ffffff)}
-.wm-body{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;align-items:start}
-.wm-map{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--c-fafbf6)}
+/* Language feature map (feature-map.html). Colours are the variables at the top of style.css. */
+.feature-map main{display:block;height:auto;min-height:0;max-width:1400px;margin:20px auto;padding:0 24px;border:0;background:none;overflow:visible}
+.feature-map h1{font-size:clamp(28px,4vw,44px);letter-spacing:-1px;margin:8px 0 8px}
+.feature-map .lead{font-size:15px;line-height:1.6;color:var(--c-52625c);margin:0 0 16px}
+.wm-body{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+.wm-map{position:sticky;top:12px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--c-fafbf6)}
 #map{display:block;width:100%;height:auto;aspect-ratio:2/1;touch-action:none;cursor:grab;user-select:none}
 #map:active{cursor:grabbing}
 #map .sea{fill:var(--c-e6eeec)}
@@ -22,7 +19,7 @@
 .wm-card dl{margin:0 0 8px}.wm-card dt{font-size:11px;color:var(--muted)}.wm-card dd{margin:0 0 6px;font-weight:600}
 .wm-links{display:flex;flex-wrap:wrap;gap:12px;margin:0}
 .wm-close{position:absolute;top:4px;right:4px;border:0;font-size:18px;line-height:1;padding:6px 9px}
-.wm-legend{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--c-fafbf6);max-height:min(70vh,640px);overflow:auto}
+.wm-legend{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:var(--c-fafbf6);}
 .wm-count{margin:0 0 10px;font-size:13px;font-weight:600}
 .wm-legend section+section{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
 .wm-legend h2{font-size:13px;line-height:1.4;margin:0 0 6px}
@@ -40,10 +37,12 @@
 .wm-noscript{margin:20px 24px}
 @media(max-width:900px){
  .wm-body{grid-template-columns:1fr}
+ /* The map stays in view while the conditions below it are edited. */
+ .wm-map{top:0;z-index:3}
  .wm-legend{max-height:none;min-height:0}
 }
 @media(max-width:700px){
- .wals-map main{padding:0 12px;margin-top:12px}
+ .feature-map main{padding:0 12px;margin-top:12px}
  .wm-hint{display:none}
  /* Phones zoom with a pinch; only the World button stays (owner, 2026-11-07). */
  #zoom-in,#zoom-out{display:none}
@@ -51,3 +50,27 @@
  .wm-zoom button{min-height:36px;font-size:13px}
  .wm-legend label,.wm-legend li{min-height:44px}
 }
+.wm-legend select{font-size:13px;padding:8px 6px;min-height:40px;background:var(--c-ffffff)}
+.wm-legend .wm-colour{display:flex;flex-direction:column;align-items:stretch;gap:5px;font-size:12px;font-weight:600;margin:0 0 6px;padding:0;cursor:default}
+#colour-legend ul{margin:4px 0 0}
+#colour-legend li{display:flex;align-items:center;gap:7px;padding:4px 0;font-size:13px;border:0}
+#colour-legend li span{flex:1;min-width:0;overflow-wrap:anywhere}
+#colour-legend small{color:var(--muted);font-size:11px}
+.wm-dot-nodata{background:var(--c-a5aeb0)}
+#points circle.wm-nodata{opacity:.55}
+.wm-conds-title{font-size:13px;margin:16px 0 8px;padding-top:12px;border-top:1px solid var(--line)}
+.wm-empty{font-size:12px;color:var(--muted);margin:0 0 8px}
+.wm-cond{border:1px solid var(--line);border-radius:6px;padding:8px 10px;background:var(--c-ffffff)}
+.wm-cond.wm-or{border-top-left-radius:0;border-top-right-radius:0;border-top-style:dashed}
+.wm-cond.wm-or-next{border-bottom-left-radius:0;border-bottom-right-radius:0}
+.wm-cond.wm-or,.wm-cond.wm-or-next{border-left:3px solid var(--orange)}
+.wm-cond-head{display:flex;gap:6px;align-items:center}
+.wm-cond-head select{flex:1;min-width:0}
+.wm-remove{border:0;font-size:18px;line-height:1;padding:6px 9px;min-height:36px}
+.wm-join{display:flex;justify-content:center;gap:0;margin:6px 0}
+.wm-join button{font-size:11px;padding:5px 12px;border-radius:0;min-height:32px}
+.wm-join button:first-child{border-radius:5px 0 0 5px}.wm-join button:last-child{border-radius:0 5px 5px 0;border-left:0}
+.wm-join button[aria-pressed="true"]{background:var(--ink);color:var(--c-ffffff)}
+.wm-add{width:100%;margin-top:10px;font-size:13px;min-height:40px;border-style:dashed}
+.wm-cond .wm-selectall{margin-top:6px}
+.wm-none{color:var(--muted);font-weight:400}

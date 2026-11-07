@@ -1,4 +1,4 @@
-"""Data for the WALS feature map (dist/wals-map.html).
+"""Data for the language feature map (dist/feature-map.html).
 
 Two steps:
 
@@ -9,19 +9,20 @@ Two steps:
       when moving to a new WALS release; it needs network access.
 
   python3 tools/build_wals_map.py
-      Reads those tables and source-data/wals.csv (the language coordinates)
-      and writes dist/wals/ (not committed; built in CI):
-        languages.json  one entry per WALS language with a point: code, name,
-                        family, genus, Glottocode and the point in the map's
-                        SVG units (Equal Earth, central meridian 0, as
-                        dist/map/land.svg; see languoid_map.py)
+      Reads those tables, source-data/languages.csv (Glottolog) and
+      source-data/wals.csv (WALS languages and their Glottocodes) and writes
+      dist/wals/ (not committed; built in CI):
+        languages.json  one entry per Glottolog language with a point:
+                        Glottocode, name, family, first WALS code (or "") and
+                        the point in the map's SVG units (Equal Earth, central
+                        meridian 0, as dist/map/land.svg; see languoid_map.py)
         features.json   every feature: id, name, area and its values with
                         their counts
         f/<ID>.json     one feature's values: a list with one number per
                         language in languages.json (0 = no data)
 
-Points are WALS's representative coordinates, not the area where a language
-is spoken.
+Points are Glottolog's representative coordinates, not the area where a
+language is spoken.
 """
 from pathlib import Path
 import csv
@@ -83,33 +84,49 @@ def fetch():
 
 
 def build():
-    langs = []
-    for r in csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")):
-        if r["Latitude"] and r["Longitude"]:
-            langs.append(r)
-    langs.sort(key=lambda r: r["ID"])
+    """Points are every Glottolog language (level "language") with coordinates, so the
+    map starts from all languages, not only those in WALS. Each WALS language is
+    attached to its Glottolog language: a WALS lect mapped to a dialect counts for the
+    dialect's language; one mapped to a family, or to nothing, is left out. When
+    several WALS lects fall on one language, the first in WALS code order with a value
+    for a feature gives that value."""
+    glotto = list(csv.DictReader((ROOT / "source-data" / "languages.csv").open(encoding="utf-8")))
+    by_id = {r["ID"]: r for r in glotto}
+    langs = sorted((r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
+                   key=lambda r: r["ID"])
     index = {r["ID"]: i for i, r in enumerate(langs)}
-    names = {r["ID"]: r["Name"] for r in csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8"))}
+
+    wals_to = {}   # WALS code -> index in langs
+    wals_codes = {}  # index -> first WALS code
+    for w in sorted(csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")), key=lambda r: r["ID"]):
+        g = by_id.get(w["Glottocode"])
+        if not g:
+            continue
+        if g["Level"] == "dialect":
+            g = by_id.get(g["Language_ID"])
+        i = index.get(g["ID"]) if g else None
+        if i is None:
+            continue
+        wals_to[w["ID"]] = i
+        wals_codes.setdefault(i, w["ID"])
 
     params = list(csv.DictReader((SRC / "parameters.csv").open(encoding="utf-8")))
     codes = {}
     for c in csv.DictReader((SRC / "codes.csv").open(encoding="utf-8")):
         codes.setdefault(c["Parameter_ID"], []).append({"n": int(c["Number"]), "name": c["Name"]})
     values = {}
-    for v in csv.DictReader((SRC / "values.csv").open(encoding="utf-8")):
-        i = index.get(v["Language_ID"])
+    for v in sorted(csv.DictReader((SRC / "values.csv").open(encoding="utf-8")), key=lambda r: r["Language_ID"]):
+        i = wals_to.get(v["Language_ID"])
         if i is not None:
-            values.setdefault(v["Parameter_ID"], {})[i] = int(v["Value"])
+            values.setdefault(v["Parameter_ID"], {}).setdefault(i, int(v["Value"]))
 
     OUT.joinpath("f").mkdir(parents=True, exist_ok=True)
-    out_langs = []
-    for r in langs:
+    rows = []
+    for i, r in enumerate(langs):
         x, y = project(float(r["Longitude"]), float(r["Latitude"]))
-        parent = r["Parent_ID"]
-        genus = names.get(parent, "")
-        family = r["Family"]
-        out_langs.append([r["ID"], r["Name"], family, genus, r["Glottocode"], round(x, 1), round(y, 1)])
-    write(OUT / "languages.json", {"fields": ["id", "name", "family", "genus", "glottocode", "x", "y"], "rows": out_langs})
+        fam = by_id.get(r["Family_ID"], {}).get("Name", "") if r["Family_ID"] else ""
+        rows.append([r["ID"], r["Name"], fam, wals_codes.get(i, ""), round(x, 1), round(y, 1)])
+    write(OUT / "languages.json", {"fields": ["glottocode", "name", "family", "wals", "x", "y"], "rows": rows})
 
     features = []
     for p in params:
@@ -127,7 +144,7 @@ def build():
                          "languages": len(got), "values": vals})
         write(OUT / "f" / f"{pid}.json", [got.get(i, 0) for i in range(len(langs))])
     write(OUT / "features.json", {"version": VERSION, "features": features})
-    print(f"Wrote dist/wals/: {len(langs)} languages, {len(features)} features")
+    print(f"Wrote dist/wals/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features")
 
 
 def write(path, obj):
