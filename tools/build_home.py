@@ -8,9 +8,11 @@ each of them (owner, 2026-11-06).
 The page works without JavaScript. The search box is a plain GET form that
 opens the language-families atlas with ?q=.
 
-Random lives on this page only (owner, 2026-11-06): a row of three buttons
-under the search box, one per atlas. dist/home.js shows the row and, on a
-click, opens the record page (record.html?domain=...&id=...) of a record
+Random lives on this page only (owner, 2026-11-06): a row of buttons under
+the search box. "Random" itself is a button that picks any record (one of
+the three atlases at random, then a record in it), so tapping the word does
+something instead of selecting it as text; the three buttons after it pick
+from one atlas each. dist/home.js shows the row and, on a click, opens the record page (record.html?domain=...&id=...) of a record
 drawn from dist/random.json, which this script writes (not committed):
 
 - language: Glottolog languages and dialects, without bookkeeping records;
@@ -59,12 +61,14 @@ def random_pools():
 
 
 def random_row():
-    buttons = "".join(
+    any_button = ('<button type="button" class="random-any" data-domain="any" '
+                  'title="Choose a random language, sign language or writing system" '
+                  'aria-label="Choose a random language, sign language or writing system">Random</button>')
+    buttons = any_button + "".join(
         f'<button type="button" data-domain="{domain}" title="{escape(title)}" '
         f'aria-label="{escape(title)}">{escape(label)}</button>'
         for domain, label, title in RANDOM_BUTTONS)
-    return (f'<div class="home-random" role="group" aria-labelledby="home-random-label" hidden>'
-            f'<span id="home-random-label">Random</span>{buttons}</div>')
+    return f'<div class="home-random" role="group" aria-label="Random" hidden>{buttons}</div>'
 
 
 def main():

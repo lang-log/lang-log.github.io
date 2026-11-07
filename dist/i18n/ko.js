@@ -53,6 +53,7 @@
       'Random': '무작위',
       'Sign language': '수어',
       'Writing system': '문자 체계',
+      'Choose a random language, sign language or writing system': '언어, 수어, 문자 체계 중에서 무작위로 고르기',
       'Choose a random language or dialect': '언어나 방언을 무작위로 고르기',
       'Choose a random sign language or dialect': '수어나 방언을 무작위로 고르기',
       'Choose a random writing system': '문자 체계를 무작위로 고르기',

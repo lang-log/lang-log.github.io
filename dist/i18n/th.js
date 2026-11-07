@@ -53,6 +53,7 @@
       'Random': 'สุ่ม',
       'Sign language': 'ภาษามือ',
       'Writing system': 'ระบบการเขียน',
+      'Choose a random language, sign language or writing system': 'สุ่มเลือกภาษา ภาษามือ หรือระบบตัวเขียน',
       'Choose a random language or dialect': 'สุ่มเลือกภาษาหรือภาษาถิ่น',
       'Choose a random sign language or dialect': 'สุ่มเลือกภาษามือหรือภาษาถิ่น',
       'Choose a random writing system': 'สุ่มเลือกระบบการเขียน',

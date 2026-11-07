@@ -53,6 +53,7 @@
       'Random': 'Al azar',
       'Sign language': 'Lengua de señas',
       'Writing system': 'Sistema de escritura',
+      'Choose a random language, sign language or writing system': 'Elegir al azar una lengua, una lengua de signos o un sistema de escritura',
       'Choose a random language or dialect': 'Elegir una lengua o un dialecto al azar',
       'Choose a random sign language or dialect': 'Elegir una lengua de señas o un dialecto al azar',
       'Choose a random writing system': 'Elegir un sistema de escritura al azar',

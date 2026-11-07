@@ -53,6 +53,7 @@
       'Random': 'Случайно',
       'Sign language': 'Жестовый язык',
       'Writing system': 'Система письма',
+      'Choose a random language, sign language or writing system': 'Выбрать случайный язык, жестовый язык или письменность',
       'Choose a random language or dialect': 'Выбрать случайный язык или диалект',
       'Choose a random sign language or dialect': 'Выбрать случайный жестовый язык или диалект',
       'Choose a random writing system': 'Выбрать случайную систему письма',

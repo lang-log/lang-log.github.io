@@ -53,6 +53,7 @@
       'Random': 'Acak',
       'Sign language': 'Bahasa isyarat',
       'Writing system': 'Sistem tulisan',
+      'Choose a random language, sign language or writing system': 'Pilih bahasa, bahasa isyarat, atau sistem tulisan secara acak',
       'Choose a random language or dialect': 'Pilih bahasa atau dialek secara acak',
       'Choose a random sign language or dialect': 'Pilih bahasa isyarat atau dialek secara acak',
       'Choose a random writing system': 'Pilih sistem tulisan secara acak',

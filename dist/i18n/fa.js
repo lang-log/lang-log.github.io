@@ -53,6 +53,7 @@
       'Random': 'تصادفی',
       'Sign language': 'زبان اشاره',
       'Writing system': 'نظام نوشتاری',
+      'Choose a random language, sign language or writing system': 'انتخاب تصادفی یک زبان، زبان اشاره یا نظام نوشتاری',
       'Choose a random language or dialect': 'انتخاب تصادفی یک زبان یا گویش',
       'Choose a random sign language or dialect': 'انتخاب تصادفی یک زبان اشاره یا گویش',
       'Choose a random writing system': 'انتخاب تصادفی یک نظام نوشتاری',

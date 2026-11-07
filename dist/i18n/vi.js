@@ -53,6 +53,7 @@
       'Random': 'Ngẫu nhiên',
       'Sign language': 'Ngôn ngữ ký hiệu',
       'Writing system': 'Hệ chữ viết',
+      'Choose a random language, sign language or writing system': 'Chọn ngẫu nhiên một ngôn ngữ, ngôn ngữ ký hiệu hoặc hệ chữ viết',
       'Choose a random language or dialect': 'Chọn ngẫu nhiên một ngôn ngữ hoặc phương ngữ',
       'Choose a random sign language or dialect': 'Chọn ngẫu nhiên một ngôn ngữ ký hiệu hoặc phương ngữ',
       'Choose a random writing system': 'Chọn ngẫu nhiên một hệ chữ viết',

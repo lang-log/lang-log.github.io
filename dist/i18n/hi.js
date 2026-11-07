@@ -53,6 +53,7 @@
       'Random': 'यादृच्छिक',
       'Sign language': 'सांकेतिक भाषा',
       'Writing system': 'लेखन-प्रणाली',
+      'Choose a random language, sign language or writing system': 'कोई भाषा, सांकेतिक भाषा या लिपि यादृच्छिक रूप से चुनें',
       'Choose a random language or dialect': 'कोई भाषा या बोली यादृच्छिक रूप से चुनें',
       'Choose a random sign language or dialect': 'कोई सांकेतिक भाषा या बोली यादृच्छिक रूप से चुनें',
       'Choose a random writing system': 'कोई लेखन-प्रणाली यादृच्छिक रूप से चुनें',

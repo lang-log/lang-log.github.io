@@ -53,6 +53,7 @@
       'Random': 'Rastgele',
       'Sign language': 'İşaret dili',
       'Writing system': 'Yazı sistemi',
+      'Choose a random language, sign language or writing system': 'Rastgele bir dil, işaret dili veya yazı sistemi seç',
       'Choose a random language or dialect': 'Rastgele bir dil veya ağız seç',
       'Choose a random sign language or dialect': 'Rastgele bir işaret dili veya ağız seç',
       'Choose a random writing system': 'Rastgele bir yazı sistemi seç',

@@ -53,6 +53,7 @@
       'Random': '随机',
       'Sign language': '手语',
       'Writing system': '文字系统',
+      'Choose a random language, sign language or writing system': '从语言、手语和文字系统中随机选择',
       'Choose a random language or dialect': '随机选择一种语言或方言',
       'Choose a random sign language or dialect': '随机选择一种手语或方言',
       'Choose a random writing system': '随机选择一种文字系统',

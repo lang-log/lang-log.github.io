@@ -53,6 +53,7 @@
       'Random': 'Losowo',
       'Sign language': 'Język migowy',
       'Writing system': 'System pisma',
+      'Choose a random language, sign language or writing system': 'Wybierz losowo język, język migowy lub pismo',
       'Choose a random language or dialect': 'Wybierz losowy język lub dialekt',
       'Choose a random sign language or dialect': 'Wybierz losowy język migowy lub dialekt',
       'Choose a random writing system': 'Wybierz losowy system pisma',

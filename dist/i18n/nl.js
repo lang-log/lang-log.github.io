@@ -53,6 +53,7 @@
       'Random': 'Willekeurig',
       'Sign language': 'Gebarentaal',
       'Writing system': 'Schriftsysteem',
+      'Choose a random language, sign language or writing system': 'Kies willekeurig een taal, gebarentaal of schrift',
       'Choose a random language or dialect': 'Kies een willekeurige taal of een willekeurig dialect',
       'Choose a random sign language or dialect': 'Kies een willekeurige gebarentaal of een willekeurig dialect',
       'Choose a random writing system': 'Kies een willekeurig schriftsysteem',

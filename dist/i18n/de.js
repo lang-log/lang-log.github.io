@@ -53,6 +53,7 @@
       'Random': 'Zufällig',
       'Sign language': 'Gebärdensprache',
       'Writing system': 'Schriftsystem',
+      'Choose a random language, sign language or writing system': 'Zufällig eine Sprache, Gebärdensprache oder Schrift wählen',
       'Choose a random language or dialect': 'Zufällige Sprache oder zufälligen Dialekt wählen',
       'Choose a random sign language or dialect': 'Zufällige Gebärdensprache oder zufälligen Dialekt wählen',
       'Choose a random writing system': 'Zufälliges Schriftsystem wählen',
