@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': '研究之间相互冲突的分支对',
       'New pages: Stats, Sources and Updates, linked from the top page.': '新页面：统计、出处和更新，可从首页进入。',
       'Lang Log is now available in 21 languages.': 'Lang Log 现已支持 21 种语言。',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': '地图可以在地图视图中占满整个窗口，点按一个点会显示其记录及各自页面的链接。',
       'Maps on record pages can be zoomed and panned, with country borders.': '记录页面的地图可以缩放和拖动，并显示国界。',
       'Every family, language and dialect has its own page, at an address that follows its classification.': '每个语系、语言和方言都有自己的页面，网址依照其分类。',
       'Stats · Lang Log by yoshi': '统计 · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "虚线边界为有争议或未确定的边界。",
       "Reset": "重置",
       "Reset view": "恢复原始视图",
+      "Map view": "地图视图",
+      "Close map view": "关闭地图视图",
+      "Records at this point": "此处的记录",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog 手语类别中的全部 $1 条记录，包括语系和方言记录。类别仅用于导航。'],

@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': 'Суперечливі пари клад між дослідженнями',
       'New pages: Stats, Sources and Updates, linked from the top page.': 'Нові сторінки: «Статистика», «Джерела» і «Новини», посилання — на головній сторінці.',
       'Lang Log is now available in 21 languages.': 'Lang Log тепер доступний 21 мовою.',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': 'Мапи можна відкрити на все вікно в режимі мапи, а дотик до точки показує її записи з посиланнями на їхні сторінки.',
       'Maps on record pages can be zoomed and panned, with country borders.': 'Мапи на сторінках записів можна збільшувати й переміщувати, на них показано кордони країн.',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'Кожна родина, мова й діалект мають власну сторінку за адресою, що відповідає класифікації.',
       'Stats · Lang Log by yoshi': 'Статистика · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "Пунктирні кордони спірні або не встановлені.",
       "Reset": "Скинути",
       "Reset view": "Скинути вигляд",
+      "Map view": "Режим мапи",
+      "Close map view": "Закрити режим мапи",
+      "Records at this point": "Записи в цій точці",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Усі $1 записи категорії жестових мов Glottolog, зокрема записи родин і діалектів. Категорії слугують навігації.'],

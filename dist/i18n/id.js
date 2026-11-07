@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': 'Pasangan klad yang bertentangan antarstudi',
       'New pages: Stats, Sources and Updates, linked from the top page.': 'Halaman baru: Statistik, Sumber, dan Pembaruan, ditautkan dari halaman utama.',
       'Lang Log is now available in 21 languages.': 'Lang Log kini tersedia dalam 21 bahasa.',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': 'Peta kini dapat memenuhi seluruh jendela dalam tampilan peta, dan mengetuk sebuah titik menampilkan catatannya beserta tautan ke halamannya.',
       'Maps on record pages can be zoomed and panned, with country borders.': 'Peta di halaman catatan dapat diperbesar dan digeser, dengan batas negara.',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'Setiap rumpun, bahasa, dan dialek memiliki halaman sendiri, dengan alamat yang mengikuti klasifikasinya.',
       'Stats · Lang Log by yoshi': 'Statistik · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "Perbatasan putus-putus disengketakan atau belum ditetapkan.",
       "Reset": "Atur ulang",
       "Reset view": "Atur ulang tampilan",
+      "Map view": "Tampilan peta",
+      "Close map view": "Tutup tampilan peta",
+      "Records at this point": "Catatan di titik ini",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Semua $1 catatan dalam kategori bahasa isyarat Glottolog, termasuk catatan rumpun dan dialek. Kategori digunakan untuk navigasi.'],

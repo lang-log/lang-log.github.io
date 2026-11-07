@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': '연구 간에 충돌하는 분기 쌍',
       'New pages: Stats, Sources and Updates, linked from the top page.': '새 페이지: 통계, 출처, 업데이트. 첫 페이지에서 갈 수 있습니다.',
       'Lang Log is now available in 21 languages.': 'Lang Log를 이제 21개 언어로 쓸 수 있습니다.',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': '지도를 지도 보기에서 창 전체로 볼 수 있고, 점을 누르면 그 기록과 각 페이지로 가는 링크가 표시됩니다.',
       'Maps on record pages can be zoomed and panned, with country borders.': '기록 페이지의 지도를 확대하고 이동할 수 있으며 국경도 표시합니다.',
       'Every family, language and dialect has its own page, at an address that follows its classification.': '모든 어족, 언어, 방언에 분류를 따르는 주소의 전용 페이지가 생겼습니다.',
       'Stats · Lang Log by yoshi': '통계 · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "점선 국경은 분쟁 중이거나 확정되지 않은 경계입니다.",
       "Reset": "초기화",
       "Reset view": "처음 보기로",
+      "Map view": "지도 보기",
+      "Close map view": "지도 보기 닫기",
+      "Records at this point": "이 지점의 기록",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog 수어 범주의 기록 $1건 전부(어족과 방언 기록 포함)입니다. 범주는 탐색용입니다.'],

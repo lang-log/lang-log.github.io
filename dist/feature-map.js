@@ -68,7 +68,8 @@
     });
     if (colourBy) p.set('k', colourBy);
     var q = p.toString().replace(/%2C/g, ',').replace(/%3A/g, ':').replace(/%7C/g, '|');
-    history.replaceState(null, '', q ? '?' + q : location.pathname);
+    // Keep the #map-view of the full-screen map (dist/map-zoom.js) and its history entry.
+    history.replaceState(history.state, '', (q ? '?' + q : location.pathname) + location.hash);
   }
 
   function featureSelect(value, emptyLabel) {
@@ -246,7 +247,15 @@
   function showCard(i, evt) {
     var row = L.rows[i];
     card.textContent = '';
-    card.appendChild(el('h3', { class: 'notranslate' }, row[1]));
+    // The name links to the record's own page once dist/atlas-data.js has found it, and
+    // to its source detail until then (or when it has no page).
+    var name = el('a', { href: 'record.html?domain=language&id=' + encodeURIComponent(row[0]) }, row[1]);
+    var h = el('h3', { class: 'notranslate' });
+    h.appendChild(name);
+    card.appendChild(h);
+    if (window.LangLogMap) window.LangLogMap.records([row[0]], '').then(function (rs) {
+      if (rs[0] && rs[0].url) name.href = rs[0].url;
+    }, function () {});
     if (row[2]) card.appendChild(el('p', { class: 'notranslate wm-sub' }, row[2]));
     var dl = el('dl');
     var seen = {};
@@ -259,8 +268,7 @@
     });
     card.appendChild(dl);
     var links = el('p', { class: 'wm-links' });
-    links.appendChild(el('a', { href: 'record.html?id=' + encodeURIComponent(row[0]) }, 'Lang Log record'));
-    if (row[3]) links.appendChild(el('a', { href: 'https://wals.info/languoid/lect/wals_code_' + encodeURIComponent(row[3]), target: '_blank', rel: 'noopener' }, 'WALS page'));
+    if (row[3]) links.appendChild(el('a', { href: 'https://wals.info/languoid/lect/wals_code_' + encodeURIComponent(row[3]), target: '_blank', rel: 'noopener noreferrer' }, 'WALS page'));
     card.appendChild(links);
     var close = el('button', { type: 'button', class: 'wm-close', 'aria-label': 'Close' }, '×');
     close.addEventListener('click', function () { card.hidden = true; });

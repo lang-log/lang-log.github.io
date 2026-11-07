@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': 'अध्ययनों के बीच परस्पर विरोधी शाखा-जोड़े',
       'New pages: Stats, Sources and Updates, linked from the top page.': 'नए पेज: आँकड़े, स्रोत और अपडेट, मुख्य पेज से जुड़े हुए।',
       'Lang Log is now available in 21 languages.': 'Lang Log अब 21 भाषाओं में उपलब्ध है।',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': 'मानचित्र अब मानचित्र दृश्य में पूरी विंडो में खुल सकते हैं, और किसी बिंदु को टैप करने पर उसके रिकॉर्ड उनके पृष्ठों के लिंक के साथ दिखते हैं।',
       'Maps on record pages can be zoomed and panned, with country borders.': 'रिकॉर्ड पेजों के नक्शों को ज़ूम और खिसकाया जा सकता है, देशों की सीमाओं के साथ।',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'हर परिवार, भाषा और बोली का अपना पेज है, ऐसे पते पर जो उसके वर्गीकरण के अनुसार है।',
       'Stats · Lang Log by yoshi': 'आँकड़े · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "धराशायी सीमाएँ विवादित या अनिश्चित हैं।",
       "Reset": "रीसेट",
       "Reset view": "दृश्य रीसेट करें",
+      "Map view": "मानचित्र दृश्य",
+      "Close map view": "मानचित्र दृश्य बंद करें",
+      "Records at this point": "इस बिंदु के रिकॉर्ड",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog की सांकेतिक भाषा श्रेणी के सभी $1 रिकॉर्ड, भाषा-परिवार और बोली रिकॉर्ड सहित। श्रेणियाँ नेविगेशन के लिए हैं।'],

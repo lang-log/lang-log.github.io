@@ -453,18 +453,21 @@ def map_html(depth, i):
     family = n["level"] == "family"
     own = None if family else coords.get(i)
     # Many dialects carry their language's own point; those add nothing to show.
-    main = [coords[c] for c in points_under[i] if coords[c] != own]
+    main_ids = [c for c in points_under[i] if coords[c] != own]
+    main = [coords[c] for c in main_ids]
     parent = n.get("parent")
-    context = []
+    context_ids = []
     if parent in nodes:
         mine = set(points_under[i]) | {i}
-        context = [coords[c] for c in points_under[parent] if c not in mine]
+        context_ids = [c for c in points_under[parent] if c not in mine]
+    context = [coords[c] for c in context_ids]
     kind = "languages" if family else ("dialects" if n["level"] == "language" else "")
     if family:
         label = f"Map: {len(main)} languages of {n['name']}"
     else:
         label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
-    svg = map_svg("../" * depth + "map/", main, context, own, label)
+    svg = map_svg("../" * depth + "map/", main, context, own, label,
+                  main_ids=main_ids, context_ids=context_ids, self_id=i if own else "")
     if not svg:
         return ""
     notes = []

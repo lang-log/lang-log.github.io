@@ -13,3 +13,18 @@
 @media(max-width:700px){.variant-page>.domain-nav,body>.domain-nav{margin:12px 12px 0}}
 .variant-page .toolbar details>summary{font-size:12px;padding:6px 7px}
 @media(max-width:700px){.variant-page .toolbar details>summary{font-size:14px;min-height:44px;padding:10px 8px}}
+/* Map view (dist/map-zoom.js): the map, or the box marked lmap-host around it, fills the window. */
+.lmap-tools .lmap-full-btn{display:inline-flex;align-items:center;justify-content:center;padding:0}
+.lmap-full-open,.lmap-full-open body{overflow:hidden}
+.lmap-full{position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;margin:0;border:0;border-radius:0;background:var(--c-f9faf7)}
+.lmap-full .lmap-wrap{height:100%}
+.lmap-full .lmap{width:100%;height:100%;aspect-ratio:auto;border:0;border-radius:0}
+.lmap-full .lmap-tools{top:12px;right:12px;gap:6px}
+.lmap-full .lmap-tools button{min-width:44px;height:44px;box-shadow:0 2px 8px var(--c-24302e1f)}
+.lmap-full .lmap-tools .lmap-reset{font-size:14px;padding:0 12px}
+/* The records of a tapped point, each linked to its page. */
+.lmap-pop{position:absolute;z-index:2;width:max-content;max-width:min(290px,calc(100% - 16px));max-height:min(320px,calc(100% - 16px));overflow:auto;padding-block:10px;padding-inline:14px 40px;background:var(--c-ffffff);border:1px solid var(--line);border-radius:6px;box-shadow:0 4px 18px var(--c-24302e1f);font-size:14px;line-height:1.5}
+.lmap-pop ul{list-style:none;margin:0;padding:0}
+.lmap-pop li{padding:3px 0;overflow-wrap:anywhere}
+.lmap-pop a{font-weight:600}
+.lmap-pop-close{position:absolute;top:4px;inset-inline-end:4px;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;background:none;color:var(--ink)}
