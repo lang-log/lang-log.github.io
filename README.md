@@ -71,12 +71,12 @@ Records that exist only in another source's tree (WALS genera and families, stud
 
 ## Interface language and theme
 
-The right end of the header on every page has a light/dark theme toggle and a language menu (English, 日本語), which work like the ones on the owner's profile site.
+The right end of the header on every page has a light/dark theme toggle and a language menu with the same 21 languages as the profile site, which work like the ones on the owner's profile site.
 
 - `dist/theme.js` adds the toggle and applies a saved theme before the page is drawn. Without a saved choice the page follows the system setting. Every colour is a variable at the top of `dist/style.css` (`--c-<light hex>`), with one light and one dark value; the canvas tree in `dist/tree.js` reads the same variables.
-- `dist/lang.js` adds the language menu. The pages are written in English; in Japanese the script translates the interface text with `dist/i18n.js` and keeps translating what the atlas scripts add later. Record names, source titles, citations and codes are data and stay as the sources give them. Without a saved choice the language follows the browser.
+- `dist/lang.js` adds the language menu. The pages are written in English; in another language the script translates the interface text with that language's dictionary (`dist/i18n.js` for Japanese, `dist/i18n/<code>.js` for the others, loaded only when chosen) and keeps translating what the atlas scripts add later. Record names, source titles, citations and codes are data and stay as the sources give them. Without a saved choice the language follows the browser. Arabic and Persian are right-to-left; numbers and dates follow each language's conventions (0-9 except Persian ۰-۹).
 - Both choices are kept in `localStorage` (`theme`, `lang`) for every page. Switching keeps the URL and adds no history entry. Without JavaScript the pages are English, follow the system theme, and show neither control.
-- When you add interface text to a page or a script, add its translation to `dist/i18n.js`.
+- When you add interface text to a page or a script, add its translation to every dictionary; `node tools/check_i18n.js` lists what is missing.
 
 ## Search from the address bar
 
