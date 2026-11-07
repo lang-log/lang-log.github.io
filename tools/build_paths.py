@@ -33,6 +33,8 @@ Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 """
 from pathlib import Path
 from html import escape
+
+from security_policy import HEAD as SECURITY_HEAD
 import csv
 import json
 import re
@@ -219,7 +221,7 @@ def source_link(sid):
     s = sources.get(sid)
     if not s:
         return escape(sid)
-    return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener">{escape(s["title"])}</a>'
+    return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">{escape(s["title"])}</a>'
 
 
 def names_html(n):
@@ -246,7 +248,7 @@ def ext_link(sid):
     if not src:
         return ""
     label = "Catalog" if src.get("kind") == "catalog" else "Paper"
-    return f'<a href="{escape(src["url"])}" target="_blank" rel="noopener">{label} ↗</a>'
+    return f'<a href="{escape(src["url"])}" target="_blank" rel="noopener noreferrer">{label} ↗</a>'
 
 
 def source_name_link(depth, sid):
@@ -318,7 +320,7 @@ def debates_html(i):
             cls = " conflict-card" if p.get("stance") == "critique" else ""
             out += (f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong><p>{escape(p["claim"])}</p>'
                     f'<span class="evidence-tag">{escape(p["publication"])}</span><br>'
-                    f'<a href="{escape(p["url"])}" target="_blank" rel="noopener">Paper ↗</a></div>')
+                    f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>')
         out += f'<p class="small-disclaimer">{escape(d["note"])}</p></section>'
     return out
 
@@ -378,8 +380,8 @@ def atlas_html(base, root=None, src=None, downloads=""):
             '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
             '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'
             '<div class="canvas-note">Drag to pan · Scroll / pinch to zoom · Click a node to open its page</div></div>'
-            '<div class="legend"><span><i style="background:var(--c-417f80)"></i>Family / subgroup</span>'
-            '<span><i style="background:var(--c-ce8654)"></i>Language</span><span><i style="background:var(--c-a5aeb0)"></i>Dialect</span></div>'
+            '<div class="legend"><span><i class="lv-family"></i>Family / subgroup</span>'
+            '<span><i class="lv-language"></i>Language</span><span><i class="lv-dialect"></i>Dialect</span></div>'
             '<div class="how-to-read"><p>Branches are conditional on their source. Different placements appear together; no source switch is needed.</p>'
             '<p>Open a row to see its members. Each name opens its own page, with every source\'s placement and paper links.</p>'
             '<p>Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>'
@@ -438,7 +440,7 @@ def record_body(depth, i, heading="h1"):
         body += '<p class="small-disclaimer">Source-specific grouping or sample; not a new accepted language family.</p>'
         links = [ext_link(n["source"])]
     else:
-        links = [f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a>']
+        links = [f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener noreferrer">Glottolog record ↗</a>']
     links.append(f'<a href="{"../" * depth}record.html?domain=language&amp;id={escape(i)}">Full source detail</a>')
     body += "<p>" + " · ".join(links) + "</p>"
     if heading == "h1" and i in nodes:
@@ -477,7 +479,7 @@ def map_html(depth, i):
     legend = " ".join(notes)
     return (f'<figure class="lmap-figure">{svg}<figcaption>{legend} '
             "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
-            'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> (public domain). '
+            'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
             "Dashed borders are disputed or not settled. "
             "Projection: Equal Earth.</figcaption></figure>")
 
@@ -498,10 +500,10 @@ def languages_under_all(i):
 
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
 FOOTER = ('<footer class="credit"><p>Classification and names from '
-          '<a href="https://glottolog.org/" target="_blank" rel="noopener">Glottolog 5.3</a> '
+          '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">Glottolog 5.3</a> '
           '(Hammarström, Forkel, Haspelmath &amp; Bank 2026, '
-          '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener">doi:10.5281/zenodo.18840935</a>), '
-          'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p></footer>')
+          '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
+          'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>')
 
 
 # Links to the three atlases, under the header of every page.
@@ -522,6 +524,7 @@ def page_scripts(up):
 def page(depth, title, body):
     up = "../" * depth
     return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+            f"{SECURITY_HEAD}"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"icon\" href=\"{up}favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"{up}apple-touch-icon.png\">"
@@ -577,7 +580,7 @@ def source_page_body(sid):
         body += f'<p>{escape(src["citation"])}</p>'
     links = [ext_link(sid)]
     if src.get("dataset"):
-        links.append(f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener">Source tree &amp; data ↗</a>')
+        links.append(f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>')
     body += "<p>" + " · ".join(links) + "</p>"
     if src.get("interpretationNote"):
         body += f'<p class="small-disclaimer">{escape(src["interpretationNote"])}</p>'

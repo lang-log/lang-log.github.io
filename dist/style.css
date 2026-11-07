@@ -251,3 +251,7 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .home-results .hit{color:inherit;text-decoration:none}
 .home-results .hit:hover{background:var(--c-edf2e7)}
 @media(max-width:700px){.home-section{padding:22px 0}.home-section .record-links{grid-template-columns:1fr}.sources-scope p,.sources-scope li{font-size:16px}}
+/* Level colours of the legend dots and the search-result dots, as classes because the
+   Content-Security-Policy blocks style="..." attributes (tools/security_policy.py). */
+.legend i.lv-family{background:var(--c-417f80)}.legend i.lv-language{background:var(--c-ce8654)}.legend i.lv-dialect{background:var(--c-a5aeb0)}
+.hit .dot.lv-hit-family{background:var(--c-397b7b)}.hit .dot.lv-hit-language{background:var(--c-c28051)}.hit .dot.lv-hit-dialect{background:var(--c-9ba8a4)}

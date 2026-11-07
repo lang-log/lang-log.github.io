@@ -50,3 +50,9 @@ text=$(find dist -name '*.html' -print0 | xargs -0 grep -il '>[[:space:]]*\(✱\
 python3 tools/version_assets.py
 echo "Check that the asset links are versioned"
 grep -q 'href="style.css?v=' dist/index.html
+
+# Every page starts with the one security policy of tools/security_policy.py
+# (Content-Security-Policy and referrer), and none has an inline script, an
+# inline style attribute or event handler that the policy would block
+# (.claude/rules/security.md).
+python3 tools/security_policy.py --check
