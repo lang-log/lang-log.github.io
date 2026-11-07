@@ -37,6 +37,6 @@ jobs:
       preview-workflow: site.yml
       links: |
         Top page|
-        Language families|language-families.html
+        Language families|#families
         Signs and scripts|signs-and-scripts.html
         A record page|afro-asiatic/berber/
