@@ -59,9 +59,9 @@ def read_csv(path):
         return list(csv.DictReader(f))
 
 
-def blank(i, name, kind, source):
+def blank(i, name, source):
     return {
-        "schema_version": 1, "id": i, "kind": kind, "name": name, "path": "",
+        "schema_version": 1, "id": i, "name": name, "path": "",
         "codes": {"glottocode": None, "iso639_3": None, "wals": []},
         "names": [], "classification": {}, "location": None, "macroarea": None,
         "countries": [], "isolate": False, "category": None, "features": {},
@@ -115,10 +115,10 @@ def import_glottolog():
     parents = glottolog_parents()
     out = {}
     for r in rows:
-        n = blank(r["ID"], r["Name"], r["Level"], "glottolog")
+        n = blank(r["ID"], r["Name"], "glottolog")
         n["codes"]["glottocode"] = r["ID"]
         n["codes"]["iso639_3"] = r["ISO639P3code"] or None
-        n["classification"]["glottolog"] = {"parent": parents.get(r["ID"])}
+        n["classification"]["glottolog"] = {"parent": parents.get(r["ID"]), "level": r["Level"]}
         if r["Latitude"] and r["Longitude"]:
             n["location"] = {"latitude": float(r["Latitude"]), "longitude": float(r["Longitude"]), "source": "glottolog"}
         n["macroarea"] = r["Macroarea"] or None
@@ -165,7 +165,7 @@ def import_wals(records):
             continue
         i = wals_id[r["ID"]]
         if i not in records:
-            n = blank(i, r["Name"], "language", "wals")
+            n = blank(i, r["Name"], "wals")
             n["codes"]["iso639_3"] = r["ISO639P3code"] or None
             if r["Latitude"] and r["Longitude"]:
                 n["location"] = {"latitude": float(r["Latitude"]), "longitude": float(r["Longitude"]), "source": "wals"}
@@ -178,7 +178,7 @@ def import_wals(records):
         n["sources"]["wals"] = VERSION["wals"]
         parent = wals_id.get(r["Parent_ID"]) if r["Parent_ID"] else None
         if parent != i:
-            n["classification"]["wals"] = {"parent": parent}
+            n["classification"]["wals"] = {"parent": parent, "level": "language"}
         languages[r["ID"]] = i
 
     catalogue = json.loads((SRC / "lang-log" / "features.json").read_text(encoding="utf-8"))
