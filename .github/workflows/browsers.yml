@@ -20,9 +20,8 @@ jobs:
       locales: en-US ja-JP
       pages: |
         /
-        /language-families.html
-        /language-families.html?view=tree
+        /?q=bunun
         /signs-and-scripts.html
-        /families/
         /afro-asiatic/berber/
+        /wals/
         /404.html
