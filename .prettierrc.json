@@ -1,0 +1,11 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "quoteProps": "preserve",
+  "overrides": [
+    {
+      "files": ["*.yml", "*.yaml", "*.md"],
+      "options": { "singleQuote": false }
+    }
+  ]
+}
