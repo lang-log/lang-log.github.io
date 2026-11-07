@@ -12,10 +12,13 @@
   b.addEventListener('click',async()=>{
    b.disabled=true;
    try{
-    const ids=(await load())[b.dataset.domain]||[];
+    const all=await load();
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+    let domain=b.dataset.domain;
+    if(domain==='any')domain=pick(Object.keys(all).filter(k=>(all[k]||[]).length));
+    const ids=(domain&&all[domain])||[];
     if(!ids.length)return;
-    const id=ids[Math.floor(Math.random()*ids.length)];
-    location.href='record.html?domain='+encodeURIComponent(b.dataset.domain)+'&id='+encodeURIComponent(id);
+    location.href='record.html?domain='+encodeURIComponent(domain)+'&id='+encodeURIComponent(pick(ids));
    }catch(e){pools=null;}
    finally{b.disabled=false;}
   });
