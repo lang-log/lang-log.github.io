@@ -1,4 +1,6 @@
-# Build and check the site for every pull request (tools/build_site.sh).
+# Check the code (quality.yml: Prettier, ESLint, Ruff), then build and check the site
+# (tools/build_site.sh), for every pull request and every push to main. The build runs only when
+# the code checks pass.
 # For pull requests from this repository (not forks or Dependabot) it also uploads a preview as
 # the artifact "preview"; pages.yml publishes it at /preview/pr-<number>/ and links it on the
 # pull request (shared rule: research-aide .claude/rules/pr-previews.md).
@@ -8,6 +10,8 @@
 name: site
 on:
   pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,7 +19,10 @@ concurrency:
   group: site-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  quality:
+    uses: ./.github/workflows/quality.yml
   build:
+    needs: quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +35,7 @@ jobs:
         run: |
           mkdir _preview
           tar -C dist -cf - \
-            $(cd dist && for e in *; do if [ ! -d "$e" ] || [ "$e" = map ] || [ "$e" = data ] || [ "$e" = afro-asiatic ]; then echo "$e"; fi; done) \
+            $(cd dist && for e in *; do if [ ! -d "$e" ] || [ "$e" = map ] || [ "$e" = data ] || [ "$e" = afro-asiatic ] || [ "$e" = stats ] || [ "$e" = sources ] || [ "$e" = updates ]; then echo "$e"; fi; done) \
             | tar -C _preview -xf -
           du -sh _preview
       - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'

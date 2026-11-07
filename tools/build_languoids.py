@@ -28,9 +28,11 @@ the catalogue (run tools/feature_catalogue.py to add it).
 
 Run after tools/build_paths.py, whose path rules it imports.
 """
+
 from pathlib import Path
 import collections
 import csv
+import itertools
 import json
 import re
 import shutil
@@ -44,7 +46,9 @@ SCHEMA = ROOT / "schema"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_paths  # noqa: E402  (path rules: build_paths.path_of)
 
-SOURCES = {s["id"]: s for s in json.loads((SRC / "sources.json").read_text(encoding="utf-8"))["sources"]}
+SOURCES = {
+    s["id"]: s for s in json.loads((SRC / "sources.json").read_text(encoding="utf-8"))["sources"]
+}
 VERSION = {sid: s["version"] for sid, s in SOURCES.items()}
 # Order in which the evidence of a feature value is preferred: the owner's
 # own values first, then the catalogues.
@@ -58,10 +62,20 @@ def read_csv(path):
 
 def blank(i, name, source):
     return {
-        "schema_version": 1, "id": i, "name": name, "path": "",
+        "schema_version": 1,
+        "id": i,
+        "name": name,
+        "path": "",
         "codes": {"glottocode": None, "iso639_3": None, "wals": []},
-        "names": [], "classification": {}, "location": None, "macroarea": None,
-        "countries": [], "isolate": False, "modality": "spoken", "constructed": False, "features": {},
+        "names": [],
+        "classification": {},
+        "location": None,
+        "macroarea": None,
+        "countries": [],
+        "isolate": False,
+        "modality": "spoken",
+        "constructed": False,
+        "features": {},
         "sources": {source: VERSION[source]},
     }
 
@@ -75,19 +89,17 @@ def glottolog_parents():
             raise ValueError(f"{child} has two parents: {parents[child]} and {parent}")
         parents[child] = parent
 
-    for line in open(SRC / "classification.nex", encoding="utf-8"):
-        if " = [&R] " not in line:
-            continue
-        tokens = re.findall(r"[a-z0-9]{4}[0-9]{4}|[(),;]", line.split(" = [&R] ")[1])
+    def parse_tree(tokens):
+        """Read one Newick tree of Glottocodes, recording every parent."""
         pos = 0
 
-        def parse():
+        def node():
             nonlocal pos
             children = []
             if tokens[pos] == "(":
                 pos += 1
                 while True:
-                    children.append(parse())
+                    children.append(node())
                     if tokens[pos] == ")":
                         pos += 1
                         break
@@ -98,11 +110,15 @@ def glottolog_parents():
                 edge(c, name)
             return name
 
-        parse()
+        node()
+
+    for line in open(SRC / "classification.nex", encoding="utf-8"):
+        if " = [&R] " in line:
+            parse_tree(re.findall(r"[a-z0-9]{4}[0-9]{4}|[(),;]", line.split(" = [&R] ")[1]))
     text = (SRC / "dialects.md").read_text(encoding="utf-8")
     for path in re.findall(r"\(tree/([^)]*)/md.ini\)", text):
         ids = path.split("/")
-        for a, b in zip(ids, ids[1:]):
+        for a, b in itertools.pairwise(ids):
             edge(b, a)
     return parents
 
@@ -117,7 +133,11 @@ def import_glottolog():
         n["codes"]["iso639_3"] = r["ISO639P3code"] or None
         n["classification"]["glottolog"] = {"parent": parents.get(r["ID"]), "level": r["Level"]}
         if r["Latitude"] and r["Longitude"]:
-            n["location"] = {"latitude": float(r["Latitude"]), "longitude": float(r["Longitude"]), "source": "glottolog"}
+            n["location"] = {
+                "latitude": float(r["Latitude"]),
+                "longitude": float(r["Longitude"]),
+                "source": "glottolog",
+            }
         n["macroarea"] = r["Macroarea"] or None
         n["countries"] = [c for c in r["Countries"].split(";") if c]
         n["isolate"] = r["Is_Isolate"] == "true"
@@ -144,13 +164,21 @@ def import_glottolog():
             placeholders += 1
             continue
         iso = n["codes"]["iso639_3"]
-        n["names"].append({
-            "text": r["Name"], "lang": r["lang"], "provider": r["Provider"],
-            "same_language": bool(r["lang"] and iso and iso_map.get(r["lang"], r["lang"]) == iso),
-            "source": "glottolog",
-        })
-    print(f"Glottolog: {len(out)} records, {sum(len(n['names']) for n in out.values())} names "
-          f"({placeholders} 'not specified' placeholders left out)")
+        n["names"].append(
+            {
+                "text": r["Name"],
+                "lang": r["lang"],
+                "provider": r["Provider"],
+                "same_language": bool(
+                    r["lang"] and iso and iso_map.get(r["lang"], r["lang"]) == iso
+                ),
+                "source": "glottolog",
+            }
+        )
+    print(
+        f"Glottolog: {len(out)} records, {sum(len(n['names']) for n in out.values())} names "
+        f"({placeholders} 'not specified' placeholders left out)"
+    )
     return out
 
 
@@ -170,7 +198,11 @@ def import_wals(records):
             n = blank(i, r["Name"], "wals")
             n["codes"]["iso639_3"] = r["ISO639P3code"] or None
             if r["Latitude"] and r["Longitude"]:
-                n["location"] = {"latitude": float(r["Latitude"]), "longitude": float(r["Longitude"]), "source": "wals"}
+                n["location"] = {
+                    "latitude": float(r["Latitude"]),
+                    "longitude": float(r["Longitude"]),
+                    "source": "wals",
+                }
             n["macroarea"] = r["Macroarea"] or None
             n["countries"] = [c for c in r["Country_ID"].split() if c]
             records[i] = n
@@ -193,18 +225,30 @@ def import_wals(records):
     count = 0
     for v in read_csv(SRC / "wals" / "values.csv"):
         if v["Parameter_ID"] not in mapping or v["Value"] not in mapping[v["Parameter_ID"]][1]:
-            raise SystemExit(f"WALS {v['Parameter_ID']} value {v['Value']} is not in the feature catalogue; "
-                             "run python3 tools/feature_catalogue.py")
+            raise SystemExit(
+                f"WALS {v['Parameter_ID']} value {v['Value']} is not in the feature catalogue; "
+                "run python3 tools/feature_catalogue.py"
+            )
         fid, values = mapping[v["Parameter_ID"]]
-        e = {"source": "wals", "version": VERSION["wals"], "feature": v["Parameter_ID"],
-             "value": values[v["Value"]], "raw": codes[v["Code_ID"]], "record": v["Language_ID"]}
+        e = {
+            "source": "wals",
+            "version": VERSION["wals"],
+            "feature": v["Parameter_ID"],
+            "value": values[v["Value"]],
+            "raw": codes[v["Code_ID"]],
+            "record": v["Language_ID"],
+        }
         if v["Source"]:
             e["reference"] = v["Source"]
         if v["Comment"]:
             e["comment"] = v["Comment"]
-        records[languages[v["Language_ID"]]]["features"].setdefault(fid, {"value": "", "evidence": []})["evidence"].append(e)
+        records[languages[v["Language_ID"]]]["features"].setdefault(
+            fid, {"value": "", "evidence": []}
+        )["evidence"].append(e)
         count += 1
-    print(f"WALS: {len(languages)} languages ({only_wals} not in Glottolog), {count} feature values")
+    print(
+        f"WALS: {len(languages)} languages ({only_wals} not in Glottolog), {count} feature values"
+    )
     return catalogue
 
 
@@ -228,9 +272,14 @@ def check(value, schema, where, root=None):
     types = schema.get("type")
     if types:
         names = {"object": dict, "array": list, "string": str, "boolean": bool, "null": type(None)}
-        ok = any((isinstance(value, (int, float)) and not isinstance(value, bool)) if t == "number"
-                 else (isinstance(value, int) and not isinstance(value, bool)) if t == "integer"
-                 else isinstance(value, names[t]) for t in ([types] if isinstance(types, str) else types))
+        ok = any(
+            (isinstance(value, (int, float)) and not isinstance(value, bool))
+            if t == "number"
+            else (isinstance(value, int) and not isinstance(value, bool))
+            if t == "integer"
+            else isinstance(value, names[t])
+            for t in ([types] if isinstance(types, str) else types)
+        )
         if not ok:
             raise SystemExit(f"{where}: {value!r} is not {types}")
     if "enum" in schema and value not in schema["enum"]:
@@ -259,7 +308,10 @@ def main():
     records = import_glottolog()
     # The same records and parents as the atlas data the pages are built from.
     for i, n in build_paths.nodes.items():
-        if records[i]["classification"]["glottolog"]["parent"] != n["parent"] or records[i]["name"] != n["name"]:
+        if (
+            records[i]["classification"]["glottolog"]["parent"] != n["parent"]
+            or records[i]["name"] != n["name"]
+        ):
             raise SystemExit(f"{i}: Glottolog import differs from dist/data.json")
     if set(records) != set(build_paths.nodes):
         raise SystemExit("Glottolog import has other records than dist/data.json")
@@ -276,24 +328,37 @@ def main():
         check(n, languoid_schema, i)
         target = DIST / n["path"].replace("/#", "/")
         target.mkdir(parents=True, exist_ok=True)
-        (target / "languoid.json").write_text(json.dumps(n, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        (target / "languoid.json").write_text(
+            json.dumps(n, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+        )
         for fid, f in n["features"].items():
             by_feature[fid].append([i, f["value"]])
 
     out = DIST / "features"
     shutil.rmtree(out, ignore_errors=True)
     out.mkdir()
-    index = {"schema_version": 1, "sources": {k: SOURCES[k] for k in ("lang-log", "wals")}, "features": []}
+    index = {
+        "schema_version": 1,
+        "sources": {k: SOURCES[k] for k in ("lang-log", "wals")},
+        "features": [],
+    }
     for f in catalogue["features"]:
         rows = sorted(by_feature.get(f["id"], []))
         counts = collections.Counter(v for _, v in rows)
         entry = dict(f, counts={v["id"]: counts.get(v["id"], 0) for v in f["values"]})
         index["features"].append(entry)
-        (out / (f["id"] + ".json")).write_text(json.dumps(dict(entry, languoids=rows), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    (out / "index.json").write_text(json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+        (out / (f["id"] + ".json")).write_text(
+            json.dumps(dict(entry, languoids=rows), ensure_ascii=False, separators=(",", ":")),
+            encoding="utf-8",
+        )
+    (out / "index.json").write_text(
+        json.dumps(index, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"
+    )
     shutil.rmtree(DIST / "schema", ignore_errors=True)
     shutil.copytree(SCHEMA, DIST / "schema")
-    print(f"Wrote {len(records)} languoid.json files and {len(catalogue['features'])} feature files")
+    print(
+        f"Wrote {len(records)} languoid.json files and {len(catalogue['features'])} feature files"
+    )
 
 
 if __name__ == "__main__":

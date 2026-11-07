@@ -1,15 +1,441 @@
-.variant-page main{display:block;height:auto;min-height:300px;max-width:1100px;margin:28px auto;padding:30px;overflow:visible}.variant-page h1{font-size:clamp(30px,5vw,48px);line-height:1.2;overflow-wrap:anywhere;letter-spacing:-1px}.variant-page h2{font:26px Arial,Helvetica,sans-serif;margin:0 0 16px}.variant-page h3{font-size:17px}.variant-page p,.variant-page li{font-size:16px;line-height:1.7}.variant-page .meta{display:flex;flex-wrap:wrap;gap:10px;color:var(--c-526762);margin:16px 0}.variant-actions{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.variant-actions a,.variant-actions button{display:inline-flex;align-items:center;padding:12px 15px;border:1px solid var(--line);border-radius:5px;text-decoration:none;min-height:46px;font-size:16px}.variant-page section{border-top:1px solid var(--line);padding:24px 0;overflow-wrap:anywhere}.variant-page .evidence-card{font-size:16px}.variant-page .record-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.variant-page .record-links{padding:0;list-style:none}.variant-page .record-links>div,.variant-page .record-links>li{padding:12px;border:1px solid var(--line);border-radius:4px;line-height:1.5;min-width:0;overflow-wrap:anywhere}.variant-page .record-links>div>a:first-child,.variant-page .record-links>li>a:first-child{display:block}.variant-page .record-links small{display:block}.variant-page .name-list{max-height:400px}.variant-page .name-list li{padding:8px 0;border-bottom:1px solid var(--line)}.variant-page .muted{color:var(--c-61726d)}.variant-page .v-glyphs{font-size:36px}.variant-page .note,.variant-page .small-disclaimer{font-size:15px}.variant-page details>summary{cursor:pointer;padding:12px 0;font-size:17px}.variant-page a{overflow-wrap:anywhere}.variant-page header .tools>a{font-size:15px}.node-detail-link{display:inline-block;padding:8px 0;min-height:36px}.tree-node .rowname a,.v-name a{color:inherit;text-decoration:underline;text-decoration-color:var(--c-a6b9ac);text-underline-offset:3px}.variant-page footer.credit{display:block;max-width:1100px;margin:0 auto;padding:20px 30px 40px;border-top:1px solid var(--line);color:var(--c-526762)}.variant-page footer.credit p{margin:0;max-width:72ch;font-size:14px;line-height:1.7}@media(max-width:700px){.variant-page main{margin:18px 12px;padding:20px 16px}.variant-page footer.credit{margin:0 12px;padding:18px 16px 32px}.variant-page footer.credit p{font-size:15px}.variant-page header{gap:14px}.variant-page .record-links{grid-template-columns:1fr}.variant-page .meta{font-size:14px}.variant-page h1{letter-spacing:0}.variant-page p,.variant-page li{font-size:17px}}
-.lmap-figure{margin:20px 0 8px}.lmap{display:block;width:100%;height:auto;aspect-ratio:2/1;background:var(--c-f9faf7);border:1px solid var(--line);border-radius:6px}.lmap-sphere{fill:var(--c-e6eeec)}.lmap-land{fill:var(--c-cdd6cf)}.lmap-ctx circle{fill:var(--c-8fa29c);fill-opacity:.55}.lmap-main circle{fill:var(--teal);fill-opacity:.85;stroke:var(--c-ffffff);stroke-width:.6px;vector-effect:non-scaling-stroke}.lmap-self circle{fill:var(--orange);stroke:var(--c-ffffff);stroke-width:1.5px;vector-effect:non-scaling-stroke}.lmap-inset .lmap-sphere{fill:var(--c-f2f5f3);stroke:var(--c-9fb0aa);stroke-width:1px;vector-effect:non-scaling-stroke}.lmap-inset rect{fill:var(--orange);fill-opacity:.25;stroke:var(--orange);stroke-width:1.5px;vector-effect:non-scaling-stroke}.lmap-wrap{position:relative}.lmap{touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}.lmap.lmap-in{touch-action:none}.lmap.lmap-drag{cursor:grabbing}.lmap:focus{outline:none}.lmap:focus-visible{outline:3px solid var(--c-ce8654);outline-offset:2px}.lmap-border,.lmap-disputed{stroke:var(--c-9fb0aa);stroke-width:.6px}.lmap-disputed{stroke-dasharray:3 2}.lmap-inset .lmap-border,.lmap-inset .lmap-disputed{display:none}.lmap-tools{position:absolute;top:8px;right:8px;display:flex;gap:4px}.lmap-tools button{min-width:32px;height:32px;padding:0 8px;font-size:16px;line-height:1;border:1px solid var(--line);border-radius:5px;background:var(--c-ffffff);color:var(--ink)}.lmap-tools button:hover{background:var(--c-e3e9df)}.lmap-tools .lmap-reset{font-size:13px;display:none}.lmap-moved+.lmap-tools .lmap-reset{display:block}.lmap-figure figcaption{font-size:14px;line-height:1.6;color:var(--c-61726d);margin-top:8px}
+.variant-page main {
+  display: block;
+  height: auto;
+  min-height: 300px;
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 30px;
+  overflow: visible;
+}
+.variant-page h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  letter-spacing: -1px;
+}
+.variant-page h2 {
+  font:
+    26px Arial,
+    Helvetica,
+    sans-serif;
+  margin: 0 0 16px;
+}
+.variant-page h3 {
+  font-size: 17px;
+}
+.variant-page p,
+.variant-page li {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.variant-page .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--c-526762);
+  margin: 16px 0;
+}
+.variant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+.variant-actions a,
+.variant-actions button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 15px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  text-decoration: none;
+  min-height: 46px;
+  font-size: 16px;
+}
+.variant-page section {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  overflow-wrap: anywhere;
+}
+.variant-page .evidence-card {
+  font-size: 16px;
+}
+.variant-page .record-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+}
+.variant-page .record-links {
+  padding: 0;
+  list-style: none;
+}
+.variant-page .record-links > div,
+.variant-page .record-links > li {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  line-height: 1.5;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.variant-page .record-links > div > a:first-child,
+.variant-page .record-links > li > a:first-child {
+  display: block;
+}
+.variant-page .record-links small {
+  display: block;
+}
+.variant-page .name-list {
+  max-height: 400px;
+}
+.variant-page .name-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.variant-page .muted {
+  color: var(--c-61726d);
+}
+.variant-page .v-glyphs {
+  font-size: 36px;
+}
+.variant-page .note,
+.variant-page .small-disclaimer {
+  font-size: 15px;
+}
+.variant-page details > summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-size: 17px;
+}
+.variant-page a {
+  overflow-wrap: anywhere;
+}
+.variant-page header .tools > a {
+  font-size: 15px;
+}
+.node-detail-link {
+  display: inline-block;
+  padding: 8px 0;
+  min-height: 36px;
+}
+.tree-node .rowname a,
+.v-name a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--c-a6b9ac);
+  text-underline-offset: 3px;
+}
+.variant-page footer.credit {
+  display: block;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 30px 40px;
+  border-top: 1px solid var(--line);
+  color: var(--c-526762);
+}
+.variant-page footer.credit p {
+  margin: 0;
+  max-width: 72ch;
+  font-size: 14px;
+  line-height: 1.7;
+}
+@media (max-width: 700px) {
+  .variant-page main {
+    margin: 18px 12px;
+    padding: 20px 16px;
+  }
+  .variant-page footer.credit {
+    margin: 0 12px;
+    padding: 18px 16px 32px;
+  }
+  .variant-page footer.credit p {
+    font-size: 15px;
+  }
+  .variant-page header {
+    gap: 14px;
+  }
+  .variant-page .record-links {
+    grid-template-columns: 1fr;
+  }
+  .variant-page .meta {
+    font-size: 14px;
+  }
+  .variant-page h1 {
+    letter-spacing: 0;
+  }
+  .variant-page p,
+  .variant-page li {
+    font-size: 17px;
+  }
+}
+.lmap-figure {
+  margin: 20px 0 8px;
+}
+.lmap {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2/1;
+  background: var(--c-f9faf7);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.lmap-sphere {
+  fill: var(--c-e6eeec);
+}
+.lmap-bg .lmap-sphere {
+  stroke: var(--c-e6eeec);
+  stroke-width: 1px;
+}
+.lmap-land {
+  fill: var(--c-cdd6cf);
+}
+.lmap-ctx circle {
+  fill: var(--c-8fa29c);
+  fill-opacity: 0.55;
+}
+.lmap-main circle {
+  fill: var(--teal);
+  fill-opacity: 0.85;
+  stroke: var(--c-ffffff);
+  stroke-width: 0.6px;
+  vector-effect: non-scaling-stroke;
+}
+.lmap-self circle {
+  fill: var(--orange);
+  stroke: var(--c-ffffff);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+.lmap-inset .lmap-sphere {
+  fill: var(--c-f2f5f3);
+  stroke: var(--c-9fb0aa);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+.lmap-inset rect {
+  fill: var(--orange);
+  fill-opacity: 0.25;
+  stroke: var(--orange);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+.lmap-wrap {
+  position: relative;
+}
+.lmap {
+  touch-action: none;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.lmap.lmap-drag {
+  cursor: grabbing;
+}
+.lmap:focus {
+  outline: none;
+}
+.lmap:focus-visible {
+  outline: 3px solid var(--c-ce8654);
+  outline-offset: 2px;
+}
+.lmap-border,
+.lmap-disputed {
+  stroke: var(--c-9fb0aa);
+  stroke-width: 0.6px;
+}
+.lmap-disputed {
+  stroke-dasharray: 3 2;
+}
+.lmap-inset .lmap-border,
+.lmap-inset .lmap-disputed {
+  display: none;
+}
+.lmap-tools {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+}
+.lmap-tools button {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 16px;
+  line-height: 1;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--c-ffffff);
+  color: var(--ink);
+}
+.lmap-tools button:hover {
+  background: var(--c-e3e9df);
+}
+.lmap-tools .lmap-reset {
+  font-size: 13px;
+  display: none;
+}
+.lmap-moved + .lmap-tools .lmap-reset {
+  display: block;
+}
+.lmap-figure figcaption {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-61726d);
+  margin-top: 8px;
+}
 /* Record pages after the merge with the atlas (tools/build_paths.py): classification cards, conflicts,
    debates, the branch tree and the Hugging Face models. */
-.variant-page .classification .evidence-card p,.variant-page .conflicts .evidence-card p,.variant-page .debate .evidence-card p{margin:6px 0}
-.variant-page .classification .evidence-card p a,.variant-page .conflicts .conflict-witness a{display:inline;margin:0;padding:0;min-height:0}
-.variant-page .classification h3{margin-top:24px}
-.variant-page .evidence-card{padding:14px 16px}
-.variant-page .show-tree{font-size:16px;padding:12px 16px;min-height:46px}
-.variant-page .hf-models{border-top:1px solid var(--line);padding:24px 0;margin:0;background:none;border-radius:0;border-inline-start:0;border-inline-end:0;border-bottom:0}
-.variant-page>.domain-nav,body>.domain-nav{max-width:1100px;margin:16px auto 0;padding:0}
-@media(max-width:1164px){.variant-page>.domain-nav,body>.domain-nav{margin:16px 32px 0}}
-@media(max-width:700px){.variant-page>.domain-nav,body>.domain-nav{margin:12px 12px 0}}
-.variant-page .toolbar details>summary{font-size:12px;padding:6px 7px}
-@media(max-width:700px){.variant-page .toolbar details>summary{font-size:14px;min-height:44px;padding:10px 8px}}
+.variant-page .classification .evidence-card p,
+.variant-page .conflicts .evidence-card p,
+.variant-page .debate .evidence-card p {
+  margin: 6px 0;
+}
+.variant-page .classification .evidence-card p a,
+.variant-page .conflicts .conflict-witness a {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+}
+.variant-page .classification h3 {
+  margin-top: 24px;
+}
+.variant-page .evidence-card {
+  padding: 14px 16px;
+}
+.variant-page .show-tree {
+  font-size: 16px;
+  padding: 12px 16px;
+  min-height: 46px;
+}
+.variant-page .hf-models {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  margin: 0;
+  background: none;
+  border-radius: 0;
+  border-inline-start: 0;
+  border-inline-end: 0;
+  border-bottom: 0;
+}
+.variant-page > .domain-nav,
+body > .domain-nav {
+  max-width: 1100px;
+  margin: 16px auto 0;
+  padding: 0;
+}
+@media (max-width: 1164px) {
+  .variant-page > .domain-nav,
+  body > .domain-nav {
+    margin: 16px 32px 0;
+  }
+}
+@media (max-width: 700px) {
+  .variant-page > .domain-nav,
+  body > .domain-nav {
+    margin: 12px 12px 0;
+  }
+}
+.variant-page .toolbar details > summary {
+  font-size: 12px;
+  padding: 6px 7px;
+}
+@media (max-width: 700px) {
+  .variant-page .toolbar details > summary {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 10px 8px;
+  }
+}
+/* Map view (dist/map-zoom.js): the map, or the box marked lmap-host around it, fills the window. */
+.lmap-tools .lmap-full-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.lmap-full-open,
+.lmap-full-open body {
+  overflow: hidden;
+}
+.lmap-full {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--c-f9faf7);
+}
+.lmap-full .lmap-wrap {
+  height: 100%;
+}
+.lmap-full .lmap {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+}
+.lmap-full .lmap-tools {
+  top: 12px;
+  right: 12px;
+  gap: 6px;
+}
+.lmap-full .lmap-tools button {
+  min-width: 44px;
+  height: 44px;
+  box-shadow: 0 2px 8px var(--c-24302e1f);
+}
+.lmap-full .lmap-tools .lmap-reset {
+  font-size: 14px;
+  padding: 0 12px;
+}
+/* The records of a tapped point, each linked to its page. */
+.lmap-pop {
+  position: absolute;
+  z-index: 2;
+  width: max-content;
+  max-width: min(290px, calc(100% - 16px));
+  max-height: min(320px, calc(100% - 16px));
+  overflow: auto;
+  padding-block: 10px;
+  padding-inline: 14px 40px;
+  background: var(--c-ffffff);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 4px 18px var(--c-24302e1f);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.lmap-pop ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.lmap-pop li {
+  padding: 3px 0;
+  overflow-wrap: anywhere;
+}
+.lmap-pop a {
+  font-weight: 600;
+}
+.lmap-pop-close {
+  position: absolute;
+  top: 4px;
+  inset-inline-end: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+}

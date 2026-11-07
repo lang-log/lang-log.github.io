@@ -10,6 +10,48 @@ Live site: https://lang-log.github.io/
 
 The scripts live in `tools/`; run them from the repository root. Run `python3 tools/prepare_static.py`, `python3 tools/build_home.py` and `python3 tools/build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
+## Code quality checks
+
+Every pull request and every push to `main` runs Prettier (formatting, with `@prettier/plugin-xml` for XML and SVG), ESLint (JavaScript) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages; these tools are only for development.
+
+Tools: Node.js 22 (`.nvmrc`) with npm, and Python 3.12 or later.
+
+Install the exact versions once, from the repository root:
+
+```sh
+npm ci --ignore-scripts
+python3 -m pip install --require-hashes -r requirements-dev.txt
+```
+
+Run every check:
+
+```sh
+npm run check
+```
+
+Or one at a time:
+
+| Command                       | What it does                                     |
+| ----------------------------- | ------------------------------------------------ |
+| `npm run format:check`        | Prettier: lists files that are not formatted     |
+| `npm run lint:js`             | ESLint on the JavaScript in `dist/` and `tools/` |
+| `npm run lint:python`         | Ruff lint on the Python in `tools/`              |
+| `npm run format:python:check` | Ruff: lists Python files that are not formatted  |
+| `npm run format`              | Prettier: formats the files (writes them)        |
+| `npm run format:python`       | Ruff: formats the Python files (writes them)     |
+
+`tools/build_site.sh` adds asset versions to `dist/lang.js` and the hand-written pages in `dist/`, so run the checks before building, or restore those files first with `git checkout -- dist`.
+
+Settings: `.prettierrc.json` and `.prettierignore` (Prettier), `eslint.config.mjs` (ESLint), `pyproject.toml` (Ruff). Pinned versions: `package-lock.json` and `requirements-dev.txt`.
+
+Left out on purpose:
+
+- `source-data/`: third-party datasets and saved pages kept as published, and hand-curated data the build reads as it is (Prettier, Ruff).
+- Files written by scripts and committed: `dist/integrated.json`, `dist/provenance.json`, `dist/signs-and-scripts.json`, `dist/language-atlas.xml`, `dist/signs-and-scripts.xml`, `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
+- Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
+- `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
+- For now, the files that open pull requests change, so that they do not conflict: `dist/home.js`, `dist/tree.js`, `dist/i18n.js`, `dist/i18n/`, `dist/style.css` (Prettier; the first two also ESLint) and `tools/build_paths.py`, `tools/build_wals_map.py`, `tools/build_home.py` (Ruff format). They are formatted in their own pull request once those are merged.
+
 ## Shareable URLs
 
 Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
@@ -20,15 +62,15 @@ The top page is also the top of the language-families tree. Below the introducti
 
 Language families (the top page and every record page):
 
-| Parameter | Meaning |
-| --- | --- |
-| `q` | Search text (top page); the matches are listed under the search box |
-| `evidence` | Evidence filter: `conflicts` or `studies` (top page) |
-| `category` | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
-| `dialects=0` | Hide dialects in the tree |
-| `view=tree` | Horizontal tree instead of the list |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming |
-| `task` | Hugging Face model task on a record page (for example `translation`) |
+| Parameter     | Meaning                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| `q`           | Search text (top page); the matches are listed under the search box                                  |
+| `evidence`    | Evidence filter: `conflicts` or `studies` (top page)                                                 |
+| `category`    | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
+| `dialects=0`  | Hide dialects in the tree                                                                            |
+| `view=tree`   | Horizontal tree instead of the list                                                                  |
+| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming           |
+| `task`        | Hugging Face model task on a record page (for example `translation`)                                 |
 
 On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view`, `dialects` or `x`.
 
@@ -44,11 +86,9 @@ The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, dr
 
 ## License
 
-The code and the site of Lang Log are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.
+Lang Log is not open source. Its code, design, site text and the data compiled for it are copyright (C) 2026 MATSUURA Yoshihiro, all rights reserved; see `LICENSE`. No reuse, in whole or in part, commercial or non-commercial, without prior written permission. Versions published earlier under AGPL-3.0-only stay under that license for those who received them.
 
-Copyright (C) 2026 MATSUURA Yoshihiro
-
-Source datasets keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/signs-and-scripts-licenses.txt`, the source registers in the site and the documentation below.
+Third-party source datasets are not covered by this and keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/signs-and-scripts-licenses.txt`, the source registers in the site and the documentation below.
 
 ## GitHub Pages
 
@@ -66,8 +106,8 @@ Records that exist only in another source's tree (WALS genera and families, stud
 - Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
 - The record pages (one directory per top-level family or source under `dist/`), `dist/stages.json` and `dist/source-paths.json` are built by the Pages workflow and are not committed.
 - Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
-- The land and country borders behind the points are `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `tools/build_land.py` from Natural Earth 1:50m land and boundary lines v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once. Borders are thin solid lines; disputed, indefinite and unrecognised boundaries are dashed.
-- `dist/map-zoom.js` adds zoom and pan: drag, pinch, Ctrl/Cmd + wheel, double click, the + / − buttons (shown only when the device has a mouse or trackpad), Reset and the keyboard. Points and border lines keep their size on screen at every zoom. Once a visitor zooms in far enough, it draws the 1:10m tiles in `dist/map/tiles/<map>/` (listed in `dist/map/tiles.json`, also written by `tools/build_land.py`) for the part in view. Other pages can reuse it with `window.LangLogMap.mount(svg)`; see the comment at the top of the file.
+- The land and country borders behind the points are `dist/map/land.svg`, drawn by `tools/build_land.py` from Natural Earth 1:50m land and boundary lines v5.1.2 (public domain) in the Web Mercator projection (cut at 85 degrees north and south, as on other web maps) and committed. The map goes round the world: each page draws it once more on each side, and a group of points around the 180th meridian (for example Oceanic) stays together; each page refers to them with `<use>`, so browsers download them once. Borders are thin solid lines; disputed, indefinite and unrecognised boundaries are dashed.
+- `dist/map-zoom.js` adds zoom and pan: drag (one finger is enough on a phone; the page scrolls from outside the map), east and west without end, pinch, Ctrl/Cmd + wheel, double click, the + / − buttons (shown only when the device has a mouse or trackpad), Reset (which glides back to the starting view) and the keyboard. Points and border lines keep their size on screen at every zoom. Once the view is narrow enough (the starting view of most record pages already is), it draws the 1:10m tiles in `dist/map/tiles/land/` (listed in `dist/map/tiles.json`, also written by `tools/build_land.py`) for the part in view. Other pages can reuse it with `window.LangLogMap.mount(svg)`; see the comment at the top of the file.
 
 ## Lang Log data
 

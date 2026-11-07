@@ -25,9 +25,7 @@
   "properties": {
     "schema_version": {
       "type": "integer",
-      "enum": [
-        1
-      ]
+      "enum": [1]
     },
     "id": {
       "type": "string",
@@ -43,23 +41,13 @@
     "codes": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "glottocode",
-        "iso639_3",
-        "wals"
-      ],
+      "required": ["glottocode", "iso639_3", "wals"],
       "properties": {
         "glottocode": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "iso639_3": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "wals": {
           "type": "array",
@@ -74,13 +62,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "text",
-          "lang",
-          "provider",
-          "same_language",
-          "source"
-        ],
+        "required": ["text", "lang", "provider", "same_language", "source"],
         "properties": {
           "text": {
             "type": "string"
@@ -108,16 +90,10 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "parent",
-          "level"
-        ],
+        "required": ["parent", "level"],
         "properties": {
           "parent": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": ["string", "null"]
           },
           "level": {
             "type": "string"
@@ -126,16 +102,9 @@
       }
     },
     "location": {
-      "type": [
-        "object",
-        "null"
-      ],
+      "type": ["object", "null"],
       "additionalProperties": false,
-      "required": [
-        "latitude",
-        "longitude",
-        "source"
-      ],
+      "required": ["latitude", "longitude", "source"],
       "properties": {
         "latitude": {
           "type": "number"
@@ -149,10 +118,7 @@
       }
     },
     "macroarea": {
-      "type": [
-        "string",
-        "null"
-      ]
+      "type": ["string", "null"]
     },
     "countries": {
       "type": "array",
@@ -165,11 +131,7 @@
     },
     "modality": {
       "type": "string",
-      "enum": [
-        "spoken",
-        "signed",
-        "written"
-      ],
+      "enum": ["spoken", "signed", "written"],
       "description": "The physical medium: spoken (and its written use), signed, or a writing system."
     },
     "constructed": {
@@ -182,10 +144,7 @@
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "value",
-          "evidence"
-        ],
+        "required": ["value", "evidence"],
         "properties": {
           "value": {
             "type": "string",
@@ -200,13 +159,7 @@
             "items": {
               "type": "object",
               "additionalProperties": false,
-              "required": [
-                "source",
-                "version",
-                "feature",
-                "value",
-                "raw"
-              ],
+              "required": ["source", "version", "feature", "value", "raw"],
               "properties": {
                 "source": {
                   "type": "string"

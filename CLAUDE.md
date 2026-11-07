@@ -17,7 +17,10 @@ If the shared rules are not in your context (the import above can be skipped, fo
 ## Where the rules are
 
 - `.claude/rules/titles.md`: the ` by yoshi` title and the profile link, as used here.
+- `.claude/rules/security.md`: the Content-Security-Policy and referrer policy on every page, and the headers GitHub Pages cannot send.
+- `.claude/rules/license.md`: all rights reserved for the owner's work; third-party data keeps its own license.
 - `.claude/rules/logo.md`: the Lang Log logo is always the one SVG.
+- `.claude/rules/code-quality.md`: Prettier, ESLint and Ruff on every pull request and before every deployment.
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in English and Japanese, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
 - Browsers: `.github/workflows/browsers.yml` runs the shared browser check (`web-browsers.md` in `research-aide`) on every pull request; add a page there when a new kind of page appears.

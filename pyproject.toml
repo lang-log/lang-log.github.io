@@ -1,0 +1,26 @@
+# Settings for Ruff, the Python linter and formatter (see .claude/rules/code-quality.md).
+# The scripts in tools/ are run directly with python3 and need no packages; this file holds only
+# tool settings.
+[project]
+name = "lang-log"
+version = "0"
+requires-python = ">=3.12"
+
+[tool.ruff]
+# CI runs Python 3.12 (.github/workflows/site.yml and the shared Pages workflow).
+target-version = "py312"
+line-length = 100
+extend-exclude = ["source-data", "node_modules", "_preview"]
+
+[tool.ruff.lint]
+# E/W: pycodestyle errors and warnings; F: Pyflakes (undefined and unused names);
+# B: flake8-bugbear (likely bugs); PLE: Pylint errors.
+select = ["E", "W", "F", "B", "PLE"]
+# The formatter sets line length; it does not split long strings and URLs, which stay as they are.
+ignore = ["E501"]
+
+[tool.ruff.format]
+# Until pull requests #40 (tools/build_paths.py, tools/build_wals_map.py) and #49
+# (tools/build_home.py) are merged, so that they do not conflict. Then format these files in
+# their own pull request and remove them here.
+exclude = ["tools/build_paths.py", "tools/build_wals_map.py", "tools/build_home.py"]

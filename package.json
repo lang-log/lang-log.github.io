@@ -1,0 +1,28 @@
+{
+  "name": "lang-log",
+  "private": true,
+  "description": "Code quality tools for Lang Log (formatting and linting only; the site needs no Node.js packages).",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:js": "eslint .",
+    "lint:python": "ruff check .",
+    "format:python": "ruff format .",
+    "format:python:check": "ruff format --check .",
+    "check": "npm run format:check && npm run lint:js && npm run lint:python && npm run format:python:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@prettier/plugin-xml": "3.4.2",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
+    "prettier": "3.9.10"
+  },
+  "overrides": {
+    "minimatch": "11.0.3"
+  }
+}

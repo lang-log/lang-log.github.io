@@ -14,6 +14,7 @@ tools/build_languoids.py stops with "not in the feature catalogue".
 
     python3 tools/feature_catalogue.py
 """
+
 from pathlib import Path
 import csv
 import json
@@ -61,16 +62,24 @@ def main():
                 "name": {"en": p["Name"]},
                 "area": areas.get(chapters.get(p["Chapter_ID"], {}).get("Area_ID", ""), ""),
                 "values": [],
-                "mappings": [{"source": "wals", "feature": p["ID"],
-                              "url": "https://wals.info/feature/" + p["ID"], "values": {}}],
+                "mappings": [
+                    {
+                        "source": "wals",
+                        "feature": p["ID"],
+                        "url": "https://wals.info/feature/" + p["ID"],
+                        "values": {},
+                    }
+                ],
             }
             features.append(feature)
             added_features += 1
-        mapping = next(m for m in feature["mappings"] if m["source"] == "wals" and m["feature"] == p["ID"])
+        mapping = next(
+            m for m in feature["mappings"] if m["source"] == "wals" and m["feature"] == p["ID"]
+        )
         value_ids = {v["id"] for v in feature["values"]}
         rows = sorted(codes.get(p["ID"], []), key=lambda c: int(c["Number"]))
         base = [slug(c["Name"]) or c["Number"] for c in rows]
-        for c, vid in zip(rows, base):
+        for c, vid in zip(rows, base, strict=True):
             if c["Number"] in mapping["values"]:
                 continue
             # Some WALS value names differ only in spacing or punctuation
@@ -82,7 +91,9 @@ def main():
             mapping["values"][c["Number"]] = vid
             added_values += 1
     CATALOGUE.parent.mkdir(parents=True, exist_ok=True)
-    CATALOGUE.write_text(json.dumps(catalogue, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    CATALOGUE.write_text(
+        json.dumps(catalogue, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
+    )
     print(f"{len(features)} features; added {added_features} features and {added_values} values")
 
 

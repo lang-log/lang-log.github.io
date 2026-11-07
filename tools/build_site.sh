@@ -7,8 +7,9 @@ set -euo pipefail
 # source-data/packed/ and checks their SHA-256.
 python3 tools/prepare_static.py
 # Writes the top page dist/index.html (the list of top-level families,
-# the whole tree, Sources & scope) and dist/random.json, the records its
-# Random buttons draw from.
+# the whole tree), dist/random.json (the records its Random buttons draw
+# from) and the pages linked under the Random row: dist/stats/,
+# dist/sources/ and dist/updates/ (not committed; built here).
 python3 tools/build_home.py
 # Writes one page and one record.json per Glottolog record under
 # dist/<family>/.../<language>/, and per source-only record under
@@ -38,11 +39,12 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          data.json integrated.json language-families.xml \
          lineage-paths.js stages.json tree.js record-page.js source-paths.json \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
-         map/land.svg map/land-pacific.svg map/tiles.json map-zoom.js data/atlas.json \
+         map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
          home.js random.json \
          feature-map.html feature-map.js feature-map.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json \
+         stats/index.html stats.js sources/index.html updates/index.html \
          afro-asiatic/berber/languoid.json features/index.json \
          features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
@@ -57,9 +59,25 @@ missing=$(find dist -name '*.html' -print0 | xargs -0 grep -L 'logo.svg#logo' ||
 text=$(find dist -name '*.html' -print0 | xargs -0 grep -il '>[[:space:]]*\(✱\|\*\|★\)\?[[:space:]]*lang log[[:space:]]*<' || true)
 [ -z "$text" ] || { echo "pages with a text logo:"; echo "$text" | head; exit 1; }
 
+# Every record is a languoid (one tree, no split by kind), so no page shows a
+# kind label or a kind legend ("family", "Family / subgroup · Language ·
+# Dialect"); see .claude/rules/interface-text.md.
+echo "Check that no page labels records by kind"
+kinds=$( { find dist -name '*.html' -print0 | xargs -0 grep -lE 'class="legend"|Family / subgroup|class="muted">(family|isolate|language|dialect|clade|sample)<' || true; } | head)
+[ -z "$kinds" ] || { echo "pages with kind labels:"; echo "$kinds"; exit 1; }
+if grep -nE 'lv-(hit-)?(family|language|dialect)|hit-kind|v-kind|n\.isolate\?.isolate.:n\.level' dist/*.js dist/*.css; then
+  echo "scripts or styles that label records by kind (above)"; exit 1
+fi
+
 # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
 # pages, so a browser never pairs new HTML with an old cached file
 # (Pages caches files for ten minutes). Runs after every page is written.
 python3 tools/version_assets.py
 echo "Check that the asset links are versioned"
 grep -q 'href="style.css?v=' dist/index.html
+
+# Every page starts with the one security policy of tools/security_policy.py
+# (Content-Security-Policy and referrer), and none has an inline script, an
+# inline style attribute or event handler that the policy would block
+# (.claude/rules/security.md).
+python3 tools/security_policy.py --check

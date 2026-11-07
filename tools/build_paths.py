@@ -33,6 +33,8 @@ Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
 """
 from pathlib import Path
 from html import escape
+
+from security_policy import HEAD as SECURITY_HEAD
 import csv
 import json
 import re
@@ -46,7 +48,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
-RESERVED = {"map", "data", "i18n", "features", "schema"}
+RESERVED = {"map", "data", "i18n", "stats", "sources", "updates", "features", "schema"}
 # Directories of earlier builds that no longer exist; removed on each run.
 OLD_DIRS = {"families"}
 TITLE_SUFFIX = " · Lang Log by yoshi"
@@ -219,7 +221,7 @@ def source_link(sid):
     s = sources.get(sid)
     if not s:
         return escape(sid)
-    return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener">{escape(s["title"])}</a>'
+    return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">{escape(s["title"])}</a>'
 
 
 def names_html(n):
@@ -235,8 +237,8 @@ def names_html(n):
     if not seen:  # an empty toggle opens onto nothing, so say so in plain text
         return out + '<p class="muted">No other names or spellings recorded.</p>'
     out += f"<details><summary>Recorded names and spellings · {len(seen)}</summary><ul class=\"name-list\">"
-    out += "".join(f'<li dir="auto">{escape(t)} <span class="muted">{escape(l or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
-                   for (t, l), p in sorted(seen.items()))
+    out += "".join(f'<li dir="auto">{escape(t)} <span class="muted">{escape(tag or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
+                   for (t, tag), p in sorted(seen.items()))
     return out + "</ul></details>"
 
 
@@ -246,7 +248,7 @@ def ext_link(sid):
     if not src:
         return ""
     label = "Catalog" if src.get("kind") == "catalog" else "Paper"
-    return f'<a href="{escape(src["url"])}" target="_blank" rel="noopener">{label} ↗</a>'
+    return f'<a href="{escape(src["url"])}" target="_blank" rel="noopener noreferrer">{label} ↗</a>'
 
 
 def source_name_link(depth, sid):
@@ -318,7 +320,7 @@ def debates_html(i):
             cls = " conflict-card" if p.get("stance") == "critique" else ""
             out += (f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong><p>{escape(p["claim"])}</p>'
                     f'<span class="evidence-tag">{escape(p["publication"])}</span><br>'
-                    f'<a href="{escape(p["url"])}" target="_blank" rel="noopener">Paper ↗</a></div>')
+                    f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>')
         out += f'<p class="small-disclaimer">{escape(d["note"])}</p></section>'
     return out
 
@@ -331,7 +333,8 @@ def conflicts_html(depth, i):
     for k in refs:
         c = unified["conflicts"][k]
         pairs.setdefault((c["a"], c["b"]), [c, 0])[1] += 1
-    title = lambda sid: escape(sources[sid]["title"])
+    def title(sid):
+        return escape(sources[sid]["title"])
     out = (f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
            '<p class="small-disclaimer">These summary clades cannot both hold on the shared sampled tips. This does not '
            'determine which study is correct. Examples below may involve a wider group containing this record.</p>')
@@ -349,8 +352,8 @@ def conflicts_html(depth, i):
 def tree_html(depth, i, sid):
     """The branch below a record, drawn by dist/tree.js when the visitor asks for it.
     Hidden without JavaScript; the Members list gives the same records."""
-    return (f'<section class="tree-section" id="tree-section" hidden><h2>Tree</h2>'
-            f'<p><button type="button" id="show-tree" class="show-tree">Show the tree of this branch</button></p>'
+    return ('<section class="tree-section" id="tree-section" hidden><h2>Tree</h2>'
+            '<p><button type="button" id="show-tree" class="show-tree">Show the tree of this branch</button></p>'
             + atlas_html("../" * depth, root=i, src=sid) + "</section>")
 
 
@@ -378,8 +381,6 @@ def atlas_html(base, root=None, src=None, downloads=""):
             '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
             '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'
             '<div class="canvas-note">Drag to pan · Scroll / pinch to zoom · Click a node to open its page</div></div>'
-            '<div class="legend"><span><i style="background:var(--c-417f80)"></i>Family / subgroup</span>'
-            '<span><i style="background:var(--c-ce8654)"></i>Language</span><span><i style="background:var(--c-a5aeb0)"></i>Dialect</span></div>'
             '<div class="how-to-read"><p>Branches are conditional on their source. Different placements appear together; no source switch is needed.</p>'
             '<p>Open a row to see its members. Each name opens its own page, with every source\'s placement and paper links.</p>'
             '<p>Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>'
@@ -414,14 +415,14 @@ def children_html(depth, i):
     if not kids:
         return ""
     kids.sort(key=lambda c: rec(c[0])["name"].lower())
-    rows = "".join(f'<li><a href="{escape(href(depth, c))}">{escape(rec(c)["name"])}</a> <span class="muted">{escape(rec(c)["level"])}</span>'
+    rows = "".join(f'<li><a href="{escape(href(depth, c))}">{escape(rec(c)["name"])}</a>'
                    + (f' <small class="muted">sample: {escape(sm)}</small>' if sm and sm != rec(c)["name"] else "") + "</li>" for c, sm in kids)
     # A section gets the rule and spacing that set it apart from the names above.
     return f'<section class="members"><h2>Members · {len(kids)}</h2><ul class="record-links">{rows}</ul></section>'
 
 
 def meta_html(n):
-    parts = [n["level"], n["id"]]
+    parts = [n["id"]]  # no kind label (family, language, dialect): every record is a languoid
     if n["id"] in extra:
         parts.append("According to " + sources[n["source"]]["title"])
     if n.get("iso"):
@@ -438,7 +439,7 @@ def record_body(depth, i, heading="h1"):
         body += '<p class="small-disclaimer">Source-specific grouping or sample; not a new accepted language family.</p>'
         links = [ext_link(n["source"])]
     else:
-        links = [f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a>']
+        links = [f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener noreferrer">Glottolog record ↗</a>']
     links.append(f'<a href="{"../" * depth}record.html?domain=language&amp;id={escape(i)}">Full source detail</a>')
     body += "<p>" + " · ".join(links) + "</p>"
     if heading == "h1" and i in nodes:
@@ -453,18 +454,21 @@ def map_html(depth, i):
     family = n["level"] == "family"
     own = None if family else coords.get(i)
     # Many dialects carry their language's own point; those add nothing to show.
-    main = [coords[c] for c in points_under[i] if coords[c] != own]
+    main_ids = [c for c in points_under[i] if coords[c] != own]
+    main = [coords[c] for c in main_ids]
     parent = n.get("parent")
-    context = []
+    context_ids = []
     if parent in nodes:
         mine = set(points_under[i]) | {i}
-        context = [coords[c] for c in points_under[parent] if c not in mine]
+        context_ids = [c for c in points_under[parent] if c not in mine]
+    context = [coords[c] for c in context_ids]
     kind = "languages" if family else ("dialects" if n["level"] == "language" else "")
     if family:
         label = f"Map: {len(main)} languages of {n['name']}"
     else:
         label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
-    svg = map_svg("../" * depth + "map/", main, context, own, label)
+    svg = map_svg("../" * depth + "map/", main, context, own, label,
+                  main_ids=main_ids, context_ids=context_ids, self_id=i if own else "")
     if not svg:
         return ""
     notes = []
@@ -477,9 +481,9 @@ def map_html(depth, i):
     legend = " ".join(notes)
     return (f'<figure class="lmap-figure">{svg}<figcaption>{legend} '
             "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
-            'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> (public domain). '
+            'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
             "Dashed borders are disputed or not settled. "
-            "Projection: Equal Earth.</figcaption></figure>")
+            "Projection: Web Mercator.</figcaption></figure>")
 
 
 def languages_under_all(i):
@@ -498,13 +502,14 @@ def languages_under_all(i):
 
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
 FOOTER = ('<footer class="credit"><p>Classification and names from '
-          '<a href="https://glottolog.org/" target="_blank" rel="noopener">Glottolog 5.3</a> '
+          '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">Glottolog 5.3</a> '
           '(Hammarström, Forkel, Haspelmath &amp; Bank 2026, '
-          '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener">doi:10.5281/zenodo.18840935</a>), '
-          'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p></footer>')
+          '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
+          'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>')
 
 
-# Links to the three atlases, under the header of every page.
+# Links to the three atlases. No generated page shows them any more (owner, 2026-11-07:
+# Lang Log is one tree, not three domains); kept so the UI can be reused.
 def domain_nav(up, current="language"):
     items = [("language", up, "Language families"), ("sign", f"{up}signs-and-scripts.html?domain=sign", "Sign languages"),
              ("scripts", f"{up}signs-and-scripts.html?domain=scripts", "Writing systems")]
@@ -522,12 +527,13 @@ def page_scripts(up):
 def page(depth, title, body):
     up = "../" * depth
     return ("<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+            f"{SECURITY_HEAD}"
             "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
             f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
             f"<link rel=\"icon\" href=\"{up}favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"{up}apple-touch-icon.png\">"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}signs-and-scripts.css\"><link rel=\"stylesheet\" href=\"{up}record.css\"><script src=\"{up}theme.js\"></script><script src=\"{up}i18n.js\"></script><script src=\"{up}lang.js\"></script><script src=\"{up}map-zoom.js\" defer></script></head>"
             f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><svg class=\"logo\" role=\"img\" aria-label=\"LANG LOG\"><use href=\"{up}logo.svg#logo\"/></svg></a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div></header>"
-            f"{domain_nav(up)}<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>")
+            f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>")
 
 
 def record_json(i):
@@ -577,7 +583,7 @@ def source_page_body(sid):
         body += f'<p>{escape(src["citation"])}</p>'
     links = [ext_link(sid)]
     if src.get("dataset"):
-        links.append(f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener">Source tree &amp; data ↗</a>')
+        links.append(f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>')
     body += "<p>" + " · ".join(links) + "</p>"
     if src.get("interpretationNote"):
         body += f'<p class="small-disclaimer">{escape(src["interpretationNote"])}</p>'
@@ -614,7 +620,7 @@ def write_source_pages():
     fams = sorted((i for i, n in extra.items() if n["source"] == "wals" and not n.get("parent")), key=lambda i: extra[i]["name"].lower())
     target = OUT / SOURCE_SLUG["wals"]
     target.mkdir(parents=True, exist_ok=True)
-    rows = "".join(f'<li>{record_link(1, f)} <span class="muted">{escape(extra[f]["level"])}</span></li>' for f in fams)
+    rows = "".join(f'<li>{record_link(1, f)}</li>' for f in fams)
     body = source_page_body("wals") + f'<section class="members"><h2>Families · {len(fams)}</h2><ul class="record-links">{rows}</ul></section>'
     (target / "index.html").write_text(page(1, sources["wals"]["title"], body), encoding="utf-8")
     return written
@@ -654,7 +660,7 @@ def main():
                 body += "<ul class=\"record-links\">" + "".join(f'<li><a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a></li>' for c in kids) + "</ul>"
             body += "</section>"
         body += children_html(depth, i) + tree_html(depth, i, "glottolog") + hf_html(nodes[i])
-        body += f'<p class="muted"><a href="record.json">This record as JSON</a></p>'
+        body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
         (target / "index.html").write_text(page(depth, nodes[i]["name"], body), encoding="utf-8")
         (target / "record.json").write_text(json.dumps(record_json(i), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         written += 1

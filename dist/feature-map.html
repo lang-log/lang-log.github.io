@@ -1,13 +1,13 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Every Glottolog language on a world map. Add conditions on WALS features, joined by AND or OR, colour the dots by one feature, and zoom into any area."><title>Language feature map · Lang Log by yoshi</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="style.css"><script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="feature-map.css"></head><body class="feature-map">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self' https://huggingface.co; base-uri 'none'; form-action 'self'; object-src 'none'"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Every Glottolog language on a world map. Add conditions on WALS features, joined by AND or OR, colour the dots by one feature, and zoom into any area."><title>Language feature map · Lang Log by yoshi</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="style.css"><script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="feature-map.css"></head><body class="feature-map">
 <header><div class="brand"><a class="home" href="./"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> <span class="by">by <a href="https://nguekwang.github.io/en/?ref=langlog" title="MATSUURA Yoshihiro">yoshi</a></span></div><a href="#about">About</a></header>
 <main>
 <h1>Language feature map</h1>
 <p class="lead">Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.</p>
 <div class="wm-body">
-<div class="wm-map">
-<svg id="map" class="lmap" viewBox="-974.4 -487.2 1948.8 974.4" role="img" aria-label="World map of the languages that match the conditions" preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="30" data-world="-974.4 -487.2 1948.8 974.4">
-<use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>
-<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/>
+<div class="wm-map lmap-host">
+<svg id="map" class="lmap" viewBox="-973.9 -564.9 1947.8 973.9" role="img" aria-label="World map of the languages that match the conditions" preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="30" data-world="-973.9 -973.9 1947.8 1947.8">
+<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>
+<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>
 <g id="points"></g>
 </svg>
 <div id="card" class="wm-card" hidden></div>
@@ -31,5 +31,5 @@
 </section>
 </main>
 <noscript><p class="wm-noscript">This map needs JavaScript. The feature data is in <a href="https://wals.info/">WALS Online</a>.</p></noscript>
-<script src="map-zoom.js"></script><script src="feature-map.js"></script>
+<script src="atlas-data.js"></script><script src="lineage-paths.js"></script><script src="map-zoom.js"></script><script src="feature-map.js"></script>
 </body></html>

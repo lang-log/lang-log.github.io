@@ -22,7 +22,8 @@ const bySource=new Map(),conflictAncestors=new Set(),canvas=$('tree'),ctx=canvas
 const children=(sid,id)=>bySource.get(sid+'|'+id)||[],source=id=>unified.sources[id],title=id=>source(id)?.title||id;
 const eligible=n=>n&&($('dialects').checked||n.level!=='dialect');
 const tc={},tok=h=>tc[h]||(tc[h]=getComputedStyle(document.documentElement).getPropertyValue('--c-'+h).trim()||'#'+h);
-const col=n=>n.level==='dialect'?tok('9ba8a4'):n.level==='language'||n.level==='sample'?tok('c28051'):tok('397b7b');
+// One colour for every node: all records are languoids, so the tree does not mark them by kind.
+const col=()=>tok('397b7b');
 const round=(v,d)=>{const f=10**d;return Math.round(v*f)/f};
 const search=$('home-q'),evidence=$('evidence'),category=$('category');
 
@@ -60,9 +61,11 @@ function updateResults(){if(!data||branchPage)return;const {q}=searchQuery(),f=e
  let all=[];if(q){all=Object.values(nodes).filter(n=>n.level!=='clade'&&n.searchText.includes(q));if(f==='conflicts')all=all.filter(n=>conflictAncestors.has(n.id));if(f==='studies')all=all.filter(n=>unified.studyIndex[n.id]?.length);if(c!=='all')all=all.filter(n=>c==='isolates'?n.isolate:n.category===c);const r=new Map(all.map(n=>[n.id,matchRank(n,q)]));all.sort((a,b)=>r.get(a.id)-r.get(b.id)||kindRank(a)-kindRank(b)||(data.nodes[a.id]?0:1)-(data.nodes[b.id]?0:1)||a.name.localeCompare(b.name))}
  matches=all;$('results').hidden=!q;if(q)renderSearch()}
 function hitPath(n){if(data.nodes[n.id]){const a=ancestors(n.id).slice(0,-1);return a.length?a.map(id=>esc(nodes[id].name)).join(' › '):''}return esc(title(n.source))}
-function renderSearch(){const {q0}=searchQuery(),shown=matches.slice(0,150);
+// Matches shown at once; the message below says the same number.
+const SEARCH_LIMIT=150;
+function renderSearch(){const {q0}=searchQuery(),shown=matches.slice(0,SEARCH_LIMIT);
  $('results').innerHTML=`<div class="search-head"><h2>Search results</h2><p class="hit-count">${matches.length===1?'1 matching record':fmt(matches.length)+' matching records'}</p><span class="hit-query notranslate" dir="auto">${esc(q0)}</span><span class="search-actions"><button type="button" data-search-clear>Clear search</button></span></div>`+
- (shown.length?`<ol class="hits">${shown.map(n=>{const path=hitPath(n);return `<li><a class="hit" href="${esc(pageURL(n.id))}"><span class="dot" style="background:${col(n)}"></span><span class="hit-main"><span class="hit-name notranslate" dir="auto">${esc(n.name)}</span><span class="hit-meta"><span class="hit-kind">${esc(n.isolate?'isolate':n.level)}</span> · <code class="notranslate">${esc(n.iso||n.id)}</code>${unified.conflictIndex[n.id]?' · competing branches':''}</span>${path?`<span class="hit-path notranslate" dir="auto">${path}</span>`:''}</span></a></li>`}).join('')}</ol>`+(matches.length>150?'<p class="small">First 150 matches. Refine your search.</p>':''):'<p class="empty">No matching records.</p>')}
+ (shown.length?`<ol class="hits">${shown.map(n=>{const path=hitPath(n);return `<li><a class="hit" href="${esc(pageURL(n.id))}"><span class="dot"></span><span class="hit-main"><span class="hit-name notranslate" dir="auto">${esc(n.name)}</span><span class="hit-meta"><code class="notranslate">${esc(n.iso||n.id)}</code>${unified.conflictIndex[n.id]?' · competing branches':''}</span>${path?`<span class="hit-path notranslate" dir="auto">${path}</span>`:''}</span></a></li>`}).join('')}</ol>`+(matches.length>150?'<p class="small">First '+SEARCH_LIMIT+' matches. Refine your search.</p>':''):'<p class="empty">No matching records.</p>')}
 
 // Outline: each row links to the record's page; opening a row shows its members
 // in the same source, and below a Glottolog record the other sources' trees
@@ -70,7 +73,7 @@ function renderSearch(){const {q0}=searchQuery(),shown=matches.slice(0,150);
 function makeNode(id,sid='glottolog',trail=new Set(),sample=''){const n=nodes[id],key=sid+'|'+id;if(trail.has(key)){const p=document.createElement('p');p.textContent='Shared reference: '+n.name;return p}const path=new Set(trail);path.add(key);
  const el=document.createElement('details');el.className='tree-node'+(id===rootId?' selected-node':'');
  const sum=document.createElement('summary'),own=native(n),ps=new Set((unified.placements[id]||[]).map(x=>x.source));
- sum.innerHTML=`<span class="rowname"><a href="${esc(pageURL(id))}">${esc(n.name)}</a>${sample&&sample!==n.name?`<small class="all-source-label">sample: ${esc(sample)}</small>`:''}</span>${own.length?`<span class="native-inline" dir="auto">${own.slice(0,2).map(esc).join(' / ')}</span>`:''}<span class="rowmeta">${esc(n.isolate?'isolate':n.level)}${ps.size>1?' · '+ps.size+' sources':''}${unified.conflictIndex[id]?' · ⚑':''}</span>`;el.appendChild(sum);
+ sum.innerHTML=`<span class="rowname"><a href="${esc(pageURL(id))}">${esc(n.name)}</a>${sample&&sample!==n.name?`<small class="all-source-label">sample: ${esc(sample)}</small>`:''}</span>${own.length?`<span class="native-inline" dir="auto">${own.slice(0,2).map(esc).join(' / ')}</span>`:''}${(()=>{const m=[ps.size>1?ps.size+' sources':'',unified.conflictIndex[id]?'⚑':''].filter(Boolean).join(' · ');return m?`<span class="rowmeta">${m}</span>`:''})()}`;el.appendChild(sum);
  let populated=false;
  function populate(){if(populated)return;populated=true;const kids=document.createElement('div');kids.className='node-children';
   for(const e of children(sid,id))if(eligible(nodes[e.child]))kids.appendChild(makeNode(e.child,sid,path,e.sample));
