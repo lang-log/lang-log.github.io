@@ -22,13 +22,27 @@
   var KEY = 'lang';
   // [code, name in the language itself, short label for narrow screens, direction]
   var LANGS = [
-    ['en', 'English', 'EN'], ['ja', '日本語', 'JA'], ['es', 'Español', 'ES'],
-    ['fr', 'Français', 'FR'], ['ru', 'Русский', 'RU'], ['zh-Hans', '简体中文', '简体'],
-    ['zh-Hant', '繁體中文', '繁體'], ['ar', 'العربية', 'AR', 'rtl'], ['ko', '한국어', 'KO'],
-    ['vi', 'Tiếng Việt', 'VI'], ['de', 'Deutsch', 'DE'], ['pt', 'Português', 'PT'],
-    ['it', 'Italiano', 'IT'], ['nl', 'Nederlands', 'NL'], ['tr', 'Türkçe', 'TR'],
-    ['id', 'Bahasa Indonesia', 'ID'], ['th', 'ไทย', 'TH'], ['hi', 'हिन्दी', 'HI'],
-    ['fa', 'فارسی', 'FA', 'rtl'], ['pl', 'Polski', 'PL'], ['uk', 'Українська', 'UK']
+    ['en', 'English', 'EN'],
+    ['ja', '日本語', 'JA'],
+    ['es', 'Español', 'ES'],
+    ['fr', 'Français', 'FR'],
+    ['ru', 'Русский', 'RU'],
+    ['zh-Hans', '简体中文', '简体'],
+    ['zh-Hant', '繁體中文', '繁體'],
+    ['ar', 'العربية', 'AR', 'rtl'],
+    ['ko', '한국어', 'KO'],
+    ['vi', 'Tiếng Việt', 'VI'],
+    ['de', 'Deutsch', 'DE'],
+    ['pt', 'Português', 'PT'],
+    ['it', 'Italiano', 'IT'],
+    ['nl', 'Nederlands', 'NL'],
+    ['tr', 'Türkçe', 'TR'],
+    ['id', 'Bahasa Indonesia', 'ID'],
+    ['th', 'ไทย', 'TH'],
+    ['hi', 'हिन्दी', 'HI'],
+    ['fa', 'فارسی', 'FA', 'rtl'],
+    ['pl', 'Polski', 'PL'],
+    ['uk', 'Українська', 'UK'],
   ];
   // Digits other than 0-9 (Intl numbering system), as in the profile site's data/site.yaml.
   var DIGITS = { fa: 'arabext' };
@@ -41,10 +55,17 @@
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^/]*$/, '') : '';
 
-  function info(code) { for (var i = 0; i < LANGS.length; i++) if (LANGS[i][0] === code) return LANGS[i]; return null; }
+  function info(code) {
+    for (var i = 0; i < LANGS.length; i++) if (LANGS[i][0] === code) return LANGS[i];
+    return null;
+  }
   function saved() {
-    try { var v = localStorage.getItem(KEY); return info(v) ? v : null; }
-    catch (e) { return null; }
+    try {
+      var v = localStorage.getItem(KEY);
+      return info(v) ? v : null;
+    } catch {
+      return null;
+    }
   }
   function browser() {
     var list = navigator.languages || [navigator.language || 'en'];
@@ -65,27 +86,58 @@
   var attrOrig = new WeakMap();
   var touched = [];
 
-  var MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
-  function intlLocale() { return lang + '-u-nu-' + (DIGITS[lang] || 'latn') + '-ca-gregory'; }
+  var MONTHS = {
+    Jan: 0,
+    Feb: 1,
+    Mar: 2,
+    Apr: 3,
+    May: 4,
+    Jun: 5,
+    Jul: 6,
+    Aug: 7,
+    Sep: 8,
+    Oct: 9,
+    Nov: 10,
+    Dec: 11,
+  };
+  function intlLocale() {
+    return lang + '-u-nu-' + (DIGITS[lang] || 'latn') + '-ca-gregory';
+  }
   // A number ("27,123") or a date ("12 Oct 2026") captured by a pattern, in the
   // language's own format. Anything else is returned unchanged.
   function local(v) {
     if (v == null || lang === 'en' || !window.Intl) return v;
     try {
-      if (/^\d{1,3}(,\d{3})*$|^\d+$/.test(v)) return new Intl.NumberFormat(intlLocale()).format(Number(v.replace(/,/g, '')));
+      if (/^\d{1,3}(,\d{3})*$|^\d+$/.test(v))
+        return new Intl.NumberFormat(intlLocale()).format(Number(v.replace(/,/g, '')));
       var m = v.match(/^(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/);
-      if (m) return new Intl.DateTimeFormat(intlLocale(), { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(+m[3], MONTHS[m[2]], +m[1])));
-    } catch (e) { /* old browser: keep the English form */ }
+      if (m)
+        return new Intl.DateTimeFormat(intlLocale(), {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          timeZone: 'UTC',
+        }).format(new Date(Date.UTC(+m[3], MONTHS[m[2]], +m[1])));
+    } catch {
+      /* old browser: keep the English form */
+    }
     return v;
   }
 
-  function dict() { return (window.LANGLOG_I18N || {})[lang] || null; }
+  function dict() {
+    return (window.LANGLOG_I18N || {})[lang] || null;
+  }
   function tr(s) {
     var d = dict();
     if (!d) return null;
     var key = s.replace(/\s+/g, ' ').trim();
     // A bare number (a count the scripts write) only changes its digits, in Persian.
-    if (/^\d[\d,]*$/.test(key) && DIGITS[lang] === 'arabext') return key.replace(/\d/g, function (c) { return '۰۱۲۳۴۵۶۷۸۹'[c]; }).replace(/,/g, '٬');
+    if (/^\d[\d,]*$/.test(key) && DIGITS[lang] === 'arabext')
+      return key
+        .replace(/\d/g, function (c) {
+          return '۰۱۲۳۴۵۶۷۸۹'[c];
+        })
+        .replace(/,/g, '٬');
     if (!key || !/[A-Za-z]/.test(key)) return null;
     var out = Object.prototype.hasOwnProperty.call(d.exact, key) ? d.exact[key] : null;
     if (out === null) {
@@ -94,7 +146,12 @@
         if (m) {
           var g = m.map(local);
           var rep = d.patterns[i][1];
-          out = typeof rep === 'function' ? rep(g, tr) : rep.replace(/\$(\d)/g, function (_, n) { return g[+n] != null ? g[+n] : ''; });
+          out =
+            typeof rep === 'function'
+              ? rep(g, tr)
+              : rep.replace(/\$(\d)/g, function (_, n) {
+                  return g[+n] != null ? g[+n] : '';
+                });
           break;
         }
       }
@@ -106,17 +163,23 @@
         var done = [];
         for (var k = 0; k < parts.length; k++) {
           var p = tr(parts[k]);
-          if (p === null) { done = null; break; }
+          if (p === null) {
+            done = null;
+            break;
+          }
           done.push(p);
         }
         if (done) out = done.join(d.join != null ? d.join : ' ');
       }
     }
     if (out === null || out === key) return null;
-    var lead = s.match(/^\s*/)[0], tail = s.match(/\s*$/)[0];
+    var lead = s.match(/^\s*/)[0],
+      tail = s.match(/\s*$/)[0];
     return lead + out + tail;
   }
-  function skip(el) { return !el || (el.closest && el.closest(SKIP)); }
+  function skip(el) {
+    return !el || (el.closest && el.closest(SKIP));
+  }
   function doText(n) {
     if (skip(n.parentElement)) return;
     var t = tr(n.nodeValue);
@@ -133,19 +196,27 @@
       var t = tr(el.getAttribute(a));
       if (t === null) continue;
       var o = attrOrig.get(el);
-      if (!o) { o = {}; attrOrig.set(el, o); touched.push(el); }
+      if (!o) {
+        o = {};
+        attrOrig.set(el, o);
+        touched.push(el);
+      }
       o[a] = el.getAttribute(a);
       el.setAttribute(a, t);
     }
   }
   function walk(node) {
-    if (node.nodeType === 3) { doText(node); return; }
+    if (node.nodeType === 3) {
+      doText(node);
+      return;
+    }
     if (node.nodeType !== 1 || skip(node)) return;
     doAttrs(node);
     var w = document.createTreeWalker(node, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
     var n;
     while ((n = w.nextNode())) {
-      if (n.nodeType === 3) doText(n); else doAttrs(n);
+      if (n.nodeType === 3) doText(n);
+      else doAttrs(n);
     }
   }
 
@@ -164,14 +235,25 @@
     });
     observer.observe(document.documentElement, OPTS);
   }
-  var OPTS = { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS };
+  var OPTS = {
+    subtree: true,
+    childList: true,
+    characterData: true,
+    attributes: true,
+    attributeFilter: ATTRS,
+  };
 
   function restore() {
-    if (observer) { observer.disconnect(); observer = null; }
+    if (observer) {
+      observer.disconnect();
+      observer = null;
+    }
     for (var i = 0; i < touched.length; i++) {
       var n = touched[i];
-      if (n.nodeType === 3) { if (textOrig.has(n)) n.nodeValue = textOrig.get(n); textOrig.delete(n); }
-      else {
+      if (n.nodeType === 3) {
+        if (textOrig.has(n)) n.nodeValue = textOrig.get(n);
+        textOrig.delete(n);
+      } else {
         var o = attrOrig.get(n);
         if (o) for (var a in o) n.setAttribute(a, o[a]);
         attrOrig.delete(n);
@@ -202,26 +284,62 @@
         d.open = false;
         set(b.getAttribute('data-lang'), true);
       });
-      document.addEventListener('click', function (e) { if (d.open && !d.contains(e.target)) d.open = false; });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && d.open) { d.open = false; d.querySelector('summary').focus(); } });
+      document.addEventListener('click', function (e) {
+        if (d.open && !d.contains(e.target)) d.open = false;
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && d.open) {
+          d.open = false;
+          d.querySelector('summary').focus();
+        }
+      });
     }
     var cur = info(lang);
     var items = LANGS.map(function (l) {
       return l[0] === lang
         ? '<li><span lang="' + l[0] + '" aria-current="true">' + l[1] + '</span></li>'
-        : '<li><button type="button" lang="' + l[0] + '" data-lang="' + l[0] + '">' + l[1] + '</button></li>';
+        : '<li><button type="button" lang="' +
+            l[0] +
+            '" data-lang="' +
+            l[0] +
+            '">' +
+            l[1] +
+            '</button></li>';
     }).join('');
-    d.innerHTML = '<summary aria-label="Language: ' + cur[1] + '" lang="' + lang + '"><span class="full">' + cur[1] + '</span><span class="short" aria-hidden="true">' + cur[2] + '</span></summary><div class="panel"><ul>' + items + '</ul></div>';
+    d.innerHTML =
+      '<summary aria-label="Language: ' +
+      cur[1] +
+      '" lang="' +
+      lang +
+      '"><span class="full">' +
+      cur[1] +
+      '</span><span class="short" aria-hidden="true">' +
+      cur[2] +
+      '</span></summary><div class="panel"><ul>' +
+      items +
+      '</ul></div>';
   }
 
-  function setDir() { root.setAttribute('lang', lang); root.setAttribute('dir', info(lang)[3] || 'ltr'); }
+  function setDir() {
+    root.setAttribute('lang', lang);
+    root.setAttribute('dir', info(lang)[3] || 'ltr');
+  }
 
   // Run done() once the dictionary of code is there (English needs none). Japanese comes
   // with i18n.js; other languages load i18n/<code>.js. A failed load leaves English.
   function load(code, done) {
-    if (code === 'en' || (window.LANGLOG_I18N || {})[code]) { done(); return; }
+    if (code === 'en' || (window.LANGLOG_I18N || {})[code]) {
+      done();
+      return;
+    }
     var finished = false;
-    function finish() { if (!finished) { finished = true; root.classList.remove('i18n-wait'); done(); } }
+    function finish() {
+      if (!finished) {
+        finished = true;
+        root.classList.remove('i18n-wait');
+        done();
+      }
+    }
     root.classList.add('i18n-wait');
     setTimeout(finish, LOAD_WAIT);
     var el = document.createElement('script');
@@ -233,8 +351,14 @@
   // The list count's label comes from CSS (#searchcount::before/::after in style.css):
   // split the translated "<n> roots in the list" around the number into two variables.
   function countLabel() {
-    var out = lang === 'en' ? null : tr('7 roots in the list'), n = local('7'), i = out ? out.indexOf(n) : -1;
-    if (i < 0) { root.style.removeProperty('--count-before'); root.style.removeProperty('--count-after'); return; }
+    var out = lang === 'en' ? null : tr('7 roots in the list'),
+      n = local('7'),
+      i = out ? out.indexOf(n) : -1;
+    if (i < 0) {
+      root.style.removeProperty('--count-before');
+      root.style.removeProperty('--count-after');
+      return;
+    }
     root.style.setProperty('--count-before', JSON.stringify(out.slice(0, i)));
     root.style.setProperty('--count-after', JSON.stringify(out.slice(i + n.length)));
   }
@@ -242,7 +366,10 @@
     setDir();
     restore();
     countLabel();
-    if (lang !== 'en') { walk(document.documentElement); observe(); }
+    if (lang !== 'en') {
+      walk(document.documentElement);
+      observe();
+    }
     profileLinks();
     menu();
   }
@@ -250,7 +377,13 @@
   function set(l, save) {
     if (l === lang || !info(l)) return;
     lang = l;
-    if (save) { try { localStorage.setItem(KEY, l); } catch (e) { /* private mode: this page only */ } }
+    if (save) {
+      try {
+        localStorage.setItem(KEY, l);
+      } catch {
+        /* private mode: this page only */
+      }
+    }
     load(l, function () {
       if (lang !== l) return;
       apply();
@@ -274,5 +407,7 @@
     menu();
     document.dispatchEvent(new Event('langchange'));
   });
-  window.LANGLOG_LANG = function () { return lang; };
+  window.LANGLOG_LANG = function () {
+    return lang;
+  };
 })();

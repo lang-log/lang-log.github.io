@@ -14,6 +14,7 @@ check fails when
 
 Run from the repository root: python3 tools/check_single_source.py
 """
+
 import fnmatch
 import json
 import re
@@ -25,17 +26,28 @@ from locations import ROOT
 CONFIG = json.loads((ROOT / "tools" / "single-source.json").read_text(encoding="utf-8"))
 # Code written by hand. Generated files (listed in .prettierignore / written by
 # scripts) and third-party data are left out.
-CODE = ["dist/*.js", "dist/*.css", "dist/*.html", "dist/i18n/*.js", "tools/*.py", "tools/*.js", "tools/*.sh"]
+CODE = [
+    "dist/*.js",
+    "dist/*.css",
+    "dist/*.html",
+    "dist/i18n/*.js",
+    "tools/*.py",
+    "tools/*.js",
+    "tools/*.sh",
+]
 GENERATED = {"dist/hf-iso-map.js"}
 COLOUR = re.compile(r"(?<![\w&/])#(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b")
 EMPTY = {"{}", "[]", "''", "0", "null", "None"}
 # NAME = value, in Python or JavaScript (var/const/let optional).
-CONSTANT = re.compile(r"(?:^|[\s,;(])(?:(?:var|const|let)\s+)?([A-Z][A-Z0-9_]{2,})\s*=(?!=)\s*([^;\n]+)")
+CONSTANT = re.compile(
+    r"(?:^|[\s,;(])(?:(?:var|const|let)\s+)?([A-Z][A-Z0-9_]{2,})\s*=(?!=)\s*([^;\n]+)"
+)
 
 
 def files():
-    out = subprocess.run(["git", "ls-files", *CODE], cwd=ROOT, check=True,
-                         capture_output=True, text=True).stdout.split()
+    out = subprocess.run(
+        ["git", "ls-files", *CODE], cwd=ROOT, check=True, capture_output=True, text=True
+    ).stdout.split()
     return [f for f in out if f not in GENERATED and f != "tools/single-source.json"]
 
 
@@ -61,7 +73,9 @@ def main():
                 continue
             for n, line in enumerate(text.splitlines(), 1):
                 if pattern.search(line):
-                    errors.append(f'{f}:{n}: /{entry["pattern"]}/ belongs in {entry["source"]} ({entry["why"]})')
+                    errors.append(
+                        f"{f}:{n}: /{entry['pattern']}/ belongs in {entry['source']} ({entry['why']})"
+                    )
 
     colours = CONFIG["colours"]
     allowed = [colours["source"], *colours["also"]]
@@ -70,7 +84,9 @@ def main():
             continue
         for n, line in enumerate(text.splitlines(), 1):
             for m in COLOUR.finditer(line):
-                errors.append(f"{f}:{n}: colour {m.group(0)} belongs in {colours['source']} as a token")
+                errors.append(
+                    f"{f}:{n}: colour {m.group(0)} belongs in {colours['source']} as a token"
+                )
 
     seen = {}
     for f, text in texts.items():
@@ -83,13 +99,19 @@ def main():
     for (name, value), where in sorted(seen.items()):
         # Empty values ({} filled in later, "" ...) say nothing about a shared value.
         if len(where) > 1 and value not in EMPTY:
-            errors.append(f"{name} = {value[:60]} is defined in {', '.join(sorted(where))}: keep one and read it from there")
+            errors.append(
+                f"{name} = {value[:60]} is defined in {', '.join(sorted(where))}: keep one and read it from there"
+            )
 
     if errors:
         print("\n".join(errors))
-        print(f"{len(errors)} values written in more than one place (see .claude/rules/readable-code.md)")
+        print(
+            f"{len(errors)} values written in more than one place (see .claude/rules/readable-code.md)"
+        )
         return 1
-    print(f"single source: {len(CONFIG['values'])} shared values, colours and constants in {len(texts)} files")
+    print(
+        f"single source: {len(CONFIG['values'])} shared values, colours and constants in {len(texts)} files"
+    )
     return 0
 
 

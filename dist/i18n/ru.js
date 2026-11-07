@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Другие виды языков',
       'Families': 'Семьи',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Записи Glottolog',
       'Records from study trees only': 'Записи только из деревьев исследований',
       'Spoken languages': 'Звуковые языки',
       'Spoken dialects': 'Диалекты звуковых языков',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Все $1 записи категории жестовых языков Glottolog, включая записи семей и диалектов. Категории служат для навигации.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Все $1 образцов CLDF, включая исторические формы. Опубликованные метаданные подгрупп, а не выведенное дерево языков целиком.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '$1 репозиториев данных Phlorest, найденных в каталоге, импортированы полностью на уровне сводного дерева. Апостериорные выборки не импортировались.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Все $1 образцов CLDF, включая исторические формы. Опубликованные метаданные подгрупп, а не выведенное дерево языков целиком.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '$1 репозиториев данных Phlorest, найденных в каталоге, импортированы полностью на уровне сводного дерева. Апостериорные выборки не импортировались.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'Первые $1 совпадений. Уточните запрос.'],
       [/^Show ([\d,]+) more$/, 'Показать ещё $1'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

@@ -21,6 +21,7 @@ The WALS genus lists in data.json ("wals", "walsRoots" and each record's
 Run after prepare_static.py. check() rebuilds the objects the same way
 the browser does and fails if anything differs from the originals.
 """
+
 import json
 import re
 
@@ -29,7 +30,11 @@ from locations import DIST
 OUT = DIST / "data"
 # The number of name files is set once, in dist/atlas-data.js (the browser must know it
 # before any data has loaded); read it from there so the two always agree.
-SHARDS = int(re.search(r"\bconst SHARDS\s*=\s*(\d+)", (DIST / "atlas-data.js").read_text(encoding="utf-8")).group(1))
+SHARDS = int(
+    re.search(
+        r"\bconst SHARDS\s*=\s*(\d+)", (DIST / "atlas-data.js").read_text(encoding="utf-8")
+    ).group(1)
+)
 # Glottolog record fields stored as columns, in the original key order.
 # id, children, root, size, wals and names are left out (see above).
 COLUMNS = ["name", "level", "area", "iso", "countries", "isolate", "parent", "category"]
@@ -126,15 +131,19 @@ def rebuild(atlas):
             kids.setdefault(p, []).append((cols["rank"][i], k))
     for p, lst in kids.items():
         nodes[p]["children"] = [k for _, k in sorted(lst)]
+
     def root(k):
         while nodes[k]["parent"] is not None:
             k = nodes[k]["parent"]
         return k
+
     size = {}
+
     def count(k):
         if k not in size:
             size[k] = 1 + sum(count(c) for c in nodes[k]["children"])
         return size[k]
+
     for k in ids:
         nodes[k]["root"] = root(k)
         nodes[k]["size"] = count(k)
@@ -143,7 +152,9 @@ def rebuild(atlas):
         nodes[ids[int(i)]]["nativeNames"] = v
     u = dict(atlas["unified"])
     other = u.pop("otherAssertions")
-    assertions = [{"parent": nodes[k]["parent"], "child": k, "source": "glottolog"} for k in ids] + other
+    assertions = [
+        {"parent": nodes[k]["parent"], "child": k, "source": "glottolog"} for k in ids
+    ] + other
     placements = {}
     for a in assertions:
         if a["parent"] is not None:
@@ -155,6 +166,7 @@ def rebuild(atlas):
 
 def check(data, unified, atlas, shards):
     import sys
+
     sys.setrecursionlimit(100000)
     nodes, u = rebuild(atlas)
     for k, n in data["nodes"].items():
@@ -171,6 +183,7 @@ def check(data, unified, atlas, shards):
 
 def main():
     import sys
+
     sys.setrecursionlimit(100000)
     data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
     unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))

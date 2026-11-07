@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Andere soorten talen',
       'Families': 'Families',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog-records',
       'Records from study trees only': 'Records alleen uit studiebomen',
       'Spoken languages': 'Gesproken talen',
       'Spoken dialects': 'Gesproken dialecten',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Alle $1 records in de Glottolog-categorie gebarentalen, inclusief records van families en dialecten. Categorieën dienen voor navigatie.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Alle $1 CLDF-voorbeelden, inclusief historische vormen. Gepubliceerde subgroepmetadata, geen afgeleide boom van hele talen.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'De $1 Phlorest-datarepository’s in de catalogus zijn volledig geïmporteerd op het niveau van de samenvattende boom. Posterieure steekproeven zijn niet geïmporteerd.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Alle $1 CLDF-voorbeelden, inclusief historische vormen. Gepubliceerde subgroepmetadata, geen afgeleide boom van hele talen.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'De $1 Phlorest-datarepository’s in de catalogus zijn volledig geïmporteerd op het niveau van de samenvattende boom. Posterieure steekproeven zijn niet geïmporteerd.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'Eerste $1 resultaten. Verfijn uw zoekopdracht.'],
       [/^Show ([\d,]+) more$/, 'Nog $1 tonen'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

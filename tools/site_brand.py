@@ -11,6 +11,7 @@ dist/lang.js switches the profile link to the interface language by changing
 the language part of the link's own address, so it keeps no copy of
 PROFILE_URL; dist/record.js keeps the title suffix its page was built with.
 """
+
 import re
 import sys
 from html import escape

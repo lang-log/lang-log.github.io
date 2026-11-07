@@ -15,11 +15,11 @@ The shared rule is `readable-code.md` in the `research-aide` repository (each va
 ## Checks
 
 - `tools/check_single_source.py` (run by `tools/build_site.sh`) fails on a copy of a value listed in `tools/single-source.json`, on a colour outside `dist/style.css` and the listed files, and on a constant with the same name and value in two files. A new shared value gets an entry there in the same pull request.
-- Prettier, ESLint and Ruff (`.claude/rules/code-quality.md`, once PR #53 is merged) handle layout and common mistakes.
+- Prettier, ESLint and Ruff (`.claude/rules/code-quality.md`) handle layout and common mistakes.
 
 ## Known gaps (fix when the file is next worked on)
 
 - `Glottolog 5.3` is written in about 20 places (pages, scripts, dictionaries); it should come from `glottologVersion` in the data, with a placeholder in the dictionaries.
 - The colour tokens are named after their light-theme value (`--c-386e6d`), so the name says nothing and the dark theme gives `--c-ffffff` a dark colour. Rename them by role (`--surface`, `--accent`), after PR #49.
 - The phone width `700px` is repeated in every `@media` rule (CSS cannot use a variable there) and again in `dist/tree.js`; the script should read a custom property instead.
-- `dist/*.js`, `dist/*.css` and many `tools/*.py` are written as long single lines; the formatter (PR #53 and its follow-up) breaks them up.
+- `dist/*.js`, `dist/*.css` and many `tools/*.py` are written as long single lines; the formatter breaks them up (the files #53 left out are formatted in its follow-up).

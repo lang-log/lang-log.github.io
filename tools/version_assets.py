@@ -11,6 +11,7 @@ one keeps its cache.
 Run it last in the build, after every page has been written. It runs only in
 CI; the HTML files committed in dist/ keep plain links.
 """
+
 import hashlib
 import re
 
@@ -27,7 +28,9 @@ _versions = {}
 
 def version(path):
     if path not in _versions:
-        _versions[path] = hashlib.sha256(path.read_bytes()).hexdigest()[:10] if path.is_file() else None
+        _versions[path] = (
+            hashlib.sha256(path.read_bytes()).hexdigest()[:10] if path.is_file() else None
+        )
     return _versions[path]
 
 
@@ -62,7 +65,9 @@ def version_dictionaries():
     table = ", ".join(f"'{f.stem}': '{version(f.resolve())}'" for f in files)
     text = LANG_JS.read_text(encoding="utf-8")
     if VERSIONS not in text:
-        raise SystemExit("tools/version_assets.py: placeholder 'var VERSIONS = {};' not found in dist/lang.js")
+        raise SystemExit(
+            "tools/version_assets.py: placeholder 'var VERSIONS = {};' not found in dist/lang.js"
+        )
     LANG_JS.write_text(text.replace(VERSIONS, "var VERSIONS = {" + table + "};"), encoding="utf-8")
     print(f"versioned {len(files)} dictionaries in lang.js")
 
