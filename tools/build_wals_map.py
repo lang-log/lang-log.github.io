@@ -11,7 +11,7 @@ Two steps:
   python3 tools/build_wals_map.py
       Reads those tables, source-data/languages.csv (Glottolog) and
       source-data/wals.csv (WALS languages and their Glottocodes) and writes
-      dist/feature-map-data/ (not committed; built in CI):
+      dist/data/features/ (not committed; built in CI):
         languages.json  one entry per Glottolog language with a point:
                         Glottocode, name, family, first WALS code (or "") and
                         the point in the map's SVG units (Equal Earth, central
@@ -36,7 +36,7 @@ from languoid_map import project
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "source-data" / "wals-features"
-OUT = ROOT / "dist" / "feature-map-data"
+OUT = ROOT / "dist" / "data" / "features"
 VERSION = "v2020.4"
 BASE = f"https://raw.githubusercontent.com/cldf-datasets/wals/{VERSION}/cldf/"
 
@@ -144,7 +144,7 @@ def build():
                          "languages": len(got), "values": vals})
         write(OUT / "f" / f"{pid}.json", [got.get(i, 0) for i in range(len(langs))])
     write(OUT / "features.json", {"version": VERSION, "features": features})
-    print(f"Wrote dist/feature-map-data/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features")
+    print(f"Wrote dist/data/features/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features")
 
 
 def write(path, obj):
