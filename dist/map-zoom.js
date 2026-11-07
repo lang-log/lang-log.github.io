@@ -2,7 +2,7 @@
 // Without JavaScript the map is a still picture; this script only adds movement.
 //
 // - Drag (mouse or one finger once zoomed in), pinch, Ctrl/Cmd + wheel or trackpad pinch,
-//   double click, the + / - / Reset buttons, and the keyboard (+ - arrows 0) move the view.
+//   double click, the + / - buttons (only with a mouse or trackpad), Reset, and the keyboard (+ - arrows 0) move the view.
 // - Points keep their size on screen at every zoom (their r is rescaled), and border lines
 //   keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
@@ -226,8 +226,10 @@
     // Buttons, placed over the top right corner of the map.
     var bar = document.createElement('div');
     bar.className = 'lmap-tools';
-    [['+', 'Zoom in', function () { zoom(STEP); }], ['−', 'Zoom out', function () { zoom(1 / STEP); }],
-      ['Reset', 'Reset view', reset]].forEach(function (b) {
+    // + and - only where a mouse or trackpad exists; on phones and tablets people pinch.
+    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
+    (fine ? [['+', 'Zoom in', function () { zoom(STEP); }], ['−', 'Zoom out', function () { zoom(1 / STEP); }]] : [])
+      .concat([['Reset', 'Reset view', reset]]).forEach(function (b) {
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.textContent = b[0];
