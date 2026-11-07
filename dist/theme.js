@@ -16,8 +16,12 @@
   var LABEL = { en: 'Dark theme', ja: 'ダークテーマ' };
 
   function saved() {
-    try { var v = localStorage.getItem(KEY); return v === 'light' || v === 'dark' ? v : null; }
-    catch { return null; }
+    try {
+      var v = localStorage.getItem(KEY);
+      return v === 'light' || v === 'dark' ? v : null;
+    } catch {
+      return null;
+    }
   }
   function current() {
     return root.getAttribute('data-theme') || (media && media.matches ? 'dark' : 'light');
@@ -39,7 +43,8 @@
   var s = saved();
   if (s) root.setAttribute('data-theme', s);
 
-  var BUTTON = '<svg class="moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>' +
+  var BUTTON =
+    '<svg class="moon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>' +
     '<svg class="sun" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>';
 
   // The header keeps the brand on the left and one element on the right. The controls go
@@ -74,7 +79,11 @@
     if (!b) return;
     var next = current() === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
-    try { localStorage.setItem(KEY, next); } catch { /* private mode: keep for this page only */ }
+    try {
+      localStorage.setItem(KEY, next);
+    } catch {
+      /* private mode: keep for this page only */
+    }
     changed();
   });
 

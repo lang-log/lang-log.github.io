@@ -16,6 +16,7 @@ radians; north is up (y grows downwards, as in SVG).
 Points are Glottolog's representative coordinates (one per record). They are
 not the area where a language is spoken.
 """
+
 from html import escape
 import math
 
@@ -29,7 +30,12 @@ WORLD_H = WORLD_W
 # wide as it is high, and the band from INSET_Y down holds every inhabited latitude.
 INSET_Y = -0.29 * WORLD_W
 
-LAYERS = (("sphere", "lmap-sphere"), ("land", "lmap-land"), ("borders", "lmap-border"), ("disputed", "lmap-disputed"))
+LAYERS = (
+    ("sphere", "lmap-sphere"),
+    ("land", "lmap-land"),
+    ("borders", "lmap-border"),
+    ("disputed", "lmap-disputed"),
+)
 
 
 def wrap(lon):
@@ -59,17 +65,17 @@ def unwrap(lons):
     s = sorted(wrap(x) for x in lons)
     gaps = [(s[(i + 1) % len(s)] - s[i]) % 360.0 for i in range(len(s))]
     i = max(range(len(s)), key=lambda k: gaps[k])
-    cut = s[(i + 1) % len(s)]               # the most western point after the widest gap
+    cut = s[(i + 1) % len(s)]  # the most western point after the widest gap
     out = [wrap(x) + (360.0 if wrap(x) < cut else 0.0) for x in lons]
     mid = (min(out) + max(out)) / 2
     shift = -360.0 * round(mid / 360.0)
     return [x + shift for x in out]
 
 
-ASPECT = 2.0          # width / height of every map
-MIN_W = 240.0         # smallest starting view, in SVG units (about 45 degrees of longitude at the equator)
-ZOOM_MIN_W = 30.0     # smallest view after zooming in (about 550 km across), see dist/map-zoom.js
-PAD = 0.12            # margin around the points, as a share of their extent
+ASPECT = 2.0  # width / height of every map
+MIN_W = 240.0  # smallest starting view, in SVG units (about 45 degrees of longitude at the equator)
+ZOOM_MIN_W = 30.0  # smallest view after zooming in (about 550 km across), see dist/map-zoom.js
+PAD = 0.12  # margin around the points, as a share of their extent
 
 
 def _view(points):
@@ -102,8 +108,11 @@ def background(href, vx, vw):
     Copies lie WORLD_W apart; every layer of every copy comes before the next
     layer, so no copy's sea covers its neighbour's borders.
     """
-    copies = [k for k in (-2, -1, 0, 1, 2)
-              if k * WORLD_W - WORLD_W / 2 < vx + vw and k * WORLD_W + WORLD_W / 2 > vx]
+    copies = [
+        k
+        for k in (-2, -1, 0, 1, 2)
+        if k * WORLD_W - WORLD_W / 2 < vx + vw and k * WORLD_W + WORLD_W / 2 > vx
+    ]
     out = []
     for layer, cls in LAYERS:
         for k in copies:
@@ -114,12 +123,18 @@ def background(href, vx, vw):
 
 def inset_rects(vx, vy, vw, vh):
     """The two rectangles that mark the view on the locator (the second is used when the view crosses its edge)."""
-    nx = vx - WORLD_W * math.floor((vx + WORLD_W / 2) / WORLD_W)    # left edge in [-WORLD_W / 2, WORLD_W / 2)
+    nx = vx - WORLD_W * math.floor(
+        (vx + WORLD_W / 2) / WORLD_W
+    )  # left edge in [-WORLD_W / 2, WORLD_W / 2)
     rect = '<rect x="{}" y="{}" width="{}" height="{}"/>'
-    return rect.format(_num(nx), _num(vy), _num(vw), _num(vh)) + rect.format(_num(nx - WORLD_W), _num(vy), _num(vw), _num(vh))
+    return rect.format(_num(nx), _num(vy), _num(vw), _num(vh)) + rect.format(
+        _num(nx - WORLD_W), _num(vy), _num(vw), _num(vh)
+    )
 
 
-def map_svg(map_dir, main, context=(), self_point=None, label="", main_ids=(), context_ids=(), self_id=""):
+def map_svg(
+    map_dir, main, context=(), self_point=None, label="", main_ids=(), context_ids=(), self_id=""
+):
     """Return an inline <svg> map, or "" when there is nothing to place.
 
     map_dir: relative URL of the map/ directory from the page, ending in "/".
@@ -136,12 +151,12 @@ def map_svg(map_dir, main, context=(), self_point=None, label="", main_ids=(), c
     lons = unwrap([lon for lon, _ in focus_ll])
     mid = (min(lons) + max(lons)) / 2
     focus = [project(lon, lat) for lon, (_, lat) in zip(lons, focus_ll)]
-    main_xy = focus[:len(main)]
+    main_xy = focus[: len(main)]
     own = focus[-1] if self_point else None
     # Sister points go on the copy of the world nearest the record's own points.
     context = [project(lon - 360.0 * round((lon - mid) / 360.0), lat) for lon, lat in context]
     vx, vy, vw, vh = _view(focus)
-    r = vw / 200                      # point radius scales with the view
+    r = vw / 200  # point radius scales with the view
     show_inset = vw < WORLD_W * 0.5
 
     def circles(pts, rad, ids=()):
@@ -168,7 +183,7 @@ def map_svg(map_dir, main, context=(), self_point=None, label="", main_ids=(), c
         f'<svg class="lmap" viewBox="{_num(vx)} {_num(vy)} {_num(vw)} {_num(vh)}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet" '
         f'data-map="land" data-base="{escape(map_dir)}" data-min="{_num(ZOOM_MIN_W)}" '
         f'data-world="{_num(-WORLD_W / 2)} {_num(-WORLD_H / 2)} {_num(WORLD_W)} {_num(WORLD_H)}">',
-        f'<title>{escape(label)}</title>',
+        f"<title>{escape(label)}</title>",
         f'<g class="lmap-bg">{background(land, vx, vw)}</g>',
     ]
     if context:
@@ -176,8 +191,11 @@ def map_svg(map_dir, main, context=(), self_point=None, label="", main_ids=(), c
     if main_xy:
         parts.append(f'<g class="lmap-main">{circles(main_xy, r, main_ids)}</g>')
     if own:
-        parts.append(f'<g class="lmap-self"><circle cx="{_num(own[0])}" cy="{_num(own[1])}" r="{_num(r * 2.4)}"'
-                     + (f' data-g="{escape(self_id)}"' if self_id else "") + '/></g>')
+        parts.append(
+            f'<g class="lmap-self"><circle cx="{_num(own[0])}" cy="{_num(own[1])}" r="{_num(r * 2.4)}"'
+            + (f' data-g="{escape(self_id)}"' if self_id else "")
+            + "/></g>"
+        )
     if show_inset:
         # Locator: the whole world in the corner, with the shown area marked.
         iw = vw * 0.22
@@ -187,7 +205,7 @@ def map_svg(map_dir, main, context=(), self_point=None, label="", main_ids=(), c
             f'<g class="lmap-inset"><svg x="{_num(ix)}" y="{_num(iy)}" width="{_num(iw)}" height="{_num(ih)}" '
             f'viewBox="{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}">'
             f'<use class="lmap-sphere" href="{land}#sphere"/><use class="lmap-land" href="{land}#land"/>'
-            f'{inset_rects(vx, vy, vw, vh)}</svg></g>'
+            f"{inset_rects(vx, vy, vw, vh)}</svg></g>"
         )
     parts.append("</svg>")
     return "".join(parts)

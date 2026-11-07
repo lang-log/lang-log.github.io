@@ -20,15 +20,15 @@ The top page is also the top of the language-families tree. Below the introducti
 
 Language families (the top page and every record page):
 
-| Parameter | Meaning |
-| --- | --- |
-| `q` | Search text (top page); the matches are listed under the search box |
-| `evidence` | Evidence filter: `conflicts` or `studies` (top page) |
-| `category` | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
-| `dialects=0` | Hide dialects in the tree |
-| `view=tree` | Horizontal tree instead of the list |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming |
-| `task` | Hugging Face model task on a record page (for example `translation`) |
+| Parameter     | Meaning                                                                                              |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| `q`           | Search text (top page); the matches are listed under the search box                                  |
+| `evidence`    | Evidence filter: `conflicts` or `studies` (top page)                                                 |
+| `category`    | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
+| `dialects=0`  | Hide dialects in the tree                                                                            |
+| `view=tree`   | Horizontal tree instead of the list                                                                  |
+| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming           |
+| `task`        | Hugging Face model task on a record page (for example `translation`)                                 |
 
 On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view`, `dialects` or `x`.
 
