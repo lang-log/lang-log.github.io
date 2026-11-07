@@ -12,12 +12,12 @@
 //   jumping, unless the visitor asked for reduced motion.
 // - Points keep their size on screen at every zoom (their r is rescaled), and border lines
 //   keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
-// - Shapes that meet edge to edge (the three copies of the world, the pieces of land cut
-//   at the 180th meridian, and the 1:10m tiles) are drawn with an outline of their own
-//   colour, seam() wide on screen at every zoom, so that no thin line of the colour
-//   behind shows between them (browsers smooth both edges, which leaves a light line).
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
+// - Shapes that meet edge to edge (the three copies of the world, the pieces of land cut
+//   at the 180th meridian, and the 1:10m tiles) are drawn with an outline of their own
+//   colour, seam() wide on screen at every zoom. Browsers smooth both edges where two
+//   shapes meet, which leaves a thin light line between them, most of all when zoomed out.
 //
 // - Map view: the button in the corner opens the map over the whole window, with nothing
 //   else on screen; the close button, Esc or the browser's Back button closes it. The page
@@ -38,9 +38,6 @@
 (function () {
   'use strict';
   var TILE_BELOW = 700; // view width (SVG units) below which tiles are drawn
-  // Width on screen (CSS pixels) of the outline that closes seams (record.css --lmap-seam):
-  // at least one device pixel, and no wider than needed on sharp screens.
-  var SEAM_PX = 0.6;
   var LAYERS = [
     ['sphere', 'lmap-sphere'],
     ['land', 'lmap-land'],
@@ -57,6 +54,8 @@
   var GLIDE_MS = 550; // length of the Reset animation
   var STEP_MS = 220; // length of the + / - animation
   var HASH = '#map-view'; // address of the map view
+  // Width on screen (CSS pixels) of the outline that closes seams (record.css --lmap-seam).
+  var SEAM_PX = 0.6;
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
   var manifest = null,
     manifestWait = [],
@@ -135,6 +134,7 @@
       });
   }
 
+  // At least one device pixel, so the outline also closes seams on screens with large pixels.
   function seam() {
     return Math.max(SEAM_PX, 1 / (window.devicePixelRatio || 1));
   }
@@ -263,13 +263,6 @@
 
     function draw() {
       raf = 0;
-      // SVG units per screen pixel; the box is laid out with preserveAspectRatio meet.
-      var box = svg.getBoundingClientRect();
-      if (box.width && box.height)
-        bg.style.setProperty(
-          '--lmap-seam',
-          +(seam() * Math.max(view.w / box.width, view.h / box.height)).toFixed(3) + 'px',
-        );
       svg.setAttribute(
         'viewBox',
         [view.x, view.y, view.w, view.h]
@@ -320,6 +313,13 @@
       svg.classList.toggle('lmap-moved', moved);
       svg.classList.toggle('lmap-in', e < home.w - 0.01);
       updateTiles(e);
+      // The seam outline, in SVG units: the box is laid out with preserveAspectRatio meet.
+      var box = svg.getBoundingClientRect();
+      if (box.width && box.height)
+        bg.style.setProperty(
+          '--lmap-seam',
+          +(seam() * Math.max(view.w / box.width, view.h / box.height)).toFixed(3) + 'px',
+        );
       svg.dispatchEvent(
         new CustomEvent('lmap:view', {
           detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h },
