@@ -63,7 +63,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': Glottolog के हर रिकॉर्ड के लिए एक सरल पृष्ठ, उसके वर्गीकरण और मानचित्र के साथ।',
       'Corpora and data for low-resource languages: planned.': 'कम संसाधन वाली भाषाओं के कॉर्पस और डेटा: तैयारी में।',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'स्रोत: Glottolog, WALS, प्रकाशित अध्ययनों के वंशवृक्ष और लिपि-सूचियाँ, हर एक अपने लाइसेंस के अंतर्गत',
-      'Source code': 'सोर्स कोड',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. सर्वाधिकार सुरक्षित।',
       'FIND A BRANCH': 'शाखा खोजें',
       'Find a branch': 'शाखा खोजें',
       'Open': 'खोलें',

@@ -63,7 +63,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
       'Corpora and data for low-resource languages: planned.': 'Korpus dan data untuk bahasa bersumber daya rendah: sedang disiapkan.',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'Sumber: Glottolog, WALS, pohon kajian yang telah terbit, dan katalog aksara, masing-masing dengan lisensinya sendiri',
-      'Source code': 'Kode sumber',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. Hak cipta dilindungi undang-undang.',
       'FIND A BRANCH': 'CARI CABANG',
       'Find a branch': 'Cari cabang',
       'Open': 'Buka',

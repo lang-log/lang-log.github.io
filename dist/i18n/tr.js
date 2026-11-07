@@ -63,7 +63,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
       'Corpora and data for low-resource languages: planned.': 'Az kaynaklı diller için derlemler ve veriler: hazırlanıyor.',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'Kaynaklar: Glottolog, WALS, yayımlanmış çalışmaların soy ağaçları ve yazı katalogları; her biri kendi lisansıyla',
-      'Source code': 'Kaynak kodu',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. Tüm hakları saklıdır.',
       'FIND A BRANCH': 'DAL BUL',
       'Find a branch': 'Dal bul',
       'Open': 'Aç',
