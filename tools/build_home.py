@@ -46,7 +46,6 @@ from build_paths import PROFILE_URL
 # - Sponsors: a section for sponsors of Lang Log.
 
 DIST = Path(__file__).resolve().parent.parent / "dist"
-SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
 
 
 # Buttons of the Random row: (pool in random.json, label, title).
@@ -179,7 +178,7 @@ def main():
         f'<footer><span>Glottolog 5.3 + WALS + {st["summaryTrees"]} Phlorest summary trees · Retrieved {retrieved}</span>'
         f'<span>{genealogical} genealogical family roots · {isolates} isolates · {categories} non-genealogical categories</span>'
         '<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>'
-        f'<span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
+        '<span>© 2026 MATSUURA Yoshihiro. All rights reserved.</span></footer>\n'
         '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script><script src="tree.js"></script>\n'
         '</body></html>\n'
     )

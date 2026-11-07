@@ -23,7 +23,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': برای هر رکورد Glottolog یک صفحهٔ ساده، همراه با رده‌بندی و نقشهٔ آن.',
       'Corpora and data for low-resource languages: planned.': 'پیکره‌ها و داده‌های زبان‌های کم‌منبع: در دست آماده‌سازی.',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'منابع: Glottolog، WALS، درخت‌های پژوهش‌های منتشرشده و فهرست‌های خط‌ها، هر کدام با مجوز خودش',
-      'Source code': 'کد منبع',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© ۲۰۲۶ MATSUURA Yoshihiro. کلیهٔ حقوق محفوظ است.',
       'FIND A BRANCH': 'یافتن شاخه',
       'Find a branch': 'یافتن شاخه',
       'Open': 'باز کردن',

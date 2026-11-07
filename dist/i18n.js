@@ -98,7 +98,7 @@ window.LANGLOG_I18N = {
       ': one plain page per Glottolog record, with its classification and a map.': ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
       'Corpora and data for low-resource languages: planned.': '資源の少ない言語のコーパスとデータ: 準備中です。',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': '出典: Glottolog、WALS、公開された研究の系統樹、文字のカタログ(それぞれのライセンスに従います)',
-      'Source code': 'ソースコード',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 松浦 義広。無断での転載・利用を禁じます。',
 
       // Atlas: search and filters
       'FIND A BRANCH': '系統を探す',

@@ -23,7 +23,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
       'Corpora and data for low-resource languages: planned.': 'Kho ngữ liệu và dữ liệu cho các ngôn ngữ ít tài nguyên: đang chuẩn bị.',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'Nguồn: Glottolog, WALS, cây phả hệ của các nghiên cứu đã công bố và danh mục chữ viết, mỗi nguồn theo giấy phép riêng',
-      'Source code': 'Mã nguồn',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. Bảo lưu mọi quyền.',
       'FIND A BRANCH': 'TÌM MỘT NHÁNH',
       'Find a branch': 'Tìm một nhánh',
       'Open': 'Mở',

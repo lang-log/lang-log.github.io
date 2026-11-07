@@ -23,7 +23,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': '：每筆 Glottolog 紀錄一個簡明網頁，附有分類和地圖。',
       'Corpora and data for low-resource languages: planned.': '低資源語言的語料庫和資料：籌備中。',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': '來源：Glottolog、WALS、已發表研究的譜系樹和文字目錄，各自依其授權條款',
-      'Source code': '原始碼',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 松浦 義広。保留所有權利。',
       'FIND A BRANCH': '尋找分支',
       'Find a branch': '尋找分支',
       'Open': '開啟',

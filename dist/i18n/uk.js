@@ -23,7 +23,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': проста сторінка для кожного запису Glottolog із його класифікацією та мапою.',
       'Corpora and data for low-resource languages: planned.': 'Корпуси й дані для малоресурсних мов: готуються.',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'Джерела: Glottolog, WALS, дерева з опублікованих досліджень і каталоги писемностей, кожне за власною ліцензією',
-      'Source code': 'Вихідний код',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. Усі права захищено.',
       'FIND A BRANCH': 'ЗНАЙТИ ГІЛКУ',
       'Find a branch': 'Знайти гілку',
       'Open': 'Відкрити',
