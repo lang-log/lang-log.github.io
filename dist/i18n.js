@@ -37,8 +37,6 @@ window.LANGLOG_I18N = {
       'Close': '閉じる',
       'Scroll or pinch to zoom, drag to move, tap a dot for the language.': 'ホイールかピンチで拡大、ドラッグで移動、点を押すと言語が出ます。',
       'Select all': 'すべて選択',
-      'Double-click or press and hold to show only this value': 'ダブルクリックか長押しで、この値だけを表示',
-      'Double-click a row, or press and hold it, to show only that value.': '行をダブルクリックするか長押しすると、その値だけを表示します。',
       'WALS page': 'WALS のページ',
       'Lang Log record': 'Lang Log の記録',
       'World map of the selected feature': '選んだ特性の世界地図',

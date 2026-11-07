@@ -67,9 +67,7 @@
   }
 
   // The legend is the filter: one checkbox per value, and a "Select all" box above them
-  // (checked, unchecked or mixed). Double-click a row, or press and hold it on a touch
-  // screen, to keep only that value (as in Plotly's legends).
-  var HOLD_MS = 500;
+  // (checked, unchecked or mixed). To see one value, clear "Select all" and tick it.
   function legend(box, f, state, coloured) {
     box.textContent = '';
     var all = f.values.map(function (x) { return x.n; }), boxes = [];
@@ -82,11 +80,10 @@
       var on = all.filter(function (n) { return state.shown.has(n); }).length;
       allCb.checked = on === all.length; allCb.indeterminate = on > 0 && on < all.length;
     };
-    var only = function (n) { state.shown = new Set([n]); sync(); update(); };
     allCb.addEventListener('change', function () { state.shown = new Set(allCb.checked ? all : []); sync(); update(); });
     var ul = el('ul');
     f.values.forEach(function (v) {
-      var li = el('li'), lab = el('label', { title: 'Double-click or press and hold to show only this value' });
+      var li = el('li'), lab = el('label');
       var cb = el('input', { type: 'checkbox' });
       boxes.push({ cb: cb, n: v.n });
       cb.addEventListener('change', function () { if (cb.checked) state.shown.add(v.n); else state.shown.delete(v.n); sync(); update(); });
@@ -96,22 +93,10 @@
       lab.appendChild(dot);
       lab.appendChild(el('span', { class: 'notranslate' }, v.name));
       lab.appendChild(el('small', null, String(v.count)));
-      lab.addEventListener('dblclick', function (e) { e.preventDefault(); only(v.n); });
-      var timer = null, held = false;
-      lab.addEventListener('pointerdown', function (e) {
-        if (e.pointerType === 'mouse') return;
-        held = false;
-        timer = setTimeout(function () { held = true; only(v.n); if (navigator.vibrate) navigator.vibrate(15); }, HOLD_MS);
-      });
-      var cancel = function () { clearTimeout(timer); };
-      lab.addEventListener('pointerup', cancel); lab.addEventListener('pointercancel', cancel); lab.addEventListener('pointerleave', cancel);
-      lab.addEventListener('contextmenu', function (e) { if (held || timer) e.preventDefault(); });
-      lab.addEventListener('click', function (e) { if (held) { e.preventDefault(); held = false; } });
       li.appendChild(lab);
       ul.appendChild(li);
     });
     box.appendChild(ul);
-    box.appendChild(el('p', { class: 'wm-tip' }, 'Double-click a row, or press and hold it, to show only that value.'));
     sync();
   }
 
