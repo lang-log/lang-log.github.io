@@ -44,11 +44,9 @@ The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, dr
 
 ## License
 
-The code and the site of Lang Log are licensed under the GNU Affero General Public License v3.0 only (AGPL-3.0-only); see `LICENSE`. If you run a modified version as a network service, you must offer its complete source code to its users.
+Lang Log is not open source. Its code, design, site text and the data compiled for it are copyright (C) 2026 MATSUURA Yoshihiro, all rights reserved; see `LICENSE`. No reuse, in whole or in part, commercial or non-commercial, without prior written permission. Versions published earlier under AGPL-3.0-only stay under that license for those who received them.
 
-Copyright (C) 2026 MATSUURA Yoshihiro
-
-Source datasets keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/signs-and-scripts-licenses.txt`, the source registers in the site and the documentation below.
+Third-party source datasets are not covered by this and keep their own licenses and attribution (for example Glottolog: CC BY 4.0; SIL Scripts Index: CC BY-SA 4.0; Power et al. 2020 CLDF dataset: GPL-3.0). See `dist/signs-and-scripts-licenses.txt`, the source registers in the site and the documentation below.
 
 ## GitHub Pages
 

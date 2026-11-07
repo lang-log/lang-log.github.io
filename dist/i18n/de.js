@@ -63,7 +63,7 @@
       ': one plain page per Glottolog record, with its classification and a map.': ': eine schlichte Seite pro Glottolog-Eintrag, mit Klassifikation und Karte.',
       'Corpora and data for low-resource languages: planned.': 'Korpora und Daten für ressourcenarme Sprachen: in Vorbereitung.',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license': 'Quellen: Glottolog, WALS, Stammbäume veröffentlichter Studien und Schriftkataloge, jeweils unter eigener Lizenz',
-      'Source code': 'Quellcode',
+      '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. Alle Rechte vorbehalten.',
       'FIND A BRANCH': 'ZWEIG SUCHEN',
       'Find a branch': 'Zweig suchen',
       'Open': 'Öffnen',
