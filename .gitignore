@@ -16,3 +16,4 @@ node_modules/
 /dist/paths.json
 /dist/source-paths.json
 /_preview/
+/dist/index.html

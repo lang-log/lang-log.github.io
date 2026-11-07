@@ -29,6 +29,7 @@ drawn from dist/random.json, which this script writes (not committed):
 """
 
 from html import escape
+import csv
 from pathlib import Path
 import datetime
 import json
@@ -126,6 +127,14 @@ def sources_section():
         for s in u["sources"].values() if s.get("kind") == "study")
     register = (f'<p><a href="{bp.SOURCE_SLUG["wals"]}/">WALS families in Lang Log</a></p>' + register)
     text = text.replace("<!-- coverage -->", coverage).replace("<!-- source-register -->", register)
+    # Counts in the text are computed here, never written in the source file.
+    with open(bp.ROOT / "source-data" / "names.csv", encoding="utf-8", newline="") as f:
+        name_rows = sum(1 for _ in csv.DictReader(f))
+    for key, value in (("summaryTrees", st["summaryTrees"]), ("nameRows", name_rows),
+                       ("sameLanguageLabels", st["sameLanguageLabels"])):
+        text = text.replace(f"<!-- {key} -->", f"{value:,}")
+    if "<!-- " in text:
+        raise SystemExit("sources-and-scope.html: unknown placeholder " + text[text.index("<!-- "):][:40])
     return f'<section class="home-section sources-scope" id="sources"><h2>Sources &amp; scope</h2>{text}</section>'
 
 
