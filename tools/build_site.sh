@@ -15,6 +15,11 @@ python3 tools/build_home.py
 # dist/<source>/.../ with dist/source-paths.json (not committed; built
 # here).
 python3 tools/build_paths.py
+# Converts the sources into Lang Log's own data shape (schema/): one
+# languoid.json next to every record page, dist/features/ (the feature
+# catalogue and one file per feature) and dist/schema/ (not committed;
+# built here). Checks every file against its schema.
+python3 tools/build_languoids.py
 # Writes the small files the pages load (dist/data/, not committed):
 # the atlas tree, the search text and the names split into 64 files.
 python3 tools/split_data.py
@@ -29,7 +34,9 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/land-pacific.svg data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js random.json; do
+         home.js random.json \
+         afro-asiatic/berber/languoid.json features/index.json \
+         features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
 done
 

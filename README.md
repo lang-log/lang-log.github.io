@@ -52,7 +52,7 @@ Source datasets keep their own licenses and attribution (for example Glottolog: 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `python3 tools/prepare_static.py`, `python3 tools/build_home.py`, `python3 tools/build_paths.py` and `python3 tools/split_data.py` and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
 
 ## Record pages
 
@@ -67,6 +67,15 @@ Records that exist only in another source's tree (WALS genera and families, stud
 - The record pages (one directory per top-level family or source under `dist/`), `dist/stages.json` and `dist/source-paths.json` are built by the Pages workflow and are not committed.
 - Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
 - The land behind the points is `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `tools/build_land.py` from Natural Earth 1:50m land v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once.
+
+## Lang Log data
+
+Lang Log keeps its own data in one shape for every record, whatever source it comes from. Glottolog, WALS and the other datasets are references: their files stay in `source-data/` as they were published (listed with version, license and download address in `source-data/sources.json`), and the build converts them. Only the converted data is deployed; it is not committed.
+
+- `tools/build_languoids.py` (run by `tools/build_site.sh` after `tools/build_paths.py`) writes `languoid.json` next to every record page, for every Glottolog record and every WALS language Glottolog lacks: for example `https://lang-log.github.io/japonic/japanesic/japan-taiwan-japanese/japanese/languoid.json`. The shape is `schema/languoid.schema.json` (also served at `schema/`); the build checks every file against it and stops on the first that does not match.
+- Every value says where it came from. Names, classification and location carry their source; a feature value keeps all its evidence (source, version, the source's own feature id and value, reference, comment) and `value` is chosen from it by source priority (the owner's own values, then WALS). When sources disagree, `disagreement` is set and every value is kept.
+- Features are Lang Log's own (`source-data/lang-log/features.json`, shape `schema/features.schema.json`). The catalogue started as the 192 WALS features; each feature has its own value ids and `mappings` from each source's feature and values. A language without WALS data has the same features; a feature without data is left out of its file. `dist/features/index.json` lists the features with counts, and `dist/features/<feature id>.json` holds the value of every record that has one.
+- To take in a new release of a source, replace its files in `source-data/`, update `source-data/sources.json` and build. If WALS has a feature or value the catalogue lacks, the build stops; run `python3 tools/feature_catalogue.py`, which appends the missing ones and never changes existing entries.
 
 ## Interface language and theme
 
