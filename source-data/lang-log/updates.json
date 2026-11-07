@@ -1,0 +1,9 @@
+{
+  "_comment": "Updates shown on dist/updates/ (tools/build_home.py), newest first. Add one entry in the same pull request as the change it announces. 'text' is interface text: add it to every dictionary in dist/i18n.js and dist/i18n/. 'link' is optional and relative to the site root.",
+  "updates": [
+    {"date": "2026-11-07", "text": "New pages: Stats, Sources and Updates, linked from the top page.", "link": "stats/"},
+    {"date": "2026-11-07", "text": "Lang Log is now available in 21 languages.", "link": ""},
+    {"date": "2026-11-07", "text": "Maps on record pages can be zoomed and panned, with country borders.", "link": "afro-asiatic/berber/"},
+    {"date": "2026-11-07", "text": "Every family, language and dialect has its own page, at an address that follows its classification.", "link": ""}
+  ]
+}
