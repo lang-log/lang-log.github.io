@@ -273,6 +273,9 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .bar-label{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
 .bar{display:block;width:100%;height:14px}
 .bar rect{fill:var(--teal)}
+/* Motion (dist/stats.js): bars grow from zero when they scroll into view. Only under
+   html.stats-motion, which the script sets, so without it the bars are drawn in full. */
+@media(prefers-reduced-motion:no-preference){.stats-motion .bar rect{transform:scaleX(0);transform-box:fill-box;transform-origin:0 50%}.stats-motion .bar.in rect{transform:none;transition:transform .1s ease-out}}
 [dir=rtl] .bar{transform:scaleX(-1)}
 .bar-value{font-size:15px;font-variant-numeric:tabular-nums;text-align:end;min-width:3.5em}
 .all-figures summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:15px;color:var(--teal)}
