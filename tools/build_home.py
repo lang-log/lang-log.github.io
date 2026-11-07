@@ -189,14 +189,50 @@ def counts():
     ]
 
 
+# Glottolog macroareas in the order the Stats page draws them.
+MACROAREAS = ["Africa", "Papunesia", "Eurasia", "North America", "South America", "Australia"]
+
+
+def by_macroarea():
+    """Spoken languages (as counted on the Stats page) per Glottolog macroarea; a
+    language in several macroareas counts for the first one."""
+    not_spoken = ("Sign Language", "Bookkeeping", "Artificial Language")
+    tally = {a: 0 for a in MACROAREAS}
+    for n in bp.nodes.values():
+        area = (n.get("area") or "").split(";")[0]
+        if n.get("level") == "language" and n.get("category") not in not_spoken and area in tally:
+            tally[area] += 1
+    return list(tally.items())
+
+
+def bars(rows):
+    """A bar chart as a list: label, bar, value. The bars are SVG so their
+    lengths need no inline style; every value is written next to its bar."""
+    top = max(n for _, n in rows) or 1
+    return '<ul class="bars">' + "".join(
+        f'<li><span class="bar-label">{escape(label)}</span>'
+        f'<svg class="bar" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
+        f'<rect width="{max(100 * n / top, 0.6):.2f}" height="1"/></svg>'
+        f'<span class="bar-value">{n:,}</span></li>'
+        for label, n in rows) + "</ul>"
+
+
 def stats_body():
+    figures = {label: n for _, rows in counts() for label, n in rows}
+    hero = "".join(f'<div><dd>{figures[k]:,}</dd><dt>{escape(k)}</dt></div>'
+                   for k in ("Languoids", "Sign languages", "Writing systems", "Study trees"))
+    modality = [(k, figures[k]) for k in ("Spoken languages", "Sign languages", "Writing systems", "Constructed languages")]
     groups = "".join(
-        f'<section class="stats-group"><h2>{escape(h)}</h2><dl class="stat-list">'
+        f'<h3>{escape(h)}</h3><dl class="stat-list">'
         + "".join(f'<div><dt>{escape(label)}</dt><dd>{n:,}</dd></div>' for label, n in rows)
-        + "</dl></section>"
+        + "</dl>"
         for h, rows in counts())
     return ('<p class="muted">Counted from the data each time the site is built. '
-            'Different kinds of records are counted separately; do not add them up.</p>' + groups)
+            'Different kinds of records are counted separately; do not add them up.</p>'
+            f'<dl class="stat-hero">{hero}</dl>'
+            f'<section class="stats-group"><h2>By modality</h2>{bars(modality)}</section>'
+            f'<section class="stats-group"><h2>Spoken languages by macroarea</h2>{bars(by_macroarea())}</section>'
+            f'<details class="stats-group all-figures"><summary>All figures</summary>{groups}</details>')
 
 
 def updates_body():

@@ -12,6 +12,14 @@ window.LANGLOG_I18N = {
     join: '',
     exact: {
       // Stats, Sources and Updates pages and the guide row of the top page (tools/build_home.py)
+      'Spoken languages by macroarea': '大地域ごとの音声言語',
+      'All figures': 'すべての数',
+      'Africa': 'アフリカ',
+      'Papunesia': 'パプネシア',
+      'Eurasia': 'ユーラシア',
+      'North America': '北アメリカ',
+      'South America': '南アメリカ',
+      'Australia': 'オーストラリア',
       'Stats': '統計',
       'Updates': '更新情報',
       'About Lang Log': 'Lang Log について',
