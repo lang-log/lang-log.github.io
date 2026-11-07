@@ -3,7 +3,7 @@
    colour's hue and flip its lightness, so the tints keep their meaning. Without a saved
    choice the page follows the system setting (prefers-color-scheme); theme.js sets
    <html data-theme="light|dark"> when the visitor picks one. The two dark blocks must stay
-   identical. The canvas tree in app.js reads the same variables. */
+   identical. The canvas tree in tree.js reads the same variables. */
 :root{--c-ffffff:#ffffff;--c-f5f4ee:#f5f4ee;--c-243c3b:#243c3b;--c-788580:#788580;--c-dce0d8:#dce0d8;--c-386e6d:#386e6d;--c-ce8654:#ce8654;--c-e3e9df:#e3e9df;--c-6c7772:#6c7772;--c-fafbf6:#fafbf6;--c-cdd6ce:#cdd6ce;--c-f3f5ef:#f3f5ef;--c-e8ebe3:#e8ebe3;--c-e3ece2:#e3ece2;--c-fdfef9:#fdfef9;--c-f3f5ed:#f3f5ed;--c-f7f9f0db:#f7f9f0db;--c-fffefa:#fffefa;--c-6b7872:#6b7872;--c-f5f7ef:#f5f7ef;--c-e8ede1:#e8ede1;--c-52625c:#52625c;--c-ccd5c8:#ccd5c8;--c-d7dfd0:#d7dfd0;--c-182f2cdc:#182f2cdc;--c-243c3bee:#243c3bee;--c-e0e9db:#e0e9db;--c-234741:#234741;--c-fcfcf7:#fcfcf7;--c-eef0e9:#eef0e9;--c-7b9086:#7b9086;--c-edf2e7:#edf2e7;--c-e0ebd9:#e0ebd9;--c-41756b:#41756b;--c-dbe4d4:#dbe4d4;--c-637a6c:#637a6c;--c-e1e7da:#e1e7da;--c-2d4940:#2d4940;--c-275f51:#275f51;--c-89958d:#89958d;--c-2a6656:#2a6656;--c-e5eedf:#e5eedf;--c-42694d:#42694d;--c-e9f0e2:#e9f0e2;--c-d1ddca:#d1ddca;--c-f9fbf4:#f9fbf4;--c-cb8557:#cb8557;--c-fff9ef:#fff9ef;--c-f5e6d4:#f5e6d4;--c-83542f:#83542f;--c-b6c9a7:#b6c9a7;--c-f2f6e9:#f2f6e9;--c-446d35:#446d35;--c-87957e:#87957e;--c-76846e:#76846e;--c-efe6d7:#efe6d7;--c-664a32:#664a32;--c-7c8875:#7c8875;--c-e9eee3:#e9eee3;--c-994e32:#994e32;--c-d9d7bf:#d9d7bf;--c-fffcf0:#fffcf0;--c-fffef9:#fffef9;--c-6b705e:#6b705e;--c-e4dfcc:#e4dfcc;--c-eeeddb:#eeeddb;--c-707461:#707461;--c-fff8dd:#fff8dd;--c-637166:#637166;--c-5c6c57:#5c6c57;--c-42594f:#42594f;--c-526762:#526762;--c-cbd6ca:#cbd6ca;--c-e8ede3:#e8ede3;--c-61726d:#61726d;--c-905a31:#905a31;--c-677670:#677670;--c-a6b9ac:#a6b9ac;--c-f9faf7:#f9faf7;--c-e6eeec:#e6eeec;--c-cdd6cf:#cdd6cf;--c-8fa29c:#8fa29c;--c-f2f5f3:#f2f5f3;--c-9fb0aa:#9fb0aa;--c-976bb0:#976bb0;--c-bc9156:#bc9156;--c-9ba8a4:#9ba8a4;--c-c28051:#c28051;--c-397b7b:#397b7b;--c-2d463c:#2d463c;--c-417f80:#417f80;--c-a5aeb0:#a5aeb0;--c-24302e1f:#24302e1f;color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--c-ffffff:#1a1a1a;--c-f5f4ee:#292720;--c-243c3b:#b3cbca;--c-788580:#7b8581;--c-dce0d8:#363833;--c-386e6d:#8dbab9;--c-ce8654:#ce9b78;--c-e3e9df:#2e332b;--c-6c7772:#868f8b;--c-fafbf6:#222419;--c-cdd6ce:#3b413c;--c-f3f5ef:#252820;--c-e8ebe3:#2e3029;--c-e3ece2:#293129;--c-fdfef9:#222513;--c-f3f5ed:#272920;--c-f7f9f0db:#26281bdb;--c-fffefa:#28230f;--c-6b7872:#86908b;--c-f5f7ef:#26281e;--c-e8ede1:#2e3228;--c-52625c:#97a49f;--c-ccd5c8:#3f443c;--c-d7dfd0:#393e34;--c-182f2cdc:#000000b8;--c-243c3bee:#b3cbcaee;--c-e0e9db:#2f362b;--c-234741:#aaccc7;--c-fcfcf7:#242418;--c-eef0e9:#2a2c25;--c-7b9086:#73837b;--c-edf2e7:#292e23;--c-e0ebd9:#2f382a;--c-41756b:#88b2aa;--c-dbe4d4:#353b30;--c-637a6c:#84968b;--c-e1e7da:#32372d;--c-2d4940:#a9c3bb;--c-275f51:#97c9bc;--c-89958d:#6e7872;--c-2a6656:#92c6b8;--c-e5eedf:#2c3327;--c-42694d:#91b19a;--c-e9f0e2:#2b3125;--c-d1ddca:#3b4236;--c-f9fbf4:#222619;--c-cb8557:#cc9b7a;--c-fff9ef:#2e2312;--c-f5e6d4:#3c3022;--c-83542f:#c89f7e;--c-b6c9a7:#516144;--c-f2f6e9:#292d1f;--c-446d35:#9abc8d;--c-87957e:#76806f;--c-76846e:#828d7c;--c-efe6d7:#393227;--c-664a32:#bfa793;--c-7c8875:#7e8779;--c-e9eee3:#2c3027;--c-994e32:#cb917c;--c-d9d7bf:#4a493b;--c-fffcf0:#2e2811;--c-fffef9:#28240f;--c-6b705e:#969a8c;--c-e4dfcc:#413d31;--c-eeeddb:#363527;--c-707461:#959889;--c-fff8dd:#393116;--c-637166:#8b968e;--c-5c6c57:#93a08f;--c-42594f:#9eb1a9;--c-526762:#93a4a0;--c-cbd6ca:#3c433b;--c-e8ede3:#2c3028;--c-61726d:#8a9894;--c-905a31:#ca9e7d;--c-677670:#87938e;--c-a6b9ac:#516156;--c-f9faf7:#20221c;--c-e6eeec:#272e2c;--c-cdd6cf:#3b413c;--c-8fa29c:#64736e;--c-f2f5f3:#212522;--c-9fb0aa:#596662;--c-976bb0:#7c5a8f;--c-bc9156:#c5a881;--c-9ba8a4:#5f6a66;--c-c28051:#c99d7e;--c-397b7b:#83b8b8;--c-2d463c:#acc3ba;--c-417f80:#7fb1b1;--c-a5aeb0:#596062;--c-24302e1f:#0000004d;color-scheme:dark}}
 :root[data-theme=dark]{--c-ffffff:#1a1a1a;--c-f5f4ee:#292720;--c-243c3b:#b3cbca;--c-788580:#7b8581;--c-dce0d8:#363833;--c-386e6d:#8dbab9;--c-ce8654:#ce9b78;--c-e3e9df:#2e332b;--c-6c7772:#868f8b;--c-fafbf6:#222419;--c-cdd6ce:#3b413c;--c-f3f5ef:#252820;--c-e8ebe3:#2e3029;--c-e3ece2:#293129;--c-fdfef9:#222513;--c-f3f5ed:#272920;--c-f7f9f0db:#26281bdb;--c-fffefa:#28230f;--c-6b7872:#86908b;--c-f5f7ef:#26281e;--c-e8ede1:#2e3228;--c-52625c:#97a49f;--c-ccd5c8:#3f443c;--c-d7dfd0:#393e34;--c-182f2cdc:#000000b8;--c-243c3bee:#b3cbcaee;--c-e0e9db:#2f362b;--c-234741:#aaccc7;--c-fcfcf7:#242418;--c-eef0e9:#2a2c25;--c-7b9086:#73837b;--c-edf2e7:#292e23;--c-e0ebd9:#2f382a;--c-41756b:#88b2aa;--c-dbe4d4:#353b30;--c-637a6c:#84968b;--c-e1e7da:#32372d;--c-2d4940:#a9c3bb;--c-275f51:#97c9bc;--c-89958d:#6e7872;--c-2a6656:#92c6b8;--c-e5eedf:#2c3327;--c-42694d:#91b19a;--c-e9f0e2:#2b3125;--c-d1ddca:#3b4236;--c-f9fbf4:#222619;--c-cb8557:#cc9b7a;--c-fff9ef:#2e2312;--c-f5e6d4:#3c3022;--c-83542f:#c89f7e;--c-b6c9a7:#516144;--c-f2f6e9:#292d1f;--c-446d35:#9abc8d;--c-87957e:#76806f;--c-76846e:#828d7c;--c-efe6d7:#393227;--c-664a32:#bfa793;--c-7c8875:#7e8779;--c-e9eee3:#2c3027;--c-994e32:#cb917c;--c-d9d7bf:#4a493b;--c-fffcf0:#2e2811;--c-fffef9:#28240f;--c-6b705e:#969a8c;--c-e4dfcc:#413d31;--c-eeeddb:#363527;--c-707461:#959889;--c-fff8dd:#393116;--c-637166:#8b968e;--c-5c6c57:#93a08f;--c-42594f:#9eb1a9;--c-526762:#93a4a0;--c-cbd6ca:#3c433b;--c-e8ede3:#2c3028;--c-61726d:#8a9894;--c-905a31:#ca9e7d;--c-677670:#87938e;--c-a6b9ac:#516156;--c-f9faf7:#20221c;--c-e6eeec:#272e2c;--c-cdd6cf:#3b413c;--c-8fa29c:#64736e;--c-f2f5f3:#212522;--c-9fb0aa:#596662;--c-976bb0:#7c5a8f;--c-bc9156:#c5a881;--c-9ba8a4:#5f6a66;--c-c28051:#c99d7e;--c-397b7b:#83b8b8;--c-2d463c:#acc3ba;--c-417f80:#7fb1b1;--c-a5aeb0:#596062;--c-24302e1f:#0000004d;color-scheme:dark}
@@ -206,3 +206,48 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .home-random button{min-height:44px;padding:9px 18px;border-radius:999px;font-size:14px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .home-random .random-any{background:var(--teal);border-color:var(--teal);color:var(--c-ffffff);font-weight:700}
 .home-random .random-any:hover{background:var(--teal);opacity:.9}
+/* The outline and tree of dist/tree.js inside the top page and the record pages. */
+.atlas-embed{height:auto;min-height:0;border:1px solid var(--line);border-radius:6px;background:var(--c-fcfcf7);overflow:hidden}
+.atlas-embed #outline{flex:none;max-height:70vh;min-height:200px}
+.atlas-embed #viewport{flex:none;height:min(70vh,640px)}
+.atlas-embed .toolbar select{width:auto;font-size:12px;padding:5px 6px;border:1px solid var(--line);border-radius:5px;background:transparent;color:inherit;max-width:100%}
+.atlas-embed .how-to-read{padding:6px 16px 12px;font-size:13px;line-height:1.6;color:var(--muted);border-top:1px solid var(--line)}
+.atlas-embed .how-to-read p{margin:6px 0;max-width:80ch}
+.atlas-embed .tree-node .rowname a{color:inherit}
+@media(max-width:700px){.atlas-embed .toolbar select{font-size:14px;min-height:44px}.atlas-embed .how-to-read{font-size:15px}}
+/* The menu of the three atlases, on the top page and on every record page (same as signs-and-scripts.css). */
+.domain-nav{display:flex;flex-wrap:wrap}
+.domain-nav a{border:1px solid var(--line);text-decoration:none}
+.domain-nav a[aria-current=page]{background:var(--ink);color:var(--c-ffffff)}
+/* Search results under the search box of the top page (dist/tree.js renderSearch). */
+.search-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:4px 4px 12px;border-bottom:1px solid var(--line)}
+.search-head h2{font:20px/1.2 Arial,Helvetica,sans-serif;margin:0}
+.search-head .hit-count{margin:0;font-size:12px;color:var(--muted)}
+.search-head .hit-query{font-size:12px;color:var(--ink);overflow-wrap:anywhere}
+.search-head .hit-query::before{content:"“"}.search-head .hit-query::after{content:"”"}
+:root[lang=ja] .search-head .hit-query::before{content:"「"}:root[lang=ja] .search-head .hit-query::after{content:"」"}
+.search-actions{margin-inline-start:auto;display:flex;gap:6px}
+.search-actions button{font-size:11px;padding:6px 10px}
+.hits{list-style:none;margin:0;padding:0}
+.hit{width:100%;display:flex;align-items:flex-start;gap:10px;text-align:start;border-bottom:1px solid var(--c-eef0e9);padding:11px 6px}
+.hit .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.hit-main{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;min-width:0;flex:1}
+.hit-name{font-weight:600;font-size:14px;overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:3px}
+.hit-meta{font-size:11px;color:var(--muted)}
+.hit-meta code{font:inherit}
+.hit-path{flex-basis:100%;font-size:11px;color:var(--c-637a6c);line-height:1.5;overflow-wrap:anywhere}
+@media(max-width:700px){.search-head h2{font-size:22px}.search-head .hit-count,.search-head .hit-query{font-size:15px}.search-actions{margin-inline-start:0;width:100%}.search-actions button{font-size:15px;min-height:44px}.hit{padding:12px 4px;min-height:48px}.hit-name{font-size:17px}.hit-meta,.hit-path{font-size:14px}}
+/* Top page: the families list, the whole tree, Sources & scope, and search results under the search box. */
+.home-page .domain-nav{justify-content:center;margin:8px auto 0}
+.home-section{max-width:1100px;margin:0 auto;padding:28px 0;border-top:1px solid var(--line)}
+.home-section h2{font:26px/1.25 Arial,Helvetica,sans-serif;margin:0 0 12px}
+.home-section h3{font-size:17px;margin:24px 0 8px}
+.home-section .muted{color:var(--c-61726d)}
+.home-section .record-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;padding:0;list-style:none}
+.home-section .record-links>li{padding:12px;border:1px solid var(--line);border-radius:4px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
+.home-section .record-links>li>a:first-child{display:block}
+.sources-scope p,.sources-scope li{font-size:15px;line-height:1.7;max-width:80ch}
+.home-results{flex-shrink:0;width:100%;max-width:720px;margin:16px auto 0;text-align:start;border:1px solid var(--line);border-radius:8px;background:var(--c-fcfcf7);padding:8px 12px;max-height:60vh;overflow:auto}
+.home-results .hit{color:inherit;text-decoration:none}
+.home-results .hit:hover{background:var(--c-edf2e7)}
+@media(max-width:700px){.home-section{padding:22px 0}.home-section .record-links{grid-template-columns:1fr}.sources-scope p,.sources-scope li{font-size:16px}}
