@@ -17,3 +17,4 @@ node_modules/
 /dist/source-paths.json
 /_preview/
 /dist/index.html
+.ruff_cache/

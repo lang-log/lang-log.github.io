@@ -23,7 +23,6 @@
       'Other kinds of languages': '其他種類的語言',
       'Families': '語系',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog 紀錄',
       'Records from study trees only': '僅見於研究譜系樹的紀錄',
       'Spoken languages': '有聲語言',
       'Spoken dialects': '有聲語言的方言',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog 手語類別中的全部 $1 筆紀錄，包括語系和方言紀錄。類別僅用於導覽。'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'CLDF 的全部 $1 個樣本，包括歷史形式。這是已發表的下位分組資訊，而不是推斷出的整個語言的譜系樹。'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '在目錄中找到的 $1 個 Phlorest 資料庫已在彙總譜系樹層面完整匯入。未匯入後驗樣本。'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'CLDF 的全部 $1 個樣本，包括歷史形式。這是已發表的下位分組資訊，而不是推斷出的整個語言的譜系樹。'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '在目錄中找到的 $1 個 Phlorest 資料庫已在彙總譜系樹層面完整匯入。未匯入後驗樣本。'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, '只顯示前 $1 筆結果。請縮小搜尋範圍。'],
       [/^Show ([\d,]+) more$/, '再顯示 $1 筆'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

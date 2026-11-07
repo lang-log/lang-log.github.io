@@ -16,7 +16,9 @@
   if (reduce || !window.IntersectionObserver || !window.requestAnimationFrame) return;
   root.classList.add('stats-motion');
 
-  function format(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function format(n) {
+    return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   function textNode(el) {
     for (var c = el.firstChild; c; c = c.nextSibling) if (c.nodeType === 3) return c;
     return null;
@@ -62,7 +64,9 @@
         io.unobserve(e.target);
         e.target.classList.add('in');
         // A hero figure holds its number; a bar's number is the next item in its row.
-        var num = e.target.matches('.bar') ? e.target.nextElementSibling : e.target.querySelector('.count');
+        var num = e.target.matches('.bar')
+          ? e.target.nextElementSibling
+          : e.target.querySelector('.count');
         if (num && num.matches('.count')) count(num);
       }
     });
@@ -72,7 +76,10 @@
   }
 
   function whenShown() {
-    if (!root.classList.contains('i18n-wait')) { run(); return; }
+    if (!root.classList.contains('i18n-wait')) {
+      run();
+      return;
+    }
     var mo = new MutationObserver(function () {
       if (root.classList.contains('i18n-wait')) return;
       mo.disconnect();
