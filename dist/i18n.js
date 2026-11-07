@@ -46,6 +46,7 @@ window.LANGLOG_I18N = {
       'Conflicting clade pairs between studies': '研究どうしで食い違う分岐の組',
       'New pages: Stats, Sources and Updates, linked from the top page.': '新しいページ: 統計、出典、更新情報。トップページからたどれます。',
       'Lang Log is now available in 21 languages.': 'Lang Log を 21 の言語で使えるようになりました。',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': '地図を画面いっぱいのマップビューで見られるようになり、点をタップするとその記録が出て、各ページへのリンクからたどれます。',
       'Maps on record pages can be zoomed and panned, with country borders.': '記録のページの地図を拡大・移動できるようになり、国境も表示します。',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'すべての語族、言語、方言に、分類に沿ったアドレスの専用ページができました。',
       'Stats · Lang Log by yoshi': '統計 · Lang Log by yoshi',
@@ -353,6 +354,9 @@ window.LANGLOG_I18N = {
       'Dashed borders are disputed or not settled.': '破線の国境は、争いがあるか、確定していない境界です。',
       'Reset': '戻す',
       'Reset view': '元の表示に戻す',
+      'Map view': 'マップビュー',
+      'Close map view': 'マップビューを閉じる',
+      'Records at this point': 'この地点の記録',
       '(public domain).': '(パブリックドメイン)。',
       'Projection: Web Mercator.': '図法: Web メルカトル図法。',
 

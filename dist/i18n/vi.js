@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': 'Cặp nhánh mâu thuẫn giữa các nghiên cứu',
       'New pages: Stats, Sources and Updates, linked from the top page.': 'Trang mới: Thống kê, Nguồn và Cập nhật, liên kết từ trang chủ.',
       'Lang Log is now available in 21 languages.': 'Lang Log nay có 21 ngôn ngữ.',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': 'Bản đồ có thể chiếm toàn bộ cửa sổ ở chế độ bản đồ, và chạm vào một điểm sẽ hiện các bản ghi của nó kèm liên kết đến trang của chúng.',
       'Maps on record pages can be zoomed and panned, with country borders.': 'Bản đồ trên trang bản ghi có thể phóng to và kéo, kèm biên giới quốc gia.',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'Mỗi ngữ hệ, ngôn ngữ và phương ngữ đều có trang riêng, với địa chỉ theo phân loại của nó.',
       'Stats · Lang Log by yoshi': 'Thống kê · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "Biên giới nét đứt là đang tranh chấp hoặc chưa xác định.",
       "Reset": "Đặt lại",
       "Reset view": "Đặt lại khung nhìn",
+      "Map view": "Chế độ bản đồ",
+      "Close map view": "Đóng chế độ bản đồ",
+      "Records at this point": "Các bản ghi tại điểm này",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Toàn bộ $1 bản ghi thuộc nhóm ngôn ngữ ký hiệu của Glottolog, kể cả bản ghi ngữ hệ và phương ngữ. Các nhóm dùng để điều hướng.'],

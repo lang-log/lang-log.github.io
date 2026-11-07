@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': 'Pares de clados em conflito entre estudos',
       'New pages: Stats, Sources and Updates, linked from the top page.': 'Novas páginas: Estatísticas, Fontes e Novidades, com links na página inicial.',
       'Lang Log is now available in 21 languages.': 'O Lang Log agora está disponível em 21 idiomas.',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': 'Os mapas podem ocupar toda a janela na vista de mapa, e tocar num ponto mostra os seus registos com ligações para as respetivas páginas.',
       'Maps on record pages can be zoomed and panned, with country borders.': 'Os mapas das páginas de registro podem ser ampliados e deslocados, com fronteiras de países.',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'Cada família, língua e dialeto tem a sua própria página, num endereço que segue a sua classificação.',
       'Stats · Lang Log by yoshi': 'Estatísticas · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "Fronteiras tracejadas são disputadas ou não definidas.",
       "Reset": "Redefinir",
       "Reset view": "Redefinir a vista",
+      "Map view": "Vista de mapa",
+      "Close map view": "Fechar a vista de mapa",
+      "Records at this point": "Registos neste ponto",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Todos os $1 registros da categoria de línguas de sinais do Glottolog, incluindo registros de famílias e dialetos. As categorias servem à navegação.'],

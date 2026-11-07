@@ -39,6 +39,7 @@
       'Conflicting clade pairs between studies': 'คู่เคลดที่ขัดกันระหว่างการศึกษา',
       'New pages: Stats, Sources and Updates, linked from the top page.': 'หน้าใหม่: สถิติ แหล่งที่มา และอัปเดต ลิงก์จากหน้าแรก',
       'Lang Log is now available in 21 languages.': 'Lang Log ใช้งานได้แล้วใน 21 ภาษา',
+      'Maps can fill the whole window in a map view, and tapping a point shows its records with links to their pages.': 'แผนที่แสดงเต็มหน้าต่างได้ในมุมมองแผนที่ และเมื่อแตะจุดจะแสดงระเบียนของจุดนั้นพร้อมลิงก์ไปยังหน้าของแต่ละระเบียน',
       'Maps on record pages can be zoomed and panned, with country borders.': 'แผนที่ในหน้าระเบียนซูมและเลื่อนได้ พร้อมเส้นพรมแดนประเทศ',
       'Every family, language and dialect has its own page, at an address that follows its classification.': 'ทุกตระกูล ภาษา และภาษาถิ่นมีหน้าของตนเอง ที่อยู่ตามการจัดจำแนก',
       'Stats · Lang Log by yoshi': 'สถิติ · Lang Log by yoshi',
@@ -337,6 +338,9 @@
       "Dashed borders are disputed or not settled.": "พรมแดนเส้นประคือพรมแดนที่มีข้อพิพาทหรือยังไม่ยุติ",
       "Reset": "รีเซ็ต",
       "Reset view": "รีเซ็ตมุมมอง",
+      "Map view": "มุมมองแผนที่",
+      "Close map view": "ปิดมุมมองแผนที่",
+      "Records at this point": "ระเบียนที่จุดนี้",
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'ระเบียนทั้ง $1 รายการในหมวดภาษามือของ Glottolog รวมถึงระเบียนตระกูลและภาษาถิ่น หมวดมีไว้สำหรับการนำทาง'],
