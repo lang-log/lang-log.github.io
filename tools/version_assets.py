@@ -36,7 +36,8 @@ def rewrite(page):
 
     def sub(m):
         attr, url, frag = m.group(1), m.group(2), m.group(3) or ""
-        v = version((page.parent / url).resolve())
+        # "/style.css" (dist/404.html, served at any depth) is relative to dist/.
+        v = version((DIST / url[1:] if url.startswith("/") else page.parent / url).resolve())
         if v is None:
             return m.group(0)
         return f'{attr}="{url}?v={v}{frag}"'

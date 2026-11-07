@@ -44,6 +44,7 @@ import json
 
 import build_paths as bp
 from build_paths import PROFILE_URL
+from security_policy import HEAD as SECURITY_HEAD
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -126,8 +127,8 @@ def sources_section():
                 '<p>This is coverage of the imported corpus, not every publication worldwide.</p>')
     register = "".join(
         f'<div class="registry-source"><strong><a href="../{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
-        f'<a href="{escape(s["url"])}" target="_blank" rel="noopener">Paper ↗</a> · '
-        f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener">Source tree &amp; data ↗</a>'
+        f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a> · '
+        f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
         f'<small>{escape(s["family"])} · {escape(s["license"])} · summary tree imported</small>'
         + (f'<p>{escape(s["interpretationNote"])}</p>' if s.get("interpretationNote") else "") + "</div>"
         for s in u["sources"].values() if s.get("kind") == "study")
@@ -258,7 +259,7 @@ def updates_body():
 def sub_page(slug, title, body):
     """A page one level below the root, such as dist/stats/index.html."""
     html = (
-        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">' + SECURITY_HEAD +
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<title>{escape(title)}{bp.TITLE_SUFFIX}</title>'
         '<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png">'
@@ -280,7 +281,7 @@ def main():
     description = ("Lang Log: an atlas of language families, sign languages and writing systems, "
                    "with source-linked classifications, alternative hypotheses and exportable data.")
     html = (
-        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">' + SECURITY_HEAD +
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<meta name="description" content="{escape(description)}">'
         '<title>Lang Log by yoshi</title>'
