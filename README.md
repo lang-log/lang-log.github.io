@@ -12,7 +12,7 @@ The scripts live in `tools/`; run them from the repository root. Run `python3 to
 
 ## Code quality checks
 
-Every pull request and every push to `main` runs Prettier (formatting), ESLint (JavaScript) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages; these tools are only for development.
+Every pull request and every push to `main` runs Prettier (formatting, with `@prettier/plugin-xml` for XML and SVG), ESLint (JavaScript) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages; these tools are only for development.
 
 Tools: Node.js 22 (`.nvmrc`) with npm, and Python 3.12 or later.
 
@@ -47,7 +47,7 @@ Settings: `.prettierrc.json` and `.prettierignore` (Prettier), `eslint.config.mj
 Left out on purpose:
 
 - `source-data/`: third-party datasets and saved pages kept as published, and hand-curated data the build reads as it is (Prettier, Ruff).
-- Files written by scripts and committed: `dist/integrated.json`, `dist/provenance.json`, `dist/signs-and-scripts.json`, `dist/hf-iso-map.js` and `dist/map/` (Prettier). XML, OPML, CSV and SVG files are not formatted by any of the tools.
+- Files written by scripts and committed: `dist/integrated.json`, `dist/provenance.json`, `dist/signs-and-scripts.json`, `dist/language-atlas.xml`, `dist/signs-and-scripts.xml`, `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
 - For now, the files that open pull requests change, so that they do not conflict: `dist/home.js`, `dist/tree.js`, `dist/i18n.js`, `dist/i18n/`, `dist/style.css` (Prettier; the first two also ESLint) and `tools/build_paths.py`, `tools/build_wals_map.py`, `tools/build_home.py` (Ruff format). They are formatted in their own pull request once those are merged.

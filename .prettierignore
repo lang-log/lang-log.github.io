@@ -9,11 +9,15 @@ package-lock.json
 # data and text that the build scripts read as they are.
 source-data/
 
-# Committed files written by scripts in tools/ (data, map tiles, the ISO table, the logo).
+# Committed files written by scripts in tools/ (data and its XML exports, map tiles, the ISO
+# table, the logo).
 dist/integrated.json
 dist/provenance.json
 dist/signs-and-scripts.json
+dist/language-atlas.xml
+dist/signs-and-scripts.xml
 dist/hf-iso-map.js
+dist/logo.svg
 dist/map/
 
 # Hand-written pages: tools/security_policy.py --write puts the policy <meta> tags right after

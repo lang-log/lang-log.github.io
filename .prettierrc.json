@@ -1,11 +1,21 @@
 {
+  "plugins": ["@prettier/plugin-xml"],
   "printWidth": 100,
   "singleQuote": true,
   "quoteProps": "preserve",
   "overrides": [
     {
       "files": ["*.yml", "*.yaml", "*.md"],
-      "options": { "singleQuote": false }
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": ["*.xml", "*.svg"],
+      "options": {
+        "singleAttributePerLine": true,
+        "xmlWhitespaceSensitivity": "preserve"
+      }
     }
   ]
 }
