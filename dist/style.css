@@ -202,8 +202,9 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 @media(max-width:560px){header .brand{gap:6px}header .tools>a,header .tools>button:not(.theme-toggle){font-size:13px}header .tools{--ctl:40px}.langmenu .full{display:none}.langmenu .short{display:inline}header details.langmenu>summary{padding:0 10px}}
 .home-random{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:18px}
 .home-random[hidden]{display:none}
-.home-random span{font-size:14px;color:var(--muted);margin-right:4px}
-.home-random button{min-height:44px;padding:9px 18px;border-radius:999px;font-size:14px}
+.home-random button{min-height:44px;padding:9px 18px;border-radius:999px;font-size:14px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.home-random .random-any{background:var(--teal);border-color:var(--teal);color:var(--c-ffffff);font-weight:700}
+.home-random .random-any:hover{background:var(--teal);opacity:.9}
 /* The outline and tree of dist/tree.js inside the top page and the record pages. */
 .atlas-embed{height:auto;min-height:0;border:1px solid var(--line);border-radius:6px;background:var(--c-fcfcf7);overflow:hidden}
 .atlas-embed #outline{flex:none;max-height:70vh;min-height:200px}

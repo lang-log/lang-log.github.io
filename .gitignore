@@ -14,3 +14,4 @@ node_modules/
 /dist/stages.json
 /dist/paths.json
 /dist/source-paths.json
+/_preview/
