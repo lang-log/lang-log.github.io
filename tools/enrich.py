@@ -1,4 +1,8 @@
-import csv, json, pathlib, collections, hashlib, xml.etree.ElementTree as ET
+import csv
+import json
+import pathlib
+import hashlib
+import xml.etree.ElementTree as ET
 
 out = pathlib.Path("dist")
 data = json.load(open(out / "data.json"))
@@ -63,8 +67,10 @@ for key, rs, label in [
     ds = ET.SubElement(root, "classification", {"source": label})
     d = data[key]
 
+    # Defined and called within one loop iteration, so the loop variables it reads
+    # are always the current ones (the noqa: B023 marks below).
     def node(id, container):
-        n = d[id]
+        n = d[id]  # noqa: B023
         attrs = {
             k: str(n[k]) for k in ["id", "name", "level", "iso", "category", "glottocode"] if k in n
         }
@@ -102,8 +108,10 @@ for key, rs, label in [
     ds = ET.SubElement(body, "outline", {"text": label})
     d = data[key]
 
+    # Defined and called within one loop iteration, so the loop variables it reads
+    # are always the current ones (the noqa: B023 marks below).
     def outline(id, parent):
-        n = d[id]
+        n = d[id]  # noqa: B023
         native = list(dict.fromkeys(r["text"] for r in n["nativeNames"]))
         attrs = {
             "text": n["name"] + (" · " + " / ".join(native) if native else ""),

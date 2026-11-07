@@ -237,8 +237,8 @@ def names_html(n):
     if not seen:  # an empty toggle opens onto nothing, so say so in plain text
         return out + '<p class="muted">No other names or spellings recorded.</p>'
     out += f"<details><summary>Recorded names and spellings · {len(seen)}</summary><ul class=\"name-list\">"
-    out += "".join(f'<li dir="auto">{escape(t)} <span class="muted">{escape(l or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
-                   for (t, l), p in sorted(seen.items()))
+    out += "".join(f'<li dir="auto">{escape(t)} <span class="muted">{escape(tag or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
+                   for (t, tag), p in sorted(seen.items()))
     return out + "</ul></details>"
 
 
@@ -333,7 +333,8 @@ def conflicts_html(depth, i):
     for k in refs:
         c = unified["conflicts"][k]
         pairs.setdefault((c["a"], c["b"]), [c, 0])[1] += 1
-    title = lambda sid: escape(sources[sid]["title"])
+    def title(sid):
+        return escape(sources[sid]["title"])
     out = (f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
            '<p class="small-disclaimer">These summary clades cannot both hold on the shared sampled tips. This does not '
            'determine which study is correct. Examples below may involve a wider group containing this record.</p>')
@@ -351,8 +352,8 @@ def conflicts_html(depth, i):
 def tree_html(depth, i, sid):
     """The branch below a record, drawn by dist/tree.js when the visitor asks for it.
     Hidden without JavaScript; the Members list gives the same records."""
-    return (f'<section class="tree-section" id="tree-section" hidden><h2>Tree</h2>'
-            f'<p><button type="button" id="show-tree" class="show-tree">Show the tree of this branch</button></p>'
+    return ('<section class="tree-section" id="tree-section" hidden><h2>Tree</h2>'
+            '<p><button type="button" id="show-tree" class="show-tree">Show the tree of this branch</button></p>'
             + atlas_html("../" * depth, root=i, src=sid) + "</section>")
 
 
@@ -659,7 +660,7 @@ def main():
                 body += "<ul class=\"record-links\">" + "".join(f'<li><a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a></li>' for c in kids) + "</ul>"
             body += "</section>"
         body += children_html(depth, i) + tree_html(depth, i, "glottolog") + hf_html(nodes[i])
-        body += f'<p class="muted"><a href="record.json">This record as JSON</a></p>'
+        body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
         (target / "index.html").write_text(page(depth, nodes[i]["name"], body), encoding="utf-8")
         (target / "record.json").write_text(json.dumps(record_json(i), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         written += 1

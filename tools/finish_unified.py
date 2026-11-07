@@ -1,4 +1,8 @@
-import json, pathlib, xml.etree.ElementTree as E, gzip, collections
+import json
+import pathlib
+import xml.etree.ElementTree as E
+import gzip
+import collections
 
 p = pathlib.Path("dist")
 data = json.load(open(p / "data.json"))

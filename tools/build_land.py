@@ -96,7 +96,7 @@ def path_d(pts, q, close):
     k = 1 / q
     r = [(round(x * k), round(y * k)) for x, y in pts]
     out = [f"M{r[0][0] * q:.{_dec(q)}f} {r[0][1] * q:.{_dec(q)}f}"]
-    for (x0, y0), (x1, y1) in zip(r, r[1:]):
+    for (x0, y0), (x1, y1) in zip(r, r[1:], strict=False):
         if (x0, y0) != (x1, y1):
             out.append(f"l{_n((x1 - x0) * q, q)} {_n((y1 - y0) * q, q)}")
     return "".join(out) + ("z" if close else "")
@@ -185,7 +185,7 @@ def clip_ring_rect(pts, x0, y0, x1, y1):
 def clip_line_rect(pts, x0, y0, x1, y1):
     """Pieces of a polyline inside a rectangle (Liang-Barsky per segment)."""
     out, run = [], []
-    for a, b in zip(pts, pts[1:]):
+    for a, b in zip(pts, pts[1:], strict=False):
         dx, dy = b[0] - a[0], b[1] - a[1]
         t0, t1, ok = 0.0, 1.0, True
         for p, q in ((-dx, a[0] - x0), (dx, x1 - a[0]), (-dy, a[1] - y0), (dy, y1 - a[1])):
@@ -294,8 +294,13 @@ def main():
         for r in rings
     ]
     bbox_l = [
-        (min(p[0] for p in l), min(p[1] for p in l), max(p[0] for p in l), max(p[1] for p in l))
-        for _, l in lines
+        (
+            min(p[0] for p in line),
+            min(p[1] for p in line),
+            max(p[0] for p in line),
+            max(p[1] for p in line),
+        )
+        for _, line in lines
     ]
     for old in (OUT / "tiles").glob("*/*.svg"):
         old.unlink()
@@ -317,14 +322,20 @@ def main():
             if len(sea) < 3:
                 continue
 
+            # Defined and called within one loop iteration, so the loop variables it reads
+            # are always the current ones (the noqa: B023 marks below).
             def hit(b):
-                return b[2] >= x0 and b[0] <= x1 and b[3] >= y0 and b[1] <= y1
+                return b[2] >= x0 and b[0] <= x1 and b[3] >= y0 and b[1] <= y1  # noqa: B023
 
-            land = [clip_ring_rect(r, x0, y0, x1, y1) for r, b in zip(rings, bbox_r) if hit(b)]
+            land = [
+                clip_ring_rect(r, x0, y0, x1, y1)
+                for r, b in zip(rings, bbox_r, strict=False)
+                if hit(b)
+            ]
             solid, dashed = [], []
-            for (d, l), b in zip(lines, bbox_l):
+            for (d, line), b in zip(lines, bbox_l, strict=False):
                 if hit(b):
-                    (dashed if d else solid).extend(clip_line_rect(l, x0, y0, x1, y1))
+                    (dashed if d else solid).extend(clip_line_rect(line, x0, y0, x1, y1))
             sea_d = f'<path id="sea" d="{path_d(sea, TILE["q"], True)}"/>'
             svg = (
                 '<svg xmlns="http://www.w3.org/2000/svg">'
@@ -344,8 +355,8 @@ def main():
 def world(name, src):
     land = land_d(projected_rings(src["ne_50m_land.geojson"]), WORLD)
     lines = projected_lines(src["ne_50m_admin_0_boundary_lines_land.geojson"])
-    solid = line_d([l for d, l in lines if not d], WORLD)
-    dashed = line_d([l for d, l in lines if d], WORLD)
+    solid = line_d([line for d, line in lines if not d], WORLD)
+    dashed = line_d([line for d, line in lines if d], WORLD)
     h = WORLD_W
     svg = (
         '<svg xmlns="http://www.w3.org/2000/svg" '

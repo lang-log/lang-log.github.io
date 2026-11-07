@@ -1,6 +1,11 @@
 """Build source-conditioned sign-language and writing-system graphs. No synthetic universal ancestor."""
 
-import csv, json, re, hashlib, collections, xml.etree.ElementTree as ET
+import csv
+import json
+import re
+import hashlib
+import collections
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from html.parser import HTMLParser
 
@@ -252,43 +257,45 @@ for run in ["Asia", "EBNZ_1", "EBNZ_2"]:
     count = [0]
     tips = []
 
+    # Defined and called within one loop iteration, so the loop variables it reads
+    # are always the current ones (the noqa: B023 marks below).
     def walk(t, parent=None):
-        count[0] += 1
+        count[0] += 1  # noqa: B023
         if t["children"]:
             i = node(
-                "abner:" + run + ":" + str(count[0]),
+                "abner:" + run + ":" + str(count[0]),  # noqa: B023
                 "Sampled clade",
                 "sign",
                 "study clade",
                 sources=["abner2024"],
-                run=run,
+                run=run,  # noqa: B023
                 posterior=t["posterior"],
             )
             members = []
             for k in t["children"]:
                 members += walk(k, i)[1]
             N[i]["name"] = (
-                ("Asia sample" if run == "Asia" else "Europe + New Zealand · replicate " + run[-1])
+                ("Asia sample" if run == "Asia" else "Europe + New Zealand · replicate " + run[-1])  # noqa: B023
                 if parent is None
                 else "Clade: "
                 + ", ".join(N[m]["name"].replace(" Sign Language", "") for m in members[:3])
                 + (" …" if len(members) > 3 else "")
             )
         else:
-            label = trans[t["label"]]
+            label = trans[t["label"]]  # noqa: B023
             i = iso[mapiso[label.replace(" SL", "")]]
             members = [i]
-            tips.append(i)
+            tips.append(i)  # noqa: B023
         if parent:
             edge(
                 parent,
                 i,
                 "abner2024",
                 "lexical-feature phylogeny",
-                run=run,
+                run=run,  # noqa: B023
                 branchLength=t["length"],
                 posterior=t["posterior"],
-                sample=trans.get(t["label"]),
+                sample=trans.get(t["label"]),  # noqa: B023
             )
         return i, members
 

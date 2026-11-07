@@ -1,4 +1,8 @@
-import csv, json, re, collections, pathlib, hashlib
+import csv
+import json
+import re
+import collections
+import pathlib
 
 src = pathlib.Path("source-data")
 out = pathlib.Path("dist")
@@ -32,19 +36,21 @@ for line in open(src / "classification.nex"):
     ts = re.findall(r"[a-z0-9]{4}[0-9]{4}|[(),;]", line.split(" = [&R] ")[1])
     pos = 0
 
+    # Defined and called within one loop iteration, so the loop variables it reads
+    # are always the current ones (the noqa: B023 marks below).
     def parse():
         global pos
         children = []
-        if ts[pos] == "(":
+        if ts[pos] == "(":  # noqa: B023
             pos += 1
             while True:
                 children.append(parse())
-                if ts[pos] == ")":
+                if ts[pos] == ")":  # noqa: B023
                     pos += 1
                     break
-                assert ts[pos] == ","
+                assert ts[pos] == ","  # noqa: B023
                 pos += 1
-        name = ts[pos]
+        name = ts[pos]  # noqa: B023
         pos += 1
         for ch in children:
             edge(ch, name)
@@ -53,7 +59,7 @@ for line in open(src / "classification.nex"):
     parse()
 for path in re.findall(r"\(tree/([^)]*)/md.ini\)", open(src / "dialects.md").read()):
     ids = path.split("/")
-    for a, b in zip(ids, ids[1:]):
+    for a, b in zip(ids, ids[1:], strict=False):
         edge(b, a)
 roots = []
 for id, n in nodes.items():

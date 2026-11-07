@@ -150,7 +150,7 @@ def map_svg(
         return ""
     lons = unwrap([lon for lon, _ in focus_ll])
     mid = (min(lons) + max(lons)) / 2
-    focus = [project(lon, lat) for lon, (_, lat) in zip(lons, focus_ll)]
+    focus = [project(lon, lat) for lon, (_, lat) in zip(lons, focus_ll, strict=False)]
     main_xy = focus[: len(main)]
     own = focus[-1] if self_point else None
     # Sister points go on the copy of the world nearest the record's own points.
@@ -162,7 +162,7 @@ def map_svg(
     def circles(pts, rad, ids=()):
         ids = list(ids) or [""] * len(pts)
         cells = {}
-        for (x, y), gid in zip(pts, ids):
+        for (x, y), gid in zip(pts, ids, strict=False):
             # Drop only points that would still overlap at the deepest zoom: points
             # keep their size on screen when the map is zoomed. The records of a
             # dropped point stay on the point drawn in its place.

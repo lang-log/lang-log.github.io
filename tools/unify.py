@@ -1,4 +1,10 @@
-import json, csv, pathlib, re, collections, hashlib, itertools, xml.etree.ElementTree as ET, gzip
+import json
+import csv
+import pathlib
+import re
+import collections
+import hashlib
+import itertools
 
 P = pathlib.Path("dist")
 data = json.load(open(P / "data.json"))
@@ -10,9 +16,12 @@ sources = {}
 placements = collections.defaultdict(list)
 anchors = collections.defaultdict(list)
 coverage = []
-S = lambda id, title, url, kind, **kw: sources.setdefault(
-    id, dict(id=id, title=title, url=url, kind=kind, **kw)
-)
+
+
+def S(id, title, url, kind, **kw):
+    return sources.setdefault(id, dict(id=id, title=title, url=url, kind=kind, **kw))
+
+
 S(
     "glottolog",
     "Glottolog 5.3",
@@ -66,7 +75,7 @@ def lca(ids):
     if not paths:
         return None
     shared = None
-    for level in zip(*paths):
+    for level in zip(*paths, strict=False):
         if len(set(level)) != 1:
             break
         shared = level[0]
@@ -153,26 +162,28 @@ for folder in sorted(pathlib.Path("source-data/phlorest").iterdir()):
     tipnodes = []
     clades = []
 
+    # Defined and called within one loop iteration, so the loop variables it reads
+    # are always the current ones (the noqa: B023 marks below).
     def walk(t, parent=None):
-        counter[0] += 1
-        local = "ph:" + sid + ":" + str(counter[0])
+        counter[0] += 1  # noqa: B023
+        local = "ph:" + sid + ":" + str(counter[0])  # noqa: B023
         children = t["children"]
         if not children:
             label = t["label"]
-            assert label in langs, (sid, label)
-            row = langs[label]
+            assert label in langs, (sid, label)  # noqa: B023
+            row = langs[label]  # noqa: B023
             gc = row.get("Glottocode", "")
             id = gc if gc in base else local
             if id not in base:
-                extra[id] = blank(id, row.get("Name") or label, "sample", sid)
+                extra[id] = blank(id, row.get("Name") or label, "sample", sid)  # noqa: B023
                 extra[id]["unmatchedGlottocode"] = gc
                 extra[id]["sampleID"] = label
-            tip_counts[id] += 1
-            tipnodes.append(id)
+            tip_counts[id] += 1  # noqa: B023
+            tipnodes.append(id)  # noqa: B023
             members = {id}
         else:
             id = local
-            extra[id] = blank(id, t["label"] or "Unnamed sampled clade", "clade", sid)
+            extra[id] = blank(id, t["label"] or "Unnamed sampled clade", "clade", sid)  # noqa: B023
             members = set()
             for c in children:
                 ci, cm = walk(c, id)
@@ -182,11 +193,11 @@ for folder in sorted(pathlib.Path("source-data/phlorest").iterdir()):
             extra[id]["name"] = t["label"] or "Clade: " + ", ".join(
                 (base.get(x) or extra[x])["name"] for x in sorted(members)[:3]
             ) + (" …" if len(members) > 3 else "")
-            clades.append((id, members))
+            clades.append((id, members))  # noqa: B023
         if id in extra:
             extra[id]["parent"] = parent
             extra[id]["branchLength"] = t["length"]
-        edge = add_edge(parent, id, sid, t["label"] if not children else None)
+        edge = add_edge(parent, id, sid, t["label"] if not children else None)  # noqa: B023
         if t["length"]:
             edge["branchLength"] = t["length"]
         return id, members
