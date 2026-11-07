@@ -23,7 +23,6 @@
       'Other kinds of languages': 'گونه‌های دیگر زبان',
       'Families': 'خانواده‌ها',
       'Languoids': 'Languoids',
-      'Glottolog records': 'رکوردهای Glottolog',
       'Records from study trees only': 'رکوردهایی که فقط در درخت‌های پژوهشی هستند',
       'Spoken languages': 'زبان‌های گفتاری',
       'Spoken dialects': 'گویش‌های گفتاری',
@@ -346,8 +345,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'همهٔ $1 رکورد ردهٔ زبان‌های اشارهٔ Glottolog، از جمله رکوردهای خانواده و گویش. رده‌ها برای پیمایش‌اند.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'همهٔ $1 نمونهٔ CLDF، از جمله صورت‌های تاریخی. اطلاعات منتشرشدهٔ زیرگروه‌ها، نه درختی استنباط‌شده از کل زبان‌ها.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '$1 مخزن دادهٔ Phlorest که در فهرست یافت شد، در سطح درخت خلاصه به‌طور کامل وارد شدند. نمونه‌های پسین وارد نشدند.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'همهٔ $1 نمونهٔ CLDF، از جمله صورت‌های تاریخی. اطلاعات منتشرشدهٔ زیرگروه‌ها، نه درختی استنباط‌شده از کل زبان‌ها.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '$1 مخزن دادهٔ Phlorest که در فهرست یافت شد، در سطح درخت خلاصه به‌طور کامل وارد شدند. نمونه‌های پسین وارد نشدند.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, '$1 نتیجهٔ نخست. جست‌وجو را محدودتر کنید.'],
       [/^Show ([\d,]+) more$/, 'نمایش $1 مورد دیگر'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

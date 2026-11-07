@@ -23,7 +23,6 @@
       'Other kinds of languages': 'भाषाओं के अन्य प्रकार',
       'Families': 'परिवार',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog रिकॉर्ड',
       'Records from study trees only': 'केवल अध्ययन-वृक्षों के रिकॉर्ड',
       'Spoken languages': 'मौखिक भाषाएँ',
       'Spoken dialects': 'मौखिक बोलियाँ',
@@ -346,8 +345,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog की सांकेतिक भाषा श्रेणी के सभी $1 रिकॉर्ड, भाषा-परिवार और बोली रिकॉर्ड सहित। श्रेणियाँ नेविगेशन के लिए हैं।'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'CLDF के सभी $1 नमूने, ऐतिहासिक रूपों सहित। प्रकाशित उपसमूह-जानकारी, पूरी भाषाओं का अनुमानित वृक्ष नहीं।'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'सूची में मिले Phlorest के $1 डेटा-भंडार सारांश-वृक्ष के स्तर पर पूरे आयात किए गए। पश्च नमूने आयात नहीं किए गए।'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'CLDF के सभी $1 नमूने, ऐतिहासिक रूपों सहित। प्रकाशित उपसमूह-जानकारी, पूरी भाषाओं का अनुमानित वृक्ष नहीं।'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'सूची में मिले Phlorest के $1 डेटा-भंडार सारांश-वृक्ष के स्तर पर पूरे आयात किए गए। पश्च नमूने आयात नहीं किए गए।'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'पहले $1 परिणाम। अपनी खोज को सीमित करें।'],
       [/^Show ([\d,]+) more$/, '$1 और दिखाएँ'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

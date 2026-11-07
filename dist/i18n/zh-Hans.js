@@ -23,7 +23,6 @@
       'Other kinds of languages': '其他种类的语言',
       'Families': '语系',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog 记录',
       'Records from study trees only': '仅见于研究谱系树的记录',
       'Spoken languages': '有声语言',
       'Spoken dialects': '有声语言的方言',
@@ -346,8 +345,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog 手语类别中的全部 $1 条记录，包括语系和方言记录。类别仅用于导航。'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'CLDF 的全部 $1 个样本，包括历史形式。这是已发表的下位分组信息，而不是推断出的整个语言的谱系树。'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '在目录中找到的 $1 个 Phlorest 数据仓库已在汇总谱系树层面完整导入。未导入后验样本。'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'CLDF 的全部 $1 个样本，包括历史形式。这是已发表的下位分组信息，而不是推断出的整个语言的谱系树。'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '在目录中找到的 $1 个 Phlorest 数据仓库已在汇总谱系树层面完整导入。未导入后验样本。'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, '仅显示前 $1 条结果。请缩小搜索范围。'],
       [/^Show ([\d,]+) more$/, '再显示 $1 条'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

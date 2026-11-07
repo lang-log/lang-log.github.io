@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Weitere Arten von Sprachen',
       'Families': 'Familien',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog-Einträge',
       'Records from study trees only': 'Einträge nur aus Studienbäumen',
       'Spoken languages': 'Gesprochene Sprachen',
       'Spoken dialects': 'Gesprochene Dialekte',
@@ -346,8 +345,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Alle $1 Einträge der Glottolog-Kategorie Gebärdensprachen, einschließlich Familien- und Dialekteinträgen. Kategorien dienen der Navigation.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Alle $1 CLDF-Proben, einschließlich historischer Formen. Veröffentlichte Untergruppen-Metadaten, kein erschlossener Baum ganzer Sprachen.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'Die $1 im Katalog gefundenen Phlorest-Datenrepositorien wurden auf der Ebene der zusammenfassenden Bäume vollständig importiert. A-posteriori-Stichproben wurden nicht importiert.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Alle $1 CLDF-Proben, einschließlich historischer Formen. Veröffentlichte Untergruppen-Metadaten, kein erschlossener Baum ganzer Sprachen.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'Die $1 im Katalog gefundenen Phlorest-Datenrepositorien wurden auf der Ebene der zusammenfassenden Bäume vollständig importiert. A-posteriori-Stichproben wurden nicht importiert.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'Die ersten $1 Treffer. Bitte verfeinern Sie die Suche.'],
       [/^Show ([\d,]+) more$/, '$1 weitere anzeigen'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

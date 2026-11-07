@@ -23,7 +23,6 @@
       'Other kinds of languages': 'ภาษาประเภทอื่น',
       'Families': 'ตระกูล',
       'Languoids': 'Languoids',
-      'Glottolog records': 'ระเบียน Glottolog',
       'Records from study trees only': 'ระเบียนที่มีเฉพาะในแผนภูมิการศึกษา',
       'Spoken languages': 'ภาษาพูด',
       'Spoken dialects': 'ภาษาถิ่นของภาษาพูด',
@@ -346,8 +345,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'ระเบียนทั้ง $1 รายการในหมวดภาษามือของ Glottolog รวมถึงระเบียนตระกูลและภาษาถิ่น หมวดมีไว้สำหรับการนำทาง'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'ตัวอย่างทั้ง $1 รายการของ CLDF รวมถึงรูปทางประวัติศาสตร์ เป็นข้อมูลกลุ่มย่อยที่ตีพิมพ์ ไม่ใช่แผนภูมิต้นไม้ของทั้งภาษาที่อนุมานขึ้น'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'คลังข้อมูล Phlorest $1 แห่งที่พบในบัญชีรายชื่อถูกนำเข้าครบถ้วนในระดับแผนภูมิต้นไม้สรุป ไม่ได้นำเข้าตัวอย่างภายหลัง'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'ตัวอย่างทั้ง $1 รายการของ CLDF รวมถึงรูปทางประวัติศาสตร์ เป็นข้อมูลกลุ่มย่อยที่ตีพิมพ์ ไม่ใช่แผนภูมิต้นไม้ของทั้งภาษาที่อนุมานขึ้น'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'คลังข้อมูล Phlorest $1 แห่งที่พบในบัญชีรายชื่อถูกนำเข้าครบถ้วนในระดับแผนภูมิต้นไม้สรุป ไม่ได้นำเข้าตัวอย่างภายหลัง'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'ผลลัพธ์ $1 รายการแรก โปรดค้นหาให้แคบลง'],
       [/^Show ([\d,]+) more$/, 'แสดงเพิ่มอีก $1 รายการ'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

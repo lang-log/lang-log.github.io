@@ -23,7 +23,6 @@
       'Other kinds of languages': '그 밖의 언어 종류',
       'Families': '어족',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog 기록',
       'Records from study trees only': '연구 계통수에만 있는 기록',
       'Spoken languages': '음성 언어',
       'Spoken dialects': '음성 언어 방언',
@@ -346,8 +345,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog 수어 범주의 기록 $1건 전부(어족과 방언 기록 포함)입니다. 범주는 탐색용입니다.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, '역사적 형태를 포함한 CLDF의 $1개 표본 전부입니다. 발표된 하위 집단 정보이며, 추정한 언어 전체의 계통수가 아닙니다.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '목록에서 찾은 Phlorest 데이터 저장소 $1개를 요약 계통수 단위로 모두 가져왔습니다. 사후 분포 표본은 가져오지 않았습니다.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, '역사적 형태를 포함한 CLDF의 $1개 표본 전부입니다. 발표된 하위 집단 정보이며, 추정한 언어 전체의 계통수가 아닙니다.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '목록에서 찾은 Phlorest 데이터 저장소 $1개를 요약 계통수 단위로 모두 가져왔습니다. 사후 분포 표본은 가져오지 않았습니다.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, '처음 $1건입니다. 검색어를 좁혀 주세요.'],
       [/^Show ([\d,]+) more$/, '$1건 더 보기'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

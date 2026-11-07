@@ -20,6 +20,7 @@ from here. The hand-written pages in dist/ carry the same text; run
 current HEAD, has a second policy, or has a style="..." attribute or an
 inline script, which the policy would block.
 """
+
 import re
 import sys
 from pathlib import Path
@@ -28,32 +29,38 @@ DIST = Path(__file__).resolve().parent.parent / "dist"
 
 # A new script, style, image or connection source changes this list, in the
 # same pull request (research-aide .claude/rules/web-security.md).
-CSP = "; ".join([
-    "default-src 'none'",
-    "script-src 'self'",
-    # 'unsafe-inline' only for styles (the owner's choice, 2026-11-07): WebKit
-    # reports a blocked inline stylesheet for every <select> under a strict
-    # style-src, from its own rendering of the menu, not from the site. Scripts
-    # stay strict, and --check still refuses style="..." in the site's own pages.
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self'",
-    "connect-src 'self' https://huggingface.co",
-    "base-uri 'none'",
-    "form-action 'self'",  # the search form on the top page goes to ./
-    "object-src 'none'",
-    # No upgrade-insecure-requests: no source above allows http:, so it would
-    # add nothing on the live HTTPS site, and WebKit applies it to
-    # http://127.0.0.1, which breaks the local browser check.
-])
+CSP = "; ".join(
+    [
+        "default-src 'none'",
+        "script-src 'self'",
+        # 'unsafe-inline' only for styles (the owner's choice, 2026-11-07): WebKit
+        # reports a blocked inline stylesheet for every <select> under a strict
+        # style-src, from its own rendering of the menu, not from the site. Scripts
+        # stay strict, and --check still refuses style="..." in the site's own pages.
+        "style-src 'self' 'unsafe-inline'",
+        "img-src 'self'",
+        "connect-src 'self' https://huggingface.co",
+        "base-uri 'none'",
+        "form-action 'self'",  # the search form on the top page goes to ./
+        "object-src 'none'",
+        # No upgrade-insecure-requests: no source above allows http:, so it would
+        # add nothing on the live HTTPS site, and WebKit applies it to
+        # http://127.0.0.1, which breaks the local browser check.
+    ]
+)
 
-HEAD = (f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
-        '<meta name="referrer" content="no-referrer">')
+HEAD = (
+    f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
+    '<meta name="referrer" content="no-referrer">'
+)
 
 CHARSET = '<meta charset="utf-8">'
-ANY_POLICY = re.compile(r'<meta http-equiv="Content-Security-Policy"[^>]*>(<meta name="referrer"[^>]*>)?')
-INLINE_STYLE = re.compile(r'<[^>]*\sstyle=')
+ANY_POLICY = re.compile(
+    r'<meta http-equiv="Content-Security-Policy"[^>]*>(<meta name="referrer"[^>]*>)?'
+)
+INLINE_STYLE = re.compile(r"<[^>]*\sstyle=")
 INLINE_SCRIPT = re.compile(r'<script(?![^>]*\ssrc=)(?![^>]*type="application/ld\+json")[^>]*>')
-INLINE_HANDLER = re.compile(r'<[^>]*\son[a-z]+=', re.I)
+INLINE_HANDLER = re.compile(r"<[^>]*\son[a-z]+=", re.I)
 
 
 def problems(text):
@@ -64,7 +71,7 @@ def problems(text):
     elif not text.startswith('<!doctype html><html lang="en"><head>' + CHARSET + HEAD):
         out.append("does not start <head> with the charset and the policy")
     if INLINE_STYLE.search(text):
-        out.append("has a style=\"...\" attribute")
+        out.append('has a style="..." attribute')
     if INLINE_SCRIPT.search(text):
         out.append("has an inline script")
     if INLINE_HANDLER.search(text):
