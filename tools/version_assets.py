@@ -48,7 +48,26 @@ def rewrite(page):
     return False
 
 
+# lang.js loads the dictionary of the chosen language, i18n/<code>.js, itself. Its
+# placeholder `var VERSIONS = {};` gets the content hash of every dictionary, so a changed
+# dictionary also gets a new address. This runs before the pages are versioned, because
+# it changes lang.js and so its hash.
+LANG_JS = DIST / "lang.js"
+VERSIONS = "var VERSIONS = {};"
+
+
+def version_dictionaries():
+    files = sorted((DIST / "i18n").glob("*.js"))
+    table = ", ".join(f"'{f.stem}': '{version(f.resolve())}'" for f in files)
+    text = LANG_JS.read_text(encoding="utf-8")
+    if VERSIONS not in text:
+        raise SystemExit("tools/version_assets.py: placeholder 'var VERSIONS = {};' not found in dist/lang.js")
+    LANG_JS.write_text(text.replace(VERSIONS, "var VERSIONS = {" + table + "};"), encoding="utf-8")
+    print(f"versioned {len(files)} dictionaries in lang.js")
+
+
 def main():
+    version_dictionaries()
     changed = sum(rewrite(p) for p in DIST.rglob("*.html"))
     print(f"versioned asset links in {changed} pages")
 

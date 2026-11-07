@@ -66,7 +66,8 @@ Records that exist only in another source's tree (WALS genera and families, stud
 - Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
 - The record pages (one directory per top-level family or source under `dist/`), `dist/stages.json` and `dist/source-paths.json` are built by the Pages workflow and are not committed.
 - Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; faint points are the other members of the parent group. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
-- The land behind the points is `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `tools/build_land.py` from Natural Earth 1:50m land v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once.
+- The land and country borders behind the points are `dist/map/land.svg` (centred on longitude 0) or `dist/map/land-pacific.svg` (centred on 150 degrees east, chosen when the points lie around the 180th meridian). Both are drawn by `tools/build_land.py` from Natural Earth 1:50m land and boundary lines v5.1.2 (public domain) in the Equal Earth projection and committed; each page refers to them with `<use>`, so browsers download them once. Borders are thin solid lines; disputed, indefinite and unrecognised boundaries are dashed.
+- `dist/map-zoom.js` adds zoom and pan: drag, pinch, Ctrl/Cmd + wheel, double click, the + / − buttons (shown only when the device has a mouse or trackpad), Reset and the keyboard. Points and border lines keep their size on screen at every zoom. Once a visitor zooms in far enough, it draws the 1:10m tiles in `dist/map/tiles/<map>/` (listed in `dist/map/tiles.json`, also written by `tools/build_land.py`) for the part in view. Other pages can reuse it with `window.LangLogMap.mount(svg)`; see the comment at the top of the file.
 
 ## Lang Log data
 
@@ -81,12 +82,12 @@ Lang Log keeps its own data in one shape for every record, whatever source it co
 
 ## Interface language and theme
 
-The right end of the header on every page has a light/dark theme toggle and a language menu (English, 日本語), which work like the ones on the owner's profile site.
+The right end of the header on every page has a light/dark theme toggle and a language menu with the same 21 languages as the profile site, which work like the ones on the owner's profile site.
 
 - `dist/theme.js` adds the toggle and applies a saved theme before the page is drawn. Without a saved choice the page follows the system setting. Every colour is a variable at the top of `dist/style.css` (`--c-<light hex>`), with one light and one dark value; the canvas tree in `dist/tree.js` reads the same variables.
-- `dist/lang.js` adds the language menu. The pages are written in English; in Japanese the script translates the interface text with `dist/i18n.js` and keeps translating what the atlas scripts add later. Record names, source titles, citations and codes are data and stay as the sources give them. Without a saved choice the language follows the browser.
+- `dist/lang.js` adds the language menu. The pages are written in English; in another language the script translates the interface text with that language's dictionary (`dist/i18n.js` for Japanese, `dist/i18n/<code>.js` for the others, loaded only when chosen) and keeps translating what the atlas scripts add later. Record names, source titles, citations and codes are data and stay as the sources give them. Without a saved choice the language follows the browser. Arabic and Persian are right-to-left; numbers and dates follow each language's conventions (0-9 except Persian ۰-۹).
 - Both choices are kept in `localStorage` (`theme`, `lang`) for every page. Switching keeps the URL and adds no history entry. Without JavaScript the pages are English, follow the system theme, and show neither control.
-- When you add interface text to a page or a script, add its translation to `dist/i18n.js`.
+- When you add interface text to a page or a script, add its translation to every dictionary; `node tools/check_i18n.js` lists what is missing.
 
 ## Search from the address bar
 
