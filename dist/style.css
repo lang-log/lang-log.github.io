@@ -253,7 +253,9 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 @media(max-width:700px){.home-section{padding:22px 0}.home-section .record-links{grid-template-columns:1fr}.sources-scope p,.sources-scope li{font-size:16px}}
 /* The guide row under the Random row on the top page, and the pages it links to
    (dist/stats/, dist/sources/, dist/updates/, written by tools/build_home.py). */
-.home-guide{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:10px}
+.home-actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:18px}
+.home-actions .home-random,.home-actions .home-guide{display:contents}
+.home-actions .home-random[hidden]{display:none}
 .home-guide a{display:inline-flex;align-items:center;min-height:44px;padding:9px 18px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--ink);text-decoration:none}
 @media(hover:hover){.home-guide a:hover{background:var(--c-e3e9df)}}
 .info-main{display:block;height:auto;min-height:0;border:0;background:none;overflow:visible;max-width:1080px;margin:0 auto;padding:28px 34px 8px}

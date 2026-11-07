@@ -15,7 +15,7 @@ Stats, sources and updates are pages of their own, not sections of the top
 page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
 text, source-data/sources-and-scope.html) and dist/updates/ (the entries of
 source-data/lang-log/updates.json). The top page links to them in a row of
-links under the Random row. Every count on the Stats page is counted from the
+links next to the Random button. Every count on the Stats page is counted from the
 data here, at build time; no number is typed by hand.
 
 The list and the texts work without JavaScript. The search box is a GET form
@@ -77,7 +77,7 @@ def random_row():
     return f'<div class="home-random" role="group" aria-label="Random" hidden>{button}</div>'
 
 
-# Links of the guide row under the Random row: (page, label).
+# Links next to the Random button on the top page: (page, label).
 GUIDE_LINKS = [("stats/", "Stats"), ("sources/", "Sources"), ("updates/", "Updates")]
 
 
@@ -297,7 +297,7 @@ def main():
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         '</button></div></form>'
         '<div id="results" class="home-results" aria-live="polite" hidden></div>'
-        f'{random_row()}{guide_row()}'
+        f'<div class="home-actions">{random_row()}{guide_row()}</div>'
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         'Every placement says which source it follows, competing classifications are shown together, '
         'and the data can be downloaded.</p></section>\n'
