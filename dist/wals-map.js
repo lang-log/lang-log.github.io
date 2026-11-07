@@ -9,7 +9,8 @@
   // values than slots gives the slots to its most common values and the rest are grey.
   var SLOTS = ['--c-2a78d6', '--c-eb6834', '--c-1baf7a', '--c-eda100', '--c-e87ba4', '--c-008300', '--c-6250d6', '--c-e34948'];
   var OTHER = '--c-9ba8a4';
-  var DOT_PX = 4;         // dot radius on screen, whatever the zoom
+  // Dot radius on screen in CSS pixels, whatever the zoom; smaller on narrow maps.
+  var dotPx = function () { return svg.clientWidth < 600 ? 2.6 : 4; };
   var WORLD = [-974.4, -487.2, 1948.8, 974.4];
 
   var L = null, F = null, byId = {}, cache = {};
@@ -65,38 +66,58 @@
     return out;
   }
 
+  // The legend is the filter: one checkbox per value, and a "Select all" box above them
+  // (checked, unchecked or mixed). Double-click a row, or press and hold it on a touch
+  // screen, to keep only that value (as in Plotly's legends).
+  var HOLD_MS = 500;
   function legend(box, f, state, coloured) {
     box.textContent = '';
-    var head = el('div', { class: 'wm-head' });
-    head.appendChild(el('h2', { class: 'notranslate' }, f.id + ' ' + f.name));
-    var all = el('button', { type: 'button', class: 'wm-all' }, 'Show all');
-    all.addEventListener('click', function () { state.shown = new Set(f.values.map(function (x) { return x.n; })); legend(box, f, state, coloured); update(); });
-    head.appendChild(all);
-    box.appendChild(head);
+    var all = f.values.map(function (x) { return x.n; }), boxes = [];
+    box.appendChild(el('h2', { class: 'notranslate' }, f.id + ' ' + f.name));
+    var allLab = el('label', { class: 'wm-selectall' }), allCb = el('input', { type: 'checkbox' });
+    allLab.appendChild(allCb); allLab.appendChild(el('span', null, 'Select all'));
+    box.appendChild(allLab);
+    var sync = function () {
+      boxes.forEach(function (b) { b.cb.checked = state.shown.has(b.n); });
+      var on = all.filter(function (n) { return state.shown.has(n); }).length;
+      allCb.checked = on === all.length; allCb.indeterminate = on > 0 && on < all.length;
+    };
+    var only = function (n) { state.shown = new Set([n]); sync(); update(); };
+    allCb.addEventListener('change', function () { state.shown = new Set(allCb.checked ? all : []); sync(); update(); });
     var ul = el('ul');
     f.values.forEach(function (v) {
-      var li = el('li'), lab = el('label');
+      var li = el('li'), lab = el('label', { title: 'Double-click or press and hold to show only this value' });
       var cb = el('input', { type: 'checkbox' });
-      cb.checked = state.shown.has(v.n);
-      cb.addEventListener('change', function () { if (cb.checked) state.shown.add(v.n); else state.shown.delete(v.n); update(); });
+      boxes.push({ cb: cb, n: v.n });
+      cb.addEventListener('change', function () { if (cb.checked) state.shown.add(v.n); else state.shown.delete(v.n); sync(); update(); });
       lab.appendChild(cb);
       var dot = el('i', { class: coloured ? 'wm-dot' : 'wm-dot wm-ring', 'aria-hidden': 'true' });
       if (coloured) dot.style.background = 'var(' + a.colour[v.n] + ')';
       lab.appendChild(dot);
       lab.appendChild(el('span', { class: 'notranslate' }, v.name));
       lab.appendChild(el('small', null, String(v.count)));
+      lab.addEventListener('dblclick', function (e) { e.preventDefault(); only(v.n); });
+      var timer = null, held = false;
+      lab.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse') return;
+        held = false;
+        timer = setTimeout(function () { held = true; only(v.n); if (navigator.vibrate) navigator.vibrate(15); }, HOLD_MS);
+      });
+      var cancel = function () { clearTimeout(timer); };
+      lab.addEventListener('pointerup', cancel); lab.addEventListener('pointercancel', cancel); lab.addEventListener('pointerleave', cancel);
+      lab.addEventListener('contextmenu', function (e) { if (held || timer) e.preventDefault(); });
+      lab.addEventListener('click', function (e) { if (held) { e.preventDefault(); held = false; } });
       li.appendChild(lab);
-      var only = el('button', { type: 'button', class: 'wm-only' }, 'Only');
-      only.addEventListener('click', function () { state.shown = new Set([v.n]); legend(box, f, state, coloured); update(); });
-      li.appendChild(only);
       ul.appendChild(li);
     });
     box.appendChild(ul);
+    box.appendChild(el('p', { class: 'wm-tip' }, 'Double-click a row, or press and hold it, to show only that value.'));
+    sync();
   }
 
   function radius() {
     var vb = svg.viewBox.baseVal;
-    return DOT_PX * vb.width / (svg.clientWidth || 1);
+    return dotPx() * vb.width / (svg.clientWidth || 1);
   }
 
   function draw() {
@@ -217,7 +238,7 @@
   function onZoom() {
     var r = radius(), cs = layer.childNodes;
     for (var i = 0; i < cs.length; i++) cs[i].setAttribute('r', r);
-    svg.style.setProperty('--unit', String(r / DOT_PX));
+    svg.style.setProperty('--unit', String(r / dotPx()));
   }
 
   Promise.all([get('wals/languages.json'), get('wals/features.json')]).then(function (res) {
