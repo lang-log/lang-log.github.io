@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'Інтерактивне дерево класифікації мов. Скористайтеся пошуком або списком, щоб вибрати вузол.',
       'Expandable classification outline': 'Розгортувана схема класифікації',
       'Source-conditioned classification forest': 'Ліс класифікацій за джерелами',
-      'Family / subgroup': 'Родина / підгрупа',
       'Language': 'Мова',
       'Dialect': 'Діалект',
       'Expand this grouping': 'Розгорнути цю групу',

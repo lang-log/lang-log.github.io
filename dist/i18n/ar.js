@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'شجرة تفاعلية لتصنيف اللغات. ابحث أو استخدم القائمة لاختيار عقدة.',
       'Expandable classification outline': 'مخطط تصنيف قابل للتوسيع',
       'Source-conditioned classification forest': 'غابة تصنيفات بحسب المصدر',
-      'Family / subgroup': 'أسرة / مجموعة فرعية',
       'Language': 'لغة',
       'Dialect': 'لهجة',
       'Expand this grouping': 'توسيع هذه المجموعة',

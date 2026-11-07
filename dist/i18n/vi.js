@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'Cây phân loại ngôn ngữ tương tác. Hãy tìm kiếm hoặc dùng danh sách để chọn một nút.',
       'Expandable classification outline': 'Dàn ý phân loại có thể mở rộng',
       'Source-conditioned classification forest': 'Rừng phân loại theo nguồn',
-      'Family / subgroup': 'Ngữ hệ / nhóm con',
       'Language': 'Ngôn ngữ',
       'Dialect': 'Phương ngữ',
       'Expand this grouping': 'Mở rộng nhóm này',

@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'แผนภูมิต้นไม้การจัดจำแนกภาษาแบบโต้ตอบได้ ค้นหาหรือใช้รายการเพื่อเลือกจุด',
       'Expandable classification outline': 'โครงร่างการจัดจำแนกที่ขยายได้',
       'Source-conditioned classification forest': 'ป่าการจัดจำแนกตามแหล่งข้อมูล',
-      'Family / subgroup': 'ตระกูล / กลุ่มย่อย',
       'Language': 'ภาษา',
       'Dialect': 'ภาษาถิ่น',
       'Expand this grouping': 'ขยายกลุ่มนี้',

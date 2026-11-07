@@ -52,6 +52,16 @@ missing=$(find dist -name '*.html' -print0 | xargs -0 grep -L 'logo.svg#logo' ||
 text=$(find dist -name '*.html' -print0 | xargs -0 grep -il '>[[:space:]]*\(✱\|\*\|★\)\?[[:space:]]*lang log[[:space:]]*<' || true)
 [ -z "$text" ] || { echo "pages with a text logo:"; echo "$text" | head; exit 1; }
 
+# Every record is a languoid (one tree, no split by kind), so no page shows a
+# kind label or a kind legend ("family", "Family / subgroup · Language ·
+# Dialect"); see .claude/rules/interface-text.md.
+echo "Check that no page labels records by kind"
+kinds=$( { find dist -name '*.html' -print0 | xargs -0 grep -lE 'class="legend"|Family / subgroup|class="muted">(family|isolate|language|dialect|clade|sample)<' || true; } | head)
+[ -z "$kinds" ] || { echo "pages with kind labels:"; echo "$kinds"; exit 1; }
+if grep -nE 'lv-(hit-)?(family|language|dialect)|hit-kind|v-kind|n\.isolate\?.isolate.:n\.level' dist/*.js dist/*.css; then
+  echo "scripts or styles that label records by kind (above)"; exit 1
+fi
+
 # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
 # pages, so a browser never pairs new HTML with an old cached file
 # (Pages caches files for ten minutes). Runs after every page is written.

@@ -188,7 +188,6 @@ window.LANGLOG_I18N = {
       'Interactive language classification tree. Search or use the list to select a node.': '操作できる言語分類の樹形図です。検索か一覧で項目を選んでください。',
       'Expandable classification outline': '開閉できる分類の一覧',
       'Source-conditioned classification forest': '出典ごとの分類の森',
-      'Family / subgroup': '語族 / 下位グループ',
       'Language': '言語',
       'Dialect': '方言',
       'Expand this grouping': 'このグループを開く',

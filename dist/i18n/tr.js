@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'Etkileşimli dil sınıflandırma ağacı. Bir düğüm seçmek için arayın veya listeyi kullanın.',
       'Expandable classification outline': 'Açılabilir sınıflandırma taslağı',
       'Source-conditioned classification forest': 'Kaynağa göre sınıflandırma ormanı',
-      'Family / subgroup': 'Aile / alt grup',
       'Language': 'Dil',
       'Dialect': 'Ağız',
       'Expand this grouping': 'Bu grubu aç',

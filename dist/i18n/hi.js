@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'भाषा-वर्गीकरण का इंटरैक्टिव वृक्ष। कोई बिंदु चुनने के लिए खोजें या सूची का उपयोग करें।',
       'Expandable classification outline': 'खुलने वाली वर्गीकरण-रूपरेखा',
       'Source-conditioned classification forest': 'स्रोत के अनुसार वर्गीकरणों का वन',
-      'Family / subgroup': 'भाषा-परिवार / उपसमूह',
       'Language': 'भाषा',
       'Dialect': 'बोली',
       'Expand this grouping': 'यह समूह खोलें',

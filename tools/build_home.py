@@ -90,8 +90,8 @@ def guide_row():
 def families_html():
     """The top-level families and isolates of Glottolog, each linked to its page."""
     roots = sorted(bp.data["roots"], key=lambda r: bp.nodes[r]["name"].lower())
-    rows = "".join(f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a> '
-                   f'<span class="muted">{escape("isolate" if bp.nodes[r].get("isolate") else bp.nodes[r]["level"])}</span></li>'
+    # No kind label (family, isolate) after the name: every record is a languoid.
+    rows = "".join(f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
                    for r in roots)
     unplaced = bp.unified["anchors"].get("__unplaced__", [])
     rows_unplaced = "".join(f'<li><a href="{escape(bp.path_of(a["root"]))}/">{escape(bp.sources[a["source"]]["title"])}</a> '
