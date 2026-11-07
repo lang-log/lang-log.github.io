@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': '대화형 언어 분류 수형도입니다. 검색하거나 목록에서 항목을 고르세요.',
       'Expandable classification outline': '펼칠 수 있는 분류 목록',
       'Source-conditioned classification forest': '출처별 분류의 숲',
-      'Family / subgroup': '어족 / 하위 집단',
       'Language': '언어',
       'Dialect': '방언',
       'Expand this grouping': '이 집단 펼치기',

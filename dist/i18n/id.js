@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'Pohon klasifikasi bahasa interaktif. Cari atau gunakan daftar untuk memilih simpul.',
       'Expandable classification outline': 'Kerangka klasifikasi yang dapat dibuka',
       'Source-conditioned classification forest': 'Hutan klasifikasi menurut sumber',
-      'Family / subgroup': 'Rumpun / subkelompok',
       'Language': 'Bahasa',
       'Dialect': 'Dialek',
       'Expand this grouping': 'Buka kelompok ini',

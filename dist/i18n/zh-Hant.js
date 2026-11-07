@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': '可互動的語言分類樹。請搜尋或使用清單選擇節點。',
       'Expandable classification outline': '可展開的分類清單',
       'Source-conditioned classification forest': '依來源劃分的分類森林',
-      'Family / subgroup': '語系 / 下位分組',
       'Language': '語言',
       'Dialect': '方言',
       'Expand this grouping': '展開這個分組',

@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'Árvore interativa de classificação de línguas. Pesquise ou use a lista para selecionar um nó.',
       'Expandable classification outline': 'Estrutura de classificação expansível',
       'Source-conditioned classification forest': 'Floresta de classificações conforme a fonte',
-      'Family / subgroup': 'Família / subgrupo',
       'Language': 'Língua',
       'Dialect': 'Dialeto',
       'Expand this grouping': 'Expandir este agrupamento',

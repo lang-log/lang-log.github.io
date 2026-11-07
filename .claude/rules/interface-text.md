@@ -14,3 +14,4 @@ paths:
 - The term "languoid" stays in English ("Languoids") in every interface language (owner, 2026-11-07); its entry in each dictionary maps it to itself.
 - Use only the colour variables at the top of `dist/style.css`. A new colour gets a `--c-<light hex>` variable with a light value and a dark value in both dark blocks.
 - Keep the header as the brand on the left and one element on the right; the scripts put the theme toggle and the language menu after that element.
+- Every record is a languoid in one tree (the owner's rule, 2026-11-07). Never show a record's kind (`level` or `kind`: family, subgroup, language, dialect, isolate, sample) as a label, badge, colour or legend in lists, trees, search results or record pages. The data keeps `level` for sorting and filtering. `tools/build_site.sh` fails on kind labels and legends.

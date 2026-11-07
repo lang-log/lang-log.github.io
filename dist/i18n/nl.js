@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'Interactieve boom van taalclassificatie. Zoek of gebruik de lijst om een knoop te kiezen.',
       'Expandable classification outline': 'Uitklapbaar classificatieoverzicht',
       'Source-conditioned classification forest': 'Bos van classificaties per bron',
-      'Family / subgroup': 'Familie / subgroep',
       'Language': 'Taal',
       'Dialect': 'Dialect',
       'Expand this grouping': 'Deze groep uitklappen',

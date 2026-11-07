@@ -109,7 +109,6 @@
       'Interactive language classification tree. Search or use the list to select a node.': 'درخت تعاملی رده‌بندی زبان‌ها. برای انتخاب یک گره جست‌وجو کنید یا از فهرست استفاده کنید.',
       'Expandable classification outline': 'طرح رده‌بندی بازشدنی',
       'Source-conditioned classification forest': 'جنگل رده‌بندی‌ها بر پایهٔ منبع',
-      'Family / subgroup': 'خانواده / زیرگروه',
       'Language': 'زبان',
       'Dialect': 'گویش',
       'Expand this grouping': 'باز کردن این گروه',
