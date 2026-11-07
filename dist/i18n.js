@@ -22,6 +22,31 @@ window.LANGLOG_I18N = {
       'Writing systems': '文字体系',
       'Dark theme': 'ダークテーマ',
 
+      // WALS feature map (dist/wals-map.html, dist/wals-map.js)
+      'WALS feature map': 'WALS の特性地図',
+      'WALS feature map · Lang Log by yoshi': 'WALS の特性地図 · Lang Log by yoshi',
+      'About': '説明',
+      'About this map': 'この地図について',
+      'Pick a feature. Each language with a value is a dot, coloured by its value. The list beside the map is also the filter.': '特性を選ぶと、値のある言語が点で出ます。点の色は値で決まります。地図の横の一覧は、そのまま絞り込みに使えます。',
+      'Feature': '特性',
+      'And also': 'さらに絞り込む特性',
+      '(none)': '(なし)',
+      'World': '世界',
+      'Zoom in': '拡大',
+      'Zoom out': '縮小',
+      'Close': '閉じる',
+      'Scroll or pinch to zoom, drag to move, tap a dot for the language.': 'ホイールかピンチで拡大、ドラッグで移動、点を押すと言語が出ます。',
+      'Show all': 'すべて表示',
+      'Only': 'これだけ',
+      'WALS page': 'WALS のページ',
+      'Lang Log record': 'Lang Log の記録',
+      'World map of the selected feature': '選んだ特性の世界地図',
+      'The map data could not be loaded.': '地図のデータを読み込めませんでした。',
+      'Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0. Each dot is the representative point WALS gives a language, not the area where it is spoken. With a second feature, only languages that have a value for both and pass both filters are shown; the colours follow the first feature.': '特性の値は WALS Online(Dryer and Haspelmath 編、2013年)の CLDF 版 v2020.4 から取っています(CC BY 4.0)。点は WALS がその言語に与えた代表地点で、話されている範囲ではありません。2つ目の特性を選ぶと、両方に値があり、両方の絞り込みに合う言語だけが出ます。色は1つ目の特性で決まります。',
+      'This map needs JavaScript. The data is in': 'この地図には JavaScript が必要です。データは次にあります:',
+      'Land: Natural Earth (public domain)': '陸地: Natural Earth(パブリックドメイン)',
+      'WALS feature map: pick a feature and see which languages have each value, coloured on a world map.': 'WALS の特性地図: 特性を選ぶと、値ごとに色分けした言語の点が世界地図に出ます。',
+
       // Not-found page (dist/404.html)
       'Page not found': 'ページが見つかりません',
       'There is no page at this address. It may have moved, or the link may be mistyped.': 'このアドレスにはページがありません。移動したか、リンクが間違っている可能性があります。',
@@ -267,6 +292,7 @@ window.LANGLOG_I18N = {
       'tag unspecified': 'タグなし'
     },
     patterns: [
+      [/^Showing ([\d,]+) of ([\d,]+) languages$/, '$2 言語のうち $1 言語を表示'],
       [/^([\d,]+) Glottolog records retained; ([\d,]+) canonical records including source-specific clades\/samples\. All (\d+) discovered Phlorest dataset summary trees imported, plus WALS\.$/, 'Glottolog の記録 $1 件をすべて保持し、出典ごとの分岐と標本を含めて $2 件の記録にまとめています。見つかった Phlorest の要約系統樹 $3 本をすべて取り込み、WALS も加えています。'],
       [/^([\d,]+) source-tagged root\/parent assertions\. ([\d,]+) incompatible clade pairs across study trees involve ([\d,]+) canonical records\.$/, '出典つきの根と親の主張が $1 件あります。研究の系統樹どうしで両立しない分岐の組 $2 つが、$3 件の記録に関わっています。'],
       [/^(\d+) manual-alphabet samples; (\d+) lexical consensus trees covering (\d+) distinct language samples; (\d+) reviewed script relationships; ([\d,]+) CLDR usage assertions\. These are different units and should not be added as “languages\.”$/, '指文字の標本 $1、異なる言語標本 $3 を含む語彙の合意系統樹 $2 本、確認済みの文字の関係 $4、CLDR の使用データ $5。単位が違うので、足し合わせて「言語の数」とはしないでください。'],

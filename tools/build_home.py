@@ -103,6 +103,8 @@ def main():
         '<section class="home-more"><h2>Also</h2><ul>'
         '<li><a href="families/">All families and isolates</a>: one plain page per Glottolog record, '
         'with its classification and a map.</li>'
+        '<li><a href="wals-map.html">WALS feature map</a>: pick a feature and see which languages have each value, '
+        'coloured on a world map.</li>'
         '<li>Corpora and data for low-resource languages: planned.</li>'
         '</ul></section></main>\n'
         '<footer><span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>'

@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Pick a WALS feature and see on a world map which languages have each value. Filter by value, combine two features, zoom into any area."><title>WALS feature map · Lang Log by yoshi</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="style.css"><script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script><link rel="stylesheet" href="wals-map.css"></head><body class="wals-map">
+<header><div class="brand"><a class="home" href="./"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> <span class="by">by <a href="https://nguekwang.github.io/en/?ref=langlog" title="MATSUURA Yoshihiro">yoshi</a></span></div><a href="#about">About</a></header>
+<main>
+<h1>WALS feature map</h1>
+<p class="lead">Pick a feature. Each language with a value is a dot, coloured by its value. The list beside the map is also the filter.</p>
+<div class="wm-controls">
+<label>Feature <select id="feature"></select></label>
+<label>And also <select id="feature2"><option value="">(none)</option></select></label>
+</div>
+<div class="wm-body">
+<div class="wm-map">
+<svg id="map" viewBox="-974.4 -487.2 1948.8 974.4" role="img" aria-label="World map of the selected feature">
+<use href="map/land.svg#sphere" class="sea"/><use href="map/land.svg#land" class="land"/>
+<g id="points"></g>
+</svg>
+<div class="wm-zoom"><button type="button" id="zoom-in" aria-label="Zoom in">+</button><button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="zoom-reset">World</button></div>
+<div id="card" class="wm-card" hidden></div>
+<p class="wm-hint">Scroll or pinch to zoom, drag to move, tap a dot for the language.</p>
+</div>
+<aside class="wm-legend">
+<p id="count" class="wm-count"></p>
+<section id="legend1"></section>
+<section id="legend2" hidden></section>
+</aside>
+</div>
+<section id="about" class="wm-about">
+<h2>About this map</h2>
+<p>Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0. Each dot is the representative point WALS gives a language, not the area where it is spoken. With a second feature, only languages that have a value for both and pass both filters are shown; the colours follow the first feature.</p>
+<p><a href="https://wals.info/">WALS Online</a> · <a href="https://github.com/cldf-datasets/wals">WALS CLDF data</a> · Land: Natural Earth (public domain)</p>
+</section>
+</main>
+<noscript><p class="wm-noscript">This map needs JavaScript. The data is in <a href="https://wals.info/">WALS Online</a>.</p></noscript>
+<script src="wals-map.js"></script>
+</body></html>
