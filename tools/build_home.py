@@ -260,7 +260,7 @@ def sub_page(slug, title, body):
         '<header><div class="brand"><a class="home" href="../"><svg class="logo" role="img" aria-label="LANG LOG"><use href="../logo.svg#logo"/></svg></a> '
         f'<span class="by">by <a href="{escape(PROFILE_URL)}" title="MATSUURA Yoshihiro">yoshi</a></span></div></header>\n'
         f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
-        f'<footer><span><a href="../">Top page</a></span><span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
+        f'<footer><span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
         '</body></html>\n')
     (DIST / slug).mkdir(exist_ok=True)
     (DIST / slug / "index.html").write_text(html, encoding="utf-8")
