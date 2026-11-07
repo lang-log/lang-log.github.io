@@ -17,6 +17,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 ## Where the rules are
 
 - `.claude/rules/titles.md`: the ` by yoshi` title and the profile link, as used here.
+- `.claude/rules/license.md`: all rights reserved for the owner's work; third-party data keeps its own license.
 - `.claude/rules/logo.md`: the Lang Log logo is always the one SVG.
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in English and Japanese, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
