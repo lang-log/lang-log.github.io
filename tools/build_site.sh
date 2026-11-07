@@ -27,7 +27,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          data.json integrated.json language-families.xml \
          lineage-paths.js stages.json tree.js record-page.js source-paths.json \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
-         map/land.svg map/land-pacific.svg data/atlas.json \
+         map/land.svg map/land-pacific.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
          home.js random.json; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }

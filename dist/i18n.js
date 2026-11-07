@@ -288,7 +288,10 @@ window.LANGLOG_I18N = {
       // Record pages: map
       'Each point is the one representative location Glottolog gives for a record, not the area where it is spoken.': '各点は Glottolog が記録ごとに 1 つ示す代表地点で、話されている地域ではありません。',
       'Points: Glottolog 5.3 (CC BY 4.0).': '点: Glottolog 5.3(CC BY 4.0)。',
-      'Land:': '陸地:',
+      'Land and borders:': '陸地と国境:',
+      'Dashed borders are disputed or not settled.': '破線の国境は、争いがあるか、確定していない境界です。',
+      'Reset': '戻す',
+      'Reset view': '元の表示に戻す',
       '(public domain).': '(パブリックドメイン)。',
       'Projection: Equal Earth.': '図法: Equal Earth 図法。',
 
