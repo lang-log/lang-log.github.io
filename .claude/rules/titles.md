@@ -1,10 +1,6 @@
 # Titles
 
-The owner's rule for every project of theirs (Lang Log, linguasim, phrase-marker-gen and any later one).
+The shared rule is `titles.md` in the `research-aide` repository (every page title and the header logo end with ` by yoshi`). Here:
 
-- End every page title with ` by yoshi`: one space, then `by yoshi` in lowercase, as the last words. Example: `Language families · Lang Log by yoshi`.
-- "Page title" means the HTML `<title>` and any title set by a script (`document.title`). Add it once, at the end of the whole title, not after each part.
-- The site name shown in the page header (the logo) also ends with `by yoshi`, in lowercase even when the name is set in capitals. Example: `LANG LOG by yoshi`.
-- In that header, the word `yoshi` links to the owner's profile, the personal site's page in the interface language (`https://nguekwang.github.io/en/?ref=langlog`, or `/ja/?ref=langlog` when the language menu is set to Japanese; `dist/lang.js` switches it). Every link to the personal site carries `?ref=langlog`, placed before any `#` fragment. The site name keeps its own link to the tool's home page; the two links sit side by side, never nested.
-- A new page or a new project gets the suffix from the start.
-- The personal site (nguekwang.github.io) is not a tool and does not get the suffix.
+- The `ref` for links to the personal site is `langlog` (`profile-links.md` in `research-aide`).
+- In the header, `yoshi` links to the personal site's page in the interface language: `https://nguekwang.github.io/en/?ref=langlog`, or `/ja/?ref=langlog` when the language menu is set to Japanese. `dist/lang.js` (`PROFILE`) switches it.

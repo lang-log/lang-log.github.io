@@ -1,0 +1,29 @@
+# Open the built site in Chromium, Firefox and WebKit (Safari) at desktop and phone width, in
+# light and dark mode and with an English and a Japanese browser, on every pull request.
+# The shared workflow in nguekwang/research-aide does the work (rule: research-aide
+# .claude/rules/web-browsers.md). List one page of every kind below.
+name: browsers
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: browsers-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browsers:
+    uses: nguekwang/research-aide/.github/workflows/browser-check.yml@claude/project-thread-svmmsn
+    with:
+      research-aide-ref: claude/project-thread-svmmsn
+      build: bash tools/build_site.sh
+      site-dir: dist
+      locales: en-US ja-JP
+      pages: |
+        /
+        /language-families.html
+        /language-families.html?view=tree
+        /signs-and-scripts.html
+        /families/
+        /afro-asiatic/berber/
+        /404.html
