@@ -2,7 +2,7 @@
 
 The top page shows the logo, a search box and a short introduction. The
 language families, sign languages and writing systems are reached from the
-search and from the menu of the three atlases; the top page has no card for
+search and from Random; the top page has no card for
 each of them (owner, 2026-11-06).
 
 The top page is also the top of the language-families tree (owner,
@@ -23,9 +23,10 @@ to this page (?q=); dist/tree.js lists the matches under it.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
-the three atlases at random, then a record in it), so tapping the word does
-something instead of selecting it as text; the three buttons after it pick
-from one atlas each. dist/home.js shows the row and, on a click, opens the page of a record
+the three pools at random, then a record in it), so tapping the word does
+something instead of selecting it as text. The buttons per domain and the
+row of links to the three atlases are gone (owner, 2026-11-07: Lang Log is
+one tree, not three domains). dist/home.js shows the row and, on a click, opens the page of a record
 drawn from dist/random.json, which this script writes (not committed):
 
 - language: page paths of Glottolog languages and dialects, without
@@ -53,14 +54,6 @@ DIST = Path(__file__).resolve().parent.parent / "dist"
 SOURCE_CODE_URL = "https://github.com/lang-log/lang-log.github.io"
 
 
-# Buttons of the Random row: (pool in random.json, label, title).
-RANDOM_BUTTONS = [
-    ("language", "Language", "Choose a random language or dialect"),
-    ("sign", "Sign language", "Choose a random sign language or dialect"),
-    ("scripts", "Writing system", "Choose a random writing system"),
-]
-
-
 def random_pools():
     nodes = json.loads((DIST / "data.json").read_text(encoding="utf-8"))["nodes"]
     visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["nodes"]
@@ -75,14 +68,13 @@ def random_pools():
 
 
 def random_row():
-    any_button = ('<button type="button" class="random-any" data-domain="any" '
-                  'title="Choose a random language, sign language or writing system" '
-                  'aria-label="Choose a random language, sign language or writing system">Random</button>')
-    buttons = any_button + "".join(
-        f'<button type="button" data-domain="{domain}" title="{escape(title)}" '
-        f'aria-label="{escape(title)}">{escape(label)}</button>'
-        for domain, label, title in RANDOM_BUTTONS)
-    return f'<div class="home-random" role="group" aria-label="Random" hidden>{buttons}</div>'
+    """One Random button. The three buttons per domain (language, sign
+    language, writing system) were removed with the three-way split (owner,
+    2026-11-07); see the git history to reuse them."""
+    button = ('<button type="button" class="random-any" data-domain="any" '
+              'title="Choose a random language, sign language or writing system" '
+              'aria-label="Choose a random language, sign language or writing system">Random</button>')
+    return f'<div class="home-random" role="group" aria-label="Random" hidden>{button}</div>'
 
 
 # Links of the guide row under the Random row: (page, label).
@@ -274,7 +266,6 @@ def main():
         'Every placement says which source it follows, competing classifications are shown together, '
         'and the data can be downloaded.</p></section>\n'
 
-        f'{bp.domain_nav("./")}'
         f'{families_html()}{tree_section()}'
         '<section class="home-more"><h2>Also</h2><ul>'
         '<li>Corpora and data for low-resource languages: planned.</li>'
