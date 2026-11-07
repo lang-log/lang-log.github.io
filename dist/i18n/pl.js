@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Inne rodzaje języków',
       'Families': 'Rodziny',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Rekordy Glottologu',
       'Records from study trees only': 'Rekordy tylko z drzew badań',
       'Spoken languages': 'Języki mówione',
       'Spoken dialects': 'Dialekty mówione',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Wszystkie $1 rekordy kategorii języków migowych w Glottologu, w tym rekordy rodzin i dialektów. Kategorie służą nawigacji.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Wszystkie $1 próbek CLDF, w tym formy historyczne. Opublikowane metadane podgrup, a nie wywnioskowane drzewo całych języków.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '$1 repozytoriów danych Phlorest znalezionych w katalogu zaimportowano w całości na poziomie drzewa podsumowującego. Próbek a posteriori nie zaimportowano.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Wszystkie $1 próbek CLDF, w tym formy historyczne. Opublikowane metadane podgrup, a nie wywnioskowane drzewo całych języków.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '$1 repozytoriów danych Phlorest znalezionych w katalogu zaimportowano w całości na poziomie drzewa podsumowującego. Próbek a posteriori nie zaimportowano.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'Pierwsze $1 wyników. Zawęź wyszukiwanie.'],
       [/^Show ([\d,]+) more$/, 'Pokaż $1 kolejnych'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

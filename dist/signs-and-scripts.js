@@ -3,13 +3,13 @@
  const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const domain=new URLSearchParams(location.search).get('domain')==='scripts'?'scripts':'sign';
  let data;
- try{const r=await fetch('signs-and-scripts.json');if(!r.ok)throw Error('HTTP '+r.status);data=await r.json();}catch(e){$('visual-outline').textContent='The data could not be loaded. Please reload this page.';return;}
- const {nodes:N,assertions:E,sources:S}=data,out={},inc={},all=Object.values(N).filter(n=>n.domain===domain);const PAGE=100;let selected=null,limit=PAGE,focused=false,focusId=null,horizontal=false,hfTask='',restoring=false,pendingPush=null,searchTimer=0;
+ try{const r=await fetch('signs-and-scripts.json');if(!r.ok)throw Error('HTTP '+r.status);data=await r.json();}catch{$('visual-outline').textContent='The data could not be loaded. Please reload this page.';return;}
+ const {nodes:N,assertions:E,sources:S}=data,out={},inc={},all=Object.values(N).filter(n=>n.domain===domain);const PAGE=100;let selected=null,limit=PAGE,focusId=null,horizontal=false,hfTask='',restoring=false,pendingPush=null,searchTimer=0;
  const baseTitle=document.title,detailIntro=$('detail').innerHTML;
  // URL state: domain, id (selected record), branch (expanded branch), q (search),
  // view=tree, task (Hugging Face model task) and about=1 (Sources & scope dialog).
  function stateURL(){const p=new URLSearchParams({domain}),q=$('search').value.trim();if(selected)p.set('id',selected);if(focusId)p.set('branch',focusId);if(q)p.set('q',q);if(horizontal)p.set('view','tree');if(hfTask)p.set('task',hfTask);if($('sources').open)p.set('about','1');const u=new URL(location.href);u.search=p.toString();u.hash='';return u;}
- function saveURL(push){if(restoring)return;if(pendingPush!==null){pendingPush=pendingPush||push;return;}pendingPush=push;queueMicrotask(()=>{const doPush=pendingPush;pendingPush=null;const u=stateURL();if(u.href===location.href)return;try{history[doPush?'pushState':'replaceState'](null,'',u);}catch(e){}});}
+ function saveURL(push){if(restoring)return;if(pendingPush!==null){pendingPush=pendingPush||push;return;}pendingPush=push;queueMicrotask(()=>{const doPush=pendingPush;pendingPush=null;const u=stateURL();if(u.href===location.href)return;try{history[doPush?'pushState':'replaceState'](null,'',u);}catch{/* the browser refused (rate limit): keep the old URL */}});}
  for(const e of E){(out[e.parent]??=[]).push(e);(inc[e.child]??=[]).push(e);}
  $('nav-'+domain).setAttribute('aria-current','page');
  const sl=s=>`<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`;
@@ -31,7 +31,7 @@
   });return el;
  }
  function group(title,description,ids,open=false){const d=document.createElement('details');d.className='v-group';d.open=open;const s=document.createElement('summary');s.textContent=title+' · '+ids.length;d.append(s);const p=document.createElement('p');p.textContent=description;d.append(p);const holder=document.createElement('div');d.append(holder);let done=false;function fill(){if(d.open&&!done){done=true;for(const id of ids)holder.append(row(id));}}d.addEventListener('toggle',fill);fill();return d;}
- function forest(id=null){focused=!!id;focusId=id;saveURL(true);$('world').classList.toggle('active',!id);$('branch').classList.toggle('active',!!id);const host=$('visual-outline');host.replaceChildren();if(id){const r=row(id);host.append(r);r.open=true;return;}
+ function forest(id=null){focusId=id;saveURL(true);$('world').classList.toggle('active',!id);$('branch').classList.toggle('active',!!id);const host=$('visual-outline');host.replaceChildren();if(id){const r=row(id);host.append(r);r.open=true;return;}
   const roots=all.filter(n=>!inc[n.id]?.length).sort((a,b)=>a.name.localeCompare(b.name));
   if(domain==='sign'){
    host.append(group('Catalog classification',`All ${c.glottologSignRecords} records in the Glottolog Sign Language category, including family and dialect records. Categories are navigation.`, ['sign1238'],true));

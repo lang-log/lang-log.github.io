@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Diğer dil türleri',
       'Families': 'Aileler',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog kayıtları',
       'Records from study trees only': 'Yalnızca çalışma ağaçlarındaki kayıtlar',
       'Spoken languages': 'Sözlü diller',
       'Spoken dialects': 'Sözlü lehçeler',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog işaret dili kategorisindeki $1 kaydın tümü (aile ve ağız kayıtları dahil). Kategoriler gezinme içindir.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Tarihsel biçimler dahil CLDF’nin $1 örneğinin tümü. Yayımlanmış alt grup bilgileridir; dillerin tümü için çıkarılmış bir ağaç değildir.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'Katalogda bulunan $1 Phlorest veri deposu özet ağaç düzeyinde eksiksiz içe aktarıldı. Sonsal örnekler içe aktarılmadı.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Tarihsel biçimler dahil CLDF’nin $1 örneğinin tümü. Yayımlanmış alt grup bilgileridir; dillerin tümü için çıkarılmış bir ağaç değildir.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'Katalogda bulunan $1 Phlorest veri deposu özet ağaç düzeyinde eksiksiz içe aktarıldı. Sonsal örnekler içe aktarılmadı.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'İlk $1 sonuç. Aramanızı daraltın.'],
       [/^Show ([\d,]+) more$/, '$1 tane daha göster'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

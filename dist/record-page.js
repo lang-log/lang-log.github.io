@@ -15,7 +15,7 @@
  if(hf&&window.LanguageModels){
   const node={name:hf.dataset.name,level:hf.dataset.level,iso:hf.dataset.iso};
   const task=new URLSearchParams(location.search).get('task')||'';
-  const mount=()=>{hf.hidden=false;window.LanguageModels.mount(hf,node,{task,onTask:t=>{const u=new URL(location.href);if(t)u.searchParams.set('task',t);else u.searchParams.delete('task');try{history.replaceState(null,'',u)}catch(e){}}})};
+  const mount=()=>{hf.hidden=false;window.LanguageModels.mount(hf,node,{task,onTask:t=>{const u=new URL(location.href);if(t)u.searchParams.set('task',t);else u.searchParams.delete('task');try{history.replaceState(null,'',u)}catch{/* the browser refused (rate limit): keep the old URL */}}})};
   // A hidden element never intersects, so watch the section's place in the page (its previous sibling).
   const spot=hf.previousElementSibling||hf.parentElement;
   if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();mount()}},{rootMargin:'300px'});io.observe(spot)}else mount();

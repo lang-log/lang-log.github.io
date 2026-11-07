@@ -309,7 +309,7 @@
       if (e.button !== undefined && e.button !== 0) return;
       stop();
       pts[e.pointerId] = [e.clientX, e.clientY];
-      try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+      try { svg.setPointerCapture(e.pointerId); } catch { /* the pointer is already gone */ }
       svg.classList.add('lmap-drag');
       snapshot();
     });
@@ -440,9 +440,9 @@
       resize(before);
       draw();
       if (push && location.hash !== HASH) {
-        try { history.pushState({ lmap: 1 }, '', location.pathname + location.search + HASH); pushed = true; } catch (_) {}
+        try { history.pushState({ lmap: 1 }, '', location.pathname + location.search + HASH); pushed = true; } catch { /* no history entry: Back leaves the page */ }
       }
-      try { svg.focus({ preventScroll: true }); } catch (_) { svg.focus(); }
+      try { svg.focus({ preventScroll: true }); } catch { svg.focus(); }
       window.addEventListener('resize', onResize);
     }
     function close(fromHistory) {
@@ -460,7 +460,7 @@
       if (!fromHistory && location.hash === HASH) {
         // Leave the entry the map view added, or drop the mark from an address that came with it.
         if (pushed) history.back();
-        else try { history.replaceState(history.state, '', location.pathname + location.search); } catch (_) {}
+        else try { history.replaceState(history.state, '', location.pathname + location.search); } catch { /* keep the address as it is */ }
       }
       pushed = false;
       fullBtn.focus();

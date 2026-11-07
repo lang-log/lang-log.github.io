@@ -45,7 +45,7 @@
   function info(code) { for (var i = 0; i < LANGS.length; i++) if (LANGS[i][0] === code) return LANGS[i]; return null; }
   function saved() {
     try { var v = localStorage.getItem(KEY); return info(v) ? v : null; }
-    catch (e) { return null; }
+    catch { return null; }
   }
   function browser() {
     var list = navigator.languages || [navigator.language || 'en'];
@@ -76,7 +76,7 @@
       if (/^\d{1,3}(,\d{3})*$|^\d+$/.test(v)) return new Intl.NumberFormat(intlLocale()).format(Number(v.replace(/,/g, '')));
       var m = v.match(/^(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4})$/);
       if (m) return new Intl.DateTimeFormat(intlLocale(), { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(+m[3], MONTHS[m[2]], +m[1])));
-    } catch (e) { /* old browser: keep the English form */ }
+    } catch { /* old browser: keep the English form */ }
     return v;
   }
 
@@ -249,7 +249,7 @@
   function set(l, save) {
     if (l === lang || !info(l)) return;
     lang = l;
-    if (save) { try { localStorage.setItem(KEY, l); } catch (e) { /* private mode: this page only */ } }
+    if (save) { try { localStorage.setItem(KEY, l); } catch { /* private mode: this page only */ } }
     load(l, function () {
       if (lang !== l) return;
       apply();
