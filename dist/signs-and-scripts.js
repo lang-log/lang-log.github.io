@@ -4,7 +4,7 @@
  const domain=new URLSearchParams(location.search).get('domain')==='scripts'?'scripts':'sign';
  let data;
  try{const r=await fetch('signs-and-scripts.json');if(!r.ok)throw Error('HTTP '+r.status);data=await r.json();}catch(e){$('visual-outline').textContent='The data could not be loaded. Please reload this page.';return;}
- const {nodes:N,assertions:E,sources:S}=data,out={},inc={},all=Object.values(N).filter(n=>n.domain===domain);let selected=null,limit=100,focused=false,focusId=null,horizontal=false,hfTask='',restoring=false,pendingPush=null,searchTimer=0;
+ const {nodes:N,assertions:E,sources:S}=data,out={},inc={},all=Object.values(N).filter(n=>n.domain===domain);const PAGE=100;let selected=null,limit=PAGE,focused=false,focusId=null,horizontal=false,hfTask='',restoring=false,pendingPush=null,searchTimer=0;
  const baseTitle=document.title,detailIntro=$('detail').innerHTML;
  // URL state: domain, id (selected record), branch (expanded branch), q (search),
  // view=tree, task (Hugging Face model task) and about=1 (Sources & scope dialog).
@@ -34,9 +34,9 @@
  function forest(id=null){focused=!!id;focusId=id;saveURL(true);$('world').classList.toggle('active',!id);$('branch').classList.toggle('active',!!id);const host=$('visual-outline');host.replaceChildren();if(id){const r=row(id);host.append(r);r.open=true;return;}
   const roots=all.filter(n=>!inc[n.id]?.length).sort((a,b)=>a.name.localeCompare(b.name));
   if(domain==='sign'){
-   host.append(group('Catalog classification','All 344 records in the Glottolog Sign Language category, including family and dialect records. Categories are navigation.', ['sign1238'],true));
+   host.append(group('Catalog classification',`All ${c.glottologSignRecords} records in the Glottolog Sign Language category, including family and dialect records. Categories are navigation.`, ['sign1238'],true));
    host.append(group('Lexical-feature hypotheses','Source-specific sampled clades share the same language identities. Two European runs are replicates of one study.',data.studies.map(t=>t.root),true));
-   host.append(group('Manual-alphabet evidence','All 76 CLDF samples, including historical forms. Published subgroup metadata, not an inferred whole-language tree.',roots.filter(n=>n.kind==='sample grouping').map(n=>n.id)));
+   host.append(group('Manual-alphabet evidence',`All ${c.manualAlphabetSamples} CLDF samples, including historical forms. Published subgroup metadata, not an inferred whole-language tree.`,roots.filter(n=>n.kind==='sample grouping').map(n=>n.id)));
   }else{
    host.append(group('Histories with reviewed relationships','All imported historical and influence assertions appear together; each edge carries its source and uncertainty.',roots.filter(n=>out[n.id]?.length).map(n=>n.id),true));
    host.append(group('Catalog entries without reviewed ancestry','These records remain searchable and inspectable. No displayed connection is not a claim of independent origin.',roots.filter(n=>!out[n.id]?.length).map(n=>n.id)));
@@ -55,15 +55,15 @@
   document.title=n.name+' · '+baseTitle;saveURL(true);
   if(scroll){$('detail').scrollIntoView({behavior:'smooth',block:'start'});$('detail').focus({preventScroll:true});}
  }
- $('search').oninput=()=>{limit=100;search();clearTimeout(searchTimer);searchTimer=setTimeout(()=>saveURL(false),400);};$('more').onclick=()=>{limit+=100;search();};$('world').onclick=()=>forest();$('branch').onclick=()=>selected&&forest(selected);$('collapse').onclick=()=>{$('visual-outline').querySelectorAll('details').forEach(d=>d.open=false);};
+ $('search').oninput=()=>{limit=PAGE;search();clearTimeout(searchTimer);searchTimer=setTimeout(()=>saveURL(false),400);};$('more').textContent=`Show ${PAGE} more`;$('more').onclick=()=>{limit+=PAGE;search();};$('world').onclick=()=>forest();$('branch').onclick=()=>selected&&forest(selected);$('collapse').onclick=()=>{$('visual-outline').querySelectorAll('details').forEach(d=>d.open=false);};
  function view(h){horizontal=h;saveURL(true);$('visual-outline').classList.toggle('horizontal',horizontal);$('listview').classList.toggle('active',!horizontal);$('chartview').classList.toggle('active',horizontal);}
  $('listview').onclick=()=>view(false);$('chartview').onclick=()=>view(true);
  $('branch-menu').onclick=()=>{const on=$('branch-search').classList.toggle('mobile-open');$('branch-menu').setAttribute('aria-expanded',String(on));$('branch-menu').querySelector('.menu-status').textContent=on?'Close':'Open';if(on)$('search').focus();};
  $('about').onclick=()=>{$('sources').showModal();saveURL(false);};$('close').onclick=()=>$('sources').close();$('sources').addEventListener('close',()=>saveURL(false));
- $('coverage').innerHTML=`<p><strong>${c.glottologSignRecords} / 344</strong> Glottolog sign-category records; <strong>${c.iso15924Rows} / ${c.iso15924Rows}</strong> downloaded ISO 15924 rows; <strong>${c.silRows} / ${c.silRows}</strong> SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.</p><p>${c.manualAlphabetSamples} manual-alphabet samples; ${c.consensusTrees} lexical consensus trees covering ${c.distinctLexicalSamples} distinct language samples; ${c.scriptRelationships} reviewed script relationships; ${c.usageAssertions} CLDR usage assertions. These are different units and should not be added as “languages.”</p>`;
+ $('coverage').innerHTML=`<p><strong>${c.glottologSignRecords} / ${c.glottologSignRecords}</strong> Glottolog sign-category records; <strong>${c.iso15924Rows} / ${c.iso15924Rows}</strong> downloaded ISO 15924 rows; <strong>${c.silRows} / ${c.silRows}</strong> SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.</p><p>${c.manualAlphabetSamples} manual-alphabet samples; ${c.consensusTrees} lexical consensus trees covering ${c.distinctLexicalSamples} distinct language samples; ${c.scriptRelationships} reviewed script relationships; ${c.usageAssertions} CLDR usage assertions. These are different units and should not be added as “languages.”</p>`;
  $('limitations').innerHTML=data.limitations.map(x=>'<li>'+esc(x)+'</li>').join('');$('source-register').innerHTML=Object.values(S).map(s=>`<div class="v-source">${sl(s.id)}<p>${esc(s.kind)}${s.license?' · '+esc(s.license):''}</p>${s.scope?'<p>'+esc(s.scope)+'</p>':''}${s.dataset?`<a href="${esc(s.dataset)}" target="_blank" rel="noopener noreferrer">Research data ↗</a>`:''}</div>`).join('');
  function applyURL(){const p=new URLSearchParams(location.search),legacy=decodeURIComponent(location.hash.slice(1)),valid=x=>N[x]?.domain===domain?x:null;restoring=true;try{
-  $('search').value=p.get('q')||'';limit=100;search();hfTask=p.get('task')||'';
+  $('search').value=p.get('q')||'';limit=PAGE;search();hfTask=p.get('task')||'';
   let id=valid(p.get('id')),branch=valid(p.get('branch'));if(!id&&!p.has('id')&&valid(legacy)){id=legacy;branch=legacy;}
   view(p.get('view')==='tree');forest(branch);
   if(id)inspect(id,false);else{selected=null;$('branch').disabled=true;$('detail').innerHTML=detailIntro;document.title=baseTitle;}
