@@ -10,7 +10,7 @@
 //   lang.js translates each step as it does any number it sees.
 // - While lang.js hides the page to load a dictionary (html.i18n-wait), the motion waits.
 (function () {
-  var DURATION = 100;
+  var DURATION = 800;
   var root = document.documentElement;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !window.IntersectionObserver || !window.requestAnimationFrame) return;
