@@ -23,7 +23,6 @@
       'Other kinds of languages': 'أنواع أخرى من اللغات',
       'Families': 'الأسر',
       'Languoids': 'Languoids',
-      'Glottolog records': 'سجلات Glottolog',
       'Records from study trees only': 'سجلات من أشجار الدراسات فقط',
       'Spoken languages': 'اللغات المنطوقة',
       'Spoken dialects': 'اللهجات المنطوقة',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'كل السجلات الـ $1 في فئة لغات الإشارة في Glottolog، بما فيها سجلات الأسر واللهجات. الفئات للتنقل.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'كل عينات CLDF البالغة $1، بما فيها الصيغ التاريخية. بيانات وصفية منشورة للمجموعات الفرعية، وليست شجرة مستنتجة للغات بأكملها.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'استُوردت مستودعات بيانات Phlorest الموجودة في الفهرس، وعددها $1، كاملةً على مستوى الشجرة الموجزة. ولم تُستورد العينات البعدية.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'كل عينات CLDF البالغة $1، بما فيها الصيغ التاريخية. بيانات وصفية منشورة للمجموعات الفرعية، وليست شجرة مستنتجة للغات بأكملها.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'استُوردت مستودعات بيانات Phlorest الموجودة في الفهرس، وعددها $1، كاملةً على مستوى الشجرة الموجزة. ولم تُستورد العينات البعدية.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'أول $1 نتيجة. ضيّق نطاق البحث.'],
       [/^Show ([\d,]+) more$/, 'عرض $1 أخرى'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

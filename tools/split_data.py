@@ -21,6 +21,7 @@ The WALS genus lists in data.json ("wals", "walsRoots" and each record's
 Run after prepare_static.py. check() rebuilds the objects the same way
 the browser does and fails if anything differs from the originals.
 """
+
 from pathlib import Path
 import json
 
@@ -124,15 +125,19 @@ def rebuild(atlas):
             kids.setdefault(p, []).append((cols["rank"][i], k))
     for p, lst in kids.items():
         nodes[p]["children"] = [k for _, k in sorted(lst)]
+
     def root(k):
         while nodes[k]["parent"] is not None:
             k = nodes[k]["parent"]
         return k
+
     size = {}
+
     def count(k):
         if k not in size:
             size[k] = 1 + sum(count(c) for c in nodes[k]["children"])
         return size[k]
+
     for k in ids:
         nodes[k]["root"] = root(k)
         nodes[k]["size"] = count(k)
@@ -141,7 +146,9 @@ def rebuild(atlas):
         nodes[ids[int(i)]]["nativeNames"] = v
     u = dict(atlas["unified"])
     other = u.pop("otherAssertions")
-    assertions = [{"parent": nodes[k]["parent"], "child": k, "source": "glottolog"} for k in ids] + other
+    assertions = [
+        {"parent": nodes[k]["parent"], "child": k, "source": "glottolog"} for k in ids
+    ] + other
     placements = {}
     for a in assertions:
         if a["parent"] is not None:
@@ -153,6 +160,7 @@ def rebuild(atlas):
 
 def check(data, unified, atlas, shards):
     import sys
+
     sys.setrecursionlimit(100000)
     nodes, u = rebuild(atlas)
     for k, n in data["nodes"].items():
@@ -169,6 +177,7 @@ def check(data, unified, atlas, shards):
 
 def main():
     import sys
+
     sys.setrecursionlimit(100000)
     data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
     unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))

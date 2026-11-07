@@ -30,7 +30,6 @@ window.LANGLOG_I18N = {
       'Other kinds of languages': 'そのほかの言語',
       'Families': '語族',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Glottolog の記録',
       'Records from study trees only': '研究の系統樹だけにある記録',
       'Spoken languages': '音声言語',
       'Spoken dialects': '音声言語の方言',
@@ -373,8 +372,8 @@ window.LANGLOG_I18N = {
     },
     patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Glottolog の手話の分類にある $1 件すべて(語族と方言の記録を含む)です。分類は案内のためのものです。'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'CLDF の $1 標本すべて(歴史的な形を含む)です。公開された下位グループの情報で、推定した言語全体の系統樹ではありません。'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, 'カタログで見つかった Phlorest の $1 のデータを、要約の系統樹の単位ですべて取り込みました。事後分布の標本は取り込んでいません。'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'CLDF の $1 標本すべて(歴史的な形を含む)です。公開された下位グループの情報で、推定した言語全体の系統樹ではありません。'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, 'カタログで見つかった Phlorest の $1 のデータを、要約の系統樹の単位ですべて取り込みました。事後分布の標本は取り込んでいません。'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, '最初の $1 件です。検索語を絞ってください。'],
       [/^Show ([\d,]+) more$/, 'さらに $1 件表示'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

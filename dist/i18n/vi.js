@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Các loại ngôn ngữ khác',
       'Families': 'Ngữ hệ',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Bản ghi Glottolog',
       'Records from study trees only': 'Bản ghi chỉ có trong cây nghiên cứu',
       'Spoken languages': 'Ngôn ngữ nói',
       'Spoken dialects': 'Phương ngữ nói',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Toàn bộ $1 bản ghi thuộc nhóm ngôn ngữ ký hiệu của Glottolog, kể cả bản ghi ngữ hệ và phương ngữ. Các nhóm dùng để điều hướng.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Toàn bộ $1 mẫu CLDF, kể cả các dạng lịch sử. Siêu dữ liệu nhóm con đã công bố, không phải cây suy luận của toàn bộ ngôn ngữ.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '$1 kho dữ liệu Phlorest tìm thấy trong danh mục đã được nhập đầy đủ ở cấp cây tóm tắt. Các mẫu hậu nghiệm không được nhập.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Toàn bộ $1 mẫu CLDF, kể cả các dạng lịch sử. Siêu dữ liệu nhóm con đã công bố, không phải cây suy luận của toàn bộ ngôn ngữ.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '$1 kho dữ liệu Phlorest tìm thấy trong danh mục đã được nhập đầy đủ ở cấp cây tóm tắt. Các mẫu hậu nghiệm không được nhập.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, '$1 kết quả đầu tiên. Hãy thu hẹp tìm kiếm.'],
       [/^Show ([\d,]+) more$/, 'Hiện thêm $1'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

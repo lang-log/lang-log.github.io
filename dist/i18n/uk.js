@@ -23,7 +23,6 @@
       'Other kinds of languages': 'Інші види мов',
       'Families': 'Родини',
       'Languoids': 'Languoids',
-      'Glottolog records': 'Записи Glottolog',
       'Records from study trees only': 'Записи лише з дерев досліджень',
       'Spoken languages': 'Звукові мови',
       'Spoken dialects': 'Діалекти звукових мов',
@@ -344,8 +343,8 @@
   },
   patterns: [
       [/^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/, 'Усі $1 записи категорії жестових мов Glottolog, зокрема записи родин і діалектів. Категорії слугують навігації.'],
-      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole\-language tree\.$/, 'Усі $1 зразків CLDF, зокрема історичні форми. Опубліковані метадані підгруп, а не виведене дерево мов загалом.'],
-      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary\-tree level\. Posterior samples were not imported\.$/, '$1 репозиторіїв даних Phlorest, знайдених у каталозі, імпортовано повністю на рівні зведеного дерева. Апостеріорні вибірки не імпортовано.'],
+      [/^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/, 'Усі $1 зразків CLDF, зокрема історичні форми. Опубліковані метадані підгруп, а не виведене дерево мов загалом.'],
+      [/^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/, '$1 репозиторіїв даних Phlorest, знайдених у каталозі, імпортовано повністю на рівні зведеного дерева. Апостеріорні вибірки не імпортовано.'],
       [/^First ([\d,]+) matches\. Refine your search\.$/, 'Перші $1 результатів. Уточніть запит.'],
       [/^Show ([\d,]+) more$/, 'Показати ще $1'],
       [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],

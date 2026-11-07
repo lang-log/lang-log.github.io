@@ -25,10 +25,10 @@ FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
 OUT = Path(__file__).resolve().parent.parent / "dist" / "logo.svg"
 CSS = OUT.with_name("style.css")  # its .logo rule carries the same aspect ratio
 TEXT = "LANG LOG"
-SIZE = 100          # font size in logo units
-TRACKING = 13       # extra space after each letter (about 2px at 13px)
-MARK = 180          # side of the asterisk's square
-GAP = 62            # space between the asterisk and the letters
+SIZE = 100  # font size in logo units
+TRACKING = 13  # extra space after each letter (about 2px at 13px)
+MARK = 180  # side of the asterisk's square
+GAP = 62  # space between the asterisk and the letters
 STROKE = MARK * 7 / 64  # same weight as the favicon
 
 
@@ -40,7 +40,7 @@ def main():
     glyphs, cmap, hmtx = font.getGlyphSet(), font.getBestCmap(), font["hmtx"]
     pen = SVGPathPen(glyphs)
     height = MARK
-    baseline = height / 2 + cap / 2   # letters centred on the asterisk
+    baseline = height / 2 + cap / 2  # letters centred on the asterisk
     x = MARK + GAP
     for ch in TEXT:
         name = cmap[ord(ch)]
@@ -49,11 +49,15 @@ def main():
     width = math.ceil(x - TRACKING)
     c, r = MARK / 2, MARK / 2 - STROKE / 2
     d = r / math.sqrt(2)
-    mark = (f"M{c:.1f} {c - r:.1f}V{c + r:.1f}M{c - r:.1f} {c:.1f}H{c + r:.1f}"
-            f"M{c - d:.1f} {c - d:.1f}L{c + d:.1f} {c + d:.1f}M{c + d:.1f} {c - d:.1f}L{c - d:.1f} {c + d:.1f}")
-    svg = (f'<svg xmlns="http://www.w3.org/2000/svg"><symbol id="logo" viewBox="0 0 {width} {height}">'
-           f'<path d="{mark}" fill="none" style="stroke:var(--teal,#386e6d)" stroke-width="{STROKE:.1f}"/>'
-           f'<path d="{pen.getCommands()}" fill="currentColor"/></symbol></svg>\n')
+    mark = (
+        f"M{c:.1f} {c - r:.1f}V{c + r:.1f}M{c - r:.1f} {c:.1f}H{c + r:.1f}"
+        f"M{c - d:.1f} {c - d:.1f}L{c + d:.1f} {c + d:.1f}M{c + d:.1f} {c - d:.1f}L{c - d:.1f} {c + d:.1f}"
+    )
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg"><symbol id="logo" viewBox="0 0 {width} {height}">'
+        f'<path d="{mark}" fill="none" style="stroke:var(--teal,#386e6d)" stroke-width="{STROKE:.1f}"/>'
+        f'<path d="{pen.getCommands()}" fill="currentColor"/></symbol></svg>\n'
+    )
     OUT.write_text(svg, encoding="utf-8")
     css = CSS.read_text(encoding="utf-8")
     css = re.sub(r"(\.logo\{[^}]*aspect-ratio:)\d+/\d+", rf"\g<1>{width}/{height}", css)
