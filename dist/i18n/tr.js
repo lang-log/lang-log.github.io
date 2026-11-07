@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'Noktalar: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'Kara:',
       '(public domain).': '(kamu malı).',
-      'Projection: Equal Earth.': 'İzdüşüm: Equal Earth.',
+      'Projection: Web Mercator.': 'İzdüşüm: Web Mercator.',
       'family': 'aile',
       'language': 'dil',
       'dialect': 'ağız',

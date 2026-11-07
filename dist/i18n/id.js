@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'Titik: Glottolog 5.3 (CC BY 4.0).',
       'Land:': 'Daratan:',
       '(public domain).': '(domain publik).',
-      'Projection: Equal Earth.': 'Proyeksi: Equal Earth.',
+      'Projection: Web Mercator.': 'Proyeksi: Web Mercator.',
       'family': 'rumpun',
       'language': 'bahasa',
       'dialect': 'dialek',

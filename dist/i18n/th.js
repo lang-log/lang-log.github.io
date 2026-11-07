@@ -260,7 +260,7 @@
       'Points: Glottolog 5.3 (CC BY 4.0).': 'จุด: Glottolog 5.3 (CC BY 4.0)',
       'Land:': 'แผ่นดิน:',
       '(public domain).': '(สาธารณสมบัติ)',
-      'Projection: Equal Earth.': 'เส้นโครงแผนที่: Equal Earth',
+      'Projection: Web Mercator.': 'เส้นโครงแผนที่: Web Mercator',
       'family': 'ตระกูล',
       'language': 'ภาษา',
       'dialect': 'ภาษาถิ่น',

@@ -128,6 +128,8 @@
       n++;
     }
     layer.appendChild(frag);
+    // map-zoom.js moves each dot to the copy of the world in view.
+    if (svg.__lmap) svg.__lmap.refresh();
     $('count').textContent = 'Showing ' + n + ' of ' + rows.length + ' languages';
     colourLegend(perValue);
   }
