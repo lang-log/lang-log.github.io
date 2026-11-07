@@ -14,10 +14,7 @@
   letter-spacing: -1px;
 }
 .variant-page h2 {
-  font:
-    26px Arial,
-    Helvetica,
-    sans-serif;
+  font: 26px var(--font);
   margin: 0 0 16px;
 }
 .variant-page h3 {
