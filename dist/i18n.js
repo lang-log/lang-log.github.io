@@ -73,11 +73,8 @@ window.LANGLOG_I18N = {
       'Remove this condition': 'この条件を削除',
       'Select all': 'すべて選択',
       'No data': 'データなし',
-      'World': '世界',
-      'Zoom in': '拡大',
-      'Zoom out': '縮小',
       'Close': '閉じる',
-      'Scroll or pinch to zoom, drag to move, tap a dot for the language.': 'ホイールかピンチで拡大、ドラッグで移動、点を押すと言語が出ます。',
+      'Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.': 'ピンチか Ctrl + ホイールで拡大、ドラッグで移動、点を押すと言語が出ます。',
       'WALS page': 'WALS のページ',
       'Lang Log record': 'Lang Log の記録',
       'World map of the languages that match the conditions': '条件に合う言語の世界地図',
@@ -85,7 +82,7 @@ window.LANGLOG_I18N = {
       'The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.': '点は、座標のある Glottolog 5.3 のすべての言語です。Glottolog がその言語に与えた代表地点で、話されている範囲ではありません。特性の値は WALS Online(Dryer and Haspelmath 編、2013年)の CLDF 版 v2020.4(CC BY 4.0)から取り、WALS の各言語を対応する Glottolog の言語に結び付けています。',
       'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.': '1つの条件の中でチェックした値は「または」でつながります。条件どうしは、つなぎ目を OR に切り替えない限り「かつ」でつながります。OR でつないだ条件はひとかたまりとして扱うので、「A AND B OR C」は「A かつ (B または C)」という意味です。条件の特性にデータがない言語は、その条件に合わないものとします。',
       'This map needs JavaScript. The feature data is in': 'この地図には JavaScript が必要です。特性のデータは次にあります:',
-      'Land: Natural Earth (public domain)': '陸地: Natural Earth(パブリックドメイン)',
+      'Land and borders: Natural Earth (public domain)': '陸地と国境: Natural Earth(パブリックドメイン)',
       'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.': '言語の特性地図: すべての言語を世界地図に出し、WALS の特性の条件で絞り込み、1つの特性で色分けします。',
 
       // Not-found page (dist/404.html)
@@ -318,7 +315,10 @@ window.LANGLOG_I18N = {
       // Record pages: map
       'Each point is the one representative location Glottolog gives for a record, not the area where it is spoken.': '各点は Glottolog が記録ごとに 1 つ示す代表地点で、話されている地域ではありません。',
       'Points: Glottolog 5.3 (CC BY 4.0).': '点: Glottolog 5.3(CC BY 4.0)。',
-      'Land:': '陸地:',
+      'Land and borders:': '陸地と国境:',
+      'Dashed borders are disputed or not settled.': '破線の国境は、争いがあるか、確定していない境界です。',
+      'Reset': '戻す',
+      'Reset view': '元の表示に戻す',
       '(public domain).': '(パブリックドメイン)。',
       'Projection: Equal Earth.': '図法: Equal Earth 図法。',
 

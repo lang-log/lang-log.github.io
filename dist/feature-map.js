@@ -23,7 +23,6 @@
   // Many dots (no conditions yet) are drawn a little smaller so they overlap less.
   var shown = 0;
   var dotPx = function () { return (svg.clientWidth < 600 ? 2.6 : 4) * (shown > 3000 ? 0.7 : 1); };
-  var WORLD = [-974.4, -487.2, 1948.8, 974.4];
 
   var L = null, F = null, byId = {}, cache = {}, vals = {};
   var conds = [];            // {id, shown: Set, or: bool (joined to the previous by OR)}
@@ -264,61 +263,13 @@
     var close = el('button', { type: 'button', class: 'wm-close', 'aria-label': 'Close' }, '×');
     close.addEventListener('click', function () { card.hidden = true; });
     card.appendChild(close);
-    var box = svg.parentNode.getBoundingClientRect();
+    var box = svg.closest('.wm-map').getBoundingClientRect();
     card.hidden = false;
     var x = Math.min(evt.clientX - box.left + 10, box.width - card.offsetWidth - 8);
     var y = Math.min(evt.clientY - box.top + 10, box.height - card.offsetHeight - 8);
     card.style.left = Math.max(8, x) + 'px';
     card.style.top = Math.max(8, y) + 'px';
   }
-
-  // Zoom and pan. Temporary: to be replaced by the shared dist/map-zoom.js once it is on main.
-  function zoomable(onZoom) {
-    var vb = WORLD.slice(), pointers = new Map(), last = null, moved = false;
-    var set = function () {
-      vb[2] = Math.min(Math.max(vb[2], WORLD[2] / 60), WORLD[2]); vb[3] = vb[2] / 2;
-      vb[0] = Math.min(Math.max(vb[0], WORLD[0]), WORLD[0] + WORLD[2] - vb[2]);
-      vb[1] = Math.min(Math.max(vb[1], WORLD[1]), WORLD[1] + WORLD[3] - vb[3]);
-      svg.setAttribute('viewBox', vb.map(function (n) { return n.toFixed(2); }).join(' '));
-      onZoom();
-    };
-    var toMap = function (cx, cy) {
-      var r = svg.getBoundingClientRect();
-      return [vb[0] + (cx - r.left) / r.width * vb[2], vb[1] + (cy - r.top) / r.height * vb[3]];
-    };
-    var zoomAt = function (k, cx, cy) {
-      var p = toMap(cx, cy), w = Math.min(Math.max(vb[2] / k, WORLD[2] / 60), WORLD[2]), s = w / vb[2];
-      vb[0] = p[0] - (p[0] - vb[0]) * s; vb[1] = p[1] - (p[1] - vb[1]) * s; vb[2] = w;
-      set();
-    };
-    var centre = function () { var r = svg.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
-    svg.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY); }, { passive: false });
-    svg.addEventListener('pointerdown', function (e) { pointers.set(e.pointerId, [e.clientX, e.clientY]); moved = false; last = null; });
-    svg.addEventListener('pointermove', function (e) {
-      if (!pointers.has(e.pointerId)) return;
-      var prev = pointers.get(e.pointerId);
-      pointers.set(e.pointerId, [e.clientX, e.clientY]);
-      var r = svg.getBoundingClientRect();
-      if (pointers.size === 1) {
-        var dx = e.clientX - prev[0], dy = e.clientY - prev[1];
-        moved = moved || Math.abs(dx) + Math.abs(dy) > 2;
-        // Capture only once the pointer drags, so a plain tap still reaches the dot under it.
-        if (moved && !svg.hasPointerCapture(e.pointerId)) svg.setPointerCapture(e.pointerId);
-        vb[0] -= dx / r.width * vb[2]; vb[1] -= dy / r.height * vb[3]; set();
-      } else if (pointers.size === 2) {
-        var p = Array.from(pointers.values()), d = Math.hypot(p[0][0] - p[1][0], p[0][1] - p[1][1]);
-        if (last) zoomAt(d / last, (p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2);
-        last = d; moved = true;
-      }
-    });
-    var up = function (e) { pointers.delete(e.pointerId); last = null; };
-    svg.addEventListener('pointerup', up); svg.addEventListener('pointercancel', up);
-    svg.addEventListener('click', function (e) { if (moved) e.stopPropagation(); }, true);
-    $('zoom-in').addEventListener('click', function () { var c = centre(); zoomAt(2, c[0], c[1]); });
-    $('zoom-out').addEventListener('click', function () { var c = centre(); zoomAt(0.5, c[0], c[1]); });
-    $('zoom-reset').addEventListener('click', function () { vb = WORLD.slice(); set(); });
-  }
-
 
   function onZoom() {
     var r = radius(), cs = layer.childNodes;
@@ -339,7 +290,10 @@
   }).then(function () {
     renderConds();
     draw(); writeURL();
-    zoomable(onZoom);
+    // Zoom, pan, borders and detailed tiles come from the shared dist/map-zoom.js; it
+    // changes the viewBox, so the dots are resized after every change.
+    if (window.LangLogMap) window.LangLogMap.mount(svg);
+    svg.addEventListener('lmap:view', onZoom);
     window.addEventListener('resize', onZoom);
     $('colour').addEventListener('change', function () { setColour(this.value).then(update); });
     $('add-condition').addEventListener('click', function () {
@@ -348,7 +302,16 @@
       var sels = document.querySelectorAll('#conditions .wm-feature');
       sels[sels.length - 1].focus();
     });
-    layer.addEventListener('click', function (e) { var i = e.target.dataset && e.target.dataset.i; if (i != null) showCard(+i, e); });
+    // map-zoom.js captures the pointer, so a click lands on the svg: find the dot under the
+    // pointer instead, and ignore clicks that ended a drag.
+    var downAt = null;
+    svg.addEventListener('pointerdown', function (e) { downAt = [e.clientX, e.clientY]; });
+    svg.addEventListener('click', function (e) {
+      if (downAt && Math.abs(e.clientX - downAt[0]) + Math.abs(e.clientY - downAt[1]) > 4) return;
+      var t = document.elementFromPoint(e.clientX, e.clientY);
+      var i = t && t.parentNode === layer ? t.dataset.i : null;
+      if (i != null) showCard(+i, e);
+    });
   }).catch(function () {
     $('count').textContent = 'The map data could not be loaded.';
   });

@@ -2,7 +2,9 @@
 
 Each map is a small inline SVG: the shared background dist/map/land.svg
 (drawn by build_land.py) is referenced with <use>, so it is downloaded once
-and cached, and each page adds only its own points. No JavaScript.
+and cached, and each page adds only its own points. The map works without
+JavaScript; dist/map-zoom.js adds zoom and pan, and draws the 1:10m tiles
+(dist/map/tiles/) over this background once the view is small enough.
 
 Projection: Equal Earth (Savric, Patterson and Jenny 2018). Two backgrounds
 exist: central meridian 0 (land.svg) and 150 degrees east (land-pacific.svg),
@@ -51,7 +53,8 @@ def project(lon, lat, centre=0.0):
 
 
 ASPECT = 2.0          # width / height of every map
-MIN_W = 240.0         # smallest view, in SVG units (about 45 degrees of longitude at the equator)
+MIN_W = 240.0         # smallest starting view, in SVG units (about 45 degrees of longitude at the equator)
+ZOOM_MIN_W = 30.0     # smallest view after zooming in (about 550 km across), see dist/map-zoom.js
 PAD = 0.12            # margin around the points, as a share of their extent
 
 
@@ -116,7 +119,10 @@ def map_svg(map_dir, main, context=(), self_point=None, label=""):
         seen = set()
         out = []
         for x, y in pts:
-            key = (round(x / rad), round(y / rad))   # drop points hidden under others
+            # Drop only points that would still overlap at the deepest zoom: points
+            # keep their size on screen when the map is zoomed.
+            g = rad * ZOOM_MIN_W / vw
+            key = (round(x / g), round(y / g))
             if key in seen:
                 continue
             seen.add(key)
@@ -125,9 +131,12 @@ def map_svg(map_dir, main, context=(), self_point=None, label=""):
 
     land = escape(map_dir + name + ".svg")
     parts = [
-        f'<svg class="lmap" viewBox="{_num(vx)} {_num(vy)} {_num(vw)} {_num(vh)}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet">',
+        f'<svg class="lmap" viewBox="{_num(vx)} {_num(vy)} {_num(vw)} {_num(vh)}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet" '
+        f'data-map="{name}" data-base="{escape(map_dir)}" data-min="{_num(ZOOM_MIN_W)}" '
+        f'data-world="{_num(-WORLD_W / 2)} {_num(-WORLD_W / 4)} {_num(WORLD_W)} {_num(WORLD_W / 2)}">',
         f'<title>{escape(label)}</title>',
-        f'<use class="lmap-sphere" href="{land}#sphere"/><use class="lmap-land" href="{land}#land"/>',
+        f'<use class="lmap-sphere" href="{land}#sphere"/><use class="lmap-land" href="{land}#land"/>'
+        f'<use class="lmap-border" href="{land}#borders"/><use class="lmap-disputed" href="{land}#disputed"/>',
     ]
     if context:
         parts.append(f'<g class="lmap-ctx">{circles(context, r * 0.8)}</g>')
