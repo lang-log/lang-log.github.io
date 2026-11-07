@@ -156,7 +156,9 @@ def map_svg(
     # Sister points go on the copy of the world nearest the record's own points.
     context = [project(lon - 360.0 * round((lon - mid) / 360.0), lat) for lon, lat in context]
     vx, vy, vw, vh = _view(focus)
-    r = vw / 200  # point radius scales with the view
+    # Radius of a member point in the starting view; the other points are drawn in proportion.
+    # dist/map-zoom.js resizes them all to the same size on screen at every zoom (data-r).
+    r = vw / 200
     show_inset = vw < WORLD_W * 0.5
 
     def circles(pts, rad, ids=()):
@@ -181,7 +183,7 @@ def map_svg(
     land = escape(map_dir + "land.svg")
     parts = [
         f'<svg class="lmap" viewBox="{_num(vx)} {_num(vy)} {_num(vw)} {_num(vh)}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet" '
-        f'data-map="land" data-base="{escape(map_dir)}" data-min="{_num(ZOOM_MIN_W)}" '
+        f'data-map="land" data-base="{escape(map_dir)}" data-min="{_num(ZOOM_MIN_W)}" data-r="{_num(r)}" '
         f'data-world="{_num(-WORLD_W / 2)} {_num(-WORLD_H / 2)} {_num(WORLD_W)} {_num(WORLD_H)}">',
         f"<title>{escape(label)}</title>",
         f'<g class="lmap-bg">{background(land, vx, vw)}</g>',
