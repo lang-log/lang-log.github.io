@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://lang-log.github.io/schema/languoid.schema.json",
   "title": "Lang Log languoid",
-  "description": "One languoid of Lang Log. Lang Log does not sort languoids into families, languages, dialects or clades: every record has this one shape, and where it sits is its parent in each source. Whether a source calls it a family, language or dialect is that source's claim, kept as classification.<source>.level. Every value says which source and version it came from.",
+  "description": "One languoid of Lang Log. Lang Log does not sort languoids into families, languages, dialects or clades: every record has this one shape, and where it sits is its parent in each source. Whether a source calls it a family, language or dialect is that source's claim, kept as classification.<source>.level. Every value says which source and version it came from. The only labels Lang Log gives a languoid itself are its modality (spoken, signed, written) and whether it is constructed (an artificial or formal language); every languoid of every modality is in one tree.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -17,7 +17,8 @@
     "macroarea",
     "countries",
     "isolate",
-    "category",
+    "modality",
+    "constructed",
     "features",
     "sources"
   ],
@@ -162,12 +163,18 @@
     "isolate": {
       "type": "boolean"
     },
-    "category": {
-      "type": [
-        "string",
-        "null"
+    "modality": {
+      "type": "string",
+      "enum": [
+        "spoken",
+        "signed",
+        "written"
       ],
-      "description": "Glottolog's non-genealogical grouping the record belongs to (Sign Language, Pidgin, Bookkeeping ...), or null for spoken genealogy."
+      "description": "The physical medium: spoken (and its written use), signed, or a writing system."
+    },
+    "constructed": {
+      "type": "boolean",
+      "description": "An artificial or formal language (a conlang, a code, a programming or logical language)."
     },
     "features": {
       "type": "object",

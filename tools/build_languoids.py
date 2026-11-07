@@ -49,9 +49,6 @@ VERSION = {sid: s["version"] for sid, s in SOURCES.items()}
 # Order in which the evidence of a feature value is preferred: the owner's
 # own values first, then the catalogues.
 PRIORITY = ["lang-log", "wals"]
-# Glottolog top-level groupings that are not language families.
-CATEGORIES = {"Sign Language", "Unclassifiable", "Pidgin", "Unattested", "Artificial Language",
-              "Speech Register", "Mixed Language", "Bookkeeping"}
 
 
 def read_csv(path):
@@ -64,7 +61,7 @@ def blank(i, name, source):
         "schema_version": 1, "id": i, "name": name, "path": "",
         "codes": {"glottocode": None, "iso639_3": None, "wals": []},
         "names": [], "classification": {}, "location": None, "macroarea": None,
-        "countries": [], "isolate": False, "category": None, "features": {},
+        "countries": [], "isolate": False, "modality": "spoken", "constructed": False, "features": {},
         "sources": {source: VERSION[source]},
     }
 
@@ -132,8 +129,13 @@ def import_glottolog():
         root = i
         while out[root]["classification"]["glottolog"]["parent"]:
             root = out[root]["classification"]["glottolog"]["parent"]
-        if out[root]["name"] in CATEGORIES:
-            n["category"] = out[root]["name"]
+        # Glottolog's other top-level groupings (Pidgin, Mixed Language,
+        # Bookkeeping ...) are its own claims: they stay as the parents in
+        # classification.glottolog, not as Lang Log labels.
+        if out[root]["name"] == "Sign Language":
+            n["modality"] = "signed"
+        if out[root]["name"] == "Artificial Language":
+            n["constructed"] = True
     iso_map = json.loads((SRC / "iso-map.json").read_text(encoding="utf-8"))
     placeholders = 0
     for r in read_csv(SRC / "names.csv"):
