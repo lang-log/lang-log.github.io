@@ -11,6 +11,7 @@ node_modules/
 # and per source). Committed directories under dist/ are listed with !.
 /dist/*/
 !/dist/map/
+!/dist/i18n/
 /dist/stages.json
 /dist/paths.json
 /dist/source-paths.json
