@@ -39,7 +39,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          home.js random.json \
          feature-map.html feature-map.js feature-map.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json \
-         stats/index.html sources/index.html updates/index.html; do
+         stats/index.html stats.js sources/index.html updates/index.html; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
 done
 
