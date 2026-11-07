@@ -299,7 +299,7 @@
       [/^Catalog entries without reviewed ancestry · ([\d,]+)$/, 'รายการในบัญชีรายชื่อที่ยังไม่ได้ตรวจสอบบรรพบุรุษ · $1'],
       [/^Incompatible study branches · ([\d,]+) source pairs?$/, 'สาขาของงานวิจัยที่ไม่สอดคล้องกัน · แหล่งข้อมูล $1 คู่'],
       [/^([\d,]+) displayed occurrences · shared IDs may appear in multiple hypotheses$/, 'แสดง $1 ครั้ง · ID เดียวกันอาจปรากฏในหลายสมมติฐาน'],
-      [/^([\d,]+) roots in the list$/, 'ราก $1 รายการในรายการ'],
+      [/^([\d,]+) roots in the list$/, 'รากในรายการ $1 ราก'],
       [/^([\d,]+) shared samples compared\. This incompatibility does not determine which study is correct\.$/, 'เปรียบเทียบตัวอย่างร่วม $1 รายการ ความไม่สอดคล้องนี้ไม่ได้ตัดสินว่างานวิจัยใดถูกต้อง'],
       [/^Same ([\d,]+) sampled IDs compared · ([\d,]+) incompatible clade pair\(s\) involving this record\.$/, 'เปรียบเทียบ ID ตัวอย่างเดียวกัน $1 รายการ · คู่เคลดที่ไม่สอดคล้องกัน $2 คู่เกี่ยวข้องกับระเบียนนี้'],
       [/^([\d,]+) genealogical family roots · ([\d,]+) isolates · ([\d,]+) non-genealogical categories$/, 'รากของตระกูลทางวงศ์วาน $1 · ภาษาโดดเดี่ยว $2 · หมวดที่ไม่ใช่วงศ์วาน $3'],

@@ -229,9 +229,18 @@
     (document.head || root).appendChild(el);
   }
 
+  // The list count's label comes from CSS (#searchcount::before/::after in style.css):
+  // split the translated "<n> roots in the list" around the number into two variables.
+  function countLabel() {
+    var out = lang === 'en' ? null : tr('7 roots in the list'), n = local('7'), i = out ? out.indexOf(n) : -1;
+    if (i < 0) { root.style.removeProperty('--count-before'); root.style.removeProperty('--count-after'); return; }
+    root.style.setProperty('--count-before', JSON.stringify(out.slice(0, i)));
+    root.style.setProperty('--count-after', JSON.stringify(out.slice(i + n.length)));
+  }
   function apply() {
     setDir();
     restore();
+    countLabel();
     if (lang !== 'en') { walk(document.documentElement); observe(); }
     profileLinks();
     menu();
@@ -254,6 +263,7 @@
   // does not flash before the translation.
   load(first, function () {
     if (lang !== first || lang === 'en') return;
+    countLabel();
     walk(document.documentElement);
     observe();
   });
