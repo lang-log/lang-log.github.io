@@ -1,4 +1,4 @@
-// Language feature map (feature-map.html). Data: dist/wals/ written by tools/build_wals_map.py.
+// Language feature map (feature-map.html). Data: dist/feature-map-data/ written by tools/build_wals_map.py.
 //
 // The map starts with every language that has a point. Conditions narrow it: each
 // condition is one feature and the values to keep (values in one condition are joined
@@ -43,7 +43,7 @@
   }
 
   function load(id) {
-    return id && !vals[id] ? get('wals/f/' + id + '.json').then(function (v) { vals[id] = v; }) : Promise.resolve();
+    return id && !vals[id] ? get('feature-map-data/f/' + id + '.json').then(function (v) { vals[id] = v; }) : Promise.resolve();
   }
 
   function allValues(id) { return byId[id].values.map(function (x) { return x.n; }); }
@@ -326,7 +326,7 @@
     svg.style.setProperty('--unit', String(r / dotPx()));
   }
 
-  Promise.all([get('wals/languages.json'), get('wals/features.json')]).then(function (res) {
+  Promise.all([get('feature-map-data/languages.json'), get('feature-map-data/features.json')]).then(function (res) {
     L = res[0]; F = res[1];
     F.features.forEach(function (f) { byId[f.id] = f; });
     var s = readURL();

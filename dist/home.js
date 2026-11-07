@@ -1,7 +1,7 @@
 'use strict';
 // The Random row on the top page (the only page that has Random). Each
-// button opens the record page of a record drawn from random.json, which
-// tools/build_home.py writes: {language: [ids], sign: [ids], scripts: [ids]}.
+// button opens the page of a record drawn from random.json, which
+// tools/build_home.py writes: {language: [page paths], sign: [ids], scripts: [ids]}.
 // The row stays hidden without JavaScript.
 (()=>{
  const row=document.querySelector('.home-random');if(!row)return;
@@ -12,10 +12,14 @@
   b.addEventListener('click',async()=>{
    b.disabled=true;
    try{
-    const ids=(await load())[b.dataset.domain]||[];
+    const all=await load();
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+    let domain=b.dataset.domain;
+    if(domain==='any')domain=pick(Object.keys(all).filter(k=>(all[k]||[]).length));
+    const ids=(domain&&all[domain])||[];
     if(!ids.length)return;
-    const id=ids[Math.floor(Math.random()*ids.length)];
-    location.href='record.html?domain='+encodeURIComponent(b.dataset.domain)+'&id='+encodeURIComponent(id);
+    const id=pick(ids);
+    location.href=domain==='language'?id:'record.html?domain='+encodeURIComponent(domain)+'&id='+encodeURIComponent(id);
    }catch(e){pools=null;}
    finally{b.disabled=false;}
   });
