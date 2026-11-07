@@ -5,7 +5,7 @@ accepts from a <meta> element are written into the <head> of every page:
 
 - Content-Security-Policy: only the site itself, plus https://huggingface.co
   for the model list on record pages (dist/hf-models.js). No inline scripts,
-  no inline styles (style="..." attributes), no plugins, no frames, no <base>.
+  inline styles allowed only for WebKit's <select> (see CSP), no plugins, no frames, no <base>.
 - referrer: no-referrer, so no page address leaves the site.
 
 Policies that only work as response headers (frame-ancestors,
@@ -31,7 +31,11 @@ DIST = Path(__file__).resolve().parent.parent / "dist"
 CSP = "; ".join([
     "default-src 'none'",
     "script-src 'self'",
-    "style-src 'self'",
+    # 'unsafe-inline' only for styles (the owner's choice, 2026-11-07): WebKit
+    # reports a blocked inline stylesheet for every <select> under a strict
+    # style-src, from its own rendering of the menu, not from the site. Scripts
+    # stay strict, and --check still refuses style="..." in the site's own pages.
+    "style-src 'self' 'unsafe-inline'",
     "img-src 'self'",
     "connect-src 'self' https://huggingface.co",
     "base-uri 'none'",
