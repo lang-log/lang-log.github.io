@@ -8,9 +8,15 @@ each of them (owner, 2026-11-06).
 The top page is also the top of the language-families tree (owner,
 2026-11-06): every Glottolog record and every source-only record has its own
 page below it (tools/build_paths.py), and this page lists the top-level
-families and isolates, draws the whole tree (dist/tree.js), and holds the
-"Sources & scope" text (source-data/sources-and-scope.html) and the
+families and isolates, draws the whole tree (dist/tree.js) and holds the
 downloads. There is no separate atlas page.
+
+Stats, sources and updates are pages of their own, not sections of the top
+page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
+text, source-data/sources-and-scope.html) and dist/updates/ (the entries of
+source-data/lang-log/updates.json). The top page links to them in a row of
+links under the Random row. Every count on the Stats page is counted from the
+data here, at build time; no number is typed by hand.
 
 The list and the texts work without JavaScript. The search box is a GET form
 to this page (?q=); dist/tree.js lists the matches under it.
@@ -29,6 +35,7 @@ drawn from dist/random.json, which this script writes (not committed):
 """
 
 from html import escape
+import re
 from pathlib import Path
 import datetime
 import json
@@ -40,9 +47,6 @@ from build_paths import PROFILE_URL
 # - Data sources band: names (and logos only where each source's brand terms
 #   allow) of Glottolog, Hugging Face and the other inputs, headed "Data
 #   sources" so it does not read as a list of partners.
-# - Updates: a news list (date, one line, link), newest first, 3 to 5 items,
-#   kept in a data file in this repository and added in the same pull request
-#   as the change it announces.
 # - Sponsors: a section for sponsors of Lang Log.
 
 DIST = Path(__file__).resolve().parent.parent / "dist"
@@ -81,6 +85,15 @@ def random_row():
     return f'<div class="home-random" role="group" aria-label="Random" hidden>{buttons}</div>'
 
 
+# Links of the guide row under the Random row: (page, label).
+GUIDE_LINKS = [("stats/", "Stats"), ("sources/", "Sources"), ("updates/", "Updates")]
+
+
+def guide_row():
+    links = "".join(f'<a href="{escape(h)}">{escape(t)}</a>' for h, t in GUIDE_LINKS)
+    return f'<nav class="home-guide" aria-label="About Lang Log">{links}</nav>'
+
+
 def families_html():
     """The top-level families and isolates of Glottolog, each linked to its page."""
     roots = sorted(bp.data["roots"], key=lambda r: bp.nodes[r]["name"].lower())
@@ -112,29 +125,121 @@ def sources_section():
     st = u["stats"]
     text = (bp.ROOT / "source-data" / "sources-and-scope.html").read_text(encoding="utf-8")
     text = text.split("-->", 1)[1].strip()
+    # The page is one level below the root.
+    text = re.sub(r'href="(?!https?:|#|\.\./)', 'href="../', text)
     coverage = (f'<p>{st["glottologRecords"]:,} Glottolog records retained; {st["canonicalRecords"]:,} canonical records including '
                 f'source-specific clades/samples. All {st["summaryTrees"]} discovered Phlorest dataset summary trees imported, plus WALS.</p>'
                 f'<p>{st["assertions"]:,} source-tagged root/parent assertions. {st["topologicalConflicts"]:,} incompatible clade pairs '
                 f'across study trees involve {st["recordsWithConflicts"]:,} canonical records.</p>'
                 '<p>This is coverage of the imported corpus, not every publication worldwide.</p>')
     register = "".join(
-        f'<div class="registry-source"><strong><a href="{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
+        f'<div class="registry-source"><strong><a href="../{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
         f'<a href="{escape(s["url"])}" target="_blank" rel="noopener">Paper ↗</a> · '
         f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener">Source tree &amp; data ↗</a>'
         f'<small>{escape(s["family"])} · {escape(s["license"])} · summary tree imported</small>'
         + (f'<p>{escape(s["interpretationNote"])}</p>' if s.get("interpretationNote") else "") + "</div>"
         for s in u["sources"].values() if s.get("kind") == "study")
-    register = (f'<p><a href="{bp.SOURCE_SLUG["wals"]}/">WALS families in Lang Log</a></p>' + register)
+    register = (f'<p><a href="../{bp.SOURCE_SLUG["wals"]}/">WALS families in Lang Log</a></p>' + register)
     text = text.replace("<!-- coverage -->", coverage).replace("<!-- source-register -->", register)
-    return f'<section class="home-section sources-scope" id="sources"><h2>Sources &amp; scope</h2>{text}</section>'
+    return f'<section class="home-section sources-scope" id="sources">{text}</section>'
+
+
+def counts():
+    """Every figure of the Stats page, counted from the data: [(heading, [(label, number)])].
+
+    Everything is a languoid: the figures split one set of records by
+    modality (spoken, signed, written) instead of by kind. Until the Lang Log
+    data (schema/languoid.schema.json) carries a modality field, sign
+    languages are the Glottolog records in the Sign Language category and
+    writing systems are the ISO 15924 codes of the signs-and-scripts data.
+    """
+    st = bp.unified["stats"]
+    nodes = bp.nodes.values()
+    visual = json.loads((DIST / "signs-and-scripts.json").read_text(encoding="utf-8"))["nodes"].values()
+    roots = [bp.nodes[r] for r in bp.data["roots"]]
+    isolates = sum(1 for n in roots if n.get("isolate"))
+    categories = sum(1 for n in roots if n.get("category") not in ("Spoken genealogy", None) and not n.get("isolate"))
+    not_spoken = ("Sign Language", "Bookkeeping", "Artificial Language")
+
+    def count(category, level, spoken=False):
+        return sum(1 for n in nodes if n.get("level") == level
+                   and ((n.get("category") not in not_spoken) if spoken else n.get("category") == category))
+
+    return [
+        ("All records", [
+            ("Languoids", st["canonicalRecords"]),
+            ("Glottolog records", st["glottologRecords"]),
+            ("Records from study trees only", st["additionalRecords"]),
+        ]),
+        ("By modality", [
+            ("Spoken languages", count(None, "language", spoken=True)),
+            ("Spoken dialects", count(None, "dialect", spoken=True)),
+            ("Sign languages", count("Sign Language", "language")),
+            ("Sign-language dialects", count("Sign Language", "dialect")),
+            ("Writing systems", sum(1 for n in visual if n.get("domain") == "scripts" and n.get("kind") == "script code")),
+            ("Manual alphabets", sum(1 for n in visual if n.get("domain") == "sign" and n.get("kind") == "manual-alphabet sample")),
+        ]),
+        ("Other kinds of languages", [
+            ("Constructed languages", count("Artificial Language", "language")),
+            ("Pidgins", count("Pidgin", "language")),
+            ("Mixed languages", count("Mixed Language", "language")),
+        ]),
+        ("Families", [
+            ("Top-level families", len(roots) - isolates - categories),
+            ("Isolates", isolates),
+            ("Families and subgroups", count(None, "family", spoken=True)),
+        ]),
+        ("Sources", [
+            ("Study trees", st["summaryTrees"]),
+            ("Source-tagged placements", st["assertions"]),
+            ("Conflicting clade pairs between studies", st["topologicalConflicts"]),
+        ]),
+    ]
+
+
+def stats_body():
+    groups = "".join(
+        f'<section class="stats-group"><h2>{escape(h)}</h2><dl class="stat-list">'
+        + "".join(f'<div><dt>{escape(label)}</dt><dd>{n:,}</dd></div>' for label, n in rows)
+        + "</dl></section>"
+        for h, rows in counts())
+    return ('<p class="muted">Counted from the data each time the site is built. '
+            'Different kinds of records are counted separately; do not add them up.</p>' + groups)
+
+
+def updates_body():
+    entries = json.loads((bp.ROOT / "source-data" / "lang-log" / "updates.json").read_text(encoding="utf-8"))["updates"]
+    rows = []
+    for e in entries:
+        day = datetime.date.fromisoformat(e["date"])
+        text = escape(e["text"])
+        if e.get("link"):
+            text = f'<a href="../{escape(e["link"])}">{text}</a>'
+        rows.append(f'<li><time datetime="{day.isoformat()}">{day.strftime("%-d %b %Y")}</time> <span>{text}</span></li>')
+    return f'<ul class="updates">{"".join(rows)}</ul>'
+
+
+def sub_page(slug, title, body):
+    """A page one level below the root, such as dist/stats/index.html."""
+    html = (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        f'<title>{escape(title)}{bp.TITLE_SUFFIX}</title>'
+        '<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png">'
+        '<link rel="stylesheet" href="../style.css">'
+        '<script src="../theme.js"></script><script src="../i18n.js"></script><script src="../lang.js"></script>'
+        '</head><body class="info-page">\n'
+        '<header><div class="brand"><a class="home" href="../"><svg class="logo" role="img" aria-label="LANG LOG"><use href="../logo.svg#logo"/></svg></a> '
+        f'<span class="by">by <a href="{escape(PROFILE_URL)}" title="MATSUURA Yoshihiro">yoshi</a></span></div></header>\n'
+        f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
+        f'<footer><span><a href="../">Top page</a></span><span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
+        '</body></html>\n')
+    (DIST / slug).mkdir(exist_ok=True)
+    (DIST / slug / "index.html").write_text(html, encoding="utf-8")
 
 
 def main():
     st = bp.unified["stats"]
-    roots = [bp.nodes[r] for r in bp.data["roots"]]
-    isolates = sum(1 for n in roots if n.get("isolate"))
-    categories = sum(1 for n in roots if n.get("category") not in ("Spoken genealogy", None) and not n.get("isolate"))
-    genealogical = len(roots) - isolates - categories
     retrieved = datetime.date.fromisoformat(bp.data["retrieved"]).strftime("%-d %b %Y")
     description = ("Lang Log: an atlas of language families, sign languages and writing systems, "
                    "with source-linked classifications, alternative hypotheses and exportable data.")
@@ -164,24 +269,26 @@ def main():
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         '</button></div></form>'
         '<div id="results" class="home-results" aria-live="polite" hidden></div>'
-        f'{random_row()}'
+        f'{random_row()}{guide_row()}'
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         'Every placement says which source it follows, competing classifications are shown together, '
         'and the data can be downloaded.</p></section>\n'
 
         f'{bp.domain_nav("./")}'
-        f'{families_html()}{tree_section()}{sources_section()}'
+        f'{families_html()}{tree_section()}'
         '<section class="home-more"><h2>Also</h2><ul>'
         '<li>Corpora and data for low-resource languages: planned.</li>'
         '</ul></section></main>\n'
         f'<footer><span>Glottolog 5.3 + WALS + {st["summaryTrees"]} Phlorest summary trees · Retrieved {retrieved}</span>'
-        f'<span>{genealogical} genealogical family roots · {isolates} isolates · {categories} non-genealogical categories</span>'
         '<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>'
         f'<span><a href="{SOURCE_CODE_URL}">Source code</a> (AGPL-3.0)</span></footer>\n'
         '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script><script src="tree.js"></script>\n'
         '</body></html>\n'
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")
+    sub_page("stats", "Stats", stats_body())
+    sub_page("sources", "Sources & scope", sources_section())
+    sub_page("updates", "Updates", updates_body())
     (DIST / "random.json").write_text(json.dumps(random_pools(), separators=(",", ":")), encoding="utf-8")
 
 

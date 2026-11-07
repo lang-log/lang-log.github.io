@@ -7,8 +7,9 @@ set -euo pipefail
 # source-data/packed/ and checks their SHA-256.
 python3 tools/prepare_static.py
 # Writes the top page dist/index.html (the list of top-level families,
-# the whole tree, Sources & scope) and dist/random.json, the records its
-# Random buttons draw from.
+# the whole tree), dist/random.json (the records its Random buttons draw
+# from) and the pages linked under the Random row: dist/stats/,
+# dist/sources/ and dist/updates/ (not committed; built here).
 python3 tools/build_home.py
 # Writes one page and one record.json per Glottolog record under
 # dist/<family>/.../<language>/, and per source-only record under
@@ -31,7 +32,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/land-pacific.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js random.json; do
+         home.js random.json stats/index.html sources/index.html updates/index.html; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }
 done
 

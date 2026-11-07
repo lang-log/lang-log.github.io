@@ -46,7 +46,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
-RESERVED = {"map", "data", "i18n"}
+RESERVED = {"map", "data", "i18n", "stats", "sources", "updates"}
 # Directories of earlier builds that no longer exist; removed on each run.
 OLD_DIRS = {"families"}
 TITLE_SUFFIX = " · Lang Log by yoshi"
