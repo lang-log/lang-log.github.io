@@ -380,8 +380,6 @@ def atlas_html(base, root=None, src=None, downloads=""):
             '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
             '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'
             '<div class="canvas-note">Drag to pan · Scroll / pinch to zoom · Click a node to open its page</div></div>'
-            '<div class="legend"><span><i class="lv-family"></i>Family / subgroup</span>'
-            '<span><i class="lv-language"></i>Language</span><span><i class="lv-dialect"></i>Dialect</span></div>'
             '<div class="how-to-read"><p>Branches are conditional on their source. Different placements appear together; no source switch is needed.</p>'
             '<p>Open a row to see its members. Each name opens its own page, with every source\'s placement and paper links.</p>'
             '<p>Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>'
@@ -416,14 +414,14 @@ def children_html(depth, i):
     if not kids:
         return ""
     kids.sort(key=lambda c: rec(c[0])["name"].lower())
-    rows = "".join(f'<li><a href="{escape(href(depth, c))}">{escape(rec(c)["name"])}</a> <span class="muted">{escape(rec(c)["level"])}</span>'
+    rows = "".join(f'<li><a href="{escape(href(depth, c))}">{escape(rec(c)["name"])}</a>'
                    + (f' <small class="muted">sample: {escape(sm)}</small>' if sm and sm != rec(c)["name"] else "") + "</li>" for c, sm in kids)
     # A section gets the rule and spacing that set it apart from the names above.
     return f'<section class="members"><h2>Members · {len(kids)}</h2><ul class="record-links">{rows}</ul></section>'
 
 
 def meta_html(n):
-    parts = [n["level"], n["id"]]
+    parts = [n["id"]]  # no kind label (family, language, dialect): every record is a languoid
     if n["id"] in extra:
         parts.append("According to " + sources[n["source"]]["title"])
     if n.get("iso"):
@@ -455,18 +453,21 @@ def map_html(depth, i):
     family = n["level"] == "family"
     own = None if family else coords.get(i)
     # Many dialects carry their language's own point; those add nothing to show.
-    main = [coords[c] for c in points_under[i] if coords[c] != own]
+    main_ids = [c for c in points_under[i] if coords[c] != own]
+    main = [coords[c] for c in main_ids]
     parent = n.get("parent")
-    context = []
+    context_ids = []
     if parent in nodes:
         mine = set(points_under[i]) | {i}
-        context = [coords[c] for c in points_under[parent] if c not in mine]
+        context_ids = [c for c in points_under[parent] if c not in mine]
+    context = [coords[c] for c in context_ids]
     kind = "languages" if family else ("dialects" if n["level"] == "language" else "")
     if family:
         label = f"Map: {len(main)} languages of {n['name']}"
     else:
         label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
-    svg = map_svg("../" * depth + "map/", main, context, own, label)
+    svg = map_svg("../" * depth + "map/", main, context, own, label,
+                  main_ids=main_ids, context_ids=context_ids, self_id=i if own else "")
     if not svg:
         return ""
     notes = []
@@ -618,7 +619,7 @@ def write_source_pages():
     fams = sorted((i for i, n in extra.items() if n["source"] == "wals" and not n.get("parent")), key=lambda i: extra[i]["name"].lower())
     target = OUT / SOURCE_SLUG["wals"]
     target.mkdir(parents=True, exist_ok=True)
-    rows = "".join(f'<li>{record_link(1, f)} <span class="muted">{escape(extra[f]["level"])}</span></li>' for f in fams)
+    rows = "".join(f'<li>{record_link(1, f)}</li>' for f in fams)
     body = source_page_body("wals") + f'<section class="members"><h2>Families · {len(fams)}</h2><ul class="record-links">{rows}</ul></section>'
     (target / "index.html").write_text(page(1, sources["wals"]["title"], body), encoding="utf-8")
     return written

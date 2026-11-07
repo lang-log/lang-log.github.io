@@ -22,7 +22,8 @@ const bySource=new Map(),conflictAncestors=new Set(),canvas=$('tree'),ctx=canvas
 const children=(sid,id)=>bySource.get(sid+'|'+id)||[],source=id=>unified.sources[id],title=id=>source(id)?.title||id;
 const eligible=n=>n&&($('dialects').checked||n.level!=='dialect');
 const tc={},tok=h=>tc[h]||(tc[h]=getComputedStyle(document.documentElement).getPropertyValue('--c-'+h).trim()||'#'+h);
-const col=n=>n.level==='dialect'?tok('9ba8a4'):n.level==='language'||n.level==='sample'?tok('c28051'):tok('397b7b');
+// One colour for every node: all records are languoids, so the tree does not mark them by kind.
+const col=()=>tok('397b7b');
 const round=(v,d)=>{const f=10**d;return Math.round(v*f)/f};
 const evidence=$('evidence'),category=$('category');
 
@@ -54,7 +55,7 @@ function rootsFiltered(){const c=category?.value||'all',f=evidence?.value||'all'
 function makeNode(id,sid='glottolog',trail=new Set(),sample=''){const n=nodes[id],key=sid+'|'+id;if(trail.has(key)){const p=document.createElement('p');p.textContent='Shared reference: '+n.name;return p}const path=new Set(trail);path.add(key);
  const el=document.createElement('details');el.className='tree-node'+(id===rootId?' selected-node':'');
  const sum=document.createElement('summary'),own=native(n),ps=new Set((unified.placements[id]||[]).map(x=>x.source));
- sum.innerHTML=`<span class="rowname"><a href="${esc(pageURL(id))}">${esc(n.name)}</a>${sample&&sample!==n.name?`<small class="all-source-label">sample: ${esc(sample)}</small>`:''}</span>${own.length?`<span class="native-inline" dir="auto">${own.slice(0,2).map(esc).join(' / ')}</span>`:''}<span class="rowmeta">${esc(n.isolate?'isolate':n.level)}${ps.size>1?' · '+ps.size+' sources':''}${unified.conflictIndex[id]?' · ⚑':''}</span>`;el.appendChild(sum);
+ sum.innerHTML=`<span class="rowname"><a href="${esc(pageURL(id))}">${esc(n.name)}</a>${sample&&sample!==n.name?`<small class="all-source-label">sample: ${esc(sample)}</small>`:''}</span>${own.length?`<span class="native-inline" dir="auto">${own.slice(0,2).map(esc).join(' / ')}</span>`:''}${(()=>{const m=[ps.size>1?ps.size+' sources':'',unified.conflictIndex[id]?'⚑':''].filter(Boolean).join(' · ');return m?`<span class="rowmeta">${m}</span>`:''})()}`;el.appendChild(sum);
  let populated=false;
  function populate(){if(populated)return;populated=true;const kids=document.createElement('div');kids.className='node-children';
   for(const e of children(sid,id))if(eligible(nodes[e.child]))kids.appendChild(makeNode(e.child,sid,path,e.sample));

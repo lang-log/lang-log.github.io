@@ -11,7 +11,8 @@
 //
 // Ranking: exact name, ISO code or Glottocode; then names that start with the
 // query; then a word in the name that starts with it; then any other match.
-// Languages come before families and dialects.
+// Languages come before families and dialects (the order only; no record is
+// labelled by its kind, .claude/rules/interface-text.md).
 (()=>{
 const where=()=>location.pathname.match(/^(.*\/)q=([^/]*)$/);
 const m=where(),page=document.getElementById('search-page');if(!m||!page)return;
@@ -48,7 +49,7 @@ function render(){
  all.sort((a,b)=>r.get(a.id)-r.get(b.id)||kindRank(a)-kindRank(b)||(data.nodes[a.id]?0:1)-(data.nodes[b.id]?0:1)||a.name.localeCompare(b.name));
  const shown=all.slice(0,SEARCH_LIMIT);
  out.innerHTML=head+`<p class="hit-count">${all.length===1?'1 matching record':fmt(all.length)+' matching records'}</p><span class="hit-query notranslate" dir="auto">${esc(q0)}</span></div>`+
-  (shown.length?`<ol class="hits">${shown.map(n=>{const path=hitPath(n);return `<li><a class="hit" href="${esc(pageURL(n.id))}"><span class="dot ${n.level==='dialect'?'lv-hit-dialect':n.level==='language'||n.level==='sample'?'lv-hit-language':'lv-hit-family'}"></span><span class="hit-main"><span class="hit-name notranslate" dir="auto">${esc(n.name)}</span><span class="hit-meta"><span class="hit-kind">${esc(n.isolate?'isolate':n.level)}</span> · <code class="notranslate">${esc(n.iso||n.id)}</code>${unified.conflictIndex[n.id]?' · competing branches':''}</span>${path?`<span class="hit-path notranslate" dir="auto">${path}</span>`:''}</span></a></li>`}).join('')}</ol>`+
+  (shown.length?`<ol class="hits">${shown.map(n=>{const path=hitPath(n);return `<li><a class="hit" href="${esc(pageURL(n.id))}"><span class="dot"></span><span class="hit-main"><span class="hit-name notranslate" dir="auto">${esc(n.name)}</span><span class="hit-meta"><code class="notranslate">${esc(n.iso||n.id)}</code>${unified.conflictIndex[n.id]?' · competing branches':''}</span>${path?`<span class="hit-path notranslate" dir="auto">${path}</span>`:''}</span></a></li>`}).join('')}</ol>`+
    (all.length>SEARCH_LIMIT?`<p class="small">First ${fmt(SEARCH_LIMIT)} matches. Refine your search.</p>`:''):'<p class="empty">No matching records.</p>');
 }
 

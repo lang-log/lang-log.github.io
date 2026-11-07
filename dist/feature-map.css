@@ -65,3 +65,5 @@
 .wm-cond .wm-selectall{margin-top:6px}
 .wm-none{color:var(--muted);font-weight:400}
 #map.lmap{border:0;border-radius:0}
+/* Map view: the map and its card fill the window (record.css .lmap-full; sticky above would win). */
+.wm-map.lmap-full{position:fixed;top:0;z-index:1000;border:0;border-radius:0}.lmap-full .wm-hint{display:none}

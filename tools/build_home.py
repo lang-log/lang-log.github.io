@@ -92,8 +92,8 @@ def guide_row():
 def families_html():
     """The top-level families and isolates of Glottolog, each linked to its page."""
     roots = sorted(bp.data["roots"], key=lambda r: bp.nodes[r]["name"].lower())
-    rows = "".join(f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a> '
-                   f'<span class="muted">{escape("isolate" if bp.nodes[r].get("isolate") else bp.nodes[r]["level"])}</span></li>'
+    # No kind label (family, isolate) after the name: every record is a languoid.
+    rows = "".join(f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
                    for r in roots)
     unplaced = bp.unified["anchors"].get("__unplaced__", [])
     rows_unplaced = "".join(f'<li><a href="{escape(bp.path_of(a["root"]))}/">{escape(bp.sources[a["source"]]["title"])}</a> '
@@ -224,13 +224,13 @@ def bars(rows):
         f'<li><span class="bar-label">{escape(label)}</span>'
         f'<svg class="bar" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
         f'<rect width="{max(100 * n / top, 0.6):.2f}" height="1"/></svg>'
-        f'<span class="bar-value">{n:,}</span></li>'
+        f'<span class="bar-value count" data-value="{n}">{n:,}</span></li>'
         for label, n in rows) + "</ul>"
 
 
 def stats_body():
     figures = {label: n for _, rows in counts() for label, n in rows}
-    hero = "".join(f'<div><dd>{figures[k]:,}</dd><dt>{escape(k)}</dt></div>'
+    hero = "".join(f'<div><dd class="count" data-value="{figures[k]}">{figures[k]:,}</dd><dt>{escape(k)}</dt></div>'
                    for k in ("Languoids", "Sign languages", "Writing systems", "Study trees"))
     modality = [(k, figures[k]) for k in ("Spoken languages", "Sign languages", "Writing systems", "Constructed languages")]
     groups = "".join(
@@ -258,8 +258,9 @@ def updates_body():
     return f'<ul class="updates">{"".join(rows)}</ul>'
 
 
-def sub_page(slug, title, body):
-    """A page one level below the root, such as dist/stats/index.html."""
+def sub_page(slug, title, body, scripts=()):
+    """A page one level below the root, such as dist/stats/index.html. `scripts` are
+    extra files from dist/ loaded in <head> after lang.js."""
     html = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">' + SECURITY_HEAD +
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -267,6 +268,7 @@ def sub_page(slug, title, body):
         '<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png">'
         '<link rel="stylesheet" href="../style.css">'
         '<script src="../theme.js"></script><script src="../i18n.js"></script><script src="../lang.js"></script>'
+        + "".join(f'<script src="../{escape(s)}"></script>' for s in scripts) +
         '</head><body class="info-page">\n'
         '<header><div class="brand"><a class="home" href="../"><svg class="logo" role="img" aria-label="LANG LOG"><use href="../logo.svg#logo"/></svg></a> '
         f'<span class="by">by <a href="{escape(PROFILE_URL)}" title="MATSUURA Yoshihiro">yoshi</a></span></div></header>\n'
@@ -325,7 +327,7 @@ def main():
         '</body></html>\n'
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")
-    sub_page("stats", "Stats", stats_body())
+    sub_page("stats", "Stats", stats_body(), scripts=("stats.js",))
     sub_page("sources", "Sources & scope", sources_section())
     sub_page("updates", "Updates", updates_body())
     (DIST / "random.json").write_text(json.dumps(random_pools(), separators=(",", ":")), encoding="utf-8")

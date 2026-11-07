@@ -119,13 +119,16 @@ def inset_rects(vx, vy, vw, vh):
     return rect.format(_num(nx), _num(vy), _num(vw), _num(vh)) + rect.format(_num(nx - WORLD_W), _num(vy), _num(vw), _num(vh))
 
 
-def map_svg(map_dir, main, context=(), self_point=None, label=""):
+def map_svg(map_dir, main, context=(), self_point=None, label="", main_ids=(), context_ids=(), self_id=""):
     """Return an inline <svg> map, or "" when there is nothing to place.
 
     map_dir: relative URL of the map/ directory from the page, ending in "/".
     main: (lon, lat) points of the record's own members, drawn strong.
     context: points of related records (for example sister languages), drawn faint.
     self_point: the record's own point, drawn largest.
+    main_ids, context_ids, self_id: the Glottocodes of those points, written into each
+    circle as data-g (space-separated when points that overlap are drawn as one), so
+    dist/map-zoom.js can show the records of a tapped point with links to their pages.
     """
     focus_ll = list(main) + ([self_point] if self_point else [])
     if not focus_ll:
@@ -141,18 +144,23 @@ def map_svg(map_dir, main, context=(), self_point=None, label=""):
     r = vw / 200                      # point radius scales with the view
     show_inset = vw < WORLD_W * 0.5
 
-    def circles(pts, rad):
-        seen = set()
-        out = []
-        for x, y in pts:
+    def circles(pts, rad, ids=()):
+        ids = list(ids) or [""] * len(pts)
+        cells = {}
+        for (x, y), gid in zip(pts, ids):
             # Drop only points that would still overlap at the deepest zoom: points
-            # keep their size on screen when the map is zoomed.
+            # keep their size on screen when the map is zoomed. The records of a
+            # dropped point stay on the point drawn in its place.
             g = rad * ZOOM_MIN_W / vw
             key = (round(x / g), round(y / g))
-            if key in seen:
-                continue
-            seen.add(key)
-            out.append(f'<circle cx="{_num(x)}" cy="{_num(y)}" r="{_num(rad)}"/>')
+            if key not in cells:
+                cells[key] = [x, y, []]
+            if gid:
+                cells[key][2].append(gid)
+        out = []
+        for x, y, gids in cells.values():
+            data = f' data-g="{escape(" ".join(gids))}"' if gids else ""
+            out.append(f'<circle cx="{_num(x)}" cy="{_num(y)}" r="{_num(rad)}"{data}/>')
         return "".join(out)
 
     land = escape(map_dir + "land.svg")
@@ -164,11 +172,12 @@ def map_svg(map_dir, main, context=(), self_point=None, label=""):
         f'<g class="lmap-bg">{background(land, vx, vw)}</g>',
     ]
     if context:
-        parts.append(f'<g class="lmap-ctx">{circles(context, r * 0.8)}</g>')
+        parts.append(f'<g class="lmap-ctx">{circles(context, r * 0.8, context_ids)}</g>')
     if main_xy:
-        parts.append(f'<g class="lmap-main">{circles(main_xy, r)}</g>')
+        parts.append(f'<g class="lmap-main">{circles(main_xy, r, main_ids)}</g>')
     if own:
-        parts.append(f'<g class="lmap-self"><circle cx="{_num(own[0])}" cy="{_num(own[1])}" r="{_num(r * 2.4)}"/></g>')
+        parts.append(f'<g class="lmap-self"><circle cx="{_num(own[0])}" cy="{_num(own[1])}" r="{_num(r * 2.4)}"'
+                     + (f' data-g="{escape(self_id)}"' if self_id else "") + '/></g>')
     if show_inset:
         # Locator: the whole world in the corner, with the shown area marked.
         iw = vw * 0.22

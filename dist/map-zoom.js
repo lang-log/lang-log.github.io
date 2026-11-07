@@ -15,6 +15,17 @@
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
 //
+// - Map view: the button in the corner opens the map over the whole window, with nothing
+//   else on screen; the close button, Esc or the browser's Back button closes it. The page
+//   cannot scroll meanwhile, so a plain wheel zooms too. The view keeps its scale on screen
+//   when it opens and closes, and takes the shape of the window. The address gets
+//   #map-view (one history entry), so a shared link opens the map view at once.
+// - Points: a tap (or click) on a circle with data-g (Glottocodes, written by
+//   languoid_map.py) shows a box with the names of its records, each a link to the
+//   record's page. Names and addresses come from dist/atlas-data.js and
+//   dist/lineage-paths.js, loaded on the first tap; records() is shared with the
+//   feature map, whose own box shows more.
+//
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world). The svg receives an
 // "lmap:view" event, detail {k, x, y, w, h}, after every change; k is the view width
@@ -28,7 +39,37 @@
   var STEP = 1.6;                 // zoom factor of one button press or key press
   var GLIDE_MS = 550;             // length of the Reset animation
   var STEP_MS = 220;              // length of the + / - animation
-  var manifest = null, manifestWait = [];
+  var HASH = '#map-view';         // address of the map view
+  var TAP_PX = 14;                // how far from a point (screen pixels) a tap still hits it
+  var manifest = null, manifestWait = [], atlas = null, opened = null;
+
+  // [{id, name, url}] of Glottocodes; url is '' for a record without its own page. root is
+  // the site root relative to the page ("../../").
+  function records(ids, root) {
+    var A = window.AtlasData, P = window.LineagePaths;
+    if (!A || !P) return Promise.resolve(ids.map(function (id) { return { id: id, name: id, url: '' }; }));
+    if (!atlas) {
+      A.base = root + 'data/';
+      atlas = A.load().then(function (r) {
+        return P.init(r.d.nodes, r.d.roots, root).then(function () { return r.d.nodes; });
+      });
+      atlas.catch(function () { atlas = null; });
+    }
+    return atlas.then(function (nodes) {
+      return ids.map(function (id) {
+        var n = nodes[id];
+        return { id: id, name: n ? n.name : id, url: n ? root + P.url(id) : '' };
+      });
+    });
+  }
+
+  function icon(d) {
+    var s = el('svg', { viewBox: '0 0 16 16', width: '16', height: '16', 'aria-hidden': 'true', focusable: 'false' });
+    s.appendChild(el('path', { d: d, fill: 'none', stroke: 'currentColor', 'stroke-width': '1.6', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+    return s;
+  }
+  var ICON_OPEN = 'M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4';
+  var ICON_CLOSE = 'M3.5 3.5l9 9M12.5 3.5l-9 9';
 
   function loadManifest(base, done) {
     if (manifest) return done(manifest);
@@ -58,7 +99,10 @@
     if (svg.__lmap) return svg.__lmap;
     var vb = svg.viewBox.baseVal;
     var home = { x: vb.x, y: vb.y, w: vb.width, h: vb.height };
-    var aspect = home.w / home.h;
+    var homeAspect = home.w / home.h, aspect = homeAspect;
+    // Map view: px is the width of the map on screen divided by its width in the page, so
+    // points, tiles and zoom limits keep their size on screen.
+    var full = false, px = 1, pageW = 0;
     var name = svg.getAttribute('data-map') || 'land';
     var base = svg.getAttribute('data-base') || 'map/';
     var minW = parseFloat(svg.getAttribute('data-min')) || 30;
@@ -118,20 +162,30 @@
       inset.appendChild(insetRects[1]);
     }
 
-    function clamp() {
-      view.w = Math.min(Math.max(view.w, minW), W);
-      view.h = view.w / aspect;
+    // Widest view: the whole world once, and never taller than the world.
+    function lim(w) { return Math.min(Math.max(w, minW * px), W, world.h * aspect); }
+
+    function fit(v) {
+      v.w = lim(v.w);
+      v.h = v.w / aspect;
       // East and west: keep the centre on the middle copy of the world.
-      var c = view.x + view.w / 2;
-      view.x -= W * Math.floor((c - world.x) / W);
-      if (view.h >= world.h) view.y = world.y + (world.h - view.h) / 2;
-      else view.y = Math.min(Math.max(view.y, world.y), world.y + world.h - view.h);
+      var c = v.x + v.w / 2;
+      v.x -= W * Math.floor((c - world.x) / W);
+      if (v.h >= world.h) v.y = world.y + (world.h - v.h) / 2;
+      else v.y = Math.min(Math.max(v.y, world.y), world.y + world.h - v.h);
+      return v;
+    }
+    function clamp() { fit(view); }
+    // The starting view at the present size: its centre, at its scale on screen.
+    function homeView() {
+      var w = lim(home.w * px);
+      return fit({ x: home.x + home.w / 2 - w / 2, y: home.y + home.h / 2 - w / aspect / 2, w: w });
     }
 
     function draw() {
       raf = 0;
       svg.setAttribute('viewBox', [view.x, view.y, view.w, view.h].map(function (v) { return +v.toFixed(2); }).join(' '));
-      var k = view.w / home.w;
+      var k = view.w / (home.w * px), e = view.w / px;
       for (var i = 0; i < scaled.length; i++) scaled[i][0].setAttribute('r', +(scaled[i][1] * k).toFixed(3));
       // Each point goes to the copy of the world nearest the centre of the view.
       var cx = view.x + view.w / 2, ps = allPoints();
@@ -140,10 +194,10 @@
         if (n !== p.__k) { p.__k = n; p.setAttribute('cx', +(p.__x0 + n * W).toFixed(2)); }
       }
       if (inset) {
-        var show = view.w < W * 0.5;
+        var show = e < W * 0.5;
         inset.parentNode.style.display = show ? '' : 'none';
         if (show) {
-          var iw = view.w * 0.22, ih = iw / 2;
+          var iw = Math.min(view.w, view.h * 2) * 0.22, ih = iw / 2;
           inset.setAttribute('x', view.x + view.w - iw - view.w * 0.015);
           inset.setAttribute('y', view.y + view.h - ih - view.w * 0.015);
           inset.setAttribute('width', iw);
@@ -155,17 +209,18 @@
           });
         }
       }
-      var moved = Math.abs(view.w - home.w) > 0.01 || Math.abs(view.x - home.x) > 0.01 || Math.abs(view.y - home.y) > 0.01;
+      var hv = homeView();
+      var moved = Math.abs(view.w - hv.w) > 0.01 || Math.abs(view.x - hv.x) > 0.01 || Math.abs(view.y - hv.y) > 0.01;
       svg.classList.toggle('lmap-moved', moved);
-      svg.classList.toggle('lmap-in', view.w < home.w - 0.01);
-      updateTiles();
+      svg.classList.toggle('lmap-in', e < home.w - 0.01);
+      updateTiles(e);
       svg.dispatchEvent(new CustomEvent('lmap:view', { detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h } }));
     }
 
     function schedule() { clamp(); if (!raf) raf = requestAnimationFrame(draw); }
 
-    function updateTiles() {
-      if (view.w >= TILE_BELOW) { tiles.style.display = 'none'; return; }
+    function updateTiles(e) {
+      if (e >= TILE_BELOW) { tiles.style.display = 'none'; return; }
       tiles.style.display = '';
       loadManifest(base, function (m) {
         var have = m.tiles[name] || [];
@@ -195,7 +250,7 @@
     // the world while the width changes at an even rate of zoom.
     function glideTo(to, ms) {
       stop();
-      to.w = Math.min(Math.max(to.w, minW), W);
+      to.w = lim(to.w);
       if (reducedMotion()) { view = { x: to.x, y: to.y, w: to.w, h: to.w / aspect }; schedule(); return; }
       var fw = view.w, tw = to.w;
       var fx = view.x + view.w / 2, tx = to.x + to.w / 2;
@@ -217,7 +272,7 @@
     // The view after zooming by factor f (>1 zooms in) keeping the SVG point (px, py) where it is.
     function zoomed(f, px, py) {
       if (px === undefined) { px = view.x + view.w / 2; py = view.y + view.h / 2; }
-      var w = Math.min(Math.max(view.w / f, minW), W);
+      var w = lim(view.w / f);
       var s = w / view.w;
       return { x: px - (px - view.x) * s, y: py - (py - view.y) * s, w: w };
     }
@@ -237,7 +292,7 @@
       return [view.x + (clientX - r.left - ox) * scale, view.y + (clientY - r.top - oy) * scale, scale];
     }
 
-    function reset() { glideTo({ x: home.x, y: home.y, w: home.w }, GLIDE_MS); }
+    function reset() { glideTo(homeView(), GLIDE_MS); }
 
     // Pointers: one pans (a finger too, from the start: touch-action is none on the map,
     // so the page scrolls from outside the map), two pinch.
@@ -266,7 +321,7 @@
       var a = pts[ids[0]], b = pts[ids[1]] || a;
       var mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
       var f = ids.length > 1 ? Math.hypot(a[0] - b[0], a[1] - b[1]) / start.dist : 1;
-      var w = Math.min(Math.max(start.view.w / f, minW), W), s = w / start.view.w;
+      var w = lim(start.view.w / f), s = w / start.view.w;
       var scale = start.at[2] * s;
       view.w = w;
       view.x = start.at[0] - (start.at[0] - start.view.x) * s - (mid[0] - start.mid[0]) * scale;
@@ -284,7 +339,8 @@
     svg.addEventListener('wheel', function (e) {
       // Plain wheel scrolls the page; Ctrl/Cmd + wheel (and trackpad pinch, which browsers
       // report as Ctrl + wheel) zooms the map.
-      if (!e.ctrlKey && !e.metaKey) return;
+      // In the map view there is no page to scroll, so every wheel zooms.
+      if (!full && !e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       var p = toSvg(e.clientX, e.clientY);
       zoom(Math.exp(-e.deltaY * (e.deltaMode === 1 ? 0.05 : 0.0025)), p[0], p[1]);
@@ -295,7 +351,7 @@
     svg.addEventListener('gesturechange', function (e) {
       if (!g0) return;
       e.preventDefault();
-      var w = Math.min(Math.max(g0.w / e.scale, minW), W);
+      var w = lim(g0.w / e.scale);
       zoom(view.w / w, g0.at[0], g0.at[1]);
     });
     svg.addEventListener('gestureend', function () { g0 = null; });
@@ -309,6 +365,7 @@
       if (e.key === '+' || e.key === '=') zoomSmooth(STEP);
       else if (e.key === '-' || e.key === '_') zoomSmooth(1 / STEP);
       else if (e.key === '0') reset();
+      else if (e.key === 'Escape' && full) closeView();
       else if (e.key === 'ArrowLeft') { stop(); view.x -= d; schedule(); }
       else if (e.key === 'ArrowRight') { stop(); view.x += d; schedule(); }
       else if (e.key === 'ArrowUp') { stop(); view.y -= d; schedule(); }
@@ -333,24 +390,183 @@
       if (b[0] === 'Reset') btn.className = 'lmap-reset';
       bar.appendChild(btn);
     });
-    var host = svg.parentNode;
+    var fullBtn = document.createElement('button');
+    fullBtn.type = 'button';
+    fullBtn.className = 'lmap-full-btn';
+    bar.appendChild(fullBtn);
+    function label(open) {
+      var t = open ? 'Close map view' : 'Map view';
+      fullBtn.textContent = '';
+      fullBtn.appendChild(icon(open ? ICON_CLOSE : ICON_OPEN));
+      fullBtn.setAttribute('aria-label', t);
+      fullBtn.title = t;
+      fullBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    label(false);
+    var parent = svg.parentNode;
     var wrap = document.createElement('div');
     wrap.className = 'lmap-wrap';
-    host.insertBefore(wrap, svg);
+    parent.insertBefore(wrap, svg);
     wrap.appendChild(svg);
     wrap.appendChild(bar);
+    // The part of the page that fills the window in the map view: the map, or a larger
+    // box marked lmap-host that holds the map and its own overlays (the feature map).
+    var host = wrap.closest('.lmap-host') || wrap;
+
+    // Map view. resize() keeps the centre and the scale on screen while the box changes.
+    var pushed = false, boxW = 0;
+    function resize(before) {
+      var r = svg.getBoundingClientRect();
+      if (!r.width || !r.height || !before) return;
+      var cx = view.x + view.w / 2, cy = view.y + view.h / 2;
+      aspect = full ? r.width / r.height : homeAspect;
+      px = full ? r.width / pageW : 1;
+      view.w = lim(view.w * r.width / before);
+      view.h = view.w / aspect;
+      view.x = cx - view.w / 2; view.y = cy - view.h / 2;
+      boxW = r.width;
+      schedule();
+    }
+    function openView(push) {
+      if (full) return;
+      if (opened && opened !== api) opened.close(false);
+      stop();
+      var before = svg.getBoundingClientRect().width;
+      pageW = before;
+      full = true; opened = api;
+      host.classList.add('lmap-full');
+      document.documentElement.classList.add('lmap-full-open');
+      label(true);
+      resize(before);
+      draw();
+      if (push && location.hash !== HASH) {
+        try { history.pushState({ lmap: 1 }, '', location.pathname + location.search + HASH); pushed = true; } catch (_) {}
+      }
+      try { svg.focus({ preventScroll: true }); } catch (_) { svg.focus(); }
+      window.addEventListener('resize', onResize);
+    }
+    function close(fromHistory) {
+      if (!full) return;
+      stop();
+      hidePop();
+      var before = svg.getBoundingClientRect().width;
+      full = false; if (opened === api) opened = null;
+      host.classList.remove('lmap-full');
+      document.documentElement.classList.remove('lmap-full-open');
+      label(false);
+      window.removeEventListener('resize', onResize);
+      resize(before);
+      draw();
+      if (!fromHistory && location.hash === HASH) {
+        // Leave the entry the map view added, or drop the mark from an address that came with it.
+        if (pushed) history.back();
+        else try { history.replaceState(history.state, '', location.pathname + location.search); } catch (_) {}
+      }
+      pushed = false;
+      fullBtn.focus();
+    }
+    function closeView() { close(false); }
+    function onResize() { resize(boxW); }
+    fullBtn.addEventListener('click', function () { if (full) closeView(); else openView(true); });
+
+    // Points with records: a box with their names, each linked to the record's page.
+    var root = base.replace(/map\/$/, '');
+    var pop = null, downAt = null;
+    function hidePop() { if (pop) pop.hidden = true; }
+    function nearest(clientX, clientY) {
+      var p = toSvg(clientX, clientY), best = null, bd = Infinity;
+      var cs = svg.querySelectorAll('circle[data-g]');
+      for (var i = 0; i < cs.length; i++) {
+        var c = cs[i], dx = parseFloat(c.getAttribute('cx')) - p[0], dy = parseFloat(c.getAttribute('cy')) - p[1];
+        var d = Math.sqrt(dx * dx + dy * dy) / p[2];
+        var reach = Math.max(TAP_PX, parseFloat(c.getAttribute('r')) / p[2] + 4);
+        if (d <= reach && d < bd) { bd = d; best = c; }
+      }
+      return best;
+    }
+    function showPop(c, clientX, clientY) {
+      var ids = c.getAttribute('data-g').split(' ').filter(Boolean);
+      if (!pop) {
+        pop = document.createElement('div');
+        pop.className = 'lmap-pop';
+        pop.setAttribute('role', 'dialog');
+        pop.setAttribute('aria-label', 'Records at this point');
+        host.appendChild(pop);
+      }
+      pop.textContent = '';
+      var list = document.createElement('ul');
+      list.className = 'notranslate';
+      ids.forEach(function (id) {
+        var li = document.createElement('li');
+        li.textContent = id;
+        list.appendChild(li);
+      });
+      pop.appendChild(list);
+      var x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'lmap-pop-close';
+      x.setAttribute('aria-label', 'Close');
+      x.appendChild(icon(ICON_CLOSE));
+      x.addEventListener('click', function () { hidePop(); svg.focus(); });
+      pop.appendChild(x);
+      pop.hidden = false;
+      place(clientX, clientY);
+      records(ids, root).then(function (rs) {
+        if (pop.hidden || pop.firstChild !== list) return;
+        rs.forEach(function (r, i) {
+          var li = list.childNodes[i];
+          li.textContent = '';
+          var a = document.createElement(r.url ? 'a' : 'span');
+          a.textContent = r.name;
+          if (r.url) a.href = r.url;
+          li.appendChild(a);
+        });
+        place(clientX, clientY);
+      }, function () {});
+    }
+    function place(clientX, clientY) {
+      var b = host.getBoundingClientRect();
+      var x = Math.min(clientX - b.left + 10, b.width - pop.offsetWidth - 8);
+      var y = Math.min(clientY - b.top + 10, b.height - pop.offsetHeight - 8);
+      pop.style.left = Math.max(8, x) + 'px';
+      pop.style.top = Math.max(8, y) + 'px';
+    }
+    svg.addEventListener('pointerdown', function (e) { downAt = [e.clientX, e.clientY]; });
+    svg.addEventListener('click', function (e) {
+      // Ignore clicks that ended a drag.
+      if (downAt && Math.abs(e.clientX - downAt[0]) + Math.abs(e.clientY - downAt[1]) > 4) return;
+      var c = nearest(e.clientX, e.clientY);
+      if (c) showPop(c, e.clientX, e.clientY); else hidePop();
+    });
+    svg.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !full) hidePop(); });
 
     var api = {
-      svg: svg, zoom: zoom, reset: reset,
+      svg: svg, zoom: zoom, reset: reset, open: function () { openView(true); }, close: close,
+      isOpen: function () { return full; },
       refresh: function () { points = null; schedule(); },
       view: function () { return { x: view.x, y: view.y, w: view.w, h: view.h }; }
     };
     svg.__lmap = api;
     schedule();
+    // An address with #map-view opens the first map in the map view.
+    if (location.hash === HASH && !opened) openView(false);
     return api;
   }
 
-  window.LangLogMap = { mount: mount };
+  // Back and Forward move between the page and its map view.
+  window.addEventListener('popstate', function () {
+    if (location.hash === HASH) {
+      if (!opened) {
+        var s = document.querySelector('svg.lmap');
+        if (s && s.__lmap) s.__lmap.open();
+      }
+    } else if (opened) opened.close(true);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && opened && !e.defaultPrevented) opened.close(false);
+  });
+
+  window.LangLogMap = { mount: mount, records: records };
   function all() { Array.prototype.forEach.call(document.querySelectorAll('svg.lmap[data-map]'), mount); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', all); else all();
 })();
