@@ -48,7 +48,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
-RESERVED = {"map", "data", "i18n"}
+RESERVED = {"map", "data", "i18n", "stats", "sources", "updates"}
 # Directories of earlier builds that no longer exist; removed on each run.
 OLD_DIRS = {"families"}
 TITLE_SUFFIX = " · Lang Log by yoshi"
@@ -506,7 +506,8 @@ FOOTER = ('<footer class="credit"><p>Classification and names from '
           'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>')
 
 
-# Links to the three atlases, under the header of every page.
+# Links to the three atlases. No generated page shows them any more (owner, 2026-11-07:
+# Lang Log is one tree, not three domains); kept so the UI can be reused.
 def domain_nav(up, current="language"):
     items = [("language", up, "Language families"), ("sign", f"{up}signs-and-scripts.html?domain=sign", "Sign languages"),
              ("scripts", f"{up}signs-and-scripts.html?domain=scripts", "Writing systems")]
@@ -530,7 +531,7 @@ def page(depth, title, body):
             f"<link rel=\"icon\" href=\"{up}favicon.svg\" type=\"image/svg+xml\"><link rel=\"apple-touch-icon\" href=\"{up}apple-touch-icon.png\">"
             f"<link rel=\"stylesheet\" href=\"{up}style.css\"><link rel=\"stylesheet\" href=\"{up}signs-and-scripts.css\"><link rel=\"stylesheet\" href=\"{up}record.css\"><script src=\"{up}theme.js\"></script><script src=\"{up}i18n.js\"></script><script src=\"{up}lang.js\"></script><script src=\"{up}map-zoom.js\" defer></script></head>"
             f"<body class=\"variant-page\"><header><div class=\"brand\"><a class=\"home\" href=\"{up}\"><svg class=\"logo\" role=\"img\" aria-label=\"LANG LOG\"><use href=\"{up}logo.svg#logo\"/></svg></a> <span class=\"by\">by <a href=\"{PROFILE_URL}\" title=\"MATSUURA Yoshihiro\">yoshi</a></span></div></header>"
-            f"{domain_nav(up)}<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>")
+            f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>")
 
 
 def record_json(i):
