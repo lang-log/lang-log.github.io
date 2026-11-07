@@ -244,10 +244,12 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .home-section .record-links>li{padding:12px;border:1px solid var(--line);border-radius:4px;line-height:1.5;min-width:0;overflow-wrap:anywhere}
 .home-section .record-links>li>a:first-child{display:block}
 .sources-scope p,.sources-scope li{font-size:15px;line-height:1.7;max-width:80ch}
-.home-results{flex-shrink:0;width:100%;max-width:720px;margin:16px auto 0;text-align:start;border:1px solid var(--line);border-radius:8px;background:var(--c-fcfcf7);padding:8px 12px;max-height:60vh;overflow:auto}
+/* The results grow with the page instead of scrolling in a box of their own; the id beats the
+   #results height limits of the atlas sidebar (max-height:130px on phones). */
+#results.home-results{flex:none;width:100%;max-width:760px;margin:16px auto 0;text-align:start;border:1px solid var(--line);border-radius:8px;background:var(--c-fcfcf7);padding:8px 12px;max-height:none;overflow:visible}
 .home-results .hit{color:inherit;text-decoration:none}
 .home-results .hit:hover{background:var(--c-edf2e7)}
-@media(max-width:700px){.home-section{padding:22px 0}.home-section .record-links{grid-template-columns:1fr}.sources-scope p,.sources-scope li{font-size:16px}}
+@media(max-width:700px){#results.home-results{padding:6px 10px}.home-section{padding:22px 0}.home-section .record-links{grid-template-columns:1fr}.sources-scope p,.sources-scope li{font-size:16px}}
 /* One colour for every search-result dot: records are not marked by kind (all are languoids). */
 .hit .dot{background:var(--c-397b7b)}
 /* The guide row under the Random row on the top page, and the pages it links to
@@ -272,6 +274,9 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .bar-label{font-size:15px;line-height:1.4;overflow-wrap:anywhere}
 .bar{display:block;width:100%;height:14px}
 .bar rect{fill:var(--teal)}
+/* Motion (dist/stats.js): bars grow from zero when they scroll into view. Only under
+   html.stats-motion, which the script sets, so without it the bars are drawn in full. */
+@media(prefers-reduced-motion:no-preference){.stats-motion .bar rect{transform:scaleX(0);transform-box:fill-box;transform-origin:0 50%}.stats-motion .bar.in rect{transform:none;transition:transform .1s ease-out}}
 [dir=rtl] .bar{transform:scaleX(-1)}
 .bar-value{font-size:15px;font-variant-numeric:tabular-nums;text-align:end;min-width:3.5em}
 .all-figures summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:15px;color:var(--teal)}
