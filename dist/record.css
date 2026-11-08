@@ -194,9 +194,11 @@
 .lmap-land {
   fill: var(--c-cdd6cf);
 }
-.lmap-ctx circle {
+.lmap-ctx rect {
   fill: var(--c-8fa29c);
-  fill-opacity: 0.55;
+  stroke: var(--c-ffffff);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
 }
 .lmap-main circle {
   fill: var(--teal);
@@ -399,6 +401,59 @@ body > .domain-nav {
 .lmap-full .lmap-tools .lmap-reset {
   font-size: 14px;
   padding: 0 12px;
+}
+/* The key of the points (tools/build_paths.py): under the map, and over it in the map view.
+   The marks repeat the colours and shapes of .lmap-self, .lmap-main and .lmap-ctx above. */
+.lmap-key {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--c-61726d);
+}
+.lmap-key li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lmap-key li::before {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+.lmap-key-self::before {
+  background: var(--orange);
+  border-radius: 50%;
+}
+.lmap-key-main::before {
+  background: var(--teal);
+  border-radius: 50%;
+  transform: scale(0.5);
+}
+.lmap-key-ctx::before {
+  background: var(--c-8fa29c);
+}
+.lmap-full .lmap-key {
+  position: absolute;
+  bottom: 12px;
+  inset-inline-start: 12px;
+  /* Leaves the bottom right to the locator (.lmap-inset, 22% of the map's width). */
+  max-width: 70%;
+  margin: 0;
+  padding: 8px 12px;
+  flex-direction: column;
+  background: var(--c-ffffff);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px var(--c-24302e1f);
+  color: var(--ink);
 }
 /* The records of a tapped point, each linked to its page. */
 .lmap-pop {

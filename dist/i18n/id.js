@@ -541,7 +541,8 @@
     ],
     [/^All (\S+) models ↗$/, 'Semua model $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'Tahap historis · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'Titik pudar: anggota lain dari $1.'],
+    [/^Members of (.+)$/, 'Anggota $1'],
+    [/^Other members of (.+)$/, 'Anggota lain dari $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

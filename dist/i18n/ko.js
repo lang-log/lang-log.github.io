@@ -531,7 +531,8 @@
     ],
     [/^All (\S+) models ↗$/, '$1 모델 모두 보기 ↗'],
     [/^Historical stage · (#\S+)$/, '역사상의 단계 · $1'],
-    [/^Faint points: other members of (.+)\.$/, '흐린 점: $1의 다른 하위.'],
+    [/^Members of (.+)$/, '$1의 하위'],
+    [/^Other members of (.+)$/, '$1의 다른 하위'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

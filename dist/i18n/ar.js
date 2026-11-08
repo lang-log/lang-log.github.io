@@ -527,7 +527,8 @@
     ],
     [/^All (\S+) models ↗$/, 'كل نماذج $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'مرحلة تاريخية · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'النقاط الباهتة: أعضاء آخرون في $1.'],
+    [/^Members of (.+)$/, 'أعضاء $1'],
+    [/^Other members of (.+)$/, 'أعضاء آخرون في $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

@@ -577,7 +577,8 @@ window.LANGLOG_I18N = {
       ],
       [/^All (\S+) models ↗$/, '$1 のモデルをすべて見る ↗'],
       [/^Historical stage · (#\S+)$/, '歴史上の段階 · $1'],
-      [/^Faint points: other members of (.+)\.$/, '薄い点: $1 のほかの下位。'],
+      [/^Members of (.+)$/, '$1 の下位'],
+      [/^Other members of (.+)$/, '$1 のほかの下位'],
       [
         /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
         function (m) {

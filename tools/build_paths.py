@@ -471,10 +471,18 @@ def map_html(depth, i):
         total = sum(1 for c in languages_under_all(i))
         missing = total - len(main)
         notes.append(f"{len(main)} languages shown" + (f"; {missing} have no coordinates in Glottolog" if missing else "") + ".")
+    # The key: what each kind of point stands for, named by record (no kind labels).
+    # dist/map-zoom.js moves it into the map box, so the map view shows it too.
+    key = []
+    if own:
+        key.append(f'<li class="lmap-key-self notranslate">{escape(n["name"])}</li>')
+    if main:
+        key.append(f'<li class="lmap-key-main">Members of {escape(n["name"])}</li>')
     if context:
-        notes.append("Faint points: other members of " + escape(nodes[parent]["name"]) + ".")
+        key.append(f'<li class="lmap-key-ctx">Other members of {escape(nodes[parent]["name"])}</li>')
+    key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
     legend = " ".join(notes)
-    return (f'<figure class="lmap-figure">{svg}<figcaption>{legend} '
+    return (f'<figure class="lmap-figure">{svg}{key_html}<figcaption>{legend} '
             "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
             'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
             "Dashed borders are disputed or not settled. "

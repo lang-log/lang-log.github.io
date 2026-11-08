@@ -516,7 +516,8 @@
     ],
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
     [/^Historical stage · (#\S+)$/, '历史阶段 · $1'],
-    [/^Faint points: other members of (.+)\.$/, '浅色点：$1 的其他下位。'],
+    [/^Members of (.+)$/, '$1 的下位'],
+    [/^Other members of (.+)$/, '$1 的其他下位'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

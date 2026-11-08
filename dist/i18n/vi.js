@@ -539,7 +539,8 @@
     ],
     [/^All (\S+) models ↗$/, 'Tất cả mô hình $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'Giai đoạn lịch sử · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'Điểm mờ: các thành viên khác của $1.'],
+    [/^Members of (.+)$/, 'Các thành viên của $1'],
+    [/^Other members of (.+)$/, 'Các thành viên khác của $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

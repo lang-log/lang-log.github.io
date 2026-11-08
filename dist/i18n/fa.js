@@ -534,7 +534,8 @@
     ],
     [/^All (\S+) models ↗$/, 'همهٔ مدل‌های $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'مرحلهٔ تاریخی · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'نقطه‌های کم‌رنگ: دیگر اعضای $1.'],
+    [/^Members of (.+)$/, 'اعضای $1'],
+    [/^Other members of (.+)$/, 'دیگر اعضای $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

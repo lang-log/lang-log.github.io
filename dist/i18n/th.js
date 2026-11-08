@@ -535,7 +535,8 @@
     ],
     [/^All (\S+) models ↗$/, 'โมเดล $1 ทั้งหมด ↗'],
     [/^Historical stage · (#\S+)$/, 'ขั้นทางประวัติศาสตร์ · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'จุดสีจาง: สมาชิกอื่นของ $1'],
+    [/^Members of (.+)$/, 'สมาชิกของ $1'],
+    [/^Other members of (.+)$/, 'สมาชิกอื่นของ $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

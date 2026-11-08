@@ -545,7 +545,8 @@
     ],
     [/^All (\S+) models ↗$/, 'Alle modellen voor $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'Historisch stadium · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'Vage punten: andere leden van $1.'],
+    [/^Members of (.+)$/, 'Leden van $1'],
+    [/^Other members of (.+)$/, 'Andere leden van $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

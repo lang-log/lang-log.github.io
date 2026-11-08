@@ -531,7 +531,8 @@
     ],
     [/^All (\S+) models ↗$/, '$1 के सभी मॉडल ↗'],
     [/^Historical stage · (#\S+)$/, 'ऐतिहासिक चरण · $1'],
-    [/^Faint points: other members of (.+)\.$/, 'हल्के बिंदु: $1 के अन्य सदस्य।'],
+    [/^Members of (.+)$/, '$1 के सदस्य'],
+    [/^Other members of (.+)$/, '$1 के अन्य सदस्य'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
