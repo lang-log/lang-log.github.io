@@ -20,6 +20,10 @@ window.LANGLOG_I18N = {
       'North America': '北アメリカ',
       'South America': '南アメリカ',
       'Australia': 'オーストラリア',
+      'Oceania': 'オセアニア',
+      'No location in the data': 'データに位置がないもの',
+      'Each is listed under the continent where most of its languages are spoken.':
+        '言語がもっとも多く話されている大陸の下に並べています。',
       'Stats': '統計',
       'Updates': '更新情報',
       'About Lang Log': 'Lang Log について',
@@ -57,6 +61,17 @@ window.LANGLOG_I18N = {
         'すべての語族、言語、方言に、分類に沿ったアドレスの専用ページができました。',
       'Stats · Lang Log by yoshi': '統計 · Lang Log by yoshi',
       'Updates · Lang Log by yoshi': '更新情報 · Lang Log by yoshi',
+      // Releases page (tools/build_releases.py) and its link in the guide row
+      'Releases': 'リリース',
+      'Releases · Lang Log by yoshi': 'リリース · Lang Log by yoshi',
+      'Latest': '最新',
+      'Pre-release': 'プレリリース',
+      'No releases yet.': 'リリースはまだありません。',
+      'No release notes.': 'リリースノートはありません。',
+      'Downloads': 'ダウンロード',
+      'View on GitHub': 'GitHub で見る',
+      'All releases on GitHub': 'GitHub ですべてのリリースを見る',
+      'Date unknown': '日付不明',
       'Sources & scope · Lang Log by yoshi': '出典と範囲 · Lang Log by yoshi',
       // Record pages and top page after the atlas merge (tools/build_paths.py, tools/build_home.py, dist/tree.js)
       'Top': 'トップ',

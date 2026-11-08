@@ -9,6 +9,13 @@
   covers the coarser world map under it completely.
 - dist/map/tiles.json: the grid and the list of tiles that exist.
 
+Shapes are made so that the maps need no trick to hide a seam: neighbouring
+tiles, and the copies of the world drawn east and west of each other, overlap
+with the same land and sea (OVERLAP, WRAP_OVERLAP); land cut at a line is
+closed along that line piece by piece (clip_poly); land Natural Earth cut at
+the 180th meridian is joined again (join_at); and no edge of a lake lies on an
+edge of the land around it.
+
 Borders: solid for international boundaries; dashed ("disputed") for
 disputed boundaries, lines of control and indefinite or unrecognised
 boundaries, following the FEATURECLA field of Natural Earth's de facto
@@ -31,7 +38,7 @@ import sys
 import urllib.request
 
 from locations import DIST, ROOT
-from languoid_map import MAX_LAT, project, WORLD_W
+from languoid_map import MAX_LAT, project, SCALE, WORLD_W
 
 OUT = DIST / "map"
 BASE_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/"
@@ -46,7 +53,14 @@ SOURCES = {  # file name: SHA-256
 WORLD = {"tol": 0.35, "area": 0.6, "q": 0.1}
 TILE = {"tol": 0.06, "area": 0.004, "q": 0.02}
 TILES_X, TILES_Y = 16, 16
-OVERLAP = 0.3  # tiles reach this far into their neighbours, so no seam shows
+# Shapes that meet edge to edge leave a thin light line where the browser smooths both edges,
+# so neighbouring shapes overlap instead, by at least one screen pixel:
+# - tiles by OVERLAP SVG units: they are drawn once the view is narrower than TILE_BELOW in
+#   dist/map-zoom.js, about 2 SVG units per CSS pixel on a phone;
+# - the copies of the world drawn east and west of each other by WRAP_OVERLAP: the whole
+#   world on a phone is about 6 SVG units per CSS pixel.
+OVERLAP = 3
+WRAP_OVERLAP = 12
 DASHED = {
     "Disputed (please verify)",
     "Line of control (please verify)",
@@ -55,30 +69,6 @@ DASHED = {
     "Unrecognized",
 }
 SOLID = {"International boundary (verify)"}
-
-
-def clip_lat(ring):
-    """A land ring cut at MAX_LAT north and south, where the square Web Mercator world ends."""
-
-    def at(a, b, lat):
-        t = (lat - a[1]) / (b[1] - a[1])
-        return (a[0] + t * (b[0] - a[0]), lat)
-
-    for inside, lat in (
-        (lambda p: p[1] <= MAX_LAT, MAX_LAT),
-        (lambda p: p[1] >= -MAX_LAT, -MAX_LAT),
-    ):
-        out = []
-        for i, cur in enumerate(ring):
-            prev = ring[i - 1]
-            if inside(cur):
-                if not inside(prev):
-                    out.append(at(prev, cur, lat))
-                out.append(cur)
-            elif inside(prev):
-                out.append(at(prev, cur, lat))
-        ring = out
-    return ring
 
 
 def simplify(pts, tol):
@@ -117,20 +107,37 @@ def area(pts):
     )
 
 
-def projected_rings(features):
-    """Every land ring as a list of SVG points (before simplification).
+def land_polygons(features, margin):
+    """Land as groups of rings in SVG units: each group is one region (outer rings and the
+    holes in them, such as the Caspian Sea), to be clipped as a whole.
 
-    Natural Earth already splits land at the 180th meridian.
+    Natural Earth cuts land at the 180th meridian. The land on either side is joined
+    again here, and land within `margin` (SVG units) of the 180th meridian is repeated one
+    world east or west, so each copy of the world reaches into its neighbour with the same
+    land and no edge runs along the 180th meridian. Land is cut at MAX_LAT, where the
+    square world ends.
     """
-    out = []
+    margin_deg = math.degrees(margin / SCALE)
+    near, groups = [], []
     for f in features:
         g = f["geometry"]
         polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
         for poly in polys:
-            for ring in poly:
-                r = clip_lat(ring[:-1])
-                if len(r) >= 3:
-                    out.append([project(lon, lat) for lon, lat in r])
+            rings = [[tuple(p) for p in ring[:-1]] for ring in poly]
+            lons = [p[0] for p in rings[0]]
+            if max(lons) >= 180 - margin_deg or min(lons) <= -180 + margin_deg:
+                near.append(rings)
+            else:
+                groups.append(rings)
+    # One group for all land near the 180th meridian, three copies a world apart, joined
+    # across the meridians at -180 and 180 degrees.
+    copies = [[(x + k, y) for x, y in r] for k in (-360, 0, 360) for rings in near for r in rings]
+    groups.append(join_at(copies, 0, (-180, 180)))
+    out = []
+    for rings in groups:
+        rings = clip_poly(rings, ((1, MAX_LAT, False), (1, -MAX_LAT, True)))
+        if rings:
+            out.append([[project(lon, lat) for lon, lat in r] for r in rings])
     return out
 
 
@@ -149,37 +156,130 @@ def projected_lines(features):
     return out
 
 
-def clip_ring_rect(pts, x0, y0, x1, y1):
-    """Sutherland-Hodgman clipping of a polygon against a rectangle."""
+def stitch(chains, axis):
+    """Close open chains into rings. Each chain starts and ends on a line where coordinate
+    `axis` is constant; along each line the chain ends and starts are sorted and paired
+    (1st with 2nd, 3rd with 4th, ...), and the ring runs along the line between a pair.
+    For a region, the boundary on the line lies exactly between those pairs.
+    """
+    other = 1 - axis
+    marks = {}
+    for n, c in enumerate(chains):
+        marks.setdefault(c[-1][axis], []).append((c[-1][other], 0, n))  # an end
+        marks.setdefault(c[0][axis], []).append((c[0][other], 1, n))  # a start
+    follow = {}
+    for line in marks.values():
+        line.sort()
+        if len(line) % 2:
+            raise ValueError("an odd number of crossings on one line")
+        for a, b in zip(line[0::2], line[1::2], strict=True):
+            if a[1] == b[1]:
+                raise ValueError("crossings do not alternate; the rings do not bound a region")
+            end, start = (a, b) if a[1] == 0 else (b, a)
+            follow[end[2]] = start[2]
+    out, used = [], set()
+    for n in range(len(chains)):
+        if n in used:
+            continue
+        r, m = [], n
+        while m not in used:
+            used.add(m)
+            r.extend(p for p in chains[m] if not r or p != r[-1])
+            m = follow[m]
+        if len(r) > 1 and r[0] == r[-1]:
+            r.pop()
+        if len(r) >= 3:
+            out.append(r)
+    return out
 
-    def edge(points, inside, cut):
-        res = []
-        for i, cur in enumerate(points):
-            prev = points[i - 1]
-            if inside(cur):
-                if not inside(prev):
-                    res.append(cut(prev, cur))
-                res.append(cur)
-            elif inside(prev):
-                res.append(cut(prev, cur))
-        return res
 
-    def at_x(e):
-        return lambda a, b: (e, a[1] + (e - a[0]) / (b[0] - a[0]) * (b[1] - a[1]))
+def clip_poly(rings, edges):
+    """A region (a list of rings) cut by straight lines, keeping one side of each.
 
-    def at_y(e):
-        return lambda a, b: (a[0] + (e - a[1]) / (b[1] - a[1]) * (b[0] - a[0]), e)
+    edges: (axis, value, keep_above). Every piece is closed along the line on its own, so
+    no zero-width run joins two pieces across what lies between them (Sutherland-Hodgman
+    did, which drew lines across enclosed seas). Holes that a line cuts become part of the
+    outline of the land around them, so no edge of a hole lies on an edge of the land.
+    """
+    for axis, edge, above in edges:
+        side = 1 if above else -1
+        other = 1 - axis
 
-    for inside, cut in (
-        (lambda p: p[0] >= x0, at_x(x0)),
-        (lambda p: p[0] <= x1, at_x(x1)),
-        (lambda p: p[1] >= y0, at_y(y0)),
-        (lambda p: p[1] <= y1, at_y(y1)),
-    ):
-        if not pts:
+        def inside(p, axis=axis, edge=edge, side=side):
+            return side * (p[axis] - edge) >= 0
+
+        def cut(a, b, axis=axis, other=other, edge=edge):
+            t = (edge - a[axis]) / (b[axis] - a[axis])
+            q = [0.0, 0.0]
+            q[axis] = edge
+            q[other] = a[other] + t * (b[other] - a[other])
+            return tuple(q)
+
+        whole, chains = [], []
+        for ring in rings:
+            flags = [inside(p) for p in ring]
+            if all(flags):
+                whole.append(ring)
+                continue
+            if not any(flags):
+                continue
+            # Start at an outside point, so every chain begins with an entry and ends with an exit.
+            k = flags.index(False)
+            ring, flags = ring[k:] + ring[:k], flags[k:] + flags[:k]
+            run = None
+            for i in range(1, len(ring) + 1):
+                prev, cur = ring[i - 1], ring[i % len(ring)]
+                f_prev, f_cur = flags[i - 1], flags[i % len(ring)]
+                if f_cur and not f_prev:
+                    run = [cut(prev, cur)]
+                if f_cur:
+                    if cur != run[-1]:
+                        run.append(cur)
+                elif f_prev:
+                    x = cut(prev, cur)
+                    if x != run[-1]:
+                        run.append(x)
+                    chains.append(run)
+                    run = None
+        rings = whole + stitch(chains, axis)
+        if not rings:
             break
-        pts = edge(pts, inside, cut)
-    return pts
+    return rings
+
+
+def join_at(rings, axis, lines):
+    """One region from rings that meet edge to edge on straight lines (land that Natural
+    Earth cut at the 180th meridian, with its copies a world away): the edges that lie on
+    the lines are taken out and the rest joined, running along a line only where land
+    lies on one side of it.
+    """
+    whole, chains = [], []
+    for ring in rings:
+
+        def on(i, ring=ring):
+            a, b = ring[i - 1], ring[i]
+            return a[axis] == b[axis] and a[axis] in lines
+
+        cuts = [i for i in range(len(ring)) if on(i)]
+        if not cuts:
+            whole.append(ring)
+            continue
+        # Start right after an edge on a line; each chain runs to the next such edge.
+        k = cuts[0]
+        ring = ring[k:] + ring[:k]
+        run = [ring[0]]
+        for i in range(1, len(ring) + 1):
+            if on(i % len(ring), ring):
+                if len(run) > 1:
+                    chains.append(run)
+                run = [ring[i % len(ring)]]
+            else:
+                run.append(ring[i % len(ring)])
+    return whole + stitch(chains, axis)
+
+
+def rect_edges(x0, y0, x1, y1):
+    return ((0, x0, True), (0, x1, False), (1, y0, True), (1, y1, False))
 
 
 def clip_line_rect(pts, x0, y0, x1, y1):
@@ -248,6 +348,13 @@ def sphere_path():
     return f"M{-h:.1f} {-h:.1f}H{h:.1f}V{h:.1f}H{-h:.1f}z"
 
 
+def sea_path():
+    """The sea behind the copies of the world: the world reaching WRAP_OVERLAP into each
+    neighbour, as the land does (land_polygons)."""
+    h, w = WORLD_W / 2, WORLD_W / 2 + WRAP_OVERLAP
+    return f"M{-w:.1f} {-h:.1f}H{w:.1f}V{h:.1f}H{-w:.1f}z"
+
+
 def layers(sea, land, solid, dashed):
     """The <defs> body of a map file: ids sea/sphere, land, borders, disputed.
 
@@ -287,11 +394,16 @@ def main():
     sphere = sphere_points()
     name = "land"
     world(name, src)
-    rings = projected_rings(src["ne_10m_land.geojson"])
+    groups = land_polygons(src["ne_10m_land.geojson"], OVERLAP)
     lines = projected_lines(src["ne_10m_admin_0_boundary_lines_land.geojson"])
-    bbox_r = [
-        (min(p[0] for p in r), min(p[1] for p in r), max(p[0] for p in r), max(p[1] for p in r))
-        for r in rings
+    bbox_g = [
+        (
+            min(p[0] for r in g for p in r),
+            min(p[1] for r in g for p in r),
+            max(p[0] for r in g for p in r),
+            max(p[1] for r in g for p in r),
+        )
+        for g in groups
     ]
     bbox_l = [
         (
@@ -318,9 +430,10 @@ def main():
             x0 = -WORLD_W / 2 + cx * tw - OVERLAP
             y0 = -h / 2 + cy * th - OVERLAP
             x1, y1 = x0 + tw + 2 * OVERLAP, y0 + th + 2 * OVERLAP
-            sea = clip_ring_rect(sphere, x0, y0, x1, y1)
-            if len(sea) < 3:
+            sea = clip_poly([sphere], rect_edges(x0, y0, x1, y1))
+            if not sea:
                 continue
+            sea = sea[0]
 
             # Defined and called within one loop iteration, so the loop variables it reads
             # are always the current ones (the noqa: B023 marks below).
@@ -328,9 +441,10 @@ def main():
                 return b[2] >= x0 and b[0] <= x1 and b[3] >= y0 and b[1] <= y1  # noqa: B023
 
             land = [
-                clip_ring_rect(r, x0, y0, x1, y1)
-                for r, b in zip(rings, bbox_r, strict=False)
+                piece
+                for g, b in zip(groups, bbox_g, strict=False)
                 if hit(b)
+                for piece in clip_poly(g, rect_edges(x0, y0, x1, y1))
             ]
             solid, dashed = [], []
             for (d, line), b in zip(lines, bbox_l, strict=False):
@@ -353,7 +467,15 @@ def main():
 
 
 def world(name, src):
-    land = land_d(projected_rings(src["ne_50m_land.geojson"]), WORLD)
+    h = WORLD_W / 2 + WRAP_OVERLAP
+    land = land_d(
+        [
+            piece
+            for g in land_polygons(src["ne_50m_land.geojson"], WRAP_OVERLAP)
+            for piece in clip_poly(g, ((0, -h, True), (0, h, False)))
+        ],
+        WORLD,
+    )
     lines = projected_lines(src["ne_50m_admin_0_boundary_lines_land.geojson"])
     solid = line_d([line for d, line in lines if not d], WORLD)
     dashed = line_d([line for d, line in lines if d], WORLD)
@@ -362,7 +484,7 @@ def world(name, src):
         '<svg xmlns="http://www.w3.org/2000/svg" '
         f'viewBox="{-WORLD_W / 2:.1f} {-h / 2:.1f} {WORLD_W:.1f} {h:.1f}">'
         "<!-- Natural Earth 1:50m land and boundary lines v5.1.2, public domain. Web Mercator; see languoid_map.py. -->"
-        f"<defs>{layers(f'<path id="sphere" d="{sphere_path()}"/>', land, solid, dashed)}</defs>"
+        f"<defs>{layers(f'<path id="sphere" d="{sphere_path()}"/><path id="sea" d="{sea_path()}"/>', land, solid, dashed)}</defs>"
         '<use href="#sphere" fill="#e4ecea"/><use href="#land" fill="#c9d3cc"/>'
         '<use href="#borders" stroke="#9fb0aa" stroke-width="0.6"/><use href="#disputed" stroke="#9fb0aa" stroke-width="0.6" stroke-dasharray="3 2"/></svg>\n'
     )

@@ -92,7 +92,35 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+
+## Releases
+
+A release is a version tag on a commit of `main`; GitHub Releases hold the release information, and the site shows it on `releases.html`. The rules are in `.claude/rules/releases.md`.
+
+To release, choose the commit and the version (Semantic Versioning: `v1.0.0` first release, `v1.1.0` new features, `v1.1.1` bug fixes, `v2.0.0` breaking changes) and push an annotated tag:
+
+```sh
+git switch main && git pull
+git tag -a v1.0.0 -m "First public release"
+git push origin v1.0.0
+```
+
+What happens next:
+
+1. `.github/workflows/release.yml` starts on the tag push (`push`, tags `v*`). Its job has `contents: write` and runs `tools/release.py`, which checks that the tag is `vMAJOR.MINOR.PATCH` and points at a commit on `main` (a lightweight tag only gives a warning), then creates the GitHub Release: named after the tag, with the tag's message followed by the notes GitHub generates from the pull requests merged since the previous release. If the tag already has a release, nothing is changed.
+2. When `release.yml` ends, `pages.yml` runs (`workflow_run`). Its `releases` job (`contents: read`) runs `python3 tools/build_releases.py --fetch`, which reads every release and the latest one from the GitHub API with the job's `GITHUB_TOKEN` and saves the answer as `build/github-releases.json`, uploaded as the artifact `github-releases`. After the code checks (`quality.yml`), the shared deployment workflow downloads it and runs `tools/build_site.sh`.
+3. `tools/build_site.sh` runs the tests (`tools/test_releases.py`) and `tools/build_releases.py`, which writes `dist/releases.html` (newest first, the latest release marked, notes, links to each release and its downloads on GitHub) and `dist/releases.json` (the same releases with the notes in Markdown). Neither is committed. The page is then deployed with the rest of the site.
+
+`pages.yml` runs one deployment at a time (workflow-level `concurrency`, never cancelled while running); a waiting run reads the releases when it starts, so a deployment that replaced it still shows the newest release. `site.yml` fetches the releases the same way before building a pull request. Without `build/github-releases.json` (a local build, the browser check), `tools/build_releases.py` reads the API itself, anonymously unless `GITHUB_TOKEN` is set.
+
+Security: release notes, names and asset names are untrusted. The page shows GitHub's HTML of the notes after `sanitize()` keeps only plain formatting tags and `https://github.com/` links; images are replaced by their alternative text (the Content-Security-Policy allows only the site's own images). Assets are only linked, never downloaded or run. API requests go only to `api.github.com`, retry on rate limits and server errors (at most `ATTEMPTS` tries, waiting at most `MAX_WAIT_S` seconds, in `tools/github_api.py`), and never print the token.
+
+Troubleshooting:
+
+- No release was created: open the `release` run of the tag. `is not a version tag` means the name is not like `v1.2.0`; `is not on origin/main` means the tagged commit is not on `main`. Delete the tag (`git push origin :refs/tags/v1.2.0`, `git tag -d v1.2.0`) and tag a commit of `main`.
+- The release exists but the site does not show it: check the `pages` run that followed. If `releases` failed (API error or rate limit), nothing was deployed and the live site is unchanged; run `pages` again from the Actions tab (workflow_dispatch).
+- A local build fails with an HTTP 403: the anonymous rate limit was reached. Wait, or set `GITHUB_TOKEN` to a token that can read the repository.
 
 ## Record pages
 
@@ -132,7 +160,7 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ## Search from the address bar
 
-`https://lang-log.github.io/?q=<text>` opens the top page with `<text>` in the search box and its matches listed under it (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+`https://lang-log.github.io/q?q=<text>` opens the search results page (`dist/q.html`) with `<text>` in the search box and its matches listed under it. To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`. Old links to the top page with `?q=<text>` are sent there.
 
 `dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Lang Log" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
 
