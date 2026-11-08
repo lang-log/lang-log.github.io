@@ -101,17 +101,17 @@
       '예: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': '예: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': '예: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': '근거로 거르기',
-    'All evidence': '모든 근거',
-    'With research trees': '연구 계통수가 있는 것',
-    'With conflicting study clades': '연구 간에 분기가 어긋나는 것',
-    'Record category': '기록 종류',
-    'All categories': '모든 종류',
     'Spoken genealogy': '음성 언어의 계통',
     'Isolates': '고립어',
     'View': '보기',
     'List': '목록',
     'Tree': '수형도',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': '지도',
+    'Yes': '예',
+    'No': '아니요',
+    'Conflicting study clades': '연구 간에 상충하는 분기군',
+    'Research trees': '연구 계통수',
     'All roots': '모든 뿌리',
     'Selected branch': '선택한 계통',
     'Collapse all': '모두 접기',
@@ -365,7 +365,6 @@
     'Cross-family / outgroup source trees': '여러 어족에 걸치거나 외군인 출처 계통수',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Glottolog의 여러 어족에 걸치는 연구 계통수와 WALS 어족입니다. 탐색을 위해서만 여기에 싣습니다.',
-    'Whole tree': '전체 수형도',
     'Show the tree of this branch': '이 계통의 수형도 보기',
     'Where Lang Log attaches this tree': 'Lang Log가 이 계통수를 연결한 위치',
     "Other sources' trees below this record": '이 기록 아래에 있는 다른 출처의 계통수',
@@ -400,12 +399,7 @@
     'Back to search results': '검색 결과로 돌아가기',
     'genus': 'WALS의 속',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': '언어 특성 지도',
-    'Language feature map · Lang Log by yoshi': '언어 특성 지도 · Lang Log by yoshi',
-    'About': '설명',
     'About this map': '이 지도에 대하여',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      '처음에는 모든 언어가 지도에 있습니다. 조건을 추가하면 맞는 언어만 남고, 점을 색칠할 특성도 고를 수 있습니다.',
     'Colour by': '색 구분 특성',
     'None (one colour)': '없음(한 가지 색)',
     'Conditions': '조건',
@@ -426,11 +420,7 @@
       '점은 좌표가 있는 Glottolog 5.3의 모든 언어로, Glottolog가 정한 대표 지점에 있으며 그 언어가 쓰이는 범위가 아닙니다. 특성 값은 WALS Online(Dryer·Haspelmath 편, 2013) CLDF 판 v2020.4(CC BY 4.0)에서 가져와 각 WALS 언어에 대응하는 Glottolog 언어에 연결했습니다.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       '한 조건 안에서 체크한 값은 "또는"으로 이어집니다. 조건끼리는 연결을 OR로 바꾸지 않는 한 "그리고"로 이어집니다. OR로 이은 조건은 한 묶음으로 다루므로 "A AND B OR C"는 "A AND (B OR C)"라는 뜻입니다. 조건의 특성에 데이터가 없는 언어는 그 조건에 맞지 않는 것으로 봅니다.',
-    'This map needs JavaScript. The feature data is in':
-      '이 지도에는 JavaScript가 필요합니다. 특성 데이터는 다음에 있습니다:',
     'Land and borders: Natural Earth (public domain)': '육지와 국경: Natural Earth(퍼블릭 도메인)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      '언어 특성 지도: 모든 언어를 세계 지도에 표시하고 WALS 특성 조건으로 좁히며 그중 한 특성으로 색칠합니다.',
     'Land and borders:': '육지와 국경:',
     'Dashed borders are disputed or not settled.':
       '점선 국경은 분쟁 중이거나 확정되지 않은 경계입니다.',

@@ -102,17 +102,17 @@
       'Örnek: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Örnek: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Örnek: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Kanıta göre süz',
-    'All evidence': 'Tüm kanıtlar',
-    'With research trees': 'Araştırma ağaçları olanlar',
-    'With conflicting study clades': 'Çelişen çalışma kladları olanlar',
-    'Record category': 'Kayıt türü',
-    'All categories': 'Tüm türler',
     'Spoken genealogy': 'Sözlü dillerin soy kütüğü',
     'Isolates': 'Yalıtık diller',
     'View': 'Görünüm',
     'List': 'Liste',
     'Tree': 'Ağaç',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Harita',
+    'Yes': 'Evet',
+    'No': 'Hayır',
+    'Conflicting study clades': 'Çelişen çalışma kladları',
+    'Research trees': 'Araştırma ağaçları',
     'All roots': 'Tüm kökler',
     'Selected branch': 'Seçili dal',
     'Collapse all': 'Tümünü daralt',
@@ -367,7 +367,6 @@
       'Birden çok aileyi kapsayan veya dış grup kaynak ağaçları',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Birden fazla Glottolog ailesini kapsayan çalışma ağaçları ve WALS aileleri. Burada yalnızca gezinme için listelenmiştir.',
-    'Whole tree': 'Ağacın tamamı',
     'Show the tree of this branch': 'Bu dalın ağacını göster',
     'Where Lang Log attaches this tree': 'Lang Log’un bu ağacı bağladığı yer',
     "Other sources' trees below this record": 'Bu kaydın altındaki diğer kaynakların ağaçları',
@@ -402,12 +401,7 @@
     'Back to search results': 'Arama sonuçlarına dön',
     'genus': 'cins (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Dil özellikleri haritası',
-    'Language feature map · Lang Log by yoshi': 'Dil özellikleri haritası · Lang Log by yoshi',
-    'About': 'Hakkında',
     'About this map': 'Bu harita hakkında',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Başta tüm diller haritadadır. Yalnızca koşullara uyan dilleri bırakmak için koşul ekleyin ve noktaları renklendirmek için bir özellik seçin.',
     'Colour by': 'Renklendirme ölçütü',
     'None (one colour)': 'Yok (tek renk)',
     'Conditions': 'Koşullar',
@@ -429,12 +423,8 @@
       'Noktalar, koordinatı olan tüm Glottolog 5.3 dilleridir; konuşuldukları bölgeyi değil, Glottolog’un verdiği temsilî noktayı gösterir. Özellik değerleri WALS Online’dan (Dryer ve Haspelmath, ed., 2013), CLDF sürümü v2020.4, CC BY 4.0 lisansıyla alınmış ve her WALS dilinin Glottolog diline bağlanmıştır.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'Bir koşulda işaretlenen değerler VEYA ile bağlanır. Bağlantıyı OR’a çevirmedikçe koşullar VE ile bağlanır; OR ile bağlanan koşullar tek bir grup sayılır, yani “A AND B OR C”, “A AND (B OR C)” demektir. Bir koşulun özelliği için verisi olmayan dil o koşula uymaz.',
-    'This map needs JavaScript. The feature data is in':
-      'Bu harita JavaScript gerektirir. Özellik verileri şurada:',
     'Land and borders: Natural Earth (public domain)':
       'Kara ve sınırlar: Natural Earth (kamu malı)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Dil özellikleri haritası: tüm diller bir dünya haritasında, WALS özelliklerine dair koşullarla daraltılır ve bunlardan birine göre renklendirilir.',
     'Land and borders:': 'Kara ve sınırlar:',
     'Dashed borders are disputed or not settled.':
       'Kesikli sınırlar tartışmalı veya kesinleşmemiştir.',

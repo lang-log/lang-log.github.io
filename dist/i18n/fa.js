@@ -102,17 +102,17 @@
       'نمونه: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'نمونه: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'نمونه: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'پالایش بر پایهٔ شواهد',
-    'All evidence': 'همهٔ شواهد',
-    'With research trees': 'دارای درخت‌های پژوهشی',
-    'With conflicting study clades': 'دارای شاخه‌های ناسازگار پژوهش‌ها',
-    'Record category': 'نوع رکورد',
-    'All categories': 'همهٔ انواع',
     'Spoken genealogy': 'تبارشناسی زبان‌های گفتاری',
     'Isolates': 'زبان‌های منفرد',
     'View': 'نما',
     'List': 'فهرست',
     'Tree': 'درخت',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'نقشه',
+    'Yes': 'بله',
+    'No': 'خیر',
+    'Conflicting study clades': 'شاخه\u200cهای ناسازگار پژوهش\u200cها',
+    'Research trees': 'درخت\u200cهای پژوهشی',
     'All roots': 'همهٔ ریشه‌ها',
     'Selected branch': 'شاخهٔ برگزیده',
     'Collapse all': 'بستن همه',
@@ -364,7 +364,6 @@
     'Cross-family / outgroup source trees': 'درخت‌های منابعِ فراخانواده‌ای یا برون‌گروهی',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'درخت‌های پژوهشی و خانواده‌های WALS که بیش از یک خانوادهٔ Glottolog را در بر می‌گیرند. این‌ها فقط برای پیمایش اینجا آمده‌اند.',
-    'Whole tree': 'کل درخت',
     'Show the tree of this branch': 'نمایش درخت این شاخه',
     'Where Lang Log attaches this tree': 'جایی که Lang Log این درخت را وصل می‌کند',
     "Other sources' trees below this record": 'درخت‌های منابع دیگر زیر این رکورد',
@@ -399,12 +398,7 @@
     'Back to search results': 'بازگشت به نتایج جست‌وجو',
     'genus': 'جنس (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'نقشهٔ ویژگی‌های زبانی',
-    'Language feature map · Lang Log by yoshi': 'نقشهٔ ویژگی‌های زبانی · Lang Log by yoshi',
-    'About': 'درباره',
     'About this map': 'دربارهٔ این نقشه',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'در آغاز همهٔ زبان‌ها روی نقشه‌اند. شرط اضافه کنید تا فقط زبان‌های منطبق بمانند، و ویژگی‌ای برای رنگ‌آمیزی نقطه‌ها انتخاب کنید.',
     'Colour by': 'رنگ‌آمیزی بر اساس',
     'None (one colour)': 'هیچ (یک رنگ)',
     'Conditions': 'شرط‌ها',
@@ -427,11 +421,7 @@
       'نقطه‌ها همهٔ زبان‌های Glottolog 5.3 دارای مختصات‌اند، در نقطهٔ نماینده‌ای که Glottolog می‌دهد، نه ناحیه‌ای که در آن صحبت می‌شوند. مقدار ویژگی‌ها از WALS Online (Dryer و Haspelmath، ویراستاران، ۲۰۱۳)، نسخهٔ CLDF v2020.4، با مجوز CC BY 4.0 گرفته شده و به زبان Glottolog هر زبان WALS پیوند داده شده است.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'مقدارهای علامت‌خورده در یک شرط با «یا» به هم می‌پیوندند. شرط‌ها با «و» به هم می‌پیوندند مگر اینکه پیوند را به OR تغییر دهید؛ شرط‌هایی که با OR پیوسته‌اند یک گروه به شمار می‌آیند، پس «A AND B OR C» یعنی «A AND (B OR C)». زبانی که برای ویژگی یک شرط داده ندارد با آن شرط منطبق نیست.',
-    'This map needs JavaScript. The feature data is in':
-      'این نقشه به JavaScript نیاز دارد. داده‌های ویژگی‌ها در این‌جاست:',
     'Land and borders: Natural Earth (public domain)': 'خشکی و مرزها: Natural Earth (مالکیت عمومی)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'نقشهٔ ویژگی‌های زبانی: همهٔ زبان‌ها روی نقشهٔ جهان، محدودشده با شرط‌هایی بر ویژگی‌های WALS و رنگ‌آمیزی‌شده بر اساس یکی از آن‌ها.',
     'Land and borders:': 'خشکی و مرزها:',
     'Dashed borders are disputed or not settled.': 'مرزهای خط‌چین مورد مناقشه یا نامعین‌اند.',
     'Reset': 'بازنشانی',

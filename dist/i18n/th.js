@@ -101,17 +101,17 @@
       'ตัวอย่าง: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'ตัวอย่าง: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'ตัวอย่าง: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'กรองตามหลักฐาน',
-    'All evidence': 'หลักฐานทั้งหมด',
-    'With research trees': 'มีแผนภูมิต้นไม้จากงานวิจัย',
-    'With conflicting study clades': 'มีเคลดจากงานวิจัยที่ขัดแย้งกัน',
-    'Record category': 'ประเภทระเบียน',
-    'All categories': 'ทุกประเภท',
     'Spoken genealogy': 'วงศ์วานของภาษาพูด',
     'Isolates': 'ภาษาโดดเดี่ยว',
     'View': 'มุมมอง',
     'List': 'รายการ',
     'Tree': 'แผนภูมิต้นไม้',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'แผนที่',
+    'Yes': 'ใช่',
+    'No': 'ไม่ใช่',
+    'Conflicting study clades': 'เคลดที่ขัดแย้งกันระหว่างงานวิจัย',
+    'Research trees': 'แผนภูมิต้นไม้จากงานวิจัย',
     'All roots': 'รากทั้งหมด',
     'Selected branch': 'สาขาที่เลือก',
     'Collapse all': 'ยุบทั้งหมด',
@@ -365,7 +365,6 @@
       'แผนภูมิต้นไม้จากแหล่งข้อมูลที่ข้ามหลายตระกูลหรือเป็นกลุ่มนอก',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'แผนภูมิต้นไม้จากงานวิจัยและตระกูลของ WALS ที่ครอบคลุมมากกว่าหนึ่งตระกูลของ Glottolog แสดงไว้ที่นี่เพื่อการนำทางเท่านั้น',
-    'Whole tree': 'แผนภูมิต้นไม้ทั้งหมด',
     'Show the tree of this branch': 'แสดงแผนภูมิต้นไม้ของสาขานี้',
     'Where Lang Log attaches this tree': 'ตำแหน่งที่ Lang Log เชื่อมแผนภูมิต้นไม้นี้',
     "Other sources' trees below this record": 'แผนภูมิต้นไม้จากแหล่งข้อมูลอื่นใต้ระเบียนนี้',
@@ -400,12 +399,7 @@
     'Back to search results': 'กลับไปที่ผลการค้นหา',
     'genus': 'สกุล (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'แผนที่ลักษณะภาษา',
-    'Language feature map · Lang Log by yoshi': 'แผนที่ลักษณะภาษา · Lang Log by yoshi',
-    'About': 'เกี่ยวกับ',
     'About this map': 'เกี่ยวกับแผนที่นี้',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'ตอนเริ่มต้น ทุกภาษาอยู่บนแผนที่ เพิ่มเงื่อนไขเพื่อเหลือเฉพาะภาษาที่ตรงกัน และเลือกลักษณะที่ใช้ระบายสีจุด',
     'Colour by': 'ระบายสีตาม',
     'None (one colour)': 'ไม่มี (สีเดียว)',
     'Conditions': 'เงื่อนไข',
@@ -426,12 +420,8 @@
       'จุดคือทุกภาษาใน Glottolog 5.3 ที่มีพิกัด วางที่จุดตัวแทนที่ Glottolog กำหนด ไม่ใช่พื้นที่ที่ใช้ภาษานั้น ค่าลักษณะมาจาก WALS Online (Dryer และ Haspelmath บรรณาธิการ, 2013) รุ่น CLDF v2020.4 สัญญาอนุญาต CC BY 4.0 โดยผูกกับภาษาใน Glottolog ของแต่ละภาษาใน WALS',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'ค่าที่เลือกในเงื่อนไขเดียวกันเชื่อมด้วย "หรือ" เงื่อนไขต่าง ๆ เชื่อมด้วย "และ" เว้นแต่จะสลับตัวเชื่อมเป็น OR เงื่อนไขที่เชื่อมด้วย OR นับเป็นกลุ่มเดียว ดังนั้น "A AND B OR C" หมายถึง "A AND (B OR C)" ภาษาที่ไม่มีข้อมูลของลักษณะในเงื่อนไขถือว่าไม่ตรงกับเงื่อนไขนั้น',
-    'This map needs JavaScript. The feature data is in':
-      'แผนที่นี้ต้องใช้ JavaScript ข้อมูลลักษณะอยู่ที่',
     'Land and borders: Natural Earth (public domain)':
       'แผ่นดินและพรมแดน: Natural Earth (สาธารณสมบัติ)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'แผนที่ลักษณะภาษา: ทุกภาษาบนแผนที่โลก กรองด้วยเงื่อนไขของลักษณะใน WALS และระบายสีตามลักษณะหนึ่ง',
     'Land and borders:': 'แผ่นดินและพรมแดน:',
     'Dashed borders are disputed or not settled.':
       'พรมแดนเส้นประคือพรมแดนที่มีข้อพิพาทหรือยังไม่ยุติ',

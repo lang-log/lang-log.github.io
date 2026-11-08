@@ -102,17 +102,17 @@
       'Contoh: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Contoh: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Contoh: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Saring menurut bukti',
-    'All evidence': 'Semua bukti',
-    'With research trees': 'Dengan pohon penelitian',
-    'With conflicting study clades': 'Dengan klad kajian yang bertentangan',
-    'Record category': 'Jenis catatan',
-    'All categories': 'Semua jenis',
     'Spoken genealogy': 'Silsilah bahasa lisan',
     'Isolates': 'Bahasa isolat',
     'View': 'Tampilan',
     'List': 'Daftar',
     'Tree': 'Pohon',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Peta',
+    'Yes': 'Ya',
+    'No': 'Tidak',
+    'Conflicting study clades': 'Klade studi yang bertentangan',
+    'Research trees': 'Pohon penelitian',
     'All roots': 'Semua akar',
     'Selected branch': 'Cabang terpilih',
     'Collapse all': 'Ciutkan semua',
@@ -367,7 +367,6 @@
     'Cross-family / outgroup source trees': 'Pohon sumber lintas rumpun / kelompok luar',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Pohon kajian dan rumpun WALS yang mencakup lebih dari satu rumpun Glottolog. Dicantumkan di sini hanya untuk navigasi.',
-    'Whole tree': 'Seluruh pohon',
     'Show the tree of this branch': 'Tampilkan pohon cabang ini',
     'Where Lang Log attaches this tree': 'Tempat Lang Log menyambungkan pohon ini',
     "Other sources' trees below this record": 'Pohon sumber lain di bawah catatan ini',
@@ -402,12 +401,7 @@
     'Back to search results': 'Kembali ke hasil pencarian',
     'genus': 'genus (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Peta fitur bahasa',
-    'Language feature map · Lang Log by yoshi': 'Peta fitur bahasa · Lang Log by yoshi',
-    'About': 'Tentang',
     'About this map': 'Tentang peta ini',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Pada awalnya semua bahasa ada di peta. Tambahkan syarat untuk menyisakan bahasa yang cocok saja, dan pilih fitur untuk mewarnai titik.',
     'Colour by': 'Warnai menurut',
     'None (one colour)': 'Tidak ada (satu warna)',
     'Conditions': 'Syarat',
@@ -429,12 +423,8 @@
       'Titik-titik ini adalah semua bahasa Glottolog 5.3 yang memiliki koordinat, pada titik representatif yang diberikan Glottolog, bukan wilayah tempat bahasa itu dituturkan. Nilai fitur berasal dari WALS Online (Dryer dan Haspelmath, ed., 2013), rilis CLDF v2020.4, berlisensi CC BY 4.0, dan dikaitkan dengan bahasa Glottolog untuk setiap bahasa WALS.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'Nilai yang dicentang dalam satu syarat digabung dengan ATAU. Syarat-syarat digabung dengan DAN, kecuali Anda mengubah sambungannya ke OR; syarat yang digabung dengan OR dihitung sebagai satu kelompok, jadi "A AND B OR C" berarti "A AND (B OR C)". Bahasa tanpa data untuk fitur suatu syarat tidak memenuhi syarat itu.',
-    'This map needs JavaScript. The feature data is in':
-      'Peta ini memerlukan JavaScript. Data fitur ada di',
     'Land and borders: Natural Earth (public domain)':
       'Daratan dan perbatasan: Natural Earth (domain publik)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Peta fitur bahasa: semua bahasa di peta dunia, disaring dengan syarat pada fitur WALS dan diwarnai menurut salah satunya.',
     'Land and borders:': 'Daratan dan perbatasan:',
     'Dashed borders are disputed or not settled.':
       'Perbatasan putus-putus disengketakan atau belum ditetapkan.',

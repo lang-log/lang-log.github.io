@@ -102,17 +102,17 @@
       'उदाहरण: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'उदाहरण: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'उदाहरण: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'साक्ष्य के अनुसार छाँटें',
-    'All evidence': 'सभी साक्ष्य',
-    'With research trees': 'शोध-वंशवृक्षों वाले',
-    'With conflicting study clades': 'परस्पर विरोधी अध्ययन-शाखाओं वाले',
-    'Record category': 'रिकॉर्ड का प्रकार',
-    'All categories': 'सभी प्रकार',
     'Spoken genealogy': 'मौखिक भाषाओं की वंशावली',
     'Isolates': 'पृथक भाषाएँ',
     'View': 'दृश्य',
     'List': 'सूची',
     'Tree': 'वृक्ष',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'मानचित्र',
+    'Yes': 'हाँ',
+    'No': 'नहीं',
+    'Conflicting study clades': 'अध्ययनों के परस्पर विरोधी क्लेड',
+    'Research trees': 'शोध वृक्ष',
     'All roots': 'सभी मूल',
     'Selected branch': 'चुनी गई शाखा',
     'Collapse all': 'सब समेटें',
@@ -364,7 +364,6 @@
     'Cross-family / outgroup source trees': 'कई भाषा-परिवारों या बाहरी समूहों वाले स्रोत-वृक्ष',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'एक से अधिक Glottolog भाषा-परिवारों में फैले अध्ययन-वृक्ष और WALS भाषा-परिवार। ये यहाँ केवल नेविगेशन के लिए हैं।',
-    'Whole tree': 'पूरा वृक्ष',
     'Show the tree of this branch': 'इस शाखा का वृक्ष दिखाएँ',
     'Where Lang Log attaches this tree': 'जहाँ Lang Log इस वृक्ष को जोड़ता है',
     "Other sources' trees below this record": 'इस रिकॉर्ड के नीचे अन्य स्रोतों के वृक्ष',
@@ -399,12 +398,7 @@
     'Back to search results': 'खोज-परिणामों पर लौटें',
     'genus': 'वंश (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'भाषा-विशेषता मानचित्र',
-    'Language feature map · Lang Log by yoshi': 'भाषा-विशेषता मानचित्र · Lang Log by yoshi',
-    'About': 'परिचय',
     'About this map': 'इस मानचित्र के बारे में',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'शुरू में सभी भाषाएँ मानचित्र पर होती हैं। केवल मेल खाने वाली भाषाएँ रखने के लिए शर्तें जोड़ें, और बिंदुओं को रंगने के लिए एक विशेषता चुनें।',
     'Colour by': 'इसके अनुसार रंग',
     'None (one colour)': 'कोई नहीं (एक रंग)',
     'Conditions': 'शर्तें',
@@ -426,12 +420,8 @@
       'बिंदु Glottolog 5.3 की वे सभी भाषाएँ हैं जिनके निर्देशांक हैं, Glottolog द्वारा दिए गए प्रतिनिधि बिंदु पर, न कि उस क्षेत्र में जहाँ वे बोली जाती हैं। विशेषताओं के मान WALS Online (Dryer और Haspelmath, संपा., 2013), CLDF संस्करण v2020.4, लाइसेंस CC BY 4.0 से लिए गए हैं और हर WALS भाषा की Glottolog भाषा से जोड़े गए हैं।',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'एक शर्त में चुने गए मान "या" से जुड़ते हैं। शर्तें "और" से जुड़ती हैं, जब तक आप जोड़ को OR पर न बदलें; OR से जुड़ी शर्तें एक समूह मानी जाती हैं, इसलिए "A AND B OR C" का अर्थ है "A AND (B OR C)"। जिस भाषा के पास किसी शर्त की विशेषता का डेटा नहीं है, वह उस शर्त से मेल नहीं खाती।',
-    'This map needs JavaScript. The feature data is in':
-      'इस मानचित्र के लिए JavaScript चाहिए। विशेषताओं का डेटा यहाँ है:',
     'Land and borders: Natural Earth (public domain)':
       'भूमि और सीमाएँ: Natural Earth (सार्वजनिक डोमेन)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'भाषा-विशेषता मानचित्र: सभी भाषाएँ विश्व मानचित्र पर, WALS विशेषताओं की शर्तों से छाँटी गईं और उनमें से एक के अनुसार रंगी गईं।',
     'Land and borders:': 'भूमि और सीमाएँ:',
     'Dashed borders are disputed or not settled.': 'धराशायी सीमाएँ विवादित या अनिश्चित हैं।',
     'Reset': 'रीसेट',
