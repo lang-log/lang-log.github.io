@@ -38,22 +38,20 @@
   }
 })();
 
-// Search opens the results page <site>/q=<terms> (dist/search.js, served by
-// dist/404.html). Old links to the top page with ?q=<terms> go there too.
-// Without JavaScript the box stays a plain GET form to this page.
+// The search box is a plain GET form to the results page, dist/q.html at <site>/q?q=<terms>
+// (dist/search.js), so it works without this script. Old links to the top page with
+// ?q=<terms> go there too, and an empty box does not leave the page.
 (() => {
-  const results = (q) => 'q=' + encodeURIComponent(q);
-  const old = new URLSearchParams(location.search).get('q');
-  if (old !== null && old.trim()) {
-    location.replace(results(old.trim()));
-    return;
-  }
   const form = document.querySelector('form.home-search');
   if (!form) return;
+  const old = new URLSearchParams(location.search).get('q');
+  if (old !== null && old.trim()) {
+    location.replace(form.getAttribute('action') + location.search);
+    return;
+  }
   form.addEventListener('submit', (e) => {
+    if (form.elements.q.value.trim()) return;
     e.preventDefault();
-    const q = form.elements.q.value.trim();
-    if (q) location.href = results(q);
-    else form.elements.q.focus();
+    form.elements.q.focus();
   });
 })();

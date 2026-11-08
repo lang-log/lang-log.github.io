@@ -18,10 +18,9 @@ source-data/lang-log/updates.json). The top page links to them in a row of
 links next to the Random button. Every count on the Stats page is counted from the
 data here, at build time; no number is typed by hand.
 
-The list and the texts work without JavaScript. The search box opens the search
-results page, <site>/q=<terms> (dist/search.js, owner 2026-11-07; dist/home.js
-sends the box and old ?q= links there). Without JavaScript the box is a GET
-form to this page (?q=).
+The list and the texts work without JavaScript. The search box is a GET form to
+the search results page, dist/q.html at <site>/q?q=<terms> (dist/search.js,
+owner 2026-11-08); dist/home.js sends old ?q= links to the top page there.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
@@ -396,7 +395,7 @@ def main():
         '<section class="home-intro">'
         '<h1 class="home-logo"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></h1>'
         + by_yoshi("p", "home-by")
-        + '<form class="home-search" action="./" method="get" role="search">'
+        + '<form class="home-search" action="q" method="get" role="search">'
         '<label class="visually-hidden" for="home-q">Search languages and families</label>'
         '<div class="search-pill">'
         '<input id="home-q" name="q" type="search" placeholder="Name, ISO code, Glottocode…" autocomplete="off">'

@@ -3042,19 +3042,14 @@ header .tools > button {
     margin-top: 8px;
   }
 }
-/* dist/404.html is the not-found page and the search page in one. dist/search-route.js marks <html> with .search-route in the <head>, so the right one shows from the first paint; without scripts the page is the not-found page. */
-html:not(.search-route) #search-page,
-.search-route #not-found {
-  display: none;
-}
-/* Search results page, <site>/q=<terms> (dist/404.html, dist/search.js): the box on top and one full-width list below it that grows with the page, with no scroll box of its own. */
-.search-route .variant-page main {
+/* Search results page, <site>/q?q=<terms> (dist/q.html, dist/search.js): the box on top and one full-width list below it that grows with the page, with no scroll box of its own. */
+.variant-page.search-route main {
   max-width: 820px;
   border: 0;
   background: none;
   padding-top: 8px;
 }
-.search-route .variant-page .search-page {
+.variant-page.search-route .search-page {
   border-top: 0;
   margin: 0;
   padding: 0;
@@ -3084,7 +3079,7 @@ html:not(.search-route) #search-page,
   color: var(--teal);
 }
 @media (max-width: 700px) {
-  .search-route .variant-page main {
+  .variant-page.search-route main {
     margin: 12px 16px;
     padding: 8px 0 24px;
   }
