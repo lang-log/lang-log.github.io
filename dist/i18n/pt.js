@@ -550,31 +550,17 @@
     [/^Historical stage · (#\S+)$/, 'Etapa histórica · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Pontos claros: outros membros de $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' línguas exibidas' +
+          ' languoids exibidos' +
           (m[2] ? '; ' + m[2] + ' não têm coordenadas no Glottolog' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Mapa: localização de ' +
-          m[1] +
-          ' e de seus ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialetos' : 'idiomas')
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Mapa: localização de $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Mapa: $1 línguas de $2'],
     [/^See (.+) on the (.+) page$/, 'Ver $1 na página $2'],
     [
       /^Position of this stage in the Glottolog tree\..*$/,

@@ -543,31 +543,17 @@
     [/^Historical stage · (#\S+)$/, 'Tahap historis · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Titik pudar: anggota lain dari $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' bahasa ditampilkan' +
+          ' languoid ditampilkan' +
           (m[2] ? '; ' + m[2] + ' tidak memiliki koordinat di Glottolog' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Peta: lokasi ' +
-          m[1] +
-          ' dan ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialeknya' : 'bahasanya')
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Peta: lokasi $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Peta: $1 bahasa dalam $2'],
     [/^See (.+) on the (.+) page$/, 'Lihat $1 di halaman $2'],
     [
       /^Position of this stage in the Glottolog tree\..*$/,

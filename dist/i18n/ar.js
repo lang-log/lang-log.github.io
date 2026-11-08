@@ -529,32 +529,17 @@
     [/^Historical stage · (#\S+)$/, 'مرحلة تاريخية · $1'],
     [/^Faint points: other members of (.+)\.$/, 'النقاط الباهتة: أعضاء آخرون في $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
-          'عدد اللغات المعروضة: ' +
+          'عدد الـ languoids المعروضة: ' +
           m[1] +
           (m[2] ? '؛ ' + m[2] + ' منها بلا إحداثيات في Glottolog' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'خريطة: موقع ' +
-          m[1] +
-          ' و' +
-          (m[3] === 'dialects' ? 'لهجاتها' : 'لغاتها') +
-          ' (' +
-          m[2] +
-          ')'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'خريطة: موقع $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'خريطة: لغات $2 ($1)'],
     [/^See (.+) on the (.+) page$/, 'عرض $1 في صفحة $2'],
     [
       /^Position of this stage in the Glottolog tree\..*$/,

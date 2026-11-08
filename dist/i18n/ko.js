@@ -533,32 +533,17 @@
     [/^Historical stage · (#\S+)$/, '역사상의 단계 · $1'],
     [/^Faint points: other members of (.+)\.$/, '흐린 점: $1의 다른 하위.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          '개 언어 표시' +
-          (m[2] ? '(' + m[2] + '개 언어는 Glottolog에 좌표가 없음)' : '') +
+          '개 languoid 표시' +
+          (m[2] ? '(' + m[2] + '개는 Glottolog에 좌표가 없음)' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          '지도: ' +
-          m[1] +
-          '와(과) 그 ' +
-          (m[3] === 'dialects' ? '방언' : '언어') +
-          ' ' +
-          m[2] +
-          '개의 위치'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, '지도: $1의 위치'],
-    [/^Map: ([\d,]+) languages of (.+)$/, '지도: $2의 언어 $1개'],
     [/^See (.+) on the (.+) page$/, '$2 페이지에서 $1 보기'],
     [
       /^Position of this stage in the Glottolog tree\..*$/,

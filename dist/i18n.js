@@ -579,31 +579,17 @@ window.LANGLOG_I18N = {
       [/^Historical stage · (#\S+)$/, '歴史上の段階 · $1'],
       [/^Faint points: other members of (.+)\.$/, '薄い点: $1 のほかの下位。'],
       [
-        /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+        /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
         function (m) {
           return (
             m[1] +
-            ' 言語を表示' +
-            (m[2] ? '(' + m[2] + ' 言語は Glottolog に座標がありません)' : '') +
+            ' 件の languoid を表示' +
+            (m[2] ? '(' + m[2] + ' 件は Glottolog に座標がありません)' : '') +
             '。'
           );
         },
       ],
-      [
-        /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-        function (m) {
-          return (
-            '地図: ' +
-            m[1] +
-            ' の位置と、その' +
-            (m[3] === 'dialects' ? '方言' : '言語') +
-            ' ' +
-            m[2]
-          );
-        },
-      ],
       [/^Map: location of (.+)$/, '地図: $1 の位置'],
-      [/^Map: ([\d,]+) languages of (.+)$/, '地図: $2 の言語 $1'],
       [/^See (.+) on the (.+) page$/, '$2 のページで $1 を見る'],
       [
         /^Position of this stage in the Glottolog tree\..*$/,

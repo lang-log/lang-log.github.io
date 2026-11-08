@@ -536,32 +536,17 @@
     [/^Historical stage · (#\S+)$/, 'مرحلهٔ تاریخی · $1'],
     [/^Faint points: other members of (.+)\.$/, 'نقطه‌های کم‌رنگ: دیگر اعضای $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' زبان نمایش داده شد' +
-          (m[2] ? '؛ ' + m[2] + ' زبان در Glottolog مختصات ندارند' : '') +
+          ' languoid نمایش داده شد' +
+          (m[2] ? '؛ ' + m[2] + ' مورد در Glottolog مختصات ندارند' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'نقشه: مکان ' +
-          m[1] +
-          ' و ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'گویش' : 'زبان') +
-          ' آن'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'نقشه: مکان $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'نقشه: $1 زبانِ $2'],
     [/^See (.+) on the (.+) page$/, 'دیدن $1 در صفحهٔ $2'],
     [
       /^Position of this stage in the Glottolog tree\..*$/,
