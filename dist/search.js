@@ -13,15 +13,16 @@
 // query; then a word in the name that starts with it; then any other match.
 // Languages come before families and dialects (the order only; no record is
 // labelled by its kind, .claude/rules/interface-text.md).
+//
+// Whether this is a search address, the terms and the title come from dist/search-route.js,
+// which runs in the <head> and already turned the page into the search page.
 (() => {
-  const where = () => location.pathname.match(/^(.*\/)q=([^/]*)$/);
-  const m = where(),
-    page = document.getElementById('search-page');
-  if (!m || !page) return;
+  const route = window.SearchRoute,
+    where = route.match;
+  const m = where();
+  if (!m || !document.getElementById('search-page')) return;
   // Site root: '/' on the live site, '/preview/pr-<n>/' in a pull request preview.
-  const base = m[1];
-  // Keep the title suffix 404.html was written with (tools/site_brand.py).
-  const titleSuffix = document.title.slice(document.title.lastIndexOf(' · '));
+  const base = m[0];
   const $ = (id) => document.getElementById(id),
     fmt = (n) => n.toLocaleString(),
     esc = (s) =>
@@ -31,17 +32,9 @@
       );
   const input = $('search-q'),
     out = $('search-results');
-  $('not-found').hidden = true;
-  page.hidden = false;
-  document.documentElement.classList.add('search-route');
-
-  const termsOf = (raw) => {
-    try {
-      return decodeURIComponent(raw.replace(/\+/g, ' ')).trim();
-    } catch {
-      return raw.trim();
-    }
-  };
+  // What the page shows until the records are loaded, written once in dist/404.html.
+  const loading = [...out.childNodes].map((n) => n.cloneNode(true));
+  const termsOf = route.terms;
   const urlOf = (q) => base + 'q=' + encodeURIComponent(q);
   const ALIASES = {
     '日本語族': 'japonic',
@@ -90,19 +83,19 @@
   }
 
   function render() {
-    const q0 = termsOf(where()?.[2] || '');
+    const q0 = termsOf(where()?.[1] || '');
     if (document.activeElement !== input) input.value = q0;
-    document.title = (q0 ? q0 + ' · ' : '') + 'Search results' + titleSuffix;
+    route.setTitle(q0);
     if (!q0) {
       out.replaceChildren();
       input.focus();
       return;
     }
-    const head = `<div class="search-head"><h1>Search results</h1>`;
     if (!data) {
-      out.innerHTML = head + `</div><p class="empty">Loading records…</p>`;
+      out.replaceChildren(...loading.map((n) => n.cloneNode(true)));
       return;
     }
+    const head = `<div class="search-head"><h1>Search results</h1>`;
     const q0l = q0.toLowerCase(),
       q = ALIASES[q0l] || q0l;
     const all = Object.values(nodes).filter((n) => n.level !== 'clade' && n.searchText.includes(q));
