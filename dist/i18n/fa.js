@@ -155,7 +155,8 @@
     'Conditional placements': 'جایگاه‌ها بر پایهٔ منبع',
     'Classification according to Glottolog 5.3': 'رده‌بندی بر پایهٔ Glottolog 5.3',
     'Classification according to Glottolog': 'رده‌بندی بر پایهٔ Glottolog',
-    'Position in Glottolog': 'جایگاه در Glottolog',
+    'Classification according to Lang Log': 'رده‌بندی بر پایهٔ Lang Log',
+    'Lang Log’s own': 'ویژهٔ Lang Log',
     'According to': 'به گفتهٔ',
     'According to Glottolog 5.3': 'به گفتهٔ Glottolog 5.3',
     'Name in this language': 'نام به همین زبان',
@@ -478,6 +479,7 @@
     [/^All families · Lang Log by yoshi$/, 'همهٔ خانواده‌ها · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'همهٔ خانواده‌ها و زبان‌های منفرد · $1'],
     [/^Members · ([\d,]+)$/, 'اعضا · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'اعضا بر پایهٔ Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'نام‌ها و املاهای ثبت‌شده · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'نام‌های دیگر و املاها · $1'],
     [/^Related child records · ([\d,]+)$/, 'رکوردهای زیرمجموعهٔ مرتبط · $1'],
@@ -532,7 +534,6 @@
       'برچسب‌های زبانیِ دقیقاً مطابق در کارت مدل: $1. مدل‌های چندزبانه را هم در بر دارد؛ برچسب‌ها کیفیت یا پوشش گویش‌ها را تضمین نمی‌کنند.',
     ],
     [/^All (\S+) models ↗$/, 'همهٔ مدل‌های $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'مرحلهٔ تاریخی · $1'],
     [/^Faint points: other members of (.+)\.$/, 'نقطه‌های کم‌رنگ: دیگر اعضای $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -561,11 +562,6 @@
     ],
     [/^Map: location of (.+)$/, 'نقشه: مکان $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'نقشه: $1 زبانِ $2'],
-    [/^See (.+) on the (.+) page$/, 'دیدن $1 در صفحهٔ $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'جایگاه این مرحله در درخت Glottolog. Glottolog ثبت نمی‌کند که این مرحلهٔ کدام زبان امروزی است؛ این پیوند در این اطلس به‌صورت دستی تنظیم شده است.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

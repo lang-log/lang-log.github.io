@@ -156,7 +156,8 @@
     'Conditional placements': 'Vị trí theo nguồn',
     'Classification according to Glottolog 5.3': 'Phân loại theo Glottolog 5.3',
     'Classification according to Glottolog': 'Phân loại theo Glottolog',
-    'Position in Glottolog': 'Vị trí trong Glottolog',
+    'Classification according to Lang Log': 'Phân loại theo Lang Log',
+    'Lang Log’s own': 'Riêng của Lang Log',
     'According to': 'Theo',
     'According to Glottolog 5.3': 'Theo Glottolog 5.3',
     'Name in this language': 'Tên trong chính ngôn ngữ này',
@@ -483,6 +484,7 @@
     [/^All families · Lang Log by yoshi$/, 'Tất cả ngữ hệ · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Tất cả ngữ hệ và ngôn ngữ biệt lập · $1'],
     [/^Members · ([\d,]+)$/, 'Thành viên · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Thành viên theo Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Tên và cách viết đã ghi nhận · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Tên khác và cách viết · $1'],
     [/^Related child records · ([\d,]+)$/, 'Bản ghi cấp dưới liên quan · $1'],
@@ -537,7 +539,6 @@
       'Thẻ ngôn ngữ khớp chính xác trong thẻ mô hình: $1. Bao gồm mô hình đa ngôn ngữ; thẻ không bảo đảm chất lượng hay khả năng bao quát phương ngữ.',
     ],
     [/^All (\S+) models ↗$/, 'Tất cả mô hình $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Giai đoạn lịch sử · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Điểm mờ: các thành viên khác của $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -567,11 +568,6 @@
     ],
     [/^Map: location of (.+)$/, 'Bản đồ: vị trí của $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Bản đồ: $1 ngôn ngữ của $2'],
-    [/^See (.+) on the (.+) page$/, 'Xem $1 trên trang $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Vị trí của giai đoạn này trong cây Glottolog. Glottolog không ghi nhận đây là giai đoạn của ngôn ngữ hiện đại nào; liên kết đó được sắp xếp thủ công trong tập bản đồ này.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

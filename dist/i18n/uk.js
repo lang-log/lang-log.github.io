@@ -155,7 +155,8 @@
     'Conditional placements': 'Розміщення за джерелами',
     'Classification according to Glottolog 5.3': 'Класифікація за Glottolog 5.3',
     'Classification according to Glottolog': 'Класифікація за Glottolog',
-    'Position in Glottolog': 'Положення в Glottolog',
+    'Classification according to Lang Log': 'Класифікація за Lang Log',
+    'Lang Log’s own': 'Власна Lang Log',
     'According to': 'Згідно з',
     'According to Glottolog 5.3': 'Згідно з Glottolog 5.3',
     'Name in this language': 'Назва цією мовою',
@@ -478,6 +479,7 @@
     [/^All families · Lang Log by yoshi$/, 'Усі родини · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Усі родини та ізольовані мови · $1'],
     [/^Members · ([\d,]+)$/, 'Члени · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Члени за Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Записані назви й написання · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Інші назви й написання · $1'],
     [/^Related child records · ([\d,]+)$/, 'Пов’язані підпорядковані записи · $1'],
@@ -532,7 +534,6 @@
       'Точні мовні теги в картці моделі: $1. Містить багатомовні моделі; теги не гарантують якості чи охоплення діалектів.',
     ],
     [/^All (\S+) models ↗$/, 'Усі моделі $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Історичний етап · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Бліді точки: інші члени $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -556,11 +557,6 @@
     ],
     [/^Map: location of (.+)$/, 'Мапа: розташування $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Мапа: мови $2 ($1)'],
-    [/^See (.+) on the (.+) page$/, '$1 на сторінці «$2»'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Положення цього етапу в дереві Glottolog. Glottolog не зазначає, етапом якої сучасної мови він є; цей зв’язок установлено вручну в цьому атласі.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

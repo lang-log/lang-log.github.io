@@ -156,7 +156,8 @@
     'Conditional placements': 'Einordnungen nach Quelle',
     'Classification according to Glottolog 5.3': 'Klassifikation nach Glottolog 5.3',
     'Classification according to Glottolog': 'Klassifikation nach Glottolog',
-    'Position in Glottolog': 'Position in Glottolog',
+    'Classification according to Lang Log': 'Klassifikation nach Lang Log',
+    'Lang Log’s own': 'Lang Log (eigene)',
     'According to': 'Laut',
     'According to Glottolog 5.3': 'Laut Glottolog 5.3',
     'Name in this language': 'Name in dieser Sprache',
@@ -485,6 +486,7 @@
     [/^All families · Lang Log by yoshi$/, 'Alle Familien · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Alle Familien und isolierten Sprachen · $1'],
     [/^Members · ([\d,]+)$/, 'Mitglieder · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Mitglieder nach Lang Log · $1'],
     [
       /^Recorded names (?:&|and) spellings · ([\d,]+)$/,
       'Verzeichnete Namen und Schreibweisen · $1',
@@ -545,7 +547,6 @@
       'Exakte Sprach-Tags der Modellkarte: $1. Enthält mehrsprachige Modelle; Tags garantieren weder Qualität noch Dialektabdeckung.',
     ],
     [/^All (\S+) models ↗$/, 'Alle Modelle für $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Historische Stufe · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Blasse Punkte: weitere Mitglieder von $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -573,11 +574,6 @@
     ],
     [/^Map: location of (.+)$/, 'Karte: Lage von $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Karte: $1 Sprachen von $2'],
-    [/^See (.+) on the (.+) page$/, '$1 auf der Seite $2 ansehen'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Position dieser Stufe im Glottolog-Baum. Glottolog verzeichnet nicht, von welcher heutigen Sprache dies eine Stufe ist; diese Verbindung wurde in diesem Atlas von Hand hergestellt.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

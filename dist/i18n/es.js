@@ -155,7 +155,8 @@
     'Conditional placements': 'Ubicaciones según la fuente',
     'Classification according to Glottolog 5.3': 'Clasificación según Glottolog 5.3',
     'Classification according to Glottolog': 'Clasificación según Glottolog',
-    'Position in Glottolog': 'Posición en Glottolog',
+    'Classification according to Lang Log': 'Clasificación según Lang Log',
+    'Lang Log’s own': 'Propia de Lang Log',
     'According to': 'Según',
     'According to Glottolog 5.3': 'Según Glottolog 5.3',
     'Name in this language': 'Nombre en esta lengua',
@@ -492,6 +493,7 @@
     [/^All families · Lang Log by yoshi$/, 'Todas las familias · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Todas las familias y lenguas aisladas · $1'],
     [/^Members · ([\d,]+)$/, 'Miembros · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Miembros según Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nombres y grafías registrados · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Alias y grafías · $1'],
     [/^Related child records · ([\d,]+)$/, 'Registros subordinados relacionados · $1'],
@@ -549,7 +551,6 @@
       'Etiquetas de lengua exactas en la ficha del modelo: $1. Incluye modelos multilingües; las etiquetas no garantizan la calidad ni la cobertura de dialectos.',
     ],
     [/^All (\S+) models ↗$/, 'Todos los modelos de $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Etapa histórica · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Puntos tenues: otros miembros de $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -577,11 +578,6 @@
     ],
     [/^Map: location of (.+)$/, 'Mapa: ubicación de $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Mapa: $1 lenguas de $2'],
-    [/^See (.+) on the (.+) page$/, 'Ver $1 en la página de $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Posición de esta etapa en el árbol de Glottolog. Glottolog no registra de qué lengua moderna es una etapa; esa conexión se ha establecido a mano en este atlas.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

@@ -155,7 +155,8 @@
     'Conditional placements': 'Umiejscowienia według źródła',
     'Classification according to Glottolog 5.3': 'Klasyfikacja według Glottologu 5.3',
     'Classification according to Glottolog': 'Klasyfikacja według Glottologu',
-    'Position in Glottolog': 'Pozycja w Glottologu',
+    'Classification according to Lang Log': 'Klasyfikacja według Lang Log',
+    'Lang Log’s own': 'Własna Lang Log',
     'According to': 'Według',
     'According to Glottolog 5.3': 'Według Glottologu 5.3',
     'Name in this language': 'Nazwa w tym języku',
@@ -479,6 +480,7 @@
     [/^All families · Lang Log by yoshi$/, 'Wszystkie rodziny · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Wszystkie rodziny i języki izolowane · $1'],
     [/^Members · ([\d,]+)$/, 'Członkowie · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Członkowie według Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Zapisane nazwy i pisownie · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Aliasy i pisownie · $1'],
     [/^Related child records · ([\d,]+)$/, 'Powiązane rekordy podrzędne · $1'],
@@ -536,7 +538,6 @@
       'Dokładne tagi języka w karcie modelu: $1. Obejmuje modele wielojęzyczne; tagi nie gwarantują jakości ani pokrycia dialektów.',
     ],
     [/^All (\S+) models ↗$/, 'Wszystkie modele dla $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Etap historyczny · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Blade punkty: inni członkowie $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -565,11 +566,6 @@
     ],
     [/^Map: location of (.+)$/, 'Mapa: położenie $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Mapa: języki $2 ($1)'],
-    [/^See (.+) on the (.+) page$/, '$1 na stronie „$2”'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Pozycja tego etapu w drzewie Glottologu. Glottolog nie podaje, etapem którego współczesnego języka jest ten etap; to powiązanie ustalono ręcznie w tym atlasie.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

@@ -154,7 +154,8 @@
     'Conditional placements': '출처별 위치',
     'Classification according to Glottolog 5.3': 'Glottolog 5.3에 따른 분류',
     'Classification according to Glottolog': 'Glottolog에 따른 분류',
-    'Position in Glottolog': 'Glottolog에서의 위치',
+    'Classification according to Lang Log': 'Lang Log에 따른 분류',
+    'Lang Log’s own': 'Lang Log 자체',
     'According to': '출처:',
     'According to Glottolog 5.3': 'Glottolog 5.3에 따름',
     'Name in this language': '이 언어로 된 이름',
@@ -475,6 +476,7 @@
     [/^All families · Lang Log by yoshi$/, '모든 어족 · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, '모든 어족과 고립어 · $1'],
     [/^Members · ([\d,]+)$/, '하위 기록 · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log에 따른 하위 기록 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '기록된 이름과 철자 · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, '별칭과 철자 · $1'],
     [/^Related child records · ([\d,]+)$/, '관련 하위 기록 · $1'],
@@ -529,7 +531,6 @@
       '모델 카드의 언어 태그가 정확히 일치: $1. 다국어 모델을 포함합니다. 태그는 품질이나 방언 지원을 보장하지 않습니다.',
     ],
     [/^All (\S+) models ↗$/, '$1 모델 모두 보기 ↗'],
-    [/^Historical stage · (#\S+)$/, '역사상의 단계 · $1'],
     [/^Faint points: other members of (.+)\.$/, '흐린 점: $1의 다른 하위.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -558,11 +559,6 @@
     ],
     [/^Map: location of (.+)$/, '지도: $1의 위치'],
     [/^Map: ([\d,]+) languages of (.+)$/, '지도: $2의 언어 $1개'],
-    [/^See (.+) on the (.+) page$/, '$2 페이지에서 $1 보기'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Glottolog 계통수에서 이 단계의 위치입니다. Glottolog는 어느 현대어의 단계인지 기록하지 않습니다. 그 연결은 이 지도에서 직접 정리한 것입니다.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

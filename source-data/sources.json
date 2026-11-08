@@ -28,8 +28,8 @@
       "version": "1",
       "license": "All rights reserved (see LICENSE)",
       "url": "https://lang-log.github.io/",
-      "note": "Lang Log's own data: the feature catalogue (lang-log/features.json) and, later, values entered by the owner with their references.",
-      "files": ["lang-log/features.json"]
+      "note": "Lang Log's own data: the feature catalogue (lang-log/features.json), Lang Log's own classification (lang-log/classification.json: historical stages as the parents of the later languages) and, later, values entered by the owner with their references.",
+      "files": ["lang-log/features.json", "lang-log/classification.json"]
     }
   ]
 }

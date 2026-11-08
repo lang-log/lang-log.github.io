@@ -155,7 +155,8 @@
     'Conditional placements': 'Penempatan menurut sumber',
     'Classification according to Glottolog 5.3': 'Klasifikasi menurut Glottolog 5.3',
     'Classification according to Glottolog': 'Klasifikasi menurut Glottolog',
-    'Position in Glottolog': 'Posisi dalam Glottolog',
+    'Classification according to Lang Log': 'Klasifikasi menurut Lang Log',
+    'Lang Log’s own': 'Milik Lang Log',
     'According to': 'Menurut',
     'According to Glottolog 5.3': 'Menurut Glottolog 5.3',
     'Name in this language': 'Nama dalam bahasa ini',
@@ -482,6 +483,7 @@
     [/^All families · Lang Log by yoshi$/, 'Semua rumpun · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Semua rumpun dan bahasa isolat · $1'],
     [/^Members · ([\d,]+)$/, 'Anggota · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Anggota menurut Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nama dan ejaan yang tercatat · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Nama lain dan ejaan · $1'],
     [/^Related child records · ([\d,]+)$/, 'Catatan turunan terkait · $1'],
@@ -539,7 +541,6 @@
       'Tanda bahasa yang persis sama di kartu model: $1. Termasuk model multibahasa; tanda tidak menjamin mutu atau cakupan dialek.',
     ],
     [/^All (\S+) models ↗$/, 'Semua model $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Tahap historis · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Titik pudar: anggota lain dari $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -567,11 +568,6 @@
     ],
     [/^Map: location of (.+)$/, 'Peta: lokasi $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Peta: $1 bahasa dalam $2'],
-    [/^See (.+) on the (.+) page$/, 'Lihat $1 di halaman $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Posisi tahap ini dalam pohon Glottolog. Glottolog tidak mencatat tahap dari bahasa modern mana ini; hubungan itu disusun secara manual dalam atlas ini.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

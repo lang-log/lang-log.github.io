@@ -155,7 +155,8 @@
     'Conditional placements': 'المواضع بحسب المصدر',
     'Classification according to Glottolog 5.3': 'التصنيف وفق Glottolog 5.3',
     'Classification according to Glottolog': 'التصنيف وفق Glottolog',
-    'Position in Glottolog': 'الموضع في Glottolog',
+    'Classification according to Lang Log': 'التصنيف وفق Lang Log',
+    'Lang Log’s own': 'خاص بـ Lang Log',
     'According to': 'وفقًا لـ',
     'According to Glottolog 5.3': 'وفقًا لـ Glottolog 5.3',
     'Name in this language': 'الاسم بهذه اللغة',
@@ -474,6 +475,7 @@
     [/^All families · Lang Log by yoshi$/, 'كل الأسر · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'كل الأسر واللغات المعزولة · $1'],
     [/^Members · ([\d,]+)$/, 'الأعضاء · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'الأعضاء وفق Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'الأسماء والتهجئات المسجلة · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'الأسماء البديلة والتهجئات · $1'],
     [/^Related child records · ([\d,]+)$/, 'سجلات فرعية ذات صلة · $1'],
@@ -525,7 +527,6 @@
       'وسوم اللغة المطابقة تمامًا في بطاقة النموذج: $1. تشمل نماذج متعددة اللغات؛ والوسوم لا تضمن الجودة ولا تغطية اللهجات.',
     ],
     [/^All (\S+) models ↗$/, 'كل نماذج $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'مرحلة تاريخية · $1'],
     [/^Faint points: other members of (.+)\.$/, 'النقاط الباهتة: أعضاء آخرون في $1.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -554,11 +555,6 @@
     ],
     [/^Map: location of (.+)$/, 'خريطة: موقع $1'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'خريطة: لغات $2 ($1)'],
-    [/^See (.+) on the (.+) page$/, 'عرض $1 في صفحة $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'موضع هذه المرحلة في شجرة Glottolog. لا يسجل Glottolog أي لغة حديثة تمثل هذه مرحلةً منها؛ وقد رُتبت هذه الصلة يدويًا في هذا الأطلس.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

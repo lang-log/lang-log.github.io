@@ -155,7 +155,8 @@
     'Conditional placements': 'Kaynağa göre konumlar',
     'Classification according to Glottolog 5.3': 'Glottolog 5.3’e göre sınıflandırma',
     'Classification according to Glottolog': 'Glottolog’a göre sınıflandırma',
-    'Position in Glottolog': 'Glottolog’daki konum',
+    'Classification according to Lang Log': 'Lang Log’a göre sınıflandırma',
+    'Lang Log’s own': 'Lang Log’un kendi',
     'According to': 'Kaynak:',
     'According to Glottolog 5.3': 'Glottolog 5.3’e göre',
     'Name in this language': 'Bu dildeki adı',
@@ -479,6 +480,7 @@
     [/^All families · Lang Log by yoshi$/, 'Tüm aileler · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Tüm aileler ve yalıtık diller · $1'],
     [/^Members · ([\d,]+)$/, 'Üyeler · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log’a göre üyeler · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Kayıtlı adlar ve yazılışlar · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Diğer adlar ve yazılışlar · $1'],
     [/^Related child records · ([\d,]+)$/, 'İlgili alt kayıtlar · $1'],
@@ -533,7 +535,6 @@
       'Model kartında tam eşleşen dil etiketleri: $1. Çok dilli modeller dahildir; etiketler kaliteyi veya ağız kapsamını güvence altına almaz.',
     ],
     [/^All (\S+) models ↗$/, 'Tüm $1 modelleri ↗'],
-    [/^Historical stage · (#\S+)$/, 'Tarihsel aşama · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Soluk noktalar: $1 grubunun diğer üyeleri.'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -562,11 +563,6 @@
     ],
     [/^Map: location of (.+)$/, 'Harita: $1 konumu'],
     [/^Map: ([\d,]+) languages of (.+)$/, 'Harita: $2 içindeki $1 dil'],
-    [/^See (.+) on the (.+) page$/, '$1 öğesini $2 sayfasında gör'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Bu aşamanın Glottolog ağacındaki konumu. Glottolog bunun hangi çağdaş dilin bir aşaması olduğunu kaydetmez; bu bağlantı bu atlasta elle düzenlenmiştir.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

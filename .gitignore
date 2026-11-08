@@ -4,8 +4,16 @@ node_modules/
 .env
 .env.*
 
+# Atlas data and exports written by tools/build_site.sh from source-data/.
 /dist/data.json
+/dist/integrated.json
+/dist/provenance.json
 /dist/language-families.xml
+/dist/language-families.opml
+/dist/language-families.*.gz
+/dist/signs-and-scripts.json
+/dist/signs-and-scripts.xml
+/dist/signs-and-scripts.opml
 /dist/random.json
 # Record pages written by build_paths.py (one directory per top-level family
 # and per source). Committed directories under dist/ are listed with !.
