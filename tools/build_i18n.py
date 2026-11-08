@@ -25,10 +25,9 @@ import sys
 
 import yaml
 
-from locations import DIST, ROOT
+from locations import DIST, LANG_JS, ROOT
 
 SOURCE = ROOT / "i18n"
-LANG_JS = DIST / "lang.js"
 
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9]*)(\|tr)?\}")
 # What a placeholder matches unless en.yaml's `match` says otherwise: {count},
