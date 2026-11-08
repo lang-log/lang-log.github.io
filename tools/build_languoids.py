@@ -29,22 +29,18 @@ the catalogue (run tools/feature_catalogue.py to add it).
 Run after tools/build_paths.py, whose path rules it imports.
 """
 
-from pathlib import Path
 import collections
 import csv
 import itertools
 import json
 import re
 import shutil
-import sys
 
-ROOT = Path(__file__).resolve().parent.parent
+import build_paths  # path rules: build_paths.path_of
+from locations import DIST, ROOT
+
 SRC = ROOT / "source-data"
-DIST = ROOT / "dist"
 SCHEMA = ROOT / "schema"
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-import build_paths  # noqa: E402  (path rules: build_paths.path_of)
 
 SOURCES = {
     s["id"]: s for s in json.loads((SRC / "sources.json").read_text(encoding="utf-8"))["sources"]
