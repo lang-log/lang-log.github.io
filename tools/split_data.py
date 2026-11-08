@@ -18,7 +18,7 @@ dist/data/:
 The WALS genus lists in data.json ("wals", "walsRoots" and each record's
 "wals") are not used by any page and are left out.
 
-Run after prepare_static.py. check() rebuilds the objects the same way
+Run after tools/finish_unified.py. check() rebuilds the objects the same way
 the browser does and fails if anything differs from the originals.
 """
 

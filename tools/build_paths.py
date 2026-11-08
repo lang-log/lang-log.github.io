@@ -2,7 +2,8 @@
 that follows the classification: dist/<family>/<subgroup>/.../<language>/
 (served as https://lang-log.github.io/<family>/.../<language>/).
 
-Run after prepare_static.py (it reads dist/data.json and dist/integrated.json).
+Run after tools/finish_unified.py (it reads dist/data.json and dist/integrated.json);
+tools/build_site.sh runs them in order.
 
 - Each path segment is an ASCII slug of the record name. When two siblings
   share a slug, both get "-<glottocode>" appended, so a URL never depends on

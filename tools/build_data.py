@@ -2,6 +2,7 @@ import csv
 import json
 import re
 import collections
+import hashlib
 import pathlib
 
 src = pathlib.Path("source-data")
@@ -168,3 +169,39 @@ data = {
 }
 (out / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
 print(json.dumps(stats, indent=2))
+
+# The start of dist/provenance.json: the sources and a hash of each file read
+# here. tools/enrich.py and tools/finish_unified.py add the rest.
+provenance = {
+    "retrieved": "2026-10-12",
+    "sources": [
+        {
+            "name": "Glottolog 5.3",
+            "authors": "Hammarström, Harald; Forkel, Robert; Haspelmath, Martin; Bank, Sebastian",
+            "year": 2026,
+            "doi": "10.5281/zenodo.18840935",
+            "data": "https://github.com/glottolog/glottolog-cldf/tree/v5.3",
+            "classification": "https://github.com/glottolog/glottolog/tree/v5.3",
+            "license": "CC BY 4.0",
+        },
+        {
+            "name": "WALS Online CLDF",
+            "authors": "Dryer, Matthew S. & Haspelmath, Martin (eds.)",
+            "year": 2013,
+            "data": "https://github.com/cldf-datasets/wals",
+            "version": "default-branch file snapshot retrieved 2026-10-12; file hash below",
+            "license": "CC BY 4.0",
+        },
+    ],
+    "files": {
+        name: {
+            "sha256": hashlib.sha256((src / name).read_bytes()).hexdigest(),
+            "bytes": (src / name).stat().st_size,
+        }
+        for name in ["classification.nex", "languages.csv", "dialects.md", "wals.csv"]
+    },
+    "method": "Complete Glottolog languoid CSV; direct-parent edges from Glottolog v5.3 NEXUS plus all 27 dialect indexes. Separate WALS hierarchy. Exact Glottocode links only. No synthetic genealogical edges.",
+    # tools/finish_unified.py writes the final list.
+    "limitations": [],
+}
+(out / "provenance.json").write_text(json.dumps(provenance, ensure_ascii=False, indent=2))

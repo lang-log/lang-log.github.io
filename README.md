@@ -8,7 +8,7 @@ Live site: https://lang-log.github.io/
 
 ## Run locally
 
-The scripts live in `tools/`; run them from the repository root. Run `python3 tools/prepare_static.py`, `python3 tools/build_home.py` and `python3 tools/build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+The scripts live in `tools/`; run them from the repository root. Run `bash tools/build_site.sh` (it converts `source-data/` into `dist/` and writes every page), then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
 ## Code quality checks
 
@@ -47,7 +47,7 @@ Settings: `.prettierrc.json` and `.prettierignore` (Prettier), `eslint.config.mj
 Left out on purpose:
 
 - `source-data/`: third-party datasets and saved pages kept as published, and hand-curated data the build reads as it is (Prettier, Ruff).
-- Files written by scripts and committed: `dist/integrated.json`, `dist/provenance.json`, `dist/signs-and-scripts.json`, `dist/language-atlas.xml`, `dist/signs-and-scripts.xml`, `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
+- Files written by scripts and committed: `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
 - For now, the files that open pull requests change, so that they do not conflict: `dist/home.js`, `dist/tree.js`, `dist/i18n.js`, `dist/i18n/`, `dist/style.css` (Prettier; the first two also ESLint) and `tools/build_paths.py`, `tools/build_wals_map.py`, `tools/build_home.py` (Ruff format). They are formatted in their own pull request once those are merged.
@@ -141,7 +141,7 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ## Rebuild
 
-Run `python tools/build_data.py`, `python tools/enrich.py`, `python tools/unify.py`, then `python tools/finish_unified.py`. Serve `dist/` as static files.
+`tools/build_site.sh` runs `tools/build_data.py`, `tools/enrich.py`, `tools/unify.py` and `tools/finish_unified.py` on every build. They read only `source-data/` and write `dist/data.json`, `dist/integrated.json`, `dist/provenance.json`, `dist/language-families.xml` and `dist/language-families.opml`; none of these is committed.
 
 ## Integration model
 
@@ -175,7 +175,7 @@ The Sources panel documents this integration. XML and OPML remain classification
 
 `signs-and-scripts.html?domain=sign` and `signs-and-scripts.html?domain=scripts` extend the same public atlas. Domain navigation is added to the existing page without replacing its language data or controls.
 
-Rebuild with `python tools/build_visual.py`; validate with `python tools/validate_visual.py` and `node --check dist/signs-and-scripts.js`.
+`tools/build_site.sh` rebuilds it with `tools/build_visual.py` and validates it with `tools/validate_visual.py` on every build; `dist/signs-and-scripts.json`, `.xml` and `.opml` are not committed.
 
 Coverage: all 344 Glottolog 5.3 Sign Language-category records (including categories, families and dialects), all 76 Power et al. CLDF manual-alphabet samples, three Abner et al. consensus trees spanning 19 distinct language samples, all 226 rows of the downloaded ISO 15924 table, and all 325 SIL Scripts Index rows. Exact script codes are merged; SIL-local IDs remain distinct. There are 334 script/notation records, 63 reviewed historical/influence assertions and 1,001 explicit CLDR language/script usage entries. These counts measure different units. They do not establish exhaustive coverage of world literature or all proposed genealogies.
 
