@@ -15,13 +15,13 @@ tools/build_languoids.py stops with "not in the feature catalogue".
     python3 tools/feature_catalogue.py
 """
 
-from pathlib import Path
 import csv
 import json
 import re
 import unicodedata
 
-ROOT = Path(__file__).resolve().parent.parent
+from locations import ROOT
+
 WALS = ROOT / "source-data" / "wals"
 CATALOGUE = ROOT / "source-data" / "lang-log" / "features.json"
 

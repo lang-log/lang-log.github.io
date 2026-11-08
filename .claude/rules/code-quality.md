@@ -25,5 +25,4 @@ Prettier, ESLint and Ruff check every pull request and every push to `main` (the
 
 ## Waiting for open pull requests
 
-- Left out until #49 is merged: `dist/home.js`, `dist/tree.js`, `dist/i18n.js`, `dist/i18n/`, `dist/style.css` (Prettier) and `dist/home.js`, `dist/tree.js` (ESLint), `tools/build_home.py` (Ruff format). Until #40 is merged: `tools/build_paths.py`, `tools/build_wals_map.py` (Ruff format). Then format or fix them in their own pull request and remove the entries.
-- When `dist/style.css` is formatted, `tools/build_logo.py` must still find the `.logo` aspect ratio: its regular expression expects `.logo{...aspect-ratio:W/H` without spaces.
+- Left out until #60 is merged: `tools/build_paths.py` (Ruff format). Then format it in its own pull request and remove the entry in `pyproject.toml`.

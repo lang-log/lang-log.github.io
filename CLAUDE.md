@@ -21,6 +21,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - `.claude/rules/license.md`: all rights reserved for the owner's work; third-party data keeps its own license.
 - `.claude/rules/fonts.md`: one font stack for every page, modal and popup, per interface language; check the font whenever adding one.
 - `.claude/rules/logo.md`: the Lang Log logo is always the one SVG.
+- `.claude/rules/readable-code.md`: where each shared value is defined, and the check that finds copies.
 - `.claude/rules/code-quality.md`: Prettier, ESLint and Ruff on every pull request and before every deployment.
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in English and Japanese, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.

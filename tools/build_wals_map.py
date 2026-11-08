@@ -28,16 +28,16 @@ data-world that languoid_map.py computes for a whole-world map.
 Points are Glottolog's representative coordinates, not the area where a
 language is spoken.
 """
-from pathlib import Path
+
 import csv
 import hashlib
 import json
 import sys
 import urllib.request
 
-from languoid_map import project, world_box, world_view
+from locations import ROOT
+from languoid_map import min_width, project, world_box, world_view
 
-ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "source-data" / "wals"
 OUT = ROOT / "dist" / "data" / "features"
 VERSION = "v2020.4"
@@ -72,7 +72,9 @@ def fetch():
     for name in ("values.csv", "parameters.csv", "codes.csv", "chapters.csv", "areas.csv"):
         raw = urllib.request.urlopen(BASE + name, timeout=120).read()
         (SRC / name).write_bytes(raw)
-        print(f"Wrote {(SRC / name).relative_to(ROOT)} from {VERSION} (SHA-256 {hashlib.sha256(raw).hexdigest()[:16]})")
+        print(
+            f"Wrote {(SRC / name).relative_to(ROOT)} from {VERSION} (SHA-256 {hashlib.sha256(raw).hexdigest()[:16]})"
+        )
 
 
 def build():
@@ -84,13 +86,18 @@ def build():
     for a feature gives that value."""
     glotto = list(csv.DictReader((ROOT / "source-data" / "languages.csv").open(encoding="utf-8")))
     by_id = {r["ID"]: r for r in glotto}
-    langs = sorted((r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
-                   key=lambda r: r["ID"])
+    langs = sorted(
+        (r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
+        key=lambda r: r["ID"],
+    )
     index = {r["ID"]: i for i, r in enumerate(langs)}
 
-    wals_to = {}   # WALS code -> index in langs
+    wals_to = {}  # WALS code -> index in langs
     wals_codes = {}  # index -> first WALS code
-    for w in sorted(csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")), key=lambda r: r["ID"]):
+    for w in sorted(
+        csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")),
+        key=lambda r: r["ID"],
+    ):
         g = by_id.get(w["Glottocode"])
         if not g:
             continue
@@ -107,7 +114,9 @@ def build():
     for c in csv.DictReader((SRC / "codes.csv").open(encoding="utf-8")):
         codes.setdefault(c["Parameter_ID"], []).append({"n": int(c["Number"]), "name": c["Name"]})
     values = {}
-    for v in sorted(csv.DictReader((SRC / "values.csv").open(encoding="utf-8")), key=lambda r: r["Language_ID"]):
+    for v in sorted(
+        csv.DictReader((SRC / "values.csv").open(encoding="utf-8")), key=lambda r: r["Language_ID"]
+    ):
         i = wals_to.get(v["Language_ID"])
         if i is not None:
             values.setdefault(v["Parameter_ID"], {}).setdefault(i, int(v["Value"]))
@@ -118,11 +127,20 @@ def build():
         x, y = project(float(r["Longitude"]), float(r["Latitude"]))
         fam = by_id.get(r["Family_ID"], {}).get("Name", "") if r["Family_ID"] else ""
         rows.append([r["ID"], r["Name"], fam, wals_codes.get(i, ""), round(x, 1), round(y, 1)])
-    write(OUT / "languages.json", {"fields": ["glottocode", "name", "family", "wals", "x", "y"], "rows": rows})
+    write(
+        OUT / "languages.json",
+        {"fields": ["glottocode", "name", "family", "wals", "x", "y"], "rows": rows},
+    )
     page = (ROOT / "dist" / "feature-map.html").read_text(encoding="utf-8")
-    for attr in (f'viewBox="{world_view()}"', f'data-world="{world_box()}"'):
+    for attr in (
+        f'viewBox="{world_view()}"',
+        f'data-world="{world_box()}"',
+        f'data-min="{min_width()}"',
+    ):
         if attr not in page:
-            raise SystemExit(f"dist/feature-map.html: the map must have {attr} (see languoid_map.py)")
+            raise SystemExit(
+                f"dist/feature-map.html: the map must have {attr} (see languoid_map.py)"
+            )
 
     features = []
     for p in params:
@@ -136,11 +154,20 @@ def build():
         vals = sorted(codes.get(pid, []), key=lambda c: c["n"])
         for c in vals:
             c["count"] = counts.get(c["n"], 0)
-        features.append({"id": pid, "name": p["Name"], "area": area(int(p["Chapter_ID"])),
-                         "languages": len(got), "values": vals})
+        features.append(
+            {
+                "id": pid,
+                "name": p["Name"],
+                "area": area(int(p["Chapter_ID"])),
+                "languages": len(got),
+                "values": vals,
+            }
+        )
         write(OUT / "f" / f"{pid}.json", [got.get(i, 0) for i in range(len(langs))])
     write(OUT / "features.json", {"version": VERSION, "features": features})
-    print(f"Wrote dist/data/features/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features")
+    print(
+        f"Wrote dist/data/features/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features"
+    )
 
 
 def write(path, obj):

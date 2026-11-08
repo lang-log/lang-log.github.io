@@ -13,7 +13,6 @@ come from the page: the letters use currentColor and the asterisk uses the
 --teal custom property, so a light or dark theme on the page applies here too.
 """
 
-from pathlib import Path
 import math
 import re
 
@@ -21,8 +20,10 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
 
+from locations import DIST
+
 FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
-OUT = Path(__file__).resolve().parent.parent / "dist" / "logo.svg"
+OUT = DIST / "logo.svg"
 CSS = OUT.with_name("style.css")  # its .logo rule carries the same aspect ratio
 TEXT = "LANG LOG"
 SIZE = 100  # font size in logo units
@@ -60,7 +61,15 @@ def main():
     )
     OUT.write_text(svg, encoding="utf-8")
     css = CSS.read_text(encoding="utf-8")
-    css = re.sub(r"(\.logo\{[^}]*aspect-ratio:)\d+/\d+", rf"\g<1>{width}/{height}", css)
+    # The .logo rule as Prettier writes it (".logo {", one declaration per line,
+    # "aspect-ratio: 861/180;"); spaces are optional, so the compact form matches too.
+    css, found = re.subn(
+        r"(\.logo\s*\{[^}]*aspect-ratio:\s*)\d+\s*/\s*\d+", rf"\g<1>{width}/{height}", css
+    )
+    if found != 1:
+        raise SystemExit(
+            f"tools/build_logo.py: expected one .logo aspect-ratio in {CSS}, found {found}"
+        )
     CSS.write_text(css, encoding="utf-8")
     print(f"viewBox 0 0 {width} {height}")
 

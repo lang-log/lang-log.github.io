@@ -50,7 +50,7 @@ Left out on purpose:
 - Files written by scripts and committed: `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
-- For now, the files that open pull requests change, so that they do not conflict: `dist/home.js`, `dist/tree.js`, `dist/i18n.js`, `dist/i18n/`, `dist/style.css` (Prettier; the first two also ESLint) and `tools/build_paths.py`, `tools/build_wals_map.py`, `tools/build_home.py` (Ruff format). They are formatted in their own pull request once those are merged.
+- For now, `tools/build_paths.py` (Ruff format), which open pull request #60 changes, so that the two do not conflict. It is formatted in its own pull request once #60 is merged.
 
 ## Shareable URLs
 
@@ -201,7 +201,7 @@ Syntax and DOM checks cover both list views, random selection, detail routes for
 The atlas and the record detail page (`record.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `tools/split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
 
 - `data/atlas.json` (about 0.8 MB compressed): the tree, native names, sources, study trees and conflicts. Glottolog records are stored as columns, and values the browser can recompute (ids inside records, children, root, size, Glottolog assertions, placements) are left out.
-- `data/names/<n>.json`: recorded names and spellings, split into 64 files by a hash of the record id. A page loads one when it shows a record's names.
+- `data/names/<n>.json`: recorded names and spellings, split into `SHARDS` files (set in `dist/atlas-data.js`) by a hash of the record id. A page loads one when it shows a record's names.
 - `data/search.json`: the text of all recorded names. The atlas loads it after the tree is shown, so searching by an alternative name (for example 日本語) works a moment later than searching by name, Glottocode or ISO code.
 
 The WALS genus lists in `data.json` are not used by the pages and are not in these files. `tools/split_data.py` rebuilds the objects the same way and stops if anything differs from `data.json` and `integrated.json`.
