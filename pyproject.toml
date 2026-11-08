@@ -20,7 +20,6 @@ select = ["E", "W", "F", "B", "PLE"]
 ignore = ["E501"]
 
 [tool.ruff.format]
-# Until pull requests #40 (tools/build_paths.py, tools/build_wals_map.py) and #49
-# (tools/build_home.py) are merged, so that they do not conflict. Then format these files in
-# their own pull request and remove them here.
+# Until pull request #54 (shared values defined once), which changes these files, is merged, so
+# that it does not conflict. Then format these files in their own pull request and remove them.
 exclude = ["tools/build_paths.py", "tools/build_wals_map.py", "tools/build_home.py"]

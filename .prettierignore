@@ -24,10 +24,7 @@ dist/map/
 # <meta charset="utf-8"> as one exact string, and --check compares them as text.
 dist/*.html
 
-# Until pull request #49 (search results page) is merged, so that it does not conflict.
-# Then format these files in their own pull request and remove the lines.
-dist/home.js
+# Until pull request #56 (fonts for Japanese, Chinese and Korean) is merged, so that it does not
+# conflict. Then format these files in their own pull request and remove the lines.
 dist/tree.js
-dist/i18n.js
-dist/i18n/
 dist/style.css

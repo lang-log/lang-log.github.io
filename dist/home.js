@@ -20,7 +20,7 @@
     if(!ids.length)return;
     const id=pick(ids);
     location.href=domain==='language'?id:'record.html?domain='+encodeURIComponent(domain)+'&id='+encodeURIComponent(id);
-   }catch(e){pools=null;}
+   }catch{pools=null;}
    finally{b.disabled=false;}
   });
  }
