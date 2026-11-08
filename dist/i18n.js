@@ -205,7 +205,6 @@ window.LANGLOG_I18N = {
       'Choose a random language or dialect': '言語か方言をランダムに選ぶ',
       'Choose a random sign language or dialect': '手話か方言をランダムに選ぶ',
       'Choose a random writing system': '文字体系をランダムに選ぶ',
-      'Dialects': '方言',
       'Download': 'ダウンロード',
       'How to read': '読み方',
       'Copy link': 'リンクをコピー',

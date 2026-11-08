@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'कोई भाषा या बोली यादृच्छिक रूप से चुनें',
     'Choose a random sign language or dialect': 'कोई सांकेतिक भाषा या बोली यादृच्छिक रूप से चुनें',
     'Choose a random writing system': 'कोई लेखन-प्रणाली यादृच्छिक रूप से चुनें',
-    'Dialects': 'बोलियाँ',
     'Download': 'डाउनलोड',
     'How to read': 'कैसे पढ़ें',
     'Copy link': 'लिंक कॉपी करें',

@@ -108,7 +108,6 @@
     'Choose a random language or dialect': 'สุ่มเลือกภาษาหรือภาษาถิ่น',
     'Choose a random sign language or dialect': 'สุ่มเลือกภาษามือหรือภาษาถิ่น',
     'Choose a random writing system': 'สุ่มเลือกระบบการเขียน',
-    'Dialects': 'ภาษาถิ่น',
     'Download': 'ดาวน์โหลด',
     'How to read': 'วิธีอ่าน',
     'Copy link': 'คัดลอกลิงก์',

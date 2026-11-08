@@ -366,7 +366,6 @@ def atlas_html(base, root=None, src=None, downloads=""):
             '<div class="toolbar"><div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
             '<button id="chartview" type="button">Tree</button></div>'
             f'{filters}<button id="collapse" type="button">Collapse all</button>'
-            '<label><input type="checkbox" id="dialects" checked> Dialects</label>'
             f'<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
             '<div id="outline" aria-label="Expandable classification outline"></div>'
             '<div id="viewport" hidden><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'

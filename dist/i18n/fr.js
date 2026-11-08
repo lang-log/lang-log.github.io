@@ -111,7 +111,6 @@
     'Choose a random sign language or dialect':
       'Choisir une langue des signes ou un dialecte au hasard',
     'Choose a random writing system': 'Choisir un système d’écriture au hasard',
-    'Dialects': 'Dialectes',
     'Download': 'Télécharger',
     'How to read': 'Mode de lecture',
     'Copy link': 'Copier le lien',

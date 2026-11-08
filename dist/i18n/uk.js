@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'Вибрати випадкову мову чи діалект',
     'Choose a random sign language or dialect': 'Вибрати випадкову жестову мову чи діалект',
     'Choose a random writing system': 'Вибрати випадкову систему письма',
-    'Dialects': 'Діалекти',
     'Download': 'Завантажити',
     'How to read': 'Як читати',
     'Copy link': 'Копіювати посилання',

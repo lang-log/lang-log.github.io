@@ -108,7 +108,6 @@
     'Choose a random language or dialect': '언어나 방언을 무작위로 고르기',
     'Choose a random sign language or dialect': '수어나 방언을 무작위로 고르기',
     'Choose a random writing system': '문자 체계를 무작위로 고르기',
-    'Dialects': '방언',
     'Download': '내려받기',
     'How to read': '읽는 법',
     'Copy link': '링크 복사',

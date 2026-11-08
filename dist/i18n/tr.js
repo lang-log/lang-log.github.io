@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'Rastgele bir dil veya ağız seç',
     'Choose a random sign language or dialect': 'Rastgele bir işaret dili veya ağız seç',
     'Choose a random writing system': 'Rastgele bir yazı sistemi seç',
-    'Dialects': 'Ağızlar',
     'Download': 'İndir',
     'How to read': 'Nasıl okunur',
     'Copy link': 'Bağlantıyı kopyala',

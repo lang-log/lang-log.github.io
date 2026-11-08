@@ -110,7 +110,6 @@
     'Choose a random sign language or dialect':
       'Zufällige Gebärdensprache oder zufälligen Dialekt wählen',
     'Choose a random writing system': 'Zufälliges Schriftsystem wählen',
-    'Dialects': 'Dialekte',
     'Download': 'Herunterladen',
     'How to read': 'Lesehilfe',
     'Copy link': 'Link kopieren',

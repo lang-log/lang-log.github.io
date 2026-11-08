@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'Wybierz losowy język lub dialekt',
     'Choose a random sign language or dialect': 'Wybierz losowy język migowy lub dialekt',
     'Choose a random writing system': 'Wybierz losowy system pisma',
-    'Dialects': 'Dialekty',
     'Download': 'Pobierz',
     'How to read': 'Jak czytać',
     'Copy link': 'Kopiuj link',
