@@ -150,7 +150,8 @@
     'Conditional placements': '按来源的归属',
     'Classification according to Glottolog 5.3': '根据 Glottolog 5.3 的分类',
     'Classification according to Glottolog': '根据 Glottolog 的分类',
-    'Position in Glottolog': '在 Glottolog 中的位置',
+    'Classification according to Lang Log': '根据 Lang Log 的分类',
+    'Lang Log’s own': 'Lang Log 自有',
     'According to': '依据',
     'According to Glottolog 5.3': '依据 Glottolog 5.3',
     'Name in this language': '本语言中的名称',
@@ -466,6 +467,7 @@
     [/^All families · Lang Log by yoshi$/, '所有语系 · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, '所有语系和孤立语言 · $1'],
     [/^Members · ([\d,]+)$/, '下位记录 · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, '根据 Lang Log 的下位记录 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '记录的名称和拼写 · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, '别名和拼写 · $1'],
     [/^Related child records · ([\d,]+)$/, '相关的下位记录 · $1'],
@@ -514,7 +516,6 @@
       '模型卡语言标签完全一致：$1。包括多语言模型；标签并不保证质量或方言覆盖。',
     ],
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
-    [/^Historical stage · (#\S+)$/, '历史阶段 · $1'],
     [/^Faint points: other members of (.+)\.$/, '浅色点：$1 的其他下位。'],
     [
       /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -529,11 +530,6 @@
       },
     ],
     [/^Map: location of (.+)$/, '地图：$1 的位置'],
-    [/^See (.+) on the (.+) page$/, '在“$2”页面查看 $1'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      '此阶段在 Glottolog 谱系树中的位置。Glottolog 没有记录它是哪一种现代语言的阶段；这一关联是本图谱人工整理的。',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

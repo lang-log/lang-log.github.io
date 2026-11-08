@@ -276,7 +276,8 @@ for a, b in itertools.combinations(sorted(study_trees), 2):
                     }
                 )
                 count += 1
-                for x in sa | sb:
+                # Sorted, so the file is the same on every run (set order varies).
+                for x in sorted(sa | sb):
                     conflict_index[x].append(idx)
     pair_stats.append({"a": a, "b": b, "sharedTips": len(shared), "incompatibleCladePairs": count})
 # Collapse repeated references without erasing separate source-tree sample edges.

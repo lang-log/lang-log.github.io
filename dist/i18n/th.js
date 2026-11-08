@@ -154,7 +154,8 @@
     'Conditional placements': 'ตำแหน่งตามแหล่งข้อมูล',
     'Classification according to Glottolog 5.3': 'การจัดจำแนกตาม Glottolog 5.3',
     'Classification according to Glottolog': 'การจัดจำแนกตาม Glottolog',
-    'Position in Glottolog': 'ตำแหน่งใน Glottolog',
+    'Classification according to Lang Log': 'การจัดจำแนกตาม Lang Log',
+    'Lang Log’s own': 'ของ Lang Log เอง',
     'According to': 'ตาม',
     'According to Glottolog 5.3': 'ตาม Glottolog 5.3',
     'Name in this language': 'ชื่อในภาษานี้',
@@ -476,6 +477,7 @@
     [/^All families · Lang Log by yoshi$/, 'ตระกูลทั้งหมด · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'ตระกูลทั้งหมดและภาษาโดดเดี่ยว · $1'],
     [/^Members · ([\d,]+)$/, 'สมาชิก · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'สมาชิกตาม Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'ชื่อและการสะกดที่บันทึกไว้ · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'ชื่ออื่นและการสะกด · $1'],
     [/^Related child records · ([\d,]+)$/, 'ระเบียนย่อยที่เกี่ยวข้อง · $1'],
@@ -533,7 +535,6 @@
       'ป้ายภาษาในการ์ดโมเดลที่ตรงกันทุกประการ: $1 รวมถึงโมเดลหลายภาษา ป้ายไม่ได้รับประกันคุณภาพหรือการครอบคลุมภาษาถิ่น',
     ],
     [/^All (\S+) models ↗$/, 'โมเดล $1 ทั้งหมด ↗'],
-    [/^Historical stage · (#\S+)$/, 'ขั้นทางประวัติศาสตร์ · $1'],
     [/^Faint points: other members of (.+)\.$/, 'จุดสีจาง: สมาชิกอื่นของ $1'],
     [
       /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -547,11 +548,6 @@
       },
     ],
     [/^Map: location of (.+)$/, 'แผนที่: ตำแหน่งของ $1'],
-    [/^See (.+) on the (.+) page$/, 'ดู $1 ในหน้า $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'ตำแหน่งของขั้นนี้ในแผนภูมิต้นไม้ของ Glottolog Glottolog ไม่ได้บันทึกว่าเป็นขั้นของภาษาปัจจุบันใด ความเชื่อมโยงนั้นจัดทำด้วยมือในแผนที่นี้',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

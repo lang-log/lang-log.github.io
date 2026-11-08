@@ -255,7 +255,8 @@ window.LANGLOG_I18N = {
       'Conditional placements': '出典ごとの位置づけ',
       'Classification according to Glottolog 5.3': 'Glottolog 5.3 による分類',
       'Classification according to Glottolog': 'Glottolog による分類',
-      'Position in Glottolog': 'Glottolog での位置',
+      'Classification according to Lang Log': 'Lang Log による分類',
+      'Lang Log’s own': 'Lang Log 独自',
       'According to': '出典:',
       'According to Glottolog 5.3': 'Glottolog 5.3 による',
       'Name in this language': 'この言語での名前',
@@ -524,6 +525,7 @@ window.LANGLOG_I18N = {
       [/^All families · Lang Log by yoshi$/, 'すべての語族 · Lang Log by yoshi'],
       [/^All families and isolates · ([\d,]+)$/, 'すべての語族と孤立言語 · $1'],
       [/^Members · ([\d,]+)$/, '下位の記録 · $1'],
+      [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log による下位の記録 · $1'],
       [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '記録された名前とつづり · $1'],
       [/^Aliases and spellings · ([\d,]+)$/, '別名とつづり · $1'],
       [/^Related child records · ([\d,]+)$/, '関連する下位の記録 · $1'],
@@ -575,7 +577,6 @@ window.LANGLOG_I18N = {
         'モデルカードの言語タグが完全に一致: $1。多言語モデルを含みます。タグは品質や方言への対応を保証しません。',
       ],
       [/^All (\S+) models ↗$/, '$1 のモデルをすべて見る ↗'],
-      [/^Historical stage · (#\S+)$/, '歴史上の段階 · $1'],
       [/^Faint points: other members of (.+)\.$/, '薄い点: $1 のほかの下位。'],
       [
         /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -589,11 +590,6 @@ window.LANGLOG_I18N = {
         },
       ],
       [/^Map: location of (.+)$/, '地図: $1 の位置'],
-      [/^See (.+) on the (.+) page$/, '$2 のページで $1 を見る'],
-      [
-        /^Position of this stage in the Glottolog tree\..*$/,
-        'Glottolog の系統樹でのこの段階の位置です。Glottolog は、どの現代語の段階かを記録していません。そのつながりは、この地図で手作業で整理したものです。',
-      ],
       [
         /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
         function (m, tr) {

@@ -155,7 +155,8 @@
     'Conditional placements': 'स्रोत के अनुसार स्थान',
     'Classification according to Glottolog 5.3': 'Glottolog 5.3 के अनुसार वर्गीकरण',
     'Classification according to Glottolog': 'Glottolog के अनुसार वर्गीकरण',
-    'Position in Glottolog': 'Glottolog में स्थान',
+    'Classification according to Lang Log': 'Lang Log के अनुसार वर्गीकरण',
+    'Lang Log’s own': 'Lang Log का अपना',
     'According to': 'स्रोत:',
     'According to Glottolog 5.3': 'Glottolog 5.3 के अनुसार',
     'Name in this language': 'इस भाषा में नाम',
@@ -475,6 +476,7 @@
     [/^All families · Lang Log by yoshi$/, 'सभी भाषा-परिवार · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'सभी भाषा-परिवार और पृथक भाषाएँ · $1'],
     [/^Members · ([\d,]+)$/, 'सदस्य · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log के अनुसार सदस्य · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'दर्ज नाम और वर्तनियाँ · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'उपनाम और वर्तनियाँ · $1'],
     [/^Related child records · ([\d,]+)$/, 'संबंधित उप-रिकॉर्ड · $1'],
@@ -529,7 +531,6 @@
       'मॉडल-कार्ड के पूर्ण मिलान वाले भाषा-टैग: $1। बहुभाषी मॉडल शामिल हैं; टैग गुणवत्ता या बोलियों के समावेश की गारंटी नहीं देते।',
     ],
     [/^All (\S+) models ↗$/, '$1 के सभी मॉडल ↗'],
-    [/^Historical stage · (#\S+)$/, 'ऐतिहासिक चरण · $1'],
     [/^Faint points: other members of (.+)\.$/, 'हल्के बिंदु: $1 के अन्य सदस्य।'],
     [
       /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -543,11 +544,6 @@
       },
     ],
     [/^Map: location of (.+)$/, 'मानचित्र: $1 का स्थान'],
-    [/^See (.+) on the (.+) page$/, '$1 को $2 पृष्ठ पर देखें'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Glottolog वृक्ष में इस चरण का स्थान। Glottolog यह दर्ज नहीं करता कि यह किस आधुनिक भाषा का चरण है; यह संबंध इस एटलस में हाथ से जोड़ा गया है।',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

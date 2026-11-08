@@ -1,0 +1,225 @@
+{
+ "_comment": "Lang Log's own classification (source \"lang-log\"): the parent of a languoid where Lang Log places it differently from Glottolog, such as a historical stage as the parent of the later language. Curated by hand; Glottolog has no stage-of relation. Keys: Glottocode of the child; parent: Glottocode of the parent. Names are for reading only.",
+ "parents": {
+  "akka1240": {
+   "parent": "olda1247",
+   "name": "Akkadian",
+   "parentName": "Old Akkadian"
+  },
+  "bret1244": {
+   "parent": "midd1359",
+   "name": "Breton",
+   "parentName": "Middle Breton"
+  },
+  "nucl1310": {
+   "parent": "oldb1235",
+   "name": "Burmese",
+   "parentName": "Old Burmese"
+  },
+  "stan1289": {
+   "parent": "oldc1251",
+   "name": "Catalan",
+   "parentName": "Old Catalan"
+  },
+  "copt1239": {
+   "parent": "oldc1247",
+   "name": "Coptic",
+   "parentName": "Old Coptic"
+  },
+  "corn1251": {
+   "parent": "midd1380",
+   "name": "Cornish",
+   "parentName": "Middle Cornish"
+  },
+  "czec1258": {
+   "parent": "oldc1253",
+   "name": "Czech",
+   "parentName": "Old Czech"
+  },
+  "dani1285": {
+   "parent": "oldd1239",
+   "name": "Danish",
+   "parentName": "Old Danish"
+  },
+  "dutc1256": {
+   "parent": "midd1321",
+   "name": "Dutch",
+   "parentName": "Middle Dutch"
+  },
+  "stan1293": {
+   "parent": "midd1317",
+   "name": "English",
+   "parentName": "Middle English"
+  },
+  "stan1290": {
+   "parent": "midd1316",
+   "name": "French",
+   "parentName": "Middle French"
+  },
+  "nucl1302": {
+   "parent": "oldg1234",
+   "name": "Georgian",
+   "parentName": "Old Georgian"
+  },
+  "hung1274": {
+   "parent": "oldh1242",
+   "name": "Hungarian",
+   "parentName": "Old Hungarian"
+  },
+  "iris1253": {
+   "parent": "midd1360",
+   "name": "Irish",
+   "parentName": "Middle Irish (10-12th century)"
+  },
+  "ital1282": {
+   "parent": "fior1236",
+   "name": "Italian",
+   "parentName": "Old Italian"
+  },
+  "nucl1643": {
+   "parent": "oldj1239",
+   "name": "Japanese",
+   "parentName": "Old Japanese"
+  },
+  "nucl1305": {
+   "parent": "oldk1250",
+   "name": "Kannada",
+   "parentName": "Old Kannada"
+  },
+  "kore1280": {
+   "parent": "midd1372",
+   "name": "Korean",
+   "parentName": "Middle Korean"
+  },
+  "late1252": {
+   "parent": "lati1261",
+   "name": "Late Latin",
+   "parentName": "Latin"
+  },
+  "lati1261": {
+   "parent": "oldl1238",
+   "name": "Latin",
+   "parentName": "Old Latin"
+  },
+  "lith1251": {
+   "parent": "oldl1240",
+   "name": "Lithuanian",
+   "parentName": "Old Lithuanian"
+  },
+  "mara1378": {
+   "parent": "oldm1244",
+   "name": "Marathi",
+   "parentName": "Old Marathi"
+  },
+  "medi1250": {
+   "parent": "late1252",
+   "name": "Medieval Latin",
+   "parentName": "Late Latin"
+  },
+  "midd1359": {
+   "parent": "oldb1248",
+   "name": "Middle Breton",
+   "parentName": "Old Breton"
+  },
+  "midd1380": {
+   "parent": "oldc1254",
+   "name": "Middle Cornish",
+   "parentName": "Old Cornish"
+  },
+  "midd1321": {
+   "parent": "oldd1238",
+   "name": "Middle Dutch",
+   "parentName": "Old Dutch"
+  },
+  "midd1317": {
+   "parent": "olde1238",
+   "name": "Middle English",
+   "parentName": "Old English (ca. 450-1100)"
+  },
+  "midd1316": {
+   "parent": "oldf1239",
+   "name": "Middle French",
+   "parentName": "Old French (842-ca. 1400)"
+  },
+  "midd1360": {
+   "parent": "oldi1246",
+   "name": "Middle Irish (10-12th century)",
+   "parentName": "Old Irish (8-9th century)"
+  },
+  "midd1363": {
+   "parent": "oldw1241",
+   "name": "Middle Welsh",
+   "parentName": "Old Welsh"
+  },
+  "monn1252": {
+   "parent": "oldm1242",
+   "name": "Mon",
+   "parentName": "Old Mon"
+  },
+  "oldi1246": {
+   "parent": "arch1247",
+   "name": "Old Irish (8-9th century)",
+   "parentName": "Archaic Irish (7th century)"
+  },
+  "omag1248": {
+   "parent": "cura1243",
+   "name": "Omagua",
+   "parentName": "Old Omagua"
+  },
+  "poli1260": {
+   "parent": "oldp1256",
+   "name": "Polish",
+   "parentName": "Old Polish"
+  },
+  "port1283": {
+   "parent": "oldp1257",
+   "name": "Portuguese",
+   "parentName": "Old Portuguese"
+  },
+  "russ1263": {
+   "parent": "oldr1238",
+   "name": "Russian",
+   "parentName": "Old Russian"
+  },
+  "sans1269": {
+   "parent": "clas1258",
+   "name": "Sanskrit",
+   "parentName": "Classical Sanskrit"
+  },
+  "stan1288": {
+   "parent": "olds1249",
+   "name": "Spanish",
+   "parentName": "Old Spanish"
+  },
+  "sund1252": {
+   "parent": "sund1255",
+   "name": "Sundanese",
+   "parentName": "Old Sundanese"
+  },
+  "swed1254": {
+   "parent": "olds1252",
+   "name": "Swedish",
+   "parentName": "Old Swedish"
+  },
+  "tami1289": {
+   "parent": "oldt1248",
+   "name": "Tamil",
+   "parentName": "Old Tamil"
+  },
+  "telu1262": {
+   "parent": "oldt1249",
+   "name": "Telugu",
+   "parentName": "Old Telugu"
+  },
+  "tibe1272": {
+   "parent": "clas1254",
+   "name": "Tibetan",
+   "parentName": "Classical Tibetan"
+  },
+  "wels1247": {
+   "parent": "midd1363",
+   "name": "Welsh",
+   "parentName": "Middle Welsh"
+  }
+ }
+}

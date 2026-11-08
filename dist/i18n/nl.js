@@ -157,7 +157,8 @@
     'Conditional placements': 'Indelingen per bron',
     'Classification according to Glottolog 5.3': 'Classificatie volgens Glottolog 5.3',
     'Classification according to Glottolog': 'Classificatie volgens Glottolog',
-    'Position in Glottolog': 'Positie in Glottolog',
+    'Classification according to Lang Log': 'Classificatie volgens Lang Log',
+    'Lang Log’s own': 'Eigen aan Lang Log',
     'According to': 'Volgens',
     'According to Glottolog 5.3': 'Volgens Glottolog 5.3',
     'Name in this language': 'Naam in deze taal',
@@ -486,6 +487,7 @@
     [/^All families · Lang Log by yoshi$/, 'Alle families · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Alle families en isolaten · $1'],
     [/^Members · ([\d,]+)$/, 'Leden · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Leden volgens Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Vastgelegde namen en spellingen · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Aliassen en spellingen · $1'],
     [/^Related child records · ([\d,]+)$/, 'Verwante onderliggende records · $1'],
@@ -543,7 +545,6 @@
       'Exacte taallabels op de modelkaart: $1. Inclusief meertalige modellen; labels garanderen geen kwaliteit of dekking van dialecten.',
     ],
     [/^All (\S+) models ↗$/, 'Alle modellen voor $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Historisch stadium · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Vage punten: andere leden van $1.'],
     [
       /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -557,11 +558,6 @@
       },
     ],
     [/^Map: location of (.+)$/, 'Kaart: ligging van $1'],
-    [/^See (.+) on the (.+) page$/, '$1 bekijken op de pagina $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Positie van dit stadium in de Glottolog-boom. Glottolog legt niet vast van welke moderne taal dit een stadium is; die koppeling is in deze atlas met de hand gelegd.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

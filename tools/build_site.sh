@@ -3,9 +3,19 @@
 # Used by .github/workflows/site.yml (pull requests) and pages.yml (the live site).
 set -euo pipefail
 
-# Restores dist/data.json and dist/language-families.xml from
-# source-data/packed/ and checks their SHA-256.
-python3 tools/prepare_static.py
+# Converts the source data in source-data/ into the atlas data and its
+# downloads (not committed; built here): dist/data.json (Glottolog records
+# with WALS and names), dist/integrated.json (the study trees, conflicts and
+# debates), dist/provenance.json, and the exports
+# dist/language-families.xml and .opml.
+python3 tools/build_data.py
+python3 tools/enrich.py
+python3 tools/unify.py
+python3 tools/finish_unified.py
+# Writes the sign language and writing system data and its exports
+# (dist/signs-and-scripts.json, .xml and .opml; not committed) and checks it.
+python3 tools/build_visual.py
+python3 tools/validate_visual.py
 # Writes the top page dist/index.html (the list of top-level families,
 # the whole tree), dist/random.json (the records its Random buttons draw
 # from) and the pages linked under the Random row: dist/stats/,
@@ -37,8 +47,9 @@ node tools/check_i18n.js
 echo "Check that every page and data file is present"
 for f in index.html signs-and-scripts.html record.html 404.html \
          favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js i18n/es.js i18n/ar.js i18n/fa.js \
-         data.json integrated.json language-families.xml \
-         lineage-paths.js stages.json tree.js record-page.js source-paths.json \
+         data.json integrated.json language-families.xml language-families.opml \
+         provenance.json signs-and-scripts.json signs-and-scripts.xml signs-and-scripts.opml \
+         lineage-paths.js tree.js record-page.js source-paths.json \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \

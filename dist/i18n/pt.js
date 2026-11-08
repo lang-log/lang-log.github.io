@@ -156,7 +156,8 @@
     'Conditional placements': 'Posições conforme a fonte',
     'Classification according to Glottolog 5.3': 'Classificação segundo o Glottolog 5.3',
     'Classification according to Glottolog': 'Classificação segundo o Glottolog',
-    'Position in Glottolog': 'Posição no Glottolog',
+    'Classification according to Lang Log': 'Classificação segundo o Lang Log',
+    'Lang Log’s own': 'Própria do Lang Log',
     'According to': 'Segundo',
     'According to Glottolog 5.3': 'Segundo o Glottolog 5.3',
     'Name in this language': 'Nome nesta língua',
@@ -492,6 +493,7 @@
     [/^All families · Lang Log by yoshi$/, 'Todas as famílias · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Todas as famílias e línguas isoladas · $1'],
     [/^Members · ([\d,]+)$/, 'Membros · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Membros segundo o Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nomes e grafias registrados · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Nomes alternativos e grafias · $1'],
     [/^Related child records · ([\d,]+)$/, 'Registros subordinados relacionados · $1'],
@@ -546,7 +548,6 @@
       'Etiquetas de língua exatas no cartão do modelo: $1. Inclui modelos multilíngues; as etiquetas não garantem qualidade nem cobertura de dialetos.',
     ],
     [/^All (\S+) models ↗$/, 'Todos os modelos de $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Etapa histórica · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Pontos claros: outros membros de $1.'],
     [
       /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -560,11 +561,6 @@
       },
     ],
     [/^Map: location of (.+)$/, 'Mapa: localização de $1'],
-    [/^See (.+) on the (.+) page$/, 'Ver $1 na página $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Posição desta etapa na árvore do Glottolog. O Glottolog não registra de qual língua moderna esta é uma etapa; essa ligação foi organizada manualmente neste atlas.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

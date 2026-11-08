@@ -155,7 +155,8 @@
     'Conditional placements': 'Collocazioni secondo la fonte',
     'Classification according to Glottolog 5.3': 'Classificazione secondo Glottolog 5.3',
     'Classification according to Glottolog': 'Classificazione secondo Glottolog',
-    'Position in Glottolog': 'Posizione in Glottolog',
+    'Classification according to Lang Log': 'Classificazione secondo Lang Log',
+    'Lang Log’s own': 'Propria di Lang Log',
     'According to': 'Secondo',
     'According to Glottolog 5.3': 'Secondo Glottolog 5.3',
     'Name in this language': 'Nome in questa lingua',
@@ -489,6 +490,7 @@
     [/^All families · Lang Log by yoshi$/, 'Tutte le famiglie · Lang Log by yoshi'],
     [/^All families and isolates · ([\d,]+)$/, 'Tutte le famiglie e le lingue isolate · $1'],
     [/^Members · ([\d,]+)$/, 'Membri · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Membri secondo Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nomi e grafie registrati · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Alias e grafie · $1'],
     [/^Related child records · ([\d,]+)$/, 'Voci subordinate collegate · $1'],
@@ -543,7 +545,6 @@
       'Etichette di lingua esatte nella scheda del modello: $1. Include modelli multilingui; le etichette non garantiscono qualità né copertura dei dialetti.',
     ],
     [/^All (\S+) models ↗$/, 'Tutti i modelli per $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Fase storica · $1'],
     [/^Faint points: other members of (.+)\.$/, 'Punti tenui: altri membri di $1.'],
     [
       /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
@@ -557,11 +558,6 @@
       },
     ],
     [/^Map: location of (.+)$/, 'Mappa: posizione di $1'],
-    [/^See (.+) on the (.+) page$/, 'Vedi $1 nella pagina $2'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Posizione di questa fase nell’albero di Glottolog. Glottolog non registra di quale lingua moderna sia una fase; questo collegamento è stato stabilito a mano in questo atlante.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {
