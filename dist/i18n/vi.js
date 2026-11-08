@@ -110,7 +110,6 @@
     'Choose a random sign language or dialect':
       'Chọn ngẫu nhiên một ngôn ngữ ký hiệu hoặc phương ngữ',
     'Choose a random writing system': 'Chọn ngẫu nhiên một hệ chữ viết',
-    'Dialects': 'Phương ngữ',
     'Download': 'Tải xuống',
     'How to read': 'Cách đọc',
     'Copy link': 'Sao chép liên kết',

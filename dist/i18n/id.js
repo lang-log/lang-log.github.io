@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'Pilih bahasa atau dialek secara acak',
     'Choose a random sign language or dialect': 'Pilih bahasa isyarat atau dialek secara acak',
     'Choose a random writing system': 'Pilih sistem tulisan secara acak',
-    'Dialects': 'Dialek',
     'Download': 'Unduh',
     'How to read': 'Cara membaca',
     'Copy link': 'Salin tautan',
