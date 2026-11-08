@@ -20,6 +20,11 @@
       "why": "the copyright line"
     },
     {
+      "pattern": "lang-log/lang-log\\.github\\.io",
+      "source": "tools/site_brand.py",
+      "why": "the repository the releases are read from and linked to; tools/github_api.py and tools/build_releases.py import it"
+    },
+    {
       "pattern": "\\bSHARDS\\s*=\\s*\\d",
       "source": "dist/atlas-data.js",
       "why": "the number of name files; tools/split_data.py reads it"

@@ -45,8 +45,9 @@ import json
 
 from locations import DIST
 import build_paths as bp
+import info_page
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, HOME_TITLE, TITLE_SUFFIX, by_yoshi
+from site_brand import COPYRIGHT, HOME_TITLE, by_yoshi
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -90,7 +91,12 @@ def random_row():
 
 
 # Links next to the Random button on the top page: (page, label).
-GUIDE_LINKS = [("stats/", "Stats"), ("sources/", "Sources"), ("updates/", "Updates")]
+GUIDE_LINKS = [
+    ("stats/", "Stats"),
+    ("sources/", "Sources"),
+    ("updates/", "Updates"),
+    ("releases.html", "Releases"),
+]
 
 
 def guide_row():
@@ -349,25 +355,10 @@ def updates_body():
 def sub_page(slug, title, body, scripts=()):
     """A page one level below the root, such as dist/stats/index.html. `scripts` are
     extra files from dist/ loaded in <head> after lang.js."""
-    html = (
-        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-        + SECURITY_HEAD
-        + '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
-        '<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png">'
-        '<link rel="stylesheet" href="../style.css">'
-        '<script src="../theme.js"></script><script src="../i18n.js"></script><script src="../lang.js"></script>'
-        + "".join(f'<script src="../{escape(s)}"></script>' for s in scripts)
-        + '</head><body class="info-page">\n'
-        '<header><div class="brand"><a class="home" href="../"><svg class="logo" role="img" aria-label="LANG LOG"><use href="../logo.svg#logo"/></svg></a> '
-        + by_yoshi()
-        + "</div></header>\n"
-        f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
-        f"<footer><span>{COPYRIGHT}</span></footer>\n"
-        "</body></html>\n"
-    )
     (DIST / slug).mkdir(exist_ok=True)
-    (DIST / slug / "index.html").write_text(html, encoding="utf-8")
+    (DIST / slug / "index.html").write_text(
+        info_page.page(title, body, "../", scripts), encoding="utf-8"
+    )
 
 
 def main():

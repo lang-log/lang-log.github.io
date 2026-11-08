@@ -3026,6 +3026,96 @@ header .tools > button {
   min-width: 0;
   overflow-wrap: anywhere;
 }
+/* The Releases page (dist/releases.html, tools/build_releases.py). The notes are GitHub's HTML of
+   the release Markdown, cleaned to plain formatting tags. */
+.release-all {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+.releases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 46em;
+}
+.release {
+  padding: 18px 0 8px;
+  border-top: 1px solid var(--line);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.release h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+.release-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--teal);
+  border-radius: 999px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: normal;
+}
+.release-badge.release-pre {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.release-latest h2 {
+  color: var(--teal);
+}
+.release-meta {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.release-notes {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.release-plain {
+  white-space: pre-wrap;
+}
+.release-notes pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.release-notes table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.release-notes th,
+.release-notes td {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  text-align: start;
+}
+.release-notes blockquote {
+  margin: 0 0 10px;
+  padding-inline-start: 12px;
+  border-inline-start: 2px solid var(--line);
+  color: var(--muted);
+}
+.release h3 {
+  margin: 14px 0 4px;
+  font-size: 15px;
+}
+.release-assets {
+  margin: 0 0 10px;
+  padding-inline-start: 1.2em;
+}
+.release-assets li {
+  padding: 4px 0;
+}
 @media (max-width: 700px) {
   .info-main {
     padding: 20px 16px 8px;

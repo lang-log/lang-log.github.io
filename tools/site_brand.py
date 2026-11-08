@@ -20,6 +20,10 @@ from locations import DIST
 
 
 SITE_NAME = "Lang Log"
+# The GitHub repository of the site, as <owner>/<name>: the releases are read
+# from it (tools/github_api.py) and the Releases page links to it.
+REPOSITORY = "lang-log/lang-log.github.io"
+REPOSITORY_URL = f"https://github.com/{REPOSITORY}"
 OWNER = "MATSUURA Yoshihiro"
 HOME_TITLE = f"{SITE_NAME} by yoshi"
 TITLE_SUFFIX = f" · {HOME_TITLE}"
