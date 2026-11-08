@@ -16,6 +16,10 @@
 //   lines keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
+// - Shapes that meet edge to edge (the three copies of the world, the pieces of land cut
+//   at the 180th meridian, and the 1:10m tiles) are drawn with an outline of their own
+//   colour, seam() wide on screen at every zoom. Browsers smooth both edges where two
+//   shapes meet, which leaves a thin light line between them, most of all when zoomed out.
 //
 // - Map view: the button in the corner opens the map over the whole window, with nothing
 //   else on screen; the close button, Esc or the browser's Back button closes it. The page
@@ -52,6 +56,8 @@
   var GLIDE_MS = 550; // length of the Reset animation
   var STEP_MS = 220; // length of the + / - animation
   var HASH = '#map-view'; // address of the map view
+  // Width on screen (CSS pixels) of the outline that closes seams (record.css --lmap-seam).
+  var SEAM_PX = 0.6;
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
   // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
   // The feature map's dots start from it too (LangLogMap.POINT_PX).
@@ -131,6 +137,11 @@
           f(manifest);
         });
       });
+  }
+
+  // At least one device pixel, so the outline also closes seams on screens with large pixels.
+  function seam() {
+    return Math.max(SEAM_PX, 1 / (window.devicePixelRatio || 1));
   }
 
   function el(name, attrs) {
@@ -314,6 +325,8 @@
       svg.classList.toggle('lmap-moved', moved);
       svg.classList.toggle('lmap-in', e < home.w - 0.01);
       updateTiles(e);
+      // The seam outline, in SVG units (unit is SVG units per CSS pixel, from above).
+      if (unit) bg.style.setProperty('--lmap-seam', +(seam() * unit).toFixed(3) + 'px');
       svg.dispatchEvent(
         new CustomEvent('lmap:view', {
           detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h },

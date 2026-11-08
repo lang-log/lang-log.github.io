@@ -183,9 +183,16 @@
 .lmap-sphere {
   fill: var(--c-e6eeec);
 }
+/* Shapes that meet edge to edge get an outline of their own colour, so no light seam shows
+   between them; map-zoom.js sets --lmap-seam to one screen pixel at the present zoom. */
 .lmap-bg .lmap-sphere {
   stroke: var(--c-e6eeec);
-  stroke-width: 1px;
+  stroke-width: var(--lmap-seam, 1px);
+}
+.lmap-bg .lmap-land {
+  stroke: var(--c-cdd6cf);
+  stroke-width: var(--lmap-seam, 1px);
+  stroke-linejoin: round;
 }
 .lmap-land {
   fill: var(--c-cdd6cf);
