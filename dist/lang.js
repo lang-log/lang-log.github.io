@@ -6,9 +6,10 @@
 //   the dictionary of the chosen language (exact strings, then patterns), and keeps
 //   translating what the atlas scripts add later (a MutationObserver), so the atlas code
 //   needs no changes.
-// - Dictionaries: Japanese is in i18n.js, loaded by every page; every other language is in
-//   i18n/<code>.js, loaded only when that language is chosen. While it loads, the page is
-//   hidden (at most LOAD_WAIT ms), so English does not flash before the translation.
+// - Dictionaries: tools/build_i18n.py writes them from i18n/<code>.yaml. Japanese is in
+//   i18n.js, loaded by every page; every other language is in i18n/<code>.js, loaded only
+//   when that language is chosen. While it loads, the page is hidden (at most LOAD_WAIT
+//   ms), so English does not flash before the translation.
 // - Numbers and dates captured by a pattern are written in the language's own format
 //   (Intl, Gregorian calendar, digits 0-9 except Persian ۰-۹), as on the profile site.
 // - Arabic and Persian pages are right to left (dir="rtl" on <html>).
@@ -141,17 +142,20 @@
     if (!key || !/[A-Za-z]/.test(key)) return null;
     var out = Object.prototype.hasOwnProperty.call(d.exact, key) ? d.exact[key] : null;
     if (out === null) {
+      // Each pattern is [regular expression source, replacement]: $1 is the first value,
+      // $t1 that value translated (tools/build_i18n.py writes them from i18n/<code>.yaml).
+      if (!d.compiled)
+        d.compiled = d.patterns.map(function (p) {
+          return new RegExp(p[0]);
+        });
       for (var i = 0; i < d.patterns.length; i++) {
-        var m = key.match(d.patterns[i][0]);
+        var m = key.match(d.compiled[i]);
         if (m) {
           var g = m.map(local);
-          var rep = d.patterns[i][1];
-          out =
-            typeof rep === 'function'
-              ? rep(g, tr)
-              : rep.replace(/\$(\d)/g, function (_, n) {
-                  return g[+n] != null ? g[+n] : '';
-                });
+          out = d.patterns[i][1].replace(/\$(t?)(\d)/g, function (_, t, n) {
+            if (g[+n] == null) return '';
+            return t ? tr(g[+n]) || g[+n] : g[+n];
+          });
           break;
         }
       }

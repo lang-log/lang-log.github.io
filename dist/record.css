@@ -180,36 +180,32 @@
 .lmap-sphere {
   fill: var(--c-e6eeec);
 }
-/* Shapes that meet edge to edge get an outline of their own colour, so no light seam shows
-   between them; map-zoom.js sets --lmap-seam to one screen pixel at the present zoom. */
-.lmap-bg .lmap-sphere {
-  stroke: var(--c-e6eeec);
-  stroke-width: var(--lmap-seam, 1px);
-}
-.lmap-bg .lmap-land {
-  stroke: var(--c-cdd6cf);
-  stroke-width: var(--lmap-seam, 1px);
-  stroke-linejoin: round;
-}
 .lmap-land {
   fill: var(--c-cdd6cf);
 }
-.lmap-ctx circle {
+.lmap-ctx rect {
   fill: var(--c-8fa29c);
-  fill-opacity: 0.55;
-}
-.lmap-main circle {
-  fill: var(--teal);
-  fill-opacity: 0.85;
-  stroke: var(--c-ffffff);
-  stroke-width: 0.6px;
-  vector-effect: non-scaling-stroke;
-}
-.lmap-self circle {
-  fill: var(--orange);
   stroke: var(--c-ffffff);
   stroke-width: 1.5px;
   vector-effect: non-scaling-stroke;
+}
+/* Every point of a record's map is drawn alike (tools/build_paths.py, map_html): a size or
+   colour for the record's own point would set families and languages apart, since Glottolog's
+   point for a family is computed from its members (.claude/rules/interface-text.md). The
+   .lmap-self group stays in tools/languoid_map.py; it takes the same fill, and
+   tools/build_site.sh fails if either sets a fill of its own. */
+.lmap-main circle,
+.lmap-self circle {
+  fill: var(--orange);
+  stroke: var(--c-ffffff);
+  vector-effect: non-scaling-stroke;
+}
+.lmap-main circle {
+  fill-opacity: 0.85;
+  stroke-width: 0.6px;
+}
+.lmap-self circle {
+  stroke-width: 1.5px;
 }
 .lmap-inset .lmap-sphere {
   fill: var(--c-f2f5f3);
@@ -399,6 +395,54 @@ body > .domain-nav {
 .lmap-full .lmap-tools .lmap-reset {
   font-size: 14px;
   padding: 0 12px;
+}
+/* The key of the points (tools/build_paths.py): under the map, and over it in the map view.
+   The marks repeat the colours and shapes of .lmap-main and .lmap-ctx above. */
+.lmap-key {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--c-61726d);
+}
+.lmap-key li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.lmap-key li::before {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+.lmap-key-main::before {
+  background: var(--orange);
+  border-radius: 50%;
+}
+.lmap-key-ctx::before {
+  background: var(--c-8fa29c);
+}
+.lmap-full .lmap-key {
+  position: absolute;
+  bottom: 12px;
+  inset-inline-start: 12px;
+  /* Leaves the bottom right to the locator (.lmap-inset, 22% of the map's width). */
+  max-width: 70%;
+  margin: 0;
+  padding: 8px 12px;
+  flex-direction: column;
+  background: var(--c-ffffff);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px var(--c-24302e1f);
+  color: var(--ink);
 }
 /* The records of a tapped point, each linked to its page. */
 .lmap-pop {

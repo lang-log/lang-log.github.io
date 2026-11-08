@@ -1,5 +1,5 @@
-# Python tools for the code quality checks (.claude/rules/code-quality.md). The site build
-# itself needs no packages. Install with: python3 -m pip install --require-hashes -r requirements-dev.txt
+# Python tools for the code quality checks (.claude/rules/code-quality.md). The packages the
+# site build needs are in requirements.txt. Install with: python3 -m pip install --require-hashes -r requirements-dev.txt
 ruff==0.17.2 \
     --hash=sha256:122258f6ecde0e0dd1bb60b24263c3edde4338caf723fca711cc729f9bfd414a \
     --hash=sha256:195ad918027f817c119310ca89a42d347887dfc28934aaa869325e9c5dc9d962 \

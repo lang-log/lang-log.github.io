@@ -86,7 +86,7 @@
     },
     "classification": {
       "type": "object",
-      "description": "Place of this languoid in each source that classifies it: {<source>: {parent, level}}. parent is a Lang Log id or null (top of that source's tree); level is what that source calls it (Glottolog: family, language, dialect; WALS: family, subfamily, genus, language), left out when the source gives none. Lang Log's own classification (source lang-log) gives a parent only, such as a historical stage as the parent of the later language. The site nests languoids by Glottolog's parents.",
+      "description": "Place of this languoid in each source that classifies it: {<source>: {parent, level}}. parent is a Lang Log id or null (top of that source's tree); level is what that source calls it (Glottolog: family, language, dialect; WALS: family, subfamily, genus, language), left out when the source gives none. grouping is a catalog group the source lists the languoid under that is not a languoid itself (Glottolog: Sign Language, L1 Sign Language ...); Lang Log keeps it as the source's claim and leaves the group out of the tree (source-data/lang-log/not-languoids.json). Lang Log's own classification (source lang-log) gives a parent only, such as a historical stage as the parent of the later language. The site nests languoids by Glottolog's parents.",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": false,
@@ -96,6 +96,9 @@
             "type": ["string", "null"]
           },
           "level": {
+            "type": "string"
+          },
+          "grouping": {
             "type": "string"
           }
         }

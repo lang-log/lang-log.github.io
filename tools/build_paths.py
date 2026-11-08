@@ -46,12 +46,23 @@ import sys
 import unicodedata
 
 from languoid_map import map_svg
+from modality import labels, medium_text
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
 RESERVED = {"map", "data", "i18n", "stats", "sources", "updates", "features", "schema"}
 # Directories of earlier builds that no longer exist; removed on each run.
-OLD_DIRS = {"families"}
+OLD_DIRS = {
+    "families",
+    "sign-language",
+    "bookkeeping",
+    "pidgin",
+    "unclassifiable",
+    "unattested",
+    "artificial-language",
+    "speech-register",
+    "mixed-language",
+}
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -143,34 +154,33 @@ with open(ROOT / "source-data" / "languages.csv", encoding="utf-8", newline="") 
 
 
 def _points_under():
-    """For a family: the languages below it; for a language: its dialects."""
-    langs, dials = {}, {}
+    """For every record: the deepest records on each of its branches that Glottolog gives a
+    point, and how many records at the ends of its branches have no point on their way up.
+    A record with no point below it stands for itself. The same rule for every record,
+    whatever its level: every record is a languoid (.claude/rules/interface-text.md)."""
+    found, unplaced = {}, {}
 
     def walk(i):
-        la, di = [], []
-        for c in nodes[i]["children"]:
-            if c not in nodes:
-                continue
-            cl, cd = walk(c)
-            la += cl
-            di += cd
-            lvl = nodes[c]["level"]
-            if c in coords and lvl == "language":
-                la.append(c)
-            elif c in coords and lvl == "dialect":
-                di.append(c)
-        langs[i], dials[i] = la, di
-        return la, di
+        if i in found:
+            return
+        pts, none = [], 0
+        kids = [c for c in nodes[i]["children"] if c in nodes]
+        for c in kids:
+            walk(c)
+            pts += found[c]
+            none += unplaced[c]
+        if not pts and i in coords:
+            pts, none = [i], 0
+        elif not kids:
+            none = 1
+        found[i], unplaced[i] = pts, none
 
-    for r in data["roots"]:
-        walk(r)
-    for i in nodes:  # records not reached from a root
-        if i not in langs:
-            walk(i)
-    return {i: (dials[i] if nodes[i]["level"] != "family" else langs[i]) for i in nodes}
+    for i in nodes:
+        walk(i)
+    return found, unplaced
 
 
-points_under = _points_under()
+points_under, unplaced_under = _points_under()
 
 
 def path_of(i):
@@ -226,14 +236,13 @@ def names_html(n):
         if r.get("placeholder"):
             continue
         seen.setdefault((r["text"], r.get("lang", "")), set()).add(r.get("provider", ""))
-    out = "<h3>Name in this language</h3>"
-    out += (
-        f'<p dir="auto">{" / ".join(escape(x) for x in own)}</p>'
+    out = (
+        f'<h3>Name in this language</h3><p dir="auto">{" / ".join(escape(x) for x in own)}</p>'
         if own
-        else '<p class="muted">Not recorded in the imported sources. No name inferred.</p>'
+        else ""
     )
-    if not seen:  # an empty toggle opens onto nothing, so say so in plain text
-        return out + '<p class="muted">No other names or spellings recorded.</p>'
+    if not seen:  # an empty toggle would open onto nothing, so leave it out
+        return out
     out += f'<details><summary>Recorded names and spellings · {len(seen)}</summary><ul class="name-list">'
     out += "".join(
         f'<li dir="auto">{escape(t)} <span class="muted">{escape(tag or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
@@ -268,10 +277,9 @@ def classification_html(depth, i):
     n = rec(i)
     cards = []
     if i in nodes and not nodes[i].get("parent"):
-        kind = "isolate" if nodes[i].get("isolate") else "entry"
         cards.append(
             f'<div class="evidence-card"><strong>According to {source_name_link(depth, "glottolog")}</strong>'
-            f"<p>Independent top-level {kind}; no higher family asserted here.</p>{ext_link('glottolog')}</div>"
+            f"{ext_link('glottolog')}</div>"
         )
     seen = set()
     unique = []
@@ -303,11 +311,6 @@ def classification_html(depth, i):
             )
         cards.append(card + ext_link(e["source"]) + "</div>")
     out = '<section class="classification"><h2>Classification by source</h2>' + "".join(cards)
-    if len(unique) <= 1:
-        out += (
-            '<p class="small-disclaimer">No additional direct placement recorded here. This is not a consensus '
-            "certificate; unimported studies may propose other relationships.</p>"
-        )
     attached = unified["anchors"].get(i, []) if i in nodes else []
     if attached:
         out += (
@@ -317,8 +320,7 @@ def classification_html(depth, i):
                 f' <span class="muted">{"catalog grouping" if a["type"] == "catalog" else "sampled study tree"}</span></li>'
                 for a in attached
             )
-            + '</ul><p class="small-disclaimer">Alternative source-conditioned branches. They are attached here for '
-            "navigation, not as additional ancestors.</p>"
+            + "</ul>"
         )
     return out + "</section>"
 
@@ -329,15 +331,15 @@ def debates_html(i):
     for d in unified.get("debates", []):
         if not ids & set(d["appliesTo"]):
             continue
-        out += f'<section class="debate"><h2>{escape(d["title"])}</h2><p class="small-disclaimer">{escape(d["status"])}</p>'
+        out += f'<section class="debate"><h2>{escape(d["title"])}</h2>'
         for p in d["positions"]:
             cls = " conflict-card" if p.get("stance") == "critique" else ""
             out += (
-                f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong><p>{escape(p["claim"])}</p>'
+                f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong>'
                 f'<span class="evidence-tag">{escape(p["publication"])}</span><br>'
                 f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>'
             )
-        out += f'<p class="small-disclaimer">{escape(d["note"])}</p></section>'
+        out += "</section>"
     return out
 
 
@@ -353,11 +355,7 @@ def conflicts_html(depth, i):
     def title(sid):
         return escape(sources[sid]["title"])
 
-    out = (
-        f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
-        '<p class="small-disclaimer">These summary clades cannot both hold on the shared sampled tips. This does not '
-        "determine which study is correct. Examples below may involve a wider group containing this record.</p>"
-    )
+    out = f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
     for c, count in pairs.values():
         a, b, d = (escape(rec(x)["name"]) for x in c["witness"])
         out += (
@@ -383,51 +381,35 @@ def tree_html(depth, i, sid):
 
 
 def atlas_html(base, root=None, src=None, downloads=""):
-    """The outline and zoomable tree that dist/tree.js fills (shared with the top page)."""
+    """The zoomable tree that dist/tree.js fills: the branch below a record (record
+    pages, with its outline and a List / Tree switch), or every root (the top page's
+    Tree view, without them: the top page has its own List view, dist/explore.js)."""
+    whole = root is None
     attrs = f' data-base="{escape(base)}"' + (
-        f' data-root="{escape(root)}" data-src="{escape(src)}"' if root else ""
+        "" if whole else f' data-root="{escape(root)}" data-src="{escape(src)}"'
     )
-    filters = (
+    switch = (
         ""
-        if root
+        if whole
         else (
-            '<select id="evidence" aria-label="Evidence filter"><option value="all">All evidence</option>'
-            '<option value="conflicts">With conflicting study clades</option><option value="studies">With research trees</option></select>'
-            '<select id="category" aria-label="Record category"><option value="all">All categories</option>'
-            '<option value="Spoken genealogy">Spoken genealogy</option><option value="isolates">Isolates</option>'
-            + "".join(
-                f"<option>{c}</option>"
-                for c in [
-                    "Sign Language",
-                    "Unclassifiable",
-                    "Pidgin",
-                    "Mixed Language",
-                    "Unattested",
-                    "Artificial Language",
-                    "Speech Register",
-                    "Bookkeeping",
-                ]
-            )
-            + "</select>"
+            '<div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
+            '<button id="chartview" type="button">Tree</button></div><button id="collapse" type="button">Collapse all</button>'
         )
+    )
+    outline = (
+        "" if whole else '<div id="outline" aria-label="Expandable classification outline"></div>'
     )
     return (
         f'<div id="atlas" class="workspace atlas-embed"{attrs} hidden>'
-        '<div class="toolbar"><div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
-        '<button id="chartview" type="button">Tree</button></div>'
-        f'{filters}<button id="collapse" type="button">Collapse all</button>'
+        f'<div class="toolbar">{switch}'
         f'<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
-        '<div id="outline" aria-label="Expandable classification outline"></div>'
-        '<div id="viewport" hidden><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
+        f"{outline}"
+        f'<div id="viewport"{"" if whole else " hidden"}><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
         '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Language families</h2>'
         '<p id="view-count">Loading records…</p></div><div id="tooltip" hidden></div>'
         '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
         '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'
-        '<div class="canvas-note">Drag to pan · Scroll / pinch to zoom · Click a node to open its page</div></div>'
-        '<div class="how-to-read"><p>Branches are conditional on their source. Different placements appear together; no source switch is needed.</p>'
-        "<p>Open a row to see its members. Each name opens its own page, with every source's placement and paper links.</p>"
-        "<p>Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>"
-        "</div>"
+        "</div></div>"
     )
 
 
@@ -520,6 +502,9 @@ def meta_html(n):
         parts.append("ISO 639-3: " + n["iso"])
     if n.get("area"):
         parts.append(n["area"])
+    # Every languoid is labelled with its medium (tools/modality.py); records that
+    # exist only in a study tree or WALS are spoken languages.
+    parts.append(medium_text(n if "modality" in n else labels(None)))
     return '<div class="meta">' + "".join(f"<span>{escape(p)}</span>" for p in parts) + "</div>"
 
 
@@ -527,7 +512,6 @@ def record_body(depth, i, heading="h1"):
     n = rec(i)
     body = f"<{heading}>{escape(n['name'])}</{heading}>{meta_html(n)}"
     if i in extra:
-        body += '<p class="small-disclaimer">Source-specific grouping or sample; not a new accepted language family.</p>'
         links = [ext_link(n["source"])]
     else:
         links = [
@@ -545,68 +529,45 @@ def record_body(depth, i, heading="h1"):
 
 
 def map_html(depth, i):
+    # The same steps for every record, whatever its level (family, language, dialect): the
+    # deepest points on its branches (its own point when it has none below), all drawn alike,
+    # and the rest of its parent's points as sisters.
     n = nodes[i]
-    family = n["level"] == "family"
-    own = None if family else coords.get(i)
-    # Many dialects carry their language's own point; those add nothing to show.
-    main_ids = [c for c in points_under[i] if coords[c] != own]
+    main_ids = points_under[i]
     main = [coords[c] for c in main_ids]
     parent = n.get("parent")
     context_ids = []
     if parent in nodes:
-        mine = set(points_under[i]) | {i}
+        mine = set(main_ids) | {i}
         context_ids = [c for c in points_under[parent] if c not in mine]
     context = [coords[c] for c in context_ids]
-    kind = "languages" if family else ("dialects" if n["level"] == "language" else "")
-    if family:
-        label = f"Map: {len(main)} languages of {n['name']}"
-    else:
-        label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
+    label = f"Map: location of {n['name']}"
     svg = map_svg(
         "../" * depth + "map/",
         main,
         context,
-        own,
+        None,
         label,
         main_ids=main_ids,
         context_ids=context_ids,
-        self_id=i if own else "",
     )
     if not svg:
         return ""
-    notes = []
-    if family:
-        total = sum(1 for c in languages_under_all(i))
-        missing = total - len(main)
-        notes.append(
-            f"{len(main)} languages shown"
-            + (f"; {missing} have no coordinates in Glottolog" if missing else "")
-            + "."
-        )
+    # The key: what each kind of point stands for, named by record (no kind labels).
+    # dist/map-zoom.js moves it into the map box, so the map view shows it too.
+    key = []
+    if main_ids == [i]:
+        key.append(f'<li class="lmap-key-main notranslate">{escape(n["name"])}</li>')
+    elif main:
+        key.append(f'<li class="lmap-key-main">Members of {escape(n["name"])}</li>')
     if context:
-        notes.append("Faint points: other members of " + escape(nodes[parent]["name"]) + ".")
-    legend = " ".join(notes)
+        key.append('<li class="lmap-key-ctx">Sister languoids</li>')
+    key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
     return (
-        f'<figure class="lmap-figure">{svg}<figcaption>{legend} '
-        "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
+        f'<figure class="lmap-figure">{svg}{key_html}<figcaption>'
         'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
-        "Dashed borders are disputed or not settled. "
         "Projection: Web Mercator.</figcaption></figure>"
     )
-
-
-def languages_under_all(i):
-    """Every language below a family, with or without coordinates."""
-    out = []
-    stack = list(nodes[i]["children"])
-    while stack:
-        c = stack.pop()
-        if c not in nodes:
-            continue
-        if nodes[c]["level"] == "language":
-            out.append(c)
-        stack.extend(nodes[c]["children"])
-    return out
 
 
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
@@ -763,8 +724,6 @@ def source_page_body(sid):
             f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
         )
     body += "<p>" + " · ".join(links) + "</p>"
-    if src.get("interpretationNote"):
-        body += f'<p class="small-disclaimer">{escape(src["interpretationNote"])}</p>'
     attached = sorted(
         {
             g

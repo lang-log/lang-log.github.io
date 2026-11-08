@@ -10,14 +10,19 @@
     {
       "pattern": "Lang Log by yoshi",
       "source": "tools/site_brand.py",
-      "also": ["dist/*.html", "dist/i18n.js", "dist/i18n/*.js"],
+      "also": ["dist/*.html", "i18n/*.yaml"],
       "why": "the title suffix; dictionaries translate whole titles, hand-written pages are checked by site_brand.py --check"
     },
     {
       "pattern": "All rights reserved",
       "source": "tools/site_brand.py",
-      "also": ["dist/i18n.js", "dist/i18n/*.js"],
+      "also": ["i18n/*.yaml"],
       "why": "the copyright line"
+    },
+    {
+      "pattern": "lang-log/lang-log\\.github\\.io",
+      "source": "tools/site_brand.py",
+      "why": "the repository the releases are read from and linked to; tools/github_api.py and tools/build_releases.py import it"
     },
     {
       "pattern": "\\bSHARDS\\s*=\\s*\\d",
@@ -27,8 +32,7 @@
     {
       "pattern": "\\b973\\.9\\b|\\b1947\\.8\\b",
       "source": "tools/languoid_map.py",
-      "also": ["dist/feature-map.html"],
-      "why": "the size of the world map; build_wals_map.py checks feature-map.html against languoid_map.py"
+      "why": "the size of the world map; tools/build_home.py writes it into the top page's map view"
     },
     {
       "pattern": "--stats-duration\\s*:",

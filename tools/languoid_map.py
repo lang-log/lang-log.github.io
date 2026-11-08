@@ -23,6 +23,10 @@ import math
 SCALE = 310.0
 MAX_LAT = math.degrees(math.atan(math.sinh(math.pi)))  # 85.0511..., the square Web Mercator world
 
+# Radius of the record's own point, as a multiple of a member point's radius (the starting
+# view sets that radius).
+BIG_POINT = 2.4
+
 # Extent of the whole map in SVG units: a square, from -WORLD_W / 2 to WORLD_W / 2 in x and y.
 WORLD_W = 2 * math.pi * SCALE
 WORLD_H = WORLD_W
@@ -139,7 +143,7 @@ def map_svg(
 
     map_dir: relative URL of the map/ directory from the page, ending in "/".
     main: (lon, lat) points of the record's own members, drawn strong.
-    context: points of related records (for example sister languages), drawn faint.
+    context: points of related records (for example sister languages), drawn as grey squares.
     self_point: the record's own point, drawn largest.
     main_ids, context_ids, self_id: the Glottocodes of those points, written into each
     circle as data-g (space-separated when points that overlap are drawn as one), so
@@ -159,9 +163,12 @@ def map_svg(
     # Radius of a member point in the starting view; the other points are drawn in proportion.
     # dist/map-zoom.js resizes them all to the same size on screen at every zoom (data-r).
     r = vw / 200
+    # The record's points and the points of the other members of its parent share one size;
+    # the others are squares, so the two read apart by shape (owner, 2026-11-08).
+    big = r * BIG_POINT
     show_inset = vw < WORLD_W * 0.5
 
-    def circles(pts, rad, ids=()):
+    def circles(pts, rad, ids=(), square=False):
         ids = list(ids) or [""] * len(pts)
         cells = {}
         for (x, y), gid in zip(pts, ids, strict=False):
@@ -177,7 +184,14 @@ def map_svg(
         out = []
         for x, y, gids in cells.values():
             data = f' data-g="{escape(" ".join(gids))}"' if gids else ""
-            out.append(f'<circle cx="{_num(x)}" cy="{_num(y)}" r="{_num(rad)}"{data}/>')
+            if square:
+                # A square as wide as a circle of radius rad; dist/map-zoom.js keeps its centre.
+                out.append(
+                    f'<rect x="{_num(x - rad)}" y="{_num(y - rad)}" width="{_num(2 * rad)}" '
+                    f'height="{_num(2 * rad)}"{data}/>'
+                )
+            else:
+                out.append(f'<circle cx="{_num(x)}" cy="{_num(y)}" r="{_num(rad)}"{data}/>')
         return "".join(out)
 
     land = escape(map_dir + "land.svg")
@@ -189,12 +203,12 @@ def map_svg(
         f'<g class="lmap-bg">{background(land, vx, vw)}</g>',
     ]
     if context:
-        parts.append(f'<g class="lmap-ctx">{circles(context, r * 0.8, context_ids)}</g>')
+        parts.append(f'<g class="lmap-ctx">{circles(context, r, context_ids, square=True)}</g>')
     if main_xy:
         parts.append(f'<g class="lmap-main">{circles(main_xy, r, main_ids)}</g>')
     if own:
         parts.append(
-            f'<g class="lmap-self"><circle cx="{_num(own[0])}" cy="{_num(own[1])}" r="{_num(r * 2.4)}"'
+            f'<g class="lmap-self"><circle cx="{_num(own[0])}" cy="{_num(own[1])}" r="{_num(big)}"'
             + (f' data-g="{escape(self_id)}"' if self_id else "")
             + "/></g>"
         )
@@ -214,7 +228,7 @@ def map_svg(
 
 
 def world_view():
-    """viewBox of a map that shows the whole world once (dist/feature-map.html)."""
+    """viewBox of a map that shows the whole world once (the top page's map view)."""
     return f"{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}"
 
 
