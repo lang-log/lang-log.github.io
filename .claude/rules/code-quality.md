@@ -22,7 +22,3 @@ Prettier, ESLint and Ruff check every pull request and every push to `main` (the
 - ESLint (`eslint.config.mjs`): the recommended rules only, no plugins. `dist/**/*.js` are classic browser scripts (`sourceType: script`, browser globals); `tools/**/*.js` are Node.js checks (CommonJS, Node globals).
 - Ruff (`pyproject.toml`): rules E, W, F, B and PLE for Python 3.12 (the version CI uses); E501 is off because the formatter sets line length and leaves long strings as they are.
 - Versions are exact: `package.json` with `package-lock.json`, `requirements-dev.txt` with hashes. `overrides` pins `minimatch` to a version without the advisory GHSA-g3hv-75wg-m249 until ESLint depends on one; remove it then.
-
-## Waiting for open pull requests
-
-- Left out until #60 is merged: `tools/build_paths.py` (Ruff format). Then format it in its own pull request and remove the entry in `pyproject.toml`.

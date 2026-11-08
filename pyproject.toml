@@ -18,8 +18,3 @@ extend-exclude = ["source-data", "node_modules", "_preview"]
 select = ["E", "W", "F", "B", "PLE"]
 # The formatter sets line length; it does not split long strings and URLs, which stay as they are.
 ignore = ["E501"]
-
-[tool.ruff.format]
-# Until pull request #60 (atlas data built in CI), which changes this file, is merged, so that it
-# does not conflict. Then format it in its own pull request and remove it here.
-exclude = ["tools/build_paths.py"]
