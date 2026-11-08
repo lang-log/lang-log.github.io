@@ -25,7 +25,7 @@
     'Other kinds of languages': 'ภาษาประเภทอื่น',
     'Families': 'ตระกูล',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'languoids พี่น้อง',
     'Records from study trees only': 'ระเบียนที่มีเฉพาะในแผนภูมิการศึกษา',
     'Spoken languages': 'ภาษาพูด',
     'Spoken dialects': 'ภาษาถิ่นของภาษาพูด',

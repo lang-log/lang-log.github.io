@@ -25,7 +25,7 @@
     'Other kinds of languages': 'أنواع أخرى من اللغات',
     'Families': 'الأسر',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'languoids الشقيقة',
     'Records from study trees only': 'سجلات من أشجار الدراسات فقط',
     'Spoken languages': 'اللغات المنطوقة',
     'Spoken dialects': 'اللهجات المنطوقة',

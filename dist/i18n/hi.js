@@ -25,7 +25,7 @@
     'Other kinds of languages': 'भाषाओं के अन्य प्रकार',
     'Families': 'परिवार',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'सहोदर languoids',
     'Records from study trees only': 'केवल अध्ययन-वृक्षों के रिकॉर्ड',
     'Spoken languages': 'मौखिक भाषाएँ',
     'Spoken dialects': 'मौखिक बोलियाँ',

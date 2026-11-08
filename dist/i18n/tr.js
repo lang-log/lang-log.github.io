@@ -25,7 +25,7 @@
     'Other kinds of languages': 'Diğer dil türleri',
     'Families': 'Aileler',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'kardeş languoids',
     'Records from study trees only': 'Yalnızca çalışma ağaçlarındaki kayıtlar',
     'Spoken languages': 'Sözlü diller',
     'Spoken dialects': 'Sözlü lehçeler',

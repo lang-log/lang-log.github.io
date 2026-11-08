@@ -32,7 +32,7 @@ window.LANGLOG_I18N = {
       'Other kinds of languages': 'そのほかの言語',
       'Families': '語族',
       'Languoids': 'Languoids',
-      'Sister languoids': 'Sister languoids',
+      'Sister languoids': '姉妹 languoids',
       'Records from study trees only': '研究の系統樹だけにある記録',
       'Spoken languages': '音声言語',
       'Spoken dialects': '音声言語の方言',

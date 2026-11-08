@@ -25,7 +25,7 @@
     'Other kinds of languages': 'Другие виды языков',
     'Families': 'Семьи',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'сестринские languoids',
     'Records from study trees only': 'Записи только из деревьев исследований',
     'Spoken languages': 'Звуковые языки',
     'Spoken dialects': 'Диалекты звуковых языков',

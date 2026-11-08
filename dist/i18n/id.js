@@ -25,7 +25,7 @@
     'Other kinds of languages': 'Jenis bahasa lainnya',
     'Families': 'Rumpun',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'languoids saudara',
     'Records from study trees only': 'Catatan yang hanya ada di pohon studi',
     'Spoken languages': 'Bahasa lisan',
     'Spoken dialects': 'Dialek lisan',

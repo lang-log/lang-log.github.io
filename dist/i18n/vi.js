@@ -25,7 +25,7 @@
     'Other kinds of languages': 'Các loại ngôn ngữ khác',
     'Families': 'Ngữ hệ',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'languoids chị em',
     'Records from study trees only': 'Bản ghi chỉ có trong cây nghiên cứu',
     'Spoken languages': 'Ngôn ngữ nói',
     'Spoken dialects': 'Phương ngữ nói',

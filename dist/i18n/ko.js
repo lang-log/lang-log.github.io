@@ -25,7 +25,7 @@
     'Other kinds of languages': '그 밖의 언어 종류',
     'Families': '어족',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': '자매 languoids',
     'Records from study trees only': '연구 계통수에만 있는 기록',
     'Spoken languages': '음성 언어',
     'Spoken dialects': '음성 언어 방언',

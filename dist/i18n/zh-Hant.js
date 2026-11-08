@@ -24,7 +24,7 @@
     'Other kinds of languages': '其他種類的語言',
     'Families': '語系',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': '姊妹 languoids',
     'Records from study trees only': '僅見於研究譜系樹的紀錄',
     'Spoken languages': '有聲語言',
     'Spoken dialects': '有聲語言的方言',

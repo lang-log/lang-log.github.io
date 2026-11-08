@@ -25,7 +25,7 @@
     'Other kinds of languages': 'Andere soorten talen',
     'Families': 'Families',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'zuster-languoids',
     'Records from study trees only': 'Records alleen uit studiebomen',
     'Spoken languages': 'Gesproken talen',
     'Spoken dialects': 'Gesproken dialecten',

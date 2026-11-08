@@ -25,7 +25,7 @@
     'Other kinds of languages': 'Outros tipos de línguas',
     'Families': 'Famílias',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'languoids irmãos',
     'Records from study trees only': 'Registros só de árvores de estudos',
     'Spoken languages': 'Línguas orais',
     'Spoken dialects': 'Dialetos orais',

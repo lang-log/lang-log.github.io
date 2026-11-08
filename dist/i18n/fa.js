@@ -25,7 +25,7 @@
     'Other kinds of languages': 'گونه‌های دیگر زبان',
     'Families': 'خانواده‌ها',
     'Languoids': 'Languoids',
-    'Sister languoids': 'Sister languoids',
+    'Sister languoids': 'languoids خواهر',
     'Records from study trees only': 'رکوردهایی که فقط در درخت‌های پژوهشی هستند',
     'Spoken languages': 'زبان‌های گفتاری',
     'Spoken dialects': 'گویش‌های گفتاری',
