@@ -278,9 +278,6 @@
   function quoted(fid) {
     return byId[fid].source === 'wals' ? 'notranslate' : '';
   }
-  function featureName(fid) {
-    return byId[fid].source === 'wals' ? fid + ' ' + byId[fid].name : byId[fid].name;
-  }
 
   function colourLegend(perValue) {
     var box = $('colour-legend');
