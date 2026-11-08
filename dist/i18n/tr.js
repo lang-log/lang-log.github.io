@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Dil aileleri, işaret dilleri ve yazı sistemleri atlası. Her sınıflandırma hangi kaynağı izlediğini belirtir, birbiriyle yarışan sınıflandırmalar yan yana gösterilir ve veriler indirilebilir.',
     'Also': 'Ayrıca',
-    'All families and isolates': 'Tüm aileler ve yalıtık diller',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
     'Corpora and data for low-resource languages: planned.':
@@ -339,7 +338,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Arama sonuçları · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Arama sonuçları · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tüm aileler · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Tüm aileler ve yalıtık diller · $1'],
     [/^Members · ([\d,]+)$/, 'Üyeler · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log’a göre üyeler · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Kayıtlı adlar ve yazılışlar · $1'],

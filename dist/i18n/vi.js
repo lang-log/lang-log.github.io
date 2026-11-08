@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Tập bản đồ các ngữ hệ, ngôn ngữ ký hiệu và hệ chữ viết. Mỗi vị trí phân loại đều ghi rõ nguồn mà nó theo, các cách phân loại khác nhau được hiển thị cùng nhau, và có thể tải dữ liệu xuống.',
     'Also': 'Ngoài ra',
-    'All families and isolates': 'Tất cả ngữ hệ và ngôn ngữ biệt lập',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
     'Corpora and data for low-resource languages: planned.':
@@ -343,7 +342,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tất cả ngữ hệ · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Tất cả ngữ hệ và ngôn ngữ biệt lập · $1'],
     [/^Members · ([\d,]+)$/, 'Thành viên · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Thành viên theo Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Tên và cách viết đã ghi nhận · $1'],

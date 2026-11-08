@@ -170,7 +170,7 @@ def families_html():
         for a in unplaced
     )
     return (
-        f'<section class="home-section" id="families"><h2>All families and isolates · {len(roots)}</h2>'
+        '<section class="home-section" id="families">'
         f"{groups}"
         "<h3>Cross-family / outgroup source trees</h3>"
         f'<ul class="record-links">{rows_unplaced}</ul></section>'

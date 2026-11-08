@@ -154,7 +154,6 @@ window.LANGLOG_I18N = {
       'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
         '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
       'Also': 'ほかに',
-      'All families and isolates': 'すべての語族と孤立言語',
       ': one plain page per Glottolog record, with its classification and a map.':
         ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
       'Corpora and data for low-resource languages: planned.':
@@ -375,7 +374,6 @@ window.LANGLOG_I18N = {
       [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 検索結果 · Lang Log by yoshi'],
       [/^Search results · Lang Log by yoshi$/, '検索結果 · Lang Log by yoshi'],
       [/^All families · Lang Log by yoshi$/, 'すべての語族 · Lang Log by yoshi'],
-      [/^All families and isolates · ([\d,]+)$/, 'すべての語族と孤立言語 · $1'],
       [/^Members · ([\d,]+)$/, '下位の記録 · $1'],
       [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log による下位の記録 · $1'],
       [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '記録された名前とつづり · $1'],

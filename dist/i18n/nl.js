@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Een atlas van taalfamilies, gebarentalen en schriftsystemen. Bij elke indeling staat welke bron ze volgt, concurrerende classificaties staan naast elkaar en de gegevens zijn te downloaden.',
     'Also': 'Verder',
-    'All families and isolates': 'Alle families en isolaten',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': één eenvoudige pagina per Glottolog-record, met de classificatie en een kaart.',
     'Corpora and data for low-resource languages: planned.':
@@ -343,7 +342,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Zoekresultaten · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Zoekresultaten · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Alle families · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Alle families en isolaten · $1'],
     [/^Members · ([\d,]+)$/, 'Leden · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Leden volgens Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Vastgelegde namen en spellingen · $1'],

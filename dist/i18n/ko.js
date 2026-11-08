@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       '어족, 수어, 문자 체계의 지도입니다. 모든 분류 위치에는 따른 출처를 밝히고, 서로 다른 분류는 함께 보여 주며, 데이터는 내려받을 수 있습니다.',
     'Also': '그 밖에',
-    'All families and isolates': '모든 어족과 고립어',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
     'Corpora and data for low-resource languages: planned.':
@@ -335,7 +334,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 검색 결과 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '검색 결과 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '모든 어족 · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, '모든 어족과 고립어 · $1'],
     [/^Members · ([\d,]+)$/, '하위 기록 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log에 따른 하위 기록 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '기록된 이름과 철자 · $1'],

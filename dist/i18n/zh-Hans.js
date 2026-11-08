@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       '语系、手语和文字系统的图谱。每个归属都注明所依据的来源，相互竞争的分类并列显示，数据可以下载。',
     'Also': '另见',
-    'All families and isolates': '所有语系和孤立语言',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每条 Glottolog 记录一个简明页面，附有分类和地图。',
     'Corpora and data for low-resource languages: planned.': '低资源语言的语料库和数据：筹备中。',
@@ -329,7 +328,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 搜索结果 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '搜索结果 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '所有语系 · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, '所有语系和孤立语言 · $1'],
     [/^Members · ([\d,]+)$/, '下位记录 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, '根据 Lang Log 的下位记录 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '记录的名称和拼写 · $1'],

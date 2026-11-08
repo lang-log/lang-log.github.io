@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'แผนที่ของตระกูลภาษา ภาษามือ และระบบการเขียน ทุกตำแหน่งระบุแหล่งข้อมูลที่ใช้ การจัดจำแนกที่แตกต่างกันแสดงไว้คู่กัน และดาวน์โหลดข้อมูลได้',
     'Also': 'นอกจากนี้',
-    'All families and isolates': 'ตระกูลทั้งหมดและภาษาโดดเดี่ยว',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่',
     'Corpora and data for low-resource languages: planned.':
@@ -337,7 +336,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · ผลการค้นหา · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'ผลการค้นหา · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'ตระกูลทั้งหมด · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'ตระกูลทั้งหมดและภาษาโดดเดี่ยว · $1'],
     [/^Members · ([\d,]+)$/, 'สมาชิก · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'สมาชิกตาม Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'ชื่อและการสะกดที่บันทึกไว้ · $1'],

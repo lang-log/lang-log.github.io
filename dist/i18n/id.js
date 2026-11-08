@@ -76,7 +76,6 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Atlas rumpun bahasa, bahasa isyarat, dan sistem tulisan. Setiap penempatan menyebutkan sumber yang diikutinya, klasifikasi yang bersaing ditampilkan bersama, dan datanya dapat diunduh.',
     'Also': 'Selain itu',
-    'All families and isolates': 'Semua rumpun dan bahasa isolat',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
     'Corpora and data for low-resource languages: planned.':
@@ -342,7 +341,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Hasil pencarian · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Hasil pencarian · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Semua rumpun · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Semua rumpun dan bahasa isolat · $1'],
     [/^Members · ([\d,]+)$/, 'Anggota · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Anggota menurut Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nama dan ejaan yang tercatat · $1'],
