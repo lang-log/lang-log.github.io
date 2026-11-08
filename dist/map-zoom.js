@@ -325,13 +325,8 @@
       svg.classList.toggle('lmap-moved', moved);
       svg.classList.toggle('lmap-in', e < home.w - 0.01);
       updateTiles(e);
-      // The seam outline, in SVG units: the box is laid out with preserveAspectRatio meet.
-      var box = svg.getBoundingClientRect();
-      if (box.width && box.height)
-        bg.style.setProperty(
-          '--lmap-seam',
-          +(seam() * Math.max(view.w / box.width, view.h / box.height)).toFixed(3) + 'px',
-        );
+      // The seam outline, in SVG units (unit is SVG units per CSS pixel, from above).
+      if (unit) bg.style.setProperty('--lmap-seam', +(seam() * unit).toFixed(3) + 'px');
       svg.dispatchEvent(
         new CustomEvent('lmap:view', {
           detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h },
