@@ -72,7 +72,6 @@
       '這個網址沒有網頁。網頁可能已移動，或連結有誤。',
     'Top page': '首頁',
     'Search': '搜尋',
-    'Also': '另見',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每筆 Glottolog 紀錄一個簡明網頁，附有分類和地圖。',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

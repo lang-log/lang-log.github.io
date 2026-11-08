@@ -72,7 +72,6 @@
       'Unter dieser Adresse gibt es keine Seite. Sie wurde möglicherweise verschoben, oder der Link ist falsch geschrieben.',
     'Top page': 'Startseite',
     'Search': 'Suchen',
-    'Also': 'Außerdem',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': eine schlichte Seite pro Glottolog-Eintrag, mit Klassifikation und Karte.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

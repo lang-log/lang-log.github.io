@@ -72,7 +72,6 @@
       'Không có trang nào tại địa chỉ này. Trang có thể đã được chuyển đi, hoặc liên kết bị gõ sai.',
     'Top page': 'Trang chủ',
     'Search': 'Tìm kiếm',
-    'Also': 'Ngoài ra',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

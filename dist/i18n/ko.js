@@ -72,7 +72,6 @@
       '이 주소에는 페이지가 없습니다. 페이지가 옮겨졌거나 링크가 잘못 입력되었을 수 있습니다.',
     'Top page': '첫 페이지',
     'Search': '검색',
-    'Also': '그 밖에',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

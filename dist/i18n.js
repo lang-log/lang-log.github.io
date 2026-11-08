@@ -136,7 +136,6 @@ window.LANGLOG_I18N = {
 
       // Top page (build_home.py)
       'Search': '検索',
-      'Also': 'ほかに',
       ': one plain page per Glottolog record, with its classification and a map.':
         ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

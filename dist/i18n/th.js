@@ -72,7 +72,6 @@
       'ไม่มีหน้าที่ที่อยู่นี้ หน้าอาจถูกย้าย หรือพิมพ์ลิงก์ผิด',
     'Top page': 'หน้าแรก',
     'Search': 'ค้นหา',
-    'Also': 'นอกจากนี้',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

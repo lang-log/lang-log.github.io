@@ -72,7 +72,6 @@
       'Tidak ada halaman di alamat ini. Halaman mungkin telah dipindahkan, atau tautannya salah ketik.',
     'Top page': 'Halaman utama',
     'Search': 'Cari',
-    'Also': 'Selain itu',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

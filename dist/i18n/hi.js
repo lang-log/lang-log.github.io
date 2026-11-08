@@ -72,7 +72,6 @@
       'इस पते पर कोई पृष्ठ नहीं है। हो सकता है कि वह कहीं और चला गया हो, या लिंक गलत टाइप हुआ हो।',
     'Top page': 'मुख्य पृष्ठ',
     'Search': 'खोजें',
-    'Also': 'इसके अलावा',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog के हर रिकॉर्ड के लिए एक सरल पृष्ठ, उसके वर्गीकरण और मानचित्र के साथ।',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

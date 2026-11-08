@@ -72,7 +72,6 @@
       'Non esiste alcuna pagina a questo indirizzo. Potrebbe essere stata spostata, oppure il link è scritto male.',
     'Top page': 'Pagina iniziale',
     'Search': 'Cerca',
-    'Also': 'Inoltre',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': una pagina semplice per ogni voce di Glottolog, con la sua classificazione e una mappa.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

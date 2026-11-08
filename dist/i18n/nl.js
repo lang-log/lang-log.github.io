@@ -72,7 +72,6 @@
       'Op dit adres staat geen pagina. Misschien is ze verplaatst, of is de link verkeerd getypt.',
     'Top page': 'Startpagina',
     'Search': 'Zoeken',
-    'Also': 'Verder',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': één eenvoudige pagina per Glottolog-record, met de classificatie en een kaart.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

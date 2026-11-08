@@ -72,7 +72,6 @@
       'За цією адресою немає сторінки. Можливо, її перенесено або посилання введено з помилкою.',
     'Top page': 'Головна сторінка',
     'Search': 'Пошук',
-    'Also': 'Також',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': проста сторінка для кожного запису Glottolog із його класифікацією та мапою.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

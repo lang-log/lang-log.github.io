@@ -72,7 +72,6 @@
       'Bu adreste bir sayfa yok. Sayfa taşınmış ya da bağlantı yanlış yazılmış olabilir.',
     'Top page': 'Ana sayfa',
     'Search': 'Ara',
-    'Also': 'Ayrıca',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

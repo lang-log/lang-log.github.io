@@ -72,7 +72,6 @@
       '此地址没有页面。页面可能已移动，或链接有误。',
     'Top page': '首页',
     'Search': '搜索',
-    'Also': '另见',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每条 Glottolog 记录一个简明页面，附有分类和地图。',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':

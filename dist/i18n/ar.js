@@ -72,7 +72,6 @@
       'لا توجد صفحة على هذا العنوان. ربما نُقلت، أو كُتب الرابط خطأً.',
     'Top page': 'الصفحة الرئيسية',
     'Search': 'بحث',
-    'Also': 'أيضًا',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': صفحة بسيطة لكل سجل في Glottolog، مع تصنيفه وخريطة.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
