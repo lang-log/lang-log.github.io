@@ -15,15 +15,9 @@
     'Australia': '오스트레일리아',
     'Oceania': '오세아니아',
     'No location in the data': '데이터에 위치가 없는 항목',
-    'Each is listed under the continent where most of its languages are spoken.':
-      '각 항목은 그 언어 대부분이 쓰이는 대륙 아래에 있습니다.',
     'Stats': '통계',
     'Updates': '업데이트',
     'About Lang Log': 'Lang Log 소개',
-    'Counted from the data each time the site is built.':
-      '숫자는 사이트를 빌드할 때마다 데이터에서 셉니다.',
-    'Different kinds of records are counted separately; do not add them up.':
-      '종류가 다른 기록은 따로 세므로 더하지 마세요.',
     'All records': '모든 기록',
     'By modality': '양식별',
     'Other kinds of languages': '그 밖의 언어 종류',
@@ -68,7 +62,6 @@
     'by': 'by',
     'Sources & scope': '출처와 범위',
     'Sources & scope ↗': '출처와 범위 ↗',
-    'All families': '모든 어족',
     'Atlas domains': '지도 분야',
     'Language families': '어족',
     'Sign languages': '수어',
@@ -79,14 +72,8 @@
       '이 주소에는 페이지가 없습니다. 페이지가 옮겨졌거나 링크가 잘못 입력되었을 수 있습니다.',
     'Top page': '첫 페이지',
     'Search': '검색',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      '어족, 수어, 문자 체계의 지도입니다. 모든 분류 위치에는 따른 출처를 밝히고, 서로 다른 분류는 함께 보여 주며, 데이터는 내려받을 수 있습니다.',
-    'Also': '그 밖에',
-    'All families and isolates': '모든 어족과 고립어',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
-    'Corpora and data for low-resource languages: planned.':
-      '자원이 적은 언어의 말뭉치와 데이터: 준비 중입니다.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       '출처: Glottolog, WALS, 발표된 연구의 계통수, 문자 목록(각각의 이용 허락 조건을 따릅니다)',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. 모든 권리 보유.',
@@ -99,8 +86,6 @@
     'Search records and aliases': '기록과 별칭 검색',
     'Try Japanese · 日本語 · Basque · Austronesian':
       '예: Japanese · 日本語 · Basque · Austronesian',
-    'Try Japanese · Czech · ASL · Lithuanian': '예: Japanese · Czech · ASL · Lithuanian',
-    'Try Brahmi · Hangul · Latin · SignWriting': '예: Brahmi · Hangul · Latin · SignWriting',
     'Spoken genealogy': '음성 언어의 계통',
     'Isolates': '고립어',
     'View': '보기',
@@ -124,15 +109,12 @@
     'Choose a random sign language or dialect': '수어나 방언을 무작위로 고르기',
     'Choose a random writing system': '문자 체계를 무작위로 고르기',
     'Download': '내려받기',
-    'How to read': '읽는 법',
     'Copy link': '링크 복사',
     'Zoom in': '확대',
     'Zoom out': '축소',
     'Fit': '맞추기',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       '끌어서 이동 · 스크롤이나 핀치로 확대·축소 · 점을 누르면 자세히 보기',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '점선: 탐색을 위한 연결이며 조상 관계가 아닙니다. 거리는 시간을 나타내지 않습니다.',
     'INTEGRATED · SOURCE-CONDITIONED': '통합 · 출처별 위치',
     'Independent roots & alternatives': '독립된 뿌리와 다른 학설',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -145,21 +127,16 @@
     'Expand A': 'A 펼치기',
     'Expand B': 'B 펼치기',
     'Show in tree': '수형도에서 보기',
-    'Cross-family / outgroup source trees · navigation only':
-      '여러 어족에 걸치거나 외군인 출처 계통수 · 탐색 전용',
     'Catalog classification': '목록의 분류',
     'Lexical-feature hypotheses': '어휘 특징에 따른 가설',
     'Manual-alphabet evidence': '지문자 근거',
     'Glottolog records': 'Glottolog 기록',
     'Manual-alphabet samples': '지문자 표본',
-    'CLDR usage assertions': 'CLDR 사용 데이터',
     'Record details': '기록 상세',
     'Record information': '기록 정보',
     'Record page': '기록 페이지',
     'Select a row to see its placements, names and sources.':
       '행을 고르면 분류 위치, 이름, 출처가 표시됩니다.',
-    'Select a record to see its placements, names and evidence.':
-      '기록을 고르면 분류 위치, 이름, 근거가 표시됩니다.',
     'ONE RECORD · SOURCE-CONDITIONED PLACEMENTS': '기록 하나 · 출처별 분류 위치',
     'Open detail page ↗': '상세 페이지 열기 ↗',
     'Details ↗': '상세 ↗',
@@ -175,13 +152,7 @@
     'According to Glottolog 5.3': 'Glottolog 5.3에 따름',
     'Name in this language': '이 언어로 된 이름',
     'Names': '이름',
-    'Names and native forms': '이름과 자칭',
-    'Not recorded in the imported sources. No name inferred.':
-      '가져온 자료에 기록이 없습니다. 추측한 이름은 싣지 않았습니다.',
-    'No verified same-language name recorded.':
-      '확인된 이 언어 자체의 이름이 기록되어 있지 않습니다.',
     'No alternate names recorded.': '다른 이름이 기록되어 있지 않습니다.',
-    'No other names or spellings recorded.': '다른 이름이나 철자가 기록되어 있지 않습니다.',
     'No child records imported.': '하위 기록을 가져오지 않았습니다.',
     'Isolate: no higher family': '고립어: 상위 어족 없음',
     'Top-level: no higher family': '최상위: 상위 어족 없음',
@@ -189,10 +160,6 @@
       '독립된 최상위 항목입니다. 여기서는 상위 어족을 주장하지 않습니다.',
     'Independent top-level isolate; no higher family asserted here.':
       '독립된 최상위 고립어입니다. 여기서는 상위 어족을 주장하지 않습니다.',
-    'No additional direct placement recorded here. This is not a consensus certificate; unimported studies may propose other relationships.':
-      '여기에는 다른 직접적인 위치가 기록되어 있지 않습니다. 합의를 보증하는 것이 아니며, 가져오지 않은 연구가 다른 관계를 제시할 수 있습니다.',
-    'No incoming placement is recorded in the imported sources. This alone does not establish an independent origin.':
-      '가져온 자료에는 이 기록의 상위 위치가 없습니다. 이것만으로 독립된 기원이 증명되지는 않습니다.',
     'Alternative accounts and research notes': '다른 학설과 연구 메모',
     'Incompatible study branches': '양립하지 않는 연구의 분기',
     'Glottolog record & bibliography ↗': 'Glottolog 기록과 문헌 ↗',
@@ -232,12 +199,8 @@
       'Hugging Face에 연결할 수 없습니다. 위의 링크를 이용하거나 다시 시도해 주세요. 모델이 없다는 뜻은 아닙니다.',
     'Retry loading models': '모델 다시 불러오기',
     'Search the name on Hugging Face ↗': 'Hugging Face에서 이름 검색 ↗',
-    'Select an individual language to find language-tagged models.':
-      '개별 언어를 고르면 그 언어 태그가 붙은 모델을 찾을 수 있습니다.',
     'No models found with this exact language tag.':
       '이 언어 태그와 정확히 일치하는 모델을 찾지 못했습니다.',
-    'Downloads and reuse': '내려받기와 재사용',
-    'Names and exports': '이름과 내보내기',
     'Integrated XML ↓': '통합 XML ↓',
     'Assertions JSON ↓': '주장 JSON ↓',
     'Names / base JSON ↓': '이름 / 기본 JSON ↓',
@@ -252,94 +215,15 @@
     'Scope': '범위',
     'Sources': '출처',
     'Source register': '출처 목록',
-    'How disagreements are handled': '의견 차이를 다루는 방법',
-    'What the relationships mean': '관계의 의미',
-    'Coverage still to be completed': '아직 채워야 할 범위',
-    'Remaining gaps': '남은 공백',
-    'Integrated view · all imported sources.': '통합 보기 · 가져온 모든 출처.',
-    'Glottolog sign-category records;': 'Glottolog 수어 범주 기록,',
-    'downloaded ISO 15924 rows;': '내려받은 ISO 15924 행,',
     'Classification and names from': '분류와 이름의 출처:',
     ', used under': ', 이용 허락:',
-    'This is coverage of the imported corpus, not every publication worldwide.':
-      '가져온 자료의 범위이며, 전 세계의 모든 출판물은 아닙니다.',
-    'Coverage is limited to the imported sources. No displayed alternative does not imply consensus.':
-      '범위는 가져온 출처로 한정됩니다. 다른 학설이 표시되지 않아도 합의가 있다는 뜻은 아닙니다.',
-    'Catalog completeness is measured against the imported snapshots. Research coverage is partial, and missing branches do not imply agreement.':
-      '목록이 갖추어졌는지는 가져온 판을 기준으로 합니다. 연구는 일부만 포함되어 있으며, 분기가 없다고 해서 동의를 뜻하지는 않습니다.',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      '분기는 출처에 따라 달라집니다. 서로 다른 위치가 함께 표시되므로 출처를 바꿀 필요가 없습니다.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       '독립된 어족과 고립어는 나란한 뿌리입니다. 각 계통을 펼치면 기록된 분류를 따라갈 수 있습니다.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       '행을 누르면 펼쳐서 자세히 볼 수 있습니다. 언어를 고르면 출처별 위치와 논문에 근거한 다른 학설을 비교할 수 있습니다. 연구의 분기도 같은 목록 안에서 펼칠 수 있습니다.',
-    'Expand a row to follow its branches. Select “Details” for all placements and citations. Repeated names refer to the same record.':
-      '행을 펼치면 계통을 따라갈 수 있습니다. 모든 위치와 인용은 ‘상세’에서 볼 수 있습니다. 여러 번 나오는 이름은 같은 기록을 가리킵니다.',
-    'Each placement says “According to [source]” and links to its paper or catalog. Catalog classifications are not mislabeled as individual research papers.':
-      '모든 위치에는 ‘출처: [자료명]’이 있고 그 논문이나 목록으로 연결됩니다. 목록의 분류를 개별 연구 논문으로 잘못 표시하지 않습니다.',
-    'Different parent names alone do not prove conflict. For pairs of study trees, the atlas compares clades restricted to at least three identical sampled language IDs. Crossing, non-nested clades are marked as topologically incompatible.':
-      '상위 이름이 다르다는 것만으로는 충돌이라고 할 수 없습니다. 연구 계통수끼리는 같은 언어 ID 표본이 3개 이상인 분기로 한정하여 비교합니다. 서로 교차하고 포함 관계가 아닌 분기를 위상적으로 양립하지 않는 것으로 표시합니다.',
-    'Different sampling, unresolved polytomies and repeated mappings of different local varieties are not, by themselves, evidence of conflicting ancestry. Repeated or nested tip IDs are excluded from automatic conflict comparison.':
-      '표본의 차이, 해결되지 않은 다분지, 서로 다른 지역 변종의 반복된 대응은 그 자체로 계통 충돌의 증거가 아닙니다. 반복되거나 포함된 말단 ID는 자동 충돌 비교에서 제외합니다.',
-    'A conflicting summary topology does not establish which scientific claim is correct. Posterior uncertainty and all analyses within each paper have not been reviewed.':
-      '요약 위상이 충돌한다고 해서 어느 과학적 주장이 옳은지 정해지지는 않습니다. 사후 분포의 불확실성과 각 논문 안의 모든 분석은 검토하지 않았습니다.',
-    'A script is not a language family. Historical descent, graphic influence and language usage are distinct; missing ancestry is unreviewed, not proof of independent invention.':
-      '문자는 어족이 아닙니다. 역사적 계통, 자형의 영향, 언어의 사용은 서로 다릅니다. 조상이 없는 것은 검토되지 않았기 때문이며, 독자적으로 발명되었다는 증거가 아닙니다.',
-    'A shared writing system or manual alphabet is not proof of shared language ancestry.':
-      '같은 문자 체계나 지문자를 쓴다고 해서 언어의 조상이 같다는 증거가 되지는 않습니다.',
-    'All imported historical and influence assertions appear together; each edge carries its source and uncertainty.':
-      '가져온 역사와 영향의 주장을 모두 함께 보여 줍니다. 각 선에는 출처와 불확실성이 붙어 있습니다.',
-    'Glottolog classifications, lexical-feature study trees and manual-alphabet groups share identities but keep their evidence separate. Navigation categories are not universal ancestors.':
-      'Glottolog의 분류, 어휘 특징에 따른 연구 계통수, 지문자 집단은 같은 기록을 공유하지만 근거는 따로 유지합니다. 탐색용 범주는 공통 조상이 아닙니다.',
-    'Source-specific sampled clades share the same language identities. Two European runs are replicates of one study.':
-      '출처별 표본 분기는 같은 언어 기록을 공유합니다. 유럽의 두 분석은 한 연구의 반복입니다.',
-    'Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.':
-      '역사적 계통, 자형의 영향, 표본의 동일성, 문자의 사용은 서로 다른 관계입니다. 전체에 공통된 조상은 주장하지 않습니다.',
-    'These records remain searchable and inspectable. No displayed connection is not a claim of independent origin.':
-      '이 기록들도 검색하고 살펴볼 수 있습니다. 연결이 표시되지 않았다고 해서 독립된 기원을 주장하는 것은 아닙니다.',
-    'Standard chapters are sections of one publication, not independent studies. Bibliographic references are distinguished from imported datasets.':
-      '표준의 각 장은 한 출판물의 절이며 독립된 연구가 아닙니다. 문헌 참조와 가져온 데이터 세트는 구별합니다.',
-    'The Transeurasian paper-level debate includes proposal, critique and response. This is distinct from automatic topology comparison.':
-      '트랜스유라시아 가설에 관한 논문 간 논쟁(제안, 비판, 응답)을 포함합니다. 이는 위상의 자동 비교와는 별개입니다.',
-    'These summary clades cannot both hold on the shared sampled tips. This does not determine which study is correct. Examples below may involve a wider group containing this record.':
-      '이 요약 분기들은 공통 표본 말단에서 동시에 성립할 수 없습니다. 어느 연구가 옳은지는 정해지지 않습니다. 아래 예는 이 기록을 포함하는 더 넓은 집단에 관한 것일 수 있습니다.',
-    'This atlas preserves every imported classification assertion with its source. Exact Glottocode matches share one canonical language record. Source-specific groupings and unmapped samples retain separate IDs. A repeated appearance in the outline is a reference to the same record, not a new language.':
-      '이 지도는 가져온 모든 분류 주장을 출처와 함께 보존합니다. Glottocode가 정확히 일치하면 하나의 언어 기록을 공유합니다. 출처 고유의 집단과 대응되지 않은 표본은 별도의 ID를 유지합니다. 목록에 반복해 나오는 것은 같은 기록에 대한 참조이며 새로운 언어가 아닙니다.',
-    "This is not every published tree worldwide. Ethnologue's full proprietary hierarchy, all regional monographs, all historical proposals, catalog bibliographies and a complete paper-by-paper review of every conflict are not incorporated. A node with no displayed alternative has not been certified as consensus.":
-      '전 세계에 발표된 모든 계통수가 있는 것은 아닙니다. Ethnologue의 유료 전체 계층, 모든 지역별 연구서, 역사상의 모든 제안, 목록의 문헌 목록, 모든 충돌에 대한 논문별 전수 검토는 포함하지 않았습니다. 다른 학설이 표시되지 않은 항목도 합의가 확인된 것은 아닙니다.',
-    'Every assertion retains its source. Catalog classifications, lexical-feature phylogenies, manual-alphabet groups, graphic influence and writing-system usage remain distinct. “Intermediate stages omitted” means a broad historical descent claim, not an immediate parent. Study roots and catalog categories are navigation entries, not a single invented ancestor.':
-      '모든 주장에는 출처가 있습니다. 목록의 분류, 어휘 특징에 따른 계통, 지문자 집단, 자형의 영향, 문자 체계의 사용은 따로 다룹니다. ‘중간 단계 생략’은 대략적인 역사적 계통의 주장이며 직접적인 부모가 아닙니다. 연구의 뿌리와 목록의 범주는 탐색용 항목이며 만들어 낸 하나의 조상이 아닙니다.',
-    'Glottolog provides the navigation backbone. Alternative WALS and study branches are embedded at their shared ancestor where possible. This attachment is for navigation, not a new genealogical claim. Cross-family/outgroup trees remain in a separate navigation section.':
-      'Glottolog를 탐색의 뼈대로 삼습니다. WALS와 연구의 다른 분기는 가능하면 공통 조상 아래에 넣습니다. 이 연결은 탐색을 위한 것이며 새로운 계통 주장이 아닙니다. 여러 어족에 걸치거나 외군인 계통수는 별도의 탐색 칸에 둡니다.',
-    'Language details query the public Hugging Face Hub API on demand. Results require an exact match in model-card language metadata using the record’s own ISO code and its documented two-letter equivalent. Parent-language and macrolanguage support is not inferred for dialects or individual languages. Multilingual models may appear. Metadata is publisher supplied and does not establish quality, exclusive language support, or dialect coverage. The list is a limited download-sorted sample, with links to the full Hub results. Model metadata is live and is not included in the classification XML/OPML exports.':
-      '언어 상세를 열면 공개된 Hugging Face Hub API에 그때그때 조회합니다. 모델 카드의 언어 정보가 그 기록의 ISO 코드나 문서화된 두 글자 코드와 정확히 일치하는 것만 보여 줍니다. 방언이나 개별 언어에 상위 언어나 매크로 언어의 지원을 적용하지 않습니다. 다국어 모델이 나올 수 있습니다. 정보는 게시자가 붙인 것으로 품질, 그 언어만의 지원, 방언 지원을 보장하지 않습니다. 목록은 내려받기 수 순의 일부이며 Hub의 전체 결과로 가는 링크가 있습니다. 모델 정보는 실시간으로 가져오며 분류의 XML/OPML 내보내기에는 포함되지 않습니다.',
-    'XML and JSON contain every record, assertion, note, source, usage entry and input checksum. OPML is a repeated-reference outline of classification and history assertions; it does not include the full metadata or CLDR usage table. Source-specific rights remain applicable: Glottolog CC BY 4.0, SIL CC BY-SA 4.0, Power CLDF GPL-3.0, Unicode data under Unicode terms.':
-      'XML과 JSON에는 모든 기록, 주장, 메모, 출처, 사용 데이터, 입력 체크섬이 들어 있습니다. OPML은 분류와 역사 주장의 목록(같은 기록은 참조로 반복됨)이며 전체 정보나 CLDR 사용표는 포함하지 않습니다. 출처별 권리는 그대로 적용됩니다: Glottolog CC BY 4.0, SIL CC BY-SA 4.0, Power CLDF GPL-3.0, Unicode 데이터는 Unicode 이용 조건.',
-    'SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.':
-      'SIL 색인의 행입니다. ISO 코드가 정확히 일치하면 기록을 공유하고, SIL 고유 식별자는 따로 유지합니다.',
-    'All Glottolog alias rows for the sign-language category are preserved with their provider tags. ISO English/French labels and SIL names are retained. Verified same-language labels appear where present. UCD glyph samples show characters, not a script’s native name. Video or sign-notation self-names have not been invented.':
-      '수어 범주에 대한 Glottolog의 별칭 행은 제공자 태그와 함께 모두 보존합니다. ISO의 영어·프랑스어 이름과 SIL 이름도 남겨 둡니다. 확인된 그 언어 자체의 이름은 있을 때만 표시합니다. UCD 자형 견본은 문자를 보여 줄 뿐 문자 체계의 자칭이 아닙니다. 영상이나 수어 표기로 된 자칭을 만들어 내지 않았습니다.',
-    'All sources appear together. Repeated branches are references to shared IDs. Alternative origin accounts are shown in record details with links; tentative claims are labeled. The two European consensus trees are independent runs of the same study, not two publications. No all-sign-languages tree is imported.':
-      '모든 출처를 함께 보여 줍니다. 반복되는 계통은 공유 ID에 대한 참조입니다. 기원에 관한 다른 학설은 기록 상세에 링크와 함께 보여 주며, 잠정적 주장에는 표시를 붙였습니다. 유럽의 두 합의 계통수는 같은 연구의 독립된 분석이며 두 편의 출판물이 아닙니다. 모든 수어를 아우르는 계통수는 가져오지 않았습니다.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Glottolog 5.3의 최상위 항목입니다. 모든 기록에는 분류를 따르는 URL의 전용 페이지가 있습니다.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': 출처별 인용과 이용 허락은 아래에 있습니다. 가져온 요약 계통수는 그 저자와 관리자에게 귀속됩니다. 코드 대응:',
-    '. Consult each original source before further redistribution.':
-      '. 재배포하기 전에 각 원래 자료를 확인해 주세요.',
     'Classification ·': '분류 ·',
-    'Name search is exploratory; results are not verified matches.':
-      '이름 검색은 탐색용이며, 결과가 확인된 대응은 아닙니다.',
-    'Selected historical relationships reviewed; chapter sections are not counted as independent research studies.':
-      '선정한 역사적 관계를 검토했습니다. 장과 절은 독립된 연구로 세지 않습니다.',
-    'All language/sample rows and published SubGroup metadata; not a reconstruction of the paper’s reticulate network.':
-      '모든 언어·표본 행과 발표된 하위 집단 정보입니다. 논문의 그물 모양 네트워크를 재구성한 것이 아닙니다.',
-    'All explicit script entries under languageData. Primary/secondary designation preserved. Not a complete global orthography inventory; no inferred language genealogy.':
-      'languageData에 있는 모든 명시적 문자 항목입니다. 주·부 구분도 유지합니다. 세계 정서법의 완전한 목록이 아니며, 언어 계통도 추정하지 않습니다.',
-    'Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.':
-      '확인한 판의 목록을 통째로 가져온 것으로, 세계 모든 언어나 문자의 완전한 목록이 아닙니다.',
-    'Each point is the one representative location Glottolog gives for a record, not the area where it is spoken.':
-      '각 점은 Glottolog가 기록마다 하나씩 제시하는 대표 지점이며, 그 언어가 쓰이는 지역이 아닙니다.',
     'Points: Glottolog 5.3 (CC BY 4.0).': '점: Glottolog 5.3(CC BY 4.0).',
     'Land:': '육지:',
     '(public domain).': '(퍼블릭 도메인).',
@@ -368,16 +252,6 @@
     'Show the tree of this branch': '이 계통의 수형도 보기',
     'Where Lang Log attaches this tree': 'Lang Log가 이 계통수를 연결한 위치',
     "Other sources' trees below this record": '이 기록 아래에 있는 다른 출처의 계통수',
-    'Alternative source-conditioned branches. They are attached here for navigation, not as additional ancestors.':
-      '출처별 다른 분기입니다. 탐색을 위해 여기에 연결했으며, 새로운 조상을 뜻하지 않습니다.',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      '끌어서 이동 · 스크롤이나 핀치로 확대·축소 · 점을 누르면 그 페이지로 이동',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      '행을 열면 하위 기록이 보입니다. 이름을 누르면 출처별 위치와 논문 링크가 있는 그 기록의 페이지가 열립니다.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '독립된 어족과 고립어는 나란한 뿌리로 표시합니다. 점선은 탐색을 위한 연결이며 조상 관계가 아닙니다. 거리는 시간을 나타내지 않습니다.',
-    'Source-specific grouping or sample; not a new accepted language family.':
-      '한 출처에만 있는 집단이나 표본입니다. 인정된 새 어족이 아닙니다.',
     '→ sampled study tree': '→ 표본을 뽑은 연구 계통수',
     '→ catalog grouping': '→ 목록의 집단',
     'sampled study tree': '표본을 뽑은 연구 계통수',
@@ -403,27 +277,18 @@
     'Colour by': '색 구분 특성',
     'None (one colour)': '없음(한 가지 색)',
     'Conditions': '조건',
-    'No conditions yet: every language is shown.': '아직 조건이 없습니다. 모든 언어를 표시합니다.',
     '+ Add condition': '+ 조건 추가',
     'Choose a feature': '특성 선택',
     'Remove this condition': '이 조건 삭제',
     'Select all': '모두 선택',
     'No data': '데이터 없음',
     'Close': '닫기',
-    'Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.':
-      '핀치나 Ctrl + 휠로 확대, 드래그로 이동, 점을 누르면 언어가 나옵니다.',
     'WALS page': 'WALS 페이지',
     'Lang Log record': 'Lang Log 기록',
     'World map of the languages that match the conditions': '조건에 맞는 언어의 세계 지도',
     'The map data could not be loaded.': '지도 데이터를 불러오지 못했습니다.',
-    'The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.':
-      '점은 좌표가 있는 Glottolog 5.3의 모든 언어로, Glottolog가 정한 대표 지점에 있으며 그 언어가 쓰이는 범위가 아닙니다. 특성 값은 WALS Online(Dryer·Haspelmath 편, 2013) CLDF 판 v2020.4(CC BY 4.0)에서 가져와 각 WALS 언어에 대응하는 Glottolog 언어에 연결했습니다.',
-    'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
-      '한 조건 안에서 체크한 값은 "또는"으로 이어집니다. 조건끼리는 연결을 OR로 바꾸지 않는 한 "그리고"로 이어집니다. OR로 이은 조건은 한 묶음으로 다루므로 "A AND B OR C"는 "A AND (B OR C)"라는 뜻입니다. 조건의 특성에 데이터가 없는 언어는 그 조건에 맞지 않는 것으로 봅니다.',
     'Land and borders: Natural Earth (public domain)': '육지와 국경: Natural Earth(퍼블릭 도메인)',
     'Land and borders:': '육지와 국경:',
-    'Dashed borders are disputed or not settled.':
-      '점선 국경은 분쟁 중이거나 확정되지 않은 경계입니다.',
     'Reset': '초기화',
     'Reset view': '처음 보기로',
     'Map view': '지도 보기',
@@ -431,46 +296,10 @@
     'Records at this point': '이 지점의 기록',
   },
   patterns: [
-    [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Glottolog 수어 범주의 기록 $1건 전부(어족과 방언 기록 포함)입니다. 범주는 탐색용입니다.',
-    ],
-    [
-      /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
-      '역사적 형태를 포함한 CLDF의 $1개 표본 전부입니다. 발표된 하위 집단 정보이며, 추정한 언어 전체의 계통수가 아닙니다.',
-    ],
-    [
-      /^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/,
-      '목록에서 찾은 Phlorest 데이터 저장소 $1개를 요약 계통수 단위로 모두 가져왔습니다. 사후 분포 표본은 가져오지 않았습니다.',
-    ],
     [/^First ([\d,]+) matches\. Refine your search\.$/, '처음 $1건입니다. 검색어를 좁혀 주세요.'],
     [/^Show ([\d,]+) more$/, '$1건 더 보기'],
     [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],
     [/^Showing ([\d,]+) of ([\d,]+) languages$/, '$2개 언어 중 $1개 표시'],
-    [
-      /^([\d,]+) Glottolog records retained; ([\d,]+) canonical records including source-specific clades\/samples\. All (\d+) discovered Phlorest dataset summary trees imported, plus WALS\.$/,
-      'Glottolog 기록 $1건을 모두 보존하고, 출처별 분기와 표본을 포함해 $2건의 기록으로 정리했습니다. 찾은 Phlorest 요약 계통수 $3개를 모두 가져오고 WALS도 더했습니다.',
-    ],
-    [
-      /^([\d,]+) source-tagged root\/parent assertions\. ([\d,]+) incompatible clade pairs across study trees involve ([\d,]+) canonical records\.$/,
-      '출처가 붙은 뿌리·상위 주장이 $1건 있습니다. 연구 계통수끼리 양립하지 않는 분기 쌍 $2개가 $3건의 기록에 관련됩니다.',
-    ],
-    [
-      /^(\d+) manual-alphabet samples; (\d+) lexical consensus trees covering (\d+) distinct language samples; (\d+) reviewed script relationships; ([\d,]+) CLDR usage assertions\. These are different units and should not be added as “languages\.”$/,
-      '지문자 표본 $1, 서로 다른 언어 표본 $3을 포함하는 어휘 합의 계통수 $2개, 검토한 문자 관계 $4, CLDR 사용 데이터 $5. 단위가 다르므로 더해서 ‘언어 수’로 삼지 마세요.',
-    ],
-    [
-      /^All ([\d,]+) Glottolog name rows retain their provider and language tag\. Same-language labels are identified by exact ISO code equivalence, not inferred; ([\d,]+) records have such labels\. (.*)$/,
-      'Glottolog 이름 행 $1건 모두에 제공자와 언어 태그를 남겼습니다. 그 언어 자체의 이름은 ISO 코드가 정확히 일치하는 것만 고르며 추측하지 않았습니다. 그런 이름이 있는 기록은 $2건입니다. XML은 기록과 출처별 위치의 그래프에 충돌 사례와 논문 인용을 더해 내보냅니다. OPML은 공통 기록에 대한 참조를 반복하며 다른 학설을 중첩 목록으로 나타냅니다. SVG는 표시 중인 계통을 내보냅니다.',
-    ],
-    [
-      /^All ([\d,]+) rows of the downloaded index, including non-ISO local identifiers\. Reported types and statuses are catalog metadata, not independently verified genealogy\.$/,
-      '내려받은 색인의 $1행 전부입니다(ISO에 없는 고유 식별자 포함). 종류와 상태는 목록의 정보이며 독자적으로 확인한 계통이 아닙니다.',
-    ],
-    [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Glottolog 수어 범주의 기록 $1건을 모두 보존합니다(어족, 방언, 계통이 아닌 범주 포함).',
-    ],
     [/^Source label · (.+)$/, '원래 표기 · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 어족 · Lang Log by yoshi'],
     [/^Language families · Lang Log by yoshi$/, '어족 · Lang Log by yoshi'],
@@ -479,7 +308,6 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 검색 결과 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '검색 결과 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '모든 어족 · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, '모든 어족과 고립어 · $1'],
     [/^Members · ([\d,]+)$/, '하위 기록 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log에 따른 하위 기록 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '기록된 이름과 철자 · $1'],
@@ -503,10 +331,6 @@
     ],
     [/^([\d,]+) roots in the list$/, '목록의 뿌리 $1개'],
     [
-      /^([\d,]+) shared samples compared\. This incompatibility does not determine which study is correct\.$/,
-      '공통 표본 $1개로 비교했습니다. 이 불일치가 어느 연구가 옳은지를 정하지는 않습니다.',
-    ],
-    [
       /^Same ([\d,]+) sampled IDs compared · ([\d,]+) incompatible clade pair\(s\) involving this record\.$/,
       '같은 표본 ID $1개로 비교 · 이 기록에 관련된 양립하지 않는 분기 쌍 $2개.',
     ],
@@ -527,27 +351,7 @@
     [/^Source sample: (.+)$/, '원래 표본: $1'],
     [/^Other direct members: (.+)$/, '다른 직접 하위: $1'],
     [/^Macroarea: (.+)$/, '대지역: $1'],
-    [
-      /^Models tagged for (.+)\. Open a model card to check its intended use and evaluation\.$/,
-      '$1 태그가 붙은 모델입니다. 용도와 평가는 각 모델 카드에서 확인하세요.',
-    ],
-    [
-      /^Exact model-card language tags: (.+)\. Includes multilingual models; tags are not a quality or dialect-coverage guarantee\.$/,
-      '모델 카드의 언어 태그가 정확히 일치: $1. 다국어 모델을 포함합니다. 태그는 품질이나 방언 지원을 보장하지 않습니다.',
-    ],
     [/^All (\S+) models ↗$/, '$1 모델 모두 보기 ↗'],
-    [/^Faint points: other members of (.+)\.$/, '흐린 점: $1의 다른 하위.'],
-    [
-      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
-      function (m) {
-        return (
-          m[1] +
-          '개 languoid 표시' +
-          (m[2] ? '(' + m[2] + '개는 Glottolog에 좌표가 없음)' : '') +
-          '.'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, '지도: $1의 위치'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
