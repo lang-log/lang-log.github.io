@@ -47,7 +47,7 @@ from languoid_map import map_svg
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
-RESERVED = {"map", "data", "i18n", "stats", "sources", "updates"}
+RESERVED = {"map", "data", "i18n", "stats", "sources", "updates", "features", "schema"}
 # Directories of earlier builds that no longer exist; removed on each run.
 OLD_DIRS = {"families"}
 

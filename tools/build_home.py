@@ -18,8 +18,10 @@ source-data/lang-log/updates.json). The top page links to them in a row of
 links next to the Random button. Every count on the Stats page is counted from the
 data here, at build time; no number is typed by hand.
 
-The list and the texts work without JavaScript. The search box is a GET form
-to this page (?q=); dist/tree.js lists the matches under it.
+The list and the texts work without JavaScript. The search box opens the search
+results page, <site>/q=<terms> (dist/search.js, owner 2026-11-07; dist/home.js
+sends the box and old ?q= links there). Without JavaScript the box is a GET
+form to this page (?q=).
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
@@ -305,7 +307,6 @@ def main():
         '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" '
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         '</button></div></form>'
-        '<div id="results" class="home-results" aria-live="polite" hidden></div>'
         f'<div class="home-actions">{random_row()}{guide_row()}</div>'
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         'Every placement says which source it follows, competing classifications are shown together, '
