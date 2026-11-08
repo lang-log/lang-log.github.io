@@ -27,20 +27,19 @@ owner 2026-11-08); dist/home.js sends old ?q= links to the top page there.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
-the three pools at random, then a record in it), so tapping the word does
+the pools at random, then a record in it), so tapping the word does
 something instead of selecting it as text. The buttons per domain and the
 row of links to the three atlases are gone (owner, 2026-11-07: Lang Log is
 one tree, not three domains). dist/home.js shows the row and, on a click, opens the page of a record
 drawn from dist/random.json, which this script writes (not committed):
 
-- language: page paths of Glottolog languages and dialects, without
-  bookkeeping records;
-- sign: sign languages and dialects of the signs-and-scripts data;
-- scripts: writing systems, without special and collection codes.
+- language: page paths of Glottolog languages and dialects of every
+  modality (sign languages included), without bookkeeping records;
+- scripts: writing systems, without special and collection codes (not yet
+  in the one tree, so they open record.html).
 """
 
 from html import escape
-import csv
 import re
 import datetime
 import json
@@ -67,11 +66,6 @@ def random_pools():
             bp.path_of(n["id"]) + ("" if "/#" in bp.path_of(n["id"]) else "/")
             for n in nodes.values()
             if n.get("level") in ("language", "dialect") and n.get("category") != "Bookkeeping"
-        ),
-        "sign": sorted(
-            n["id"]
-            for n in visual.values()
-            if n.get("domain") == "sign" and n.get("kind") in ("language", "dialect")
         ),
         "scripts": sorted(
             n["id"]
@@ -182,20 +176,16 @@ def families_html():
         for v, label in VIEWS
     )
     return (
-        f'<section class="home-section home-views" id="families"><h2>All families and isolates · {len(roots)}</h2>'
-        '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
-        '<p class="muted">Each is listed under the continent where most of its languages are spoken.</p>'
+        '<section class="home-section home-views" id="families">'
         f'<div class="seg explore-views" role="group" aria-label="View" hidden>{views}</div>'
         '<div class="explore-filter wm-legend" hidden>'
         '<p id="count" class="wm-count"></p>'
         '<div class="explore-colour"><label class="wm-colour">Colour by <span id="colour-slot"></span></label><div id="colour-legend"></div></div>'
         '<h3 class="wm-conds-title">Conditions</h3>'
-        '<p id="no-conditions" class="wm-empty">No conditions yet: every language is shown.</p>'
         '<div id="conditions"></div>'
         '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
         f'<div class="explore-view" data-view="list">{groups}'
-        '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
-        "Glottolog family. They are listed here for navigation only.</p>"
+        '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
         f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
         '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
         f'<svg id="map" class="lmap" viewBox="{world_view()}" role="img" aria-label="World map of the languages that match the conditions" '
@@ -203,8 +193,7 @@ def families_html():
         '<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>'
         '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
         '<g id="points"></g></svg>'
-        '<div id="card" class="wm-card" hidden></div>'
-        '<p class="wm-hint">Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.</p></div></div>'
+        "</div></div>"
         f'<div class="explore-view" data-view="tree" hidden>{bp.atlas_html("", downloads=downloads)}</div>'
         "</section>"
     )
@@ -245,26 +234,17 @@ def root_row(r):
 
 
 def sources_section():
-    """The "Sources & scope" text with the coverage figures and the study trees, each linked to its tree."""
+    """The "Sources & scope" text with the study trees, each linked to its tree."""
     u = bp.unified
-    st = u["stats"]
     text = (bp.ROOT / "source-data" / "sources-and-scope.html").read_text(encoding="utf-8")
     text = text.split("-->", 1)[1].strip()
     # The page is one level below the root.
     text = re.sub(r'href="(?!https?:|#|\.\./)', 'href="../', text)
-    coverage = (
-        f"<p>{st['glottologRecords']:,} Glottolog records retained; {st['canonicalRecords']:,} canonical records including "
-        f"source-specific clades/samples. All {st['summaryTrees']} discovered Phlorest dataset summary trees imported, plus WALS.</p>"
-        f"<p>{st['assertions']:,} source-tagged root/parent assertions. {st['topologicalConflicts']:,} incompatible clade pairs "
-        f"across study trees involve {st['recordsWithConflicts']:,} canonical records.</p>"
-        "<p>This is coverage of the imported corpus, not every publication worldwide.</p>"
-    )
     register = "".join(
         f'<div class="registry-source"><strong><a href="../{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
         f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a> · '
         f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
         f"<small>{escape(s['family'])} · {escape(s['license'])} · summary tree imported</small>"
-        + (f"<p>{escape(s['interpretationNote'])}</p>" if s.get("interpretationNote") else "")
         + "</div>"
         for s in u["sources"].values()
         if s.get("kind") == "study"
@@ -272,16 +252,7 @@ def sources_section():
     register = (
         f'<p><a href="../{bp.SOURCE_SLUG["wals"]}/">WALS families in Lang Log</a></p>' + register
     )
-    text = text.replace("<!-- coverage -->", coverage).replace("<!-- source-register -->", register)
-    # Counts in the text are computed here, never written in the source file.
-    with open(bp.ROOT / "source-data" / "names.csv", encoding="utf-8", newline="") as f:
-        name_rows = sum(1 for _ in csv.DictReader(f))
-    for key, value in (
-        ("summaryTrees", st["summaryTrees"]),
-        ("nameRows", name_rows),
-        ("sameLanguageLabels", st["sameLanguageLabels"]),
-    ):
-        text = text.replace(f"<!-- {key} -->", f"{value:,}")
+    text = text.replace("<!-- source-register -->", register)
     if "<!-- " in text:
         raise SystemExit(
             "sources-and-scope.html: unknown placeholder " + text[text.index("<!-- ") :][:40]
@@ -431,8 +402,6 @@ def stats_body():
         for h, rows in counts()
     )
     return (
-        '<p class="muted">Counted from the data each time the site is built. '
-        "Different kinds of records are counted separately; do not add them up.</p>"
         f'<dl class="stat-hero">{hero}</dl>'
         f'<section class="stats-group"><h2>By modality</h2>{bars(modality)}</section>'
         f'<section class="stats-group"><h2>Spoken languages by macroarea</h2>{bars(by_macroarea())}</section>'
@@ -500,13 +469,9 @@ def main():
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         "</button></div></form>"
         f'<div class="home-actions">{random_row()}{guide_row()}</div>'
-        '<p class="sub">An atlas of language families, sign languages and writing systems. '
-        "Every placement says which source it follows, competing classifications are shown together, "
-        "and the data can be downloaded.</p></section>\n"
+        "</section>\n"
         f"{families_html()}"
-        '<section class="home-more"><h2>Also</h2><ul>'
-        "<li>Corpora and data for low-resource languages: planned.</li>"
-        "</ul></section></main>\n"
+        "</main>\n"
         f"<footer><span>Glottolog 5.3 + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
         f"<span>{COPYRIGHT}</span></footer>\n"

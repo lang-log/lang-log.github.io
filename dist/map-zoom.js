@@ -26,11 +26,11 @@
 //   cannot scroll meanwhile, so a plain wheel zooms too. The view keeps its scale on screen
 //   when it opens and closes, and takes the shape of the window. The address gets
 //   #map-view (one history entry), so a shared link opens the map view at once.
-// - Points: a tap (or click) on a circle with data-g (Glottocodes, written by
-//   languoid_map.py) shows a box with the names of its records, each a link to the
-//   record's page. Names and addresses come from dist/atlas-data.js and
-//   dist/lineage-paths.js, loaded on the first tap; records() is shared with the
-//   top page's map view, whose own box shows more.
+// - Points: a tap (or click) near a point (circle or square) with data-g (Glottocodes, written by
+//   languoid_map.py, and by dist/explore.js on the top page's map view), within TAP_PX on
+//   screen, shows a box with the names of its records, each a link to the record's page.
+//   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
+//   the first tap. Every map that mounts this script shows the same box.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
@@ -45,9 +45,42 @@
   var STEP_MS = 220; // length of the + / - animation
   var HASH = '#map-view'; // address of the map view
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
+  var DRAG_PX = 4; // how far (screen pixels) a press may move and still be a tap
   // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
   // The top page's map dots start from it too (LangLogMap.POINT_PX).
   var POINT_PX = 4;
+  // Points are circles, or squares (<rect>) for the other members of a record's parent
+  // (languoid_map.py). These read and change a point's centre and its radius (half the
+  // side of a square), whichever shape it has.
+  function isSquare(p) {
+    return p.tagName.toLowerCase() === 'rect';
+  }
+  function pointR(p) {
+    return isSquare(p) ? parseFloat(p.getAttribute('width')) / 2 : parseFloat(p.getAttribute('r'));
+  }
+  function pointXY(p) {
+    if (!isSquare(p)) return [parseFloat(p.getAttribute('cx')), parseFloat(p.getAttribute('cy'))];
+    var r = pointR(p);
+    return [parseFloat(p.getAttribute('x')) + r, parseFloat(p.getAttribute('y')) + r];
+  }
+  function setPointR(p, r) {
+    if (!isSquare(p)) {
+      p.setAttribute('r', r);
+      return;
+    }
+    var c = pointXY(p);
+    p.setAttribute('x', +(c[0] - r).toFixed(3));
+    p.setAttribute('y', +(c[1] - r).toFixed(3));
+    p.setAttribute('width', 2 * r);
+    p.setAttribute('height', 2 * r);
+  }
+  function setPointX(p, x) {
+    if (isSquare(p)) p.setAttribute('x', +(x - pointR(p)).toFixed(2));
+    else p.setAttribute('cx', x);
+  }
+  // Every point a page draws: the circles, and the squares of languoid_map.py.
+  var POINTS = 'circle, .lmap-ctx rect';
+
   var manifest = null,
     manifestWait = [],
     atlas = null,
@@ -212,19 +245,19 @@
     var unitR = parseFloat(svg.getAttribute('data-r'));
     var scaled = unitR
       ? Array.prototype.map.call(
-          svg.querySelectorAll('.lmap-ctx circle, .lmap-main circle, .lmap-self circle'),
+          svg.querySelectorAll('.lmap-ctx rect, .lmap-main circle, .lmap-self circle'),
           function (c) {
-            return [c, parseFloat(c.getAttribute('r')) / unitR];
+            return [c, pointR(c) / unitR];
           },
         )
       : [];
     var points = null;
     function allPoints() {
       if (!points) {
-        points = Array.prototype.slice.call(svg.querySelectorAll('circle'));
+        points = Array.prototype.slice.call(svg.querySelectorAll(POINTS));
         points.forEach(function (c) {
           if (c.__x0 === undefined) {
-            c.__x0 = parseFloat(c.getAttribute('cx'));
+            c.__x0 = pointXY(c)[0];
             c.__k = 0;
           }
         });
@@ -279,7 +312,7 @@
       var box = svg.getBoundingClientRect(),
         unit = box.width && box.height ? Math.max(view.w / box.width, view.h / box.height) : 0;
       for (var i = 0; unit && i < scaled.length; i++)
-        scaled[i][0].setAttribute('r', +(POINT_PX * scaled[i][1] * unit).toFixed(3));
+        setPointR(scaled[i][0], +(POINT_PX * scaled[i][1] * unit).toFixed(3));
       // Each point goes to the copy of the world nearest the centre of the view.
       var cx = view.x + view.w / 2,
         ps = allPoints();
@@ -288,7 +321,7 @@
           n = Math.round((cx - p.__x0) / W);
         if (n !== p.__k) {
           p.__k = n;
-          p.setAttribute('cx', +(p.__x0 + n * W).toFixed(2));
+          setPointX(p, +(p.__x0 + n * W).toFixed(2));
         }
       }
       if (inset) {
@@ -617,6 +650,10 @@
     parent.insertBefore(wrap, svg);
     wrap.appendChild(svg);
     wrap.appendChild(bar);
+    // The key that build_paths.py writes under the map moves into the box with it, so the
+    // map view shows it too (record.css places it over the map there).
+    var key = wrap.parentNode.querySelector(':scope > .lmap-key');
+    if (key) wrap.appendChild(key);
     // The part of the page that fills the window in the map view: the map, or a larger
     // box marked lmap-host that holds the map and its own overlays (the top page's map view).
     var host = wrap.closest('.lmap-host') || wrap;
@@ -703,10 +740,14 @@
       else openView(true);
     });
 
-    // Points with records: a box with their names, each linked to the record's page.
+    // Taps on points: a tap (or click) that did not end a drag picks the nearest circle with
+    // data-g within TAP_PX on screen (points are only a few pixels wide) and shows the box
+    // of its records next to the tap; a tap elsewhere, Escape, closing the map view or new
+    // points (refresh()) hide it. The same on the record maps and the top page's map view.
     var root = base.replace(/map\/$/, '');
     var pop = null,
-      downAt = null;
+      downAt = null,
+      tapAt = null;
     function hidePop() {
       if (pop) pop.hidden = true;
     }
@@ -714,13 +755,14 @@
       var p = toSvg(clientX, clientY),
         best = null,
         bd = Infinity;
-      var cs = svg.querySelectorAll('circle[data-g]');
+      var cs = svg.querySelectorAll('circle[data-g], .lmap-ctx rect[data-g]');
       for (var i = 0; i < cs.length; i++) {
         var c = cs[i],
-          dx = parseFloat(c.getAttribute('cx')) - p[0],
-          dy = parseFloat(c.getAttribute('cy')) - p[1];
+          xy = pointXY(c),
+          dx = xy[0] - p[0],
+          dy = xy[1] - p[1];
         var d = Math.sqrt(dx * dx + dy * dy) / p[2];
-        var reach = Math.max(TAP_PX, parseFloat(c.getAttribute('r')) / p[2] + 4);
+        var reach = Math.max(TAP_PX, pointR(c) / p[2] + 4);
         if (d <= reach && d < bd) {
           bd = d;
           best = c;
@@ -781,14 +823,24 @@
       pop.style.left = Math.max(8, x) + 'px';
       pop.style.top = Math.max(8, y) + 'px';
     }
+    // Where the finger or pointer went down and came up decides, not the click: phone
+    // browsers move a tap's click towards the nearest element they think it meant.
     svg.addEventListener('pointerdown', function (e) {
       downAt = [e.clientX, e.clientY];
+      tapAt = null;
     });
-    svg.addEventListener('click', function (e) {
-      // Ignore clicks that ended a drag.
-      if (downAt && Math.abs(e.clientX - downAt[0]) + Math.abs(e.clientY - downAt[1]) > 4) return;
-      var c = nearest(e.clientX, e.clientY);
-      if (c) showPop(c, e.clientX, e.clientY);
+    svg.addEventListener('pointerup', function (e) {
+      // A press that moved more than DRAG_PX was a drag, not a tap.
+      var moved = downAt && Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > DRAG_PX;
+      tapAt = downAt && !moved ? downAt : null;
+      downAt = null;
+    });
+    svg.addEventListener('click', function () {
+      var at = tapAt;
+      tapAt = null;
+      if (!at) return;
+      var c = nearest(at[0], at[1]);
+      if (c) showPop(c, at[0], at[1]);
       else hidePop();
     });
     svg.addEventListener('keydown', function (e) {
@@ -807,6 +859,8 @@
         return full;
       },
       refresh: function () {
+        // The points changed: a box for a point that may be gone is closed.
+        hidePop();
         points = null;
         schedule();
       },
@@ -834,7 +888,7 @@
     if (e.key === 'Escape' && opened && !e.defaultPrevented) opened.close(false);
   });
 
-  window.LangLogMap = { mount: mount, records: records, POINT_PX: POINT_PX };
+  window.LangLogMap = { mount: mount, POINT_PX: POINT_PX };
   function all() {
     Array.prototype.forEach.call(document.querySelectorAll('svg.lmap[data-map]'), mount);
   }

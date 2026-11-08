@@ -55,53 +55,6 @@
   pointer-events: none;
   max-width: 60%;
 }
-.wm-card {
-  position: absolute;
-  z-index: 2;
-  width: min(290px, calc(100% - 16px));
-  padding: 12px 34px 10px 14px;
-  background: var(--c-ffffff);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  box-shadow: 0 4px 18px var(--c-24302e1f);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.wm-card h3 {
-  margin: 0 0 2px;
-  font-size: 16px;
-}
-.wm-card .wm-sub {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 12px;
-}
-.wm-card dl {
-  margin: 0 0 8px;
-}
-.wm-card dt {
-  font-size: 11px;
-  color: var(--muted);
-}
-.wm-card dd {
-  margin: 0 0 6px;
-  font-weight: 600;
-}
-.wm-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 0;
-}
-.wm-close {
-  position: absolute;
-  top: 4px;
-  inset-inline-end: 4px;
-  border: 0;
-  font-size: 18px;
-  line-height: 1;
-  padding: 6px 9px;
-}
 .wm-legend {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -252,10 +205,7 @@
 .wm-cond.wm-or-next {
   border-end-start-radius: 0;
   border-end-end-radius: 0;
-}
-.wm-cond.wm-or,
-.wm-cond.wm-or-next {
-  border-inline-start: 3px solid var(--orange);
+  border-bottom-style: dashed;
 }
 .wm-cond-head {
   display: flex;
@@ -311,15 +261,11 @@
 .wm-cond .wm-selectall {
   margin-top: 6px;
 }
-.wm-none {
-  color: var(--muted);
-  font-weight: 400;
-}
 #map.lmap {
   border: 0;
   border-radius: 0;
 }
-/* Map view: the map and its card fill the window (record.css .lmap-full; relative above would win). */
+/* Map view: the map and its record box fill the window (record.css .lmap-full; relative above would win). */
 .wm-map.lmap-full {
   position: fixed;
   top: 0;

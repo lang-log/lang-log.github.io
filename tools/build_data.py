@@ -5,6 +5,9 @@ import collections
 import hashlib
 import pathlib
 
+from modality import labels
+from not_languoids import NOT_LANGUOIDS, lift
+
 src = pathlib.Path("source-data")
 out = pathlib.Path("dist")
 rows = list(csv.DictReader(open(src / "languages.csv")))
@@ -62,6 +65,39 @@ for path in re.findall(r"\(tree/([^)]*)/md.ini\)", open(src / "dialects.md").rea
     ids = path.split("/")
     for a, b in zip(ids, ids[1:], strict=False):
         edge(b, a)
+# Glottolog's top-level groupings (Sign Language, Pidgin, Bookkeeping ...) give
+# each record its category; read it from the full tree before the groups that
+# are not languoids are left out (tools/not_languoids.py).
+catnames = {
+    "Sign Language",
+    "Unclassifiable",
+    "Pidgin",
+    "Unattested",
+    "Artificial Language",
+    "Speech Register",
+    "Mixed Language",
+    "Bookkeeping",
+}
+
+
+def top(id):
+    while parents.get(id):
+        id = parents[id]
+    return id
+
+
+category = {
+    id: nodes[top(id)]["name"] if nodes[top(id)]["name"] in catnames else "Spoken genealogy"
+    for id in nodes
+}
+unparented = [
+    id
+    for id in nodes
+    if not parents.get(id) and next(r for r in rows if r["ID"] == id)["Family_ID"]
+]
+parents, _ = lift(parents, "glottolog")
+for id in NOT_LANGUOIDS["glottolog"]:
+    del nodes[id]
 roots = []
 for id, n in nodes.items():
     n["parent"] = parents.get(id)
@@ -73,11 +109,7 @@ for n in nodes.values():
     n["children"].sort(key=lambda x: nodes[x]["name"].casefold())
 print("roots", len(roots))
 print([(nodes[x]["name"], nodes[x]["level"]) for x in roots if nodes[x]["level"] == "family"])
-missing = [
-    n["id"]
-    for n in nodes.values()
-    if not n["parent"] and next(r for r in rows if r["ID"] == n["id"])["Family_ID"]
-]
+missing = unparented
 print("Missing parents", missing)
 assert not missing
 for n in nodes.values():
@@ -88,19 +120,9 @@ for n in nodes.values():
         seen.add(p["id"])
         p = nodes[p["parent"]]
     n["root"] = p["id"]
-catnames = {
-    "Sign Language",
-    "Unclassifiable",
-    "Pidgin",
-    "Unattested",
-    "Artificial Language",
-    "Speech Register",
-    "Mixed Language",
-    "Bookkeeping",
-}
 for n in nodes.values():
-    rn = nodes[n["root"]]["name"]
-    n["category"] = rn if rn in catnames else "Spoken genealogy"
+    n["category"] = category[n["id"]]
+    n.update(labels(n["category"]))
 
 
 def count(id):
@@ -135,7 +157,11 @@ for r in wrows:
     }
     if r["Glottocode"] in nodes:
         matches[r["Glottocode"]].append(id)
+wparents, _ = lift({id: n["parent"] for id, n in wn.items()}, "wals")
+for id in NOT_LANGUOIDS["wals"]:
+    del wn[id]
 for id, n in wn.items():
+    n["parent"] = wparents[id]
     if n["parent"]:
         wn[n["parent"]]["children"].append(id)
     else:

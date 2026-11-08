@@ -45,12 +45,13 @@ import sys
 import unicodedata
 
 from languoid_map import map_svg
+from modality import labels, medium_text
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
 RESERVED = {"map", "data", "i18n", "stats", "sources", "updates", "features", "schema"}
 # Directories of earlier builds that no longer exist; removed on each run.
-OLD_DIRS = {"families"}
+OLD_DIRS = {"families", "sign-language", "bookkeeping", "pidgin", "unclassifiable", "unattested", "artificial-language", "speech-register", "mixed-language"}
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -217,11 +218,10 @@ def names_html(n):
         if r.get("placeholder"):
             continue
         seen.setdefault((r["text"], r.get("lang", "")), set()).add(r.get("provider", ""))
-    out = "<h3>Name in this language</h3>"
-    out += (f'<p dir="auto">{" / ".join(escape(x) for x in own)}</p>' if own
-            else '<p class="muted">Not recorded in the imported sources. No name inferred.</p>')
-    if not seen:  # an empty toggle opens onto nothing, so say so in plain text
-        return out + '<p class="muted">No other names or spellings recorded.</p>'
+    out = (f'<h3>Name in this language</h3><p dir="auto">{" / ".join(escape(x) for x in own)}</p>'
+           if own else "")
+    if not seen:  # an empty toggle would open onto nothing, so leave it out
+        return out
     out += f"<details><summary>Recorded names and spellings · {len(seen)}</summary><ul class=\"name-list\">"
     out += "".join(f'<li dir="auto">{escape(t)} <span class="muted">{escape(tag or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
                    for (t, tag), p in sorted(seen.items()))
@@ -254,9 +254,8 @@ def classification_html(depth, i):
     n = rec(i)
     cards = []
     if i in nodes and not nodes[i].get("parent"):
-        kind = "isolate" if nodes[i].get("isolate") else "entry"
         cards.append(f'<div class="evidence-card"><strong>According to {source_name_link(depth, "glottolog")}</strong>'
-                     f'<p>Independent top-level {kind}; no higher family asserted here.</p>{ext_link("glottolog")}</div>')
+                     f'{ext_link("glottolog")}</div>')
     seen = set()
     unique = []
     for e in unified["placements"].get(i, []):
@@ -281,17 +280,13 @@ def classification_html(depth, i):
                      + ", ".join(record_link(depth, x) for x in peers[:5]) + more + "</p>")
         cards.append(card + ext_link(e["source"]) + "</div>")
     out = '<section class="classification"><h2>Classification by source</h2>' + "".join(cards)
-    if len(unique) <= 1:
-        out += ('<p class="small-disclaimer">No additional direct placement recorded here. This is not a consensus '
-                'certificate; unimported studies may propose other relationships.</p>')
     attached = unified["anchors"].get(i, []) if i in nodes else []
     if attached:
         out += ('<h3>Other sources\' trees below this record</h3><ul class="record-links">'
                 + "".join(f'<li><a href="{escape(href(depth, a["root"]))}">If following {escape(sources[a["source"]]["title"])}</a>'
                           f' <span class="muted">{"catalog grouping" if a["type"] == "catalog" else "sampled study tree"}</span></li>'
                           for a in attached)
-                + '</ul><p class="small-disclaimer">Alternative source-conditioned branches. They are attached here for '
-                  'navigation, not as additional ancestors.</p>')
+                + '</ul>')
     return out + "</section>"
 
 
@@ -301,13 +296,13 @@ def debates_html(i):
     for d in unified.get("debates", []):
         if not ids & set(d["appliesTo"]):
             continue
-        out += f'<section class="debate"><h2>{escape(d["title"])}</h2><p class="small-disclaimer">{escape(d["status"])}</p>'
+        out += f'<section class="debate"><h2>{escape(d["title"])}</h2>'
         for p in d["positions"]:
             cls = " conflict-card" if p.get("stance") == "critique" else ""
-            out += (f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong><p>{escape(p["claim"])}</p>'
+            out += (f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong>'
                     f'<span class="evidence-tag">{escape(p["publication"])}</span><br>'
                     f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>')
-        out += f'<p class="small-disclaimer">{escape(d["note"])}</p></section>'
+        out += "</section>"
     return out
 
 
@@ -321,9 +316,7 @@ def conflicts_html(depth, i):
         pairs.setdefault((c["a"], c["b"]), [c, 0])[1] += 1
     def title(sid):
         return escape(sources[sid]["title"])
-    out = (f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
-           '<p class="small-disclaimer">These summary clades cannot both hold on the shared sampled tips. This does not '
-           'determine which study is correct. Examples below may involve a wider group containing this record.</p>')
+    out = f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
     for c, count in pairs.values():
         a, b, d = (escape(rec(x)["name"]) for x in c["witness"])
         out += (f'<div class="evidence-card conflict-card"><strong>{title(c["a"])} vs {title(c["b"])}</strong>'
@@ -362,11 +355,7 @@ def atlas_html(base, root=None, src=None, downloads=""):
             '<p id="view-count">Loading records…</p></div><div id="tooltip" hidden></div>'
             '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
             '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'
-            '<div class="canvas-note">Drag to pan · Scroll / pinch to zoom · Click a node to open its page</div></div>'
-            '<div class="how-to-read"><p>Branches are conditional on their source. Different placements appear together; no source switch is needed.</p>'
-            '<p>Open a row to see its members. Each name opens its own page, with every source\'s placement and paper links.</p>'
-            '<p>Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>'
-            '</div>')
+            '</div></div>')
 
 
 def hf_html(n):
@@ -434,6 +423,9 @@ def meta_html(n):
         parts.append("ISO 639-3: " + n["iso"])
     if n.get("area"):
         parts.append(n["area"])
+    # Every languoid is labelled with its medium (tools/modality.py); records that
+    # exist only in a study tree or WALS are spoken languages.
+    parts.append(medium_text(n if "modality" in n else labels(None)))
     return '<div class="meta">' + "".join(f"<span>{escape(p)}</span>" for p in parts) + "</div>"
 
 
@@ -441,7 +433,6 @@ def record_body(depth, i, heading="h1"):
     n = rec(i)
     body = f'<{heading}>{escape(n["name"])}</{heading}>{meta_html(n)}'
     if i in extra:
-        body += '<p class="small-disclaimer">Source-specific grouping or sample; not a new accepted language family.</p>'
         links = [ext_link(n["source"])]
     else:
         links = [f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener noreferrer">Glottolog record ↗</a>']
@@ -471,17 +462,18 @@ def map_html(depth, i):
     svg = map_svg("../" * depth + "map/", main, context, None, label, main_ids=main_ids, context_ids=context_ids)
     if not svg:
         return ""
-    notes = []
-    missing = unplaced_under[i]
-    if any(c in nodes for c in n["children"]):
-        notes.append(f"{len(main)} languoids shown" + (f"; {missing} have no coordinates in Glottolog" if missing else "") + ".")
+    # The key: what each kind of point stands for, named by record (no kind labels).
+    # dist/map-zoom.js moves it into the map box, so the map view shows it too.
+    key = []
+    if main_ids == [i]:
+        key.append(f'<li class="lmap-key-main notranslate">{escape(n["name"])}</li>')
+    elif main:
+        key.append(f'<li class="lmap-key-main">Members of {escape(n["name"])}</li>')
     if context:
-        notes.append("Faint points: other members of " + escape(nodes[parent]["name"]) + ".")
-    legend = " ".join(notes)
-    return (f'<figure class="lmap-figure">{svg}<figcaption>{legend} '
-            "Each point is the one representative location Glottolog gives for a record, not the area where it is spoken. "
+        key.append('<li class="lmap-key-ctx">Sister languoids</li>')
+    key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
+    return (f'<figure class="lmap-figure">{svg}{key_html}<figcaption>'
             'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
-            "Dashed borders are disputed or not settled. "
             "Projection: Web Mercator.</figcaption></figure>")
 
 
@@ -574,8 +566,6 @@ def source_page_body(sid):
     if src.get("dataset"):
         links.append(f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>')
     body += "<p>" + " · ".join(links) + "</p>"
-    if src.get("interpretationNote"):
-        body += f'<p class="small-disclaimer">{escape(src["interpretationNote"])}</p>'
     attached = sorted({g for g, lst in unified["anchors"].items() if g in nodes for a in lst if a["source"] == sid},
                       key=lambda g: nodes[g]["name"].lower())
     if attached:

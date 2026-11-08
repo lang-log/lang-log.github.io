@@ -9,39 +9,31 @@ data = json.load(open(p / "data.json"))
 u = json.load(open(p / "integrated.json"))
 nodes = data["nodes"] | u["extraNodes"]
 u["sources"]["hartmann_and_walkden2024"]["url"] = "https://doi.org/10.16995/glossa.10598"
-u["sources"]["hartmann_and_walkden2024"]["interpretationNote"] = (
-    "A study of phylogenetic signal in syntactic data. Its global tree is not treated here as evidence for one universal language family."
-)
 u["debates"] = [
     {
         "id": "transeurasian",
         "title": "Transeurasian relationship",
         "appliesTo": ["japo1237", "kore1284", "mong1329", "tung1282", "turk1311"],
-        "status": "Disputed genealogical proposal; no consensus implied",
         "positions": [
             {
                 "author": "Robbeets et al. (2021)",
-                "claim": "Under the Transeurasian hypothesis, Japonic, Koreanic, Tungusic, Mongolic and Turkic are branches of one proposed genealogical group.",
                 "url": "https://doi.org/10.1038/s41586-021-04108-8",
                 "publication": "Nature article",
                 "stance": "proposal",
             },
             {
                 "author": "Tian et al. (2022)",
-                "claim": "This critique argues that the linguistic, genetic and archaeological analyses do not provide conclusive evidence for that family or its proposed farming dispersal. This is rejection of the evidence, not a demonstrated alternative superfamily.",
                 "url": "https://doi.org/10.1101/2022.06.09.495471",
                 "publication": "bioRxiv preprint, version 1",
                 "stance": "critique",
             },
             {
                 "author": "Robbeets et al. (2022)",
-                "claim": "The response revises datasets and approaches while defending the proposed relationship and the triangulation argument.",
                 "url": "https://doi.org/10.1101/2022.10.05.510045",
                 "publication": "bioRxiv preprint, version 1",
                 "stance": "response",
             },
         ],
-        "note": "This is a manually curated paper-level debate. Its full proposed topology has not been imported; the five family labels are not a reconstruction of its internal branching.",
     }
 ]
 u["debateIndex"] = {id: ["transeurasian"] for id in u["debates"][0]["appliesTo"]}
@@ -86,7 +78,6 @@ for id, s in u["sources"].items():
         "family",
         "license",
         "dataset",
-        "interpretationNote",
     ]:
         if k in s:
             E.SubElement(el, k).text = str(s[k])
@@ -137,11 +128,10 @@ for d in u["debates"]:
             "id": d["id"],
             "title": d["title"],
             "applies-to": " ".join(d["appliesTo"]),
-            "status": d["status"],
         },
     )
     for r in d["positions"]:
-        E.SubElement(el, "position", {k: v for k, v in r.items() if k != "claim"}).text = r["claim"]
+        E.SubElement(el, "position", r)
 E.ElementTree(root).write(p / "language-families.xml", encoding="utf-8", xml_declaration=True)
 # Outline export: shared identity is retained via node-id and source attributes on each occurrence.
 childmap = collections.defaultdict(list)
@@ -187,13 +177,13 @@ def outline(id, parent, sid="glottolog", path=None):
             )
     for debate in u["debates"]:
         if id in debate["appliesTo"] and sid == "glottolog":
-            de = E.SubElement(el, "outline", {"text": debate["title"] + " — " + debate["status"]})
+            de = E.SubElement(el, "outline", {"text": debate["title"]})
             for pos in debate["positions"]:
                 E.SubElement(
                     de,
                     "outline",
                     {
-                        "text": pos["author"] + ": " + pos["claim"],
+                        "text": pos["author"],
                         "url": pos["url"],
                         "publication": pos["publication"],
                     },

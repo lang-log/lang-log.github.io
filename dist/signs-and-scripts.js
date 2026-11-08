@@ -71,7 +71,6 @@
     (out[e.parent] ??= []).push(e);
     (inc[e.child] ??= []).push(e);
   }
-  $('nav-' + domain).setAttribute('aria-current', 'page');
   const sl = (s) =>
     `<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`;
   const short = (s) =>
@@ -86,16 +85,8 @@
             : S[s].title;
   const badge = (e) =>
     `${esc(e.kind)} · according to <a href="${esc(S[e.source].url)}" target="_blank" rel="noopener noreferrer">${esc(short(e.source))}</a>${e.status !== 'reported' ? ` · <span class="v-status">${esc(e.status)}</span>` : ''}${e.run ? ' · ' + esc(e.run) : ''}${e.posterior != null ? ' · posterior ' + e.posterior : ''}`;
-  const c = data.counts;
   if (domain === 'scripts') {
     $('heading').textContent = 'Writing systems';
-    $('domain-note').textContent =
-      'A script is not a language family. Historical descent, graphic influence and language usage are distinct; missing ancestry is unreviewed, not proof of independent invention.';
-    $('search-hint').textContent = 'Try Brahmi · Hangul · Latin · SignWriting';
-  } else {
-    $('domain-note').textContent =
-      'Glottolog classifications, lexical-feature study trees and manual-alphabet groups share identities but keep their evidence separate. Navigation categories are not universal ancestors.';
-    $('search-hint').textContent = 'Try Japanese · Czech · ASL · Lithuanian';
   }
   function row(id, path = new Set(), relation = null) {
     const n = N[id],
@@ -132,16 +123,13 @@
     });
     return el;
   }
-  function group(title, description, ids, open = false) {
+  function group(title, ids, open = false) {
     const d = document.createElement('details');
     d.className = 'v-group';
     d.open = open;
     const s = document.createElement('summary');
     s.textContent = title + ' · ' + ids.length;
     d.append(s);
-    const p = document.createElement('p');
-    p.textContent = description;
-    d.append(p);
     const holder = document.createElement('div');
     d.append(holder);
     let done = false;
@@ -175,15 +163,13 @@
       host.append(
         group(
           'Catalog classification',
-          `All ${c.glottologSignRecords} records in the Glottolog Sign Language category, including family and dialect records. Categories are navigation.`,
-          ['sign1238'],
+          roots.filter((n) => n.sources?.includes('glottolog')).map((n) => n.id),
           true,
         ),
       );
       host.append(
         group(
           'Lexical-feature hypotheses',
-          'Source-specific sampled clades share the same language identities. Two European runs are replicates of one study.',
           data.studies.map((t) => t.root),
           true,
         ),
@@ -191,7 +177,6 @@
       host.append(
         group(
           'Manual-alphabet evidence',
-          `All ${c.manualAlphabetSamples} CLDF samples, including historical forms. Published subgroup metadata, not an inferred whole-language tree.`,
           roots.filter((n) => n.kind === 'sample grouping').map((n) => n.id),
         ),
       );
@@ -199,7 +184,6 @@
       host.append(
         group(
           'Histories with reviewed relationships',
-          'All imported historical and influence assertions appear together; each edge carries its source and uncertainty.',
           roots.filter((n) => out[n.id]?.length).map((n) => n.id),
           true,
         ),
@@ -207,7 +191,6 @@
       host.append(
         group(
           'Catalog entries without reviewed ancestry',
-          'These records remain searchable and inspectable. No displayed connection is not a claim of independent origin.',
           roots.filter((n) => !out[n.id]?.length).map((n) => n.id),
         ),
       );
@@ -347,13 +330,10 @@
   };
   $('close').onclick = () => $('sources').close();
   $('sources').addEventListener('close', () => saveURL(false));
-  $('coverage').innerHTML =
-    `<p><strong>${c.glottologSignRecords} / ${c.glottologSignRecords}</strong> Glottolog sign-category records; <strong>${c.iso15924Rows} / ${c.iso15924Rows}</strong> downloaded ISO 15924 rows; <strong>${c.silRows} / ${c.silRows}</strong> SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.</p><p>${c.manualAlphabetSamples} manual-alphabet samples; ${c.consensusTrees} lexical consensus trees covering ${c.distinctLexicalSamples} distinct language samples; ${c.scriptRelationships} reviewed script relationships; ${c.usageAssertions} CLDR usage assertions. These are different units and should not be added as “languages.”</p>`;
-  $('limitations').innerHTML = data.limitations.map((x) => '<li>' + esc(x) + '</li>').join('');
   $('source-register').innerHTML = Object.values(S)
     .map(
       (s) =>
-        `<div class="v-source">${sl(s.id)}<p>${esc(s.kind)}${s.license ? ' · ' + esc(s.license) : ''}</p>${s.scope ? '<p>' + esc(s.scope) + '</p>' : ''}${s.dataset ? `<a href="${esc(s.dataset)}" target="_blank" rel="noopener noreferrer">Research data ↗</a>` : ''}</div>`,
+        `<div class="v-source">${sl(s.id)}<p>${esc(s.kind)}${s.license ? ' · ' + esc(s.license) : ''}</p>${s.dataset ? `<a href="${esc(s.dataset)}" target="_blank" rel="noopener noreferrer">Research data ↗</a>` : ''}</div>`,
     )
     .join('');
   function applyURL() {
