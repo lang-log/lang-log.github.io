@@ -100,17 +100,17 @@ window.LanguageModels = (() => {
   }
   function mount(host, node, options = {}) {
     const codes = codesFor(node);
-    host.innerHTML = `<h3>🤗 Hugging Face models</h3><p class="hf-intro">Models tagged for ${escape(node.name)}. Open a model card to check its intended use and evaluation.</p>`;
+    host.innerHTML = `<h3>🤗 Hugging Face models</h3>`;
     if (!codes.length) {
       host.insertAdjacentHTML(
         'beforeend',
-        `<p class="small-disclaimer">${node.level === 'family' || node.level === 'clade' ? 'Select an individual language to find language-tagged models.' : 'No exact ISO language mapping for this record. Parent-language support is not assumed.'}</p><a class="hf-browse" href="https://huggingface.co/models?search=${encodeURIComponent(node.name)}" target="_blank" rel="noopener noreferrer">Search the name on Hugging Face ↗</a><p class="small-disclaimer">Name search is exploratory; results are not verified matches.</p>`,
+        `<a class="hf-browse" href="https://huggingface.co/models?search=${encodeURIComponent(node.name)}" target="_blank" rel="noopener noreferrer">Search the name on Hugging Face ↗</a>`,
       );
       return;
     }
     host.insertAdjacentHTML(
       'beforeend',
-      `<label class="hf-task-label">Model task<select class="hf-task" aria-label="Hugging Face model task">${tasks.map(([v, label]) => `<option value="${v}">${label}</option>`).join('')}</select></label><div class="hf-links"></div><p class="small-disclaimer">Exact model-card language tags: ${codes.map(escape).join(' / ')}. Includes multilingual models; tags are not a quality or dialect-coverage guarantee.</p><div class="hf-status" role="status" aria-live="polite"></div><div class="hf-list"></div><button type="button" class="hf-retry" hidden>Retry loading models</button>`,
+      `<label class="hf-task-label">Model task<select class="hf-task" aria-label="Hugging Face model task">${tasks.map(([v, label]) => `<option value="${v}">${label}</option>`).join('')}</select></label><div class="hf-links"></div><div class="hf-status" role="status" aria-live="polite"></div><div class="hf-list"></div><button type="button" class="hf-retry" hidden>Retry loading models</button>`,
     );
     const task = host.querySelector('.hf-task'),
       status = host.querySelector('.hf-status'),

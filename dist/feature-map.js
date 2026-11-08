@@ -350,7 +350,6 @@
       if (conds[i + 1] && conds[i + 1].or) cb.classList.add('wm-or-next');
       box.appendChild(cb);
     });
-    $('no-conditions').hidden = conds.length > 0;
   }
 
   function setColour(id) {

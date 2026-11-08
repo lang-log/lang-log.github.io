@@ -226,7 +226,6 @@
       if (loaded) return;
       loaded = true;
       const wrap = document.createElement('div');
-      wrap.innerHTML = `<p class="small-disclaimer">Alternative source-conditioned branch. This attachment is for navigation, not an additional ancestor.</p>`;
       wrap.appendChild(makeNode(a.root, a.source, trail));
       d.appendChild(wrap);
     }
@@ -249,7 +248,7 @@
     for (const id of rootsFiltered()) out.appendChild(makeNode(id));
     const intro = document.createElement('p');
     intro.className = 'root-context';
-    intro.textContent = 'Cross-family / outgroup source trees · navigation only';
+    intro.textContent = 'Cross-family / outgroup source trees';
     out.appendChild(intro);
     for (const a of unified.anchors.__unplaced__ || []) out.appendChild(makeSourceBranch(a));
   }

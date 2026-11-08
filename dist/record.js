@@ -142,31 +142,31 @@
                 `<p dir="auto">${esc(a.text || a.name || a)}${a.source && S[a.source] ? ' · ' + sl(a.source) : ''}</p>`,
             )
             .join('')
-        : '<p class="muted">No verified same-language name recorded.</p>');
+        : '');
     if (n.glyphSample)
-      html += `<p class="v-glyphs" dir="auto">${esc(n.glyphSample)}</p><p class="muted">Unicode letter sample, not a native name. ${sl('ucd')}</p>`;
+      html += `<p class="v-glyphs" dir="auto">${esc(n.glyphSample)}</p><p class="muted">${sl('ucd')}</p>`;
     html += `<details><summary>Aliases and spellings · ${aliases.length}</summary><ul class="name-list">${aliases.map((a) => `<li dir="auto">${esc(a.text || a.name || a)} <span class="muted">${esc(a.lang || '')} · ${esc(a.provider || a.source || '')}</span></li>`).join('')}</ul></details></section>`;
     if (n.area || n.region || n.silType)
       html += `<section><h2>Record information</h2>${n.area ? '<p>Macroarea: ' + esc(n.area) + '</p>' : ''}${n.region ? '<p>Region: ' + esc(n.region) + '</p>' : ''}${n.silType ? '<p>SIL-reported type: ' + esc(n.silType) + '<br>Direction: ' + esc(n.direction) + '<br>Status: ' + esc(n.silStatus) + '</p>' : ''}</section>`;
-    html += `<section><h2>Classification and placements</h2>${incoming.length ? incoming.map(evidence).join('') : '<p>No incoming placement is recorded in the imported sources. This alone does not establish an independent origin.</p>'}</section>`;
+    html += `<section><h2>Classification and placements</h2>${incoming.map(evidence).join('')}</section>`;
     if (notes.length || debates.length || comparisons.size) {
       html += '<section><h2>Alternative accounts and research notes</h2>';
       for (const note of notes)
         html += `<article class="evidence-card"><h3>${esc(note.title)}</h3><p>${esc(note.text)}</p>${note.sources.map(sl).join('<br>')}</article>`;
       for (const d of debates)
-        html += `<article><h3>${esc(d.title)}</h3><p>${esc(d.status)}</p>${d.positions.map((p) => `<div class="evidence-card"><strong>According to ${esc(p.author)}</strong><p>${esc(p.claim)}</p><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.publication)} ↗</a></div>`).join('')}<p>${esc(d.note)}</p></article>`;
+        html += `<article><h3>${esc(d.title)}</h3>${d.positions.map((p) => `<div class="evidence-card"><strong>According to ${esc(p.author)}</strong><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.publication)} ↗</a></div>`).join('')}</article>`;
       for (const c of comparisons.values()) {
         const [a, b, d] = c.witness;
-        html += `<div class="evidence-card"><h3>${esc(S[c.a].title)} / ${esc(S[c.b].title)}</h3><p>According to ${sl(c.a)}: ${nl(a)} + ${nl(b)} group before ${nl(d)}.</p><p>According to ${sl(c.b)}: ${nl(b)} + ${nl(d)} group before ${nl(a)}.</p><p>${c.sharedTips} shared samples compared. This incompatibility does not determine which study is correct.</p><p>${nl(c.cladeA)} · ${nl(c.cladeB)}</p></div>`;
+        html += `<div class="evidence-card"><h3>${esc(S[c.a].title)} / ${esc(S[c.b].title)}</h3><p>According to ${sl(c.a)}: ${nl(a)} + ${nl(b)} group before ${nl(d)}.</p><p>According to ${sl(c.b)}: ${nl(b)} + ${nl(d)} group before ${nl(a)}.</p><p>${nl(c.cladeA)} · ${nl(c.cladeB)}</p></div>`;
       }
       html += '</section>';
     }
     html += `<section><h2>Related child records · ${outgoing.length}</h2><div class="record-links">${outgoing.map((e) => `<div>${nl(e.child)}<small>${esc(e.kind || 'Classification')} · ${sl(e.source)}</small></div>`).join('') || '<p>No child records imported.</p>'}</div></section>`;
     if (usage.length)
-      html += `<section><h2>Language usage · ${usage.length}</h2><p>CLDR language codes and primary/secondary designations; usage is not ancestry. ${sl('cldr')}</p><ul class="v-usage">${usage.map((u) => '<li>' + esc(u.language) + ' · ' + esc(u.status) + (u.territories.length ? ' · ' + esc(u.territories.join(', ')) : '') + '</li>').join('')}</ul></section>`;
+      html += `<section><h2>Language usage · ${usage.length}</h2><p>${sl('cldr')}</p><ul class="v-usage">${usage.map((u) => '<li>' + esc(u.language) + ' · ' + esc(u.status) + (u.territories.length ? ' · ' + esc(u.territories.join(', ')) : '') + '</li>').join('')}</ul></section>`;
     if (n.iso && ['language', 'dialect'].includes(n.level || n.kind))
       html += '<section id="variant-models"></section>';
-    html += `<section><h2>Sources</h2>${[...sourceIds].map((s) => '<p>' + sl(s) + '</p>').join('')}${base?.[id] ? `<p><a href="https://glottolog.org/resource/languoid/id/${encodeURIComponent(id)}" target="_blank" rel="noopener noreferrer">Glottolog record & bibliography ↗</a></p>` : ''}<p class="muted">Coverage is limited to the imported sources. No displayed alternative does not imply consensus.</p></section>`;
+    html += `<section><h2>Sources</h2>${[...sourceIds].map((s) => '<p>' + sl(s) + '</p>').join('')}${base?.[id] ? `<p><a href="https://glottolog.org/resource/languoid/id/${encodeURIComponent(id)}" target="_blank" rel="noopener noreferrer">Glottolog record & bibliography ↗</a></p>` : ''}</section>`;
     $('variant-content').innerHTML = html;
     if ($('variant-models') && window.LanguageModels)
       window.LanguageModels.mount(

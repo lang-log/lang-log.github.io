@@ -22,15 +22,9 @@ window.LANGLOG_I18N = {
       'Australia': 'オーストラリア',
       'Oceania': 'オセアニア',
       'No location in the data': 'データに位置がないもの',
-      'Each is listed under the continent where most of its languages are spoken.':
-        '言語がもっとも多く話されている大陸の下に並べています。',
       'Stats': '統計',
       'Updates': '更新情報',
       'About Lang Log': 'Lang Log について',
-      'Counted from the data each time the site is built.':
-        '数はサイトを作るたびにデータから数えています。',
-      'Different kinds of records are counted separately; do not add them up.':
-        '種類の違う記録は別々に数えているので、足し合わせないでください。',
       'All records': 'すべての記録',
       'By modality': 'モダリティ別',
       'Other kinds of languages': 'そのほかの言語',
@@ -90,16 +84,12 @@ window.LANGLOG_I18N = {
       'Show the tree of this branch': 'この枝の樹形図を表示',
       'Where Lang Log attaches this tree': 'Lang Log でこの系統樹をつないでいる場所',
       "Other sources' trees below this record": 'この記録の下にあるほかの出典の系統樹',
-      'Alternative source-conditioned branches. They are attached here for navigation, not as additional ancestors.':
-        '出典ごとの別の分岐です。案内のためにここにつないでいて、新しい祖先を示すものではありません。',
       'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
         'ドラッグで移動 · スクロールかピンチで拡大縮小 · 点をクリックでそのページへ',
       "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
         '行を開くと下位の記録が見えます。名前を押すと、その記録のページ(出典ごとの位置づけと論文へのリンク付き)が開きます。',
       'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
         '独立した語族と孤立言語は、並んだ根として表示します。破線は案内のためのつなぎで、祖先関係ではありません。距離は時間を表しません。',
-      'Source-specific grouping or sample; not a new accepted language family.':
-        '出典だけにあるグループか標本です。認められた新しい語族ではありません。',
       '→ sampled study tree': '→ 標本をとった研究の系統樹',
       '→ catalog grouping': '→ カタログのグループ',
       'sampled study tree': '標本をとった研究の系統樹',
@@ -133,29 +123,19 @@ window.LANGLOG_I18N = {
       'Language feature map · Lang Log by yoshi': '言語の特性地図 · Lang Log by yoshi',
       'About': '説明',
       'About this map': 'この地図について',
-      'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-        '最初はすべての言語が地図に出ています。条件を足すと、合う言語だけが残ります。点の色分けに使う特性も選べます。',
       'Colour by': '色分けする特性',
       'None (one colour)': 'なし(1色)',
       'Conditions': '条件',
-      'No conditions yet: every language is shown.':
-        '条件はまだありません。すべての言語を表示しています。',
       '+ Add condition': '+ 条件を追加',
       'Choose a feature': '特性を選ぶ',
       'Remove this condition': 'この条件を削除',
       'Select all': 'すべて選択',
       'No data': 'データなし',
       'Close': '閉じる',
-      'Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.':
-        'ピンチか Ctrl + ホイールで拡大、ドラッグで移動、点を押すと言語が出ます。',
       'WALS page': 'WALS のページ',
       'Lang Log record': 'Lang Log の記録',
       'World map of the languages that match the conditions': '条件に合う言語の世界地図',
       'The map data could not be loaded.': '地図のデータを読み込めませんでした。',
-      'The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.':
-        '点は、座標のある Glottolog 5.3 のすべての言語です。Glottolog がその言語に与えた代表地点で、話されている範囲ではありません。特性の値は WALS Online(Dryer and Haspelmath 編、2013年)の CLDF 版 v2020.4(CC BY 4.0)から取り、WALS の各言語を対応する Glottolog の言語に結び付けています。',
-      'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
-        '1つの条件の中でチェックした値は「または」でつながります。条件どうしは、つなぎ目を OR に切り替えない限り「かつ」でつながります。OR でつないだ条件はひとかたまりとして扱うので、「A AND B OR C」は「A かつ (B または C)」という意味です。条件の特性にデータがない言語は、その条件に合わないものとします。',
       'This map needs JavaScript. The feature data is in':
         'この地図には JavaScript が必要です。特性のデータは次にあります:',
       'Land and borders: Natural Earth (public domain)':
@@ -194,8 +174,6 @@ window.LANGLOG_I18N = {
       'Search records and aliases': '記録と別名を検索',
       'Try Japanese · 日本語 · Basque · Austronesian':
         '例: Japanese · 日本語 · Basque · Austronesian',
-      'Try Japanese · Czech · ASL · Lithuanian': '例: Japanese · Czech · ASL · Lithuanian',
-      'Try Brahmi · Hangul · Latin · SignWriting': '例: Brahmi · Hangul · Latin · SignWriting',
       'Evidence filter': '根拠で絞り込む',
       'All evidence': 'すべての根拠',
       'With research trees': '研究の系統樹があるもの',
@@ -221,7 +199,6 @@ window.LANGLOG_I18N = {
       'Choose a random sign language or dialect': '手話か方言をランダムに選ぶ',
       'Choose a random writing system': '文字体系をランダムに選ぶ',
       'Download': 'ダウンロード',
-      'How to read': '読み方',
       'Copy link': 'リンクをコピー',
       'Zoom in': '拡大',
       'Zoom out': '縮小',
@@ -242,8 +219,6 @@ window.LANGLOG_I18N = {
       'Expand A': 'A を開く',
       'Expand B': 'B を開く',
       'Show in tree': '樹形図で見る',
-      'Cross-family / outgroup source trees · navigation only':
-        '語族をまたぐ / 外群の系統樹 · 案内のみ',
       'Catalog classification': 'カタログの分類',
       'Lexical-feature hypotheses': '語彙特徴による仮説',
       'Manual-alphabet evidence': '指文字の根拠',
@@ -251,7 +226,6 @@ window.LANGLOG_I18N = {
       // Atlas: header numbers
       'Glottolog records': 'Glottolog の記録',
       'Manual-alphabet samples': '指文字の標本',
-      'CLDR usage assertions': 'CLDR の使用データ',
 
       // Record details
       'Record details': '記録の詳細',
@@ -259,8 +233,6 @@ window.LANGLOG_I18N = {
       'Record page': '記録のページ',
       'Select a row to see its placements, names and sources.':
         '行を選ぶと、位置づけ、名前、出典が表示されます。',
-      'Select a record to see its placements, names and evidence.':
-        '記録を選ぶと、位置づけ、名前、根拠が表示されます。',
       'ONE RECORD · SOURCE-CONDITIONED PLACEMENTS': '1 件の記録 · 出典ごとの位置づけ',
       'Open detail page ↗': '詳細ページを開く ↗',
       'Details ↗': '詳細 ↗',
@@ -276,13 +248,7 @@ window.LANGLOG_I18N = {
       'According to Glottolog 5.3': 'Glottolog 5.3 による',
       'Name in this language': 'この言語での名前',
       'Names': '名前',
-      'Names and native forms': '名前と自称',
-      'Not recorded in the imported sources. No name inferred.':
-        '取り込んだ資料には記録がありません。推測した名前は載せていません。',
-      'No verified same-language name recorded.':
-        '確かめられたこの言語での名前は記録されていません。',
       'No alternate names recorded.': '別名は記録されていません。',
-      'No other names or spellings recorded.': 'ほかの名前やつづりは記録されていません。',
       'No child records imported.': '下位の記録は取り込まれていません。',
       'Isolate: no higher family': '孤立言語: 上位の語族なし',
       'Top-level: no higher family': '最上位: 上位の語族なし',
@@ -290,10 +256,6 @@ window.LANGLOG_I18N = {
         '独立した最上位の項目です。ここでは上位の語族を主張していません。',
       'Independent top-level isolate; no higher family asserted here.':
         '独立した最上位の孤立言語です。ここでは上位の語族を主張していません。',
-      'No additional direct placement recorded here. This is not a consensus certificate; unimported studies may propose other relationships.':
-        'ここには他の直接の位置づけは記録されていません。合意を示すものではなく、取り込んでいない研究が別の関係を唱えている場合があります。',
-      'No incoming placement is recorded in the imported sources. This alone does not establish an independent origin.':
-        '取り込んだ資料には、この記録の上位の位置づけがありません。それだけで独立した起源を示すものではありません。',
       'Alternative accounts and research notes': '別の説と研究メモ',
       'Incompatible study branches': '両立しない研究の分岐',
       'Glottolog record & bibliography ↗': 'Glottolog の記録と文献 ↗',
@@ -335,14 +297,10 @@ window.LANGLOG_I18N = {
         'Hugging Face に接続できませんでした。上のリンクを使うか、もう一度試してください。モデルがないという意味ではありません。',
       'Retry loading models': 'モデルを読み込み直す',
       'Search the name on Hugging Face ↗': 'Hugging Face で名前を検索 ↗',
-      'Select an individual language to find language-tagged models.':
-        '個別の言語を選ぶと、その言語のタグが付いたモデルを探せます。',
       'No models found with this exact language tag.':
         'この言語タグがぴったり付いたモデルは見つかりませんでした。',
 
       // Downloads
-      'Downloads and reuse': 'ダウンロードと再利用',
-      'Names and exports': '名前と書き出し',
       'Integrated XML ↓': '統合 XML ↓',
       'Assertions JSON ↓': '主張の JSON ↓',
       'Names / base JSON ↓': '名前 / 基本 JSON ↓',
@@ -359,101 +317,24 @@ window.LANGLOG_I18N = {
       'Scope': '範囲',
       'Sources': '出典',
       'Source register': '出典の一覧',
-      'How disagreements are handled': '食い違いの扱い方',
-      'What the relationships mean': '関係の意味',
-      'Coverage still to be completed': 'まだ足りない範囲',
-      'Remaining gaps': '残っている穴',
-      'Integrated view · all imported sources.': '統合表示 · 取り込んだすべての出典',
-      'Glottolog sign-category records;': 'Glottolog の手話の記録、',
-      'downloaded ISO 15924 rows;': 'ダウンロードした ISO 15924 の行、',
       'Classification and names from': '分類と名前の出典:',
       ', used under': '。ライセンス:',
-      'This is coverage of the imported corpus, not every publication worldwide.':
-        'これは取り込んだ資料の範囲で、世界のすべての文献ではありません。',
-      'Coverage is limited to the imported sources. No displayed alternative does not imply consensus.':
-        '範囲は取り込んだ資料に限られます。別の説が表示されていなくても、合意があるという意味ではありません。',
-      'Catalog completeness is measured against the imported snapshots. Research coverage is partial, and missing branches do not imply agreement.':
-        'カタログが揃っているかは、取り込んだ時点の版を基準にしています。研究の取り込みは一部だけで、分岐がないことは同意を意味しません。',
       'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
         '分岐は出典ごとのものです。違う位置づけが並んで表示されるので、出典を切り替える必要はありません。',
       'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
         '独立した語族と孤立言語は、並んだ根として表示されます。各系統を開くと、記録された分類をたどれます。',
       'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
         '行をクリックすると開いて詳しく見られます。言語を選ぶと、出典ごとの位置づけと、論文に基づく別の説を比べられます。研究の分岐も同じ一覧の中で開けます。',
-      'Expand a row to follow its branches. Select “Details” for all placements and citations. Repeated names refer to the same record.':
-        '行を開くと系統をたどれます。すべての位置づけと引用は「詳細」で見られます。何度も出てくる名前は同じ記録を指します。',
-      'Each placement says “According to [source]” and links to its paper or catalog. Catalog classifications are not mislabeled as individual research papers.':
-        '各位置づけには「出典: [資料名]」とあり、その論文かカタログにリンクしています。カタログの分類を個別の研究論文として扱うことはしていません。',
-      'Different parent names alone do not prove conflict. For pairs of study trees, the atlas compares clades restricted to at least three identical sampled language IDs. Crossing, non-nested clades are marked as topologically incompatible.':
-        '上位の名前が違うだけでは食い違いとはいえません。研究の系統樹どうしは、同じ言語 ID の標本が 3 つ以上ある分岐に絞って比べます。交差して入れ子にならない分岐を、形の上で両立しないものとして示します。',
-      'Different sampling, unresolved polytomies and repeated mappings of different local varieties are not, by themselves, evidence of conflicting ancestry. Repeated or nested tip IDs are excluded from automatic conflict comparison.':
-        '標本の違い、解決していない多分岐、別々の地域変種が同じ言語に何度も対応づけられていることは、それだけでは系統の食い違いの証拠になりません。繰り返し出てくる末端 ID や入れ子の末端 ID は、自動の比較から外しています。',
-      'A conflicting summary topology does not establish which scientific claim is correct. Posterior uncertainty and all analyses within each paper have not been reviewed.':
-        '要約の系統樹が食い違っていても、どちらの説が正しいかは決まりません。事後分布の不確かさや、各論文の中のすべての分析までは確認していません。',
-      'A script is not a language family. Historical descent, graphic influence and language usage are distinct; missing ancestry is unreviewed, not proof of independent invention.':
-        '文字体系は語族ではありません。歴史的な系統、字形の影響、言語での使用は別のものです。祖先がないのは未確認だからで、独自に発明された証拠ではありません。',
-      'A shared writing system or manual alphabet is not proof of shared language ancestry.':
-        '同じ文字体系や指文字を使っていても、言語の祖先が同じ証拠にはなりません。',
-      'All imported historical and influence assertions appear together; each edge carries its source and uncertainty.':
-        '取り込んだ歴史と影響の主張をすべて一緒に表示します。各線には出典と確からしさが付いています。',
-      'Glottolog classifications, lexical-feature study trees and manual-alphabet groups share identities but keep their evidence separate. Navigation categories are not universal ancestors.':
-        'Glottolog の分類、語彙特徴の研究の系統樹、指文字のグループは、同じ記録を共有しつつ、根拠は別々に保っています。案内用の分類は共通の祖先ではありません。',
-      'Source-specific sampled clades share the same language identities. Two European runs are replicates of one study.':
-        '出典ごとの標本の分岐は、同じ言語の記録を共有します。ヨーロッパの 2 つの解析は、1 つの研究の繰り返しです。',
-      'Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.':
-        '歴史的な系統、字形の影響、標本の同一性、文字の使用は、それぞれ別の関係です。全体に共通する祖先は主張していません。',
-      'These records remain searchable and inspectable. No displayed connection is not a claim of independent origin.':
-        'これらの記録も検索して見られます。つながりが表示されていなくても、独立した起源を主張するものではありません。',
-      'Standard chapters are sections of one publication, not independent studies. Bibliographic references are distinguished from imported datasets.':
-        '規格の章は 1 つの文献の節で、独立した研究ではありません。文献の参照と、取り込んだデータセットは区別しています。',
-      'The Transeurasian paper-level debate includes proposal, critique and response. This is distinct from automatic topology comparison.':
-        'トランスユーラシア説の論文どうしの議論(提案、批判、応答)を含みます。これは系統樹の形の自動比較とは別のものです。',
-      'These summary clades cannot both hold on the shared sampled tips. This does not determine which study is correct. Examples below may involve a wider group containing this record.':
-        'これらの要約の分岐は、共通の標本の上で両方が成り立つことはありません。どちらの研究が正しいかは決まりません。下の例は、この記録を含むもっと広いグループに関わる場合があります。',
-      'This atlas preserves every imported classification assertion with its source. Exact Glottocode matches share one canonical language record. Source-specific groupings and unmapped samples retain separate IDs. A repeated appearance in the outline is a reference to the same record, not a new language.':
-        'この地図は、取り込んだ分類の主張をすべて出典つきで保っています。Glottocode が一致するものは 1 つの言語の記録にまとめます。出典ごとのグループと、対応づけていない標本は別の ID のままです。一覧に何度も出てくるのは同じ記録への参照で、別の言語ではありません。',
-      "This is not every published tree worldwide. Ethnologue's full proprietary hierarchy, all regional monographs, all historical proposals, catalog bibliographies and a complete paper-by-paper review of every conflict are not incorporated. A node with no displayed alternative has not been certified as consensus.":
-        'これは世界で公開されたすべての系統樹ではありません。Ethnologue の有料の完全な階層、地域ごとのすべての専門書、歴史上のすべての提案、カタログの文献一覧、すべての食い違いの論文ごとの確認は、取り込んでいません。別の説が表示されていない項目も、合意が確かめられたわけではありません。',
-      'Every assertion retains its source. Catalog classifications, lexical-feature phylogenies, manual-alphabet groups, graphic influence and writing-system usage remain distinct. “Intermediate stages omitted” means a broad historical descent claim, not an immediate parent. Study roots and catalog categories are navigation entries, not a single invented ancestor.':
-        'すべての主張に出典が付いています。カタログの分類、語彙特徴の系統、指文字のグループ、字形の影響、文字体系の使用は、別々に扱います。「中間の段階を省略」は大まかな系統の主張で、直接の親ではありません。研究の根やカタログの分類は案内のための項目で、作り上げた 1 つの祖先ではありません。',
-      'Glottolog provides the navigation backbone. Alternative WALS and study branches are embedded at their shared ancestor where possible. This attachment is for navigation, not a new genealogical claim. Cross-family/outgroup trees remain in a separate navigation section.':
-        'Glottolog を案内の骨組みにしています。WALS や研究の別の分岐は、できるときは共通の祖先の下に入れています。このつなぎは案内のためで、新しい系統の主張ではありません。語族をまたぐ系統樹と外群の系統樹は、別の案内欄に置いています。',
-      'Language details query the public Hugging Face Hub API on demand. Results require an exact match in model-card language metadata using the record’s own ISO code and its documented two-letter equivalent. Parent-language and macrolanguage support is not inferred for dialects or individual languages. Multilingual models may appear. Metadata is publisher supplied and does not establish quality, exclusive language support, or dialect coverage. The list is a limited download-sorted sample, with links to the full Hub results. Model metadata is live and is not included in the classification XML/OPML exports.':
-        '言語の詳細を開くと、公開されている Hugging Face Hub の API に問い合わせます。モデルカードの言語情報が、その記録の ISO コードか、対応する 2 文字コードとぴったり合うものだけを出します。方言や個別の言語に、親の言語やマクロ言語の対応を当てはめることはしません。多言語モデルも出ることがあります。情報は公開者が付けたもので、品質、その言語だけへの対応、方言の対応を保証しません。一覧はダウンロード数順の一部で、Hub の全結果へのリンクがあります。モデルの情報はその場で取得するもので、分類の XML/OPML には含みません。',
-      'XML and JSON contain every record, assertion, note, source, usage entry and input checksum. OPML is a repeated-reference outline of classification and history assertions; it does not include the full metadata or CLDR usage table. Source-specific rights remain applicable: Glottolog CC BY 4.0, SIL CC BY-SA 4.0, Power CLDF GPL-3.0, Unicode data under Unicode terms.':
-        'XML と JSON には、すべての記録、主張、メモ、出典、使用データ、入力のチェックサムが入っています。OPML は分類と歴史の主張の一覧(同じ記録は参照として繰り返し出ます)で、すべての情報や CLDR の使用表は含みません。出典ごとの権利はそのまま適用されます: Glottolog CC BY 4.0、SIL CC BY-SA 4.0、Power CLDF GPL-3.0、Unicode のデータは Unicode の利用条件。',
-      'SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.':
-        'SIL の索引の行です。ISO コードが一致するものは記録を共有し、SIL 独自の識別子は別のままです。',
-      'All Glottolog alias rows for the sign-language category are preserved with their provider tags. ISO English/French labels and SIL names are retained. Verified same-language labels appear where present. UCD glyph samples show characters, not a script’s native name. Video or sign-notation self-names have not been invented.':
-        '手話の分類にある Glottolog の別名の行は、提供元のタグつきですべて保っています。ISO の英語・フランス語の名前と SIL の名前も残しています。確かめられたその言語での名前は、あるときだけ表示します。UCD の字形の見本は文字を示すもので、文字体系の自称ではありません。動画や手話表記による自称を作り上げてはいません。',
-      'All sources appear together. Repeated branches are references to shared IDs. Alternative origin accounts are shown in record details with links; tentative claims are labeled. The two European consensus trees are independent runs of the same study, not two publications. No all-sign-languages tree is imported.':
-        'すべての出典を一緒に表示します。繰り返し出てくる系統は、共有している ID への参照です。起源についての別の説は、記録の詳細にリンクつきで示し、仮の主張にはその旨を書いています。ヨーロッパの 2 つの合意系統樹は同じ研究の独立した解析で、2 つの文献ではありません。すべての手話をまとめた系統樹は取り込んでいません。',
       'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
         'Glottolog 5.3 の最上位の項目です。どの記録にも、分類に沿った URL の専用ページがあります。',
 
       ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
         ': 個々の出典の引用とライセンスは下にあります。取り込んだ要約系統樹は、その著者と管理者に帰属します。コードの対応:',
-      '. Consult each original source before further redistribution.':
-        '。再配布の前には、それぞれの元の資料を確かめてください。',
       'Classification ·': '分類 ·',
-      'Name search is exploratory; results are not verified matches.':
-        '名前の検索は手がかり探しのためのもので、結果が正しい対応とは限りません。',
-      'Selected historical relationships reviewed; chapter sections are not counted as independent research studies.':
-        '選んだ歴史上の関係を確認しています。章や節は独立した研究として数えていません。',
-      'All language/sample rows and published SubGroup metadata; not a reconstruction of the paper’s reticulate network.':
-        'すべての言語と標本の行と、公開された下位グループの情報です。論文の網状のネットワークを再現したものではありません。',
-      'All explicit script entries under languageData. Primary/secondary designation preserved. Not a complete global orthography inventory; no inferred language genealogy.':
-        'languageData にある文字の項目すべてです。主・副の区別も保っています。世界の正書法の完全な一覧ではなく、言語の系統も推定していません。',
-      'Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.':
-        '特定した版のカタログを丸ごと取り込んだもので、世界のすべての言語や文字の完全な一覧ではありません。',
 
       // Record pages: map
-      'Each point is the one representative location Glottolog gives for a record, not the area where it is spoken.':
-        '各点は Glottolog が記録ごとに 1 つ示す代表地点で、話されている地域ではありません。',
       'Points: Glottolog 5.3 (CC BY 4.0).': '点: Glottolog 5.3(CC BY 4.0)。',
       'Land and borders:': '陸地と国境:',
-      'Dashed borders are disputed or not settled.':
-        '破線の国境は、争いがあるか、確定していない境界です。',
       'Reset': '戻す',
       'Reset view': '元の表示に戻す',
       'Map view': 'マップビュー',
@@ -475,18 +356,6 @@ window.LANGLOG_I18N = {
     },
     patterns: [
       [
-        /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-        'Glottolog の手話の分類にある $1 件すべて(語族と方言の記録を含む)です。分類は案内のためのものです。',
-      ],
-      [
-        /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
-        'CLDF の $1 標本すべて(歴史的な形を含む)です。公開された下位グループの情報で、推定した言語全体の系統樹ではありません。',
-      ],
-      [
-        /^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/,
-        'カタログで見つかった Phlorest の $1 のデータを、要約の系統樹の単位ですべて取り込みました。事後分布の標本は取り込んでいません。',
-      ],
-      [
         /^First ([\d,]+) matches\. Refine your search\.$/,
         '最初の $1 件です。検索語を絞ってください。',
       ],
@@ -498,38 +367,6 @@ window.LANGLOG_I18N = {
       [/^Families · ([\d,]+)$/, '語族 · $1'],
       [/^If following (.+)$/, '$1 に従う場合'],
       [/^Clade in (.+)$/, '$1 での分岐'],
-      [
-        /^([\d,]+) Glottolog records retained; ([\d,]+) canonical records including source-specific clades\/samples\. All (\d+) discovered Phlorest dataset summary trees imported, plus WALS\.$/,
-        'Glottolog の記録 $1 件をすべて保持し、出典ごとの分岐と標本を含めて $2 件の記録にまとめています。見つかった Phlorest の要約系統樹 $3 本をすべて取り込み、WALS も加えています。',
-      ],
-      [
-        /^([\d,]+) source-tagged root\/parent assertions\. ([\d,]+) incompatible clade pairs across study trees involve ([\d,]+) canonical records\.$/,
-        '出典つきの根と親の主張が $1 件あります。研究の系統樹どうしで両立しない分岐の組 $2 つが、$3 件の記録に関わっています。',
-      ],
-      [
-        /^(\d+) manual-alphabet samples; (\d+) lexical consensus trees covering (\d+) distinct language samples; (\d+) reviewed script relationships; ([\d,]+) CLDR usage assertions\. These are different units and should not be added as “languages\.”$/,
-        '指文字の標本 $1、異なる言語標本 $3 を含む語彙の合意系統樹 $2 本、確認済みの文字の関係 $4、CLDR の使用データ $5。単位が違うので、足し合わせて「言語の数」とはしないでください。',
-      ],
-      [
-        /^All ([\d,]+) Glottolog name rows retain their provider and language tag\. Same-language labels are identified by exact ISO code equivalence, not inferred; ([\d,]+) records have such labels\. (.*)$/,
-        function (m) {
-          return (
-            'Glottolog の名前の行 ' +
-            m[1] +
-            ' 件すべてに、提供元と言語のタグを残しています。その言語自身での名前は、ISO コードが完全に一致するものだけを選び、推測はしていません。そうした名前がある記録は ' +
-            m[2] +
-            ' 件です。XML は記録と出典ごとの位置づけのグラフに、食い違いの例と論文の引用を加えて書き出します。OPML は、共通の記録への参照を繰り返して、別の説を入れ子の一覧で表します。SVG は表示中の系統を書き出します。'
-          );
-        },
-      ],
-      [
-        /^All ([\d,]+) rows of the downloaded index, including non-ISO local identifiers\. Reported types and statuses are catalog metadata, not independently verified genealogy\.$/,
-        'ダウンロードした索引の $1 行すべてです(ISO にない独自の識別子も含みます)。種類や状態はカタログの情報で、独自に確かめた系統ではありません。',
-      ],
-      [
-        /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-        'Glottolog の手話の分類にある $1 件の記録をすべて保っています(語族、方言、系統でない分類を含みます)。',
-      ],
       [/^Source label · (.+)$/, '元の表記 · $1'],
       [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 語族 · Lang Log by yoshi'],
       [/^Language families · Lang Log by yoshi$/, '語族 · Lang Log by yoshi'],
@@ -559,10 +396,6 @@ window.LANGLOG_I18N = {
       ],
       [/^([\d,]+) roots in the list$/, '一覧の根 $1 件'],
       [
-        /^([\d,]+) shared samples compared\. This incompatibility does not determine which study is correct\.$/,
-        '共通の標本 $1 個で比べました。この食い違いは、どちらの研究が正しいかを決めるものではありません。',
-      ],
-      [
         /^Same ([\d,]+) sampled IDs compared · ([\d,]+) incompatible clade pair\(s\) involving this record\.$/,
         '同じ標本 ID $1 個で比較 · この記録に関わる両立しない分岐の組 $2 つ。',
       ],
@@ -583,27 +416,7 @@ window.LANGLOG_I18N = {
       [/^Source sample: (.+)$/, '元の標本: $1'],
       [/^Other direct members: (.+)$/, 'ほかの直接の下位: $1'],
       [/^Macroarea: (.+)$/, '大地域: $1'],
-      [
-        /^Models tagged for (.+)\. Open a model card to check its intended use and evaluation\.$/,
-        '$1 のタグが付いたモデルです。用途と評価は各モデルカードで確かめてください。',
-      ],
-      [
-        /^Exact model-card language tags: (.+)\. Includes multilingual models; tags are not a quality or dialect-coverage guarantee\.$/,
-        'モデルカードの言語タグが完全に一致: $1。多言語モデルを含みます。タグは品質や方言への対応を保証しません。',
-      ],
       [/^All (\S+) models ↗$/, '$1 のモデルをすべて見る ↗'],
-      [/^Faint points: other members of (.+)\.$/, '薄い点: $1 のほかの下位。'],
-      [
-        /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
-        function (m) {
-          return (
-            m[1] +
-            ' 言語を表示' +
-            (m[2] ? '(' + m[2] + ' 言語は Glottolog に座標がありません)' : '') +
-            '。'
-          );
-        },
-      ],
       [
         /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
         function (m) {

@@ -2,7 +2,6 @@
 <header><div class="brand"><a class="home" href="./"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> <span class="by">by <a class="profile" href="https://nguekwang.github.io/en/?ref=langlog" title="MATSUURA Yoshihiro">yoshi</a></span></div><a href="#about">About</a></header>
 <main>
 <h1>Language feature map</h1>
-<p class="lead">Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.</p>
 <div class="wm-body">
 <div class="wm-map lmap-host">
 <svg id="map" class="lmap" viewBox="-973.9 -564.9 1947.8 973.9" role="img" aria-label="World map of the languages that match the conditions" preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="30" data-world="-973.9 -973.9 1947.8 1947.8">
@@ -11,22 +10,20 @@
 <g id="points"></g>
 </svg>
 <div id="card" class="wm-card" hidden></div>
-<p class="wm-hint">Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.</p>
 </div>
 <aside class="wm-legend">
 <p id="count" class="wm-count"></p>
 <label class="wm-colour">Colour by <span id="colour-slot"></span></label>
 <div id="colour-legend"></div>
 <h2 class="wm-conds-title">Conditions</h2>
-<p id="no-conditions" class="wm-empty">No conditions yet: every language is shown.</p>
 <div id="conditions"></div>
 <button type="button" id="add-condition" class="wm-add">+ Add condition</button>
 </aside>
 </div>
 <section id="about" class="wm-about">
 <h2>About this map</h2>
-<p>The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.</p>
-<p>The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition's feature does not match that condition.</p>
+<p class="notranslate">Hammarström, Harald; Forkel, Robert; Haspelmath, Martin; Bank, Sebastian. 2026. Glottolog 5.3. CC BY 4.0.</p>
+<p class="notranslate">Dryer, Matthew S. &amp; Haspelmath, Martin (eds.). 2013. WALS Online. CLDF release v2020.4, CC BY 4.0.</p>
 <p><a href="https://glottolog.org/">Glottolog</a> · <a href="https://wals.info/">WALS Online</a> · <a href="https://github.com/cldf-datasets/wals">WALS CLDF data</a> · Land and borders: Natural Earth (public domain)</p>
 </section>
 </main>

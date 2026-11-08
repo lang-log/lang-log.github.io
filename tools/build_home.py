@@ -37,7 +37,6 @@ drawn from dist/random.json, which this script writes (not committed):
 """
 
 from html import escape
-import csv
 import re
 import datetime
 import json
@@ -172,11 +171,8 @@ def families_html():
     )
     return (
         f'<section class="home-section" id="families"><h2>All families and isolates · {len(roots)}</h2>'
-        '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
-        '<p class="muted">Each is listed under the continent where most of its languages are spoken.</p>'
         f"{groups}"
-        '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
-        "Glottolog family. They are listed here for navigation only.</p>"
+        "<h3>Cross-family / outgroup source trees</h3>"
         f'<ul class="record-links">{rows_unplaced}</ul></section>'
     )
 
@@ -194,26 +190,17 @@ def tree_section():
 
 
 def sources_section():
-    """The "Sources & scope" text with the coverage figures and the study trees, each linked to its tree."""
+    """The "Sources & scope" text with the study trees, each linked to its tree."""
     u = bp.unified
-    st = u["stats"]
     text = (bp.ROOT / "source-data" / "sources-and-scope.html").read_text(encoding="utf-8")
     text = text.split("-->", 1)[1].strip()
     # The page is one level below the root.
     text = re.sub(r'href="(?!https?:|#|\.\./)', 'href="../', text)
-    coverage = (
-        f"<p>{st['glottologRecords']:,} Glottolog records retained; {st['canonicalRecords']:,} canonical records including "
-        f"source-specific clades/samples. All {st['summaryTrees']} discovered Phlorest dataset summary trees imported, plus WALS.</p>"
-        f"<p>{st['assertions']:,} source-tagged root/parent assertions. {st['topologicalConflicts']:,} incompatible clade pairs "
-        f"across study trees involve {st['recordsWithConflicts']:,} canonical records.</p>"
-        "<p>This is coverage of the imported corpus, not every publication worldwide.</p>"
-    )
     register = "".join(
         f'<div class="registry-source"><strong><a href="../{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
         f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a> · '
         f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
         f"<small>{escape(s['family'])} · {escape(s['license'])} · summary tree imported</small>"
-        + (f"<p>{escape(s['interpretationNote'])}</p>" if s.get("interpretationNote") else "")
         + "</div>"
         for s in u["sources"].values()
         if s.get("kind") == "study"
@@ -221,16 +208,7 @@ def sources_section():
     register = (
         f'<p><a href="../{bp.SOURCE_SLUG["wals"]}/">WALS families in Lang Log</a></p>' + register
     )
-    text = text.replace("<!-- coverage -->", coverage).replace("<!-- source-register -->", register)
-    # Counts in the text are computed here, never written in the source file.
-    with open(bp.ROOT / "source-data" / "names.csv", encoding="utf-8", newline="") as f:
-        name_rows = sum(1 for _ in csv.DictReader(f))
-    for key, value in (
-        ("summaryTrees", st["summaryTrees"]),
-        ("nameRows", name_rows),
-        ("sameLanguageLabels", st["sameLanguageLabels"]),
-    ):
-        text = text.replace(f"<!-- {key} -->", f"{value:,}")
+    text = text.replace("<!-- source-register -->", register)
     if "<!-- " in text:
         raise SystemExit(
             "sources-and-scope.html: unknown placeholder " + text[text.index("<!-- ") :][:40]
@@ -380,8 +358,6 @@ def stats_body():
         for h, rows in counts()
     )
     return (
-        '<p class="muted">Counted from the data each time the site is built. '
-        "Different kinds of records are counted separately; do not add them up.</p>"
         f'<dl class="stat-hero">{hero}</dl>'
         f'<section class="stats-group"><h2>By modality</h2>{bars(modality)}</section>'
         f'<section class="stats-group"><h2>Spoken languages by macroarea</h2>{bars(by_macroarea())}</section>'
@@ -449,14 +425,10 @@ def main():
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         "</button></div></form>"
         f'<div class="home-actions">{random_row()}{guide_row()}</div>'
-        '<p class="sub">An atlas of language families, sign languages and writing systems. '
-        "Every placement says which source it follows, competing classifications are shown together, "
-        "and the data can be downloaded.</p></section>\n"
+        "</section>\n"
         f"{families_html()}{tree_section()}"
         '<section class="home-more"><h2>Also</h2><ul>'
-        '<li><a href="feature-map.html">Language feature map</a>: every language on a world map, '
-        "narrowed by conditions on WALS features and coloured by one of them.</li>"
-        "<li>Corpora and data for low-resource languages: planned.</li>"
+        '<li><a href="feature-map.html">Language feature map</a></li>'
         "</ul></section></main>\n"
         f"<footer><span>Glottolog 5.3 + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
