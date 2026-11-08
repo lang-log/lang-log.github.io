@@ -395,21 +395,7 @@
     [/^Other direct members: (.+)$/, 'Outros membros diretos: $1'],
     [/^Macroarea: (.+)$/, 'Macroárea: $1'],
     [/^All (\S+) models ↗$/, 'Todos os modelos de $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Mapa: localização de ' +
-          m[1] +
-          ' e de seus ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialetos' : 'idiomas')
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Mapa: localização de $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Mapa: $1 línguas de $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

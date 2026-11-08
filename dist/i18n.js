@@ -417,21 +417,7 @@ window.LANGLOG_I18N = {
       [/^Other direct members: (.+)$/, 'ほかの直接の下位: $1'],
       [/^Macroarea: (.+)$/, '大地域: $1'],
       [/^All (\S+) models ↗$/, '$1 のモデルをすべて見る ↗'],
-      [
-        /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-        function (m) {
-          return (
-            '地図: ' +
-            m[1] +
-            ' の位置と、その' +
-            (m[3] === 'dialects' ? '方言' : '言語') +
-            ' ' +
-            m[2]
-          );
-        },
-      ],
       [/^Map: location of (.+)$/, '地図: $1 の位置'],
-      [/^Map: ([\d,]+) languages of (.+)$/, '地図: $2 の言語 $1'],
       [
         /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
         function (m, tr) {

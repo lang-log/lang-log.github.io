@@ -384,22 +384,7 @@
     [/^Other direct members: (.+)$/, 'Diğer doğrudan üyeler: $1'],
     [/^Macroarea: (.+)$/, 'Makro bölge: $1'],
     [/^All (\S+) models ↗$/, 'Tüm $1 modelleri ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Harita: ' +
-          m[1] +
-          ' ve ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'ağzının' : 'dilinin') +
-          ' konumu'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Harita: $1 konumu'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Harita: $2 içindeki $1 dil'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

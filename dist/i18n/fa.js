@@ -384,22 +384,7 @@
     [/^Other direct members: (.+)$/, 'دیگر اعضای مستقیم: $1'],
     [/^Macroarea: (.+)$/, 'کلان‌منطقه: $1'],
     [/^All (\S+) models ↗$/, 'همهٔ مدل‌های $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'نقشه: مکان ' +
-          m[1] +
-          ' و ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'گویش' : 'زبان') +
-          ' آن'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'نقشه: مکان $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'نقشه: $1 زبانِ $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

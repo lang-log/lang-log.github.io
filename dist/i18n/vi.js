@@ -388,22 +388,7 @@
     [/^Other direct members: (.+)$/, 'Các thành viên trực tiếp khác: $1'],
     [/^Macroarea: (.+)$/, 'Đại khu vực: $1'],
     [/^All (\S+) models ↗$/, 'Tất cả mô hình $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Bản đồ: vị trí của ' +
-          m[1] +
-          ' và ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'phương ngữ' : 'ngôn ngữ') +
-          ' của nó'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Bản đồ: vị trí của $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Bản đồ: $1 ngôn ngữ của $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

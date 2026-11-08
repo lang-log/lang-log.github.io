@@ -368,22 +368,7 @@
     [/^Other direct members: (.+)$/, '其他直接下位：$1'],
     [/^Macroarea: (.+)$/, '大区域：$1'],
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          '地图：' +
-          m[1] +
-          ' 及其 ' +
-          m[2] +
-          ' 种' +
-          (m[3] === 'dialects' ? '方言' : '语言') +
-          '的位置'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, '地图：$1 的位置'],
-    [/^Map: ([\d,]+) languages of (.+)$/, '地图：$2 的 $1 种语言'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

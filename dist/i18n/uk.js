@@ -385,22 +385,7 @@
     [/^Other direct members: (.+)$/, 'Інші прямі члени: $1'],
     [/^Macroarea: (.+)$/, 'Макроареал: $1'],
     [/^All (\S+) models ↗$/, 'Усі моделі $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Мапа: розташування ' +
-          m[1] +
-          ' та ' +
-          (m[3] === 'dialects' ? 'діалектів' : 'мов') +
-          ' (' +
-          m[2] +
-          ')'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Мапа: розташування $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Мапа: мови $2 ($1)'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

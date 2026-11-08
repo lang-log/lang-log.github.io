@@ -380,22 +380,7 @@
     [/^Other direct members: (.+)$/, '다른 직접 하위: $1'],
     [/^Macroarea: (.+)$/, '대지역: $1'],
     [/^All (\S+) models ↗$/, '$1 모델 모두 보기 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          '지도: ' +
-          m[1] +
-          '와(과) 그 ' +
-          (m[3] === 'dialects' ? '방언' : '언어') +
-          ' ' +
-          m[2] +
-          '개의 위치'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, '지도: $1의 위치'],
-    [/^Map: ([\d,]+) languages of (.+)$/, '지도: $2의 언어 $1개'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

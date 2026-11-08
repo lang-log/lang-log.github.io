@@ -382,22 +382,7 @@
     [/^Other direct members: (.+)$/, 'अन्य प्रत्यक्ष सदस्य: $1'],
     [/^Macroarea: (.+)$/, 'महाक्षेत्र: $1'],
     [/^All (\S+) models ↗$/, '$1 के सभी मॉडल ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'मानचित्र: ' +
-          m[1] +
-          ' और उसकी ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'बोलियों' : 'भाषाओं') +
-          ' का स्थान'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'मानचित्र: $1 का स्थान'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'मानचित्र: $2 की $1 भाषाएँ'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

@@ -385,22 +385,7 @@
     [/^Other direct members: (.+)$/, 'สมาชิกโดยตรงอื่น: $1'],
     [/^Macroarea: (.+)$/, 'ภูมิภาคใหญ่: $1'],
     [/^All (\S+) models ↗$/, 'โมเดล $1 ทั้งหมด ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'แผนที่: ตำแหน่งของ ' +
-          m[1] +
-          ' และ' +
-          (m[3] === 'dialects' ? 'ภาษาถิ่น' : 'ภาษา') +
-          ' ' +
-          m[2] +
-          ' รายการ'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'แผนที่: ตำแหน่งของ $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'แผนที่: ภาษาของ $2 จำนวน $1 ภาษา'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

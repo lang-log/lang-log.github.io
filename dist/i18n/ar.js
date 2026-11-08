@@ -378,22 +378,7 @@
     [/^Other direct members: (.+)$/, 'أعضاء مباشرون آخرون: $1'],
     [/^Macroarea: (.+)$/, 'المنطقة الكبرى: $1'],
     [/^All (\S+) models ↗$/, 'كل نماذج $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'خريطة: موقع ' +
-          m[1] +
-          ' و' +
-          (m[3] === 'dialects' ? 'لهجاتها' : 'لغاتها') +
-          ' (' +
-          m[2] +
-          ')'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'خريطة: موقع $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'خريطة: لغات $2 ($1)'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

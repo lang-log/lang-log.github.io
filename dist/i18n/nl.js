@@ -391,22 +391,7 @@
     [/^Other direct members: (.+)$/, 'Andere directe leden: $1'],
     [/^Macroarea: (.+)$/, 'Macrogebied: $1'],
     [/^All (\S+) models ↗$/, 'Alle modellen voor $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Kaart: ligging van ' +
-          m[1] +
-          ' en de ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialecten' : 'talen') +
-          ' ervan'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Kaart: ligging van $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Kaart: $1 talen van $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

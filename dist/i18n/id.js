@@ -390,21 +390,7 @@
     [/^Other direct members: (.+)$/, 'Anggota langsung lain: $1'],
     [/^Macroarea: (.+)$/, 'Makrowilayah: $1'],
     [/^All (\S+) models ↗$/, 'Semua model $1 ↗'],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Peta: lokasi ' +
-          m[1] +
-          ' dan ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialeknya' : 'bahasanya')
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Peta: lokasi $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Peta: $1 bahasa dalam $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

@@ -135,34 +135,33 @@ with open(ROOT / "source-data" / "languages.csv", encoding="utf-8", newline="") 
 
 
 def _points_under():
-    """For a family: the languages below it; for a language: its dialects."""
-    langs, dials = {}, {}
+    """For every record: the deepest records on each of its branches that Glottolog gives a
+    point, and how many records at the ends of its branches have no point on their way up.
+    A record with no point below it stands for itself. The same rule for every record,
+    whatever its level: every record is a languoid (.claude/rules/interface-text.md)."""
+    found, unplaced = {}, {}
 
     def walk(i):
-        la, di = [], []
-        for c in nodes[i]["children"]:
-            if c not in nodes:
-                continue
-            cl, cd = walk(c)
-            la += cl
-            di += cd
-            lvl = nodes[c]["level"]
-            if c in coords and lvl == "language":
-                la.append(c)
-            elif c in coords and lvl == "dialect":
-                di.append(c)
-        langs[i], dials[i] = la, di
-        return la, di
+        if i in found:
+            return
+        pts, none = [], 0
+        kids = [c for c in nodes[i]["children"] if c in nodes]
+        for c in kids:
+            walk(c)
+            pts += found[c]
+            none += unplaced[c]
+        if not pts and i in coords:
+            pts, none = [i], 0
+        elif not kids:
+            none = 1
+        found[i], unplaced[i] = pts, none
 
-    for r in data["roots"]:
-        walk(r)
-    for i in nodes:  # records not reached from a root
-        if i not in langs:
-            walk(i)
-    return {i: (dials[i] if nodes[i]["level"] != "family" else langs[i]) for i in nodes}
+    for i in nodes:
+        walk(i)
+    return found, unplaced
 
 
-points_under = _points_under()
+points_under, unplaced_under = _points_under()
 
 
 def path_of(i):
@@ -446,25 +445,20 @@ def record_body(depth, i, heading="h1"):
 
 
 def map_html(depth, i):
+    # The same steps for every record, whatever its level (family, language, dialect): the
+    # deepest points on its branches (its own point when it has none below), all drawn alike,
+    # and the rest of its parent's points as sisters.
     n = nodes[i]
-    family = n["level"] == "family"
-    own = None if family else coords.get(i)
-    # Many dialects carry their language's own point; those add nothing to show.
-    main_ids = [c for c in points_under[i] if coords[c] != own]
+    main_ids = points_under[i]
     main = [coords[c] for c in main_ids]
     parent = n.get("parent")
     context_ids = []
     if parent in nodes:
-        mine = set(points_under[i]) | {i}
+        mine = set(main_ids) | {i}
         context_ids = [c for c in points_under[parent] if c not in mine]
     context = [coords[c] for c in context_ids]
-    kind = "languages" if family else ("dialects" if n["level"] == "language" else "")
-    if family:
-        label = f"Map: {len(main)} languages of {n['name']}"
-    else:
-        label = f"Map: location of {n['name']}" + (f" and its {len(main)} {kind}" if main else "")
-    svg = map_svg("../" * depth + "map/", main, context, own, label,
-                  main_ids=main_ids, context_ids=context_ids, self_id=i if own else "")
+    label = f"Map: location of {n['name']}"
+    svg = map_svg("../" * depth + "map/", main, context, None, label, main_ids=main_ids, context_ids=context_ids)
     if not svg:
         return ""
     return (f'<figure class="lmap-figure">{svg}<figcaption>'
