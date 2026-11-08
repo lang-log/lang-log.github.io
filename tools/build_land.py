@@ -149,37 +149,83 @@ def projected_lines(features):
     return out
 
 
+def clip_half(ring, axis, edge, keep_above):
+    """A polygon ring cut by the line where coordinate `axis` equals `edge`.
+
+    Returns the rings of the part on one side (coordinate >= edge if keep_above, else <=),
+    as separate rings. Sutherland-Hodgman would join the pieces of a concave ring with
+    zero-width runs along the line, which show as lines across an enclosed sea (the
+    Mediterranean) once the land is drawn with an outline. Here every piece is closed
+    along the line on its own: the crossings are sorted along the line, and the polygon's
+    inside runs between the 1st and 2nd, the 3rd and 4th, and so on.
+    """
+    side = 1 if keep_above else -1
+    other = 1 - axis
+
+    def inside(p):
+        return side * (p[axis] - edge) >= 0
+
+    def cut(a, b):
+        t = (edge - a[axis]) / (b[axis] - a[axis])
+        q = [0.0, 0.0]
+        q[axis] = edge
+        q[other] = a[other] + t * (b[other] - a[other])
+        return tuple(q)
+
+    flags = [inside(p) for p in ring]
+    if all(flags):
+        return [ring]
+    if not any(flags):
+        return []
+    # Start at an outside point, so every piece begins with an entry and ends with an exit.
+    k = flags.index(False)
+    ring, flags = ring[k:] + ring[:k], flags[k:] + flags[:k]
+    pieces, run = [], None
+    for i in range(1, len(ring) + 1):
+        prev, cur = ring[i - 1], ring[i % len(ring)]
+        f_prev, f_cur = flags[i - 1], flags[i % len(ring)]
+        if f_cur and not f_prev:
+            run = [cut(prev, cur)]
+        if f_cur:
+            if cur != run[-1]:
+                run.append(cur)
+        elif f_prev:
+            x = cut(prev, cur)
+            if x != run[-1]:
+                run.append(x)
+            pieces.append(run)
+            run = None
+    # Crossings along the line: (position, is_exit, piece).
+    marks = sorted(
+        [(pc[0][other], False, n) for n, pc in enumerate(pieces)]
+        + [(pc[-1][other], True, n) for n, pc in enumerate(pieces)]
+    )
+    follow = {}
+    for a, b in zip(marks[0::2], marks[1::2], strict=True):
+        if a[1] == b[1]:
+            raise ValueError("crossings do not alternate; the ring is not simple")
+        ex, en = (a, b) if a[1] else (b, a)
+        follow[ex[2]] = en[2]
+    out, used = [], set()
+    for n in range(len(pieces)):
+        if n in used:
+            continue
+        r, m = [], n
+        while m not in used:
+            used.add(m)
+            r.extend(pieces[m])
+            m = follow[m]
+        if len(r) >= 3:
+            out.append(r)
+    return out
+
+
 def clip_ring_rect(pts, x0, y0, x1, y1):
-    """Sutherland-Hodgman clipping of a polygon against a rectangle."""
-
-    def edge(points, inside, cut):
-        res = []
-        for i, cur in enumerate(points):
-            prev = points[i - 1]
-            if inside(cur):
-                if not inside(prev):
-                    res.append(cut(prev, cur))
-                res.append(cur)
-            elif inside(prev):
-                res.append(cut(prev, cur))
-        return res
-
-    def at_x(e):
-        return lambda a, b: (e, a[1] + (e - a[0]) / (b[0] - a[0]) * (b[1] - a[1]))
-
-    def at_y(e):
-        return lambda a, b: (a[0] + (e - a[1]) / (b[1] - a[1]) * (b[0] - a[0]), e)
-
-    for inside, cut in (
-        (lambda p: p[0] >= x0, at_x(x0)),
-        (lambda p: p[0] <= x1, at_x(x1)),
-        (lambda p: p[1] >= y0, at_y(y0)),
-        (lambda p: p[1] <= y1, at_y(y1)),
-    ):
-        if not pts:
-            break
-        pts = edge(pts, inside, cut)
-    return pts
+    """The pieces of a polygon ring inside a rectangle, each a ring of its own."""
+    rings = [pts]
+    for axis, edge, above in ((0, x0, True), (0, x1, False), (1, y0, True), (1, y1, False)):
+        rings = [piece for r in rings for piece in clip_half(r, axis, edge, above)]
+    return rings
 
 
 def clip_line_rect(pts, x0, y0, x1, y1):
@@ -319,8 +365,9 @@ def main():
             y0 = -h / 2 + cy * th - OVERLAP
             x1, y1 = x0 + tw + 2 * OVERLAP, y0 + th + 2 * OVERLAP
             sea = clip_ring_rect(sphere, x0, y0, x1, y1)
-            if len(sea) < 3:
+            if not sea:
                 continue
+            sea = sea[0]
 
             # Defined and called within one loop iteration, so the loop variables it reads
             # are always the current ones (the noqa: B023 marks below).
@@ -328,9 +375,10 @@ def main():
                 return b[2] >= x0 and b[0] <= x1 and b[3] >= y0 and b[1] <= y1  # noqa: B023
 
             land = [
-                clip_ring_rect(r, x0, y0, x1, y1)
+                piece
                 for r, b in zip(rings, bbox_r, strict=False)
                 if hit(b)
+                for piece in clip_ring_rect(r, x0, y0, x1, y1)
             ]
             solid, dashed = [], []
             for (d, line), b in zip(lines, bbox_l, strict=False):

@@ -16,10 +16,11 @@
 //   lines keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
-// - Shapes that meet edge to edge (the three copies of the world, the pieces of land cut
-//   at the 180th meridian, and the 1:10m tiles) are drawn with an outline of their own
-//   colour, seam() wide on screen at every zoom. Browsers smooth both edges where two
-//   shapes meet, which leaves a thin light line between them, most of all when zoomed out.
+// - Shapes that meet edge to edge (the three copies of the world and the pieces of land cut
+//   at the 180th meridian) are drawn with an outline of their own colour, seam() wide on
+//   screen at every zoom. Browsers smooth both edges where two shapes meet, which leaves a
+//   thin light line between them, most of all when zoomed out. The 1:10m tiles overlap
+//   instead and get no outline (see record.css).
 //
 // - Map view: the button in the corner opens the map over the whole window, with nothing
 //   else on screen; the close button, Esc or the browser's Back button closes it. The page
