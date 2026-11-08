@@ -180,25 +180,6 @@
 .lmap-sphere {
   fill: var(--c-e6eeec);
 }
-/* Shapes that meet edge to edge get an outline of their own colour, so no light seam shows
-   between them; map-zoom.js sets --lmap-seam to one screen pixel at the present zoom. */
-.lmap-bg .lmap-sphere {
-  stroke: var(--c-e6eeec);
-  stroke-width: var(--lmap-seam, 1px);
-}
-.lmap-bg .lmap-land {
-  stroke: var(--c-cdd6cf);
-  stroke-width: var(--lmap-seam, 1px);
-  stroke-linejoin: round;
-}
-/* Not on the 1:10m tiles: they overlap their neighbours (OVERLAP in tools/build_land.py) and
-   lie over the world map, so no seam shows between them. An outline would also draw the
-   edges where land is cut at a tile's border, across the water of a lake inside it (the
-   Caspian Sea). */
-.lmap-tiles .lmap-sphere,
-.lmap-tiles .lmap-land {
-  stroke: none;
-}
 .lmap-land {
   fill: var(--c-cdd6cf);
 }
