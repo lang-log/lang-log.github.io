@@ -21,9 +21,9 @@ import github_api
 import info_page
 import release
 from security_policy import problems as policy_problems
-from site_brand import REPOSITORY_URL
+from site_brand import REPOSITORY_URL, TITLE_SUFFIX
 
-GH = "https://github.com/lang-log/lang-log.github.io"
+GH = REPOSITORY_URL
 
 
 def rel(tag, **kw):
@@ -221,7 +221,7 @@ class PageShell(unittest.TestCase):
         self.assertEqual(policy_problems(html), [])
         self.assertIn('<link rel="stylesheet" href="style.css">', html)
         self.assertIn('<a class="home" href="./">', html)
-        self.assertIn("<title>Releases · Lang Log by yoshi</title>", html)
+        self.assertIn(f"<title>Releases{TITLE_SUFFIX}</title>", html)
 
 
 class FakeResponse(io.BytesIO):
