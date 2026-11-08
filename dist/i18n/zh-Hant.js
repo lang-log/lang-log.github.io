@@ -23,6 +23,7 @@
     'Other kinds of languages': '其他種類的語言',
     'Families': '語系',
     'Languoids': 'Languoids',
+    'Sister languoids': '姊妹 languoids',
     'Records from study trees only': '僅見於研究譜系樹的紀錄',
     'Spoken languages': '有聲語言',
     'Spoken dialects': '有聲語言的方言',
@@ -355,6 +356,7 @@
     [/^Other direct members: (.+)$/, '其他直接下位：$1'],
     [/^Macroarea: (.+)$/, '大區域：$1'],
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
+    [/^Members of (.+)$/, '$1 的下位'],
     [/^Map: location of (.+)$/, '地圖：$1 的位置'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

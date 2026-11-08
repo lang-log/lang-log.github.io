@@ -23,6 +23,7 @@
     'Other kinds of languages': 'أنواع أخرى من اللغات',
     'Families': 'الأسر',
     'Languoids': 'Languoids',
+    'Sister languoids': 'languoids الشقيقة',
     'Records from study trees only': 'سجلات من أشجار الدراسات فقط',
     'Spoken languages': 'اللغات المنطوقة',
     'Spoken dialects': 'اللهجات المنطوقة',
@@ -363,6 +364,7 @@
     [/^Other direct members: (.+)$/, 'أعضاء مباشرون آخرون: $1'],
     [/^Macroarea: (.+)$/, 'المنطقة الكبرى: $1'],
     [/^All (\S+) models ↗$/, 'كل نماذج $1 ↗'],
+    [/^Members of (.+)$/, 'أعضاء $1'],
     [/^Map: location of (.+)$/, 'خريطة: موقع $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

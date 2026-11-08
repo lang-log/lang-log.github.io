@@ -23,6 +23,7 @@
     'Other kinds of languages': 'ภาษาประเภทอื่น',
     'Families': 'ตระกูล',
     'Languoids': 'Languoids',
+    'Sister languoids': 'languoids พี่น้อง',
     'Records from study trees only': 'ระเบียนที่มีเฉพาะในแผนภูมิการศึกษา',
     'Spoken languages': 'ภาษาพูด',
     'Spoken dialects': 'ภาษาถิ่นของภาษาพูด',
@@ -370,6 +371,7 @@
     [/^Other direct members: (.+)$/, 'สมาชิกโดยตรงอื่น: $1'],
     [/^Macroarea: (.+)$/, 'ภูมิภาคใหญ่: $1'],
     [/^All (\S+) models ↗$/, 'โมเดล $1 ทั้งหมด ↗'],
+    [/^Members of (.+)$/, 'สมาชิกของ $1'],
     [/^Map: location of (.+)$/, 'แผนที่: ตำแหน่งของ $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

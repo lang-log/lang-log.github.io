@@ -23,6 +23,7 @@
     'Other kinds of languages': 'گونه‌های دیگر زبان',
     'Families': 'خانواده‌ها',
     'Languoids': 'Languoids',
+    'Sister languoids': 'languoids خواهر',
     'Records from study trees only': 'رکوردهایی که فقط در درخت‌های پژوهشی هستند',
     'Spoken languages': 'زبان‌های گفتاری',
     'Spoken dialects': 'گویش‌های گفتاری',
@@ -369,6 +370,7 @@
     [/^Other direct members: (.+)$/, 'دیگر اعضای مستقیم: $1'],
     [/^Macroarea: (.+)$/, 'کلان‌منطقه: $1'],
     [/^All (\S+) models ↗$/, 'همهٔ مدل‌های $1 ↗'],
+    [/^Members of (.+)$/, 'اعضای $1'],
     [/^Map: location of (.+)$/, 'نقشه: مکان $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

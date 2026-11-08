@@ -23,6 +23,7 @@
     'Other kinds of languages': 'Інші види мов',
     'Families': 'Родини',
     'Languoids': 'Languoids',
+    'Sister languoids': 'сестринські languoids',
     'Records from study trees only': 'Записи лише з дерев досліджень',
     'Spoken languages': 'Звукові мови',
     'Spoken dialects': 'Діалекти звукових мов',
@@ -370,6 +371,7 @@
     [/^Other direct members: (.+)$/, 'Інші прямі члени: $1'],
     [/^Macroarea: (.+)$/, 'Макроареал: $1'],
     [/^All (\S+) models ↗$/, 'Усі моделі $1 ↗'],
+    [/^Members of (.+)$/, 'Члени $1'],
     [/^Map: location of (.+)$/, 'Мапа: розташування $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

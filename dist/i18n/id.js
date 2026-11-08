@@ -23,6 +23,7 @@
     'Other kinds of languages': 'Jenis bahasa lainnya',
     'Families': 'Rumpun',
     'Languoids': 'Languoids',
+    'Sister languoids': 'languoids saudara',
     'Records from study trees only': 'Catatan yang hanya ada di pohon studi',
     'Spoken languages': 'Bahasa lisan',
     'Spoken dialects': 'Dialek lisan',
@@ -375,6 +376,7 @@
     [/^Other direct members: (.+)$/, 'Anggota langsung lain: $1'],
     [/^Macroarea: (.+)$/, 'Makrowilayah: $1'],
     [/^All (\S+) models ↗$/, 'Semua model $1 ↗'],
+    [/^Members of (.+)$/, 'Anggota $1'],
     [/^Map: location of (.+)$/, 'Peta: lokasi $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
