@@ -1,15 +1,25 @@
-// Language feature map (feature-map.html). Data: dist/data/features/ written by tools/build_wals_map.py.
+// The three views of every top-level record on the top page (owner, 2026-11-08;
+// markup from tools/build_home.py): a switch between them (List, Map, Tree), the
+// conditions they share, and the view itself.
+//   List  the top-level records under their continents (static; works without
+//         JavaScript). Conditions hide the records no matching language belongs to.
+//   Map   every Glottolog language with a point, coloured by one feature if chosen.
+//   Tree  the zoomable tree of every root (dist/tree.js, started when first shown),
+//         narrowed to the matching languages, their ancestors and their dialects.
+// Data: dist/data/features/ written by tools/build_wals_map.py (WALS features and
+// Lang Log's own evidence features).
 //
-// The map starts with every language that has a point. Conditions narrow it: each
+// Every language starts in. Conditions narrow it: each
 // condition is one feature and the values to keep (values in one condition are joined
 // by OR). Conditions are joined by AND unless the visitor switches the joint to OR;
 // conditions joined by OR form one group, and the groups are joined by AND, so
 // "A and B or C" reads "A and (B or C)". A language with no data for a condition's
 // feature does not match it. Colouring is separate: one feature, or none.
 //
-// State lives in the address: ?c=81A:1,5&c=|6A:2,4&k=81A (one c per condition, in
-// order; "|" joins it to the previous one by OR; the values are left out when all are
-// kept; k is the colour feature).
+// State lives in the address: ?view=map&c=81A:1,5&c=|6A:2,4&k=81A (view: the shown
+// view, left out for the list; one c per condition, in order; "|" joins it to the
+// previous one by OR; the values are left out when all are kept; k is the colour
+// feature). Other parameters (the tree's x/y/z, dist/tree.js) are kept as they are.
 (function () {
   'use strict';
   var $ = function (id) {
@@ -41,6 +51,7 @@
   };
 
   var L = null,
+    ROOT = -1, // index of the "root" field in the rows of languages.json
     F = null,
     byId = {},
     cache = {},
@@ -50,7 +61,15 @@
     colour = {};
   var svg = $('map'),
     layer = $('points'),
-    card = $('card');
+    root = $('families'),
+    view = 'list',
+    mounted = false,
+    treeStarted = false;
+  if (!svg || !root) return;
+  var viewButtons = root.querySelectorAll('.explore-views button[data-view]');
+  var VIEWS = Array.prototype.map.call(viewButtons, function (b) {
+    return b.dataset.view;
+  });
 
   function get(url) {
     if (!cache[url])
@@ -105,11 +124,19 @@
         shown: new Set(keep.length ? keep : allValues(id)),
       });
     });
-    return { conds: out, k: byId[p.get('k')] ? p.get('k') : '' };
+    return {
+      conds: out,
+      k: byId[p.get('k')] ? p.get('k') : '',
+      view: VIEWS.indexOf(p.get('view')) > 0 ? p.get('view') : VIEWS[0],
+    };
   }
 
   function writeURL() {
-    var p = new URLSearchParams();
+    var p = new URLSearchParams(location.search);
+    ['view', 'c', 'k'].forEach(function (key) {
+      p.delete(key);
+    });
+    if (view !== VIEWS[0]) p.set('view', view);
     conds.forEach(function (c) {
       if (!c.id) return;
       var all = allValues(c.id),
@@ -133,9 +160,9 @@
         groups[f.area] = el('optgroup', { label: f.area });
         s.appendChild(groups[f.area]);
       }
-      groups[f.area].appendChild(
-        el('option', { value: f.id }, f.id + ' ' + f.name + ' (' + f.languages + ')'),
-      );
+      // The menu shows the feature name only, without the WALS id or the number of
+      // languages (the owner's choice, 2026-11-08).
+      groups[f.area].appendChild(el('option', { value: f.id }, f.name));
     });
     s.value = value || '';
     return s;
@@ -183,14 +210,43 @@
     return groupOk !== false;
   }
 
+  function anyCondition() {
+    return conds.some(function (c) {
+      return c.id;
+    });
+  }
+
+  // Apply the conditions to every view: the count, the list, the tree and the map.
+  function apply() {
+    var rows = L.rows,
+      n = 0,
+      roots = new Set(),
+      ids = [];
+    for (var j = 0; j < rows.length; j++)
+      if (passes(j)) {
+        n++;
+        roots.add(rows[j][ROOT]);
+        ids.push(rows[j][0]);
+      }
+    shown = n;
+    $('count').textContent = 'Showing ' + n + ' of ' + rows.length + ' languages';
+    var on = anyCondition();
+    root.querySelectorAll('.explore-view li[data-root]').forEach(function (li) {
+      li.hidden = on && !roots.has(li.dataset.root);
+    });
+    root.querySelectorAll('.explore-view .continent').forEach(function (box) {
+      box.hidden = !box.querySelector('li[data-root]:not([hidden])');
+    });
+    var outgroups = root.querySelector('.outgroups');
+    if (outgroups) outgroups.hidden = on;
+    if (window.LangLogTree) window.LangLogTree.setMatch(on ? ids : null);
+    if (view === 'map') draw();
+  }
+
   function draw() {
     layer.textContent = '';
     var rows = L.rows,
-      n = 0,
       frag = document.createDocumentFragment();
-    for (var j = 0; j < rows.length; j++) if (passes(j)) n++;
-    shown = n;
-    n = 0;
     var r = radius();
     var cv = colourBy ? vals[colourBy] : null,
       perValue = {};
@@ -204,17 +260,23 @@
       c.setAttribute('fill', 'var(' + (cv ? (v ? colour[v] : '--c-a5aeb0') : PLAIN) + ')');
       if (cv && !v) c.setAttribute('class', 'wm-nodata');
       if (cv) perValue[v] = (perValue[v] || 0) + 1;
-      c.dataset.i = i;
+      // Its Glottocode: dist/map-zoom.js shows the record box of a tapped dot, as on
+      // the record maps.
+      c.setAttribute('data-g', rows[i][0]);
       // Dots with no colour value go underneath.
       if (cv && !v) frag.insertBefore(c, frag.firstChild);
       else frag.appendChild(c);
-      n++;
     }
     layer.appendChild(frag);
     // map-zoom.js moves each dot to the copy of the world in view.
     if (svg.__lmap) svg.__lmap.refresh();
-    $('count').textContent = 'Showing ' + n + ' of ' + rows.length + ' languages';
     colourLegend(perValue);
+  }
+
+  // WALS names are quoted from WALS and never translated; Lang Log's own feature and
+  // value names are interface text (dist/i18n.js).
+  function quoted(fid) {
+    return byId[fid].source === 'wals' ? 'notranslate' : '';
   }
 
   function colourLegend(perValue) {
@@ -227,7 +289,7 @@
       var dot = el('i', { class: 'wm-dot', 'aria-hidden': 'true' });
       dot.style.background = 'var(' + colour[v.n] + ')';
       li.appendChild(dot);
-      li.appendChild(el('span', { class: 'notranslate' }, v.name));
+      li.appendChild(el('span', { class: quoted(colourBy) }, v.name));
       li.appendChild(el('small', null, String(perValue[v.n] || 0)));
       ul.appendChild(li);
     });
@@ -243,9 +305,34 @@
   }
 
   function update() {
-    card.hidden = true;
-    draw();
+    apply();
     writeURL();
+  }
+
+  // Show one view. The map is mounted and the tree started the first time each is shown,
+  // when their box has a size.
+  function showView(v) {
+    view = v;
+    viewButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.view === v));
+    });
+    root.querySelectorAll('.explore-view').forEach(function (box) {
+      box.hidden = box.dataset.view !== v;
+    });
+    // Colouring is drawn on the map only.
+    root.querySelector('.explore-colour').hidden = v !== 'map';
+    if (v === 'map') {
+      draw();
+      if (!mounted && window.LangLogMap) {
+        mounted = true;
+        window.LangLogMap.mount(svg);
+      }
+      onZoom();
+    }
+    if (v === 'tree' && !treeStarted && window.LangLogTree) {
+      treeStarted = true;
+      window.LangLogTree.start();
+    }
   }
 
   // One condition: feature menu, remove button, "Select all" and one checkbox per value.
@@ -313,7 +400,7 @@
         update();
       });
       lab.appendChild(cb);
-      lab.appendChild(el('span', { class: 'notranslate' }, v.name));
+      lab.appendChild(el('span', { class: quoted(c.id) }, v.name));
       lab.appendChild(el('small', null, String(v.count)));
       li.appendChild(lab);
       ul.appendChild(li);
@@ -350,7 +437,6 @@
       if (conds[i + 1] && conds[i + 1].or) cb.classList.add('wm-or-next');
       box.appendChild(cb);
     });
-    $('no-conditions').hidden = conds.length > 0;
   }
 
   function setColour(id) {
@@ -366,80 +452,6 @@
     return (dotPx() * vb.width) / (svg.clientWidth || 1);
   }
 
-  function valueName(fid, n) {
-    var v = byId[fid].values.filter(function (x) {
-      return x.n === n;
-    })[0];
-    return v ? v.name : '';
-  }
-
-  function showCard(i, evt) {
-    var row = L.rows[i];
-    card.textContent = '';
-    // The name links to the record's own page once dist/atlas-data.js has found it, and
-    // to its source detail until then (or when it has no page).
-    var name = el(
-      'a',
-      { href: 'record.html?domain=language&id=' + encodeURIComponent(row[0]) },
-      row[1],
-    );
-    var h = el('h3', { class: 'notranslate' });
-    h.appendChild(name);
-    card.appendChild(h);
-    if (window.LangLogMap)
-      window.LangLogMap.records([row[0]], '').then(
-        function (rs) {
-          if (rs[0] && rs[0].url) name.href = rs[0].url;
-        },
-        function () {},
-      );
-    if (row[2]) card.appendChild(el('p', { class: 'notranslate wm-sub' }, row[2]));
-    var dl = el('dl');
-    var seen = {};
-    conds
-      .map(function (c) {
-        return c.id;
-      })
-      .concat([colourBy])
-      .forEach(function (id) {
-        if (!id || seen[id]) return;
-        seen[id] = true;
-        dl.appendChild(el('dt', { class: 'notranslate' }, id + ' ' + byId[id].name));
-        var v = vals[id][i];
-        dl.appendChild(
-          v
-            ? el('dd', { class: 'notranslate' }, valueName(id, v))
-            : el('dd', { class: 'wm-none' }, 'No data'),
-        );
-      });
-    card.appendChild(dl);
-    var links = el('p', { class: 'wm-links' });
-    if (row[3])
-      links.appendChild(
-        el(
-          'a',
-          {
-            href: 'https://wals.info/languoid/lect/wals_code_' + encodeURIComponent(row[3]),
-            target: '_blank',
-            rel: 'noopener noreferrer',
-          },
-          'WALS page',
-        ),
-      );
-    card.appendChild(links);
-    var close = el('button', { type: 'button', class: 'wm-close', 'aria-label': 'Close' }, '×');
-    close.addEventListener('click', function () {
-      card.hidden = true;
-    });
-    card.appendChild(close);
-    var box = svg.closest('.wm-map').getBoundingClientRect();
-    card.hidden = false;
-    var x = Math.min(evt.clientX - box.left + 10, box.width - card.offsetWidth - 8);
-    var y = Math.min(evt.clientY - box.top + 10, box.height - card.offsetHeight - 8);
-    card.style.left = Math.max(8, x) + 'px';
-    card.style.top = Math.max(8, y) + 'px';
-  }
-
   function onZoom() {
     var r = radius(),
       cs = layer.childNodes;
@@ -450,12 +462,14 @@
   Promise.all([get('data/features/languages.json'), get('data/features/features.json')])
     .then(function (res) {
       L = res[0];
+      ROOT = L.fields.indexOf('root');
       F = res[1];
       F.features.forEach(function (f) {
         byId[f.id] = f;
       });
       var s = readURL();
       conds = s.conds;
+      view = s.view;
       var colourMenu = featureSelect(s.k, 'None (one colour)');
       colourMenu.id = 'colour';
       $('colour-slot').appendChild(colourMenu);
@@ -470,11 +484,20 @@
     })
     .then(function () {
       renderConds();
-      draw();
+      root.querySelector('.explore-views').hidden = false;
+      root.querySelector('.explore-filter').hidden = false;
+      viewButtons.forEach(function (b) {
+        b.addEventListener('click', function () {
+          showView(b.dataset.view);
+          writeURL();
+        });
+      });
+      // Zoom, pan, borders and detailed tiles come from the shared dist/map-zoom.js
+      // (mounted in showView); it changes the viewBox, so the dots are resized after
+      // every change.
+      showView(view);
+      apply();
       writeURL();
-      // Zoom, pan, borders and detailed tiles come from the shared dist/map-zoom.js; it
-      // changes the viewBox, so the dots are resized after every change.
-      if (window.LangLogMap) window.LangLogMap.mount(svg);
       svg.addEventListener('lmap:view', onZoom);
       window.addEventListener('resize', onZoom);
       $('colour').addEventListener('change', function () {
@@ -485,18 +508,6 @@
         renderConds();
         var sels = document.querySelectorAll('#conditions .wm-feature');
         sels[sels.length - 1].focus();
-      });
-      // map-zoom.js captures the pointer, so a click lands on the svg: find the dot under the
-      // pointer instead, and ignore clicks that ended a drag.
-      var downAt = null;
-      svg.addEventListener('pointerdown', function (e) {
-        downAt = [e.clientX, e.clientY];
-      });
-      svg.addEventListener('click', function (e) {
-        if (downAt && Math.abs(e.clientX - downAt[0]) + Math.abs(e.clientY - downAt[1]) > 4) return;
-        var t = document.elementFromPoint(e.clientX, e.clientY);
-        var i = t && t.parentNode === layer ? t.dataset.i : null;
-        if (i != null) showCard(+i, e);
       });
     })
     .catch(function () {

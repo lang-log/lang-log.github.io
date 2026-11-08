@@ -15,14 +15,9 @@
     'Australia': '澳洲',
     'Oceania': '大洋洲',
     'No location in the data': '資料中沒有位置',
-    'Each is listed under the continent where most of its languages are spoken.':
-      '每一項列在其大多數語言所在的大洲之下。',
     'Stats': '統計',
     'Updates': '更新',
     'About Lang Log': '關於 Lang Log',
-    'Counted from the data each time the site is built.': '這些數字在每次產生網站時從資料中統計。',
-    'Different kinds of records are counted separately; do not add them up.':
-      '不同種類的紀錄分別計數，請勿相加。',
     'All records': '全部紀錄',
     'By modality': '依模態',
     'Other kinds of languages': '其他種類的語言',
@@ -67,7 +62,6 @@
     'by': 'by',
     'Sources & scope': '來源與範圍',
     'Sources & scope ↗': '來源與範圍 ↗',
-    'All families': '所有語系',
     'Atlas domains': '圖譜分類',
     'Language families': '語系',
     'Sign languages': '手語',
@@ -78,9 +72,6 @@
       '這個網址沒有網頁。網頁可能已移動，或連結有誤。',
     'Top page': '首頁',
     'Search': '搜尋',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      '語系、手語和文字系統的圖譜。每個歸屬都註明所依據的來源，相互競爭的分類並列顯示，資料可以下載。',
-    'Also': '另見',
     'Top-level languoids': '頂層 Languoids',
     // Medium of every languoid (tools/modality.py)
     'Medium': '媒介',
@@ -90,7 +81,6 @@
     'constructed': '人造',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每筆 Glottolog 紀錄一個簡明網頁，附有分類和地圖。',
-    'Corpora and data for low-resource languages: planned.': '低資源語言的語料庫和資料：籌備中。',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       '來源：Glottolog、WALS、已發表研究的譜系樹和文字目錄，各自依其授權條款',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 松浦 義広。保留所有權利。',
@@ -103,19 +93,17 @@
     'Search records and aliases': '搜尋紀錄和別名',
     'Try Japanese · 日本語 · Basque · Austronesian':
       '例：Japanese · 日本語 · Basque · Austronesian',
-    'Try Japanese · Czech · ASL · Lithuanian': '例：Japanese · Czech · ASL · Lithuanian',
-    'Try Brahmi · Hangul · Latin · SignWriting': '例：Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': '依證據篩選',
-    'All evidence': '全部證據',
-    'With research trees': '有研究譜系樹',
-    'With conflicting study clades': '有相互衝突的研究分支',
-    'Record category': '紀錄類型',
-    'All categories': '全部類型',
     'Spoken genealogy': '有聲語言譜系',
     'Isolates': '孤立語言',
     'View': '檢視',
     'List': '清單',
     'Tree': '樹狀圖',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': '地圖',
+    'Yes': '是',
+    'No': '否',
+    'Conflicting study clades': '研究之間相互衝突的分支',
+    'Research trees': '研究譜系樹',
     'All roots': '所有根',
     'Selected branch': '所選分支',
     'Collapse all': '全部收合',
@@ -127,15 +115,12 @@
     'Choose a random sign language or dialect': '隨機選擇一種手語或方言',
     'Choose a random writing system': '隨機選擇一種文字系統',
     'Download': '下載',
-    'How to read': '閱讀說明',
     'Copy link': '複製連結',
     'Zoom in': '放大',
     'Zoom out': '縮小',
     'Fit': '符合視窗',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       '拖曳以平移 · 捲動或雙指縮放 · 點選節點查看詳情',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '虛線：用於導覽的連接，並非親緣關係。距離不代表時間。',
     'INTEGRATED · SOURCE-CONDITIONED': '綜合 · 依來源',
     'Independent roots & alternatives': '獨立的根與其他說法',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -148,20 +133,15 @@
     'Expand A': '展開 A',
     'Expand B': '展開 B',
     'Show in tree': '在樹狀圖中顯示',
-    'Cross-family / outgroup source trees · navigation only':
-      '跨語系 / 外群的來源譜系樹 · 僅供導覽',
     'Catalog classification': '目錄分類',
     'Lexical-feature hypotheses': '基於詞彙特徵的假說',
     'Manual-alphabet evidence': '指拼字母證據',
     'Glottolog records': 'Glottolog 紀錄',
     'Manual-alphabet samples': '指拼字母樣本',
-    'CLDR usage assertions': 'CLDR 使用資料',
     'Record details': '紀錄詳情',
     'Record information': '紀錄資訊',
     'Record page': '紀錄網頁',
     'Select a row to see its placements, names and sources.': '選擇一列以查看其歸屬、名稱和來源。',
-    'Select a record to see its placements, names and evidence.':
-      '選擇一筆紀錄以查看其歸屬、名稱和證據。',
     'ONE RECORD · SOURCE-CONDITIONED PLACEMENTS': '一筆紀錄 · 依來源的歸屬',
     'Open detail page ↗': '開啟詳情頁 ↗',
     'Details ↗': '詳情 ↗',
@@ -177,12 +157,7 @@
     'According to Glottolog 5.3': '依據 Glottolog 5.3',
     'Name in this language': '本語言中的名稱',
     'Names': '名稱',
-    'Names and native forms': '名稱與自稱',
-    'Not recorded in the imported sources. No name inferred.':
-      '匯入的資料中沒有紀錄。未推測任何名稱。',
-    'No verified same-language name recorded.': '沒有紀錄經查證的本語言名稱。',
     'No alternate names recorded.': '沒有紀錄其他名稱。',
-    'No other names or spellings recorded.': '沒有紀錄其他名稱或拼寫。',
     'No child records imported.': '未匯入下位紀錄。',
     'Isolate: no higher family': '孤立語言：無上位語系',
     'Top-level: no higher family': '最高層級：無上位語系',
@@ -190,10 +165,6 @@
       '獨立的最高層級條目；此處不主張任何上位語系。',
     'Independent top-level isolate; no higher family asserted here.':
       '獨立的最高層級孤立語言；此處不主張任何上位語系。',
-    'No additional direct placement recorded here. This is not a consensus certificate; unimported studies may propose other relationships.':
-      '此處沒有紀錄其他直接歸屬。這並不表示存在共識；未匯入的研究可能提出其他關係。',
-    'No incoming placement is recorded in the imported sources. This alone does not establish an independent origin.':
-      '匯入的資料中沒有這筆紀錄的上位歸屬。僅憑這一點不能證明其起源獨立。',
     'Alternative accounts and research notes': '其他說法與研究筆記',
     'Incompatible study branches': '互不相容的研究分支',
     'Glottolog record & bibliography ↗': 'Glottolog 紀錄與文獻 ↗',
@@ -232,11 +203,7 @@
       '無法連線至 Hugging Face。請使用上方連結或重試；這並不表示沒有模型。',
     'Retry loading models': '重新載入模型',
     'Search the name on Hugging Face ↗': '在 Hugging Face 上搜尋這個名稱 ↗',
-    'Select an individual language to find language-tagged models.':
-      '選擇個別語言，即可尋找帶有該語言標籤的模型。',
     'No models found with this exact language tag.': '找不到完全符合這個語言標籤的模型。',
-    'Downloads and reuse': '下載與再利用',
-    'Names and exports': '名稱與匯出',
     'Integrated XML ↓': '綜合 XML ↓',
     'Assertions JSON ↓': '主張 JSON ↓',
     'Names / base JSON ↓': '名稱 / 基礎 JSON ↓',
@@ -251,94 +218,15 @@
     'Scope': '範圍',
     'Sources': '來源',
     'Source register': '來源一覽',
-    'How disagreements are handled': '如何處理分歧',
-    'What the relationships mean': '關係的含義',
-    'Coverage still to be completed': '尚待補齊的範圍',
-    'Remaining gaps': '尚存的缺口',
-    'Integrated view · all imported sources.': '綜合檢視 · 所有匯入的來源。',
-    'Glottolog sign-category records;': 'Glottolog 手語類別紀錄；',
-    'downloaded ISO 15924 rows;': '下載的 ISO 15924 條目；',
     'Classification and names from': '分類和名稱來自',
     ', used under': '，授權條款：',
-    'This is coverage of the imported corpus, not every publication worldwide.':
-      '這是匯入資料的涵蓋範圍，而不是全世界的所有出版品。',
-    'Coverage is limited to the imported sources. No displayed alternative does not imply consensus.':
-      '涵蓋範圍僅限於匯入的來源。未顯示其他說法並不表示存在共識。',
-    'Catalog completeness is measured against the imported snapshots. Research coverage is partial, and missing branches do not imply agreement.':
-      '目錄的完整性以匯入的版本為準。研究的涵蓋只是部分的，缺少分支並不表示認同。',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      '分支取決於其來源。不同的歸屬並列顯示，無須切換來源。',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       '獨立的語系和孤立語言是並列的根。展開各分支即可追溯其紀錄的分類。',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       '點選一列即可展開查看。選擇一種語言，可比較其依來源的歸屬和附有論文連結的其他說法。研究分支也在同一清單中展開。',
-    'Expand a row to follow its branches. Select “Details” for all placements and citations. Repeated names refer to the same record.':
-      '展開一列即可追溯其分支。選擇「詳情」可查看所有歸屬和引文。重複出現的名稱指同一筆紀錄。',
-    'Each placement says “According to [source]” and links to its paper or catalog. Catalog classifications are not mislabeled as individual research papers.':
-      '每個歸屬都註明「依據［來源］」，並連結到其論文或目錄。目錄分類不會被誤標為個別的研究論文。',
-    'Different parent names alone do not prove conflict. For pairs of study trees, the atlas compares clades restricted to at least three identical sampled language IDs. Crossing, non-nested clades are marked as topologically incompatible.':
-      '僅上位名稱不同並不能證明存在衝突。對於每對研究譜系樹，圖譜只比較至少有三個相同語言樣本 ID 的分支。相互交叉、不相巢套的分支被標為拓撲上互不相容。',
-    'Different sampling, unresolved polytomies and repeated mappings of different local varieties are not, by themselves, evidence of conflicting ancestry. Repeated or nested tip IDs are excluded from automatic conflict comparison.':
-      '抽樣不同、未解決的多分叉以及不同地方變體的重複對應，本身都不構成親緣關係衝突的證據。重複或巢套的末端 ID 不參與自動衝突比較。',
-    'A conflicting summary topology does not establish which scientific claim is correct. Posterior uncertainty and all analyses within each paper have not been reviewed.':
-      '彙總拓撲的衝突並不能確定哪一種科學主張正確。後驗不確定性以及各論文中的全部分析均未經審查。',
-    'A script is not a language family. Historical descent, graphic influence and language usage are distinct; missing ancestry is unreviewed, not proof of independent invention.':
-      '文字不是語系。歷史淵源、字形影響和語言使用是不同的；缺少祖先表示尚未審查，並不能證明是獨立發明的。',
-    'A shared writing system or manual alphabet is not proof of shared language ancestry.':
-      '使用相同的文字系統或指拼字母，並不能證明語言有共同祖先。',
-    'All imported historical and influence assertions appear together; each edge carries its source and uncertainty.':
-      '所有匯入的歷史和影響主張並列顯示；每條連線都附有來源和不確定程度。',
-    'Glottolog classifications, lexical-feature study trees and manual-alphabet groups share identities but keep their evidence separate. Navigation categories are not universal ancestors.':
-      'Glottolog 分類、基於詞彙特徵的研究譜系樹和指拼字母分組共用同一紀錄，但各自的證據分開保存。導覽類別並不是共同祖先。',
-    'Source-specific sampled clades share the same language identities. Two European runs are replicates of one study.':
-      '各來源的樣本分支共用相同的語言紀錄。兩次歐洲分析是同一研究的重複。',
-    'Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.':
-      '歷史淵源、字形影響、樣本同一性和文字使用是不同的關係。不主張存在全域的共同祖先。',
-    'These records remain searchable and inspectable. No displayed connection is not a claim of independent origin.':
-      '這些紀錄仍可搜尋和查看。未顯示關聯並不是主張其起源獨立。',
-    'Standard chapters are sections of one publication, not independent studies. Bibliographic references are distinguished from imported datasets.':
-      '標準的各章是同一出版品的章節，而不是獨立的研究。文獻參考與匯入的資料集相區分。',
-    'The Transeurasian paper-level debate includes proposal, critique and response. This is distinct from automatic topology comparison.':
-      '關於泛歐亞語系的論文爭論包括提出、批評和回應。這與拓撲的自動比較不同。',
-    'These summary clades cannot both hold on the shared sampled tips. This does not determine which study is correct. Examples below may involve a wider group containing this record.':
-      '這些彙總分支在共同的樣本末端上不可能同時成立。這並不能確定哪一項研究正確。下面的例子可能涉及包含這筆紀錄的更大分組。',
-    'This atlas preserves every imported classification assertion with its source. Exact Glottocode matches share one canonical language record. Source-specific groupings and unmapped samples retain separate IDs. A repeated appearance in the outline is a reference to the same record, not a new language.':
-      '本圖譜保存每項匯入的分類主張及其來源。Glottocode 完全一致的條目共用同一筆語言紀錄。來源特有的分組和未對應的樣本保留各自的 ID。在清單中重複出現的是對同一紀錄的參照，而不是新的語言。',
-    "This is not every published tree worldwide. Ethnologue's full proprietary hierarchy, all regional monographs, all historical proposals, catalog bibliographies and a complete paper-by-paper review of every conflict are not incorporated. A node with no displayed alternative has not been certified as consensus.":
-      '這並不是全世界所有已發表的譜系樹。未收錄 Ethnologue 的完整專有層級、所有地區性專著、所有歷史上的提議、目錄的文獻清單，以及對每一處衝突逐篇論文的完整審查。未顯示其他說法的節點並未被認定為共識。',
-    'Every assertion retains its source. Catalog classifications, lexical-feature phylogenies, manual-alphabet groups, graphic influence and writing-system usage remain distinct. “Intermediate stages omitted” means a broad historical descent claim, not an immediate parent. Study roots and catalog categories are navigation entries, not a single invented ancestor.':
-      '每項主張都保留其來源。目錄分類、基於詞彙特徵的系統發生、指拼字母分組、字形影響和文字系統的使用彼此區分。「省略中間階段」表示概括的歷史淵源主張，而不是直接的上位。研究的根和目錄類別是導覽用的條目，而不是虛構的單一祖先。',
-    'Glottolog provides the navigation backbone. Alternative WALS and study branches are embedded at their shared ancestor where possible. This attachment is for navigation, not a new genealogical claim. Cross-family/outgroup trees remain in a separate navigation section.':
-      'Glottolog 構成導覽的骨架。WALS 和研究中的其他分支盡可能嵌入其共同祖先之下。這種連接僅用於導覽，並不是新的譜系主張。跨語系 / 外群的譜系樹放在單獨的導覽欄目中。',
-    'Language details query the public Hugging Face Hub API on demand. Results require an exact match in model-card language metadata using the record’s own ISO code and its documented two-letter equivalent. Parent-language and macrolanguage support is not inferred for dialects or individual languages. Multilingual models may appear. Metadata is publisher supplied and does not establish quality, exclusive language support, or dialect coverage. The list is a limited download-sorted sample, with links to the full Hub results. Model metadata is live and is not included in the classification XML/OPML exports.':
-      '開啟語言詳情時，會依需要查詢公開的 Hugging Face Hub API。結果要求模型卡的語言資訊與該紀錄本身的 ISO 代碼及其對應的兩字母代碼完全一致。不會把上位語言或巨集語言的支援推及方言或個別語言。可能出現多語言模型。資訊由發布者提供，並不保證品質、僅支援該語言或涵蓋方言。清單是依下載次數排序的有限樣本，並附有指向 Hub 全部結果的連結。模型資訊為即時取得，不包含在分類的 XML/OPML 匯出中。',
-    'XML and JSON contain every record, assertion, note, source, usage entry and input checksum. OPML is a repeated-reference outline of classification and history assertions; it does not include the full metadata or CLDR usage table. Source-specific rights remain applicable: Glottolog CC BY 4.0, SIL CC BY-SA 4.0, Power CLDF GPL-3.0, Unicode data under Unicode terms.':
-      'XML 和 JSON 包含每筆紀錄、主張、註記、來源、使用資料和輸入檢查碼。OPML 是分類和歷史主張的大綱（同一紀錄以參照形式重複出現），不包含全部資訊和 CLDR 使用表。各來源的權利仍然適用：Glottolog CC BY 4.0、SIL CC BY-SA 4.0、Power CLDF GPL-3.0、Unicode 資料適用 Unicode 條款。',
-    'SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.':
-      'SIL 索引條目。ISO 代碼完全一致的條目共用紀錄；SIL 自有的識別碼保持獨立。',
-    'All Glottolog alias rows for the sign-language category are preserved with their provider tags. ISO English/French labels and SIL names are retained. Verified same-language labels appear where present. UCD glyph samples show characters, not a script’s native name. Video or sign-notation self-names have not been invented.':
-      '手語類別中 Glottolog 的所有別名條目均連同提供者標籤一併保存。保留 ISO 的英語和法語名稱以及 SIL 名稱。經查證的本語言名稱在有時顯示。UCD 字形樣本顯示的是字元，而不是文字的自稱。沒有虛構影片或手語記號形式的自稱。',
-    'All sources appear together. Repeated branches are references to shared IDs. Alternative origin accounts are shown in record details with links; tentative claims are labeled. The two European consensus trees are independent runs of the same study, not two publications. No all-sign-languages tree is imported.':
-      '所有來源並列顯示。重複的分支是對共用 ID 的參照。關於起源的其他說法附連結顯示在紀錄詳情中；暫定的主張已加標註。兩棵歐洲共識譜系樹是同一研究的獨立分析，而不是兩篇出版品。未匯入涵蓋所有手語的譜系樹。',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Glottolog 5.3 的最高層級條目。每筆紀錄都有自己的網頁，其網址與分類對應。',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       '：各來源的引文和授權條款見下文。匯入的彙總譜系樹歸其作者和維護者所有。代碼對應：',
-    '. Consult each original source before further redistribution.':
-      '。再次散布前，請查閱各原始來源。',
     'Classification ·': '分類 ·',
-    'Name search is exploratory; results are not verified matches.':
-      '依名稱搜尋僅供探索；結果並非經查證的對應。',
-    'Selected historical relationships reviewed; chapter sections are not counted as independent research studies.':
-      '已審查部分選定的歷史關係；章節不計為獨立研究。',
-    'All language/sample rows and published SubGroup metadata; not a reconstruction of the paper’s reticulate network.':
-      '所有語言和樣本條目以及已發表的下位分組資訊；並非對論文中網狀網路的重建。',
-    'All explicit script entries under languageData. Primary/secondary designation preserved. Not a complete global orthography inventory; no inferred language genealogy.':
-      'languageData 中所有明確的文字條目。保留主要 / 次要的區分。並非世界正字法的完整清單；不推斷語言譜系。',
-    'Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.':
-      '完整匯入了已確定版本的目錄，並非世界所有語言或文字的完整清單。',
-    'Each point is the one representative location Glottolog gives for a record, not the area where it is spoken.':
-      '每個點是 Glottolog 為一筆紀錄給出的唯一代表地點，而不是使用該語言的地區。',
     'Points: Glottolog 5.3 (CC BY 4.0).': '點：Glottolog 5.3（CC BY 4.0）。',
     'Land:': '陸地：',
     '(public domain).': '（公有領域）。',
@@ -364,20 +252,9 @@
     'Cross-family / outgroup source trees': '跨語系 / 外群的來源譜系樹',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       '跨越多個 Glottolog 語系的研究譜系樹和 WALS 語系。列在此處僅供導覽。',
-    'Whole tree': '完整樹狀圖',
     'Show the tree of this branch': '顯示這個分支的樹狀圖',
     'Where Lang Log attaches this tree': 'Lang Log 將這棵譜系樹連接到的位置',
     "Other sources' trees below this record": '這筆紀錄之下其他來源的譜系樹',
-    'Alternative source-conditioned branches. They are attached here for navigation, not as additional ancestors.':
-      '依來源的其他分支。連接在此處僅供導覽，並不表示新增祖先。',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      '拖曳以平移 · 捲動或雙指縮放 · 點選節點開啟其網頁',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      '展開一列可查看其下位。點選名稱會開啟該紀錄的網頁，其中有各來源的歸屬和論文連結。',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '獨立的語系和孤立語言是並列的根。虛線：用於導覽的連接，並非親緣關係。距離不代表時間。',
-    'Source-specific grouping or sample; not a new accepted language family.':
-      '僅見於某一來源的分組或樣本；並非新的公認語系。',
     '→ sampled study tree': '→ 抽樣研究譜系樹',
     '→ catalog grouping': '→ 目錄分組',
     'sampled study tree': '抽樣研究譜系樹',
@@ -399,38 +276,22 @@
     'Back to search results': '返回搜尋結果',
     'genus': '屬（WALS）',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': '語言特徵地圖',
-    'Language feature map · Lang Log by yoshi': '語言特徵地圖 · Lang Log by yoshi',
-    'About': '說明',
     'About this map': '關於本地圖',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      '一開始所有語言都在地圖上。加入條件後只留下符合的語言，也可以選擇一個特徵為點著色。',
     'Colour by': '著色依據',
     'None (one colour)': '無（單色）',
     'Conditions': '條件',
-    'No conditions yet: every language is shown.': '還沒有條件：顯示所有語言。',
     '+ Add condition': '+ 加入條件',
     'Choose a feature': '選擇特徵',
     'Remove this condition': '刪除此條件',
     'Select all': '全選',
     'No data': '無資料',
     'Close': '關閉',
-    'Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.':
-      '雙指縮放或 Ctrl + 滾輪縮放，拖曳移動，點按圓點查看語言。',
     'WALS page': 'WALS 頁面',
     'Lang Log record': 'Lang Log 紀錄',
     'World map of the languages that match the conditions': '符合條件的語言的世界地圖',
     'The map data could not be loaded.': '無法載入地圖資料。',
-    'The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.':
-      '圓點是 Glottolog 5.3 中所有有座標的語言，位於 Glottolog 給出的代表點，而不是該語言的使用範圍。特徵值來自 WALS Online（Dryer 與 Haspelmath 編，2013 年）CLDF 版本 v2020.4（CC BY 4.0 授權），並對應到每種 WALS 語言的 Glottolog 語言。',
-    'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
-      '同一條件中勾選的值以「或」連接。條件之間以「且」連接，除非把連接改為 OR；以 OR 連接的條件算作一組，所以「A AND B OR C」的意思是「A AND (B OR C)」。在某條件的特徵上沒有資料的語言不符合該條件。',
-    'This map needs JavaScript. The feature data is in': '本地圖需要 JavaScript。特徵資料位於',
     'Land and borders: Natural Earth (public domain)': '陸地與邊界：Natural Earth（公共領域）',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      '語言特徵地圖：在世界地圖上顯示所有語言，依 WALS 特徵的條件篩選，並依其中一個特徵著色。',
     'Land and borders:': '陸地與邊界：',
-    'Dashed borders are disputed or not settled.': '虛線邊界為有爭議或未確定的邊界。',
     'Reset': '重設',
     'Reset view': '恢復原始檢視',
     'Map view': '地圖檢視',
@@ -438,46 +299,10 @@
     'Records at this point': '此處的記錄',
   },
   patterns: [
-    [
-      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
-      'Glottolog 的全部 $1 筆手語記錄，包括語系和方言。每筆頂層記錄都是獨立的 languoid。',
-    ],
-    [
-      /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
-      'CLDF 的全部 $1 個樣本，包括歷史形式。這是已發表的下位分組資訊，而不是推斷出的整個語言的譜系樹。',
-    ],
-    [
-      /^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/,
-      '在目錄中找到的 $1 個 Phlorest 資料庫已在彙總譜系樹層面完整匯入。未匯入後驗樣本。',
-    ],
     [/^First ([\d,]+) matches\. Refine your search\.$/, '只顯示前 $1 筆結果。請縮小搜尋範圍。'],
     [/^Show ([\d,]+) more$/, '再顯示 $1 筆'],
     [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],
     [/^Showing ([\d,]+) of ([\d,]+) languages$/, '顯示 $2 種語言中的 $1 種'],
-    [
-      /^([\d,]+) Glottolog records retained; ([\d,]+) canonical records including source-specific clades\/samples\. All (\d+) discovered Phlorest dataset summary trees imported, plus WALS\.$/,
-      '保留 Glottolog 紀錄 $1 筆；包括各來源特有分支和樣本在內，共 $2 筆規範紀錄。已匯入找到的全部 $3 棵 Phlorest 彙總譜系樹，並加入 WALS。',
-    ],
-    [
-      /^([\d,]+) source-tagged root\/parent assertions\. ([\d,]+) incompatible clade pairs across study trees involve ([\d,]+) canonical records\.$/,
-      '附來源的根和上位主張 $1 項。研究譜系樹之間互不相容的分支對 $2 組，涉及 $3 筆規範紀錄。',
-    ],
-    [
-      /^(\d+) manual-alphabet samples; (\d+) lexical consensus trees covering (\d+) distinct language samples; (\d+) reviewed script relationships; ([\d,]+) CLDR usage assertions\. These are different units and should not be added as “languages\.”$/,
-      '指拼字母樣本 $1 個；詞彙共識譜系樹 $2 棵，涵蓋 $3 個不同的語言樣本；已審查的文字關係 $4 項；CLDR 使用資料 $5 筆。這些單位不同，不應相加作為「語言」數量。',
-    ],
-    [
-      /^All ([\d,]+) Glottolog name rows retain their provider and language tag\. Same-language labels are identified by exact ISO code equivalence, not inferred; ([\d,]+) records have such labels\. (.*)$/,
-      'Glottolog 的全部 $1 筆名稱條目都保留了提供者和語言標籤。本語言名稱只依 ISO 代碼完全一致來確定，不做推測；有此類名稱的紀錄為 $2 筆。XML 匯出紀錄與依來源歸屬的圖，並附衝突範例和論文引文。OPML 以巢套大綱表示其他說法，重複參照共同的紀錄。SVG 匯出目前顯示的分支。',
-    ],
-    [
-      /^All ([\d,]+) rows of the downloaded index, including non-ISO local identifiers\. Reported types and statuses are catalog metadata, not independently verified genealogy\.$/,
-      '下載的索引中的全部 $1 列，包括非 ISO 的本地識別碼。所列類型和狀態是目錄資訊，而不是經獨立查證的譜系。',
-    ],
-    [
-      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
-      '保留了 Glottolog 的全部手語記錄，包括語系和方言。不是 languoid 的目錄分組已從樹中移除。',
-    ],
     [/^Source label · (.+)$/, '原始標註 · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 語系 · Lang Log by yoshi'],
     [/^Language families · Lang Log by yoshi$/, '語系 · Lang Log by yoshi'],
@@ -486,16 +311,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 搜尋結果 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '搜尋結果 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '所有語系 · Lang Log by yoshi'],
-    [/^Top-level languoids · ([\d,]+)$/, '頂層 Languoids · $1'],
     [
       /^Medium: (spoken|signed|written)( · constructed)?$/,
       function (m, tr) {
         return tr('Medium') + '：' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
       },
-    ],
-    [
-      /^Listed under (.+), a catalog group that is not a languoid\.$/,
-      '列在 $1 之下，但這是目錄分組，不是 languoid。',
     ],
     [/^Members · ([\d,]+)$/, '下位紀錄 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, '根據 Lang Log 的下位紀錄 · $1'],
@@ -513,10 +333,6 @@
       '顯示 $1 處 · 同一 ID 可能出現在多個假說中',
     ],
     [/^([\d,]+) roots in the list$/, '清單中的根 $1 個'],
-    [
-      /^([\d,]+) shared samples compared\. This incompatibility does not determine which study is correct\.$/,
-      '比較了 $1 個共同樣本。這項不相容並不能確定哪一項研究正確。',
-    ],
     [
       /^Same ([\d,]+) sampled IDs compared · ([\d,]+) incompatible clade pair\(s\) involving this record\.$/,
       '比較了相同的 $1 個樣本 ID · 涉及這筆紀錄的互不相容分支對 $2 組。',
@@ -538,44 +354,8 @@
     [/^Source sample: (.+)$/, '來源樣本：$1'],
     [/^Other direct members: (.+)$/, '其他直接下位：$1'],
     [/^Macroarea: (.+)$/, '大區域：$1'],
-    [
-      /^Models tagged for (.+)\. Open a model card to check its intended use and evaluation\.$/,
-      '帶有 $1 標籤的模型。請開啟模型卡確認其預期用途和評估。',
-    ],
-    [
-      /^Exact model-card language tags: (.+)\. Includes multilingual models; tags are not a quality or dialect-coverage guarantee\.$/,
-      '模型卡語言標籤完全一致：$1。包括多語言模型；標籤並不保證品質或方言涵蓋。',
-    ],
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
-    [/^Faint points: other members of (.+)\.$/, '淺色點：$1 的其他下位。'],
-    [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
-      function (m) {
-        return (
-          '顯示 ' +
-          m[1] +
-          ' 種語言' +
-          (m[2] ? '（其中 ' + m[2] + ' 種在 Glottolog 中沒有座標）' : '') +
-          '。'
-        );
-      },
-    ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          '地圖：' +
-          m[1] +
-          ' 及其 ' +
-          m[2] +
-          ' 種' +
-          (m[3] === 'dialects' ? '方言' : '語言') +
-          '的位置'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, '地圖：$1 的位置'],
-    [/^Map: ([\d,]+) languages of (.+)$/, '地圖：$2 的 $1 種語言'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

@@ -95,7 +95,7 @@ unparented = [
     for id in nodes
     if not parents.get(id) and next(r for r in rows if r["ID"] == id)["Family_ID"]
 ]
-parents, grouping = lift(parents, "glottolog")
+parents, _ = lift(parents, "glottolog")
 for id in NOT_LANGUOIDS["glottolog"]:
     del nodes[id]
 roots = []
@@ -187,8 +187,6 @@ data = {
     "roots": sorted(
         roots, key=lambda x: (nodes[x]["category"] != "Spoken genealogy", -nodes[x]["size"])
     ),
-    # Records Glottolog lists under a group that is not a languoid: {id: group name}.
-    "groupings": grouping,
     "wals": wn,
     "walsRoots": sorted(wroots, key=lambda x: wn[x]["name"]),
     "stats": stats,

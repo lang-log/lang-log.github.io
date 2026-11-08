@@ -8,8 +8,11 @@ each of them (owner, 2026-11-06).
 The top page is also the top of the language-families tree (owner,
 2026-11-06): every Glottolog record and every source-only record has its own
 page below it (tools/build_paths.py), and this page lists the top-level
-families and isolates, draws the whole tree (dist/tree.js) and holds the
-downloads. There is no separate atlas page.
+families and isolates in three views (owner, 2026-11-08): a list (works
+without JavaScript), a map of every language and the zoomable tree of every
+root (dist/tree.js), with conditions on WALS and Lang Log features that all
+three share (dist/explore.js; this replaced the separate feature map page and
+the "Whole tree" section). There is no separate atlas page.
 
 Stats, sources and updates are pages of their own, not sections of the top
 page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
@@ -37,13 +40,13 @@ drawn from dist/random.json, which this script writes (not committed):
 """
 
 from html import escape
-import csv
 import re
 import datetime
 import json
 
 from locations import DIST
 import build_paths as bp
+from languoid_map import min_width, world_box, world_view
 import info_page
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import COPYRIGHT, HOME_TITLE, by_yoshi
@@ -148,14 +151,10 @@ def families_html():
     continent_of = continent_of_roots()
     # No kind label (family, isolate) after the name: every record is a languoid.
     groups = "".join(
-        f"<h3>{escape(continent)}</h3>"
+        f'<div class="continent"><h3>{escape(continent)}</h3>'
         '<ul class="record-links">'
-        + "".join(
-            f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
-            for r in roots
-            if continent_of[r] == continent
-        )
-        + "</ul>"
+        + "".join(root_row(r) for r in roots if continent_of[r] == continent)
+        + "</ul></div>"
         for continent in (*CONTINENTS, NO_CONTINENT)
         if continent in continent_of.values()
     )
@@ -165,50 +164,87 @@ def families_html():
         f'<span class="muted">{"catalog grouping" if a["type"] == "catalog" else "sampled study tree"}</span></li>'
         for a in unplaced
     )
-    return (
-        f'<section class="home-section" id="families"><h2>Top-level languoids · {len(roots)}</h2>'
-        '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
-        '<p class="muted">Each is listed under the continent where most of its languages are spoken.</p>'
-        f"{groups}"
-        '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
-        "Glottolog family. They are listed here for navigation only.</p>"
-        f'<ul class="record-links">{rows_unplaced}</ul></section>'
-    )
-
-
-def tree_section():
     downloads = (
         '<a class="exportlink" href="language-families.xml" download title="Complete Glottolog and WALS trees, all imported names and source tags">XML</a>'
         '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
     )
+    # Three views of every top-level record (owner, 2026-11-08): a switch (1), the
+    # conditions shared by the views (2) and the view (3). dist/explore.js runs them;
+    # without JavaScript only the list is shown.
+    views = "".join(
+        f'<button type="button" data-view="{v}" aria-pressed="{str(v == "list").lower()}">{label}</button>'
+        for v, label in VIEWS
+    )
     return (
-        '<section class="home-section tree-section" id="tree-section"><h2>Whole tree</h2>'
-        + bp.atlas_html("", downloads=downloads)
-        + "</section>"
+        '<section class="home-section home-views" id="families">'
+        f'<div class="seg explore-views" role="group" aria-label="View" hidden>{views}</div>'
+        '<div class="explore-filter wm-legend" hidden>'
+        '<p id="count" class="wm-count"></p>'
+        '<div class="explore-colour"><label class="wm-colour">Colour by <span id="colour-slot"></span></label><div id="colour-legend"></div></div>'
+        '<h3 class="wm-conds-title">Conditions</h3>'
+        '<div id="conditions"></div>'
+        '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
+        f'<div class="explore-view" data-view="list">{groups}'
+        '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
+        f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
+        '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
+        f'<svg id="map" class="lmap" viewBox="{world_view()}" role="img" aria-label="World map of the languages that match the conditions" '
+        f'preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="{min_width()}" data-world="{world_box()}">'
+        '<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>'
+        '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
+        '<g id="points"></g></svg>'
+        "</div></div>"
+        f'<div class="explore-view" data-view="tree" hidden>{bp.atlas_html("", downloads=downloads)}</div>'
+        "</section>"
+    )
+
+
+# The views of the top-page list, in the order of the switch: (key, label).
+# dist/explore.js reads the keys from the buttons.
+VIEWS = [("list", "List"), ("map", "Map"), ("tree", "Tree")]
+
+
+def root_row(r):
+    """A top-level record in the List view: its name linked to its page, then (as in
+    the tree of the former whole-tree section) up to two native names, the number of
+    sources that place it when more than one, and a flag when study trees conflict
+    over it. data-root lets dist/explore.js hide the records no matching language
+    belongs to."""
+    n = bp.nodes[r]
+    native = list(dict.fromkeys(x["text"] for x in n.get("nativeNames", [])))[:2]
+    sources = {p["source"] for p in bp.unified["placements"].get(r, [])}
+    meta = " · ".join(
+        m
+        for m in (
+            f"{len(sources)} sources" if len(sources) > 1 else "",
+            "⚑" if r in bp.unified["conflictIndex"] else "",
+        )
+        if m
+    )
+    return (
+        f'<li data-root="{escape(r)}"><a href="{escape(bp.path_of(r))}/">{escape(n["name"])}</a>'
+        + (
+            f' <span class="native-inline" dir="auto">{escape(" / ".join(native))}</span>'
+            if native
+            else ""
+        )
+        + (f' <span class="rowmeta">{escape(meta)}</span>' if meta else "")
+        + "</li>"
     )
 
 
 def sources_section():
-    """The "Sources & scope" text with the coverage figures and the study trees, each linked to its tree."""
+    """The "Sources & scope" text with the study trees, each linked to its tree."""
     u = bp.unified
-    st = u["stats"]
     text = (bp.ROOT / "source-data" / "sources-and-scope.html").read_text(encoding="utf-8")
     text = text.split("-->", 1)[1].strip()
     # The page is one level below the root.
     text = re.sub(r'href="(?!https?:|#|\.\./)', 'href="../', text)
-    coverage = (
-        f"<p>{st['glottologRecords']:,} Glottolog records retained; {st['canonicalRecords']:,} canonical records including "
-        f"source-specific clades/samples. All {st['summaryTrees']} discovered Phlorest dataset summary trees imported, plus WALS.</p>"
-        f"<p>{st['assertions']:,} source-tagged root/parent assertions. {st['topologicalConflicts']:,} incompatible clade pairs "
-        f"across study trees involve {st['recordsWithConflicts']:,} canonical records.</p>"
-        "<p>This is coverage of the imported corpus, not every publication worldwide.</p>"
-    )
     register = "".join(
         f'<div class="registry-source"><strong><a href="../{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
         f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a> · '
         f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
         f"<small>{escape(s['family'])} · {escape(s['license'])} · summary tree imported</small>"
-        + (f"<p>{escape(s['interpretationNote'])}</p>" if s.get("interpretationNote") else "")
         + "</div>"
         for s in u["sources"].values()
         if s.get("kind") == "study"
@@ -216,16 +252,7 @@ def sources_section():
     register = (
         f'<p><a href="../{bp.SOURCE_SLUG["wals"]}/">WALS families in Lang Log</a></p>' + register
     )
-    text = text.replace("<!-- coverage -->", coverage).replace("<!-- source-register -->", register)
-    # Counts in the text are computed here, never written in the source file.
-    with open(bp.ROOT / "source-data" / "names.csv", encoding="utf-8", newline="") as f:
-        name_rows = sum(1 for _ in csv.DictReader(f))
-    for key, value in (
-        ("summaryTrees", st["summaryTrees"]),
-        ("nameRows", name_rows),
-        ("sameLanguageLabels", st["sameLanguageLabels"]),
-    ):
-        text = text.replace(f"<!-- {key} -->", f"{value:,}")
+    text = text.replace("<!-- source-register -->", register)
     if "<!-- " in text:
         raise SystemExit(
             "sources-and-scope.html: unknown placeholder " + text[text.index("<!-- ") :][:40]
@@ -375,8 +402,6 @@ def stats_body():
         for h, rows in counts()
     )
     return (
-        '<p class="muted">Counted from the data each time the site is built. '
-        "Different kinds of records are counted separately; do not add them up.</p>"
         f'<dl class="stat-hero">{hero}</dl>'
         f'<section class="stats-group"><h2>By modality</h2>{bars(modality)}</section>'
         f'<section class="stats-group"><h2>Spoken languages by macroarea</h2>{bars(by_macroarea())}</section>'
@@ -423,7 +448,7 @@ def main():
         f'<meta name="description" content="{escape(description)}">'
         f"<title>{HOME_TITLE}</title>"
         '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
-        '<link rel="stylesheet" href="style.css">'
+        '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
         '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'
         '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
         '</head><body class="home-page">\n'
@@ -444,19 +469,14 @@ def main():
         'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
         "</button></div></form>"
         f'<div class="home-actions">{random_row()}{guide_row()}</div>'
-        '<p class="sub">An atlas of language families, sign languages and writing systems. '
-        "Every placement says which source it follows, competing classifications are shown together, "
-        "and the data can be downloaded.</p></section>\n"
-        f"{families_html()}{tree_section()}"
-        '<section class="home-more"><h2>Also</h2><ul>'
-        '<li><a href="feature-map.html">Language feature map</a>: every language on a world map, '
-        "narrowed by conditions on WALS features and coloured by one of them.</li>"
-        "<li>Corpora and data for low-resource languages: planned.</li>"
-        "</ul></section></main>\n"
+        "</section>\n"
+        f"{families_html()}"
+        "</main>\n"
         f"<footer><span>Glottolog 5.3 + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
         f"<span>{COPYRIGHT}</span></footer>\n"
-        '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script><script src="tree.js"></script>\n'
+        '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'
+        '<script src="map-zoom.js"></script><script src="tree.js"></script><script src="explore.js"></script>\n'
         "</body></html>\n"
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")

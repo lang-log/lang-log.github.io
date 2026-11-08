@@ -16,8 +16,8 @@ python3 tools/finish_unified.py
 # (dist/signs-and-scripts.json, .xml and .opml; not committed) and checks it.
 python3 tools/build_visual.py
 python3 tools/validate_visual.py
-# Writes the top page dist/index.html (the list of top-level families,
-# the whole tree), dist/random.json (the records its Random buttons draw
+# Writes the top page dist/index.html (the top-level families in a list,
+# a map and a tree), dist/random.json (the records its Random buttons draw
 # from) and the pages linked under the Random row: dist/stats/,
 # dist/sources/ and dist/updates/ (not committed; built here).
 python3 tools/build_home.py
@@ -39,9 +39,10 @@ python3 tools/check_not_languoids.py
 # the atlas tree, the search text and the names split into SHARDS files
 # (the number is set in dist/atlas-data.js).
 python3 tools/split_data.py
-# Writes the language feature map's data (dist/data/features/, not
-# committed) from source-data/wals/, source-data/wals.csv and
-# source-data/languages.csv.
+# Writes the data of the top page's map view and its conditions
+# (dist/data/features/, not committed) from source-data/wals/,
+# source-data/wals.csv, source-data/languages.csv, dist/data.json and
+# dist/integrated.json.
 python3 tools/build_wals_map.py
 # Writes the Releases page dist/releases.html and dist/releases.json (not
 # committed) from the GitHub Releases: from build/github-releases.json, which
@@ -64,8 +65,8 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
          home.js random.json q.html search.js \
-         feature-map.html feature-map.js feature-map.css data/features/languages.json \
-         data/features/features.json data/features/f/81A.json \
+         explore.js explore.css data/features/languages.json \
+         data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
          stats/index.html stats.js sources/index.html updates/index.html \
          releases.html releases.json \
          afro-asiatic/berber/languoid.json features/index.json \
@@ -98,6 +99,32 @@ kinds=$( { find dist -name '*.html' -print0 | xargs -0 grep -lE 'class="legend"|
 if grep -nE 'lv-(hit-)?(family|language|dialect)|hit-kind|v-kind|n\.isolate\?.isolate.:n\.level' dist/*.js dist/*.css; then
   echo "scripts or styles that label records by kind (above)"; exit 1
 fi
+# A family has no point of its own in Glottolog, so its map shows only member
+# points and a language's map shows its own point: one colour for both, or the
+# colours would tell family pages from language pages.
+echo "Check that a record's own point and its members' points share one colour"
+python3 - <<'PY'
+import re, sys
+css = re.sub(r"/\*.*?\*/", "", open("dist/record.css", encoding="utf-8").read(), flags=re.S)
+fills = [(sel.strip(), fill) for sel, body in re.findall(r"([^{}]*)\{([^{}]*)\}", css)
+         for fill in re.findall(r"(?:^|;)\s*fill\s*:\s*([^;]+)", body)
+         if re.search(r"\.lmap-(main|self)\b", sel)]
+shared = [f for sel, f in fills if ".lmap-main" in sel and ".lmap-self" in sel]
+if len(fills) != 1 or len(shared) != 1:
+    sys.exit("dist/record.css: .lmap-main and .lmap-self must take their fill from one shared rule: %r" % fills)
+PY
+# The points of a map are chosen the same way for every record: the code that
+# chooses them must not read a record's level or kind.
+echo "Check that the map points are chosen without the record's kind"
+python3 - <<'PY'
+import ast, sys
+tree = ast.parse(open("tools/build_paths.py", encoding="utf-8").read())
+for f in tree.body:
+    if isinstance(f, ast.FunctionDef) and f.name in ("_points_under", "map_html"):
+        for node in ast.walk(f):
+            if isinstance(node, ast.Constant) and node.value in ("level", "kind", "isolate", "family", "language", "dialect"):
+                sys.exit(f"tools/build_paths.py:{node.lineno}: {f.name} reads the record's kind ({node.value!r})")
+PY
 
 # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
 # pages, so a browser never pairs new HTML with an old cached file
