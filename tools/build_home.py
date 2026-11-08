@@ -98,13 +98,66 @@ def guide_row():
     return f'<nav class="home-guide" aria-label="About Lang Log">{links}</nav>'
 
 
+# The continents of the top-page list, in the owner's order (2026-11-08), and
+# the Glottolog macroareas each one takes. The grouping is for display only:
+# a continent is a heading on the top page, never a node of the tree.
+CONTINENTS = {
+    "Africa": ("Africa",),
+    "Eurasia": ("Eurasia",),
+    "Oceania": ("Papunesia", "Australia"),
+    "North America": ("North America",),
+    "South America": ("South America",),
+}
+CONTINENT_OF_MACROAREA = {a: c for c, areas in CONTINENTS.items() for a in areas}
+
+
+def first_macroarea(node):
+    """A record's first Glottolog macroarea ("" if it has none); records in
+    several macroareas list them separated by ";"."""
+    return (node.get("area") or "").split(";")[0]
+
+
+# The heading for top-level records with no macroarea, neither their own nor
+# any of their languages' (for example a root whose records have no location).
+NO_CONTINENT = "No location in the data"
+
+
+def continent_of_roots():
+    """Each top-level record's continent: the one where most of its languages
+    (level "language", by their first macroarea) are; a tie goes to the
+    continent that comes first in CONTINENTS. A root with no such language
+    takes the continent of its own first macroarea, and one without that
+    either goes under NO_CONTINENT."""
+    tally = {r: dict.fromkeys(CONTINENTS, 0) for r in bp.data["roots"]}
+    for n in bp.nodes.values():
+        continent = CONTINENT_OF_MACROAREA.get(first_macroarea(n))
+        if n.get("level") == "language" and continent and n.get("root") in tally:
+            tally[n["root"]][continent] += 1
+    return {
+        r: max(t, key=t.get)
+        if any(t.values())
+        else CONTINENT_OF_MACROAREA.get(first_macroarea(bp.nodes[r]), NO_CONTINENT)
+        for r, t in tally.items()
+    }
+
+
 def families_html():
-    """The top-level families and isolates of Glottolog, each linked to its page."""
+    """The top-level records of Glottolog, each linked to its page, under the
+    continent where most of their languages are (continent_of_roots())."""
     roots = sorted(bp.data["roots"], key=lambda r: bp.nodes[r]["name"].lower())
+    continent_of = continent_of_roots()
     # No kind label (family, isolate) after the name: every record is a languoid.
-    rows = "".join(
-        f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
-        for r in roots
+    groups = "".join(
+        f"<h3>{escape(continent)}</h3>"
+        '<ul class="record-links">'
+        + "".join(
+            f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
+            for r in roots
+            if continent_of[r] == continent
+        )
+        + "</ul>"
+        for continent in (*CONTINENTS, NO_CONTINENT)
+        if continent in continent_of.values()
     )
     unplaced = bp.unified["anchors"].get("__unplaced__", [])
     rows_unplaced = "".join(
@@ -115,7 +168,8 @@ def families_html():
     return (
         f'<section class="home-section" id="families"><h2>All families and isolates · {len(roots)}</h2>'
         '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
-        f'<ul class="record-links">{rows}</ul>'
+        '<p class="muted">Each is listed under the continent where most of its languages are spoken.</p>'
+        f"{groups}"
         '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
         "Glottolog family. They are listed here for navigation only.</p>"
         f'<ul class="record-links">{rows_unplaced}</ul></section>'
@@ -281,7 +335,7 @@ def by_macroarea():
     not_spoken = ("Sign Language", "Bookkeeping", "Artificial Language")
     tally = {a: 0 for a in MACROAREAS}
     for n in bp.nodes.values():
-        area = (n.get("area") or "").split(";")[0]
+        area = first_macroarea(n)
         if n.get("level") == "language" and n.get("category") not in not_spoken and area in tally:
             tally[area] += 1
     return list(tally.items())

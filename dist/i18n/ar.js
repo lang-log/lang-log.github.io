@@ -13,6 +13,10 @@
     'North America': 'أمريكا الشمالية',
     'South America': 'أمريكا الجنوبية',
     'Australia': 'أستراليا',
+    'Oceania': 'أوقيانوسيا',
+    'No location in the data': 'بلا موقع في البيانات',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'يُدرج كل منها تحت القارة التي تُتحدث فيها معظم لغاته.',
     'Stats': 'الإحصاءات',
     'Updates': 'المستجدات',
     'About Lang Log': 'عن Lang Log',

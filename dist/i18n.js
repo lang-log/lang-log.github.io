@@ -20,6 +20,10 @@ window.LANGLOG_I18N = {
       'North America': '北アメリカ',
       'South America': '南アメリカ',
       'Australia': 'オーストラリア',
+      'Oceania': 'オセアニア',
+      'No location in the data': 'データに位置がないもの',
+      'Each is listed under the continent where most of its languages are spoken.':
+        '言語がもっとも多く話されている大陸の下に並べています。',
       'Stats': '統計',
       'Updates': '更新情報',
       'About Lang Log': 'Lang Log について',

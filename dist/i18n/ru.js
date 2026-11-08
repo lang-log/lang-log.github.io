@@ -13,6 +13,10 @@
     'North America': 'Северная Америка',
     'South America': 'Южная Америка',
     'Australia': 'Австралия',
+    'Oceania': 'Океания',
+    'No location in the data': 'Без места в данных',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Каждая запись приведена под тем континентом, где говорят на большинстве её языков.',
     'Stats': 'Статистика',
     'Updates': 'Новости',
     'About Lang Log': 'О Lang Log',

@@ -13,6 +13,10 @@
     'North America': 'Amerika Utara',
     'South America': 'Amerika Selatan',
     'Australia': 'Australia',
+    'Oceania': 'Oseania',
+    'No location in the data': 'Tanpa lokasi dalam data',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Masing-masing dicantumkan di bawah benua tempat sebagian besar bahasanya dituturkan.',
     'Stats': 'Statistik',
     'Updates': 'Pembaruan',
     'About Lang Log': 'Tentang Lang Log',

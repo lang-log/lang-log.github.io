@@ -13,6 +13,10 @@
     'North America': '北美洲',
     'South America': '南美洲',
     'Australia': '澳洲',
+    'Oceania': '大洋洲',
+    'No location in the data': '資料中沒有位置',
+    'Each is listed under the continent where most of its languages are spoken.':
+      '每一項列在其大多數語言所在的大洲之下。',
     'Stats': '統計',
     'Updates': '更新',
     'About Lang Log': '關於 Lang Log',

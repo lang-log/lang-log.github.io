@@ -13,6 +13,10 @@
     'North America': '북아메리카',
     'South America': '남아메리카',
     'Australia': '오스트레일리아',
+    'Oceania': '오세아니아',
+    'No location in the data': '데이터에 위치가 없는 항목',
+    'Each is listed under the continent where most of its languages are spoken.':
+      '각 항목은 그 언어 대부분이 쓰이는 대륙 아래에 있습니다.',
     'Stats': '통계',
     'Updates': '업데이트',
     'About Lang Log': 'Lang Log 소개',

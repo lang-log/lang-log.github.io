@@ -13,6 +13,10 @@
     'North America': 'Noord-Amerika',
     'South America': 'Zuid-Amerika',
     'Australia': 'Australië',
+    'Oceania': 'Oceanië',
+    'No location in the data': 'Zonder plaats in de gegevens',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Elk staat onder het continent waar de meeste van zijn talen worden gesproken.',
     'Stats': 'Statistieken',
     'Updates': 'Nieuws',
     'About Lang Log': 'Over Lang Log',
