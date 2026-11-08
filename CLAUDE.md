@@ -10,6 +10,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 
 ## Principles
 
+- **Only what was asked.** Do what the owner asked and nothing else (`only-what-was-asked.md` in `research-aide`). Never add page or interface text, descriptions, "coming soon" placeholders or features the owner did not ask for; when asked to explain or investigate, answer and stop, with no pull request.
 - **Show the sources.** Every classification says which source it follows; alternative hypotheses are shown side by side, not merged away.
 - **Static pages for now.** The site is plain files on GitHub Pages, with no server or database (the owner's decision, 2026-11-07; it may change later).
 - **Fix things once, at the source.** Page generators in `tools/`, shared style and scripts in `dist/`; never patch one generated page.

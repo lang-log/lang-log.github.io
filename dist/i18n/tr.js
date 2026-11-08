@@ -542,32 +542,17 @@
     [/^All (\S+) models ↗$/, 'Tüm $1 modelleri ↗'],
     [/^Faint points: other members of (.+)\.$/, 'Soluk noktalar: $1 grubunun diğer üyeleri.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' dil gösteriliyor' +
-          (m[2] ? '; ' + m[2] + ' dilin Glottolog’da koordinatı yok' : '') +
+          ' languoid gösteriliyor' +
+          (m[2] ? '; ' + m[2] + ' tanesinin Glottolog’da koordinatı yok' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Harita: ' +
-          m[1] +
-          ' ve ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'ağzının' : 'dilinin') +
-          ' konumu'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Harita: $1 konumu'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Harita: $2 içindeki $1 dil'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

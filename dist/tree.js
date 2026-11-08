@@ -11,7 +11,7 @@
 // The top page draws only the zoomable tree (its list is the List view of
 // dist/explore.js); explore.js starts it and narrows it to the languages that
 // match its conditions (window.LangLogTree.setMatch). Search has its own page,
-// <site>/q=<terms> (dist/search.js).
+// <site>/q?q=<terms> (dist/q.html, dist/search.js).
 //
 // URL state (query string): x/y/z (tree centre and zoom); on record pages also
 // view=tree. On the top page "view" belongs to dist/explore.js.

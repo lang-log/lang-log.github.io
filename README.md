@@ -165,7 +165,7 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ## Search from the address bar
 
-`https://lang-log.github.io/?q=<text>` opens the top page with `<text>` in the search box and its matches listed under it (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+`https://lang-log.github.io/q?q=<text>` opens the search results page (`dist/q.html`) with `<text>` in the search box and its matches listed under it. To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`. Old links to the top page with `?q=<text>` are sent there.
 
 `dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Lang Log" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
 

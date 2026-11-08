@@ -546,33 +546,18 @@
     [/^All (\S+) models ↗$/, 'Tất cả mô hình $1 ↗'],
     [/^Faint points: other members of (.+)\.$/, 'Điểm mờ: các thành viên khác của $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           'Hiển thị ' +
           m[1] +
-          ' ngôn ngữ' +
-          (m[2] ? '; ' + m[2] + ' ngôn ngữ không có tọa độ trong Glottolog' : '') +
+          ' languoid' +
+          (m[2] ? '; ' + m[2] + ' mục không có tọa độ trong Glottolog' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Bản đồ: vị trí của ' +
-          m[1] +
-          ' và ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'phương ngữ' : 'ngôn ngữ') +
-          ' của nó'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Bản đồ: vị trí của $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Bản đồ: $1 ngôn ngữ của $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

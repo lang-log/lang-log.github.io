@@ -541,29 +541,14 @@
     [/^All (\S+) models ↗$/, 'Все модели $1 ↗'],
     [/^Faint points: other members of (.+)\.$/, 'Бледные точки: другие члены $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
-          'Показано языков: ' + m[1] + (m[2] ? '; без координат в Glottolog: ' + m[2] : '') + '.'
-        );
-      },
-    ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Карта: расположение ' +
-          m[1] +
-          ' и ' +
-          (m[3] === 'dialects' ? 'диалектов' : 'языков') +
-          ' (' +
-          m[2] +
-          ')'
+          'Показано languoids: ' + m[1] + (m[2] ? '; без координат в Glottolog: ' + m[2] : '') + '.'
         );
       },
     ],
     [/^Map: location of (.+)$/, 'Карта: расположение $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Карта: языки $2 ($1)'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

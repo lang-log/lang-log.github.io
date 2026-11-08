@@ -524,33 +524,18 @@
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
     [/^Faint points: other members of (.+)\.$/, '淺色點：$1 的其他下位。'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           '顯示 ' +
           m[1] +
-          ' 種語言' +
-          (m[2] ? '（其中 ' + m[2] + ' 種在 Glottolog 中沒有座標）' : '') +
+          ' 個 languoid' +
+          (m[2] ? '（其中 ' + m[2] + ' 個在 Glottolog 中沒有座標）' : '') +
           '。'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          '地圖：' +
-          m[1] +
-          ' 及其 ' +
-          m[2] +
-          ' 種' +
-          (m[3] === 'dialects' ? '方言' : '語言') +
-          '的位置'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, '地圖：$1 的位置'],
-    [/^Map: ([\d,]+) languages of (.+)$/, '地圖：$2 的 $1 種語言'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

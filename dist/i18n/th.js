@@ -542,29 +542,17 @@
     [/^All (\S+) models ↗$/, 'โมเดล $1 ทั้งหมด ↗'],
     [/^Faint points: other members of (.+)\.$/, 'จุดสีจาง: สมาชิกอื่นของ $1'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
-          'แสดง ' + m[1] + ' ภาษา' + (m[2] ? ' (' + m[2] + ' ภาษาไม่มีพิกัดใน Glottolog)' : '')
-        );
-      },
-    ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'แผนที่: ตำแหน่งของ ' +
+          'แสดง ' +
           m[1] +
-          ' และ' +
-          (m[3] === 'dialects' ? 'ภาษาถิ่น' : 'ภาษา') +
-          ' ' +
-          m[2] +
-          ' รายการ'
+          ' languoid' +
+          (m[2] ? ' (' + m[2] + ' รายการไม่มีพิกัดใน Glottolog)' : '')
         );
       },
     ],
     [/^Map: location of (.+)$/, 'แผนที่: ตำแหน่งของ $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'แผนที่: ภาษาของ $2 จำนวน $1 ภาษา'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

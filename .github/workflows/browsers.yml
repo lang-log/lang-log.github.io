@@ -20,7 +20,7 @@ jobs:
       locales: en-US ja-JP
       pages: |
         /
-        404:/q=bunun
+        /q.html?q=bunun
         /signs-and-scripts.html
         /afro-asiatic/berber/
         /wals/

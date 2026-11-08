@@ -559,31 +559,17 @@
     [/^All (\S+) models ↗$/, 'Tous les modèles $1 ↗'],
     [/^Faint points: other members of (.+)\.$/, 'Points pâles : autres membres de $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' langues affichées' +
+          ' languoids affichés' +
           (m[2] ? ' ; ' + m[2] + ' n’ont pas de coordonnées dans Glottolog' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Carte : localisation de ' +
-          m[1] +
-          ' et de ses ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialectes' : 'langues')
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Carte : localisation de $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Carte : $1 langues de $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {
