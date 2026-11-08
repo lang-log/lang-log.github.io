@@ -87,6 +87,12 @@
       'Ví dụ: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Ví dụ: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Ví dụ: Brahmi · Hangul · Latin · SignWriting',
+    'Evidence filter': 'Lọc theo bằng chứng',
+    'All evidence': 'Mọi bằng chứng',
+    'With research trees': 'Có cây nghiên cứu',
+    'With conflicting study clades': 'Có nhánh nghiên cứu mâu thuẫn',
+    'Record category': 'Loại bản ghi',
+    'All categories': 'Mọi loại',
     'Spoken genealogy': 'Phả hệ ngôn ngữ nói',
     'Isolates': 'Ngôn ngữ biệt lập',
     'View': 'Chế độ xem',
@@ -115,6 +121,7 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Nét đứt: liên kết để điều hướng, không phải quan hệ tổ tiên. Khoảng cách không biểu thị thời gian.',
     'INTEGRATED · SOURCE-CONDITIONED': 'TÍCH HỢP · THEO NGUỒN',
+    'Independent roots & alternatives': 'Các gốc độc lập và giả thuyết khác',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Cây phân loại ngôn ngữ tương tác. Hãy tìm kiếm hoặc dùng danh sách để chọn một nút.',
     'Expandable classification outline': 'Dàn ý phân loại có thể mở rộng',
@@ -125,6 +132,8 @@
     'Expand A': 'Mở rộng A',
     'Expand B': 'Mở rộng B',
     'Show in tree': 'Xem trên cây',
+    'Cross-family / outgroup source trees · navigation only':
+      'Cây nguồn trải qua nhiều ngữ hệ / nhóm ngoài · chỉ để điều hướng',
     'Catalog classification': 'Phân loại của danh mục',
     'Lexical-feature hypotheses': 'Giả thuyết dựa trên đặc điểm từ vựng',
     'Manual-alphabet evidence': 'Bằng chứng từ bảng chữ cái ngón tay',
@@ -222,6 +231,10 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Nguồn gốc dữ liệu ↓',
     'SVG (current view)': 'SVG (chế độ xem hiện tại)',
+    'Complete Glottolog and WALS trees, all imported names and source tags':
+      'Cây Glottolog và WALS đầy đủ, mọi tên đã nhập và thẻ nguồn',
+    'Complete outline for compatible outliner tools':
+      'Dàn ý đầy đủ cho các công cụ dàn ý tương thích',
     'Attribution and license notices ↗': 'Ghi công và thông báo giấy phép ↗',
     'Close ×': 'Đóng ×',
     'Scope': 'Phạm vi',
@@ -340,6 +353,7 @@
     'Cross-family / outgroup source trees': 'Cây nguồn trải qua nhiều ngữ hệ / nhóm ngoài',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Các cây nghiên cứu và ngữ hệ WALS trải qua nhiều hơn một ngữ hệ của Glottolog. Chúng được liệt kê ở đây chỉ để điều hướng.',
+    'Whole tree': 'Toàn bộ cây',
     'Show the tree of this branch': 'Hiện cây của nhánh này',
     'Where Lang Log attaches this tree': 'Nơi Lang Log gắn cây này',
     "Other sources' trees below this record": 'Cây của các nguồn khác bên dưới bản ghi này',
@@ -349,6 +363,8 @@
       'Kéo để di chuyển · Cuộn hoặc chụm để thu phóng · Nhấp vào một nút để mở trang của nó',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Mở một dòng để xem các thành viên. Mỗi tên mở trang riêng, với vị trí theo từng nguồn và liên kết đến bài báo.',
+    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+      'Các ngữ hệ độc lập và ngôn ngữ biệt lập là những gốc song song. Nét đứt: liên kết để điều hướng, không phải quan hệ tổ tiên. Khoảng cách không biểu thị thời gian.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Nhóm hoặc mẫu riêng của một nguồn; không phải ngữ hệ mới được công nhận.',
     '→ sampled study tree': '→ cây nghiên cứu theo mẫu',

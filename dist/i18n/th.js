@@ -86,6 +86,12 @@
       'ตัวอย่าง: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'ตัวอย่าง: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'ตัวอย่าง: Brahmi · Hangul · Latin · SignWriting',
+    'Evidence filter': 'กรองตามหลักฐาน',
+    'All evidence': 'หลักฐานทั้งหมด',
+    'With research trees': 'มีแผนภูมิต้นไม้จากงานวิจัย',
+    'With conflicting study clades': 'มีเคลดจากงานวิจัยที่ขัดแย้งกัน',
+    'Record category': 'ประเภทระเบียน',
+    'All categories': 'ทุกประเภท',
     'Spoken genealogy': 'วงศ์วานของภาษาพูด',
     'Isolates': 'ภาษาโดดเดี่ยว',
     'View': 'มุมมอง',
@@ -113,6 +119,7 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'เส้นประ: การเชื่อมเพื่อการนำทาง ไม่ใช่ความสัมพันธ์ทางบรรพบุรุษ ระยะห่างไม่ได้แทนเวลา',
     'INTEGRATED · SOURCE-CONDITIONED': 'รวม · ตามแหล่งข้อมูล',
+    'Independent roots & alternatives': 'รากที่เป็นอิสระและทางเลือกอื่น',
     'Interactive language classification tree. Search or use the list to select a node.':
       'แผนภูมิต้นไม้การจัดจำแนกภาษาแบบโต้ตอบได้ ค้นหาหรือใช้รายการเพื่อเลือกจุด',
     'Expandable classification outline': 'โครงร่างการจัดจำแนกที่ขยายได้',
@@ -123,6 +130,8 @@
     'Expand A': 'ขยาย A',
     'Expand B': 'ขยาย B',
     'Show in tree': 'แสดงในแผนภูมิต้นไม้',
+    'Cross-family / outgroup source trees · navigation only':
+      'แผนภูมิต้นไม้จากแหล่งข้อมูลที่ข้ามหลายตระกูลหรือเป็นกลุ่มนอก · สำหรับการนำทางเท่านั้น',
     'Catalog classification': 'การจัดจำแนกของบัญชีรายชื่อ',
     'Lexical-feature hypotheses': 'สมมติฐานจากลักษณะทางคำศัพท์',
     'Manual-alphabet evidence': 'หลักฐานจากตัวอักษรนิ้วมือ',
@@ -218,6 +227,10 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'ที่มาของข้อมูล ↓',
     'SVG (current view)': 'SVG (มุมมองปัจจุบัน)',
+    'Complete Glottolog and WALS trees, all imported names and source tags':
+      'แผนภูมิต้นไม้ฉบับสมบูรณ์ของ Glottolog และ WALS ชื่อทั้งหมดที่นำเข้า และป้ายแหล่งข้อมูล',
+    'Complete outline for compatible outliner tools':
+      'โครงร่างฉบับสมบูรณ์สำหรับโปรแกรมโครงร่างที่รองรับ',
     'Attribution and license notices ↗': 'การระบุที่มาและประกาศสัญญาอนุญาต ↗',
     'Close ×': 'ปิด ×',
     'Scope': 'ขอบเขต',
@@ -337,6 +350,7 @@
       'แผนภูมิต้นไม้จากแหล่งข้อมูลที่ข้ามหลายตระกูลหรือเป็นกลุ่มนอก',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'แผนภูมิต้นไม้จากงานวิจัยและตระกูลของ WALS ที่ครอบคลุมมากกว่าหนึ่งตระกูลของ Glottolog แสดงไว้ที่นี่เพื่อการนำทางเท่านั้น',
+    'Whole tree': 'แผนภูมิต้นไม้ทั้งหมด',
     'Show the tree of this branch': 'แสดงแผนภูมิต้นไม้ของสาขานี้',
     'Where Lang Log attaches this tree': 'ตำแหน่งที่ Lang Log เชื่อมแผนภูมิต้นไม้นี้',
     "Other sources' trees below this record": 'แผนภูมิต้นไม้จากแหล่งข้อมูลอื่นใต้ระเบียนนี้',
@@ -346,6 +360,8 @@
       'ลากเพื่อเลื่อน · เลื่อนหรือใช้สองนิ้วเพื่อซูม · คลิกจุดเพื่อเปิดหน้าของจุดนั้น',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'เปิดแถวเพื่อดูสมาชิก ชื่อแต่ละชื่อเปิดหน้าของตนเอง พร้อมตำแหน่งตามแต่ละแหล่งข้อมูลและลิงก์บทความ',
+    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+      'ตระกูลที่เป็นอิสระและภาษาโดดเดี่ยวเป็นรากที่ขนานกัน เส้นประ: การเชื่อมเพื่อการนำทาง ไม่ใช่ความสัมพันธ์ทางบรรพบุรุษ ระยะห่างไม่ได้แทนเวลา',
     'Source-specific grouping or sample; not a new accepted language family.':
       'กลุ่มหรือตัวอย่างเฉพาะของแหล่งข้อมูล ไม่ใช่ตระกูลภาษาใหม่ที่ได้รับการยอมรับ',
     '→ sampled study tree': '→ แผนภูมิต้นไม้จากงานวิจัยแบบสุ่มตัวอย่าง',

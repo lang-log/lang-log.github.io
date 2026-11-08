@@ -84,6 +84,12 @@
       '例：Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': '例：Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': '例：Brahmi · Hangul · Latin · SignWriting',
+    'Evidence filter': '依證據篩選',
+    'All evidence': '全部證據',
+    'With research trees': '有研究譜系樹',
+    'With conflicting study clades': '有相互衝突的研究分支',
+    'Record category': '紀錄類型',
+    'All categories': '全部類型',
     'Spoken genealogy': '有聲語言譜系',
     'Isolates': '孤立語言',
     'View': '檢視',
@@ -110,6 +116,7 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       '虛線：用於導覽的連接，並非親緣關係。距離不代表時間。',
     'INTEGRATED · SOURCE-CONDITIONED': '綜合 · 依來源',
+    'Independent roots & alternatives': '獨立的根與其他說法',
     'Interactive language classification tree. Search or use the list to select a node.':
       '可互動的語言分類樹。請搜尋或使用清單選擇節點。',
     'Expandable classification outline': '可展開的分類清單',
@@ -120,6 +127,8 @@
     'Expand A': '展開 A',
     'Expand B': '展開 B',
     'Show in tree': '在樹狀圖中顯示',
+    'Cross-family / outgroup source trees · navigation only':
+      '跨語系 / 外群的來源譜系樹 · 僅供導覽',
     'Catalog classification': '目錄分類',
     'Lexical-feature hypotheses': '基於詞彙特徵的假說',
     'Manual-alphabet evidence': '指拼字母證據',
@@ -213,6 +222,9 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': '來源紀錄 ↓',
     'SVG (current view)': 'SVG（目前檢視）',
+    'Complete Glottolog and WALS trees, all imported names and source tags':
+      '完整的 Glottolog 和 WALS 譜系樹、所有匯入的名稱和來源標籤',
+    'Complete outline for compatible outliner tools': '供相容的大綱工具使用的完整大綱',
     'Attribution and license notices ↗': '姓名標示與授權聲明 ↗',
     'Close ×': '關閉 ×',
     'Scope': '範圍',
@@ -331,6 +343,7 @@
     'Cross-family / outgroup source trees': '跨語系 / 外群的來源譜系樹',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       '跨越多個 Glottolog 語系的研究譜系樹和 WALS 語系。列在此處僅供導覽。',
+    'Whole tree': '完整樹狀圖',
     'Show the tree of this branch': '顯示這個分支的樹狀圖',
     'Where Lang Log attaches this tree': 'Lang Log 將這棵譜系樹連接到的位置',
     "Other sources' trees below this record": '這筆紀錄之下其他來源的譜系樹',
@@ -340,6 +353,8 @@
       '拖曳以平移 · 捲動或雙指縮放 · 點選節點開啟其網頁',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       '展開一列可查看其下位。點選名稱會開啟該紀錄的網頁，其中有各來源的歸屬和論文連結。',
+    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+      '獨立的語系和孤立語言是並列的根。虛線：用於導覽的連接，並非親緣關係。距離不代表時間。',
     'Source-specific grouping or sample; not a new accepted language family.':
       '僅見於某一來源的分組或樣本；並非新的公認語系。',
     '→ sampled study tree': '→ 抽樣研究譜系樹',

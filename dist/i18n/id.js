@@ -87,6 +87,12 @@
       'Contoh: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Contoh: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Contoh: Brahmi · Hangul · Latin · SignWriting',
+    'Evidence filter': 'Saring menurut bukti',
+    'All evidence': 'Semua bukti',
+    'With research trees': 'Dengan pohon penelitian',
+    'With conflicting study clades': 'Dengan klad kajian yang bertentangan',
+    'Record category': 'Jenis catatan',
+    'All categories': 'Semua jenis',
     'Spoken genealogy': 'Silsilah bahasa lisan',
     'Isolates': 'Bahasa isolat',
     'View': 'Tampilan',
@@ -114,6 +120,7 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Garis putus-putus: sambungan navigasi, bukan leluhur. Jarak tidak menunjukkan waktu.',
     'INTEGRATED · SOURCE-CONDITIONED': 'TERPADU · MENURUT SUMBER',
+    'Independent roots & alternatives': 'Akar mandiri dan alternatif',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Pohon klasifikasi bahasa interaktif. Cari atau gunakan daftar untuk memilih simpul.',
     'Expandable classification outline': 'Kerangka klasifikasi yang dapat dibuka',
@@ -124,6 +131,8 @@
     'Expand A': 'Buka A',
     'Expand B': 'Buka B',
     'Show in tree': 'Tampilkan di pohon',
+    'Cross-family / outgroup source trees · navigation only':
+      'Pohon sumber lintas rumpun / kelompok luar · hanya untuk navigasi',
     'Catalog classification': 'Klasifikasi katalog',
     'Lexical-feature hypotheses': 'Hipotesis berdasarkan ciri leksikal',
     'Manual-alphabet evidence': 'Bukti abjad jari',
@@ -221,6 +230,10 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Asal-usul data ↓',
     'SVG (current view)': 'SVG (tampilan saat ini)',
+    'Complete Glottolog and WALS trees, all imported names and source tags':
+      'Pohon Glottolog dan WALS yang lengkap, semua nama yang diimpor, dan tanda sumber',
+    'Complete outline for compatible outliner tools':
+      'Kerangka lengkap untuk alat kerangka yang kompatibel',
     'Attribution and license notices ↗': 'Atribusi dan pemberitahuan lisensi ↗',
     'Close ×': 'Tutup ×',
     'Scope': 'Cakupan',
@@ -339,6 +352,7 @@
     'Cross-family / outgroup source trees': 'Pohon sumber lintas rumpun / kelompok luar',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Pohon kajian dan rumpun WALS yang mencakup lebih dari satu rumpun Glottolog. Dicantumkan di sini hanya untuk navigasi.',
+    'Whole tree': 'Seluruh pohon',
     'Show the tree of this branch': 'Tampilkan pohon cabang ini',
     'Where Lang Log attaches this tree': 'Tempat Lang Log menyambungkan pohon ini',
     "Other sources' trees below this record": 'Pohon sumber lain di bawah catatan ini',
@@ -348,6 +362,8 @@
       'Seret untuk menggeser · Gulir atau cubit untuk memperbesar · Klik simpul untuk membuka halamannya',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Buka baris untuk melihat anggotanya. Setiap nama membuka halamannya sendiri, dengan penempatan menurut setiap sumber dan tautan makalah.',
+    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+      'Rumpun mandiri dan bahasa isolat adalah akar sejajar. Garis putus-putus: sambungan navigasi, bukan leluhur. Jarak tidak menunjukkan waktu.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Pengelompokan atau sampel khas sumber; bukan rumpun bahasa baru yang diakui.',
     '→ sampled study tree': '→ pohon kajian bersampel',

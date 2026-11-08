@@ -71,6 +71,7 @@ window.LANGLOG_I18N = {
       'Cross-family / outgroup source trees': '語族をまたぐ / 外群の系統樹',
       'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
         'Glottolog の複数の語族にまたがる研究の系統樹と WALS の語族です。案内のためだけに載せています。',
+      'Whole tree': '全体の樹形図',
       'Show the tree of this branch': 'この枝の樹形図を表示',
       'Where Lang Log attaches this tree': 'Lang Log でこの系統樹をつないでいる場所',
       "Other sources' trees below this record": 'この記録の下にあるほかの出典の系統樹',
@@ -80,6 +81,8 @@ window.LANGLOG_I18N = {
         'ドラッグで移動 · スクロールかピンチで拡大縮小 · 点をクリックでそのページへ',
       "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
         '行を開くと下位の記録が見えます。名前を押すと、その記録のページ(出典ごとの位置づけと論文へのリンク付き)が開きます。',
+      'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+        '独立した語族と孤立言語は、並んだ根として表示します。破線は案内のためのつなぎで、祖先関係ではありません。距離は時間を表しません。',
       'Source-specific grouping or sample; not a new accepted language family.':
         '出典だけにあるグループか標本です。認められた新しい語族ではありません。',
       '→ sampled study tree': '→ 標本をとった研究の系統樹',
@@ -178,6 +181,12 @@ window.LANGLOG_I18N = {
         '例: Japanese · 日本語 · Basque · Austronesian',
       'Try Japanese · Czech · ASL · Lithuanian': '例: Japanese · Czech · ASL · Lithuanian',
       'Try Brahmi · Hangul · Latin · SignWriting': '例: Brahmi · Hangul · Latin · SignWriting',
+      'Evidence filter': '根拠で絞り込む',
+      'All evidence': 'すべての根拠',
+      'With research trees': '研究の系統樹があるもの',
+      'With conflicting study clades': '研究どうしで分岐が食い違うもの',
+      'Record category': '記録の種類',
+      'All categories': 'すべての種類',
       'Spoken genealogy': '音声言語の系統',
       'Isolates': '孤立言語',
 
@@ -207,6 +216,7 @@ window.LANGLOG_I18N = {
       'Dashed: navigation attachment, not ancestry. Distances are not time.':
         '破線: 案内のためのつなぎで、祖先関係ではありません。距離は時間を表しません。',
       'INTEGRATED · SOURCE-CONDITIONED': '統合 · 出典ごとの位置づけ',
+      'Independent roots & alternatives': '独立した根と別の説',
       'Interactive language classification tree. Search or use the list to select a node.':
         '操作できる言語分類の樹形図です。検索か一覧で項目を選んでください。',
       'Expandable classification outline': '開閉できる分類の一覧',
@@ -217,6 +227,8 @@ window.LANGLOG_I18N = {
       'Expand A': 'A を開く',
       'Expand B': 'B を開く',
       'Show in tree': '樹形図で見る',
+      'Cross-family / outgroup source trees · navigation only':
+        '語族をまたぐ / 外群の系統樹 · 案内のみ',
       'Catalog classification': 'カタログの分類',
       'Lexical-feature hypotheses': '語彙特徴による仮説',
       'Manual-alphabet evidence': '指文字の根拠',
@@ -322,6 +334,9 @@ window.LANGLOG_I18N = {
       'OPML ↓': 'OPML ↓',
       'Provenance ↓': '来歴 ↓',
       'SVG (current view)': 'SVG(今の表示)',
+      'Complete Glottolog and WALS trees, all imported names and source tags':
+        'Glottolog と WALS の全系統樹、取り込んだ全名前と出典タグ',
+      'Complete outline for compatible outliner tools': 'アウトライナー用の完全な一覧',
       'Attribution and license notices ↗': '帰属とライセンスの表示 ↗',
 
       // Sources & scope dialog

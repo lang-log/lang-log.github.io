@@ -16,8 +16,8 @@ python3 tools/finish_unified.py
 # (dist/signs-and-scripts.json, .xml and .opml; not committed) and checks it.
 python3 tools/build_visual.py
 python3 tools/validate_visual.py
-# Writes the top page dist/index.html (the list of top-level families),
-# dist/random.json (the records its Random buttons draw
+# Writes the top page dist/index.html (the list of top-level families,
+# the whole tree), dist/random.json (the records its Random buttons draw
 # from) and the pages linked under the Random row: dist/stats/,
 # dist/sources/ and dist/updates/ (not committed; built here).
 python3 tools/build_home.py

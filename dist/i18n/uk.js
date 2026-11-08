@@ -87,6 +87,12 @@
       'Наприклад: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Наприклад: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Наприклад: Brahmi · Hangul · Latin · SignWriting',
+    'Evidence filter': 'Фільтр за даними',
+    'All evidence': 'Усі дані',
+    'With research trees': 'З дослідницькими деревами',
+    'With conflicting study clades': 'Із суперечливими кладами досліджень',
+    'Record category': 'Тип запису',
+    'All categories': 'Усі типи',
     'Spoken genealogy': 'Генеалогія звукових мов',
     'Isolates': 'Ізольовані мови',
     'View': 'Вигляд',
@@ -114,6 +120,7 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Пунктир: навігаційне приєднання, а не походження. Відстані не означають час.',
     'INTEGRATED · SOURCE-CONDITIONED': 'ЗВЕДЕНО · ЗА ДЖЕРЕЛАМИ',
+    'Independent roots & alternatives': 'Незалежні корені й альтернативи',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Інтерактивне дерево класифікації мов. Скористайтеся пошуком або списком, щоб вибрати вузол.',
     'Expandable classification outline': 'Розгортувана схема класифікації',
@@ -124,6 +131,8 @@
     'Expand A': 'Розгорнути A',
     'Expand B': 'Розгорнути B',
     'Show in tree': 'Показати в дереві',
+    'Cross-family / outgroup source trees · navigation only':
+      'Дерева джерел, що охоплюють кілька родин або зовнішні групи · лише для навігації',
     'Catalog classification': 'Класифікація каталогу',
     'Lexical-feature hypotheses': 'Гіпотези за лексичними ознаками',
     'Manual-alphabet evidence': 'Дані дактильних абеток',
@@ -220,6 +229,10 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Походження даних ↓',
     'SVG (current view)': 'SVG (поточний вигляд)',
+    'Complete Glottolog and WALS trees, all imported names and source tags':
+      'Повні дерева Glottolog і WALS, усі імпортовані назви й теги джерел',
+    'Complete outline for compatible outliner tools':
+      'Повна схема для сумісних програм-аутлайнерів',
     'Attribution and license notices ↗': 'Зазначення авторства й ліцензійні відомості ↗',
     'Close ×': 'Закрити ×',
     'Scope': 'Охоплення',
@@ -339,6 +352,7 @@
       'Дерева джерел, що охоплюють кілька родин або зовнішні групи',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Дерева досліджень і родини WALS, що охоплюють понад одну родину Glottolog. Їх наведено тут лише для навігації.',
+    'Whole tree': 'Усе дерево',
     'Show the tree of this branch': 'Показати дерево цієї гілки',
     'Where Lang Log attaches this tree': 'Де Lang Log приєднує це дерево',
     "Other sources' trees below this record": 'Дерева інших джерел нижче цього запису',
@@ -348,6 +362,8 @@
       'Перетягуйте для переміщення · Прокручуйте або зводьте пальці для масштабу · Натисніть на вузол, щоб відкрити його сторінку',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Відкрийте рядок, щоб побачити його членів. Кожна назва відкриває власну сторінку з розміщенням за кожним джерелом і посиланнями на статті.',
+    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+      'Незалежні родини та ізольовані мови — паралельні корені. Пунктир: навігаційне приєднання, а не походження. Відстані не означають час.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Групування чи зразок окремого джерела; це не нова визнана мовна родина.',
     '→ sampled study tree': '→ дерево дослідження за вибіркою',

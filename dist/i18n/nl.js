@@ -88,6 +88,12 @@
     'Try Japanese · Czech · ASL · Lithuanian': 'Bijvoorbeeld: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting':
       'Bijvoorbeeld: Brahmi · Hangul · Latin · SignWriting',
+    'Evidence filter': 'Filter op bewijs',
+    'All evidence': 'Al het bewijs',
+    'With research trees': 'Met onderzoeksbomen',
+    'With conflicting study clades': 'Met tegenstrijdige studieclades',
+    'Record category': 'Soort record',
+    'All categories': 'Alle soorten',
     'Spoken genealogy': 'Genealogie van gesproken talen',
     'Isolates': 'Isolaten',
     'View': 'Weergave',
@@ -116,6 +122,7 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Gestippeld: koppeling voor navigatie, geen afstamming. Afstanden staan niet voor tijd.',
     'INTEGRATED · SOURCE-CONDITIONED': 'GEÏNTEGREERD · PER BRON',
+    'Independent roots & alternatives': 'Onafhankelijke wortels en alternatieven',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Interactieve boom van taalclassificatie. Zoek of gebruik de lijst om een knoop te kiezen.',
     'Expandable classification outline': 'Uitklapbaar classificatieoverzicht',
@@ -126,6 +133,8 @@
     'Expand A': 'A uitklappen',
     'Expand B': 'B uitklappen',
     'Show in tree': 'In de boom tonen',
+    'Cross-family / outgroup source trees · navigation only':
+      'Bronbomen over meerdere families of buitengroepen · alleen voor navigatie',
     'Catalog classification': 'Catalogusclassificatie',
     'Lexical-feature hypotheses': 'Hypothesen op basis van lexicale kenmerken',
     'Manual-alphabet evidence': 'Bewijs uit vingeralfabetten',
@@ -223,6 +232,10 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Herkomst ↓',
     'SVG (current view)': 'SVG (huidige weergave)',
+    'Complete Glottolog and WALS trees, all imported names and source tags':
+      'Volledige bomen van Glottolog en WALS, alle geïmporteerde namen en bronlabels',
+    'Complete outline for compatible outliner tools':
+      'Volledig overzicht voor compatibele outliner-programma’s',
     'Attribution and license notices ↗': 'Naamsvermelding en licentiemeldingen ↗',
     'Close ×': 'Sluiten ×',
     'Scope': 'Reikwijdte',
@@ -342,6 +355,7 @@
     'Cross-family / outgroup source trees': 'Bronbomen over meerdere families of buitengroepen',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Studiebomen en WALS-families die meer dan één Glottolog-familie omvatten. Ze staan hier alleen voor navigatie.',
+    'Whole tree': 'Hele boom',
     'Show the tree of this branch': 'Boom van deze tak tonen',
     'Where Lang Log attaches this tree': 'Waar Lang Log deze boom koppelt',
     "Other sources' trees below this record": 'Bomen van andere bronnen onder dit record',
@@ -351,6 +365,8 @@
       'Sleep om te verschuiven · Scroll of knijp om te zoomen · Klik op een knoop om de pagina te openen',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Open een rij om de leden te zien. Elke naam opent een eigen pagina, met de indeling volgens elke bron en links naar de artikelen.',
+    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
+      'Onafhankelijke families en isolaten zijn parallelle wortels. Gestippeld: koppeling voor navigatie, geen afstamming. Afstanden staan niet voor tijd.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Bronspecifieke groepering of voorbeeld; geen nieuwe erkende taalfamilie.',
     '→ sampled study tree': '→ studieboom uit steekproef',
