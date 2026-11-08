@@ -205,6 +205,7 @@
 .wm-cond.wm-or-next {
   border-end-start-radius: 0;
   border-end-end-radius: 0;
+  border-bottom-style: dashed;
 }
 .wm-cond-head {
   display: flex;
