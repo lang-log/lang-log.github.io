@@ -187,18 +187,23 @@
   fill: var(--c-8fa29c);
   fill-opacity: 0.55;
 }
-.lmap-main circle {
-  fill: var(--teal);
-  fill-opacity: 0.85;
-  stroke: var(--c-ffffff);
-  stroke-width: 0.6px;
-  vector-effect: non-scaling-stroke;
-}
+/* Every point of a record's map is drawn alike (tools/build_paths.py, map_html): a size or
+   colour for the record's own point would set families and languages apart, since Glottolog's
+   point for a family is computed from its members (.claude/rules/interface-text.md). The
+   .lmap-self group stays in tools/languoid_map.py; it takes the same fill, and
+   tools/build_site.sh fails if either sets a fill of its own. */
+.lmap-main circle,
 .lmap-self circle {
   fill: var(--orange);
   stroke: var(--c-ffffff);
-  stroke-width: 1.5px;
   vector-effect: non-scaling-stroke;
+}
+.lmap-main circle {
+  fill-opacity: 0.85;
+  stroke-width: 0.6px;
+}
+.lmap-self circle {
+  stroke-width: 1.5px;
 }
 .lmap-inset .lmap-sphere {
   fill: var(--c-f2f5f3);

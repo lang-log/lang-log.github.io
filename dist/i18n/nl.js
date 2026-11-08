@@ -562,32 +562,17 @@
     [/^All (\S+) models ↗$/, 'Alle modellen voor $1 ↗'],
     [/^Faint points: other members of (.+)\.$/, 'Vage punten: andere leden van $1.'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' talen getoond' +
+          ' languoids getoond' +
           (m[2] ? '; ' + m[2] + ' hebben geen coördinaten in Glottolog' : '') +
           '.'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Kaart: ligging van ' +
-          m[1] +
-          ' en de ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'dialecten' : 'talen') +
-          ' ervan'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Kaart: ligging van $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Kaart: $1 talen van $2'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

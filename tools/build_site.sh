@@ -94,6 +94,32 @@ kinds=$( { find dist -name '*.html' -print0 | xargs -0 grep -lE 'class="legend"|
 if grep -nE 'lv-(hit-)?(family|language|dialect)|hit-kind|v-kind|n\.isolate\?.isolate.:n\.level' dist/*.js dist/*.css; then
   echo "scripts or styles that label records by kind (above)"; exit 1
 fi
+# A family has no point of its own in Glottolog, so its map shows only member
+# points and a language's map shows its own point: one colour for both, or the
+# colours would tell family pages from language pages.
+echo "Check that a record's own point and its members' points share one colour"
+python3 - <<'PY'
+import re, sys
+css = re.sub(r"/\*.*?\*/", "", open("dist/record.css", encoding="utf-8").read(), flags=re.S)
+fills = [(sel.strip(), fill) for sel, body in re.findall(r"([^{}]*)\{([^{}]*)\}", css)
+         for fill in re.findall(r"(?:^|;)\s*fill\s*:\s*([^;]+)", body)
+         if re.search(r"\.lmap-(main|self)\b", sel)]
+shared = [f for sel, f in fills if ".lmap-main" in sel and ".lmap-self" in sel]
+if len(fills) != 1 or len(shared) != 1:
+    sys.exit("dist/record.css: .lmap-main and .lmap-self must take their fill from one shared rule: %r" % fills)
+PY
+# The points of a map are chosen the same way for every record: the code that
+# chooses them must not read a record's level or kind.
+echo "Check that the map points are chosen without the record's kind"
+python3 - <<'PY'
+import ast, sys
+tree = ast.parse(open("tools/build_paths.py", encoding="utf-8").read())
+for f in tree.body:
+    if isinstance(f, ast.FunctionDef) and f.name in ("_points_under", "map_html"):
+        for node in ast.walk(f):
+            if isinstance(node, ast.Constant) and node.value in ("level", "kind", "isolate", "family", "language", "dialect"):
+                sys.exit(f"tools/build_paths.py:{node.lineno}: {f.name} reads the record's kind ({node.value!r})")
+PY
 
 # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
 # pages, so a browser never pairs new HTML with an old cached file

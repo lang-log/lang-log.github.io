@@ -548,32 +548,17 @@
     [/^All (\S+) models ↗$/, '$1 के सभी मॉडल ↗'],
     [/^Faint points: other members of (.+)\.$/, 'हल्के बिंदु: $1 के अन्य सदस्य।'],
     [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
+      /^([\d,]+) languoids shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
         return (
           m[1] +
-          ' भाषाएँ दिखाई गईं' +
+          ' languoids दिखाए गए' +
           (m[2] ? '; ' + m[2] + ' के लिए Glottolog में निर्देशांक नहीं हैं' : '') +
           '।'
         );
       },
     ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'मानचित्र: ' +
-          m[1] +
-          ' और उसकी ' +
-          m[2] +
-          ' ' +
-          (m[3] === 'dialects' ? 'बोलियों' : 'भाषाओं') +
-          ' का स्थान'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'मानचित्र: $1 का स्थान'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'मानचित्र: $2 की $1 भाषाएँ'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {
