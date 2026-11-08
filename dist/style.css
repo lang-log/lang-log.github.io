@@ -309,7 +309,7 @@ header .brand,header .tools>a,header .tools>button{white-space:nowrap}
 .search-route .variant-page .search-page{border-top:0;margin:0;padding:0}
 .search-form{max-width:680px}
 .search-results{margin-top:20px}
-.search-results .search-head h1{font:24px/1.2 Arial,Helvetica,sans-serif;letter-spacing:0;margin:0}
+.search-results .search-head h1{font:24px/1.2 var(--font);letter-spacing:0;margin:0}
 .search-results .hit{color:inherit;text-decoration:none}
 @media(hover:hover){.search-results .hit:hover{background:var(--c-edf2e7)}}
 .search-results .hit-name{font-size:17px;color:var(--teal)}
