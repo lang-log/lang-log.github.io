@@ -19,6 +19,9 @@ node_modules/
 # is built from.
 /dist/releases.html
 /dist/releases.json
+# The web app manifest (tools/pwa.py).
+/dist/manifest.webmanifest
+/dist/offline-files.json
 /build/
 # The sitemap and robots.txt (tools/build_sitemap.py).
 /dist/sitemap*.xml

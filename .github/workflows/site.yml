@@ -42,6 +42,8 @@ jobs:
           tar -C dist -cf - \
             $(cd dist && for e in *; do if [ ! -d "$e" ] || [ "$e" = map ] || [ "$e" = data ] || [ "$e" = afro-asiatic ] || [ "$e" = stats ] || [ "$e" = sources ] || [ "$e" = updates ]; then echo "$e"; fi; done) \
             | tar -C _preview -xf -
+          # The preview holds only part of the site, so its file list is written again.
+          python3 tools/pwa.py --files _preview
           du -sh _preview
       - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         uses: actions/upload-artifact@v4

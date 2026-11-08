@@ -4,7 +4,8 @@ GitHub Pages cannot send our own response headers, so the policies a browser
 accepts from a <meta> element are written into the <head> of every page:
 
 - Content-Security-Policy: only the site itself, plus https://huggingface.co
-  for the model list on record pages (dist/hf-models.js). No inline scripts,
+  for the model list on record pages (dist/hf-models.js). The web app manifest
+  and the service worker come from the site itself. No inline scripts,
   inline styles allowed only for WebKit's <select> (see CSP), no plugins, no frames, no <base>.
 - referrer: no-referrer, so no page address leaves the site.
 
@@ -40,6 +41,10 @@ CSP = "; ".join(
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self'",
         "connect-src 'self' https://huggingface.co",
+        # Lang Log is a progressive web app (.claude/rules/pwa.md): its manifest and its
+        # service worker come from the site itself (tools/pwa.py, dist/sw.js).
+        "manifest-src 'self'",
+        "worker-src 'self'",
         "base-uri 'none'",
         "form-action 'self'",  # the search form on the top page goes to ./
         "object-src 'none'",
