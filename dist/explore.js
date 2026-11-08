@@ -160,15 +160,9 @@
         groups[f.area] = el('optgroup', { label: f.area });
         s.appendChild(groups[f.area]);
       }
-      // WALS features carry their WALS id; Lang Log's own features are named only, so
-      // the name can be translated (dist/i18n.js).
-      groups[f.area].appendChild(
-        el(
-          'option',
-          { value: f.id },
-          featureName(f.id) + (f.source === 'wals' ? ' (' + f.languages + ')' : ''),
-        ),
-      );
+      // The menu shows the feature name only, without the WALS id or the number of
+      // languages (the owner's choice, 2026-11-08).
+      groups[f.area].appendChild(el('option', { value: f.id }, f.name));
     });
     s.value = value || '';
     return s;
