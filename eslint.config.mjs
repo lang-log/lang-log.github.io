@@ -6,12 +6,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: [
-      '_preview/',
-      // Until pull request #56 (fonts for Japanese, Chinese and Korean) is merged, so that it does
-      // not conflict. Then fix the findings in this file in its own pull request and remove it.
-      'dist/tree.js',
-    ],
+    ignores: ['_preview/'],
   },
   js.configs.recommended,
   {

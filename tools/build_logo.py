@@ -61,10 +61,10 @@ def main():
     )
     OUT.write_text(svg, encoding="utf-8")
     css = CSS.read_text(encoding="utf-8")
-    # The .logo rule as Prettier writes it: ".logo {", one declaration per line,
-    # "aspect-ratio: 861 / 180;". Spaces are optional, so the compact form matches too.
+    # The .logo rule as Prettier writes it (".logo {", one declaration per line,
+    # "aspect-ratio: 861/180;"); spaces are optional, so the compact form matches too.
     css, found = re.subn(
-        r"(\.logo\s*\{[^}]*aspect-ratio:\s*)\d+\s*/\s*\d+", rf"\g<1>{width} / {height}", css
+        r"(\.logo\s*\{[^}]*aspect-ratio:\s*)\d+\s*/\s*\d+", rf"\g<1>{width}/{height}", css
     )
     if found != 1:
         raise SystemExit(
