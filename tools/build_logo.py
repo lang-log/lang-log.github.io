@@ -61,7 +61,15 @@ def main():
     )
     OUT.write_text(svg, encoding="utf-8")
     css = CSS.read_text(encoding="utf-8")
-    css = re.sub(r"(\.logo\{[^}]*aspect-ratio:)\d+/\d+", rf"\g<1>{width}/{height}", css)
+    # The .logo rule as Prettier writes it (".logo {", one declaration per line,
+    # "aspect-ratio: 861/180;"); spaces are optional, so the compact form matches too.
+    css, found = re.subn(
+        r"(\.logo\s*\{[^}]*aspect-ratio:\s*)\d+\s*/\s*\d+", rf"\g<1>{width}/{height}", css
+    )
+    if found != 1:
+        raise SystemExit(
+            f"tools/build_logo.py: expected one .logo aspect-ratio in {CSS}, found {found}"
+        )
     CSS.write_text(css, encoding="utf-8")
     print(f"viewBox 0 0 {width} {height}")
 

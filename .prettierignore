@@ -23,8 +23,3 @@ dist/map/
 # Hand-written pages: tools/security_policy.py --write puts the policy <meta> tags right after
 # <meta charset="utf-8"> as one exact string, and --check compares them as text.
 dist/*.html
-
-# Until pull request #56 (fonts for Japanese, Chinese and Korean) is merged, so that it does not
-# conflict. Then format these files in their own pull request and remove the lines.
-dist/tree.js
-dist/style.css

@@ -58,7 +58,7 @@ done
 # (Japanese, Chinese and Korean add their own fonts). Styles and scripts read
 # it instead of naming a font; .v-glyphs (script samples) keeps serif.
 echo "Check that styles and scripts use the one font stack"
-fonts=$(grep -nE "font-family *: *[^v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: serif;" || true)
+fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: serif;" || true)
 [ -z "$fonts" ] || { echo "fonts named outside --font:"; echo "$fonts"; exit 1; }
 
 echo "Check that every page draws the SVG logo"
