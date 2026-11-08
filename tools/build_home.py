@@ -203,7 +203,6 @@ def families_html():
         '<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>'
         '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
         '<g id="points"></g></svg>'
-        '<div id="card" class="wm-card" hidden></div>'
         '<p class="wm-hint">Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.</p></div></div>'
         f'<div class="explore-view" data-view="tree" hidden>{bp.atlas_html("", downloads=downloads)}</div>'
         "</section>"
