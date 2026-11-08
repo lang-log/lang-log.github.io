@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'انتخاب تصادفی یک زبان یا گویش',
     'Choose a random sign language or dialect': 'انتخاب تصادفی یک زبان اشاره یا گویش',
     'Choose a random writing system': 'انتخاب تصادفی یک نظام نوشتاری',
-    'Dialects': 'گویش‌ها',
     'Download': 'بارگیری',
     'How to read': 'راهنمای خواندن',
     'Copy link': 'رونوشت پیوند',

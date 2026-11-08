@@ -111,7 +111,6 @@
     'Choose a random sign language or dialect':
       'Kies een willekeurige gebarentaal of een willekeurig dialect',
     'Choose a random writing system': 'Kies een willekeurig schriftsysteem',
-    'Dialects': 'Dialecten',
     'Download': 'Downloaden',
     'How to read': 'Leeswijzer',
     'Copy link': 'Link kopiëren',

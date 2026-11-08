@@ -109,7 +109,6 @@
     'Choose a random language or dialect': 'اختر لغة أو لهجة عشوائيًا',
     'Choose a random sign language or dialect': 'اختر لغة إشارة أو لهجة عشوائيًا',
     'Choose a random writing system': 'اختر نظام كتابة عشوائيًا',
-    'Dialects': 'اللهجات',
     'Download': 'تنزيل',
     'How to read': 'طريقة القراءة',
     'Copy link': 'نسخ الرابط',

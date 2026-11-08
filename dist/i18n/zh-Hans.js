@@ -105,7 +105,6 @@
     'Choose a random language or dialect': '随机选择一种语言或方言',
     'Choose a random sign language or dialect': '随机选择一种手语或方言',
     'Choose a random writing system': '随机选择一种文字系统',
-    'Dialects': '方言',
     'Download': '下载',
     'How to read': '阅读说明',
     'Copy link': '复制链接',

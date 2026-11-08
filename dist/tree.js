@@ -11,7 +11,7 @@
 // The top page also has the filters #evidence and #category. Search has its
 // own page, <site>/q=<terms> (dist/search.js).
 //
-// URL state (query string): evidence, category, dialects=0,
+// URL state (query string): evidence, category,
 // view=tree, x/y/z (tree centre and zoom).
 (() => {
   const host = document.getElementById('atlas');
@@ -51,7 +51,8 @@
   const children = (sid, id) => bySource.get(sid + '|' + id) || [],
     source = (id) => unified.sources[id],
     title = (id) => source(id)?.title || id;
-  const eligible = (n) => n && ($('dialects').checked || n.level !== 'dialect');
+  // Every record is shown: there is no filter by kind (all records are languoids).
+  const eligible = (n) => !!n;
   const tc = {},
     tok = (h) =>
       tc[h] ||
@@ -83,7 +84,6 @@
     for (const k of ['evidence', 'category', 'dialects', 'view', 'x', 'y', 'z']) p.delete(k);
     if (evidence && evidence.value !== 'all') p.set('evidence', evidence.value);
     if (category && category.value !== 'all') p.set('category', category.value);
-    if (!$('dialects').checked) p.set('dialects', '0');
     if (display === 'chart') {
       p.set('view', 'tree');
       if (customView) {
@@ -121,7 +121,6 @@
     try {
       setOption(evidence, p.get('evidence'));
       setOption(category, p.get('category'));
-      $('dialects').checked = p.get('dialects') !== '0';
       display = p.get('view') === 'tree' ? 'chart' : 'list';
       showDisplay();
       if (display === 'list') renderOutline();
@@ -542,11 +541,6 @@
       if (display === 'chart') layout();
       saveURL(true);
     });
-  $('dialects').onchange = () => {
-    renderOutline();
-    if (display === 'chart') layout();
-    saveURL(true);
-  };
   $('listview').onclick = () => setDisplay('list');
   $('chartview').onclick = () => setDisplay('chart');
   $('collapse').onclick = () =>
