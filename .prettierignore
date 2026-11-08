@@ -9,13 +9,7 @@ package-lock.json
 # data and text that the build scripts read as they are.
 source-data/
 
-# Committed files written by scripts in tools/ (data and its XML exports, map tiles, the ISO
-# table, the logo).
-dist/integrated.json
-dist/provenance.json
-dist/signs-and-scripts.json
-dist/language-atlas.xml
-dist/signs-and-scripts.xml
+# Committed files written by scripts in tools/ (map tiles, the ISO table, the logo).
 dist/hf-iso-map.js
 dist/logo.svg
 dist/map/
@@ -23,8 +17,3 @@ dist/map/
 # Hand-written pages: tools/security_policy.py --write puts the policy <meta> tags right after
 # <meta charset="utf-8"> as one exact string, and --check compares them as text.
 dist/*.html
-
-# Until pull request #56 (fonts for Japanese, Chinese and Korean) is merged, so that it does not
-# conflict. Then format these files in their own pull request and remove the lines.
-dist/tree.js
-dist/style.css

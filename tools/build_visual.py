@@ -33,10 +33,6 @@ def edge(p, c, s, kind="historical descent", status="reported", **kw):
     E.append(dict(parent=p, child=c, source=s, kind=kind, status=status, **kw))
 
 
-def note(ids, title, text, sources):
-    notes.append(dict(nodes=ids, title=title, text=text, sources=sources))
-
-
 src(
     "glottolog",
     "Glottolog 5.3",
@@ -51,7 +47,6 @@ src(
     "research",
     dataset="https://github.com/lexibank/powerma",
     license="CLDF dataset: GPL-3.0; paper: CC BY 4.0",
-    scope="All language/sample rows and published SubGroup metadata; not a reconstruction of the paper’s reticulate network.",
 )
 src(
     "abner2024",
@@ -59,21 +54,18 @@ src(
     "https://doi.org/10.1126/science.add7766",
     "research",
     dataset="https://github.com/GClarte/SignLanguagesPhylogeny",
-    scope="Three annotated consensus trees: Asia and two independent European/New Zealand replicates. 19 distinct language samples. No all-sign-languages tree, posterior tree sample or calendar-time interpretation.",
 )
 src(
     "power2022",
     "Power (2022) · Historical Linguistics of Sign Languages: Progress and Problems",
     "https://doi.org/10.3389/fpsyg.2022.818753",
     "review",
-    scope="Methodological context, not another imported tree.",
 )
 src(
     "power2025",
     "Power (2025) · Advances in the Historical Linguistics of Signed Languages",
     "https://doi.org/10.1111/lnc3.70026",
     "review",
-    scope="Comparison of lexical and manual-alphabet results; selected claims, not full article import.",
 )
 src(
     "iso",
@@ -81,7 +73,6 @@ src(
     "https://unicode.org/iso15924/iso15924.txt",
     "catalog",
     license="Unicode terms of use",
-    scope="Every non-comment code row, including script variants, collections and special-purpose codes.",
 )
 src(
     "sil",
@@ -89,7 +80,6 @@ src(
     "https://writingsystems.info/scrlang/scripts-index/",
     "catalog",
     license="CC BY-SA 4.0",
-    scope="All 325 rows of the downloaded index, including non-ISO local identifiers. Reported types and statuses are catalog metadata, not independently verified genealogy.",
 )
 src(
     "cldr",
@@ -97,7 +87,6 @@ src(
     "https://github.com/unicode-org/cldr/blob/main/common/supplemental/supplementalData.xml",
     "usage data",
     license="Unicode-3.0",
-    scope="All explicit script entries under languageData. Primary/secondary designation preserved. Not a complete global orthography inventory; no inferred language genealogy.",
 )
 src(
     "ucd",
@@ -105,7 +94,6 @@ src(
     "https://www.unicode.org/Public/17.0.0/ucd/",
     "character data",
     license="Unicode-3.0",
-    scope="Up to six letter characters per script for illustrative glyph samples; samples are not native names.",
 )
 for ch, title in [
     (7, "Europe I"),
@@ -128,49 +116,42 @@ for ch, title in [
         "Unicode 17.0, chapter " + str(ch) + " · " + title,
         f"https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-{ch}/",
         "standard chapter",
-        scope="Selected historical relationships reviewed; chapter sections are not counted as independent research studies.",
     )
 src(
     "pillai2023",
     "Pillai (2023) · The Hybrid Origin of Brāhmī Script from Aramaic, Phoenician and Greek Letters",
     "https://doi.org/10.5565/rev/indialogs.213",
     "research",
-    scope="A proposed hybrid origin, not an established consensus.",
 )
 src(
     "lee2013",
     "Lee Ji-young (2013) · Hangeul, Academy of Korean Studies",
     "https://www.aks.ac.kr/ikorea/upload/intl/korean/UserFiles/UKS1_Hangeul_eng.pdf",
     "scholarly book",
-    scope="Design principles and discussion of Ledyard’s proposed Phags-pa influence.",
 )
 src(
     "ledyard1966",
     "Ledyard (1966) · The Korean Language Reform of 1446",
     "https://books.google.com/books?id=1bELAQAAMAAJ",
     "thesis reference",
-    scope="Bibliographic link; proposed influence summarized through Lee (2013), not a full-text import.",
 )
 src(
     "signwriting",
     "Sutton SignWriting · official project",
     "https://www.signwriting.org/",
     "project documentation",
-    scope="Writing of sign languages, not their genealogy.",
 )
 src(
     "hamnosys",
     "University of Hamburg · HamNoSys",
     "https://www.sign-lang.uni-hamburg.de/dgs-korpus/hamnosys-97.html",
     "research infrastructure",
-    scope="Sign-language transcription system, not a language family.",
 )
 src(
     "senghas2004",
     "Senghas, Kita & Özyürek (2004) · Children creating core properties of language",
     "https://doi.org/10.1126/science.1100199",
     "research",
-    scope="Emergence of Nicaraguan Sign Language; not a comparative family tree.",
 )
 # Exact Glottocode identities; retain all aliases and native-name evidence.
 for i, b in B.items():
@@ -327,31 +308,7 @@ for r in rows:
     edge(groups[g], i, "power2020", "manual-alphabet metadata subgroup")
     if r["Glottocode"] in N:
         edge(i, r["Glottocode"], "power2020", "sample identity link")
-note(
-    ["czec1253"],
-    "Different evidence, different placement",
-    "Manual-alphabet comparisons group the Czech sample with two-handed alphabets; Abner’s lexical-feature analysis places Czech among European samples. This is a difference in the compared subsystem, not proof that one entire-language genealogy is wrong.",
-    ["power2020", "abner2024", "power2025"],
-)
-note(
-    ["lith1236", "poli1259"],
-    "Compare lexical and manual-alphabet results",
-    "The review describes Lithuanian and Polish manual alphabets as intermediate between Russian and Austrian groups. In the lexical analysis, Lithuanian clusters with eastern European samples while Polish is less resolved. Contact and different evidence can explain some differences.",
-    ["power2020", "abner2024", "power2025"],
-)
-note(
-    list(iso.values()),
-    "How to read sign-language evidence",
-    "Manual alphabets encode fingerspelling; lexical-feature trees compare properties of vocabulary. Neither should be silently substituted for an established cognate-based genealogy. Catalog categories are navigation, not a proposed ancestor of all sign languages.",
-    ["power2022", "glottolog"],
-)
-if "ncs" in iso:
-    note(
-        [iso["ncs"]],
-        "Language emergence",
-        "Research on Nicaraguan Sign Language examines the emergence of structure across cohorts. It does not establish descent from the spoken language of the surrounding community.",
-        ["senghas2004"],
-    )
+
 # ISO script catalog, including collection/special codes, exactly as published.
 iso_rows = []
 for line in (P / "iso15924.txt").read_text().splitlines():
@@ -500,18 +457,6 @@ edge(
     hypothesis="Ledyard: influence on selected consonant forms; criticized by Lee (2013)",
     reportedVia="lee2013",
 )
-note(
-    ["Hang"],
-    "Design account and proposed influence",
-    "Ledyard (1966) proposes a Phags-pa connection for selected consonant forms. Lee (2013), pp. 40–42, criticizes that proposal: the selected basic letters differ from the design account in Hunminjeongeum haerye. Lee favors the documented articulatory design account. The proposed connection is disputed, not established descent of the whole system.",
-    ["lee2013", "ledyard1966"],
-)
-note(
-    ["Brah"],
-    "Competing origin accounts",
-    "Unicode describes an ultimately Semitic, probably Aramaic origin. Pillai (2023) instead proposes a hybrid drawing on Aramaic, Phoenician and Greek. The latter is a published hypothesis, not a settled replacement for other accounts.",
-    ["u14", "pillai2023"],
-)
 N["Hang"]["nativeNames"] = [dict(text="한글", lang="ko", source="lee2013")]
 N["Hang"]["aliases"].extend(
     [dict(text="Hangeul", source="lee2013"), dict(text="Hunminjeongeum", source="lee2013")]
@@ -528,12 +473,6 @@ if "sil:x-hamnosys" not in N:
     )
 else:
     ham = "sil:x-hamnosys"
-note(
-    ["Sgnw", ham],
-    "Writing signs is not language ancestry",
-    "SignWriting is used to write sign languages; HamNoSys is a transcription system for signs. Sharing a notation does not make two sign languages genealogically related. No universal language-to-notation usage edges are inferred.",
-    ["signwriting", "hamnosys"],
-)
 # Explicit CLDR language/script usage, separate from lineage assertions.
 root = ET.parse(P / "cldr-supplemental.xml").getroot()
 for r in root.findall("./languageData/language"):
@@ -607,16 +546,6 @@ result = dict(
     studies=studies,
     counts=counts,
     files=files,
-    limitations=[
-        "Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.",
-        "All 344 Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories.",
-        "Script catalog membership is much broader than the manually reviewed historical relationship set. A script with no edge has an unreviewed or unasserted placement, not a certified independent origin.",
-        "SIL-local IDs are preserved and never fuzzy-merged with ISO codes. Possible duplicate concepts remain source-specific.",
-        "Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.",
-        "English and French catalog labels and all Glottolog aliases are retained. Verified native names are sparse; script glyph samples are not autonyms. Sign-language self-names generally need video or sign notation and have not been fabricated.",
-        "Only selected source-backed disagreements are reviewed. No claim that every competing publication is incorporated.",
-        "Abner consensus branch lengths and posterior annotations are retained in JSON/XML; no time-scaled visual or posterior sample inference. Two European runs are replicates, not independent papers.",
-    ],
 )
 (D / "signs-and-scripts.json").write_text(
     json.dumps(result, ensure_ascii=False, separators=(",", ":"))

@@ -1,4 +1,4 @@
-"""Data for the language feature map (dist/feature-map.html).
+"""Data for the top page's map view and its conditions (dist/explore.js).
 
 Two steps:
 
@@ -10,32 +10,39 @@ Two steps:
       WALS release; it needs network access.
 
   python3 tools/build_wals_map.py
-      Reads those tables, source-data/languages.csv (Glottolog) and
-      source-data/wals.csv (WALS languages and their Glottocodes) and writes
-      dist/data/features/ (not committed; built in CI):
+      Reads those tables, source-data/languages.csv (Glottolog),
+      source-data/wals.csv (WALS languages and their Glottocodes),
+      dist/data.json and dist/integrated.json (tools/finish_unified.py) and
+      writes dist/data/features/ (not committed; built in CI):
         languages.json  one entry per Glottolog language with a point:
-                        Glottocode, name, family, first WALS code (or "") and
+                        Glottocode, name, family, first WALS code (or ""),
                         the point in the map's SVG units (Web Mercator, as
-                        dist/map/land.svg; see languoid_map.py)
-
-It also checks that the map in dist/feature-map.html has the viewBox and
-data-world that languoid_map.py computes for a whole-world map.
-        features.json   every feature: id, name, area and its values with
-                        their counts
+                        dist/map/land.svg; see languoid_map.py) and the
+                        top-level record it belongs to (its "root" in
+                        dist/data.json), which the list and tree views use
+        features.json   every feature: id, name, area, source ("wals" or
+                        "langlog") and its values with their counts
         f/<ID>.json     one feature's values: a list with one number per
                         language in languages.json (0 = no data)
+
+Besides the WALS features, Lang Log's own evidence gives two features that
+every language has a value for (LANGLOG_FEATURES): whether the language (or
+one of its dialects) is in a conflict between study trees, and whether it is
+placed in a research tree. They take the place of the evidence filter of the
+former whole tree on the top page (owner, 2026-11-08).
 
 Points are Glottolog's representative coordinates, not the area where a
 language is spoken.
 """
+
 import csv
 import hashlib
 import json
 import sys
 import urllib.request
 
-from locations import ROOT
-from languoid_map import min_width, project, world_box, world_view
+from locations import DIST, ROOT
+from languoid_map import project
 
 SRC = ROOT / "source-data" / "wals"
 OUT = ROOT / "dist" / "data" / "features"
@@ -59,6 +66,16 @@ AREAS = [
 ]
 
 
+# Lang Log's own features: (id, name, index in dist/integrated.json). A language
+# has value 1 ("Yes") when it or one of its dialects is a key of the index, else 2.
+LANGLOG_FEATURES = [
+    ("conflicts", "Conflicting study clades", "conflictIndex"),
+    ("studies", "Research trees", "studyIndex"),
+]
+LANGLOG_AREA = "Lang Log"
+YES, NO = 1, 2
+
+
 def area(chapter):
     for lo, hi, name in AREAS:
         if lo <= chapter <= hi:
@@ -71,7 +88,9 @@ def fetch():
     for name in ("values.csv", "parameters.csv", "codes.csv", "chapters.csv", "areas.csv"):
         raw = urllib.request.urlopen(BASE + name, timeout=120).read()
         (SRC / name).write_bytes(raw)
-        print(f"Wrote {(SRC / name).relative_to(ROOT)} from {VERSION} (SHA-256 {hashlib.sha256(raw).hexdigest()[:16]})")
+        print(
+            f"Wrote {(SRC / name).relative_to(ROOT)} from {VERSION} (SHA-256 {hashlib.sha256(raw).hexdigest()[:16]})"
+        )
 
 
 def build():
@@ -83,13 +102,18 @@ def build():
     for a feature gives that value."""
     glotto = list(csv.DictReader((ROOT / "source-data" / "languages.csv").open(encoding="utf-8")))
     by_id = {r["ID"]: r for r in glotto}
-    langs = sorted((r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
-                   key=lambda r: r["ID"])
+    langs = sorted(
+        (r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
+        key=lambda r: r["ID"],
+    )
     index = {r["ID"]: i for i, r in enumerate(langs)}
 
-    wals_to = {}   # WALS code -> index in langs
+    wals_to = {}  # WALS code -> index in langs
     wals_codes = {}  # index -> first WALS code
-    for w in sorted(csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")), key=lambda r: r["ID"]):
+    for w in sorted(
+        csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")),
+        key=lambda r: r["ID"],
+    ):
         g = by_id.get(w["Glottocode"])
         if not g:
             continue
@@ -106,22 +130,27 @@ def build():
     for c in csv.DictReader((SRC / "codes.csv").open(encoding="utf-8")):
         codes.setdefault(c["Parameter_ID"], []).append({"n": int(c["Number"]), "name": c["Name"]})
     values = {}
-    for v in sorted(csv.DictReader((SRC / "values.csv").open(encoding="utf-8")), key=lambda r: r["Language_ID"]):
+    for v in sorted(
+        csv.DictReader((SRC / "values.csv").open(encoding="utf-8")), key=lambda r: r["Language_ID"]
+    ):
         i = wals_to.get(v["Language_ID"])
         if i is not None:
             values.setdefault(v["Parameter_ID"], {}).setdefault(i, int(v["Value"]))
 
     OUT.joinpath("f").mkdir(parents=True, exist_ok=True)
+    nodes = json.loads((DIST / "data.json").read_text(encoding="utf-8"))["nodes"]
     rows = []
     for i, r in enumerate(langs):
         x, y = project(float(r["Longitude"]), float(r["Latitude"]))
         fam = by_id.get(r["Family_ID"], {}).get("Name", "") if r["Family_ID"] else ""
-        rows.append([r["ID"], r["Name"], fam, wals_codes.get(i, ""), round(x, 1), round(y, 1)])
-    write(OUT / "languages.json", {"fields": ["glottocode", "name", "family", "wals", "x", "y"], "rows": rows})
-    page = (ROOT / "dist" / "feature-map.html").read_text(encoding="utf-8")
-    for attr in (f'viewBox="{world_view()}"', f'data-world="{world_box()}"', f'data-min="{min_width()}"'):
-        if attr not in page:
-            raise SystemExit(f"dist/feature-map.html: the map must have {attr} (see languoid_map.py)")
+        root = nodes[r["ID"]]["root"] if r["ID"] in nodes else ""
+        rows.append(
+            [r["ID"], r["Name"], fam, wals_codes.get(i, ""), round(x, 1), round(y, 1), root]
+        )
+    write(
+        OUT / "languages.json",
+        {"fields": ["glottocode", "name", "family", "wals", "x", "y", "root"], "rows": rows},
+    )
 
     features = []
     for p in params:
@@ -135,11 +164,58 @@ def build():
         vals = sorted(codes.get(pid, []), key=lambda c: c["n"])
         for c in vals:
             c["count"] = counts.get(c["n"], 0)
-        features.append({"id": pid, "name": p["Name"], "area": area(int(p["Chapter_ID"])),
-                         "languages": len(got), "values": vals})
+        features.append(
+            {
+                "id": pid,
+                "name": p["Name"],
+                "area": area(int(p["Chapter_ID"])),
+                "languages": len(got),
+                "source": "wals",
+                "values": vals,
+            }
+        )
         write(OUT / "f" / f"{pid}.json", [got.get(i, 0) for i in range(len(langs))])
+    features += langlog_features(langs, nodes)
     write(OUT / "features.json", {"version": VERSION, "features": features})
-    print(f"Wrote dist/data/features/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features")
+    print(
+        f"Wrote dist/data/features/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features"
+    )
+
+
+def self_and_below(i, nodes):
+    """i and every record below it in Glottolog (a language's dialects)."""
+    out, todo = [], [i]
+    while todo:
+        n = todo.pop()
+        out.append(n)
+        todo.extend(nodes.get(n, {}).get("children", []))
+    return out
+
+
+def langlog_features(langs, nodes):
+    """LANGLOG_FEATURES for every language in langs; writes their f/<ID>.json."""
+    unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
+    out = []
+    for fid, name, key in LANGLOG_FEATURES:
+        index = unified[key]
+        got = [
+            YES if any(d in index for d in self_and_below(r["ID"], nodes)) else NO for r in langs
+        ]
+        write(OUT / "f" / f"{fid}.json", got)
+        out.append(
+            {
+                "id": fid,
+                "name": name,
+                "area": LANGLOG_AREA,
+                "languages": len(got),
+                "source": "langlog",
+                "values": [
+                    {"n": YES, "name": "Yes", "count": got.count(YES)},
+                    {"n": NO, "name": "No", "count": got.count(NO)},
+                ],
+            }
+        )
+    return out
 
 
 def write(path, obj):

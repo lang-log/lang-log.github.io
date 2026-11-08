@@ -6,9 +6,7 @@ every record whatever source it comes from (schema/languoid.schema.json):
 
 - dist/<path>/languoid.json for every Glottolog record and every WALS
   language that Glottolog lacks, next to the record page at the same path
-  (the path rules are those of tools/build_paths.py). A historical stage,
-  whose page is a section <modern>/#<anchor>, has its file at
-  <modern>/<anchor>/languoid.json.
+  (the path rules are those of tools/build_paths.py).
 - dist/features/index.json: Lang Log's feature catalogue
   (source-data/lang-log/features.json) with the number of records per value.
 - dist/features/<feature id>.json: the feature and the value of every
@@ -21,6 +19,8 @@ Sources read here, each converted by its own function:
   iso-map.json): records, classification, names, location, countries.
 - WALS (wals.csv and source-data/wals/): WALS codes, WALS classification
   and feature values, mapped to Lang Log features by the catalogue.
+- Lang Log (source-data/lang-log/classification.json): Lang Log's own
+  parents, such as a historical stage as the parent of the later language.
 
 Every file is checked against its schema; the build stops on the first
 record that does not match, and when a WALS feature or value is missing from
@@ -248,6 +248,24 @@ def import_wals(records):
     return catalogue
 
 
+def import_lang_log(records):
+    """Lang Log's own classification: classification["lang-log"] = {parent}."""
+    data = json.loads((SRC / "lang-log" / "classification.json").read_text(encoding="utf-8"))
+    parents = {c: v["parent"] for c, v in data["parents"].items()}
+    for c, p in parents.items():
+        if c not in records or p not in records:
+            raise SystemExit(f"source-data/lang-log/classification.json: unknown record {c} or {p}")
+        records[c]["classification"]["lang-log"] = {"parent": p}
+        records[c]["sources"]["lang-log"] = VERSION["lang-log"]
+    for c in parents:  # a parent is never its own ancestor
+        seen, i = set(), c
+        while i in parents:
+            if i in seen:
+                raise SystemExit(f"source-data/lang-log/classification.json: loop at {i}")
+            seen.add(i)
+            i = parents[i]
+
+
 def choose_values(records):
     """Pick each feature's value from its evidence by source priority, then by majority."""
     disagreements = 0
@@ -312,6 +330,7 @@ def main():
     if set(records) != set(build_paths.nodes):
         raise SystemExit("Glottolog import has other records than dist/data.json")
     catalogue = import_wals(records)
+    import_lang_log(records)
     choose_values(records)
 
     languoid_schema = json.loads((SCHEMA / "languoid.schema.json").read_text(encoding="utf-8"))
@@ -322,7 +341,7 @@ def main():
     for i, n in records.items():
         n["path"] = build_paths.path_of(i)
         check(n, languoid_schema, i)
-        target = DIST / n["path"].replace("/#", "/")
+        target = DIST / n["path"]
         target.mkdir(parents=True, exist_ok=True)
         (target / "languoid.json").write_text(
             json.dumps(n, ensure_ascii=False, separators=(",", ":")), encoding="utf-8"

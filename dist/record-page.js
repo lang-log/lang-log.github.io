@@ -13,7 +13,7 @@
     };
     button.addEventListener('click', start);
     // A shared link to a drawn tree (?view=tree or other tree state) opens with the tree.
-    if (['view', 'dialects', 'x'].some((k) => new URLSearchParams(location.search).has(k))) start();
+    if (['view', 'x'].some((k) => new URLSearchParams(location.search).has(k))) start();
   }
   const hf = document.getElementById('hf-models');
   if (hf && window.LanguageModels) {

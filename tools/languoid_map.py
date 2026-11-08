@@ -23,8 +23,8 @@ import math
 SCALE = 310.0
 MAX_LAT = math.degrees(math.atan(math.sinh(math.pi)))  # 85.0511..., the square Web Mercator world
 
-# Radius of the record's own point (and half the side of the squares of related records), as a
-# multiple of a member point's radius (the starting view sets that radius).
+# Radius of the record's own point, as a multiple of a member point's radius (the starting
+# view sets that radius).
 BIG_POINT = 2.4
 
 # Extent of the whole map in SVG units: a square, from -WORLD_W / 2 to WORLD_W / 2 in x and y.
@@ -163,8 +163,8 @@ def map_svg(
     # Radius of a member point in the starting view; the other points are drawn in proportion.
     # dist/map-zoom.js resizes them all to the same size on screen at every zoom (data-r).
     r = vw / 200
-    # The record's own point and the points of the other members of its parent share one
-    # size; the others are squares, so the two read apart by shape (owner, 2026-11-08).
+    # The record's points and the points of the other members of its parent share one size;
+    # the others are squares, so the two read apart by shape (owner, 2026-11-08).
     big = r * BIG_POINT
     show_inset = vw < WORLD_W * 0.5
 
@@ -203,7 +203,7 @@ def map_svg(
         f'<g class="lmap-bg">{background(land, vx, vw)}</g>',
     ]
     if context:
-        parts.append(f'<g class="lmap-ctx">{circles(context, big, context_ids, square=True)}</g>')
+        parts.append(f'<g class="lmap-ctx">{circles(context, r, context_ids, square=True)}</g>')
     if main_xy:
         parts.append(f'<g class="lmap-main">{circles(main_xy, r, main_ids)}</g>')
     if own:
@@ -228,7 +228,7 @@ def map_svg(
 
 
 def world_view():
-    """viewBox of a map that shows the whole world once (dist/feature-map.html)."""
+    """viewBox of a map that shows the whole world once (the top page's map view)."""
     return f"{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}"
 
 

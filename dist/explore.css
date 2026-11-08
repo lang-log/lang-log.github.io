@@ -1,35 +1,37 @@
-/* Language feature map (feature-map.html). Colours are the variables at the top of style.css. */
-.feature-map main {
-  display: block;
-  height: auto;
-  min-height: 0;
-  max-width: 1400px;
-  margin: 20px auto;
-  padding: 0 24px;
+/* The three views of the top page and their conditions (dist/explore.js, tools/build_home.py).
+   Colours are the variables at the top of style.css. */
+.explore-views {
+  margin: 16px 0 12px;
+}
+/* One segmented control, like the List / Tree switch of the record pages' toolbar. */
+.explore-views:not([hidden]) {
+  display: inline-flex;
+}
+.explore-views {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.explore-views button {
+  margin: 0;
   border: 0;
-  background: none;
-  overflow: visible;
+  border-radius: 0;
 }
-.feature-map h1 {
-  font-size: clamp(28px, 4vw, 44px);
-  letter-spacing: -1px;
-  margin: 8px 0 8px;
+.explore-views button + button {
+  border-inline-start: 1px solid var(--line);
 }
-.feature-map .lead {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--c-52625c);
+.explore-views button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--c-ffffff);
+}
+.explore-filter {
   margin: 0 0 16px;
 }
-.wm-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 16px;
-  align-items: start;
+.explore-view .continent h3 {
+  margin-top: 18px;
 }
 .wm-map {
-  position: sticky;
-  top: 12px;
+  position: relative;
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
@@ -52,53 +54,6 @@
   color: var(--muted);
   pointer-events: none;
   max-width: 60%;
-}
-.wm-card {
-  position: absolute;
-  z-index: 2;
-  width: min(290px, calc(100% - 16px));
-  padding: 12px 34px 10px 14px;
-  background: var(--c-ffffff);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  box-shadow: 0 4px 18px var(--c-24302e1f);
-  font-size: 13px;
-  line-height: 1.5;
-}
-.wm-card h3 {
-  margin: 0 0 2px;
-  font-size: 16px;
-}
-.wm-card .wm-sub {
-  margin: 0 0 8px;
-  color: var(--muted);
-  font-size: 12px;
-}
-.wm-card dl {
-  margin: 0 0 8px;
-}
-.wm-card dt {
-  font-size: 11px;
-  color: var(--muted);
-}
-.wm-card dd {
-  margin: 0 0 6px;
-  font-weight: 600;
-}
-.wm-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 0;
-}
-.wm-close {
-  position: absolute;
-  top: 4px;
-  inset-inline-end: 4px;
-  border: 0;
-  font-size: 18px;
-  line-height: 1;
-  padding: 6px 9px;
 }
 .wm-legend {
   border: 1px solid var(--line);
@@ -173,39 +128,7 @@
 .wm-ring {
   border: 2px solid var(--muted);
 }
-.wm-about {
-  max-width: 820px;
-  margin: 28px 0 40px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--c-52625c);
-}
-.wm-about h2 {
-  font-size: 18px;
-  color: var(--ink);
-}
-.wm-noscript {
-  margin: 20px 24px;
-}
-@media (max-width: 900px) {
-  .wm-body {
-    grid-template-columns: 1fr;
-  }
-  /* The map stays in view while the conditions below it are edited. */
-  .wm-map {
-    top: 0;
-    z-index: 3;
-  }
-  .wm-legend {
-    max-height: none;
-    min-height: 0;
-  }
-}
 @media (max-width: 700px) {
-  .feature-map main {
-    padding: 0 12px;
-    margin-top: 12px;
-  }
   .wm-hint {
     display: none;
   }
@@ -282,10 +205,7 @@
 .wm-cond.wm-or-next {
   border-end-start-radius: 0;
   border-end-end-radius: 0;
-}
-.wm-cond.wm-or,
-.wm-cond.wm-or-next {
-  border-inline-start: 3px solid var(--orange);
+  border-bottom-style: dashed;
 }
 .wm-cond-head {
   display: flex;
@@ -341,15 +261,11 @@
 .wm-cond .wm-selectall {
   margin-top: 6px;
 }
-.wm-none {
-  color: var(--muted);
-  font-weight: 400;
-}
 #map.lmap {
   border: 0;
   border-radius: 0;
 }
-/* Map view: the map and its card fill the window (record.css .lmap-full; sticky above would win). */
+/* Map view: the map and its record box fill the window (record.css .lmap-full; relative above would win). */
 .wm-map.lmap-full {
   position: fixed;
   top: 0;

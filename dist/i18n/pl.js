@@ -13,13 +13,11 @@
     'North America': 'Ameryka Północna',
     'South America': 'Ameryka Południowa',
     'Australia': 'Australia',
+    'Oceania': 'Oceania',
+    'No location in the data': 'Bez lokalizacji w danych',
     'Stats': 'Statystyki',
     'Updates': 'Aktualności',
     'About Lang Log': 'O Lang Log',
-    'Counted from the data each time the site is built.':
-      'Liczby są liczone z danych przy każdym budowaniu witryny.',
-    'Different kinds of records are counted separately; do not add them up.':
-      'Różne rodzaje rekordów są liczone osobno; nie należy ich sumować.',
     'All records': 'Wszystkie rekordy',
     'By modality': 'Według modalności',
     'Other kinds of languages': 'Inne rodzaje języków',
@@ -50,11 +48,21 @@
       'Każda rodzina, język i dialekt ma własną stronę pod adresem zgodnym z klasyfikacją.',
     'Stats · Lang Log by yoshi': 'Statystyki · Lang Log by yoshi',
     'Updates · Lang Log by yoshi': 'Aktualności · Lang Log by yoshi',
+    // Releases page (tools/build_releases.py) and its link in the guide row
+    'Releases': 'Wydania',
+    'Releases · Lang Log by yoshi': 'Wydania · Lang Log by yoshi',
+    'Latest': 'Najnowsze',
+    'Pre-release': 'Wersja wstępna',
+    'No releases yet.': 'Nie ma jeszcze wydań.',
+    'No release notes.': 'Brak informacji o wydaniu.',
+    'Downloads': 'Pliki do pobrania',
+    'View on GitHub': 'Zobacz na GitHubie',
+    'All releases on GitHub': 'Wszystkie wydania na GitHubie',
+    'Date unknown': 'Data nieznana',
     'Sources & scope · Lang Log by yoshi': 'Źródła i zakres · Lang Log by yoshi',
     'by': 'by',
     'Sources & scope': 'Źródła i zakres',
     'Sources & scope ↗': 'Źródła i zakres ↗',
-    'All families': 'Wszystkie rodziny',
     'Atlas domains': 'Działy atlasu',
     'Language families': 'Rodziny językowe',
     'Sign languages': 'Języki migowe',
@@ -65,14 +73,8 @@
       'Pod tym adresem nie ma strony. Mogła zostać przeniesiona albo link został błędnie wpisany.',
     'Top page': 'Strona główna',
     'Search': 'Szukaj',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Atlas rodzin językowych, języków migowych i systemów pisma. Każde umiejscowienie podaje źródło, za którym idzie, konkurencyjne klasyfikacje są pokazane obok siebie, a dane można pobrać.',
-    'Also': 'Ponadto',
-    'All families and isolates': 'Wszystkie rodziny i języki izolowane',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': prosta strona dla każdego rekordu Glottologu, z klasyfikacją i mapą.',
-    'Corpora and data for low-resource languages: planned.':
-      'Korpusy i dane dla języków o małych zasobach: w przygotowaniu.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Źródła: Glottolog, WALS, drzewa z opublikowanych badań i katalogi pism, każde na własnej licencji',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -86,19 +88,17 @@
     'Search records and aliases': 'Szukaj rekordów i aliasów',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Przykłady: Japanese · 日本語 · Basque · Austronesian',
-    'Try Japanese · Czech · ASL · Lithuanian': 'Przykłady: Japanese · Czech · ASL · Lithuanian',
-    'Try Brahmi · Hangul · Latin · SignWriting': 'Przykłady: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Filtr według dowodów',
-    'All evidence': 'Wszystkie dowody',
-    'With research trees': 'Z drzewami badawczymi',
-    'With conflicting study clades': 'Ze sprzecznymi kladami badań',
-    'Record category': 'Rodzaj rekordu',
-    'All categories': 'Wszystkie rodzaje',
     'Spoken genealogy': 'Genealogia języków fonicznych',
     'Isolates': 'Języki izolowane',
     'View': 'Widok',
     'List': 'Lista',
     'Tree': 'Drzewo',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Mapa',
+    'Yes': 'Tak',
+    'No': 'Nie',
+    'Conflicting study clades': 'Sprzeczne klady badań',
+    'Research trees': 'Drzewa badawcze',
     'All roots': 'Wszystkie korzenie',
     'Selected branch': 'Wybrana gałąź',
     'Collapse all': 'Zwiń wszystko',
@@ -110,17 +110,13 @@
     'Choose a random language or dialect': 'Wybierz losowy język lub dialekt',
     'Choose a random sign language or dialect': 'Wybierz losowy język migowy lub dialekt',
     'Choose a random writing system': 'Wybierz losowy system pisma',
-    'Dialects': 'Dialekty',
     'Download': 'Pobierz',
-    'How to read': 'Jak czytać',
     'Copy link': 'Kopiuj link',
     'Zoom in': 'Powiększ',
     'Zoom out': 'Pomniejsz',
     'Fit': 'Dopasuj',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Przeciągnij, aby przesunąć · Przewiń lub uszczypnij, aby powiększyć · Kliknij węzeł, aby zobaczyć szczegóły',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Linia przerywana: połączenie nawigacyjne, nie pochodzenie. Odległości nie oznaczają czasu.',
     'INTEGRATED · SOURCE-CONDITIONED': 'ZINTEGROWANE · WEDŁUG ŹRÓDŁA',
     'Independent roots & alternatives': 'Niezależne korzenie i alternatywy',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -133,21 +129,16 @@
     'Expand A': 'Rozwiń A',
     'Expand B': 'Rozwiń B',
     'Show in tree': 'Pokaż w drzewie',
-    'Cross-family / outgroup source trees · navigation only':
-      'Drzewa źródłowe obejmujące wiele rodzin lub grupy zewnętrzne · tylko do nawigacji',
     'Catalog classification': 'Klasyfikacja katalogowa',
     'Lexical-feature hypotheses': 'Hipotezy oparte na cechach leksykalnych',
     'Manual-alphabet evidence': 'Dowody z alfabetów palcowych',
     'Glottolog records': 'Rekordy Glottologu',
     'Manual-alphabet samples': 'Próbki alfabetów palcowych',
-    'CLDR usage assertions': 'Dane o użyciu z CLDR',
     'Record details': 'Szczegóły rekordu',
     'Record information': 'Informacje o rekordzie',
     'Record page': 'Strona rekordu',
     'Select a row to see its placements, names and sources.':
       'Wybierz wiersz, aby zobaczyć jego umiejscowienia, nazwy i źródła.',
-    'Select a record to see its placements, names and evidence.':
-      'Wybierz rekord, aby zobaczyć jego umiejscowienia, nazwy i dowody.',
     'ONE RECORD · SOURCE-CONDITIONED PLACEMENTS': 'JEDEN REKORD · UMIEJSCOWIENIA WEDŁUG ŹRÓDŁA',
     'Open detail page ↗': 'Otwórz stronę szczegółów ↗',
     'Details ↗': 'Szczegóły ↗',
@@ -157,17 +148,13 @@
     'Conditional placements': 'Umiejscowienia według źródła',
     'Classification according to Glottolog 5.3': 'Klasyfikacja według Glottologu 5.3',
     'Classification according to Glottolog': 'Klasyfikacja według Glottologu',
-    'Position in Glottolog': 'Pozycja w Glottologu',
+    'Classification according to Lang Log': 'Klasyfikacja według Lang Log',
+    'Lang Log’s own': 'Własna Lang Log',
     'According to': 'Według',
     'According to Glottolog 5.3': 'Według Glottologu 5.3',
     'Name in this language': 'Nazwa w tym języku',
     'Names': 'Nazwy',
-    'Names and native forms': 'Nazwy i endonimy',
-    'Not recorded in the imported sources. No name inferred.':
-      'Brak w zaimportowanych źródłach. Nie wywnioskowano żadnej nazwy.',
-    'No verified same-language name recorded.': 'Brak zweryfikowanej nazwy w samym języku.',
     'No alternate names recorded.': 'Brak innych nazw.',
-    'No other names or spellings recorded.': 'Brak innych nazw i pisowni.',
     'No child records imported.': 'Nie zaimportowano rekordów podrzędnych.',
     'Isolate: no higher family': 'Język izolowany: brak rodziny nadrzędnej',
     'Top-level: no higher family': 'Najwyższy poziom: brak rodziny nadrzędnej',
@@ -175,10 +162,6 @@
       'Niezależny rekord najwyższego poziomu; nie przypisuje się tu rodziny nadrzędnej.',
     'Independent top-level isolate; no higher family asserted here.':
       'Niezależny język izolowany najwyższego poziomu; nie przypisuje się tu rodziny nadrzędnej.',
-    'No additional direct placement recorded here. This is not a consensus certificate; unimported studies may propose other relationships.':
-      'Nie zapisano tu innego bezpośredniego umiejscowienia. Nie jest to potwierdzenie konsensusu; niezaimportowane badania mogą proponować inne pokrewieństwa.',
-    'No incoming placement is recorded in the imported sources. This alone does not establish an independent origin.':
-      'Zaimportowane źródła nie zawierają nadrzędnego umiejscowienia tego rekordu. Samo to nie dowodzi niezależnego pochodzenia.',
     'Alternative accounts and research notes': 'Alternatywne ujęcia i notatki badawcze',
     'Incompatible study branches': 'Niezgodne gałęzie badań',
     'Glottolog record & bibliography ↗': 'Rekord i bibliografia w Glottologu ↗',
@@ -218,12 +201,8 @@
       'Nie można połączyć się z Hugging Face. Użyj linków powyżej lub spróbuj ponownie; nie oznacza to, że modeli nie ma.',
     'Retry loading models': 'Wczytaj modele ponownie',
     'Search the name on Hugging Face ↗': 'Szukaj nazwy w Hugging Face ↗',
-    'Select an individual language to find language-tagged models.':
-      'Wybierz pojedynczy język, aby znaleźć modele oznaczone jego tagiem.',
     'No models found with this exact language tag.':
       'Nie znaleziono modeli z dokładnie tym tagiem języka.',
-    'Downloads and reuse': 'Pobieranie i ponowne użycie',
-    'Names and exports': 'Nazwy i eksport',
     'Integrated XML ↓': 'Zintegrowany XML ↓',
     'Assertions JSON ↓': 'JSON z twierdzeniami ↓',
     'Names / base JSON ↓': 'Nazwy / podstawowy JSON ↓',
@@ -239,95 +218,15 @@
     'Scope': 'Zakres',
     'Sources': 'Źródła',
     'Source register': 'Rejestr źródeł',
-    'How disagreements are handled': 'Jak traktowane są rozbieżności',
-    'What the relationships mean': 'Co oznaczają relacje',
-    'Coverage still to be completed': 'Zakres jeszcze do uzupełnienia',
-    'Remaining gaps': 'Pozostałe luki',
-    'Integrated view · all imported sources.':
-      'Widok zintegrowany · wszystkie zaimportowane źródła.',
-    'Glottolog sign-category records;': 'rekordy kategorii języków migowych z Glottologu;',
-    'downloaded ISO 15924 rows;': 'pobrane wiersze ISO 15924;',
     'Classification and names from': 'Klasyfikacja i nazwy z',
     ', used under': ', na licencji',
-    'This is coverage of the imported corpus, not every publication worldwide.':
-      'To jest zakres zaimportowanego korpusu, a nie wszystkich publikacji na świecie.',
-    'Coverage is limited to the imported sources. No displayed alternative does not imply consensus.':
-      'Zakres ogranicza się do zaimportowanych źródeł. Brak pokazanej alternatywy nie oznacza konsensusu.',
-    'Catalog completeness is measured against the imported snapshots. Research coverage is partial, and missing branches do not imply agreement.':
-      'Kompletność katalogów mierzy się względem zaimportowanych wersji. Badania są uwzględnione częściowo, a brak gałęzi nie oznacza zgody.',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Gałęzie zależą od swojego źródła. Różne umiejscowienia są pokazane razem; nie trzeba przełączać źródła.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Niezależne rodziny i języki izolowane to równoległe korzenie. Rozwiń gałąź, aby prześledzić jej zapisaną klasyfikację.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Kliknij wiersz, aby go rozwinąć i obejrzeć. Wybierz język, aby porównać jego umiejscowienia według każdego źródła oraz alternatywy powiązane z artykułami. Gałęzie badań rozwijają się w tym samym konspekcie.',
-    'Expand a row to follow its branches. Select “Details” for all placements and citations. Repeated names refer to the same record.':
-      'Rozwiń wiersz, aby prześledzić jego gałęzie. Wybierz „Szczegóły”, aby zobaczyć wszystkie umiejscowienia i cytaty. Powtarzające się nazwy odnoszą się do tego samego rekordu.',
-    'Each placement says “According to [source]” and links to its paper or catalog. Catalog classifications are not mislabeled as individual research papers.':
-      'Każde umiejscowienie podaje „Według [źródło]” i odsyła do artykułu lub katalogu. Klasyfikacje katalogowe nie są przedstawiane jako osobne artykuły badawcze.',
-    'Different parent names alone do not prove conflict. For pairs of study trees, the atlas compares clades restricted to at least three identical sampled language IDs. Crossing, non-nested clades are marked as topologically incompatible.':
-      'Różne nazwy nadrzędne same w sobie nie dowodzą sprzeczności. Dla par drzew z badań atlas porównuje klady ograniczone do co najmniej trzech identycznych identyfikatorów języków z próby. Klady, które się krzyżują i nie są zagnieżdżone, oznacza się jako topologicznie niezgodne.',
-    'Different sampling, unresolved polytomies and repeated mappings of different local varieties are not, by themselves, evidence of conflicting ancestry. Repeated or nested tip IDs are excluded from automatic conflict comparison.':
-      'Różny dobór próby, nierozstrzygnięte politomie i wielokrotne przypisania różnych odmian lokalnych same w sobie nie są dowodem sprzecznego pochodzenia. Powtarzające się lub zagnieżdżone identyfikatory końcowe są wyłączone z automatycznego porównania.',
-    'A conflicting summary topology does not establish which scientific claim is correct. Posterior uncertainty and all analyses within each paper have not been reviewed.':
-      'Sprzeczna topologia podsumowująca nie rozstrzyga, które twierdzenie naukowe jest poprawne. Niepewność a posteriori i wszystkie analizy w poszczególnych artykułach nie zostały przejrzane.',
-    'A script is not a language family. Historical descent, graphic influence and language usage are distinct; missing ancestry is unreviewed, not proof of independent invention.':
-      'Pismo nie jest rodziną językową. Pochodzenie historyczne, wpływ graficzny i użycie przez języki to różne rzeczy; brak przodka oznacza brak weryfikacji, a nie dowód niezależnego wynalezienia.',
-    'A shared writing system or manual alphabet is not proof of shared language ancestry.':
-      'Wspólny system pisma lub alfabet palcowy nie dowodzi wspólnego pochodzenia języków.',
-    'All imported historical and influence assertions appear together; each edge carries its source and uncertainty.':
-      'Wszystkie zaimportowane twierdzenia o historii i wpływach są pokazane razem; każde połączenie ma swoje źródło i stopień niepewności.',
-    'Glottolog classifications, lexical-feature study trees and manual-alphabet groups share identities but keep their evidence separate. Navigation categories are not universal ancestors.':
-      'Klasyfikacje Glottologu, drzewa z badań opartych na cechach leksykalnych i grupy alfabetów palcowych dzielą rekordy, ale przechowują dowody osobno. Kategorie nawigacyjne nie są uniwersalnymi przodkami.',
-    'Source-specific sampled clades share the same language identities. Two European runs are replicates of one study.':
-      'Klady z prób poszczególnych źródeł dzielą te same rekordy języków. Dwie analizy europejskie to powtórzenia jednego badania.',
-    'Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.':
-      'Pochodzenie historyczne, wpływ graficzny, tożsamość próbek i użycie pisma to różne relacje. Nie twierdzi się istnienia globalnego wspólnego przodka.',
-    'These records remain searchable and inspectable. No displayed connection is not a claim of independent origin.':
-      'Te rekordy można nadal wyszukiwać i przeglądać. Brak pokazanego połączenia nie jest twierdzeniem o niezależnym pochodzeniu.',
-    'Standard chapters are sections of one publication, not independent studies. Bibliographic references are distinguished from imported datasets.':
-      'Rozdziały normy to części jednej publikacji, a nie niezależne badania. Odwołania bibliograficzne są odróżnione od zaimportowanych zbiorów danych.',
-    'The Transeurasian paper-level debate includes proposal, critique and response. This is distinct from automatic topology comparison.':
-      'Debata między artykułami na temat hipotezy transeurazjatyckiej obejmuje propozycję, krytykę i odpowiedź. Jest to coś innego niż automatyczne porównanie topologii.',
-    'These summary clades cannot both hold on the shared sampled tips. This does not determine which study is correct. Examples below may involve a wider group containing this record.':
-      'Te klady podsumowujące nie mogą jednocześnie zachodzić na wspólnych końcach próby. Nie rozstrzyga to, które badanie jest poprawne. Przykłady poniżej mogą dotyczyć szerszej grupy zawierającej ten rekord.',
-    'This atlas preserves every imported classification assertion with its source. Exact Glottocode matches share one canonical language record. Source-specific groupings and unmapped samples retain separate IDs. A repeated appearance in the outline is a reference to the same record, not a new language.':
-      'Ten atlas zachowuje każde zaimportowane twierdzenie klasyfikacyjne wraz ze źródłem. Dokładne dopasowania Glottocode dzielą jeden rekord języka. Grupy właściwe danemu źródłu i nieprzypisane próbki zachowują osobne identyfikatory. Powtórne wystąpienie w konspekcie to odwołanie do tego samego rekordu, a nie nowy język.',
-    "This is not every published tree worldwide. Ethnologue's full proprietary hierarchy, all regional monographs, all historical proposals, catalog bibliographies and a complete paper-by-paper review of every conflict are not incorporated. A node with no displayed alternative has not been certified as consensus.":
-      'To nie są wszystkie drzewa opublikowane na świecie. Nie uwzględniono pełnej, zastrzeżonej hierarchii Ethnologue, wszystkich monografii regionalnych, wszystkich propozycji historycznych, bibliografii katalogów ani pełnego przeglądu każdej sprzeczności artykuł po artykule. Węzeł bez pokazanej alternatywy nie został potwierdzony jako konsensus.',
-    'Every assertion retains its source. Catalog classifications, lexical-feature phylogenies, manual-alphabet groups, graphic influence and writing-system usage remain distinct. “Intermediate stages omitted” means a broad historical descent claim, not an immediate parent. Study roots and catalog categories are navigation entries, not a single invented ancestor.':
-      'Każde twierdzenie zachowuje swoje źródło. Klasyfikacje katalogowe, filogenezy oparte na cechach leksykalnych, grupy alfabetów palcowych, wpływ graficzny i użycie systemów pisma pozostają rozdzielone. „Pominięto etapy pośrednie” oznacza ogólne twierdzenie o pochodzeniu historycznym, a nie bezpośredniego rodzica. Korzenie badań i kategorie katalogów to pozycje nawigacyjne, a nie jeden wymyślony przodek.',
-    'Glottolog provides the navigation backbone. Alternative WALS and study branches are embedded at their shared ancestor where possible. This attachment is for navigation, not a new genealogical claim. Cross-family/outgroup trees remain in a separate navigation section.':
-      'Glottolog stanowi szkielet nawigacji. Alternatywne gałęzie z WALS i badań są w miarę możliwości umieszczane pod wspólnym przodkiem. To połączenie służy nawigacji i nie jest nowym twierdzeniem genealogicznym. Drzewa obejmujące wiele rodzin lub grupy zewnętrzne pozostają w osobnej sekcji nawigacyjnej.',
-    'Language details query the public Hugging Face Hub API on demand. Results require an exact match in model-card language metadata using the record’s own ISO code and its documented two-letter equivalent. Parent-language and macrolanguage support is not inferred for dialects or individual languages. Multilingual models may appear. Metadata is publisher supplied and does not establish quality, exclusive language support, or dialect coverage. The list is a limited download-sorted sample, with links to the full Hub results. Model metadata is live and is not included in the classification XML/OPML exports.':
-      'Szczegóły języka na żądanie odpytują publiczne API Hugging Face Hub. Wyniki wymagają dokładnej zgodności metadanych językowych karty modelu z kodem ISO rekordu i jego udokumentowanym odpowiednikiem dwuliterowym. Obsługa języka nadrzędnego lub makrojęzyka nie jest przenoszona na dialekty ani pojedyncze języki. Mogą pojawić się modele wielojęzyczne. Metadane pochodzą od wydawcy i nie gwarantują jakości, wyłącznej obsługi języka ani pokrycia dialektów. Lista to ograniczona próbka posortowana według liczby pobrań, z linkami do wszystkich wyników w Hub. Metadane modeli są pobierane na bieżąco i nie wchodzą do eksportów XML/OPML klasyfikacji.',
-    'XML and JSON contain every record, assertion, note, source, usage entry and input checksum. OPML is a repeated-reference outline of classification and history assertions; it does not include the full metadata or CLDR usage table. Source-specific rights remain applicable: Glottolog CC BY 4.0, SIL CC BY-SA 4.0, Power CLDF GPL-3.0, Unicode data under Unicode terms.':
-      'XML i JSON zawierają każdy rekord, twierdzenie, notatkę, źródło, dane o użyciu i sumę kontrolną danych wejściowych. OPML to konspekt twierdzeń o klasyfikacji i historii z powtarzanymi odwołaniami; nie zawiera wszystkich metadanych ani tabeli użycia CLDR. Prawa poszczególnych źródeł pozostają w mocy: Glottolog CC BY 4.0, SIL CC BY-SA 4.0, Power CLDF GPL-3.0, dane Unicode na warunkach Unicode.',
-    'SIL index rows. Exact ISO-code matches share records; SIL-local identifiers remain distinct.':
-      'Wiersze indeksu SIL. Dokładne dopasowania kodu ISO dzielą rekordy; identyfikatory własne SIL pozostają osobne.',
-    'All Glottolog alias rows for the sign-language category are preserved with their provider tags. ISO English/French labels and SIL names are retained. Verified same-language labels appear where present. UCD glyph samples show characters, not a script’s native name. Video or sign-notation self-names have not been invented.':
-      'Wszystkie wiersze aliasów Glottologu dla kategorii języków migowych zachowano wraz ze znacznikami dostawcy. Zachowano angielskie i francuskie nazwy ISO oraz nazwy SIL. Zweryfikowane nazwy w samym języku są pokazywane, jeśli istnieją. Próbki glifów z UCD pokazują znaki, a nie własną nazwę pisma. Nie wymyślano endonimów w formie wideo ani w notacji migowej.',
-    'All sources appear together. Repeated branches are references to shared IDs. Alternative origin accounts are shown in record details with links; tentative claims are labeled. The two European consensus trees are independent runs of the same study, not two publications. No all-sign-languages tree is imported.':
-      'Wszystkie źródła są pokazane razem. Powtarzające się gałęzie to odwołania do wspólnych identyfikatorów. Alternatywne ujęcia pochodzenia są pokazane w szczegółach rekordu z linkami; twierdzenia wstępne są oznaczone. Dwa europejskie drzewa konsensusu to niezależne analizy tego samego badania, a nie dwie publikacje. Nie zaimportowano drzewa wszystkich języków migowych.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Pozycje najwyższego poziomu w Glottologu 5.3. Każdy rekord ma własną stronę pod adresem URL odpowiadającym jego klasyfikacji.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': cytaty i licencje poszczególnych źródeł poniżej. Zaimportowane drzewa podsumowujące przypisuje się ich autorom i kuratorom. Odpowiedniki kodów:',
-    '. Consult each original source before further redistribution.':
-      '. Przed dalszym rozpowszechnianiem sprawdź każde źródło oryginalne.',
     'Classification ·': 'Klasyfikacja ·',
-    'Name search is exploratory; results are not verified matches.':
-      'Wyszukiwanie po nazwie ma charakter poglądowy; wyniki nie są zweryfikowanymi dopasowaniami.',
-    'Selected historical relationships reviewed; chapter sections are not counted as independent research studies.':
-      'Przejrzano wybrane relacje historyczne; części rozdziałów nie są liczone jako niezależne badania.',
-    'All language/sample rows and published SubGroup metadata; not a reconstruction of the paper’s reticulate network.':
-      'Wszystkie wiersze języków i próbek oraz opublikowane metadane podgrup; nie jest to rekonstrukcja sieci z artykułu.',
-    'All explicit script entries under languageData. Primary/secondary designation preserved. Not a complete global orthography inventory; no inferred language genealogy.':
-      'Wszystkie jawne pozycje pism w languageData. Zachowano rozróżnienie na podstawowe i dodatkowe. Nie jest to pełny spis ortografii świata; nie wywnioskowano genealogii języków.',
-    'Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.':
-      'Pełny import zidentyfikowanych wersji katalogów, a nie pełny spis wszystkich języków lub pism świata.',
-    'Each point is the one representative location Glottolog gives for a record, not the area where it is spoken.':
-      'Każdy punkt to jedno reprezentatywne położenie, które Glottolog podaje dla rekordu, a nie obszar, na którym mówi się danym językiem.',
     'Points: Glottolog 5.3 (CC BY 4.0).': 'Punkty: Glottolog 5.3 (CC BY 4.0).',
     'Land:': 'Ląd:',
     '(public domain).': '(domena publiczna).',
@@ -354,20 +253,9 @@
       'Drzewa źródłowe obejmujące wiele rodzin lub grupy zewnętrzne',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Drzewa z badań i rodziny WALS obejmujące więcej niż jedną rodzinę Glottologu. Są tu wymienione wyłącznie do nawigacji.',
-    'Whole tree': 'Całe drzewo',
     'Show the tree of this branch': 'Pokaż drzewo tej gałęzi',
     'Where Lang Log attaches this tree': 'Gdzie Lang Log dołącza to drzewo',
     "Other sources' trees below this record": 'Drzewa innych źródeł poniżej tego rekordu',
-    'Alternative source-conditioned branches. They are attached here for navigation, not as additional ancestors.':
-      'Alternatywne gałęzie według źródła. Dołączono je tu do nawigacji, a nie jako dodatkowych przodków.',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Przeciągnij, aby przesunąć · Przewiń lub uszczypnij, aby powiększyć · Kliknij węzeł, aby otworzyć jego stronę',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Otwórz wiersz, aby zobaczyć jego członków. Każda nazwa otwiera własną stronę z umiejscowieniem według każdego źródła i linkami do artykułów.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Niezależne rodziny i języki izolowane to równoległe korzenie. Linia przerywana: połączenie nawigacyjne, nie pochodzenie. Odległości nie oznaczają czasu.',
-    'Source-specific grouping or sample; not a new accepted language family.':
-      'Grupa lub próbka właściwa danemu źródłu; nie jest to nowa uznana rodzina językowa.',
     '→ sampled study tree': '→ drzewo z badania na próbie',
     '→ catalog grouping': '→ grupa katalogowa',
     'sampled study tree': 'drzewo z badania na próbie',
@@ -389,41 +277,24 @@
     'Back to search results': 'Wróć do wyników wyszukiwania',
     'genus': 'rodzaj (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Mapa cech językowych',
-    'Language feature map · Lang Log by yoshi': 'Mapa cech językowych · Lang Log by yoshi',
-    'About': 'O mapie',
     'About this map': 'O tej mapie',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Na początku na mapie są wszystkie języki. Dodaj warunki, aby zostawić tylko pasujące języki, i wybierz cechę, według której kropki będą kolorowane.',
     'Colour by': 'Koloruj według',
     'None (one colour)': 'Brak (jeden kolor)',
     'Conditions': 'Warunki',
-    'No conditions yet: every language is shown.': 'Brak warunków: pokazane są wszystkie języki.',
     '+ Add condition': '+ Dodaj warunek',
     'Choose a feature': 'Wybierz cechę',
     'Remove this condition': 'Usuń ten warunek',
     'Select all': 'Zaznacz wszystko',
     'No data': 'Brak danych',
     'Close': 'Zamknij',
-    'Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.':
-      'Rozsuń palce lub użyj Ctrl + kółka, aby powiększyć, przeciągnij, aby przesunąć, dotknij kropki, aby zobaczyć język.',
     'WALS page': 'Strona WALS',
     'Lang Log record': 'Rekord Lang Log',
     'World map of the languages that match the conditions':
       'Mapa świata z językami spełniającymi warunki',
     'The map data could not be loaded.': 'Nie udało się wczytać danych mapy.',
-    'The dots are every Glottolog 5.3 language with coordinates, at the representative point Glottolog gives it, not the area where it is spoken. Feature values are from WALS Online (Dryer and Haspelmath, eds., 2013), CLDF release v2020.4, licensed CC BY 4.0, attached to the Glottolog language of each WALS language.':
-      'Kropki to wszystkie języki z Glottolog 5.3, które mają współrzędne, w punkcie reprezentatywnym podanym przez Glottolog, a nie na obszarze, gdzie się nimi mówi. Wartości cech pochodzą z WALS Online (Dryer i Haspelmath, red., 2013), wydanie CLDF v2020.4, licencja CC BY 4.0, przypisane do języka Glottolog każdego języka WALS.',
-    'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
-      'Wartości zaznaczone w jednym warunku łączy LUB. Warunki łączy I, chyba że przełączysz połączenie na OR; warunki połączone przez OR liczą się jako jedna grupa, więc „A AND B OR C” znaczy „A AND (B OR C)”. Język bez danych dla cechy warunku nie spełnia tego warunku.',
-    'This map needs JavaScript. The feature data is in':
-      'Ta mapa wymaga JavaScriptu. Dane o cechach są w',
     'Land and borders: Natural Earth (public domain)':
       'Ląd i granice: Natural Earth (domena publiczna)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Mapa cech językowych: wszystkie języki na mapie świata, zawężone warunkami dotyczącymi cech WALS i pokolorowane według jednej z nich.',
     'Land and borders:': 'Ląd i granice:',
-    'Dashed borders are disputed or not settled.': 'Granice przerywane są sporne lub nieustalone.',
     'Reset': 'Przywróć',
     'Reset view': 'Przywróć widok',
     'Map view': 'Widok mapy',
@@ -431,46 +302,10 @@
     'Records at this point': 'Rekordy w tym punkcie',
   },
   patterns: [
-    [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Wszystkie $1 rekordy kategorii języków migowych w Glottologu, w tym rekordy rodzin i dialektów. Kategorie służą nawigacji.',
-    ],
-    [
-      /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
-      'Wszystkie $1 próbek CLDF, w tym formy historyczne. Opublikowane metadane podgrup, a nie wywnioskowane drzewo całych języków.',
-    ],
-    [
-      /^The ([\d,]+) Phlorest data repositories found in the catalog were imported in full at the summary-tree level\. Posterior samples were not imported\.$/,
-      '$1 repozytoriów danych Phlorest znalezionych w katalogu zaimportowano w całości na poziomie drzewa podsumowującego. Próbek a posteriori nie zaimportowano.',
-    ],
     [/^First ([\d,]+) matches\. Refine your search\.$/, 'Pierwsze $1 wyników. Zawęź wyszukiwanie.'],
     [/^Show ([\d,]+) more$/, 'Pokaż $1 kolejnych'],
     [/^(\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4})$/, '$1'],
     [/^Showing ([\d,]+) of ([\d,]+) languages$/, 'Pokazano $1 z $2 języków'],
-    [
-      /^([\d,]+) Glottolog records retained; ([\d,]+) canonical records including source-specific clades\/samples\. All (\d+) discovered Phlorest dataset summary trees imported, plus WALS\.$/,
-      'Zachowane rekordy Glottologu: $1; rekordy kanoniczne, w tym klady i próbki poszczególnych źródeł: $2. Zaimportowano wszystkie znalezione drzewa podsumowujące Phlorest ($3) oraz WALS.',
-    ],
-    [
-      /^([\d,]+) source-tagged root\/parent assertions\. ([\d,]+) incompatible clade pairs across study trees involve ([\d,]+) canonical records\.$/,
-      'Twierdzenia o korzeniach i rodzicach ze źródłem: $1. Pary niezgodnych kladów między drzewami z badań: $2; dotyczą rekordów kanonicznych: $3.',
-    ],
-    [
-      /^(\d+) manual-alphabet samples; (\d+) lexical consensus trees covering (\d+) distinct language samples; (\d+) reviewed script relationships; ([\d,]+) CLDR usage assertions\. These are different units and should not be added as “languages\.”$/,
-      'Próbki alfabetów palcowych: $1; leksykalne drzewa konsensusu: $2 (obejmujące różne próbki języków: $3); przejrzane relacje pism: $4; dane o użyciu z CLDR: $5. To różne jednostki, których nie należy sumować jako „języków”.',
-    ],
-    [
-      /^All ([\d,]+) Glottolog name rows retain their provider and language tag\. Same-language labels are identified by exact ISO code equivalence, not inferred; ([\d,]+) records have such labels\. (.*)$/,
-      'Wszystkie wiersze nazw Glottologu ($1) zachowują dostawcę i tag języka. Nazwy w samym języku ustala się przez dokładną zgodność kodu ISO, a nie przez wnioskowanie; takie nazwy mają rekordy: $2. XML eksportuje graf rekordów i umiejscowień według źródła wraz z przykładami sprzeczności i cytatami artykułów. OPML przedstawia alternatywy jako zagnieżdżone konspekty z powtarzanymi odwołaniami do wspólnych rekordów. SVG eksportuje pokazaną gałąź.',
-    ],
-    [
-      /^All ([\d,]+) rows of the downloaded index, including non-ISO local identifiers\. Reported types and statuses are catalog metadata, not independently verified genealogy\.$/,
-      'Wszystkie wiersze pobranego indeksu ($1), w tym lokalne identyfikatory spoza ISO. Podane typy i statusy to metadane katalogowe, a nie niezależnie zweryfikowana genealogia.',
-    ],
-    [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Zachowano wszystkie rekordy kategorii języków migowych w Glottologu ($1), w tym rodziny, dialekty i kategorie niegenealogiczne.',
-    ],
     [/^Source label · (.+)$/, 'Nazwa oryginalna · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · Rodziny językowe · Lang Log by yoshi'],
     [/^Language families · Lang Log by yoshi$/, 'Rodziny językowe · Lang Log by yoshi'],
@@ -479,8 +314,8 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Wyniki wyszukiwania · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Wyniki wyszukiwania · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Wszystkie rodziny · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Wszystkie rodziny i języki izolowane · $1'],
     [/^Members · ([\d,]+)$/, 'Członkowie · $1'],
+    [/^Members according to Lang Log · ([\d,]+)$/, 'Członkowie według Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Zapisane nazwy i pisownie · $1'],
     [/^Aliases and spellings · ([\d,]+)$/, 'Aliasy i pisownie · $1'],
     [/^Related child records · ([\d,]+)$/, 'Powiązane rekordy podrzędne · $1'],
@@ -505,10 +340,6 @@
     ],
     [/^([\d,]+) roots in the list$/, 'Korzenie na liście: $1'],
     [
-      /^([\d,]+) shared samples compared\. This incompatibility does not determine which study is correct\.$/,
-      'Porównano wspólne próbki: $1. Ta niezgodność nie rozstrzyga, które badanie jest poprawne.',
-    ],
-    [
       /^Same ([\d,]+) sampled IDs compared · ([\d,]+) incompatible clade pair\(s\) involving this record\.$/,
       'Porównano te same identyfikatory z próby ($1) · pary niezgodnych kladów dotyczące tego rekordu: $2.',
     ],
@@ -529,49 +360,9 @@
     [/^Source sample: (.+)$/, 'Próbka źródła: $1'],
     [/^Other direct members: (.+)$/, 'Inni bezpośredni członkowie: $1'],
     [/^Macroarea: (.+)$/, 'Makroobszar: $1'],
-    [
-      /^Models tagged for (.+)\. Open a model card to check its intended use and evaluation\.$/,
-      'Modele oznaczone tagiem $1. Otwórz kartę modelu, aby sprawdzić przeznaczenie i ocenę.',
-    ],
-    [
-      /^Exact model-card language tags: (.+)\. Includes multilingual models; tags are not a quality or dialect-coverage guarantee\.$/,
-      'Dokładne tagi języka w karcie modelu: $1. Obejmuje modele wielojęzyczne; tagi nie gwarantują jakości ani pokrycia dialektów.',
-    ],
     [/^All (\S+) models ↗$/, 'Wszystkie modele dla $1 ↗'],
-    [/^Historical stage · (#\S+)$/, 'Etap historyczny · $1'],
     [/^Members of (.+)$/, 'Członkowie $1'],
-    [
-      /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
-      function (m) {
-        return (
-          'Pokazane języki: ' +
-          m[1] +
-          (m[2] ? '; bez współrzędnych w Glottologu: ' + m[2] : '') +
-          '.'
-        );
-      },
-    ],
-    [
-      /^Map: location of (.+?) and its ([\d,]+) (dialects|languages)$/,
-      function (m) {
-        return (
-          'Mapa: położenie ' +
-          m[1] +
-          ' i ' +
-          (m[3] === 'dialects' ? 'dialektów' : 'języków') +
-          ' (' +
-          m[2] +
-          ')'
-        );
-      },
-    ],
     [/^Map: location of (.+)$/, 'Mapa: położenie $1'],
-    [/^Map: ([\d,]+) languages of (.+)$/, 'Mapa: języki $2 ($1)'],
-    [/^See (.+) on the (.+) page$/, '$1 na stronie „$2”'],
-    [
-      /^Position of this stage in the Glottolog tree\..*$/,
-      'Pozycja tego etapu w drzewie Glottologu. Glottolog nie podaje, etapem którego współczesnego języka jest ten etap; to powiązanie ustalono ręcznie w tym atlasie.',
-    ],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,
       function (m, tr) {

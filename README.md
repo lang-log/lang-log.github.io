@@ -8,7 +8,7 @@ Live site: https://lang-log.github.io/
 
 ## Run locally
 
-The scripts live in `tools/`; run them from the repository root. Run `python3 tools/prepare_static.py`, `python3 tools/build_home.py` and `python3 tools/build_paths.py`, then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+The scripts live in `tools/`; run them from the repository root. Run `bash tools/build_site.sh` (it converts `source-data/` into `dist/` and writes every page), then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
 
 ## Code quality checks
 
@@ -47,10 +47,10 @@ Settings: `.prettierrc.json` and `.prettierignore` (Prettier), `eslint.config.mj
 Left out on purpose:
 
 - `source-data/`: third-party datasets and saved pages kept as published, and hand-curated data the build reads as it is (Prettier, Ruff).
-- Files written by scripts and committed: `dist/integrated.json`, `dist/provenance.json`, `dist/signs-and-scripts.json`, `dist/language-atlas.xml`, `dist/signs-and-scripts.xml`, `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
+- Files written by scripts and committed: `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
-- For now, the files that open pull requests change, so that they do not conflict: `dist/tree.js` and `dist/style.css` (Prettier; `dist/tree.js` also ESLint) and `tools/build_paths.py`, `tools/build_wals_map.py`, `tools/build_home.py` (Ruff format). They are formatted in their own pull request once those are merged.
+- For now, `tools/build_paths.py` (Ruff format), which open pull request #60 changes, so that the two do not conflict. It is formatted in its own pull request once #60 is merged.
 
 ## Shareable URLs
 
@@ -58,21 +58,26 @@ Every screen state that can be shared is kept in the query string, so a copied a
 
 The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Under the search box, a Random row (Language, Sign language, Writing system) opens the page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
-The top page is also the top of the language-families tree. Below the introduction it lists all top-level families and isolates (each linked to its record page), draws the whole tree (`dist/tree.js`: list or zoomable tree, filters, dialects, SVG, XML and OPML downloads) and holds the Sources & scope text (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
+The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in three views (owner, 2026-11-08), with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 
-Language families (the top page and every record page):
+- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript.
+- Map: every Glottolog language with a point, coloured by one feature if chosen (this replaced the separate feature map page).
+- Tree: the zoomable tree of every root (`dist/tree.js`), with SVG, XML and OPML downloads.
 
-| Parameter     | Meaning                                                                                              |
-| ------------- | ---------------------------------------------------------------------------------------------------- |
-| `q`           | Search text (top page); the matches are listed under the search box                                  |
-| `evidence`    | Evidence filter: `conflicts` or `studies` (top page)                                                 |
-| `category`    | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
-| `dialects=0`  | Hide dialects in the tree                                                                            |
-| `view=tree`   | Horizontal tree instead of the list                                                                  |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming           |
-| `task`        | Hugging Face model task on a record page (for example `translation`)                                 |
+Conditions are on WALS features and on two Lang Log features, conflicting study clades and research trees (`tools/build_wals_map.py`); the values ticked in one condition are joined by OR, conditions by AND unless switched to OR. The Sources & scope text is on its own page (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
 
-On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view`, `dialects` or `x`.
+Query parameters:
+
+| Parameter     | Meaning                                                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `q`           | Search text on the top page; it opens the search results page `/q=<terms>`                                      |
+| `view`        | Top page: `map` or `tree` (the list when left out). Record pages: `tree` for the tree instead of the outline    |
+| `c`           | Top page: one condition, `<feature>` or `<feature>:<values>`; a leading `\|` joins it to the previous one by OR |
+| `k`           | Top page: the feature the map is coloured by                                                                    |
+| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming                      |
+| `task`        | Hugging Face model task on a record page (for example `translation`)                                            |
+
+On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view` or `x`.
 
 Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
 
@@ -92,7 +97,35 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+
+## Releases
+
+A release is a version tag on a commit of `main`; GitHub Releases hold the release information, and the site shows it on `releases.html`. The rules are in `.claude/rules/releases.md`.
+
+To release, choose the commit and the version (Semantic Versioning: `v1.0.0` first release, `v1.1.0` new features, `v1.1.1` bug fixes, `v2.0.0` breaking changes) and push an annotated tag:
+
+```sh
+git switch main && git pull
+git tag -a v1.0.0 -m "First public release"
+git push origin v1.0.0
+```
+
+What happens next:
+
+1. `.github/workflows/release.yml` starts on the tag push (`push`, tags `v*`). Its job has `contents: write` and runs `tools/release.py`, which checks that the tag is `vMAJOR.MINOR.PATCH` and points at a commit on `main` (a lightweight tag only gives a warning), then creates the GitHub Release: named after the tag, with the tag's message followed by the notes GitHub generates from the pull requests merged since the previous release. If the tag already has a release, nothing is changed.
+2. When `release.yml` ends, `pages.yml` runs (`workflow_run`). Its `releases` job (`contents: read`) runs `python3 tools/build_releases.py --fetch`, which reads every release and the latest one from the GitHub API with the job's `GITHUB_TOKEN` and saves the answer as `build/github-releases.json`, uploaded as the artifact `github-releases`. After the code checks (`quality.yml`), the shared deployment workflow downloads it and runs `tools/build_site.sh`.
+3. `tools/build_site.sh` runs the tests (`tools/test_releases.py`) and `tools/build_releases.py`, which writes `dist/releases.html` (newest first, the latest release marked, notes, links to each release and its downloads on GitHub) and `dist/releases.json` (the same releases with the notes in Markdown). Neither is committed. The page is then deployed with the rest of the site.
+
+`pages.yml` runs one deployment at a time (workflow-level `concurrency`, never cancelled while running); a waiting run reads the releases when it starts, so a deployment that replaced it still shows the newest release. `site.yml` fetches the releases the same way before building a pull request. Without `build/github-releases.json` (a local build, the browser check), `tools/build_releases.py` reads the API itself, anonymously unless `GITHUB_TOKEN` is set.
+
+Security: release notes, names and asset names are untrusted. The page shows GitHub's HTML of the notes after `sanitize()` keeps only plain formatting tags and `https://github.com/` links; images are replaced by their alternative text (the Content-Security-Policy allows only the site's own images). Assets are only linked, never downloaded or run. API requests go only to `api.github.com`, retry on rate limits and server errors (at most `ATTEMPTS` tries, waiting at most `MAX_WAIT_S` seconds, in `tools/github_api.py`), and never print the token.
+
+Troubleshooting:
+
+- No release was created: open the `release` run of the tag. `is not a version tag` means the name is not like `v1.2.0`; `is not on origin/main` means the tagged commit is not on `main`. Delete the tag (`git push origin :refs/tags/v1.2.0`, `git tag -d v1.2.0`) and tag a commit of `main`.
+- The release exists but the site does not show it: check the `pages` run that followed. If `releases` failed (API error or rate limit), nothing was deployed and the live site is unchanged; run `pages` again from the Actions tab (workflow_dispatch).
+- A local build fails with an HTTP 403: the anonymous rate limit was reached. Wait, or set `GITHUB_TOKEN` to a token that can read the repository.
 
 ## Record pages
 
@@ -103,9 +136,9 @@ Each page shows the record's names and map, its placement in every source (Glott
 Records that exist only in another source's tree (WALS genera and families, study clades and unmatched samples, 3,708 records) get the same kind of page under that source, for example `wals/altaic/turkic/azerbaijani/`. A study tree's root is the source's page (`gray-et-al-2009/`); `wals/` lists the WALS families. `dist/source-paths.json` maps these records to their paths for the scripts. Family and source slugs share the top level; the build stops if two are equal.
 
 - Each segment is an ASCII slug of the name. Siblings with the same slug both get `-<glottocode>`.
-- Historical stages listed in `source-data/historical-stages.json` are a section of the modern language's page, such as `.../english/#old` and `.../english/#middle`. Glottolog does not record which modern language a stage belongs to, so this list is curated by hand; edit it to add or remove stages.
-- The record pages (one directory per top-level family or source under `dist/`), `dist/stages.json` and `dist/source-paths.json` are built by the Pages workflow and are not committed.
-- Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; grey squares, as large as the record's own point, are the sister languoids (the other members of the parent group); a key under the map (also shown in the map view) names each kind of point. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
+- Historical stages, such as Old English, have their own page at their place in Glottolog like every other record. Lang Log's own classification (`source-data/lang-log/classification.json`, see Lang Log data) places a stage as the parent of the later language; the page shows it under the Glottolog path ("Lang Log’s own: Old English › Middle English" on the English page) and lists the record's children there ("Members according to Lang Log"). It does not change the URL.
+- The record pages (one directory per top-level family or source under `dist/`) and `dist/source-paths.json` are built by the Pages workflow and are not committed.
+- Each page has a static map (inline SVG, no JavaScript; `tools/languoid_map.py`). A family shows the languages below it; a language shows its own point and its dialects; grey squares, as large as the record's own points, are the sister languoids (the other members of the parent group); a key under the map (also shown in the map view) names each kind of point. Points are Glottolog's representative coordinates (`source-data/languages.csv`), one per record, not the area where a language is spoken. `record.json` carries the same `coordinates`.
 - The land and country borders behind the points are `dist/map/land.svg`, drawn by `tools/build_land.py` from Natural Earth 1:50m land and boundary lines v5.1.2 (public domain) in the Web Mercator projection (cut at 85 degrees north and south, as on other web maps) and committed. The map goes round the world: each page draws it once more on each side, and a group of points around the 180th meridian (for example Oceanic) stays together; each page refers to them with `<use>`, so browsers download them once. Borders are thin solid lines; disputed, indefinite and unrecognised boundaries are dashed.
 - `dist/map-zoom.js` adds zoom and pan: drag (one finger is enough on a phone; the page scrolls from outside the map), east and west without end, pinch, Ctrl/Cmd + wheel, double click, the + / − buttons (shown only when the device has a mouse or trackpad), Reset (which glides back to the starting view) and the keyboard. Points and border lines keep their size on screen at every zoom. Once the view is narrow enough (the starting view of most record pages already is), it draws the 1:10m tiles in `dist/map/tiles/land/` (listed in `dist/map/tiles.json`, also written by `tools/build_land.py`) for the part in view. Other pages can reuse it with `window.LangLogMap.mount(svg)`; see the comment at the top of the file.
 
@@ -118,6 +151,7 @@ Lang Log keeps its own data in one shape for every record, whatever source it co
 - The only labels Lang Log gives a languoid itself are `modality` (`spoken`, `signed`, `written`) and `constructed` (an artificial or formal language). Every languoid of every modality belongs to one tree; for now Glottolog's sign languages are recognised by its "Sign Language" grouping and constructed languages by its "Artificial Language" grouping.
 - Every value says where it came from. Names, classification and location carry their source; a feature value keeps all its evidence (source, version, the source's own feature id and value, reference, comment) and `value` is chosen from it by source priority (the owner's own values, then WALS). When sources disagree, `disagreement` is set and every value is kept.
 - Features are Lang Log's own (`source-data/lang-log/features.json`, shape `schema/features.schema.json`). The catalogue started as the 192 WALS features; each feature has its own value ids and `mappings` from each source's feature and values. A language without WALS data has the same features; a feature without data is left out of its file. `dist/features/index.json` lists the features with counts, and `dist/features/<feature id>.json` holds the value of every record that has one.
+- Lang Log's own classification is `source-data/lang-log/classification.json`: the parent of a languoid where Lang Log places it differently from Glottolog, curated by hand. For now it places each historical stage as the parent of the later language (Old English → Middle English → English); Glottolog has no such relation. It becomes `classification.lang-log.parent` in `languoid.json`, next to Glottolog's, and never replaces it.
 - To take in a new release of a source, replace its files in `source-data/`, update `source-data/sources.json` and build. If WALS has a feature or value the catalogue lacks, the build stops; run `python3 tools/feature_catalogue.py`, which appends the missing ones and never changes existing entries.
 
 ## Interface language and theme
@@ -131,7 +165,7 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ## Search from the address bar
 
-`https://lang-log.github.io/?q=<text>` opens the top page with `<text>` in the search box and its matches listed under it (the `q` parameter, see Shareable URLs). To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`.
+`https://lang-log.github.io/q?q=<text>` opens the search results page (`dist/q.html`) with `<text>` in the search box and its matches listed under it. To add the site as a browser search engine by hand, use that address with `%s` in place of `<text>`. Old links to the top page with `?q=<text>` are sent there.
 
 `dist/opensearch.xml` describes the same search for browsers, and every page links to it with `<link rel="search">`. Firefox then offers "Add Lang Log" in the search menu; Chrome lists it under Settings > Search engine > Manage search engines and site search > Inactive shortcuts after the site has been visited.
 
@@ -141,7 +175,7 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ## Rebuild
 
-Run `python tools/build_data.py`, `python tools/enrich.py`, `python tools/unify.py`, then `python tools/finish_unified.py`. Serve `dist/` as static files.
+`tools/build_site.sh` runs `tools/build_data.py`, `tools/enrich.py`, `tools/unify.py` and `tools/finish_unified.py` on every build. They read only `source-data/` and write `dist/data.json`, `dist/integrated.json`, `dist/provenance.json`, `dist/language-families.xml` and `dist/language-families.opml`; none of these is committed.
 
 ## Integration model
 
@@ -175,7 +209,7 @@ The Sources panel documents this integration. XML and OPML remain classification
 
 `signs-and-scripts.html?domain=sign` and `signs-and-scripts.html?domain=scripts` extend the same public atlas. Domain navigation is added to the existing page without replacing its language data or controls.
 
-Rebuild with `python tools/build_visual.py`; validate with `python tools/validate_visual.py` and `node --check dist/signs-and-scripts.js`.
+`tools/build_site.sh` rebuilds it with `tools/build_visual.py` and validates it with `tools/validate_visual.py` on every build; `dist/signs-and-scripts.json`, `.xml` and `.opml` are not committed.
 
 Coverage: all 344 Glottolog 5.3 Sign Language-category records (including categories, families and dialects), all 76 Power et al. CLDF manual-alphabet samples, three Abner et al. consensus trees spanning 19 distinct language samples, all 226 rows of the downloaded ISO 15924 table, and all 325 SIL Scripts Index rows. Exact script codes are merged; SIL-local IDs remain distinct. There are 334 script/notation records, 63 reviewed historical/influence assertions and 1,001 explicit CLDR language/script usage entries. These counts measure different units. They do not establish exhaustive coverage of world literature or all proposed genealogies.
 

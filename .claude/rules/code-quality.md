@@ -18,12 +18,11 @@ Prettier, ESLint and Ruff check every pull request and every push to `main` (the
 ## What the tools cover and why some files are left out
 
 - Prettier: JavaScript, CSS, JSON, YAML and Markdown (`.prettierrc.json`: single quotes in JavaScript, double quotes in YAML and Markdown, quoted object keys kept as written, lines of 100), and XML and SVG with `@prettier/plugin-xml`: one attribute per line when an element has more than one (`singleAttributePerLine`, the owner's choice, 2026-11-07), and text kept exactly as written (`xmlWhitespaceSensitivity: preserve`). HTML is a supported type, but `dist/*.html` is left out: `tools/security_policy.py --write` puts the policy `<meta>` tags after `<meta charset="utf-8">` as one exact string, and `--check` compares the text.
-- `.prettierignore` also leaves out `source-data/` (published datasets and saved pages, and hand-curated data the build reads as it is) and the committed files that scripts write (`dist/integrated.json`, `dist/provenance.json`, `dist/signs-and-scripts.json`, `dist/language-atlas.xml`, `dist/signs-and-scripts.xml`, `dist/hf-iso-map.js`, `dist/logo.svg`, `dist/map/`). Prettier also skips `.gitignore`. Add a file there only when a script writes it or it is source data, and say why in the comment.
+- `.prettierignore` also leaves out `source-data/` (published datasets and saved pages, and hand-curated data the build reads as it is) and the committed files that scripts write (`dist/hf-iso-map.js`, `dist/logo.svg`, `dist/map/`). Prettier also skips `.gitignore`. Add a file there only when a script writes it or it is source data, and say why in the comment.
 - ESLint (`eslint.config.mjs`): the recommended rules only, no plugins. `dist/**/*.js` are classic browser scripts (`sourceType: script`, browser globals); `tools/**/*.js` are Node.js checks (CommonJS, Node globals).
 - Ruff (`pyproject.toml`): rules E, W, F, B and PLE for Python 3.12 (the version CI uses); E501 is off because the formatter sets line length and leaves long strings as they are.
 - Versions are exact: `package.json` with `package-lock.json`, `requirements-dev.txt` with hashes. `overrides` pins `minimatch` to a version without the advisory GHSA-g3hv-75wg-m249 until ESLint depends on one; remove it then.
 
 ## Waiting for open pull requests
 
-- Left out until #56 is merged: `dist/tree.js`, `dist/style.css` (Prettier) and `dist/tree.js` (ESLint). Until #54 is merged: `tools/build_home.py`, `tools/build_paths.py`, `tools/build_wals_map.py` (Ruff format). Then format or fix them in their own pull request and remove the entries.
-- When `dist/style.css` is formatted, `tools/build_logo.py` must still find the `.logo` aspect ratio: its regular expression expects `.logo{...aspect-ratio:W/H` without spaces.
+- Left out until #60 is merged: `tools/build_paths.py` (Ruff format). Then format it in its own pull request and remove the entry in `pyproject.toml`.
