@@ -8,9 +8,8 @@ export default [
   {
     ignores: [
       '_preview/',
-      // Until pull request #49 (search results page) is merged, so that it does not conflict.
-      // Then fix the findings in these files in their own pull request and remove the lines.
-      'dist/home.js',
+      // Until pull request #56 (fonts for Japanese, Chinese and Korean) is merged, so that it does
+      // not conflict. Then fix the findings in this file in its own pull request and remove it.
       'dist/tree.js',
     ],
   },
