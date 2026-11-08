@@ -73,6 +73,13 @@
       'Bu adreste bir sayfa yok. Sayfa taşınmış ya da bağlantı yanlış yazılmış olabilir.',
     'Top page': 'Ana sayfa',
     'Search': 'Ara',
+    'Top-level languoids': 'En üst düzey Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Ortam',
+    'spoken': 'sözlü',
+    'signed': 'işaret',
+    'written': 'yazılı',
+    'constructed': 'yapay',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -313,6 +320,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Arama sonuçları · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Arama sonuçları · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tüm aileler · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'Üyeler · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log’a göre üyeler · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Kayıtlı adlar ve yazılışlar · $1'],

@@ -73,6 +73,13 @@
       'Non esiste alcuna pagina a questo indirizzo. Potrebbe essere stata spostata, oppure il link è scritto male.',
     'Top page': 'Pagina iniziale',
     'Search': 'Cerca',
+    'Top-level languoids': 'Languoids di primo livello',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Modalità',
+    'spoken': 'parlata',
+    'signed': 'segnata',
+    'written': 'scritta',
+    'constructed': 'artificiale',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': una pagina semplice per ogni voce di Glottolog, con la sua classificazione e una mappa.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -323,6 +330,12 @@
     ],
     [/^Search results · Lang Log by yoshi$/, 'Risultati della ricerca · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tutte le famiglie · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'Membri · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Membri secondo Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nomi e grafie registrati · $1'],

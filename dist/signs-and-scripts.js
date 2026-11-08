@@ -71,7 +71,6 @@
     (out[e.parent] ??= []).push(e);
     (inc[e.child] ??= []).push(e);
   }
-  $('nav-' + domain).setAttribute('aria-current', 'page');
   const sl = (s) =>
     `<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`;
   const short = (s) =>
@@ -161,7 +160,13 @@
       .filter((n) => !inc[n.id]?.length)
       .sort((a, b) => a.name.localeCompare(b.name));
     if (domain === 'sign') {
-      host.append(group('Catalog classification', ['sign1238'], true));
+      host.append(
+        group(
+          'Catalog classification',
+          roots.filter((n) => n.sources?.includes('glottolog')).map((n) => n.id),
+          true,
+        ),
+      );
       host.append(
         group(
           'Lexical-feature hypotheses',

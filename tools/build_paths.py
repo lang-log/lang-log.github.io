@@ -45,12 +45,13 @@ import sys
 import unicodedata
 
 from languoid_map import map_svg
+from modality import labels, medium_text
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
 RESERVED = {"map", "data", "i18n", "stats", "sources", "updates", "features", "schema"}
 # Directories of earlier builds that no longer exist; removed on each run.
-OLD_DIRS = {"families"}
+OLD_DIRS = {"families", "sign-language", "bookkeeping", "pidgin", "unclassifiable", "unattested", "artificial-language", "speech-register", "mixed-language"}
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -422,6 +423,9 @@ def meta_html(n):
         parts.append("ISO 639-3: " + n["iso"])
     if n.get("area"):
         parts.append(n["area"])
+    # Every languoid is labelled with its medium (tools/modality.py); records that
+    # exist only in a study tree or WALS are spoken languages.
+    parts.append(medium_text(n if "modality" in n else labels(None)))
     return '<div class="meta">' + "".join(f"<span>{escape(p)}</span>" for p in parts) + "</div>"
 
 

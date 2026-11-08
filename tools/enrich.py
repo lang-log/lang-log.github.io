@@ -4,6 +4,8 @@ import pathlib
 import hashlib
 import xml.etree.ElementTree as ET
 
+from not_languoids import NOT_LANGUOIDS
+
 out = pathlib.Path("dist")
 data = json.load(open(out / "data.json"))
 nodes = data["nodes"]
@@ -12,6 +14,8 @@ rows = list(csv.DictReader(open("source-data/names.csv")))
 for n in nodes.values():
     n["names"] = []
     n["nativeNames"] = []
+# Names of the groups that are not languoids (tools/not_languoids.py) are left out with them.
+rows = [r for r in rows if r["Language_ID"] not in NOT_LANGUOIDS["glottolog"]]
 for r in rows:
     assert r["Language_ID"] in nodes
     n = nodes[r["Language_ID"]]

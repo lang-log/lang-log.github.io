@@ -73,6 +73,13 @@
       'در این نشانی صفحه‌ای وجود ندارد. ممکن است جابه‌جا شده باشد یا پیوند اشتباه نوشته شده باشد.',
     'Top page': 'صفحهٔ اصلی',
     'Search': 'جست‌وجو',
+    'Top-level languoids': 'Languoids سطح بالا',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'رسانه',
+    'spoken': 'گفتاری',
+    'signed': 'اشاره‌ای',
+    'written': 'نوشتاری',
+    'constructed': 'ساختگی',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': برای هر رکورد Glottolog یک صفحهٔ ساده، همراه با رده‌بندی و نقشهٔ آن.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -313,6 +320,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · نتایج جست‌وجو · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'نتایج جست‌وجو · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'همهٔ خانواده‌ها · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'اعضا · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'اعضا بر پایهٔ Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'نام‌ها و املاهای ثبت‌شده · $1'],

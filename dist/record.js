@@ -9,6 +9,9 @@
   const params = new URLSearchParams(location.search),
     domain = ['sign', 'scripts'].includes(params.get('domain')) ? params.get('domain') : 'language',
     id = params.get('id');
+  // The "Medium" line, as medium_text() in tools/modality.py writes it on record pages.
+  const medium = (n) =>
+    'Medium: ' + [n.modality, ...(n.constructed ? ['constructed'] : [])].join(' · ');
   // Language records: the list is the top page, and every record has its own page there.
   const listURL = domain === 'language' ? './' : 'signs-and-scripts.html?domain=' + domain;
   $('back').href = listURL;
@@ -92,7 +95,7 @@
       const key = c.a + '|' + c.b;
       if (!comparisons.has(key)) comparisons.set(key, c);
     }
-    let html = `<h1>${esc(n.name)}</h1><div class="meta"><span>${esc(id)}</span>${n.iso ? '<span>ISO 639-3: ' + esc(n.iso) + '</span>' : ''}${n.code ? '<span>Script code: ' + esc(n.code) + '</span>' : ''}${n.category ? '<span>' + esc(n.category) + '</span>' : ''}</div><div class="variant-actions">${domain === 'language' ? (base?.[id] || sourcePaths[id] ? `<a href="${esc(base?.[id] ? window.LineagePaths.url(id) : sourcePaths[id])}">Record page</a>` : '') : `<a href="${esc(listURL + '&id=' + encodeURIComponent(id))}">Show in tree</a>`}<button id="copy-link" type="button">Copy link</button><span id="copy-status" role="status"></span></div>`;
+    let html = `<h1>${esc(n.name)}</h1><div class="meta"><span>${esc(id)}</span>${n.iso ? '<span>ISO 639-3: ' + esc(n.iso) + '</span>' : ''}${n.code ? '<span>Script code: ' + esc(n.code) + '</span>' : ''}${n.modality ? '<span>' + esc(medium(n)) + '</span>' : ''}</div><div class="variant-actions">${domain === 'language' ? (base?.[id] || sourcePaths[id] ? `<a href="${esc(base?.[id] ? window.LineagePaths.url(id) : sourcePaths[id])}">Record page</a>` : '') : `<a href="${esc(listURL + '&id=' + encodeURIComponent(id))}">Show in tree</a>`}<button id="copy-link" type="button">Copy link</button><span id="copy-status" role="status"></span></div>`;
     // Classification path from the top of the family down to this record.
     const up = {};
     for (const e of incoming) up[e.source] ??= e.parent;

@@ -73,6 +73,13 @@
       '이 주소에는 페이지가 없습니다. 페이지가 옮겨졌거나 링크가 잘못 입력되었을 수 있습니다.',
     'Top page': '첫 페이지',
     'Search': '검색',
+    'Top-level languoids': '최상위 Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': '매체',
+    'spoken': '음성',
+    'signed': '수어',
+    'written': '문자',
+    'constructed': '인공',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -309,6 +316,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 검색 결과 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '검색 결과 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '모든 어족 · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, '하위 기록 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log에 따른 하위 기록 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '기록된 이름과 철자 · $1'],

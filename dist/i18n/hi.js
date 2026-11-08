@@ -73,6 +73,13 @@
       'इस पते पर कोई पृष्ठ नहीं है। हो सकता है कि वह कहीं और चला गया हो, या लिंक गलत टाइप हुआ हो।',
     'Top page': 'मुख्य पृष्ठ',
     'Search': 'खोजें',
+    'Top-level languoids': 'शीर्ष-स्तरीय Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'माध्यम',
+    'spoken': 'मौखिक',
+    'signed': 'सांकेतिक',
+    'written': 'लिखित',
+    'constructed': 'कृत्रिम',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog के हर रिकॉर्ड के लिए एक सरल पृष्ठ, उसके वर्गीकरण और मानचित्र के साथ।',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -311,6 +318,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · खोज-परिणाम · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'खोज-परिणाम · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'सभी भाषा-परिवार · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'सदस्य · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log के अनुसार सदस्य · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'दर्ज नाम और वर्तनियाँ · $1'],

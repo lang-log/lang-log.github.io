@@ -37,8 +37,19 @@ SHARDS = int(
 )
 # Glottolog record fields stored as columns, in the original key order.
 # id, children, root, size, wals and names are left out (see above).
-COLUMNS = ["name", "level", "area", "iso", "countries", "isolate", "parent", "category"]
-CODED = {"level", "area", "category"}  # few distinct values: stored as indexes
+COLUMNS = [
+    "name",
+    "level",
+    "area",
+    "iso",
+    "countries",
+    "isolate",
+    "parent",
+    "category",
+    "modality",
+    "constructed",
+]
+CODED = {"level", "area", "category", "modality"}  # few distinct values: stored as indexes
 
 
 def shard(record_id):
@@ -64,7 +75,7 @@ def build(data, unified):
         values = [nodes[k][field] for k in ids]
         if field == "parent":
             values = [-1 if v is None else index[v] for v in values]
-        elif field == "isolate":
+        elif field in ("isolate", "constructed"):
             values = [1 if v else 0 for v in values]
         elif field in CODED:
             table = list(dict.fromkeys(values))
@@ -117,7 +128,7 @@ def rebuild(atlas):
             v = cols[field][i]
             if field == "parent":
                 v = None if v < 0 else ids[v]
-            elif field == "isolate":
+            elif field in ("isolate", "constructed"):
                 v = bool(v)
             elif field in CODED:
                 v = codes[field][v]

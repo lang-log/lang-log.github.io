@@ -73,6 +73,13 @@
       'Op dit adres staat geen pagina. Misschien is ze verplaatst, of is de link verkeerd getypt.',
     'Top page': 'Startpagina',
     'Search': 'Zoeken',
+    'Top-level languoids': 'Languoids op het hoogste niveau',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Modaliteit',
+    'spoken': 'gesproken',
+    'signed': 'gebaard',
+    'written': 'geschreven',
+    'constructed': 'kunstmatig',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': één eenvoudige pagina per Glottolog-record, met de classificatie en een kaart.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -317,6 +324,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Zoekresultaten · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Zoekresultaten · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Alle families · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'Leden · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Leden volgens Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Vastgelegde namen en spellingen · $1'],

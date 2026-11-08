@@ -73,6 +73,13 @@
       '此地址没有页面。页面可能已移动，或链接有误。',
     'Top page': '首页',
     'Search': '搜索',
+    'Top-level languoids': '顶层 Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': '媒介',
+    'spoken': '口语',
+    'signed': '手语',
+    'written': '文字',
+    'constructed': '人造',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每条 Glottolog 记录一个简明页面，附有分类和地图。',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -305,6 +312,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 搜索结果 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '搜索结果 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '所有语系 · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + '：' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, '下位记录 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, '根据 Lang Log 的下位记录 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '记录的名称和拼写 · $1'],

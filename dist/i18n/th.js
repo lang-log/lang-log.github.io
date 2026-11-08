@@ -73,6 +73,13 @@
       'ไม่มีหน้าที่ที่อยู่นี้ หน้าอาจถูกย้าย หรือพิมพ์ลิงก์ผิด',
     'Top page': 'หน้าแรก',
     'Search': 'ค้นหา',
+    'Top-level languoids': 'Languoids ระดับบนสุด',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'สื่อ',
+    'spoken': 'พูด',
+    'signed': 'ภาษามือ',
+    'written': 'เขียน',
+    'constructed': 'ประดิษฐ์',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -311,6 +318,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · ผลการค้นหา · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'ผลการค้นหา · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'ตระกูลทั้งหมด · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'สมาชิก · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'สมาชิกตาม Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'ชื่อและการสะกดที่บันทึกไว้ · $1'],

@@ -137,6 +137,13 @@ window.LANGLOG_I18N = {
 
       // Top page (build_home.py)
       'Search': '検索',
+      'Top-level languoids': '最上位の Languoids',
+      // Medium of every languoid (tools/modality.py)
+      'Medium': '媒体',
+      'spoken': '音声',
+      'signed': '手話',
+      'written': '文字',
+      'constructed': '人工',
       ': one plain page per Glottolog record, with its classification and a map.':
         ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -349,6 +356,12 @@ window.LANGLOG_I18N = {
       [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 検索結果 · Lang Log by yoshi'],
       [/^Search results · Lang Log by yoshi$/, '検索結果 · Lang Log by yoshi'],
       [/^All families · Lang Log by yoshi$/, 'すべての語族 · Lang Log by yoshi'],
+      [
+        /^Medium: (spoken|signed|written)( · constructed)?$/,
+        function (m, tr) {
+          return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+        },
+      ],
       [/^Members · ([\d,]+)$/, '下位の記録 · $1'],
       [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log による下位の記録 · $1'],
       [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '記録された名前とつづり · $1'],

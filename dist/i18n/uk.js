@@ -73,6 +73,13 @@
       'За цією адресою немає сторінки. Можливо, її перенесено або посилання введено з помилкою.',
     'Top page': 'Головна сторінка',
     'Search': 'Пошук',
+    'Top-level languoids': 'Languoids верхнього рівня',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Модальність',
+    'spoken': 'усна',
+    'signed': 'жестова',
+    'written': 'письмова',
+    'constructed': 'штучна',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': проста сторінка для кожного запису Glottolog із його класифікацією та мапою.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -314,6 +321,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Результати пошуку · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Результати пошуку · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Усі родини · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'Члени · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Члени за Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Записані назви й написання · $1'],

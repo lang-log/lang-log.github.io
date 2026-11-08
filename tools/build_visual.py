@@ -9,6 +9,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from html.parser import HTMLParser
 
+from modality import MODALITY_OF_DOMAIN
+
 P = Path("source-data/signs-and-scripts")
 D = Path("dist")
 B = json.loads((D / "data.json").read_text())["nodes"]
@@ -24,7 +26,17 @@ def src(i, title, url, kind, **kw):
 
 
 def node(i, name, domain, kind, **kw):
-    N[i] = dict(id=i, name=name, domain=domain, kind=kind, aliases=[], nativeNames=[], **kw)
+    N[i] = dict(
+        id=i,
+        name=name,
+        domain=domain,
+        kind=kind,
+        modality=MODALITY_OF_DOMAIN[domain],
+        constructed=False,
+        aliases=[],
+        nativeNames=[],
+        **kw,
+    )
     return i
 
 
@@ -159,13 +171,12 @@ for i, b in B.items():
         node(i, b["name"], "sign", b["level"], iso=b["iso"], area=b["area"], sources=["glottolog"])
         N[i]["aliases"] = b["names"]
         N[i]["nativeNames"] = b["nativeNames"]
-category = {"sign1238", "deaf1237", "auxi1235", "pidg1253", "unun9986"}
-for i, n in list(N.items()):
+# Glottolog's "Sign Language" and "L1 Sign Language" groups are not languoids;
+# tools/build_data.py has left them out, so every edge here is a classification.
+for i in list(N):
     p = B[i]["parent"]
     if p in N:
-        edge(p, i, "glottolog", "catalog navigation" if p in category else "catalog classification")
-    if i in category:
-        n["kind"] = "navigation category"
+        edge(p, i, "glottolog", "catalog classification")
 iso = {n.get("iso"): i for i, n in N.items() if n.get("iso")}
 
 

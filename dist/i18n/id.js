@@ -73,6 +73,13 @@
       'Tidak ada halaman di alamat ini. Halaman mungkin telah dipindahkan, atau tautannya salah ketik.',
     'Top page': 'Halaman utama',
     'Search': 'Cari',
+    'Top-level languoids': 'Languoids tingkat teratas',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Media',
+    'spoken': 'lisan',
+    'signed': 'isyarat',
+    'written': 'tulis',
+    'constructed': 'buatan',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -316,6 +323,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Hasil pencarian · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Hasil pencarian · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Semua rumpun · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'Anggota · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Anggota menurut Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nama dan ejaan yang tercatat · $1'],

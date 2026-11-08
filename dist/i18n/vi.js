@@ -73,6 +73,13 @@
       'Không có trang nào tại địa chỉ này. Trang có thể đã được chuyển đi, hoặc liên kết bị gõ sai.',
     'Top page': 'Trang chủ',
     'Search': 'Tìm kiếm',
+    'Top-level languoids': 'Languoids cấp cao nhất',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Phương thức',
+    'spoken': 'nói',
+    'signed': 'ký hiệu',
+    'written': 'viết',
+    'constructed': 'nhân tạo',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
@@ -317,6 +324,12 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tất cả ngữ hệ · Lang Log by yoshi'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [/^Members · ([\d,]+)$/, 'Thành viên · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Thành viên theo Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Tên và cách viết đã ghi nhận · $1'],
