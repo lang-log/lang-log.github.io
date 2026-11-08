@@ -10,7 +10,8 @@ The shared rule is `readable-code.md` in the `research-aide` repository (each va
 - A length the CSS and a script both need (such as `--stats-duration`): a custom property in `dist/style.css`, read by the script.
 - Map sizes (`ZOOM_MIN_W`, the world box, the layers): `tools/languoid_map.py`, written into each map's attributes and `<use>` elements; `dist/map-zoom.js` reads them and keeps no defaults of its own.
 - The number of name files (`SHARDS`): `dist/atlas-data.js`; `tools/split_data.py` reads it.
-- Interface languages: `LANGS` in `dist/lang.js`; `tools/check_i18n.js` reads it.
+- Interface languages: `LANGS` in `dist/lang.js`; `tools/build_i18n.py` reads it.
+- Interface text: `i18n/<code>.yaml`; `tools/build_i18n.py` writes the dictionaries the pages load.
 
 ## Checks
 
