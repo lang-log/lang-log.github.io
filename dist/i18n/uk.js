@@ -68,6 +68,12 @@
       'Атлас мовних родин, жестових мов і систем письма. Для кожного розміщення зазначено джерело, якому воно відповідає, конкурентні класифікації показано поруч, а дані можна завантажити.',
     'Also': 'Також',
     'Top-level languoids': 'Languoids верхнього рівня',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Модальність',
+    'spoken': 'усна',
+    'signed': 'жестова',
+    'written': 'письмова',
+    'constructed': 'штучна',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': проста сторінка для кожного запису Glottolog із його класифікацією та мапою.',
     'Corpora and data for low-resource languages: planned.':
@@ -478,6 +484,12 @@
     [/^Search results · Lang Log by yoshi$/, 'Результати пошуку · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Усі родини · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids верхнього рівня · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'Зазначено в групі $1 — це група каталогу, а не languoid.',

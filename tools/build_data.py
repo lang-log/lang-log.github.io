@@ -5,6 +5,7 @@ import collections
 import hashlib
 import pathlib
 
+from modality import labels
 from not_languoids import NOT_LANGUOIDS, lift
 
 src = pathlib.Path("source-data")
@@ -121,6 +122,7 @@ for n in nodes.values():
     n["root"] = p["id"]
 for n in nodes.values():
     n["category"] = category[n["id"]]
+    n.update(labels(n["category"]))
 
 
 def count(id):

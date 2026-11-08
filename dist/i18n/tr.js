@@ -68,6 +68,12 @@
       'Dil aileleri, işaret dilleri ve yazı sistemleri atlası. Her sınıflandırma hangi kaynağı izlediğini belirtir, birbiriyle yarışan sınıflandırmalar yan yana gösterilir ve veriler indirilebilir.',
     'Also': 'Ayrıca',
     'Top-level languoids': 'En üst düzey Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Ortam',
+    'spoken': 'sözlü',
+    'signed': 'işaret',
+    'written': 'yazılı',
+    'constructed': 'yapay',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
     'Corpora and data for low-resource languages: planned.':
@@ -479,6 +485,12 @@
     [/^Search results · Lang Log by yoshi$/, 'Arama sonuçları · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tüm aileler · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'En üst düzey Languoids · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       '$1 altında listelenir; bu, languoid olmayan bir katalog grubudur.',

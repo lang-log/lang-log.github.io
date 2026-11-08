@@ -12,9 +12,9 @@ n = x["nodes"]
 e = x["assertions"]
 b = json.loads((D / "data.json").read_text())["nodes"]
 expected = {i for i, v in b.items() if v["category"] == "Sign Language"}
-# 344 records in Glottolog 5.3's Sign Language group, less the groups that are
-# not languoids (source-data/lang-log/not-languoids.json).
-assert len(expected) == 344 - len(NOT_LANGUOIDS["glottolog"]) and expected <= n.keys()
+# A snapshot check: 344 records in Glottolog 5.3's Sign Language group, less
+# the 5 groups in it that are not languoids (source-data/lang-log/not-languoids.json).
+assert len(expected) == 339 and expected <= n.keys()
 assert not set(NOT_LANGUOIDS["glottolog"]) & n.keys()
 for i in expected:
     assert n[i]["aliases"] == b[i]["names"]

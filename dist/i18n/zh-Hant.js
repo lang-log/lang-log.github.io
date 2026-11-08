@@ -67,6 +67,12 @@
       '語系、手語和文字系統的圖譜。每個歸屬都註明所依據的來源，相互競爭的分類並列顯示，資料可以下載。',
     'Also': '另見',
     'Top-level languoids': '頂層 Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': '媒介',
+    'spoken': '口語',
+    'signed': '手語',
+    'written': '文字',
+    'constructed': '人造',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每筆 Glottolog 紀錄一個簡明網頁，附有分類和地圖。',
     'Corpora and data for low-resource languages: planned.': '低資源語言的語料庫和資料：籌備中。',
@@ -466,6 +472,12 @@
     [/^Search results · Lang Log by yoshi$/, '搜尋結果 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '所有語系 · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, '頂層 Languoids · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + '：' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       '列在 $1 之下，但這是目錄分組，不是 languoid。',

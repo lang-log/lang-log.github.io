@@ -68,6 +68,12 @@
       'Atlas rumpun bahasa, bahasa isyarat, dan sistem tulisan. Setiap penempatan menyebutkan sumber yang diikutinya, klasifikasi yang bersaing ditampilkan bersama, dan datanya dapat diunduh.',
     'Also': 'Selain itu',
     'Top-level languoids': 'Languoids tingkat teratas',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Media',
+    'spoken': 'lisan',
+    'signed': 'isyarat',
+    'written': 'tulis',
+    'constructed': 'buatan',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
     'Corpora and data for low-resource languages: planned.':
@@ -482,6 +488,12 @@
     [/^Search results · Lang Log by yoshi$/, 'Hasil pencarian · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Semua rumpun · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids tingkat teratas · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'Dicantumkan di bawah $1, kelompok katalog yang bukan languoid.',

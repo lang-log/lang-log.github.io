@@ -142,17 +142,6 @@ def import_glottolog():
     missing = sorted(p for p in parents.values() if p not in out)
     if missing:
         raise ValueError(f"parents missing from languages.csv: {missing[:5]}")
-    for i, n in out.items():
-        root = i
-        while parents.get(root):
-            root = parents[root]
-        # Glottolog's top-level groupings decide modality and constructed;
-        # read them from the full tree, before the groups that are not
-        # languoids are left out below.
-        if out[root]["name"] == "Sign Language":
-            n["modality"] = "signed"
-        if out[root]["name"] == "Artificial Language":
-            n["constructed"] = True
     # Groups that are not languoids (tools/not_languoids.py) are left out; their
     # members keep the group's name as Glottolog's grouping.
     lifted, grouping = lift(parents, "glottolog")
@@ -160,6 +149,9 @@ def import_glottolog():
         del out[i]
     for i, n in out.items():
         n["classification"]["glottolog"]["parent"] = lifted.get(i)
+        # Medium and constructed, as tools/build_data.py set them (tools/modality.py).
+        n["modality"] = build_paths.nodes[i]["modality"]
+        n["constructed"] = build_paths.nodes[i]["constructed"]
         if i in grouping:
             n["classification"]["glottolog"]["grouping"] = grouping[i]
     iso_map = json.loads((SRC / "iso-map.json").read_text(encoding="utf-8"))

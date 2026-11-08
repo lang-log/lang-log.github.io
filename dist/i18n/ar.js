@@ -68,6 +68,12 @@
       'أطلس للأسر اللغوية ولغات الإشارة وأنظمة الكتابة. كل تصنيف يذكر المصدر الذي يتبعه، وتُعرض التصنيفات المتنافسة معًا، ويمكن تنزيل البيانات.',
     'Also': 'أيضًا',
     'Top-level languoids': 'Languoids في المستوى الأعلى',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'الوسيط',
+    'spoken': 'منطوقة',
+    'signed': 'إشارية',
+    'written': 'مكتوبة',
+    'constructed': 'مصطنعة',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': صفحة بسيطة لكل سجل في Glottolog، مع تصنيفه وخريطة.',
     'Corpora and data for low-resource languages: planned.':
@@ -474,6 +480,12 @@
     [/^Search results · Lang Log by yoshi$/, 'نتائج البحث · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'كل الأسر · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids في المستوى الأعلى · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'مدرجة تحت $1، وهي مجموعة في الفهرس وليست languoid.',

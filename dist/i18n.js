@@ -160,6 +160,12 @@ window.LANGLOG_I18N = {
         '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
       'Also': 'ほかに',
       'Top-level languoids': '最上位の Languoids',
+      // Medium of every languoid (tools/modality.py)
+      'Medium': '媒体',
+      'spoken': '音声',
+      'signed': '手話',
+      'written': '文字',
+      'constructed': '人工',
       ': one plain page per Glottolog record, with its classification and a map.':
         ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
       'Corpora and data for low-resource languages: planned.':
@@ -524,6 +530,12 @@ window.LANGLOG_I18N = {
       [/^Search results · Lang Log by yoshi$/, '検索結果 · Lang Log by yoshi'],
       [/^All families · Lang Log by yoshi$/, 'すべての語族 · Lang Log by yoshi'],
       [/^Top-level languoids · ([\d,]+)$/, '最上位の Languoids · $1'],
+      [
+        /^Medium: (spoken|signed|written)( · constructed)?$/,
+        function (m, tr) {
+          return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+        },
+      ],
       [
         /^Listed under (.+), a catalog group that is not a languoid\.$/,
         '$1 の下に載っていますが、この分類は languoid ではありません。',

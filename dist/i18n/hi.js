@@ -68,6 +68,12 @@
       'भाषा-परिवारों, सांकेतिक भाषाओं और लेखन-प्रणालियों का एटलस। हर वर्गीकरण बताता है कि वह किस स्रोत पर आधारित है, परस्पर भिन्न वर्गीकरण साथ-साथ दिखाए जाते हैं, और डेटा डाउनलोड किया जा सकता है।',
     'Also': 'इसके अलावा',
     'Top-level languoids': 'शीर्ष-स्तरीय Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'माध्यम',
+    'spoken': 'मौखिक',
+    'signed': 'सांकेतिक',
+    'written': 'लिखित',
+    'constructed': 'कृत्रिम',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog के हर रिकॉर्ड के लिए एक सरल पृष्ठ, उसके वर्गीकरण और मानचित्र के साथ।',
     'Corpora and data for low-resource languages: planned.':
@@ -475,6 +481,12 @@
     [/^Search results · Lang Log by yoshi$/, 'खोज-परिणाम · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'सभी भाषा-परिवार · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'शीर्ष-स्तरीय Languoids · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       '$1 के अंतर्गत सूचीबद्ध, जो सूची का एक समूह है, languoid नहीं।',

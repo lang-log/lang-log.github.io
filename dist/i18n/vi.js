@@ -68,6 +68,12 @@
       'Tập bản đồ các ngữ hệ, ngôn ngữ ký hiệu và hệ chữ viết. Mỗi vị trí phân loại đều ghi rõ nguồn mà nó theo, các cách phân loại khác nhau được hiển thị cùng nhau, và có thể tải dữ liệu xuống.',
     'Also': 'Ngoài ra',
     'Top-level languoids': 'Languoids cấp cao nhất',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Phương thức',
+    'spoken': 'nói',
+    'signed': 'ký hiệu',
+    'written': 'viết',
+    'constructed': 'nhân tạo',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
     'Corpora and data for low-resource languages: planned.':
@@ -483,6 +489,12 @@
     [/^Search results · Lang Log by yoshi$/, 'Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tất cả ngữ hệ · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids cấp cao nhất · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'Được xếp dưới $1, một nhóm của danh mục, không phải một languoid.',

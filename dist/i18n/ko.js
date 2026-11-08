@@ -68,6 +68,12 @@
       '어족, 수어, 문자 체계의 지도입니다. 모든 분류 위치에는 따른 출처를 밝히고, 서로 다른 분류는 함께 보여 주며, 데이터는 내려받을 수 있습니다.',
     'Also': '그 밖에',
     'Top-level languoids': '최상위 Languoids',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': '매체',
+    'spoken': '음성',
+    'signed': '수어',
+    'written': '문자',
+    'constructed': '인공',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
     'Corpora and data for low-resource languages: planned.':
@@ -475,6 +481,12 @@
     [/^Search results · Lang Log by yoshi$/, '검색 결과 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '모든 어족 · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, '최상위 Languoids · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       '$1 아래에 실려 있지만, 이 분류는 languoid가 아닌 목록상의 묶음입니다.',

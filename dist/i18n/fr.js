@@ -69,6 +69,12 @@
       'Un atlas des familles de langues, des langues des signes et des systèmes d’écriture. Chaque classement indique la source qu’il suit, les classifications concurrentes sont présentées ensemble et les données peuvent être téléchargées.',
     'Also': 'Voir aussi',
     'Top-level languoids': 'Languoids de premier niveau',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'Modalité',
+    'spoken': 'orale',
+    'signed': 'signée',
+    'written': 'écrite',
+    'constructed': 'construite',
     ': one plain page per Glottolog record, with its classification and a map.':
       ' : une page simple par notice de Glottolog, avec sa classification et une carte.',
     'Corpora and data for low-resource languages: planned.':
@@ -494,6 +500,12 @@
     [/^Search results · Lang Log by yoshi$/, 'Résultats de la recherche · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Toutes les familles · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids de premier niveau · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ' : ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'Classé sous $1, un groupe du catalogue qui n’est pas un languoid.',

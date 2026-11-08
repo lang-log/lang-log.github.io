@@ -68,6 +68,12 @@
       'แผนที่ของตระกูลภาษา ภาษามือ และระบบการเขียน ทุกตำแหน่งระบุแหล่งข้อมูลที่ใช้ การจัดจำแนกที่แตกต่างกันแสดงไว้คู่กัน และดาวน์โหลดข้อมูลได้',
     'Also': 'นอกจากนี้',
     'Top-level languoids': 'Languoids ระดับบนสุด',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'สื่อ',
+    'spoken': 'พูด',
+    'signed': 'ภาษามือ',
+    'written': 'เขียน',
+    'constructed': 'ประดิษฐ์',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่',
     'Corpora and data for low-resource languages: planned.':
@@ -476,6 +482,12 @@
     [/^Search results · Lang Log by yoshi$/, 'ผลการค้นหา · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'ตระกูลทั้งหมด · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids ระดับบนสุด · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'อยู่ในรายการภายใต้ $1 ซึ่งเป็นกลุ่มในแคตตาล็อก ไม่ใช่ languoid',

@@ -9,6 +9,8 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from html.parser import HTMLParser
 
+from modality import MODALITY_OF_DOMAIN
+
 P = Path("source-data/signs-and-scripts")
 D = Path("dist")
 B = json.loads((D / "data.json").read_text())["nodes"]
@@ -24,7 +26,17 @@ def src(i, title, url, kind, **kw):
 
 
 def node(i, name, domain, kind, **kw):
-    N[i] = dict(id=i, name=name, domain=domain, kind=kind, aliases=[], nativeNames=[], **kw)
+    N[i] = dict(
+        id=i,
+        name=name,
+        domain=domain,
+        kind=kind,
+        modality=MODALITY_OF_DOMAIN[domain],
+        constructed=False,
+        aliases=[],
+        nativeNames=[],
+        **kw,
+    )
     return i
 
 

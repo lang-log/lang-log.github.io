@@ -68,6 +68,12 @@
       'اطلسی از خانواده‌های زبانی، زبان‌های اشاره و نظام‌های نوشتاری. هر جایگاه منبعی را که از آن پیروی می‌کند ذکر می‌کند، رده‌بندی‌های رقیب کنار هم نمایش داده می‌شوند و داده‌ها قابل بارگیری‌اند.',
     'Also': 'همچنین',
     'Top-level languoids': 'Languoids سطح بالا',
+    // Medium of every languoid (tools/modality.py)
+    'Medium': 'رسانه',
+    'spoken': 'گفتاری',
+    'signed': 'اشاره‌ای',
+    'written': 'نوشتاری',
+    'constructed': 'ساختگی',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': برای هر رکورد Glottolog یک صفحهٔ ساده، همراه با رده‌بندی و نقشهٔ آن.',
     'Corpora and data for low-resource languages: planned.':
@@ -478,6 +484,12 @@
     [/^Search results · Lang Log by yoshi$/, 'نتایج جست‌وجو · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'همهٔ خانواده‌ها · Lang Log by yoshi'],
     [/^Top-level languoids · ([\d,]+)$/, 'Languoids سطح بالا · $1'],
+    [
+      /^Medium: (spoken|signed|written)( · constructed)?$/,
+      function (m, tr) {
+        return tr('Medium') + ': ' + tr(m[1]) + (m[2] ? ' · ' + tr('constructed') : '');
+      },
+    ],
     [
       /^Listed under (.+), a catalog group that is not a languoid\.$/,
       'زیر $1 فهرست شده است؛ این یک گروه فهرست است، نه یک languoid.',
