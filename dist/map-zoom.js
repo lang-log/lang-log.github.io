@@ -1,5 +1,5 @@
 // Zoom and pan for the maps drawn by tools/languoid_map.py (svg.lmap on the record pages)
-// and for the language feature map. Without JavaScript the map is a still picture; this
+// and for the map view of the top page (dist/explore.js). Without JavaScript the map is a still picture; this
 // script only adds movement.
 //
 // - The map goes round the world: dragging east or west never reaches an edge. The
@@ -16,11 +16,10 @@
 //   lines keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
-// - Shapes that meet edge to edge (the three copies of the world and the pieces of land cut
-//   at the 180th meridian) are drawn with an outline of their own colour, seam() wide on
-//   screen at every zoom. Browsers smooth both edges where two shapes meet, which leaves a
-//   thin light line between them, most of all when zoomed out. The 1:10m tiles overlap
-//   instead and get no outline (see record.css).
+// - The three copies of the world and the 1:10m tiles overlap their neighbours with the
+//   same land and sea (tools/build_land.py makes them so), so no seam shows between them
+//   and nothing is outlined to hide one. The copies draw the sea that reaches into the
+//   neighbours (#sea) instead of the square world (#sphere).
 //
 // - Map view: the button in the corner opens the map over the whole window, with nothing
 //   else on screen; the close button, Esc or the browser's Back button closes it. The page
@@ -31,7 +30,7 @@
 //   languoid_map.py) shows a box with the names of its records, each a link to the
 //   record's page. Names and addresses come from dist/atlas-data.js and
 //   dist/lineage-paths.js, loaded on the first tap; records() is shared with the
-//   feature map, whose own box shows more.
+//   top page's map view, whose own box shows more.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
@@ -45,11 +44,9 @@
   var GLIDE_MS = 550; // length of the Reset animation
   var STEP_MS = 220; // length of the + / - animation
   var HASH = '#map-view'; // address of the map view
-  // Width on screen (CSS pixels) of the outline that closes seams (record.css --lmap-seam).
-  var SEAM_PX = 0.6;
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
   // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
-  // The feature map's dots start from it too (LangLogMap.POINT_PX).
+  // The top page's map dots start from it too (LangLogMap.POINT_PX).
   var POINT_PX = 4;
   var manifest = null,
     manifestWait = [],
@@ -128,11 +125,6 @@
       });
   }
 
-  // At least one device pixel, so the outline also closes seams on screens with large pixels.
-  function seam() {
-    return Math.max(SEAM_PX, 1 / (window.devicePixelRatio || 1));
-  }
-
   function el(name, attrs) {
     var e = document.createElementNS('http://www.w3.org/2000/svg', name);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
@@ -195,13 +187,14 @@
         u.parentNode.removeChild(u);
       },
     );
-    // Tiles (tools/build_land.py) hold the same layers, with the sea of the tile in place of the sphere.
+    // The copies of the world and the tiles (tools/build_land.py) hold the same layers, with
+    // a sea that overlaps the neighbours in place of the square world.
     var tileLayers = layers.map(function (p) {
       return { id: p.id === 'sphere' ? 'sea' : p.id, cls: p.cls };
     });
-    layers.forEach(function (p) {
+    tileLayers.forEach(function (p, i) {
       [-1, 0, 1].forEach(function (k) {
-        var u = el('use', { href: p.file + '#' + p.id, 'class': p.cls });
+        var u = el('use', { href: layers[i].file + '#' + p.id, 'class': p.cls });
         if (k) u.setAttribute('x', k * W);
         bg.appendChild(u);
       });
@@ -325,8 +318,6 @@
       svg.classList.toggle('lmap-moved', moved);
       svg.classList.toggle('lmap-in', e < home.w - 0.01);
       updateTiles(e);
-      // The seam outline, in SVG units (unit is SVG units per CSS pixel, from above).
-      if (unit) bg.style.setProperty('--lmap-seam', +(seam() * unit).toFixed(3) + 'px');
       svg.dispatchEvent(
         new CustomEvent('lmap:view', {
           detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h },
@@ -627,7 +618,7 @@
     wrap.appendChild(svg);
     wrap.appendChild(bar);
     // The part of the page that fills the window in the map view: the map, or a larger
-    // box marked lmap-host that holds the map and its own overlays (the feature map).
+    // box marked lmap-host that holds the map and its own overlays (the top page's map view).
     var host = wrap.closest('.lmap-host') || wrap;
 
     // Map view. resize() keeps the centre and the scale on screen while the box changes.

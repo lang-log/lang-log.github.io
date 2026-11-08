@@ -13,6 +13,10 @@
     'North America': 'Noord-Amerika',
     'South America': 'Zuid-Amerika',
     'Australia': 'Australië',
+    'Oceania': 'Oceanië',
+    'No location in the data': 'Zonder plaats in de gegevens',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Elk staat onder het continent waar de meeste van zijn talen worden gesproken.',
     'Stats': 'Statistieken',
     'Updates': 'Nieuws',
     'About Lang Log': 'Over Lang Log',
@@ -49,6 +53,17 @@
       'Elke familie, taal en elk dialect heeft een eigen pagina, op een adres dat de indeling volgt.',
     'Stats · Lang Log by yoshi': 'Statistieken · Lang Log by yoshi',
     'Updates · Lang Log by yoshi': 'Nieuws · Lang Log by yoshi',
+    // Releases page (tools/build_releases.py) and its link in the guide row
+    'Releases': 'Releases',
+    'Releases · Lang Log by yoshi': 'Releases · Lang Log by yoshi',
+    'Latest': 'Nieuwste',
+    'Pre-release': 'Voorlopige release',
+    'No releases yet.': 'Nog geen releases.',
+    'No release notes.': 'Geen releaseopmerkingen.',
+    'Downloads': 'Downloads',
+    'View on GitHub': 'Bekijken op GitHub',
+    'All releases on GitHub': 'Alle releases op GitHub',
+    'Date unknown': 'Datum onbekend',
     'Sources & scope · Lang Log by yoshi': 'Bronnen en reikwijdte · Lang Log by yoshi',
     'by': 'by',
     'Sources & scope': 'Bronnen en reikwijdte',
@@ -88,17 +103,17 @@
     'Try Japanese · Czech · ASL · Lithuanian': 'Bijvoorbeeld: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting':
       'Bijvoorbeeld: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Filter op bewijs',
-    'All evidence': 'Al het bewijs',
-    'With research trees': 'Met onderzoeksbomen',
-    'With conflicting study clades': 'Met tegenstrijdige studieclades',
-    'Record category': 'Soort record',
-    'All categories': 'Alle soorten',
     'Spoken genealogy': 'Genealogie van gesproken talen',
     'Isolates': 'Isolaten',
     'View': 'Weergave',
     'List': 'Lijst',
     'Tree': 'Boom',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Kaart',
+    'Yes': 'Ja',
+    'No': 'Nee',
+    'Conflicting study clades': 'Tegenstrijdige studieclades',
+    'Research trees': 'Onderzoeksbomen',
     'All roots': 'Alle wortels',
     'Selected branch': 'Gekozen tak',
     'Collapse all': 'Alles inklappen',
@@ -355,7 +370,6 @@
     'Cross-family / outgroup source trees': 'Bronbomen over meerdere families of buitengroepen',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Studiebomen en WALS-families die meer dan één Glottolog-familie omvatten. Ze staan hier alleen voor navigatie.',
-    'Whole tree': 'Hele boom',
     'Show the tree of this branch': 'Boom van deze tak tonen',
     'Where Lang Log attaches this tree': 'Waar Lang Log deze boom koppelt',
     "Other sources' trees below this record": 'Bomen van andere bronnen onder dit record',
@@ -390,12 +404,7 @@
     'Back to search results': 'Terug naar de zoekresultaten',
     'genus': 'genus (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Kaart van taalkenmerken',
-    'Language feature map · Lang Log by yoshi': 'Kaart van taalkenmerken · Lang Log by yoshi',
-    'About': 'Over',
     'About this map': 'Over deze kaart',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Eerst staan alle talen op de kaart. Voeg voorwaarden toe om alleen de talen te houden die eraan voldoen, en kies een kenmerk om de stippen te kleuren.',
     'Colour by': 'Kleuren op',
     'None (one colour)': 'Geen (één kleur)',
     'Conditions': 'Voorwaarden',
@@ -418,12 +427,8 @@
       'De stippen zijn alle talen in Glottolog 5.3 met coördinaten, op het representatieve punt dat Glottolog geeft, niet het gebied waar de taal gesproken wordt. De kenmerkwaarden komen uit WALS Online (Dryer en Haspelmath, red., 2013), CLDF-versie v2020.4, licentie CC BY 4.0, gekoppeld aan de Glottolog-taal van elke WALS-taal.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'De aangevinkte waarden binnen één voorwaarde zijn verbonden met OF. Voorwaarden zijn verbonden met EN, tenzij u de verbinding op OR zet; voorwaarden die met OR verbonden zijn, tellen als één groep, dus „A AND B OR C” betekent „A AND (B OR C)”. Een taal zonder gegevens voor het kenmerk van een voorwaarde voldoet niet aan die voorwaarde.',
-    'This map needs JavaScript. The feature data is in':
-      'Deze kaart heeft JavaScript nodig. De kenmerkgegevens staan in',
     'Land and borders: Natural Earth (public domain)':
       'Land en grenzen: Natural Earth (publiek domein)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Kaart van taalkenmerken: alle talen op een wereldkaart, gefilterd op voorwaarden over WALS-kenmerken en gekleurd naar een ervan.',
     'Land and borders:': 'Land en grenzen:',
     'Dashed borders are disputed or not settled.':
       'Gestippelde grenzen zijn betwist of niet vastgesteld.',

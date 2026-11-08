@@ -8,8 +8,11 @@ each of them (owner, 2026-11-06).
 The top page is also the top of the language-families tree (owner,
 2026-11-06): every Glottolog record and every source-only record has its own
 page below it (tools/build_paths.py), and this page lists the top-level
-families and isolates, draws the whole tree (dist/tree.js) and holds the
-downloads. There is no separate atlas page.
+families and isolates in three views (owner, 2026-11-08): a list (works
+without JavaScript), a map of every language and the zoomable tree of every
+root (dist/tree.js), with conditions on WALS and Lang Log features that all
+three share (dist/explore.js; this replaced the separate feature map page and
+the "Whole tree" section). There is no separate atlas page.
 
 Stats, sources and updates are pages of their own, not sections of the top
 page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
@@ -45,8 +48,10 @@ import json
 
 from locations import DIST
 import build_paths as bp
+from languoid_map import min_width, world_box, world_view
+import info_page
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, HOME_TITLE, TITLE_SUFFIX, by_yoshi
+from site_brand import COPYRIGHT, HOME_TITLE, by_yoshi
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -90,7 +95,12 @@ def random_row():
 
 
 # Links next to the Random button on the top page: (page, label).
-GUIDE_LINKS = [("stats/", "Stats"), ("sources/", "Sources"), ("updates/", "Updates")]
+GUIDE_LINKS = [
+    ("stats/", "Stats"),
+    ("sources/", "Sources"),
+    ("updates/", "Updates"),
+    ("releases.html", "Releases"),
+]
 
 
 def guide_row():
@@ -98,13 +108,62 @@ def guide_row():
     return f'<nav class="home-guide" aria-label="About Lang Log">{links}</nav>'
 
 
+# The continents of the top-page list, in the owner's order (2026-11-08), and
+# the Glottolog macroareas each one takes. The grouping is for display only:
+# a continent is a heading on the top page, never a node of the tree.
+CONTINENTS = {
+    "Africa": ("Africa",),
+    "Eurasia": ("Eurasia",),
+    "Oceania": ("Papunesia", "Australia"),
+    "North America": ("North America",),
+    "South America": ("South America",),
+}
+CONTINENT_OF_MACROAREA = {a: c for c, areas in CONTINENTS.items() for a in areas}
+
+
+def first_macroarea(node):
+    """A record's first Glottolog macroarea ("" if it has none); records in
+    several macroareas list them separated by ";"."""
+    return (node.get("area") or "").split(";")[0]
+
+
+# The heading for top-level records with no macroarea, neither their own nor
+# any of their languages' (for example a root whose records have no location).
+NO_CONTINENT = "No location in the data"
+
+
+def continent_of_roots():
+    """Each top-level record's continent: the one where most of its languages
+    (level "language", by their first macroarea) are; a tie goes to the
+    continent that comes first in CONTINENTS. A root with no such language
+    takes the continent of its own first macroarea, and one without that
+    either goes under NO_CONTINENT."""
+    tally = {r: dict.fromkeys(CONTINENTS, 0) for r in bp.data["roots"]}
+    for n in bp.nodes.values():
+        continent = CONTINENT_OF_MACROAREA.get(first_macroarea(n))
+        if n.get("level") == "language" and continent and n.get("root") in tally:
+            tally[n["root"]][continent] += 1
+    return {
+        r: max(t, key=t.get)
+        if any(t.values())
+        else CONTINENT_OF_MACROAREA.get(first_macroarea(bp.nodes[r]), NO_CONTINENT)
+        for r, t in tally.items()
+    }
+
+
 def families_html():
-    """The top-level families and isolates of Glottolog, each linked to its page."""
+    """The top-level records of Glottolog, each linked to its page, under the
+    continent where most of their languages are (continent_of_roots())."""
     roots = sorted(bp.data["roots"], key=lambda r: bp.nodes[r]["name"].lower())
+    continent_of = continent_of_roots()
     # No kind label (family, isolate) after the name: every record is a languoid.
-    rows = "".join(
-        f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
-        for r in roots
+    groups = "".join(
+        f'<div class="continent"><h3>{escape(continent)}</h3>'
+        '<ul class="record-links">'
+        + "".join(root_row(r) for r in roots if continent_of[r] == continent)
+        + "</ul></div>"
+        for continent in (*CONTINENTS, NO_CONTINENT)
+        if continent in continent_of.values()
     )
     unplaced = bp.unified["anchors"].get("__unplaced__", [])
     rows_unplaced = "".join(
@@ -112,25 +171,77 @@ def families_html():
         f'<span class="muted">{"catalog grouping" if a["type"] == "catalog" else "sampled study tree"}</span></li>'
         for a in unplaced
     )
-    return (
-        f'<section class="home-section" id="families"><h2>All families and isolates · {len(roots)}</h2>'
-        '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
-        f'<ul class="record-links">{rows}</ul>'
-        '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
-        "Glottolog family. They are listed here for navigation only.</p>"
-        f'<ul class="record-links">{rows_unplaced}</ul></section>'
-    )
-
-
-def tree_section():
     downloads = (
         '<a class="exportlink" href="language-families.xml" download title="Complete Glottolog and WALS trees, all imported names and source tags">XML</a>'
         '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
     )
+    # Three views of every top-level record (owner, 2026-11-08): a switch (1), the
+    # conditions shared by the views (2) and the view (3). dist/explore.js runs them;
+    # without JavaScript only the list is shown.
+    views = "".join(
+        f'<button type="button" data-view="{v}" aria-pressed="{str(v == "list").lower()}">{label}</button>'
+        for v, label in VIEWS
+    )
     return (
-        '<section class="home-section tree-section" id="tree-section"><h2>Whole tree</h2>'
-        + bp.atlas_html("", downloads=downloads)
-        + "</section>"
+        f'<section class="home-section home-views" id="families"><h2>All families and isolates · {len(roots)}</h2>'
+        '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
+        '<p class="muted">Each is listed under the continent where most of its languages are spoken.</p>'
+        f'<div class="seg explore-views" role="group" aria-label="View" hidden>{views}</div>'
+        '<div class="explore-filter wm-legend" hidden>'
+        '<p id="count" class="wm-count"></p>'
+        '<div class="explore-colour"><label class="wm-colour">Colour by <span id="colour-slot"></span></label><div id="colour-legend"></div></div>'
+        '<h3 class="wm-conds-title">Conditions</h3>'
+        '<p id="no-conditions" class="wm-empty">No conditions yet: every language is shown.</p>'
+        '<div id="conditions"></div>'
+        '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
+        f'<div class="explore-view" data-view="list">{groups}'
+        '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
+        "Glottolog family. They are listed here for navigation only.</p>"
+        f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
+        '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
+        f'<svg id="map" class="lmap" viewBox="{world_view()}" role="img" aria-label="World map of the languages that match the conditions" '
+        f'preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="{min_width()}" data-world="{world_box()}">'
+        '<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>'
+        '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
+        '<g id="points"></g></svg>'
+        '<div id="card" class="wm-card" hidden></div>'
+        '<p class="wm-hint">Pinch or Ctrl + scroll to zoom, drag to move, tap a dot for the language.</p></div></div>'
+        f'<div class="explore-view" data-view="tree" hidden>{bp.atlas_html("", downloads=downloads)}</div>'
+        "</section>"
+    )
+
+
+# The views of the top-page list, in the order of the switch: (key, label).
+# dist/explore.js reads the keys from the buttons.
+VIEWS = [("list", "List"), ("map", "Map"), ("tree", "Tree")]
+
+
+def root_row(r):
+    """A top-level record in the List view: its name linked to its page, then (as in
+    the tree of the former whole-tree section) up to two native names, the number of
+    sources that place it when more than one, and a flag when study trees conflict
+    over it. data-root lets dist/explore.js hide the records no matching language
+    belongs to."""
+    n = bp.nodes[r]
+    native = list(dict.fromkeys(x["text"] for x in n.get("nativeNames", [])))[:2]
+    sources = {p["source"] for p in bp.unified["placements"].get(r, [])}
+    meta = " · ".join(
+        m
+        for m in (
+            f"{len(sources)} sources" if len(sources) > 1 else "",
+            "⚑" if r in bp.unified["conflictIndex"] else "",
+        )
+        if m
+    )
+    return (
+        f'<li data-root="{escape(r)}"><a href="{escape(bp.path_of(r))}/">{escape(n["name"])}</a>'
+        + (
+            f' <span class="native-inline" dir="auto">{escape(" / ".join(native))}</span>'
+            if native
+            else ""
+        )
+        + (f' <span class="rowmeta">{escape(meta)}</span>' if meta else "")
+        + "</li>"
     )
 
 
@@ -281,7 +392,7 @@ def by_macroarea():
     not_spoken = ("Sign Language", "Bookkeeping", "Artificial Language")
     tally = {a: 0 for a in MACROAREAS}
     for n in bp.nodes.values():
-        area = (n.get("area") or "").split(";")[0]
+        area = first_macroarea(n)
         if n.get("level") == "language" and n.get("category") not in not_spoken and area in tally:
             tally[area] += 1
     return list(tally.items())
@@ -349,25 +460,10 @@ def updates_body():
 def sub_page(slug, title, body, scripts=()):
     """A page one level below the root, such as dist/stats/index.html. `scripts` are
     extra files from dist/ loaded in <head> after lang.js."""
-    html = (
-        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-        + SECURITY_HEAD
-        + '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
-        '<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png">'
-        '<link rel="stylesheet" href="../style.css">'
-        '<script src="../theme.js"></script><script src="../i18n.js"></script><script src="../lang.js"></script>'
-        + "".join(f'<script src="../{escape(s)}"></script>' for s in scripts)
-        + '</head><body class="info-page">\n'
-        '<header><div class="brand"><a class="home" href="../"><svg class="logo" role="img" aria-label="LANG LOG"><use href="../logo.svg#logo"/></svg></a> '
-        + by_yoshi()
-        + "</div></header>\n"
-        f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
-        f"<footer><span>{COPYRIGHT}</span></footer>\n"
-        "</body></html>\n"
-    )
     (DIST / slug).mkdir(exist_ok=True)
-    (DIST / slug / "index.html").write_text(html, encoding="utf-8")
+    (DIST / slug / "index.html").write_text(
+        info_page.page(title, body, "../", scripts), encoding="utf-8"
+    )
 
 
 def main():
@@ -384,7 +480,7 @@ def main():
         f'<meta name="description" content="{escape(description)}">'
         f"<title>{HOME_TITLE}</title>"
         '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
-        '<link rel="stylesheet" href="style.css">'
+        '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
         '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'
         '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
         '</head><body class="home-page">\n'
@@ -408,16 +504,15 @@ def main():
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         "Every placement says which source it follows, competing classifications are shown together, "
         "and the data can be downloaded.</p></section>\n"
-        f"{families_html()}{tree_section()}"
+        f"{families_html()}"
         '<section class="home-more"><h2>Also</h2><ul>'
-        '<li><a href="feature-map.html">Language feature map</a>: every language on a world map, '
-        "narrowed by conditions on WALS features and coloured by one of them.</li>"
         "<li>Corpora and data for low-resource languages: planned.</li>"
         "</ul></section></main>\n"
         f"<footer><span>Glottolog 5.3 + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
         f"<span>{COPYRIGHT}</span></footer>\n"
-        '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script><script src="tree.js"></script>\n'
+        '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'
+        '<script src="map-zoom.js"></script><script src="tree.js"></script><script src="explore.js"></script>\n'
         "</body></html>\n"
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")

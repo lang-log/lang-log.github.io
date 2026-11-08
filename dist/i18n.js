@@ -20,6 +20,10 @@ window.LANGLOG_I18N = {
       'North America': '北アメリカ',
       'South America': '南アメリカ',
       'Australia': 'オーストラリア',
+      'Oceania': 'オセアニア',
+      'No location in the data': 'データに位置がないもの',
+      'Each is listed under the continent where most of its languages are spoken.':
+        '言語がもっとも多く話されている大陸の下に並べています。',
       'Stats': '統計',
       'Updates': '更新情報',
       'About Lang Log': 'Lang Log について',
@@ -57,6 +61,17 @@ window.LANGLOG_I18N = {
         'すべての語族、言語、方言に、分類に沿ったアドレスの専用ページができました。',
       'Stats · Lang Log by yoshi': '統計 · Lang Log by yoshi',
       'Updates · Lang Log by yoshi': '更新情報 · Lang Log by yoshi',
+      // Releases page (tools/build_releases.py) and its link in the guide row
+      'Releases': 'リリース',
+      'Releases · Lang Log by yoshi': 'リリース · Lang Log by yoshi',
+      'Latest': '最新',
+      'Pre-release': 'プレリリース',
+      'No releases yet.': 'リリースはまだありません。',
+      'No release notes.': 'リリースノートはありません。',
+      'Downloads': 'ダウンロード',
+      'View on GitHub': 'GitHub で見る',
+      'All releases on GitHub': 'GitHub ですべてのリリースを見る',
+      'Date unknown': '日付不明',
       'Sources & scope · Lang Log by yoshi': '出典と範囲 · Lang Log by yoshi',
       // Record pages and top page after the atlas merge (tools/build_paths.py, tools/build_home.py, dist/tree.js)
       'Top': 'トップ',
@@ -71,7 +86,6 @@ window.LANGLOG_I18N = {
       'Cross-family / outgroup source trees': '語族をまたぐ / 外群の系統樹',
       'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
         'Glottolog の複数の語族にまたがる研究の系統樹と WALS の語族です。案内のためだけに載せています。',
-      'Whole tree': '全体の樹形図',
       'Show the tree of this branch': 'この枝の樹形図を表示',
       'Where Lang Log attaches this tree': 'Lang Log でこの系統樹をつないでいる場所',
       "Other sources' trees below this record": 'この記録の下にあるほかの出典の系統樹',
@@ -114,12 +128,7 @@ window.LANGLOG_I18N = {
       'Dark theme': 'ダークテーマ',
 
       // Language feature map (dist/feature-map.html, dist/feature-map.js)
-      'Language feature map': '言語の特性地図',
-      'Language feature map · Lang Log by yoshi': '言語の特性地図 · Lang Log by yoshi',
-      'About': '説明',
       'About this map': 'この地図について',
-      'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-        '最初はすべての言語が地図に出ています。条件を足すと、合う言語だけが残ります。点の色分けに使う特性も選べます。',
       'Colour by': '色分けする特性',
       'None (one colour)': 'なし(1色)',
       'Conditions': '条件',
@@ -141,12 +150,8 @@ window.LANGLOG_I18N = {
         '点は、座標のある Glottolog 5.3 のすべての言語です。Glottolog がその言語に与えた代表地点で、話されている範囲ではありません。特性の値は WALS Online(Dryer and Haspelmath 編、2013年)の CLDF 版 v2020.4(CC BY 4.0)から取り、WALS の各言語を対応する Glottolog の言語に結び付けています。',
       'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
         '1つの条件の中でチェックした値は「または」でつながります。条件どうしは、つなぎ目を OR に切り替えない限り「かつ」でつながります。OR でつないだ条件はひとかたまりとして扱うので、「A AND B OR C」は「A かつ (B または C)」という意味です。条件の特性にデータがない言語は、その条件に合わないものとします。',
-      'This map needs JavaScript. The feature data is in':
-        'この地図には JavaScript が必要です。特性のデータは次にあります:',
       'Land and borders: Natural Earth (public domain)':
         '陸地と国境: Natural Earth(パブリックドメイン)',
-      'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-        '言語の特性地図: すべての言語を世界地図に出し、WALS の特性の条件で絞り込み、1つの特性で色分けします。',
 
       // Not-found page (dist/404.html)
       'Page not found': 'ページが見つかりません',
@@ -181,12 +186,6 @@ window.LANGLOG_I18N = {
         '例: Japanese · 日本語 · Basque · Austronesian',
       'Try Japanese · Czech · ASL · Lithuanian': '例: Japanese · Czech · ASL · Lithuanian',
       'Try Brahmi · Hangul · Latin · SignWriting': '例: Brahmi · Hangul · Latin · SignWriting',
-      'Evidence filter': '根拠で絞り込む',
-      'All evidence': 'すべての根拠',
-      'With research trees': '研究の系統樹があるもの',
-      'With conflicting study clades': '研究どうしで分岐が食い違うもの',
-      'Record category': '記録の種類',
-      'All categories': 'すべての種類',
       'Spoken genealogy': '音声言語の系統',
       'Isolates': '孤立言語',
 
@@ -194,6 +193,12 @@ window.LANGLOG_I18N = {
       'View': '表示',
       'List': '一覧',
       'Tree': '樹形図',
+      // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+      'Map': '地図',
+      'Yes': 'はい',
+      'No': 'いいえ',
+      'Conflicting study clades': '研究どうしで食い違う分岐',
+      'Research trees': '研究の系統樹',
       'All roots': 'すべての根',
       'Selected branch': '選んだ系統',
       'Collapse all': 'すべて閉じる',

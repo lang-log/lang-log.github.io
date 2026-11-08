@@ -58,21 +58,26 @@ Every screen state that can be shared is kept in the query string, so a copied a
 
 The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Under the search box, a Random row (Language, Sign language, Writing system) opens the page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
-The top page is also the top of the language-families tree. Below the introduction it lists all top-level families and isolates (each linked to its record page), draws the whole tree (`dist/tree.js`: list or zoomable tree, filters, dialects, SVG, XML and OPML downloads) and holds the Sources & scope text (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
+The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in three views (owner, 2026-11-08), with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 
-Language families (the top page and every record page):
+- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript.
+- Map: every Glottolog language with a point, coloured by one feature if chosen (this replaced the separate feature map page).
+- Tree: the zoomable tree of every root (`dist/tree.js`), with SVG, XML and OPML downloads.
 
-| Parameter     | Meaning                                                                                              |
-| ------------- | ---------------------------------------------------------------------------------------------------- |
-| `q`           | Search text (top page); the matches are listed under the search box                                  |
-| `evidence`    | Evidence filter: `conflicts` or `studies` (top page)                                                 |
-| `category`    | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
-| `dialects=0`  | Hide dialects in the tree                                                                            |
-| `view=tree`   | Horizontal tree instead of the list                                                                  |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming           |
-| `task`        | Hugging Face model task on a record page (for example `translation`)                                 |
+Conditions are on WALS features and on two Lang Log features, conflicting study clades and research trees (`tools/build_wals_map.py`); the values ticked in one condition are joined by OR, conditions by AND unless switched to OR. The Sources & scope text is on its own page (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
 
-On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view`, `dialects` or `x`.
+Query parameters:
+
+| Parameter     | Meaning                                                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `q`           | Search text on the top page; it opens the search results page `/q=<terms>`                                      |
+| `view`        | Top page: `map` or `tree` (the list when left out). Record pages: `tree` for the tree instead of the outline    |
+| `c`           | Top page: one condition, `<feature>` or `<feature>:<values>`; a leading `\|` joins it to the previous one by OR |
+| `k`           | Top page: the feature the map is coloured by                                                                    |
+| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming                      |
+| `task`        | Hugging Face model task on a record page (for example `translation`)                                            |
+
+On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view` or `x`.
 
 Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
 
@@ -92,7 +97,35 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main`; pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No environment variables or secrets are required.
+The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+
+## Releases
+
+A release is a version tag on a commit of `main`; GitHub Releases hold the release information, and the site shows it on `releases.html`. The rules are in `.claude/rules/releases.md`.
+
+To release, choose the commit and the version (Semantic Versioning: `v1.0.0` first release, `v1.1.0` new features, `v1.1.1` bug fixes, `v2.0.0` breaking changes) and push an annotated tag:
+
+```sh
+git switch main && git pull
+git tag -a v1.0.0 -m "First public release"
+git push origin v1.0.0
+```
+
+What happens next:
+
+1. `.github/workflows/release.yml` starts on the tag push (`push`, tags `v*`). Its job has `contents: write` and runs `tools/release.py`, which checks that the tag is `vMAJOR.MINOR.PATCH` and points at a commit on `main` (a lightweight tag only gives a warning), then creates the GitHub Release: named after the tag, with the tag's message followed by the notes GitHub generates from the pull requests merged since the previous release. If the tag already has a release, nothing is changed.
+2. When `release.yml` ends, `pages.yml` runs (`workflow_run`). Its `releases` job (`contents: read`) runs `python3 tools/build_releases.py --fetch`, which reads every release and the latest one from the GitHub API with the job's `GITHUB_TOKEN` and saves the answer as `build/github-releases.json`, uploaded as the artifact `github-releases`. After the code checks (`quality.yml`), the shared deployment workflow downloads it and runs `tools/build_site.sh`.
+3. `tools/build_site.sh` runs the tests (`tools/test_releases.py`) and `tools/build_releases.py`, which writes `dist/releases.html` (newest first, the latest release marked, notes, links to each release and its downloads on GitHub) and `dist/releases.json` (the same releases with the notes in Markdown). Neither is committed. The page is then deployed with the rest of the site.
+
+`pages.yml` runs one deployment at a time (workflow-level `concurrency`, never cancelled while running); a waiting run reads the releases when it starts, so a deployment that replaced it still shows the newest release. `site.yml` fetches the releases the same way before building a pull request. Without `build/github-releases.json` (a local build, the browser check), `tools/build_releases.py` reads the API itself, anonymously unless `GITHUB_TOKEN` is set.
+
+Security: release notes, names and asset names are untrusted. The page shows GitHub's HTML of the notes after `sanitize()` keeps only plain formatting tags and `https://github.com/` links; images are replaced by their alternative text (the Content-Security-Policy allows only the site's own images). Assets are only linked, never downloaded or run. API requests go only to `api.github.com`, retry on rate limits and server errors (at most `ATTEMPTS` tries, waiting at most `MAX_WAIT_S` seconds, in `tools/github_api.py`), and never print the token.
+
+Troubleshooting:
+
+- No release was created: open the `release` run of the tag. `is not a version tag` means the name is not like `v1.2.0`; `is not on origin/main` means the tagged commit is not on `main`. Delete the tag (`git push origin :refs/tags/v1.2.0`, `git tag -d v1.2.0`) and tag a commit of `main`.
+- The release exists but the site does not show it: check the `pages` run that followed. If `releases` failed (API error or rate limit), nothing was deployed and the live site is unchanged; run `pages` again from the Actions tab (workflow_dispatch).
+- A local build fails with an HTTP 403: the anonymous rate limit was reached. Wait, or set `GITHUB_TOKEN` to a token that can read the repository.
 
 ## Record pages
 

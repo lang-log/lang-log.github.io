@@ -13,6 +13,10 @@
     'North America': 'Amérique du Nord',
     'South America': 'Amérique du Sud',
     'Australia': 'Australie',
+    'Oceania': 'Océanie',
+    'No location in the data': 'Sans lieu dans les données',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Chacun figure sous le continent où la plupart de ses langues sont parlées.',
     'Stats': 'Statistiques',
     'Updates': 'Nouveautés',
     'About Lang Log': 'À propos de Lang Log',
@@ -50,6 +54,17 @@
       'Chaque famille, langue et dialecte a sa propre page, à une adresse qui suit sa classification.',
     'Stats · Lang Log by yoshi': 'Statistiques · Lang Log by yoshi',
     'Updates · Lang Log by yoshi': 'Nouveautés · Lang Log by yoshi',
+    // Releases page (tools/build_releases.py) and its link in the guide row
+    'Releases': 'Versions',
+    'Releases · Lang Log by yoshi': 'Versions · Lang Log by yoshi',
+    'Latest': 'La plus récente',
+    'Pre-release': 'Préversion',
+    'No releases yet.': 'Aucune version pour le moment.',
+    'No release notes.': 'Pas de notes de version.',
+    'Downloads': 'Téléchargements',
+    'View on GitHub': 'Voir sur GitHub',
+    'All releases on GitHub': 'Toutes les versions sur GitHub',
+    'Date unknown': 'Date inconnue',
     'Sources & scope · Lang Log by yoshi': 'Sources et périmètre · Lang Log by yoshi',
     'by': 'by',
     'Sources & scope': 'Sources et périmètre',
@@ -88,17 +103,17 @@
       'Exemples : Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Exemples : Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Exemples : Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Filtre par preuves',
-    'All evidence': 'Toutes les preuves',
-    'With research trees': 'Avec des arbres de recherche',
-    'With conflicting study clades': 'Avec des clades d’études en conflit',
-    'Record category': 'Type de notice',
-    'All categories': 'Tous les types',
     'Spoken genealogy': 'Généalogie des langues orales',
     'Isolates': 'Isolats',
     'View': 'Affichage',
     'List': 'Liste',
     'Tree': 'Arbre',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Carte',
+    'Yes': 'Oui',
+    'No': 'Non',
+    'Conflicting study clades': 'Clades d’études en conflit',
+    'Research trees': 'Arbres de recherche',
     'All roots': 'Toutes les racines',
     'Selected branch': 'Branche sélectionnée',
     'Collapse all': 'Tout replier',
@@ -355,7 +370,6 @@
       'Arbres de sources couvrant plusieurs familles ou des groupes externes',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Arbres d’études et familles du WALS qui couvrent plus d’une famille de Glottolog. Ils figurent ici uniquement pour la navigation.',
-    'Whole tree': 'Arbre entier',
     'Show the tree of this branch': 'Afficher l’arbre de cette branche',
     'Where Lang Log attaches this tree': 'Où Lang Log rattache cet arbre',
     "Other sources' trees below this record": 'Arbres d’autres sources sous cette notice',
@@ -391,13 +405,7 @@
     'Back to search results': 'Retour aux résultats',
     'genus': 'genre (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Carte des traits linguistiques',
-    'Language feature map · Lang Log by yoshi':
-      'Carte des traits linguistiques · Lang Log by yoshi',
-    'About': 'À propos',
     'About this map': 'À propos de cette carte',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Au départ, toutes les langues sont sur la carte. Ajoutez des conditions pour ne garder que les langues qui y répondent, et choisissez un trait pour colorer les points.',
     'Colour by': 'Colorer selon',
     'None (one colour)': 'Aucun (une couleur)',
     'Conditions': 'Conditions',
@@ -420,12 +428,8 @@
       'Les points sont toutes les langues de Glottolog 5.3 ayant des coordonnées, au point représentatif que Glottolog leur donne, et non la zone où elles sont parlées. Les valeurs des traits viennent de WALS Online (Dryer et Haspelmath, dir., 2013), version CLDF v2020.4, sous licence CC BY 4.0, rattachées à la langue Glottolog de chaque langue WALS.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'Les valeurs cochées dans une condition sont reliées par OU. Les conditions sont reliées par ET, sauf si vous basculez la jonction sur OR ; les conditions reliées par OR forment un seul groupe, donc « A AND B OR C » signifie « A AND (B OR C) ». Une langue sans données pour le trait d’une condition ne remplit pas cette condition.',
-    'This map needs JavaScript. The feature data is in':
-      'Cette carte a besoin de JavaScript. Les données des traits se trouvent dans',
     'Land and borders: Natural Earth (public domain)':
       'Terres et frontières : Natural Earth (domaine public)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Carte des traits linguistiques : toutes les langues sur une carte du monde, filtrées par des conditions sur les traits WALS et colorées selon l’un d’eux.',
     'Land and borders:': 'Terres et frontières :',
     'Dashed borders are disputed or not settled.':
       'Les frontières en tirets sont contestées ou non fixées.',

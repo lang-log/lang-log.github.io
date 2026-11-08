@@ -1,0 +1,40 @@
+# Create a GitHub Release when a version tag (v1.2.0) is pushed. The owner picks the version and
+# tags a commit of main; tools/release.py checks the tag and creates the release, without
+# changing a release that already exists (.claude/rules/releases.md).
+# The site is not deployed here: pages.yml runs when this workflow ends (workflow_run) and
+# rebuilds the Releases page from the GitHub API, after the usual code checks.
+name: release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the release; nothing else
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history, to check that the tag is on main.
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # actions/checkout can store an annotated tag as a lightweight one; fetch the tag object
+      # itself so its message and tagger are kept. The tag name comes in through env, never
+      # written into the script.
+      - name: Fetch the tag and main
+        env:
+          TAG: ${{ github.ref_name }}
+        run: git fetch --force --no-tags origin "+refs/tags/${TAG}:refs/tags/${TAG}" "+refs/heads/main:refs/remotes/origin/main"
+      - name: Create the release
+        env:
+          TAG: ${{ github.ref_name }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 tools/release.py "$TAG"

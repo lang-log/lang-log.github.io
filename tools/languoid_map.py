@@ -214,7 +214,7 @@ def map_svg(
 
 
 def world_view():
-    """viewBox of a map that shows the whole world once (dist/feature-map.html)."""
+    """viewBox of a map that shows the whole world once (the top page's map view)."""
     return f"{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}"
 
 

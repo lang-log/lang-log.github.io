@@ -13,6 +13,10 @@
     'North America': 'Bắc Mỹ',
     'South America': 'Nam Mỹ',
     'Australia': 'Úc',
+    'Oceania': 'Châu Đại Dương',
+    'No location in the data': 'Không có vị trí trong dữ liệu',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Mỗi mục được xếp dưới châu lục nơi phần lớn các ngôn ngữ của nó được nói.',
     'Stats': 'Thống kê',
     'Updates': 'Cập nhật',
     'About Lang Log': 'Giới thiệu Lang Log',
@@ -49,6 +53,17 @@
       'Mỗi ngữ hệ, ngôn ngữ và phương ngữ đều có trang riêng, với địa chỉ theo phân loại của nó.',
     'Stats · Lang Log by yoshi': 'Thống kê · Lang Log by yoshi',
     'Updates · Lang Log by yoshi': 'Cập nhật · Lang Log by yoshi',
+    // Releases page (tools/build_releases.py) and its link in the guide row
+    'Releases': 'Bản phát hành',
+    'Releases · Lang Log by yoshi': 'Bản phát hành · Lang Log by yoshi',
+    'Latest': 'Mới nhất',
+    'Pre-release': 'Bản thử nghiệm',
+    'No releases yet.': 'Chưa có bản phát hành nào.',
+    'No release notes.': 'Không có ghi chú phát hành.',
+    'Downloads': 'Tải xuống',
+    'View on GitHub': 'Xem trên GitHub',
+    'All releases on GitHub': 'Tất cả bản phát hành trên GitHub',
+    'Date unknown': 'Không rõ ngày',
     'Sources & scope · Lang Log by yoshi': 'Nguồn và phạm vi · Lang Log by yoshi',
     'by': 'by',
     'Sources & scope': 'Nguồn và phạm vi',
@@ -87,17 +102,17 @@
       'Ví dụ: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Ví dụ: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Ví dụ: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Lọc theo bằng chứng',
-    'All evidence': 'Mọi bằng chứng',
-    'With research trees': 'Có cây nghiên cứu',
-    'With conflicting study clades': 'Có nhánh nghiên cứu mâu thuẫn',
-    'Record category': 'Loại bản ghi',
-    'All categories': 'Mọi loại',
     'Spoken genealogy': 'Phả hệ ngôn ngữ nói',
     'Isolates': 'Ngôn ngữ biệt lập',
     'View': 'Chế độ xem',
     'List': 'Danh sách',
     'Tree': 'Cây',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Bản đồ',
+    'Yes': 'Có',
+    'No': 'Không',
+    'Conflicting study clades': 'Các nhánh nghiên cứu mâu thuẫn',
+    'Research trees': 'Cây phả hệ nghiên cứu',
     'All roots': 'Mọi gốc',
     'Selected branch': 'Nhánh đã chọn',
     'Collapse all': 'Thu gọn tất cả',
@@ -353,7 +368,6 @@
     'Cross-family / outgroup source trees': 'Cây nguồn trải qua nhiều ngữ hệ / nhóm ngoài',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Các cây nghiên cứu và ngữ hệ WALS trải qua nhiều hơn một ngữ hệ của Glottolog. Chúng được liệt kê ở đây chỉ để điều hướng.',
-    'Whole tree': 'Toàn bộ cây',
     'Show the tree of this branch': 'Hiện cây của nhánh này',
     'Where Lang Log attaches this tree': 'Nơi Lang Log gắn cây này',
     "Other sources' trees below this record": 'Cây của các nguồn khác bên dưới bản ghi này',
@@ -388,12 +402,7 @@
     'Back to search results': 'Quay lại kết quả tìm kiếm',
     'genus': 'chi (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Bản đồ đặc điểm ngôn ngữ',
-    'Language feature map · Lang Log by yoshi': 'Bản đồ đặc điểm ngôn ngữ · Lang Log by yoshi',
-    'About': 'Giới thiệu',
     'About this map': 'Về bản đồ này',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Ban đầu mọi ngôn ngữ đều có trên bản đồ. Thêm điều kiện để chỉ giữ lại các ngôn ngữ phù hợp, và chọn một đặc điểm để tô màu các chấm.',
     'Colour by': 'Tô màu theo',
     'None (one colour)': 'Không (một màu)',
     'Conditions': 'Điều kiện',
@@ -415,12 +424,8 @@
       'Các chấm là mọi ngôn ngữ trong Glottolog 5.3 có tọa độ, đặt tại điểm đại diện mà Glottolog đưa ra, không phải vùng nơi ngôn ngữ được nói. Giá trị đặc điểm lấy từ WALS Online (Dryer và Haspelmath, chủ biên, 2013), bản CLDF v2020.4, giấy phép CC BY 4.0, gắn với ngôn ngữ Glottolog tương ứng của từng ngôn ngữ WALS.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'Các giá trị được đánh dấu trong một điều kiện nối với nhau bằng HOẶC. Các điều kiện nối bằng VÀ, trừ khi bạn chuyển chỗ nối sang OR; các điều kiện nối bằng OR được tính là một nhóm, nên “A AND B OR C” nghĩa là “A AND (B OR C)”. Ngôn ngữ không có dữ liệu về đặc điểm của một điều kiện thì không thỏa điều kiện đó.',
-    'This map needs JavaScript. The feature data is in':
-      'Bản đồ này cần JavaScript. Dữ liệu đặc điểm nằm ở',
     'Land and borders: Natural Earth (public domain)':
       'Đất liền và biên giới: Natural Earth (phạm vi công cộng)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Bản đồ đặc điểm ngôn ngữ: mọi ngôn ngữ trên bản đồ thế giới, lọc theo điều kiện về đặc điểm WALS và tô màu theo một trong số đó.',
     'Land and borders:': 'Đất liền và biên giới:',
     'Dashed borders are disputed or not settled.':
       'Biên giới nét đứt là đang tranh chấp hoặc chưa xác định.',
