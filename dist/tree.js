@@ -15,6 +15,8 @@
 // view=tree, x/y/z (tree centre and zoom).
 (()=>{
 const host=document.getElementById('atlas');if(!host)return;
+// The page's font stack (--font in style.css, which follows the interface language), for the canvas and the SVG export.
+const siteFont=()=>getComputedStyle(document.body).fontFamily;
 const $=id=>document.getElementById(id),fmt=n=>n.toLocaleString(),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const base=host.dataset.base||'',rootId=host.dataset.root||null,rootSrc=host.dataset.src||'glottolog',branchPage=!!rootId;
 let data,unified,nodes,sourcePaths={},display='list',positions=[],scale=1,tx=0,ty=0,width=800,height=500,dirty=false,customView=false,restoring=false,viewTimer=0;
@@ -90,7 +92,7 @@ function draw(){dirty=false;ctx.clearRect(0,0,width,height);if(!nodes)return;
  for(const p of positions){const x=p.x*scale+tx,y=p.y*scale+ty,par=p.parent;
   if(par){const px=par.x*scale+tx,py=par.y*scale+ty;if(Math.max(px,x)<-20||Math.min(px,x)>width+20||Math.max(py,y)<-20||Math.min(py,y)>height+20)continue;ctx.beginPath();ctx.moveTo(px,py);ctx.bezierCurveTo((px+x)/2,py,(px+x)/2,y,x,y);ctx.strokeStyle=p.attachment?tok('976bb0'):p.sid==='glottolog'?col(nodes[p.id]):tok('bc9156');ctx.setLineDash(p.attachment?[4,4]:[]);ctx.globalAlpha=.5;ctx.lineWidth=p.id===rootId?2:.7;ctx.stroke();ctx.setLineDash([])}
   if(x< -250||x>width+30||y< -30||y>height+30)continue;ctx.globalAlpha=1;ctx.fillStyle=col(nodes[p.id]);ctx.beginPath();ctx.arc(x,y,p.id===rootId?4:Math.max(.4,Math.min(2.5,scale*2)),0,Math.PI*2);ctx.fill();
-  if(scale>.55||p.id===rootId){ctx.font=window.matchMedia('(max-width:700px)').matches?'16px Arial':'11px Arial';ctx.fillStyle=tok('2d463c');ctx.fillText(nodes[p.id].name+(p.attachment?' ['+title(p.sid)+']':''),x+7,y+3)}}
+  if(scale>.55||p.id===rootId){ctx.font=(window.matchMedia('(max-width:700px)').matches?'16px ':'11px ')+siteFont();ctx.fillStyle=tok('2d463c');ctx.fillText(nodes[p.id].name+(p.attachment?' ['+title(p.sid)+']':''),x+7,y+3)}}
  ctx.globalAlpha=1}
 function resize(){const box=$('viewport').getBoundingClientRect();if(!box.width||!box.height)return;const cx=(width/2-tx)/scale,cy=(height/2-ty)/scale;width=box.width;height=box.height;const dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=width*dpr;canvas.height=height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);if(!nodes)return;if(customView){tx=width/2-cx*scale;ty=height/2-cy*scale;requestDraw()}else fit()}
 function zoom(f,x=width/2,y=height/2){const next=Math.max(.0001,Math.min(20,scale*f)),r=next/scale;tx=x-(x-tx)*r;ty=y-(y-ty)*r;scale=next;viewMoved()}
@@ -98,7 +100,7 @@ function nearest(x,y){let best=null,dist=100;for(const p of positions){const d=(
 function setDisplay(d){display=d;showDisplay();syncButtons();if(d==='chart'){resize();layout()}else renderOutline();saveURL(true)}
 function exportSVG(){if(!positions.length)layout();const b=bounds(),pad=300,w=b.w+2*pad,h=b.h+2*pad;
  const out=[`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${b.x-pad} ${b.y-pad} ${w} ${h}"><title>Lang Log — source-conditioned branches</title><desc>Solid edges belong to the labeled source. Dashed edges attach alternative trees for navigation only; they do not assert ancestry. Repeated IDs are references to shared records. Full paper links and assertions are in the XML export.</desc><rect x="${b.x-pad}" y="${b.y-pad}" width="${w}" height="${h}" fill="#fafbf6"/>`];
- for(const p of positions){if(p.parent)out.push(`<path d="M${p.parent.x},${p.parent.y} L${p.x},${p.y}" fill="none" stroke="${p.attachment?'#976bb0':'#78917e'}" stroke-width="0.6" ${p.attachment?'stroke-dasharray="5 5"':''}/>`);out.push(`<g><title>${esc(p.id)} · according to ${esc(title(p.sid))}</title><circle cx="${p.x}" cy="${p.y}" r="2" fill="${col(nodes[p.id])}"/><text x="${p.x+5}" y="${p.y+3}" font-family="Arial" font-size="9" fill="#243c3b">${esc(nodes[p.id].name)}${p.attachment?' ['+esc(title(p.sid))+']':''}</text></g>`)}
+ for(const p of positions){if(p.parent)out.push(`<path d="M${p.parent.x},${p.parent.y} L${p.x},${p.y}" fill="none" stroke="${p.attachment?'#976bb0':'#78917e'}" stroke-width="0.6" ${p.attachment?'stroke-dasharray="5 5"':''}/>`);out.push(`<g><title>${esc(p.id)} · according to ${esc(title(p.sid))}</title><circle cx="${p.x}" cy="${p.y}" r="2" fill="${col(nodes[p.id])}"/><text x="${p.x+5}" y="${p.y+3}" font-family="${esc(siteFont())}" font-size="9" fill="#243c3b">${esc(nodes[p.id].name)}${p.attachment?' ['+esc(title(p.sid))+']':''}</text></g>`)}
  out.push('</svg>');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(out,{type:'image/svg+xml'}));a.download=(branchPage?(nodes[rootId].name.normalize('NFKD').replace(/[^\x00-\x7f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'branch'):'language-families')+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),10000)}
 
 const pointers=new Map();let moved=false,down=null,pinch=0;
