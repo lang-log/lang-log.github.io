@@ -46,6 +46,10 @@ python3 tools/build_wals_map.py
 # when that file is not there. Its tests run first.
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/build_releases.py
+# Lang Log is a progressive web app (.claude/rules/pwa.md): writes
+# dist/manifest.webmanifest (not committed) from tools/site_brand.py.
+python3 tools/pwa.py
+
 # The browser rebuilds the same objects as data.json and integrated.json.
 node tools/check_atlas_data.js
 # Every interface language has every string (.claude/rules/interface-text.md).
@@ -60,7 +64,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js random.json q.html search.js \
+         home.js random.json q.html search.js manifest.webmanifest pwa.js sw.js \
          explore.js explore.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
          stats/index.html stats.js sources/index.html updates/index.html \
@@ -134,6 +138,8 @@ grep -q 'href="style.css?v=' dist/index.html
 # inline style attribute or event handler that the policy would block
 # (.claude/rules/security.md).
 python3 tools/security_policy.py --check
+# Every page links the manifest and loads dist/pwa.js, which registers dist/sw.js.
+python3 tools/pwa.py --check
 
 # The site name, the title suffix and the profile link come from
 # tools/site_brand.py; the hand-written pages must match it.

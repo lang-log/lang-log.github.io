@@ -6,7 +6,7 @@ paths:
 
 # Interface text and colours
 
-- Every page loads `theme.js`, `i18n.js` and `lang.js` in `<head>`, after `style.css`. A new page or page generator does the same.
+- Every page loads `theme.js`, `i18n.js` and `lang.js` in `<head>`, after `style.css`, and links the manifest and `pwa.js` (`pwa.md`). A new page or page generator does the same.
 - Link local CSS, JS and SVG files by plain relative paths (`style.css`, `../logo.svg#logo`). `tools/version_assets.py` adds `?v=<content hash>` to them in CI so browsers never mix a new page with an old cached file; do not add a query by hand.
 - Lang Log offers the same languages as the profile site, in the same order (`LANGS` in `dist/lang.js`). Write interface text in English. Add every new string to every dictionary in the same pull request: Japanese in `dist/i18n.js`, the others in `dist/i18n/<code>.js` (`exact`, or `patterns` when the text holds a number or a name). `tools/check_i18n.js` fails CI when a language lacks a string.
 - Never write a count or a limit into interface text (`generated-values.md` in `research-aide`): the script fills it in from the data or from the constant the code uses (`data.counts` in `dist/signs-and-scripts.js`, `SEARCH_LIMIT` in `dist/search.js`, the comments in `source-data/sources-and-scope.html` filled by `tools/build_home.py`), and the dictionaries match it with a pattern.
