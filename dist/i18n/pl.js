@@ -23,6 +23,7 @@
     'Other kinds of languages': 'Inne rodzaje języków',
     'Families': 'Rodziny',
     'Languoids': 'Languoids',
+    'Sister languoids': 'siostrzane languoids',
     'Records from study trees only': 'Rekordy tylko z drzew badań',
     'Spoken languages': 'Języki mówione',
     'Spoken dialects': 'Dialekty mówione',
@@ -360,6 +361,7 @@
     [/^Other direct members: (.+)$/, 'Inni bezpośredni członkowie: $1'],
     [/^Macroarea: (.+)$/, 'Makroobszar: $1'],
     [/^All (\S+) models ↗$/, 'Wszystkie modele dla $1 ↗'],
+    [/^Members of (.+)$/, 'Członkowie $1'],
     [/^Map: location of (.+)$/, 'Mapa: położenie $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

@@ -23,6 +23,7 @@
     'Other kinds of languages': 'भाषाओं के अन्य प्रकार',
     'Families': 'परिवार',
     'Languoids': 'Languoids',
+    'Sister languoids': 'सहोदर languoids',
     'Records from study trees only': 'केवल अध्ययन-वृक्षों के रिकॉर्ड',
     'Spoken languages': 'मौखिक भाषाएँ',
     'Spoken dialects': 'मौखिक बोलियाँ',
@@ -354,6 +355,7 @@
     [/^Other direct members: (.+)$/, 'अन्य प्रत्यक्ष सदस्य: $1'],
     [/^Macroarea: (.+)$/, 'महाक्षेत्र: $1'],
     [/^All (\S+) models ↗$/, '$1 के सभी मॉडल ↗'],
+    [/^Members of (.+)$/, '$1 के सदस्य'],
     [/^Map: location of (.+)$/, 'मानचित्र: $1 का स्थान'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

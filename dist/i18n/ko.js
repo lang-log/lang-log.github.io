@@ -23,6 +23,7 @@
     'Other kinds of languages': '그 밖의 언어 종류',
     'Families': '어족',
     'Languoids': 'Languoids',
+    'Sister languoids': '자매 languoids',
     'Records from study trees only': '연구 계통수에만 있는 기록',
     'Spoken languages': '음성 언어',
     'Spoken dialects': '음성 언어 방언',
@@ -352,6 +353,7 @@
     [/^Other direct members: (.+)$/, '다른 직접 하위: $1'],
     [/^Macroarea: (.+)$/, '대지역: $1'],
     [/^All (\S+) models ↗$/, '$1 모델 모두 보기 ↗'],
+    [/^Members of (.+)$/, '$1의 하위'],
     [/^Map: location of (.+)$/, '지도: $1의 위치'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

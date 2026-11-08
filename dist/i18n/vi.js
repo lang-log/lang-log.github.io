@@ -23,6 +23,7 @@
     'Other kinds of languages': 'Các loại ngôn ngữ khác',
     'Families': 'Ngữ hệ',
     'Languoids': 'Languoids',
+    'Sister languoids': 'languoids chị em',
     'Records from study trees only': 'Bản ghi chỉ có trong cây nghiên cứu',
     'Spoken languages': 'Ngôn ngữ nói',
     'Spoken dialects': 'Phương ngữ nói',
@@ -360,6 +361,7 @@
     [/^Other direct members: (.+)$/, 'Các thành viên trực tiếp khác: $1'],
     [/^Macroarea: (.+)$/, 'Đại khu vực: $1'],
     [/^All (\S+) models ↗$/, 'Tất cả mô hình $1 ↗'],
+    [/^Members of (.+)$/, 'Các thành viên của $1'],
     [/^Map: location of (.+)$/, 'Bản đồ: vị trí của $1'],
     [
       /^(language|dialect|family|isolate) · ([\d,]+) sources( · ⚑)?$/,

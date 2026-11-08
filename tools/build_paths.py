@@ -458,7 +458,17 @@ def map_html(depth, i):
     svg = map_svg("../" * depth + "map/", main, context, None, label, main_ids=main_ids, context_ids=context_ids)
     if not svg:
         return ""
-    return (f'<figure class="lmap-figure">{svg}<figcaption>'
+    # The key: what each kind of point stands for, named by record (no kind labels).
+    # dist/map-zoom.js moves it into the map box, so the map view shows it too.
+    key = []
+    if main_ids == [i]:
+        key.append(f'<li class="lmap-key-main notranslate">{escape(n["name"])}</li>')
+    elif main:
+        key.append(f'<li class="lmap-key-main">Members of {escape(n["name"])}</li>')
+    if context:
+        key.append('<li class="lmap-key-ctx">Sister languoids</li>')
+    key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
+    return (f'<figure class="lmap-figure">{svg}{key_html}<figcaption>'
             'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
             "Projection: Web Mercator.</figcaption></figure>")
 
