@@ -33,6 +33,7 @@ jobs:
       - run: python3 tools/build_releases.py --fetch
         env:
           GITHUB_TOKEN: ${{ github.token }}
+      - run: python3 -m pip install --require-hashes -r requirements.txt
       - run: bash tools/build_site.sh
       - name: Make the preview (all but the record pages of other families)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'

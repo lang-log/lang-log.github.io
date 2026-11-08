@@ -15,7 +15,7 @@ CI; the HTML files committed in dist/ keep plain links.
 import hashlib
 import re
 
-from locations import DIST
+from locations import DIST, LANG_JS
 
 
 # href="..." or src="..." pointing at a relative .css, .js or .svg file,
@@ -56,7 +56,6 @@ def rewrite(page):
 # placeholder `var VERSIONS = {};` gets the content hash of every dictionary, so a changed
 # dictionary also gets a new address. This runs before the pages are versioned, because
 # it changes lang.js and so its hash.
-LANG_JS = DIST / "lang.js"
 VERSIONS = "var VERSIONS = {};"
 
 

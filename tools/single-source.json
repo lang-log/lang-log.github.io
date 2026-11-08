@@ -10,13 +10,13 @@
     {
       "pattern": "Lang Log by yoshi",
       "source": "tools/site_brand.py",
-      "also": ["dist/*.html", "dist/i18n.js", "dist/i18n/*.js"],
+      "also": ["dist/*.html", "i18n/*.yaml"],
       "why": "the title suffix; dictionaries translate whole titles, hand-written pages are checked by site_brand.py --check"
     },
     {
       "pattern": "All rights reserved",
       "source": "tools/site_brand.py",
-      "also": ["dist/i18n.js", "dist/i18n/*.js"],
+      "also": ["i18n/*.yaml"],
       "why": "the copyright line"
     },
     {

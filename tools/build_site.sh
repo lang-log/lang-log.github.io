@@ -3,6 +3,12 @@
 # Used by .github/workflows/site.yml (pull requests) and pages.yml (the live site).
 set -euo pipefail
 
+# Checks the interface text in i18n/*.yaml (every language has every text) and
+# writes the dictionaries the pages load: dist/i18n.js and dist/i18n/<code>.js
+# (not committed; .claude/rules/interface-text.md). Needs PyYAML
+# (requirements.txt).
+python3 tools/build_i18n.py
+
 # Converts the source data in source-data/ into the atlas data and its
 # downloads (not committed; built here): dist/data.json (Glottolog records
 # with WALS and names), dist/integrated.json (the study trees, conflicts and
@@ -52,8 +58,6 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/build_releases.py
 # The browser rebuilds the same objects as data.json and integrated.json.
 node tools/check_atlas_data.js
-# Every interface language has every string (.claude/rules/interface-text.md).
-node tools/check_i18n.js
 
 echo "Check that every page and data file is present"
 for f in index.html signs-and-scripts.html record.html 404.html \

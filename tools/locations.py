@@ -8,3 +8,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist"
+# The language menu script: its LANGS table lists the interface languages, and
+# tools/version_assets.py writes the dictionary versions into it.
+LANG_JS = DIST / "lang.js"
