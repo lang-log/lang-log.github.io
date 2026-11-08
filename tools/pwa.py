@@ -13,16 +13,26 @@ Every page links both in its <head> with head_tags(): the page generators
 (tools/build_home.py, tools/build_paths.py, tools/info_page.py) call it, and the
 hand-written pages in dist/*.html carry the same text.
 
-Usage (tools/build_site.sh):
+- <site>/offline-files.json, the list of every file of the site with its size and
+  content hash, written last in the build (and again for a pull request preview, which
+  holds only part of the site). The "save the whole site" button reads it and the service
+  worker stores each file, skipping those it already holds with the same hash.
+
+Usage (tools/build_site.sh, .github/workflows/site.yml):
   python3 tools/pwa.py           write dist/manifest.webmanifest
+  python3 tools/pwa.py --files DIR
+                                 write DIR/offline-files.json for the site in DIR
   python3 tools/pwa.py --check   fail if a page in dist/ lacks the tags, or the
                                  manifest or the service worker is missing
 """
 
+import hashlib
 import json
 import re
 import struct
 import sys
+
+from pathlib import Path
 
 from locations import DIST
 from site_brand import HOME_TITLE, SITE_NAME
@@ -30,6 +40,13 @@ from site_brand import HOME_TITLE, SITE_NAME
 MANIFEST = DIST / "manifest.webmanifest"
 REGISTER_SCRIPT = "pwa.js"
 SERVICE_WORKER = DIST / "sw.js"
+FILE_LIST = "offline-files.json"
+# Characters of the SHA-256 hex digest kept per file: enough to tell versions of one file
+# apart, as in tools/version_assets.py.
+HASH_CHARS = 10
+# Files never stored by the "save the whole site" button: the list itself, and the service
+# worker, which the browser fetches on its own.
+NOT_STORED = {FILE_LIST, SERVICE_WORKER.name}
 # The icons are the favicon (the asterisk, .claude/rules/logo.md): the SVG for any size,
 # and the PNG that iOS uses for the home screen.
 ICON_SVG = "favicon.svg"
@@ -67,6 +84,21 @@ def manifest():
             {"src": ICON_PNG, "sizes": f"{width}x{height}", "type": "image/png"},
         ],
     }
+
+
+def file_list(site):
+    """[address relative to the site, size in bytes, content hash] for every file in `site`.
+    A folder's index.html is listed by the folder's address ("afro-asiatic/berber/"), the
+    address its links use."""
+    files = []
+    for path in sorted(p for p in site.rglob("*") if p.is_file()):
+        rel = path.relative_to(site).as_posix()
+        if rel in NOT_STORED:
+            continue
+        data = path.read_bytes()
+        url = rel[: -len("index.html")] if path.name == "index.html" else rel
+        files.append([url or "./", len(data), hashlib.sha256(data).hexdigest()[:HASH_CHARS]])
+    return files
 
 
 def problems(page, text):
@@ -110,8 +142,16 @@ def check():
 def main(argv):
     if argv[1:] == ["--check"]:
         return check()
+    if len(argv) == 3 and argv[1] == "--files":
+        site = Path(argv[2])
+        files = file_list(site)
+        (site / FILE_LIST).write_text(
+            json.dumps({"files": files}, separators=(",", ":")), encoding="utf-8"
+        )
+        print(f"{FILE_LIST}: {len(files)} files, {sum(f[1] for f in files)} bytes")
+        return 0
     if argv[1:]:
-        print("usage: pwa.py [--check]", file=sys.stderr)
+        print("usage: pwa.py [--check | --files DIR]", file=sys.stderr)
         return 2
     MANIFEST.write_text(json.dumps(manifest(), indent=2) + "\n", encoding="utf-8")
     return 0

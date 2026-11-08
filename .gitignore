@@ -21,6 +21,7 @@ node_modules/
 /dist/releases.json
 # The web app manifest (tools/pwa.py).
 /dist/manifest.webmanifest
+/dist/offline-files.json
 /build/
 # Record pages written by build_paths.py (one directory per top-level family
 # and per source). Committed directories under dist/ are listed with !.

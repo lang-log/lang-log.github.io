@@ -148,3 +148,6 @@ python3 tools/site_brand.py --check
 # no copies of the values in tools/single-source.json, no colours outside the
 # tokens in dist/style.css, no constant defined twice with the same value.
 python3 tools/check_single_source.py
+# The list of every file for the "save the whole site" button, with sizes and content
+# hashes (.claude/rules/pwa.md). Last, so it describes the files as published.
+python3 tools/pwa.py --files dist
