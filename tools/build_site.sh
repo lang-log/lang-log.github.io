@@ -48,7 +48,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js i18n/es.js i18n/ar.js i18n/fa.js \
          data.json integrated.json language-families.xml language-families.opml \
          provenance.json signs-and-scripts.json signs-and-scripts.xml signs-and-scripts.opml \
-         lineage-paths.js stages.json tree.js record-page.js source-paths.json \
+         lineage-paths.js tree.js record-page.js source-paths.json \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \

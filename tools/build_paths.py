@@ -8,11 +8,11 @@ tools/build_site.sh runs them in order.
 - Each path segment is an ASCII slug of the record name. When two siblings
   share a slug, both get "-<glottocode>" appended, so a URL never depends on
   the order of the data.
-- Historical stages listed in source-data/historical-stages.json (for
-  example Old English) have no directory of their own. They are a section of
-  the modern language's page, reached as <modern path>/#<anchor> (for
-  example .../english/#old). Their children live under
-  <modern path>/<anchor>/<child>/.
+- Every record has its own page at its place in Glottolog, historical
+  stages (for example Old English) too. Lang Log's own classification
+  (source-data/lang-log/classification.json, such as Old English as the
+  parent of Middle English) is shown on the page next to Glottolog's and
+  does not change the URL.
 - Records that exist only in another source's tree (WALS genera and
   families, clades and unmatched samples of the study trees) get the same kind
   of page under that source: dist/<source>/<path in that tree>/, for example
@@ -59,7 +59,12 @@ PROFILE_URL = "https://nguekwang.github.io/en/?ref=langlog"
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
-stages = json.loads((ROOT / "source-data" / "historical-stages.json").read_text(encoding="utf-8"))["stages"]
+# Lang Log's own classification: child -> parent, and parent -> children.
+lang_log_parent = {c: v["parent"] for c, v in json.loads(
+    (ROOT / "source-data" / "lang-log" / "classification.json").read_text(encoding="utf-8"))["parents"].items()}
+lang_log_children = {}
+for _c, _p in lang_log_parent.items():
+    lang_log_children.setdefault(_p, []).append(_c)
 nodes = data["nodes"]
 extra = unified["extraNodes"]
 sources = unified["sources"]
@@ -79,13 +84,10 @@ def segments_for(ids):
     return {i: (s if count[s] == 1 else s + "-" + i) for i, s in base.items()}
 
 
-# Children per parent, with stages moved under their modern language.
-stage_of = {s: v for s, v in stages.items() if s in nodes and v["modern"] in nodes}
 segment = {}
 segment.update(segments_for(data["roots"]))
 for n in nodes.values():
-    kids = [c for c in n["children"] if c not in stage_of]
-    segment.update(segments_for(kids))
+    segment.update(segments_for(n["children"]))
 
 path_cache = {}
 
@@ -169,7 +171,7 @@ points_under = _points_under()
 
 
 def path_of(i):
-    """URL path below the atlas root, without leading or trailing slash; stages end in #anchor."""
+    """URL path below the atlas root, without leading or trailing slash."""
     if i in path_cache:
         return path_cache[i]
     if i in extra:
@@ -180,16 +182,9 @@ def path_of(i):
             p = path_of(n["parent"]) + "/" + extra_segment[i]
         else:  # a WALS family
             p = SOURCE_SLUG[n["source"]] + "/" + extra_segment[i]
-    elif i in stage_of:
-        p = path_of(stage_of[i]["modern"]) + "/#" + stage_of[i]["anchor"]
     else:
         parent = nodes[i].get("parent")
-        if parent in stage_of:
-            # Child of a stage: <modern>/<anchor>/<child>
-            st = stage_of[parent]
-            p = path_of(st["modern"]) + "/" + st["anchor"] + "/" + segment[i]
-        else:
-            p = (path_of(parent) + "/" if parent else "") + segment[i]
+        p = (path_of(parent) + "/" if parent else "") + segment[i]
     path_cache[i] = p
     return p
 
@@ -206,11 +201,7 @@ def lineage(i):
 
 def href(from_dir_depth, target_id):
     """Relative link from a page at depth from_dir_depth below the atlas root to a record."""
-    p = path_of(target_id)
-    if "/#" in p:
-        d, a = p.split("/#")
-        return "../" * from_dir_depth + d + "/#" + a
-    return "../" * from_dir_depth + p + "/"
+    return "../" * from_dir_depth + path_of(target_id) + "/"
 
 
 def href_source(depth, sid):
@@ -404,9 +395,32 @@ def breadcrumb(depth, ids, sid="glottolog"):
     return f'<nav class="lineage" aria-label="Classification according to {title}"><span class="lineage-source">{title}</span><ol class="lineage-path">{items}</ol></nav>'
 
 
+def lang_log_lineage(depth, i):
+    """The record's ancestors in Lang Log's own classification (oldest first),
+    shown under Glottolog's classification path."""
+    up, p = [], lang_log_parent.get(i)
+    while p:
+        up.insert(0, p)
+        p = lang_log_parent.get(p)
+    if not up:
+        return ""
+    items = "".join(f'<li><a href="{escape(href(depth, a))}">{escape(nodes[a]["name"])}</a></li>' for a in up)
+    return ('<nav class="lineage" aria-label="Classification according to Lang Log"><span class="lineage-source">Lang Log’s own</span>'
+            f'<ol class="lineage-path">{items}</ol></nav>')
+
+
+def lang_log_members(depth, i):
+    """The record's children in Lang Log's own classification."""
+    kids = sorted(lang_log_children.get(i, []), key=lambda c: nodes[c]["name"].lower())
+    if not kids:
+        return ""
+    rows = "".join(f'<li><a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a></li>' for c in kids)
+    return f'<section class="members"><h2>Members according to Lang Log · {len(kids)}</h2><ul class="record-links">{rows}</ul></section>'
+
+
 def children_html(depth, i):
     if i in nodes:
-        kids = [(c, "") for c in nodes[i]["children"] if c not in stage_of]
+        kids = [(c, "") for c in nodes[i]["children"]]
     else:  # members in the record's own source tree, with the source's sample label
         kids, seen = [], set()
         for e in by_source.get((extra[i]["source"], i), []):
@@ -557,7 +571,11 @@ def record_json(i):
         "path": path_of(i),
         "lineage": [{"id": a, "name": nodes[a]["name"], "path": path_of(a)} for a in lineage(i)[:-1]],
         "children": [{"id": c, "name": nodes[c]["name"], "level": nodes[c]["level"], "path": path_of(c)} for c in n["children"]],
-        "stages": [{"id": s, "name": nodes[s]["name"], "anchor": v["anchor"]} for s, v in stage_of.items() if v["modern"] == i],
+        "langLog": {
+            "parent": ({"id": lang_log_parent[i], "name": nodes[lang_log_parent[i]]["name"], "path": path_of(lang_log_parent[i])}
+                       if i in lang_log_parent else None),
+            "children": [{"id": c, "name": nodes[c]["name"], "path": path_of(c)} for c in lang_log_children.get(i, [])],
+        },
         "names": n.get("names", []), "nativeNames": n.get("nativeNames", []),
         "placements": [e for e in unified["placements"].get(i, [])],
         "source": "Glottolog 5.3 (CC BY 4.0)",
@@ -638,46 +656,22 @@ def main():
         if (OUT / name).is_dir():
             shutil.rmtree(OUT / name)
     written = 0
-    stages_by_modern = {}
-    for s, v in stage_of.items():
-        stages_by_modern.setdefault(v["modern"], []).append(s)
     for i in nodes:
-        if i in stage_of:
-            continue
         p = path_of(i)
         depth = p.count("/") + 1
         target = OUT / p
         target.mkdir(parents=True, exist_ok=True)
         anc = lineage(i)[:-1]
-        body = breadcrumb(depth, anc) + record_body(depth, i)
-        for s in sorted(stages_by_modern.get(i, []), key=lambda s: nodes[s]["name"]):
-            st = stage_of[s]
-            body += f'<section id="{escape(st["anchor"])}" class="stage"><p class="eyebrow">Historical stage · #{escape(st["anchor"])}</p>'
-            body += record_body(depth, s, "h2")
-            body += breadcrumb(depth, lineage(s)[:-1]).replace("aria-label=\"Classification according to Glottolog\"", "aria-label=\"Position in Glottolog\"")
-            body += '<p class="muted">Position of this stage in the Glottolog tree. Glottolog does not record which modern language it is a stage of; that link is curated in this atlas.</p>'
-            kids = sorted(nodes[s]["children"], key=lambda c: nodes[c]["name"].lower())
-            if kids:
-                body += "<ul class=\"record-links\">" + "".join(f'<li><a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a></li>' for c in kids) + "</ul>"
-            body += "</section>"
-        body += children_html(depth, i) + tree_html(depth, i, "glottolog") + hf_html(nodes[i])
+        body = breadcrumb(depth, anc) + lang_log_lineage(depth, i) + record_body(depth, i)
+        body += children_html(depth, i) + lang_log_members(depth, i) + tree_html(depth, i, "glottolog") + hf_html(nodes[i])
         body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
         (target / "index.html").write_text(page(depth, nodes[i]["name"], body), encoding="utf-8")
         (target / "record.json").write_text(json.dumps(record_json(i), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         written += 1
-    # A stage's anchor directory (e.g. .../korean/middle/) points back to the section.
-    for s, v in stage_of.items():
-        if nodes[s]["children"]:
-            d = OUT / path_of(v["modern"]) / v["anchor"]
-            d.mkdir(parents=True, exist_ok=True)
-            if not (d / "index.html").exists():
-                depth = path_of(v["modern"]).count("/") + 2
-                (d / "index.html").write_text(page(depth, nodes[s]["name"], f'<h1>{escape(nodes[s]["name"])}</h1><p><a href="../#{escape(v["anchor"])}">See {escape(nodes[s]["name"])} on the {escape(nodes[v["modern"]]["name"])} page</a></p>'), encoding="utf-8")
     written_sources = write_source_pages()
     (OUT / "source-paths.json").write_text(json.dumps({i: path_of(i) + "/" for i in extra}, separators=(",", ":")), encoding="utf-8")
-    (OUT / "stages.json").write_text(json.dumps({k: {"modern": v["modern"], "anchor": v["anchor"]} for k, v in stage_of.items()}), encoding="utf-8")
     if "--paths" in sys.argv:  # for checking dist/lineage-paths.js against these rules
-        (OUT / "paths.json").write_text(json.dumps({i: (path_of(i) if "/#" in path_of(i) else path_of(i) + "/") for i in nodes}), encoding="utf-8")
+        (OUT / "paths.json").write_text(json.dumps({i: path_of(i) + "/" for i in nodes}), encoding="utf-8")
     print(f"Wrote {written} Glottolog record pages and {written_sources} source-only record pages under dist/")
 
 
