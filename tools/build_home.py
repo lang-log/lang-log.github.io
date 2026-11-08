@@ -49,7 +49,7 @@ import build_paths as bp
 from languoid_map import min_width, world_box, world_view
 import info_page
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, HOME_TITLE, by_yoshi
+from site_brand import COPYRIGHT, GOOGLE_SITE_VERIFICATION, HOME_TITLE, by_yoshi
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -446,6 +446,7 @@ def main():
         + SECURITY_HEAD
         + '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<meta name="description" content="{escape(description)}">'
+        f'<meta name="google-site-verification" content="{escape(GOOGLE_SITE_VERIFICATION)}">'
         f"<title>{HOME_TITLE}</title>"
         '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
         '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
