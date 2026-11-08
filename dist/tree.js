@@ -9,7 +9,7 @@
 //   data-root  (record pages) the record whose branch is drawn;
 //   data-src   (record pages) the source of that branch: glottolog, wals or a study id.
 // The top page also has the filters #evidence and #category. Search has its
-// own page, <site>/q=<terms> (dist/search.js).
+// own page, <site>/q?q=<terms> (dist/q.html, dist/search.js).
 //
 // URL state (query string): evidence, category,
 // view=tree, x/y/z (tree centre and zoom).
