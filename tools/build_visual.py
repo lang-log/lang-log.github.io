@@ -178,13 +178,12 @@ for i, b in B.items():
         node(i, b["name"], "sign", b["level"], iso=b["iso"], area=b["area"], sources=["glottolog"])
         N[i]["aliases"] = b["names"]
         N[i]["nativeNames"] = b["nativeNames"]
-category = {"sign1238", "deaf1237", "auxi1235", "pidg1253", "unun9986"}
-for i, n in list(N.items()):
+# Glottolog's "Sign Language" and "L1 Sign Language" groups are not languoids;
+# tools/build_data.py has left them out, so every edge here is a classification.
+for i in list(N):
     p = B[i]["parent"]
     if p in N:
-        edge(p, i, "glottolog", "catalog navigation" if p in category else "catalog classification")
-    if i in category:
-        n["kind"] = "navigation category"
+        edge(p, i, "glottolog", "catalog classification")
 iso = {n.get("iso"): i for i, n in N.items() if n.get("iso")}
 
 
@@ -609,7 +608,7 @@ result = dict(
     files=files,
     limitations=[
         "Complete imports of the identified catalog snapshots, not a complete inventory of all world languages or scripts.",
-        "All 344 Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories.",
+        "Every Glottolog sign-language record is preserved, including families and dialects. Catalog groups that are not languoids are left out of the tree.",
         "Script catalog membership is much broader than the manually reviewed historical relationship set. A script with no edge has an unreviewed or unasserted placement, not a certified independent origin.",
         "SIL-local IDs are preserved and never fuzzy-merged with ISO codes. Possible duplicate concepts remain source-specific.",
         "Historical descent, graphic influence, sample identity and script usage are distinct relations. No global common ancestor is asserted.",

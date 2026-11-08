@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'اطلسی از خانواده‌های زبانی، زبان‌های اشاره و نظام‌های نوشتاری. هر جایگاه منبعی را که از آن پیروی می‌کند ذکر می‌کند، رده‌بندی‌های رقیب کنار هم نمایش داده می‌شوند و داده‌ها قابل بارگیری‌اند.',
     'Also': 'همچنین',
-    'All families and isolates': 'همهٔ خانواده‌ها و زبان‌های منفرد',
+    'Top-level languoids': 'Languoids سطح بالا',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': برای هر رکورد Glottolog یک صفحهٔ ساده، همراه با رده‌بندی و نقشهٔ آن.',
     'Corpora and data for low-resource languages: planned.':
@@ -427,8 +427,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'همهٔ $1 رکورد ردهٔ زبان‌های اشارهٔ Glottolog، از جمله رکوردهای خانواده و گویش. رده‌ها برای پیمایش‌اند.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'همهٔ $1 رکورد زبان اشارهٔ Glottolog، شامل خانواده‌ها و گویش‌ها. هر رکورد سطح بالا یک languoid جداگانه است.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -463,8 +463,8 @@
       'همهٔ $1 ردیف نمایهٔ بارگیری‌شده، از جمله شناسه‌های محلیِ غیر ISO. نوع‌ها و وضعیت‌های ذکرشده اطلاعات فهرست‌اند، نه تبارشناسیِ مستقلاً تأییدشده.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'همهٔ $1 رکورد ردهٔ زبان‌های اشارهٔ Glottolog نگه داشته شده‌اند، از جمله خانواده‌ها، گویش‌ها و رده‌های غیرتبارشناختی.',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'همهٔ رکوردهای زبان اشارهٔ Glottolog، شامل خانواده‌ها و گویش‌ها، نگه داشته شده‌اند. گروه‌های فهرست که languoid نیستند از درخت کنار گذاشته شده‌اند.',
     ],
     [/^Source label · (.+)$/, 'نام اصلی · $1'],
     [
@@ -477,7 +477,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · نتایج جست‌وجو · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'نتایج جست‌وجو · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'همهٔ خانواده‌ها · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'همهٔ خانواده‌ها و زبان‌های منفرد · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids سطح بالا · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'زیر $1 فهرست شده است؛ این یک گروه فهرست است، نه یک languoid.',
+    ],
     [/^Members · ([\d,]+)$/, 'اعضا · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'اعضا بر پایهٔ Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'نام‌ها و املاهای ثبت‌شده · $1'],

@@ -50,7 +50,7 @@ OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
 RESERVED = {"map", "data", "i18n", "stats", "sources", "updates", "features", "schema"}
 # Directories of earlier builds that no longer exist; removed on each run.
-OLD_DIRS = {"families"}
+OLD_DIRS = {"families", "sign-language"}
 
 data = json.loads((DIST / "data.json").read_text(encoding="utf-8"))
 unified = json.loads((DIST / "integrated.json").read_text(encoding="utf-8"))
@@ -256,8 +256,11 @@ def classification_html(depth, i):
     cards = []
     if i in nodes and not nodes[i].get("parent"):
         kind = "isolate" if nodes[i].get("isolate") else "entry"
+        # A group that is not a languoid (source-data/lang-log/not-languoids.json) is named, not linked.
+        grouping = (f'<p class="small-disclaimer">Listed under {escape(data["groupings"][i])}, a catalog group '
+                    'that is not a languoid.</p>') if i in data["groupings"] else ""
         cards.append(f'<div class="evidence-card"><strong>According to {source_name_link(depth, "glottolog")}</strong>'
-                     f'<p>Independent top-level {kind}; no higher family asserted here.</p>{ext_link("glottolog")}</div>')
+                     f'<p>Independent top-level {kind}; no higher family asserted here.</p>{grouping}{ext_link("glottolog")}</div>')
     seen = set()
     unique = []
     for e in unified["placements"].get(i, []):
@@ -362,7 +365,7 @@ def atlas_html(base, root=None, src=None, downloads=""):
             f'<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
             '<div id="outline" aria-label="Expandable classification outline"></div>'
             '<div id="viewport" hidden><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
-            '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Language families</h2>'
+            '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Independent roots &amp; alternatives</h2>'
             '<p id="view-count">Loading records…</p></div><div id="tooltip" hidden></div>'
             '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
             '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'

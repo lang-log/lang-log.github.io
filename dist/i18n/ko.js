@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       '어족, 수어, 문자 체계의 지도입니다. 모든 분류 위치에는 따른 출처를 밝히고, 서로 다른 분류는 함께 보여 주며, 데이터는 내려받을 수 있습니다.',
     'Also': '그 밖에',
-    'All families and isolates': '모든 어족과 고립어',
+    'Top-level languoids': '최상위 Languoids',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
     'Corpora and data for low-resource languages: planned.':
@@ -427,8 +427,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Glottolog 수어 범주의 기록 $1건 전부(어족과 방언 기록 포함)입니다. 범주는 탐색용입니다.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Glottolog의 수어 기록 $1건 전체(어족과 방언 포함)입니다. 최상위 기록은 각각 독립된 languoid입니다.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -463,8 +463,8 @@
       '내려받은 색인의 $1행 전부입니다(ISO에 없는 고유 식별자 포함). 종류와 상태는 목록의 정보이며 독자적으로 확인한 계통이 아닙니다.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Glottolog 수어 범주의 기록 $1건을 모두 보존합니다(어족, 방언, 계통이 아닌 범주 포함).',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Glottolog의 수어 기록은 어족과 방언을 포함해 모두 보존합니다. languoid가 아닌 목록상의 묶음은 나무에서 뺐습니다.',
     ],
     [/^Source label · (.+)$/, '원래 표기 · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 어족 · Lang Log by yoshi'],
@@ -474,7 +474,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 검색 결과 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '검색 결과 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '모든 어족 · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, '모든 어족과 고립어 · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, '최상위 Languoids · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      '$1 아래에 실려 있지만, 이 분류는 languoid가 아닌 목록상의 묶음입니다.',
+    ],
     [/^Members · ([\d,]+)$/, '하위 기록 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log에 따른 하위 기록 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '기록된 이름과 철자 · $1'],

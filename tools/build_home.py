@@ -25,16 +25,16 @@ form to this page (?q=).
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
-the three pools at random, then a record in it), so tapping the word does
+the pools at random, then a record in it), so tapping the word does
 something instead of selecting it as text. The buttons per domain and the
 row of links to the three atlases are gone (owner, 2026-11-07: Lang Log is
 one tree, not three domains). dist/home.js shows the row and, on a click, opens the page of a record
 drawn from dist/random.json, which this script writes (not committed):
 
-- language: page paths of Glottolog languages and dialects, without
-  bookkeeping records;
-- sign: sign languages and dialects of the signs-and-scripts data;
-- scripts: writing systems, without special and collection codes.
+- language: page paths of Glottolog languages and dialects of every
+  modality (sign languages included), without bookkeeping records;
+- scripts: writing systems, without special and collection codes (not yet
+  in the one tree, so they open record.html).
 """
 
 from html import escape
@@ -63,11 +63,6 @@ def random_pools():
             bp.path_of(n["id"]) + ("" if "/#" in bp.path_of(n["id"]) else "/")
             for n in nodes.values()
             if n.get("level") in ("language", "dialect") and n.get("category") != "Bookkeeping"
-        ),
-        "sign": sorted(
-            n["id"]
-            for n in visual.values()
-            if n.get("domain") == "sign" and n.get("kind") in ("language", "dialect")
         ),
         "scripts": sorted(
             n["id"]
@@ -113,7 +108,7 @@ def families_html():
         for a in unplaced
     )
     return (
-        f'<section class="home-section" id="families"><h2>All families and isolates · {len(roots)}</h2>'
+        f'<section class="home-section" id="families"><h2>Top-level languoids · {len(roots)}</h2>'
         '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
         f'<ul class="record-links">{rows}</ul>'
         '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '

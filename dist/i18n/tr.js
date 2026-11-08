@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Dil aileleri, işaret dilleri ve yazı sistemleri atlası. Her sınıflandırma hangi kaynağı izlediğini belirtir, birbiriyle yarışan sınıflandırmalar yan yana gösterilir ve veriler indirilebilir.',
     'Also': 'Ayrıca',
-    'All families and isolates': 'Tüm aileler ve yalıtık diller',
+    'Top-level languoids': 'En üst düzey Languoids',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
     'Corpora and data for low-resource languages: planned.':
@@ -431,8 +431,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Glottolog işaret dili kategorisindeki $1 kaydın tümü (aile ve ağız kayıtları dahil). Kategoriler gezinme içindir.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Glottolog’un $1 işaret dili kaydının tümü, aileler ve lehçeler dahil. En üst düzeydeki her kayıt kendi başına bir languoid’dir.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -467,8 +467,8 @@
       'İndirilen dizinin $1 satırının tümü (ISO dışı yerel tanımlayıcılar dahil). Belirtilen türler ve durumlar katalog bilgisidir, bağımsız olarak doğrulanmış soy değildir.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Glottolog işaret dili kategorisindeki $1 kaydın tümü korunmuştur (aileler, ağızlar ve soy dışı kategoriler dahil).',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Glottolog’un tüm işaret dili kayıtları, aileler ve lehçeler dahil korunur. Languoid olmayan katalog grupları ağaçtan çıkarılmıştır.',
     ],
     [/^Source label · (.+)$/, 'Özgün ad · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · Dil aileleri · Lang Log by yoshi'],
@@ -478,7 +478,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Arama sonuçları · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Arama sonuçları · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tüm aileler · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Tüm aileler ve yalıtık diller · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'En üst düzey Languoids · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      '$1 altında listelenir; bu, languoid olmayan bir katalog grubudur.',
+    ],
     [/^Members · ([\d,]+)$/, 'Üyeler · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log’a göre üyeler · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Kayıtlı adlar ve yazılışlar · $1'],

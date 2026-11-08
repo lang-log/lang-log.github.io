@@ -1,0 +1,14 @@
+{
+ "_comment": "Records a source lists as groups that are not languoids: catalog groupings by modality or status, not families with a common ancestor (the owner's decision, 2026-11-08). The build leaves them out of the tree: their members move up to the nearest real ancestor, or become top-level languoids. Each member keeps the grouping it was listed under as that source's claim (classification.<source>.grouping in languoid.json). Keys: the record's id in that source; values: its name, for reading only.",
+ "glottolog": {
+  "sign1238": "Sign Language",
+  "deaf1237": "L1 Sign Language",
+  "auxi1235": "Auxiliary Sign Systems",
+  "pidg1253": "Pidgin Sign Language",
+  "unun9986": "Unclassified L1 Sign Language"
+ },
+ "wals": {
+  "family-other": "other",
+  "genus-signlanguages": "Sign Languages"
+ }
+}

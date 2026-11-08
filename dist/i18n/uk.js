@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Атлас мовних родин, жестових мов і систем письма. Для кожного розміщення зазначено джерело, якому воно відповідає, конкурентні класифікації показано поруч, а дані можна завантажити.',
     'Also': 'Також',
-    'All families and isolates': 'Усі родини та ізольовані мови',
+    'Top-level languoids': 'Languoids верхнього рівня',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': проста сторінка для кожного запису Glottolog із його класифікацією та мапою.',
     'Corpora and data for low-resource languages: planned.':
@@ -430,8 +430,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Усі $1 записи категорії жестових мов Glottolog, зокрема записи родин і діалектів. Категорії слугують навігації.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Усі $1 записів Glottolog про жестові мови, зокрема родини й діалекти. Кожен запис верхнього рівня — окремий languoid.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -466,8 +466,8 @@
       'Усі рядки завантаженого покажчика ($1), зокрема локальні ідентифікатори поза ISO. Зазначені типи й статуси — метадані каталогу, а не незалежно перевірена генеалогія.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Збережено всі записи категорії жестових мов Glottolog ($1), зокрема родини, діалекти й негенеалогічні категорії.',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Усі записи Glottolog про жестові мови збережено, зокрема родини й діалекти. Групи каталогу, які не є languoids, вилучено з дерева.',
     ],
     [/^Source label · (.+)$/, 'Вихідна назва · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · Мовні родини · Lang Log by yoshi'],
@@ -477,7 +477,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Результати пошуку · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Результати пошуку · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Усі родини · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Усі родини та ізольовані мови · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids верхнього рівня · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'Зазначено в групі $1 — це група каталогу, а не languoid.',
+    ],
     [/^Members · ([\d,]+)$/, 'Члени · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Члени за Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Записані назви й написання · $1'],

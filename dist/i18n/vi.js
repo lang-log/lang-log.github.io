@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Tập bản đồ các ngữ hệ, ngôn ngữ ký hiệu và hệ chữ viết. Mỗi vị trí phân loại đều ghi rõ nguồn mà nó theo, các cách phân loại khác nhau được hiển thị cùng nhau, và có thể tải dữ liệu xuống.',
     'Also': 'Ngoài ra',
-    'All families and isolates': 'Tất cả ngữ hệ và ngôn ngữ biệt lập',
+    'Top-level languoids': 'Languoids cấp cao nhất',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
     'Corpora and data for low-resource languages: planned.':
@@ -432,8 +432,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Toàn bộ $1 bản ghi thuộc nhóm ngôn ngữ ký hiệu của Glottolog, kể cả bản ghi ngữ hệ và phương ngữ. Các nhóm dùng để điều hướng.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Tất cả $1 bản ghi ngôn ngữ ký hiệu của Glottolog, gồm cả ngữ hệ và phương ngữ. Mỗi bản ghi cấp cao nhất là một languoid riêng.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -471,8 +471,8 @@
       'Toàn bộ $1 dòng của chỉ mục đã tải xuống, kể cả mã định danh địa phương không thuộc ISO. Loại và trạng thái được nêu là siêu dữ liệu của danh mục, không phải phả hệ đã được xác minh độc lập.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Giữ lại toàn bộ $1 bản ghi thuộc nhóm ngôn ngữ ký hiệu của Glottolog, kể cả ngữ hệ, phương ngữ và các nhóm không mang tính phả hệ.',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Mọi bản ghi ngôn ngữ ký hiệu của Glottolog đều được giữ lại, gồm cả ngữ hệ và phương ngữ. Các nhóm của danh mục không phải languoid được bỏ khỏi cây.',
     ],
     [/^Source label · (.+)$/, 'Tên gốc · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · Ngữ hệ · Lang Log by yoshi'],
@@ -482,7 +482,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Kết quả tìm kiếm · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Tất cả ngữ hệ · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Tất cả ngữ hệ và ngôn ngữ biệt lập · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids cấp cao nhất · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'Được xếp dưới $1, một nhóm của danh mục, không phải một languoid.',
+    ],
     [/^Members · ([\d,]+)$/, 'Thành viên · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Thành viên theo Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Tên và cách viết đã ghi nhận · $1'],

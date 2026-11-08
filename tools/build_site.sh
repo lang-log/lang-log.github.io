@@ -31,6 +31,10 @@ python3 tools/build_paths.py
 # catalogue and one file per feature) and dist/schema/ (not committed;
 # built here). Checks every file against its schema.
 python3 tools/build_languoids.py
+# Groups a source lists that are not languoids (Glottolog's "Sign Language",
+# "L1 Sign Language" ...; source-data/lang-log/not-languoids.json) are left
+# out of the tree; fails if one is back in the data, the pages or languoid.json.
+python3 tools/check_not_languoids.py
 # Writes the small files the pages load (dist/data/, not committed):
 # the atlas tree, the search text and the names split into SHARDS files
 # (the number is set in dist/atlas-data.js).

@@ -159,7 +159,7 @@ window.LANGLOG_I18N = {
       'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
         '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
       'Also': 'ほかに',
-      'All families and isolates': 'すべての語族と孤立言語',
+      'Top-level languoids': '最上位の Languoids',
       ': one plain page per Glottolog record, with its classification and a map.':
         ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
       'Corpora and data for low-resource languages: planned.':
@@ -460,8 +460,8 @@ window.LANGLOG_I18N = {
     },
     patterns: [
       [
-        /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-        'Glottolog の手話の分類にある $1 件すべて(語族と方言の記録を含む)です。分類は案内のためのものです。',
+        /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+        'Glottolog の手話の記録 $1 件すべて(語族と方言を含む)です。最上位の記録はそれぞれ独立した languoid です。',
       ],
       [
         /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -512,8 +512,8 @@ window.LANGLOG_I18N = {
         'ダウンロードした索引の $1 行すべてです(ISO にない独自の識別子も含みます)。種類や状態はカタログの情報で、独自に確かめた系統ではありません。',
       ],
       [
-        /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-        'Glottolog の手話の分類にある $1 件の記録をすべて保っています(語族、方言、系統でない分類を含みます)。',
+        /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+        'Glottolog の手話の記録はすべて(語族と方言を含めて)残しています。languoid ではないカタログ上の分類は、木から外しています。',
       ],
       [/^Source label · (.+)$/, '元の表記 · $1'],
       [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 語族 · Lang Log by yoshi'],
@@ -523,7 +523,11 @@ window.LANGLOG_I18N = {
       [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 検索結果 · Lang Log by yoshi'],
       [/^Search results · Lang Log by yoshi$/, '検索結果 · Lang Log by yoshi'],
       [/^All families · Lang Log by yoshi$/, 'すべての語族 · Lang Log by yoshi'],
-      [/^All families and isolates · ([\d,]+)$/, 'すべての語族と孤立言語 · $1'],
+      [/^Top-level languoids · ([\d,]+)$/, '最上位の Languoids · $1'],
+      [
+        /^Listed under (.+), a catalog group that is not a languoid\.$/,
+        '$1 の下に載っていますが、この分類は languoid ではありません。',
+      ],
       [/^Members · ([\d,]+)$/, '下位の記録 · $1'],
       [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log による下位の記録 · $1'],
       [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '記録された名前とつづり · $1'],

@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Atlas rumpun bahasa, bahasa isyarat, dan sistem tulisan. Setiap penempatan menyebutkan sumber yang diikutinya, klasifikasi yang bersaing ditampilkan bersama, dan datanya dapat diunduh.',
     'Also': 'Selain itu',
-    'All families and isolates': 'Semua rumpun dan bahasa isolat',
+    'Top-level languoids': 'Languoids tingkat teratas',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
     'Corpora and data for low-resource languages: planned.':
@@ -431,8 +431,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Semua $1 catatan dalam kategori bahasa isyarat Glottolog, termasuk catatan rumpun dan dialek. Kategori digunakan untuk navigasi.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Semua $1 catatan bahasa isyarat Glottolog, termasuk rumpun dan dialek. Setiap catatan tingkat teratas adalah languoid tersendiri.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -470,8 +470,8 @@
       'Semua $1 baris indeks yang diunduh, termasuk pengenal lokal non-ISO. Jenis dan status yang disebutkan adalah metadata katalog, bukan silsilah yang diverifikasi secara mandiri.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Semua $1 catatan dalam kategori bahasa isyarat Glottolog dipertahankan, termasuk rumpun, dialek, dan kategori nonsilsilah.',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Semua catatan bahasa isyarat Glottolog disimpan, termasuk rumpun dan dialek. Kelompok katalog yang bukan languoid dikeluarkan dari pohon.',
     ],
     [/^Source label · (.+)$/, 'Nama asli · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · Rumpun bahasa · Lang Log by yoshi'],
@@ -481,7 +481,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · Hasil pencarian · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'Hasil pencarian · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Semua rumpun · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Semua rumpun dan bahasa isolat · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids tingkat teratas · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'Dicantumkan di bawah $1, kelompok katalog yang bukan languoid.',
+    ],
     [/^Members · ([\d,]+)$/, 'Anggota · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Anggota menurut Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nama dan ejaan yang tercatat · $1'],

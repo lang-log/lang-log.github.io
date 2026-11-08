@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'แผนที่ของตระกูลภาษา ภาษามือ และระบบการเขียน ทุกตำแหน่งระบุแหล่งข้อมูลที่ใช้ การจัดจำแนกที่แตกต่างกันแสดงไว้คู่กัน และดาวน์โหลดข้อมูลได้',
     'Also': 'นอกจากนี้',
-    'All families and isolates': 'ตระกูลทั้งหมดและภาษาโดดเดี่ยว',
+    'Top-level languoids': 'Languoids ระดับบนสุด',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่',
     'Corpora and data for low-resource languages: planned.':
@@ -428,8 +428,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'ระเบียนทั้ง $1 รายการในหมวดภาษามือของ Glottolog รวมถึงระเบียนตระกูลและภาษาถิ่น หมวดมีไว้สำหรับการนำทาง',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'ระเบียนภาษามือของ Glottolog ทั้งหมด $1 รายการ รวมทั้งตระกูลภาษาและภาษาถิ่น ระเบียนระดับบนสุดแต่ละรายการเป็น languoid ของตัวเอง',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -464,8 +464,8 @@
       'แถวทั้ง $1 แถวของดัชนีที่ดาวน์โหลด รวมถึงตัวระบุท้องถิ่นที่ไม่ใช่ ISO ประเภทและสถานะที่ระบุเป็นข้อมูลของบัญชีรายชื่อ ไม่ใช่วงศ์วานที่ตรวจสอบอย่างอิสระ',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'เก็บระเบียนในหมวดภาษามือของ Glottolog ไว้ทั้ง $1 รายการ รวมถึงตระกูล ภาษาถิ่น และหมวดที่ไม่ใช่วงศ์วาน',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'เก็บระเบียนภาษามือของ Glottolog ไว้ทั้งหมด รวมทั้งตระกูลภาษาและภาษาถิ่น กลุ่มในแคตตาล็อกที่ไม่ใช่ languoid ถูกนำออกจากแผนภูมิ',
     ],
     [/^Source label · (.+)$/, 'ชื่อตามต้นฉบับ · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · ตระกูลภาษา · Lang Log by yoshi'],
@@ -475,7 +475,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · ผลการค้นหา · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'ผลการค้นหา · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'ตระกูลทั้งหมด · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'ตระกูลทั้งหมดและภาษาโดดเดี่ยว · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids ระดับบนสุด · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'อยู่ในรายการภายใต้ $1 ซึ่งเป็นกลุ่มในแคตตาล็อก ไม่ใช่ languoid',
+    ],
     [/^Members · ([\d,]+)$/, 'สมาชิก · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'สมาชิกตาม Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'ชื่อและการสะกดที่บันทึกไว้ · $1'],

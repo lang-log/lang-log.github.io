@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'أطلس للأسر اللغوية ولغات الإشارة وأنظمة الكتابة. كل تصنيف يذكر المصدر الذي يتبعه، وتُعرض التصنيفات المتنافسة معًا، ويمكن تنزيل البيانات.',
     'Also': 'أيضًا',
-    'All families and isolates': 'كل الأسر واللغات المعزولة',
+    'Top-level languoids': 'Languoids في المستوى الأعلى',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': صفحة بسيطة لكل سجل في Glottolog، مع تصنيفه وخريطة.',
     'Corpora and data for low-resource languages: planned.':
@@ -426,8 +426,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'كل السجلات الـ $1 في فئة لغات الإشارة في Glottolog، بما فيها سجلات الأسر واللهجات. الفئات للتنقل.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'كل سجلات لغات الإشارة في Glottolog وعددها $1، بما فيها سجلات الأسر واللهجات. كل سجل في المستوى الأعلى languoid قائم بذاته.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -462,8 +462,8 @@
       'كل صفوف الفهرس المنزَّل البالغة $1، بما فيها المعرّفات المحلية غير التابعة لـ ISO. الأنواع والحالات المذكورة بيانات وصفية من الفهرس، وليست أنسابًا موثَّقة بشكل مستقل.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'حُفظت كل سجلات فئة لغات الإشارة في Glottolog البالغة $1، بما فيها الأسر واللهجات والفئات غير النسبية.',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'حُفظت كل سجلات لغات الإشارة في Glottolog، بما فيها سجلات الأسر واللهجات. أما مجموعات الفهرس التي ليست languoids فقد أُخرجت من الشجرة.',
     ],
     [/^Source label · (.+)$/, 'التسمية الأصلية · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · الأسر اللغوية · Lang Log by yoshi'],
@@ -473,7 +473,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · نتائج البحث · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'نتائج البحث · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'كل الأسر · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'كل الأسر واللغات المعزولة · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids في المستوى الأعلى · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'مدرجة تحت $1، وهي مجموعة في الفهرس وليست languoid.',
+    ],
     [/^Members · ([\d,]+)$/, 'الأعضاء · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'الأعضاء وفق Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'الأسماء والتهجئات المسجلة · $1'],

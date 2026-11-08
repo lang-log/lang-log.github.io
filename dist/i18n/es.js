@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'Un atlas de familias de lenguas, lenguas de señas y sistemas de escritura. Cada clasificación indica la fuente que sigue, las clasificaciones en competencia se muestran juntas y los datos se pueden descargar.',
     'Also': 'Además',
-    'All families and isolates': 'Todas las familias y lenguas aisladas',
+    'Top-level languoids': 'Languoids de nivel superior',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': una página sencilla por cada registro de Glottolog, con su clasificación y un mapa.',
     'Corpora and data for low-resource languages: planned.':
@@ -435,8 +435,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Los $1 registros de la categoría de lenguas de señas de Glottolog, incluidos los de familias y dialectos. Las categorías sirven para navegar.',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Los $1 registros de lenguas de señas de Glottolog, incluidos los de familias y dialectos. Cada registro de nivel superior es un languoid propio.',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -474,8 +474,8 @@
       'Las $1 filas del índice descargado, incluidos los identificadores locales que no son ISO. Los tipos y estados indicados son metadatos del catálogo, no una genealogía verificada de forma independiente.',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Se conservan los $1 registros de la categoría de lenguas de señas de Glottolog, incluidas familias, dialectos y categorías no genealógicas.',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Se conservan todos los registros de lenguas de señas de Glottolog, incluidos los de familias y dialectos. Los grupos del catálogo que no son languoids quedan fuera del árbol.',
     ],
     [/^Source label · (.+)$/, 'Denominación original · $1'],
     [
@@ -491,7 +491,11 @@
     ],
     [/^Search results · Lang Log by yoshi$/, 'Resultados de la búsqueda · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'Todas las familias · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'Todas las familias y lenguas aisladas · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'Languoids de nivel superior · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      'Figura en $1, un grupo del catálogo que no es un languoid.',
+    ],
     [/^Members · ([\d,]+)$/, 'Miembros · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Miembros según Lang Log · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'Nombres y grafías registrados · $1'],

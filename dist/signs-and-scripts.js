@@ -71,7 +71,6 @@
     (out[e.parent] ??= []).push(e);
     (inc[e.child] ??= []).push(e);
   }
-  $('nav-' + domain).setAttribute('aria-current', 'page');
   const sl = (s) =>
     `<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`;
   const short = (s) =>
@@ -175,8 +174,8 @@
       host.append(
         group(
           'Catalog classification',
-          `All ${c.glottologSignRecords} records in the Glottolog Sign Language category, including family and dialect records. Categories are navigation.`,
-          ['sign1238'],
+          `All ${c.glottologSignRecords} Glottolog sign-language records, including families and dialects. Each top-level record is its own languoid.`,
+          roots.filter((n) => n.sources?.includes('glottolog')).map((n) => n.id),
           true,
         ),
       );

@@ -38,6 +38,7 @@ import shutil
 
 import build_paths  # path rules: build_paths.path_of
 from locations import DIST, ROOT
+from not_languoids import NOT_LANGUOIDS, lift
 
 SRC = ROOT / "source-data"
 SCHEMA = ROOT / "schema"
@@ -143,18 +144,29 @@ def import_glottolog():
         raise ValueError(f"parents missing from languages.csv: {missing[:5]}")
     for i, n in out.items():
         root = i
-        while out[root]["classification"]["glottolog"]["parent"]:
-            root = out[root]["classification"]["glottolog"]["parent"]
-        # Glottolog's other top-level groupings (Pidgin, Mixed Language,
-        # Bookkeeping ...) are its own claims: they stay as the parents in
-        # classification.glottolog, not as Lang Log labels.
+        while parents.get(root):
+            root = parents[root]
+        # Glottolog's top-level groupings decide modality and constructed;
+        # read them from the full tree, before the groups that are not
+        # languoids are left out below.
         if out[root]["name"] == "Sign Language":
             n["modality"] = "signed"
         if out[root]["name"] == "Artificial Language":
             n["constructed"] = True
+    # Groups that are not languoids (tools/not_languoids.py) are left out; their
+    # members keep the group's name as Glottolog's grouping.
+    lifted, grouping = lift(parents, "glottolog")
+    for i in NOT_LANGUOIDS["glottolog"]:
+        del out[i]
+    for i, n in out.items():
+        n["classification"]["glottolog"]["parent"] = lifted.get(i)
+        if i in grouping:
+            n["classification"]["glottolog"]["grouping"] = grouping[i]
     iso_map = json.loads((SRC / "iso-map.json").read_text(encoding="utf-8"))
     placeholders = 0
     for r in read_csv(SRC / "names.csv"):
+        if r["Language_ID"] in NOT_LANGUOIDS["glottolog"]:
+            continue
         n = out[r["Language_ID"]]
         if r["Name"].lower() == "not specified":  # a provider's placeholder, not a name
             placeholders += 1
@@ -181,6 +193,8 @@ def import_glottolog():
 def import_wals(records):
     """WALS codes, classification and feature values, added to the records."""
     rows = read_csv(SRC / "wals.csv")
+    # WALS groups that are not languoids (tools/not_languoids.py) are skipped.
+    wals_parent, _ = lift({r["ID"]: r["Parent_ID"] or None for r in rows}, "wals")
     wals_id = {}  # WALS id -> Lang Log id
     for r in rows:
         wals_id[r["ID"]] = r["Glottocode"] if r["Glottocode"] in records else "wals:" + r["ID"]
@@ -206,7 +220,7 @@ def import_wals(records):
         n = records[i]
         n["codes"]["wals"].append(r["ID"])
         n["sources"]["wals"] = VERSION["wals"]
-        parent = wals_id.get(r["Parent_ID"]) if r["Parent_ID"] else None
+        parent = wals_id.get(wals_parent[r["ID"]]) if wals_parent[r["ID"]] else None
         if parent != i:
             n["classification"]["wals"] = {"parent": parent, "level": "language"}
         languages[r["ID"]] = i

@@ -67,7 +67,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       'भाषा-परिवारों, सांकेतिक भाषाओं और लेखन-प्रणालियों का एटलस। हर वर्गीकरण बताता है कि वह किस स्रोत पर आधारित है, परस्पर भिन्न वर्गीकरण साथ-साथ दिखाए जाते हैं, और डेटा डाउनलोड किया जा सकता है।',
     'Also': 'इसके अलावा',
-    'All families and isolates': 'सभी भाषा-परिवार और पृथक भाषाएँ',
+    'Top-level languoids': 'शीर्ष-स्तरीय Languoids',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog के हर रिकॉर्ड के लिए एक सरल पृष्ठ, उसके वर्गीकरण और मानचित्र के साथ।',
     'Corpora and data for low-resource languages: planned.':
@@ -427,8 +427,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Glottolog की सांकेतिक भाषा श्रेणी के सभी $1 रिकॉर्ड, भाषा-परिवार और बोली रिकॉर्ड सहित। श्रेणियाँ नेविगेशन के लिए हैं।',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Glottolog के सभी $1 सांकेतिक भाषा रिकॉर्ड, भाषा-परिवारों और बोलियों सहित। हर शीर्ष-स्तरीय रिकॉर्ड अपना अलग languoid है।',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -463,8 +463,8 @@
       'डाउनलोड की गई अनुक्रमणिका की सभी $1 पंक्तियाँ, ISO से बाहर के स्थानीय पहचानकर्ताओं सहित। बताए गए प्रकार और स्थितियाँ सूची की जानकारी हैं, स्वतंत्र रूप से सत्यापित वंशावली नहीं।',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      'Glottolog की सांकेतिक भाषा श्रेणी के सभी $1 रिकॉर्ड सुरक्षित हैं, भाषा-परिवारों, बोलियों और गैर-वंशावली श्रेणियों सहित।',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      'Glottolog के सभी सांकेतिक भाषा रिकॉर्ड, भाषा-परिवारों और बोलियों सहित, रखे गए हैं। सूची के जो समूह languoid नहीं हैं, उन्हें वृक्ष से हटाया गया है।',
     ],
     [/^Source label · (.+)$/, 'मूल नाम · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · भाषा-परिवार · Lang Log by yoshi'],
@@ -474,7 +474,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · खोज-परिणाम · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, 'खोज-परिणाम · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, 'सभी भाषा-परिवार · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, 'सभी भाषा-परिवार और पृथक भाषाएँ · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, 'शीर्ष-स्तरीय Languoids · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      '$1 के अंतर्गत सूचीबद्ध, जो सूची का एक समूह है, languoid नहीं।',
+    ],
     [/^Members · ([\d,]+)$/, 'सदस्य · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, 'Lang Log के अनुसार सदस्य · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, 'दर्ज नाम और वर्तनियाँ · $1'],

@@ -66,7 +66,7 @@
     'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
       '语系、手语和文字系统的图谱。每个归属都注明所依据的来源，相互竞争的分类并列显示，数据可以下载。',
     'Also': '另见',
-    'All families and isolates': '所有语系和孤立语言',
+    'Top-level languoids': '顶层 Languoids',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每条 Glottolog 记录一个简明页面，附有分类和地图。',
     'Corpora and data for low-resource languages: planned.': '低资源语言的语料库和数据：筹备中。',
@@ -418,8 +418,8 @@
   },
   patterns: [
     [
-      /^All ([\d,]+) records in the Glottolog Sign Language category, including family and dialect records\. Categories are navigation\.$/,
-      'Glottolog 手语类别中的全部 $1 条记录，包括语系和方言记录。类别仅用于导航。',
+      /^All ([\d,]+) Glottolog sign-language records, including families and dialects\. Each top-level record is its own languoid\.$/,
+      'Glottolog 的全部 $1 条手语记录，包括语系和方言。每条顶层记录都是独立的 languoid。',
     ],
     [
       /^All ([\d,]+) CLDF samples, including historical forms\. Published subgroup metadata, not an inferred whole-language tree\.$/,
@@ -454,8 +454,8 @@
       '下载的索引中的全部 $1 行，包括非 ISO 的本地标识符。所列类型和状态是目录信息，而不是经独立核实的谱系。',
     ],
     [
-      /^All ([\d,]+) Glottolog Sign Language-category records are preserved, including families, dialects and non-genealogical categories\.$/,
-      '保留 Glottolog 手语类别中的全部 $1 条记录，包括语系、方言和非谱系类别。',
+      /^Every Glottolog sign-language record is preserved, including families and dialects\. Catalog groups that are not languoids are left out of the tree\.$/,
+      '保留了 Glottolog 的全部手语记录，包括语系和方言。不是 languoid 的目录分组已从树中移除。',
     ],
     [/^Source label · (.+)$/, '原始标注 · $1'],
     [/^(.+) · Language families · Lang Log by yoshi$/, '$1 · 语系 · Lang Log by yoshi'],
@@ -465,7 +465,11 @@
     [/^(.+) · Search results · Lang Log by yoshi$/, '$1 · 搜索结果 · Lang Log by yoshi'],
     [/^Search results · Lang Log by yoshi$/, '搜索结果 · Lang Log by yoshi'],
     [/^All families · Lang Log by yoshi$/, '所有语系 · Lang Log by yoshi'],
-    [/^All families and isolates · ([\d,]+)$/, '所有语系和孤立语言 · $1'],
+    [/^Top-level languoids · ([\d,]+)$/, '顶层 Languoids · $1'],
+    [
+      /^Listed under (.+), a catalog group that is not a languoid\.$/,
+      '列在 $1 之下，但这是目录分组，不是 languoid。',
+    ],
     [/^Members · ([\d,]+)$/, '下位记录 · $1'],
     [/^Members according to Lang Log · ([\d,]+)$/, '根据 Lang Log 的下位记录 · $1'],
     [/^Recorded names (?:&|and) spellings · ([\d,]+)$/, '记录的名称和拼写 · $1'],
