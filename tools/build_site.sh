@@ -56,6 +56,9 @@ python3 tools/build_wals_map.py
 # when that file is not there. Its tests run first.
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/build_releases.py
+# Writes dist/sitemap.xml and dist/robots.txt (not committed) from the pages
+# written above: every page without "noindex", for search engines.
+python3 tools/build_sitemap.py
 # The browser rebuilds the same objects as data.json and integrated.json.
 node tools/check_atlas_data.js
 
@@ -72,7 +75,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          explore.js explore.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
          stats/index.html stats.js sources/index.html updates/index.html \
-         releases.html releases.json \
+         releases.html releases.json sitemap.xml robots.txt \
          afro-asiatic/berber/languoid.json features/index.json \
          features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }

@@ -20,6 +20,9 @@ node_modules/
 /dist/releases.html
 /dist/releases.json
 /build/
+# The sitemap and robots.txt (tools/build_sitemap.py).
+/dist/sitemap*.xml
+/dist/robots.txt
 # Record pages written by build_paths.py (one directory per top-level family
 # and per source). Committed directories under dist/ are listed with !.
 /dist/*/

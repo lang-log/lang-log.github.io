@@ -24,6 +24,9 @@ SITE_NAME = "Lang Log"
 # from it (tools/github_api.py) and the Releases page links to it.
 REPOSITORY = "lang-log/lang-log.github.io"
 REPOSITORY_URL = f"https://github.com/{REPOSITORY}"
+# The live site: an organization site of GitHub Pages is served at the host
+# its repository is named after.
+SITE_URL = f"https://{REPOSITORY.split('/')[1]}/"
 OWNER = "MATSUURA Yoshihiro"
 HOME_TITLE = f"{SITE_NAME} by yoshi"
 TITLE_SUFFIX = f" · {HOME_TITLE}"
