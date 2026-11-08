@@ -25,6 +25,7 @@
     'Other kinds of languages': 'Các loại ngôn ngữ khác',
     'Families': 'Ngữ hệ',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'Bản ghi chỉ có trong cây nghiên cứu',
     'Spoken languages': 'Ngôn ngữ nói',
     'Spoken dialects': 'Phương ngữ nói',
@@ -540,7 +541,6 @@
     [/^All (\S+) models ↗$/, 'Tất cả mô hình $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'Giai đoạn lịch sử · $1'],
     [/^Members of (.+)$/, 'Các thành viên của $1'],
-    [/^Other members of (.+)$/, 'Các thành viên khác của $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

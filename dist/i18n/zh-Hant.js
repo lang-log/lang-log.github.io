@@ -24,6 +24,7 @@
     'Other kinds of languages': '其他種類的語言',
     'Families': '語系',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': '僅見於研究譜系樹的紀錄',
     'Spoken languages': '有聲語言',
     'Spoken dialects': '有聲語言的方言',
@@ -517,7 +518,6 @@
     [/^All (\S+) models ↗$/, '查看 $1 的全部模型 ↗'],
     [/^Historical stage · (#\S+)$/, '歷史階段 · $1'],
     [/^Members of (.+)$/, '$1 的下位'],
-    [/^Other members of (.+)$/, '$1 的其他下位'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

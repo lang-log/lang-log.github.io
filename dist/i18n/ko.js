@@ -25,6 +25,7 @@
     'Other kinds of languages': '그 밖의 언어 종류',
     'Families': '어족',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': '연구 계통수에만 있는 기록',
     'Spoken languages': '음성 언어',
     'Spoken dialects': '음성 언어 방언',
@@ -532,7 +533,6 @@
     [/^All (\S+) models ↗$/, '$1 모델 모두 보기 ↗'],
     [/^Historical stage · (#\S+)$/, '역사상의 단계 · $1'],
     [/^Members of (.+)$/, '$1의 하위'],
-    [/^Other members of (.+)$/, '$1의 다른 하위'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

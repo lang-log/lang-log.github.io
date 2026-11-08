@@ -25,6 +25,7 @@
     'Other kinds of languages': 'Diğer dil türleri',
     'Families': 'Aileler',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'Yalnızca çalışma ağaçlarındaki kayıtlar',
     'Spoken languages': 'Sözlü diller',
     'Spoken dialects': 'Sözlü lehçeler',
@@ -536,7 +537,6 @@
     [/^All (\S+) models ↗$/, 'Tüm $1 modelleri ↗'],
     [/^Historical stage · (#\S+)$/, 'Tarihsel aşama · $1'],
     [/^Members of (.+)$/, '$1 üyeleri'],
-    [/^Other members of (.+)$/, '$1 grubunun diğer üyeleri'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

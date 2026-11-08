@@ -25,6 +25,7 @@
     'Other kinds of languages': 'ภาษาประเภทอื่น',
     'Families': 'ตระกูล',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'ระเบียนที่มีเฉพาะในแผนภูมิการศึกษา',
     'Spoken languages': 'ภาษาพูด',
     'Spoken dialects': 'ภาษาถิ่นของภาษาพูด',
@@ -536,7 +537,6 @@
     [/^All (\S+) models ↗$/, 'โมเดล $1 ทั้งหมด ↗'],
     [/^Historical stage · (#\S+)$/, 'ขั้นทางประวัติศาสตร์ · $1'],
     [/^Members of (.+)$/, 'สมาชิกของ $1'],
-    [/^Other members of (.+)$/, 'สมาชิกอื่นของ $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

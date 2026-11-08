@@ -25,6 +25,7 @@
     'Other kinds of languages': 'Andere soorten talen',
     'Families': 'Families',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'Records alleen uit studiebomen',
     'Spoken languages': 'Gesproken talen',
     'Spoken dialects': 'Gesproken dialecten',
@@ -546,7 +547,6 @@
     [/^All (\S+) models ↗$/, 'Alle modellen voor $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'Historisch stadium · $1'],
     [/^Members of (.+)$/, 'Leden van $1'],
-    [/^Other members of (.+)$/, 'Andere leden van $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

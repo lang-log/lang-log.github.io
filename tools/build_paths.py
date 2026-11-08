@@ -479,7 +479,7 @@ def map_html(depth, i):
     if main:
         key.append(f'<li class="lmap-key-main">Members of {escape(n["name"])}</li>')
     if context:
-        key.append(f'<li class="lmap-key-ctx">Other members of {escape(nodes[parent]["name"])}</li>')
+        key.append('<li class="lmap-key-ctx">Sister languoids</li>')
     key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
     legend = " ".join(notes)
     return (f'<figure class="lmap-figure">{svg}{key_html}<figcaption>{legend} '

@@ -25,6 +25,7 @@
     'Other kinds of languages': 'भाषाओं के अन्य प्रकार',
     'Families': 'परिवार',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'केवल अध्ययन-वृक्षों के रिकॉर्ड',
     'Spoken languages': 'मौखिक भाषाएँ',
     'Spoken dialects': 'मौखिक बोलियाँ',
@@ -532,7 +533,6 @@
     [/^All (\S+) models ↗$/, '$1 के सभी मॉडल ↗'],
     [/^Historical stage · (#\S+)$/, 'ऐतिहासिक चरण · $1'],
     [/^Members of (.+)$/, '$1 के सदस्य'],
-    [/^Other members of (.+)$/, '$1 के अन्य सदस्य'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

@@ -32,6 +32,7 @@ window.LANGLOG_I18N = {
       'Other kinds of languages': 'そのほかの言語',
       'Families': '語族',
       'Languoids': 'Languoids',
+      'Sister languoids': 'Sister languoids',
       'Records from study trees only': '研究の系統樹だけにある記録',
       'Spoken languages': '音声言語',
       'Spoken dialects': '音声言語の方言',
@@ -578,7 +579,6 @@ window.LANGLOG_I18N = {
       [/^All (\S+) models ↗$/, '$1 のモデルをすべて見る ↗'],
       [/^Historical stage · (#\S+)$/, '歴史上の段階 · $1'],
       [/^Members of (.+)$/, '$1 の下位'],
-      [/^Other members of (.+)$/, '$1 のほかの下位'],
       [
         /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
         function (m) {

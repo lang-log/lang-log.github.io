@@ -25,6 +25,7 @@
     'Other kinds of languages': 'أنواع أخرى من اللغات',
     'Families': 'الأسر',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'سجلات من أشجار الدراسات فقط',
     'Spoken languages': 'اللغات المنطوقة',
     'Spoken dialects': 'اللهجات المنطوقة',
@@ -528,7 +529,6 @@
     [/^All (\S+) models ↗$/, 'كل نماذج $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'مرحلة تاريخية · $1'],
     [/^Members of (.+)$/, 'أعضاء $1'],
-    [/^Other members of (.+)$/, 'أعضاء آخرون في $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {

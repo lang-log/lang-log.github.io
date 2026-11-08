@@ -25,6 +25,7 @@
     'Other kinds of languages': 'Jenis bahasa lainnya',
     'Families': 'Rumpun',
     'Languoids': 'Languoids',
+    'Sister languoids': 'Sister languoids',
     'Records from study trees only': 'Catatan yang hanya ada di pohon studi',
     'Spoken languages': 'Bahasa lisan',
     'Spoken dialects': 'Dialek lisan',
@@ -542,7 +543,6 @@
     [/^All (\S+) models ↗$/, 'Semua model $1 ↗'],
     [/^Historical stage · (#\S+)$/, 'Tahap historis · $1'],
     [/^Members of (.+)$/, 'Anggota $1'],
-    [/^Other members of (.+)$/, 'Anggota lain dari $1'],
     [
       /^([\d,]+) languages shown(?:; ([\d,]+) have no coordinates in Glottolog)?\.$/,
       function (m) {
