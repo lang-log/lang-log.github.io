@@ -26,19 +26,17 @@
 //   cannot scroll meanwhile, so a plain wheel zooms too. The view keeps its scale on screen
 //   when it opens and closes, and takes the shape of the window. The address gets
 //   #map-view (one history entry), so a shared link opens the map view at once.
-// - Points: a tap (or click) near a point, within TAP_PX on screen, shows a box for it, on
-//   every map that mounts this script. On the record maps the points are circles with
-//   data-g (Glottocodes, written by languoid_map.py) and the box lists the names of their
-//   records, each a link to the record's page; names and addresses come from
-//   dist/atlas-data.js and dist/lineage-paths.js, loaded on the first tap. The top page's
-//   map view keeps the same tap handling and gives its own points and box (onTap()).
+// - Points: a tap (or click) near a circle with data-g (Glottocodes, written by
+//   languoid_map.py, and by dist/explore.js on the top page's map view), within TAP_PX on
+//   screen, shows a box with the names of its records, each a link to the record's page.
+//   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
+//   the first tap. Every map that mounts this script shows the same box.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
 // svg receives an "lmap:view" event, detail {k, x, y, w, h}, after every change; k is the
 // view width divided by the starting width, so a point of radius r0 should be drawn at
-// r0 * k to keep its size on screen. A page that adds or replaces points after mounting calls refresh() on the object mount returns,
-// and a page with its own points and box calls onTap(selector, fill) on it.
+// r0 * k to keep its size on screen. A page that adds or replaces points after mounting calls refresh() on the object mount returns.
 (function () {
   'use strict';
   var TILE_BELOW = 700; // view width (SVG units) below which tiles are drawn
@@ -706,24 +704,22 @@
       else openView(true);
     });
 
-    // Taps on points. One handler for every map: a tap (or click) that did not end a drag
-    // picks the nearest point within TAP_PX on screen (points are only a few pixels wide)
-    // and shows a box for it next to the tap; a tap elsewhere, Escape or closing the map
-    // view hides it. Record maps show the records of a circle with data-g (showRecords);
-    // a page with its own points and box replaces both with onTap() (dist/explore.js).
+    // Taps on points: a tap (or click) that did not end a drag picks the nearest circle with
+    // data-g within TAP_PX on screen (points are only a few pixels wide) and shows the box
+    // of its records next to the tap; a tap elsewhere, Escape, closing the map view or new
+    // points (refresh()) hide it. The same on the record maps and the top page's map view.
     var root = base.replace(/map\/$/, '');
-    var tap = { sel: 'circle[data-g]', fill: showRecords },
-      box = null,
+    var pop = null,
       downAt = null,
       tapAt = null;
     function hidePop() {
-      if (box) box.hidden = true;
+      if (pop) pop.hidden = true;
     }
     function nearest(clientX, clientY) {
       var p = toSvg(clientX, clientY),
         best = null,
         bd = Infinity;
-      var cs = svg.querySelectorAll(tap.sel);
+      var cs = svg.querySelectorAll('circle[data-g]');
       for (var i = 0; i < cs.length; i++) {
         var c = cs[i],
           dx = parseFloat(c.getAttribute('cx')) - p[0],
@@ -738,18 +734,6 @@
       return best;
     }
     function showPop(c, clientX, clientY) {
-      hidePop();
-      box = tap.fill(c, function () {
-        place(clientX, clientY);
-      });
-      if (!box) return;
-      box.hidden = false;
-      place(clientX, clientY);
-    }
-    // The records of a point, as a list of names linked to their pages. The names come
-    // later (records()); again() places the box once they are in.
-    var pop = null;
-    function showRecords(c, again) {
       var ids = c.getAttribute('data-g').split(' ').filter(Boolean);
       if (!pop) {
         pop = document.createElement('div');
@@ -777,6 +761,8 @@
         svg.focus();
       });
       pop.appendChild(x);
+      pop.hidden = false;
+      place(clientX, clientY);
       records(ids, root).then(
         function (rs) {
           if (pop.hidden || pop.firstChild !== list) return;
@@ -788,18 +774,17 @@
             if (r.url) a.href = r.url;
             li.appendChild(a);
           });
-          again();
+          place(clientX, clientY);
         },
         function () {},
       );
-      return pop;
     }
     function place(clientX, clientY) {
       var b = host.getBoundingClientRect();
-      var x = Math.min(clientX - b.left + 10, b.width - box.offsetWidth - 8);
-      var y = Math.min(clientY - b.top + 10, b.height - box.offsetHeight - 8);
-      box.style.left = Math.max(8, x) + 'px';
-      box.style.top = Math.max(8, y) + 'px';
+      var x = Math.min(clientX - b.left + 10, b.width - pop.offsetWidth - 8);
+      var y = Math.min(clientY - b.top + 10, b.height - pop.offsetHeight - 8);
+      pop.style.left = Math.max(8, x) + 'px';
+      pop.style.top = Math.max(8, y) + 'px';
     }
     // Where the finger or pointer went down and came up decides, not the click: phone
     // browsers move a tap's click towards the nearest element they think it meant.
@@ -837,15 +822,10 @@
         return full;
       },
       refresh: function () {
+        // The points changed: a box for a point that may be gone is closed.
+        hidePop();
         points = null;
         schedule();
-      },
-      // Points of the page's own: sel picks the circles a tap can hit, fill(circle, again)
-      // fills the page's box (an element inside the map's host) and returns it, or returns
-      // null to show nothing; again() places the box anew if its size changes later.
-      onTap: function (sel, fill) {
-        hidePop();
-        tap = { sel: sel, fill: fill };
       },
       view: function () {
         return { x: view.x, y: view.y, w: view.w, h: view.h };
@@ -871,7 +851,7 @@
     if (e.key === 'Escape' && opened && !e.defaultPrevented) opened.close(false);
   });
 
-  window.LangLogMap = { mount: mount, records: records, POINT_PX: POINT_PX };
+  window.LangLogMap = { mount: mount, POINT_PX: POINT_PX };
   function all() {
     Array.prototype.forEach.call(document.querySelectorAll('svg.lmap[data-map]'), mount);
   }
