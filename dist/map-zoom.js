@@ -1,5 +1,5 @@
 // Zoom and pan for the maps drawn by tools/languoid_map.py (svg.lmap on the record pages)
-// and for the language feature map. Without JavaScript the map is a still picture; this
+// and for the map view of the top page (dist/explore.js). Without JavaScript the map is a still picture; this
 // script only adds movement.
 //
 // - The map goes round the world: dragging east or west never reaches an edge. The
@@ -30,7 +30,7 @@
 //   languoid_map.py) shows a box with the names of its records, each a link to the
 //   record's page. Names and addresses come from dist/atlas-data.js and
 //   dist/lineage-paths.js, loaded on the first tap; records() is shared with the
-//   feature map, whose own box shows more.
+//   top page's map view, whose own box shows more.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
@@ -46,7 +46,7 @@
   var HASH = '#map-view'; // address of the map view
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
   // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
-  // The feature map's dots start from it too (LangLogMap.POINT_PX).
+  // The top page's map dots start from it too (LangLogMap.POINT_PX).
   var POINT_PX = 4;
   var manifest = null,
     manifestWait = [],
@@ -618,7 +618,7 @@
     wrap.appendChild(svg);
     wrap.appendChild(bar);
     // The part of the page that fills the window in the map view: the map, or a larger
-    // box marked lmap-host that holds the map and its own overlays (the feature map).
+    // box marked lmap-host that holds the map and its own overlays (the top page's map view).
     var host = wrap.closest('.lmap-host') || wrap;
 
     // Map view. resize() keeps the centre and the scale on screen while the box changes.

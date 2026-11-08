@@ -102,17 +102,17 @@
       'Наприклад: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Наприклад: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Наприклад: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Фільтр за даними',
-    'All evidence': 'Усі дані',
-    'With research trees': 'З дослідницькими деревами',
-    'With conflicting study clades': 'Із суперечливими кладами досліджень',
-    'Record category': 'Тип запису',
-    'All categories': 'Усі типи',
     'Spoken genealogy': 'Генеалогія звукових мов',
     'Isolates': 'Ізольовані мови',
     'View': 'Вигляд',
     'List': 'Список',
     'Tree': 'Дерево',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Мапа',
+    'Yes': 'Так',
+    'No': 'Ні',
+    'Conflicting study clades': 'Суперечливі клади досліджень',
+    'Research trees': 'Дослідницькі дерева',
     'All roots': 'Усі корені',
     'Selected branch': 'Вибрана гілка',
     'Collapse all': 'Згорнути все',
@@ -367,7 +367,6 @@
       'Дерева джерел, що охоплюють кілька родин або зовнішні групи',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Дерева досліджень і родини WALS, що охоплюють понад одну родину Glottolog. Їх наведено тут лише для навігації.',
-    'Whole tree': 'Усе дерево',
     'Show the tree of this branch': 'Показати дерево цієї гілки',
     'Where Lang Log attaches this tree': 'Де Lang Log приєднує це дерево',
     "Other sources' trees below this record": 'Дерева інших джерел нижче цього запису',
@@ -402,12 +401,7 @@
     'Back to search results': 'Назад до результатів пошуку',
     'genus': 'рід (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Мапа мовних ознак',
-    'Language feature map · Lang Log by yoshi': 'Мапа мовних ознак · Lang Log by yoshi',
-    'About': 'Про мапу',
     'About this map': 'Про цю мапу',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Спочатку на мапі всі мови. Додавайте умови, щоб залишити лише відповідні мови, і виберіть ознаку, за якою розфарбовуються точки.',
     'Colour by': 'Колір за ознакою',
     'None (one colour)': 'Немає (один колір)',
     'Conditions': 'Умови',
@@ -429,12 +423,8 @@
       'Точки — це всі мови Glottolog 5.3 з координатами, у репрезентативній точці, яку вказує Glottolog, а не область, де цією мовою говорять. Значення ознак узято з WALS Online (Dryer і Haspelmath, ред., 2013), випуск CLDF v2020.4, ліцензія CC BY 4.0, і прив’язано до мови Glottolog для кожної мови WALS.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'Значення, позначені в одній умові, поєднуються через АБО. Умови поєднуються через І, якщо ви не перемкнете зв’язку на OR; умови, поєднані через OR, вважаються однією групою, тому «A AND B OR C» означає «A AND (B OR C)». Мова без даних щодо ознаки умови не відповідає цій умові.',
-    'This map needs JavaScript. The feature data is in':
-      'Для цієї мапи потрібен JavaScript. Дані про ознаки містяться в',
     'Land and borders: Natural Earth (public domain)':
       'Суходіл і кордони: Natural Earth (суспільне надбання)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Мапа мовних ознак: усі мови на мапі світу, відібрані за умовами щодо ознак WALS і розфарбовані за однією з них.',
     'Land and borders:': 'Суходіл і кордони:',
     'Dashed borders are disputed or not settled.': 'Пунктирні кордони спірні або не встановлені.',
     'Reset': 'Скинути',

@@ -58,21 +58,26 @@ Every screen state that can be shared is kept in the query string, so a copied a
 
 The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Under the search box, a Random row (Language, Sign language, Writing system) opens the page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
-The top page is also the top of the language-families tree. Below the introduction it lists all top-level families and isolates (each linked to its record page), draws the whole tree (`dist/tree.js`: list or zoomable tree, filters, dialects, SVG, XML and OPML downloads) and holds the Sources & scope text (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
+The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in three views (owner, 2026-11-08), with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 
-Language families (the top page and every record page):
+- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript.
+- Map: every Glottolog language with a point, coloured by one feature if chosen (this replaced the separate feature map page).
+- Tree: the zoomable tree of every root (`dist/tree.js`), with SVG, XML and OPML downloads.
 
-| Parameter     | Meaning                                                                                              |
-| ------------- | ---------------------------------------------------------------------------------------------------- |
-| `q`           | Search text (top page); the matches are listed under the search box                                  |
-| `evidence`    | Evidence filter: `conflicts` or `studies` (top page)                                                 |
-| `category`    | Record category filter, as in the category menu (for example `isolates`, `Sign Language`) (top page) |
-| `dialects=0`  | Hide dialects in the tree                                                                            |
-| `view=tree`   | Horizontal tree instead of the list                                                                  |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming           |
-| `task`        | Hugging Face model task on a record page (for example `translation`)                                 |
+Conditions are on WALS features and on two Lang Log features, conflicting study clades and research trees (`tools/build_wals_map.py`); the values ticked in one condition are joined by OR, conditions by AND unless switched to OR. The Sources & scope text is on its own page (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
 
-On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view`, `dialects` or `x`.
+Query parameters:
+
+| Parameter     | Meaning                                                                                                         |
+| ------------- | --------------------------------------------------------------------------------------------------------------- |
+| `q`           | Search text on the top page; it opens the search results page `/q=<terms>`                                      |
+| `view`        | Top page: `map` or `tree` (the list when left out). Record pages: `tree` for the tree instead of the outline    |
+| `c`           | Top page: one condition, `<feature>` or `<feature>:<values>`; a leading `\|` joins it to the previous one by OR |
+| `k`           | Top page: the feature the map is coloured by                                                                    |
+| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming                      |
+| `task`        | Hugging Face model task on a record page (for example `translation`)                                            |
+
+On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view` or `x`.
 
 Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
 

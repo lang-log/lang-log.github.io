@@ -102,17 +102,17 @@
       'Ejemplos: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Ejemplos: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Ejemplos: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Filtro por evidencia',
-    'All evidence': 'Toda la evidencia',
-    'With research trees': 'Con árboles de investigación',
-    'With conflicting study clades': 'Con clados de estudios en conflicto',
-    'Record category': 'Tipo de registro',
-    'All categories': 'Todos los tipos',
     'Spoken genealogy': 'Genealogía de lenguas orales',
     'Isolates': 'Lenguas aisladas',
     'View': 'Vista',
     'List': 'Lista',
     'Tree': 'Árbol',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Mapa',
+    'Yes': 'Sí',
+    'No': 'No',
+    'Conflicting study clades': 'Clados de estudios en conflicto',
+    'Research trees': 'Árboles de investigación',
     'All roots': 'Todas las raíces',
     'Selected branch': 'Rama seleccionada',
     'Collapse all': 'Contraer todo',
@@ -369,7 +369,6 @@
       'Árboles de fuentes que abarcan varias familias o grupos externos',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Árboles de estudios y familias de WALS que abarcan más de una familia de Glottolog. Se incluyen aquí solo para navegar.',
-    'Whole tree': 'Árbol completo',
     'Show the tree of this branch': 'Mostrar el árbol de esta rama',
     'Where Lang Log attaches this tree': 'Dónde conecta Lang Log este árbol',
     "Other sources' trees below this record":
@@ -405,12 +404,7 @@
     'Back to search results': 'Volver a los resultados',
     'genus': 'género (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Mapa de rasgos lingüísticos',
-    'Language feature map · Lang Log by yoshi': 'Mapa de rasgos lingüísticos · Lang Log by yoshi',
-    'About': 'Acerca de',
     'About this map': 'Acerca de este mapa',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'Al principio todas las lenguas están en el mapa. Añade condiciones para dejar solo las lenguas que las cumplen y elige un rasgo para colorear los puntos.',
     'Colour by': 'Colorear por',
     'None (one colour)': 'Ninguno (un color)',
     'Conditions': 'Condiciones',
@@ -433,12 +427,8 @@
       'Los puntos son todas las lenguas de Glottolog 5.3 con coordenadas, en el punto representativo que les da Glottolog, no en la zona donde se hablan. Los valores de los rasgos proceden de WALS Online (Dryer y Haspelmath, eds., 2013), versión CLDF v2020.4, con licencia CC BY 4.0, asignados a la lengua de Glottolog de cada lengua de WALS.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'Los valores marcados en una condición se unen con O. Las condiciones se unen con Y, salvo que cambies la unión a OR; las condiciones unidas con OR cuentan como un grupo, así que «A AND B OR C» significa «A AND (B OR C)». Una lengua sin datos para el rasgo de una condición no cumple esa condición.',
-    'This map needs JavaScript. The feature data is in':
-      'Este mapa necesita JavaScript. Los datos de los rasgos están en',
     'Land and borders: Natural Earth (public domain)':
       'Tierra y fronteras: Natural Earth (dominio público)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Mapa de rasgos lingüísticos: todas las lenguas en un mapa del mundo, filtradas por condiciones sobre rasgos de WALS y coloreadas según uno de ellos.',
     'Land and borders:': 'Tierra y fronteras:',
     'Dashed borders are disputed or not settled.':
       'Las fronteras discontinuas están en disputa o sin fijar.',

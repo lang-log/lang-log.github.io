@@ -102,17 +102,17 @@
       'مثال: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'مثال: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'مثال: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'التصفية حسب الأدلة',
-    'All evidence': 'كل الأدلة',
-    'With research trees': 'مع أشجار بحثية',
-    'With conflicting study clades': 'مع فروع دراسات متعارضة',
-    'Record category': 'نوع السجل',
-    'All categories': 'كل الأنواع',
     'Spoken genealogy': 'أنساب اللغات المنطوقة',
     'Isolates': 'اللغات المعزولة',
     'View': 'العرض',
     'List': 'قائمة',
     'Tree': 'شجرة',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'خريطة',
+    'Yes': 'نعم',
+    'No': 'لا',
+    'Conflicting study clades': 'فروع دراسات متعارضة',
+    'Research trees': 'أشجار بحثية',
     'All roots': 'كل الجذور',
     'Selected branch': 'الفرع المحدد',
     'Collapse all': 'طيّ الكل',
@@ -364,7 +364,6 @@
     'Cross-family / outgroup source trees': 'أشجار مصادر تمتد عبر عدة أسر أو مجموعات خارجية',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'أشجار دراسات وأسر WALS تمتد عبر أكثر من أسرة في Glottolog. وهي مدرجة هنا للتنقل فقط.',
-    'Whole tree': 'الشجرة كاملة',
     'Show the tree of this branch': 'عرض شجرة هذا الفرع',
     'Where Lang Log attaches this tree': 'حيث يربط Lang Log هذه الشجرة',
     "Other sources' trees below this record": 'أشجار مصادر أخرى تحت هذا السجل',
@@ -399,12 +398,7 @@
     'Back to search results': 'العودة إلى نتائج البحث',
     'genus': 'جنس (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'خريطة سمات اللغات',
-    'Language feature map · Lang Log by yoshi': 'خريطة سمات اللغات · Lang Log by yoshi',
-    'About': 'حول',
     'About this map': 'حول هذه الخريطة',
-    'Every language starts on the map. Add conditions to keep only the languages that match, and pick a feature to colour the dots by.':
-      'تظهر كل اللغات على الخريطة في البداية. أضف شروطًا لإبقاء اللغات المطابقة فقط، واختر سمة لتلوين النقاط بحسبها.',
     'Colour by': 'التلوين بحسب',
     'None (one colour)': 'لا شيء (لون واحد)',
     'Conditions': 'الشروط',
@@ -425,12 +419,8 @@
       'النقاط هي كل لغات Glottolog 5.3 التي لها إحداثيات، في النقطة التمثيلية التي يحددها Glottolog، لا المنطقة التي تُتحدَّث فيها. قيم السمات مأخوذة من WALS Online (Dryer وHaspelmath، محرران، 2013)، إصدار CLDF v2020.4، بترخيص CC BY 4.0، ومربوطة بلغة Glottolog المقابلة لكل لغة في WALS.',
     'The values ticked in one condition are joined by OR. Conditions are joined by AND unless you switch the joint to OR; conditions joined by OR count as one group, so "A AND B OR C" means "A AND (B OR C)". A language with no data for a condition\'s feature does not match that condition.':
       'القيم المحددة داخل شرط واحد تُربط بـ «أو». وتُربط الشروط بـ «و» ما لم تغيّر الرابط إلى OR؛ والشروط المربوطة بـ OR تُعدّ مجموعة واحدة، فمعنى «A AND B OR C» هو «A AND (B OR C)». اللغة التي لا بيانات لها عن سمة الشرط لا تطابق ذلك الشرط.',
-    'This map needs JavaScript. The feature data is in':
-      'تحتاج هذه الخريطة إلى JavaScript. بيانات السمات موجودة في',
     'Land and borders: Natural Earth (public domain)':
       'اليابسة والحدود: Natural Earth (ملكية عامة)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'خريطة سمات اللغات: كل اللغات على خريطة العالم، تُضيَّق بشروط على سمات WALS وتُلوَّن بحسب إحداها.',
     'Land and borders:': 'اليابسة والحدود:',
     'Dashed borders are disputed or not settled.': 'الحدود المتقطعة متنازع عليها أو غير مستقرة.',
     'Reset': 'إعادة',

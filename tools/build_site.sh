@@ -16,8 +16,8 @@ python3 tools/finish_unified.py
 # (dist/signs-and-scripts.json, .xml and .opml; not committed) and checks it.
 python3 tools/build_visual.py
 python3 tools/validate_visual.py
-# Writes the top page dist/index.html (the list of top-level families,
-# the whole tree), dist/random.json (the records its Random buttons draw
+# Writes the top page dist/index.html (the top-level families in a list,
+# a map and a tree), dist/random.json (the records its Random buttons draw
 # from) and the pages linked under the Random row: dist/stats/,
 # dist/sources/ and dist/updates/ (not committed; built here).
 python3 tools/build_home.py
@@ -35,9 +35,10 @@ python3 tools/build_languoids.py
 # the atlas tree, the search text and the names split into SHARDS files
 # (the number is set in dist/atlas-data.js).
 python3 tools/split_data.py
-# Writes the language feature map's data (dist/data/features/, not
-# committed) from source-data/wals/, source-data/wals.csv and
-# source-data/languages.csv.
+# Writes the data of the top page's map view and its conditions
+# (dist/data/features/, not committed) from source-data/wals/,
+# source-data/wals.csv, source-data/languages.csv, dist/data.json and
+# dist/integrated.json.
 python3 tools/build_wals_map.py
 # Writes the Releases page dist/releases.html and dist/releases.json (not
 # committed) from the GitHub Releases: from build/github-releases.json, which
@@ -60,8 +61,8 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
          home.js random.json q.html search.js \
-         feature-map.html feature-map.js feature-map.css data/features/languages.json \
-         data/features/features.json data/features/f/81A.json \
+         explore.js explore.css data/features/languages.json \
+         data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
          stats/index.html stats.js sources/index.html updates/index.html \
          releases.html releases.json \
          afro-asiatic/berber/languoid.json features/index.json \

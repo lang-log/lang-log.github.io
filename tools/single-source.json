@@ -32,8 +32,7 @@
     {
       "pattern": "\\b973\\.9\\b|\\b1947\\.8\\b",
       "source": "tools/languoid_map.py",
-      "also": ["dist/feature-map.html"],
-      "why": "the size of the world map; build_wals_map.py checks feature-map.html against languoid_map.py"
+      "why": "the size of the world map; tools/build_home.py writes it into the top page's map view"
     },
     {
       "pattern": "--stats-duration\\s*:",
