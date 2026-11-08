@@ -1,6 +1,6 @@
 'use strict';
 // The classification tree of Lang Log, drawn inside the top page (all roots,
-// with search and filters) and inside every record page (the branch below that
+// with filters) and inside every record page (the branch below that
 // record). Every record has its own static page; this script only draws the
 // outline and the zoomable tree, and choosing a record opens its page.
 //
@@ -8,10 +8,10 @@
 //   data-base  path from the page to the site root ("" on the top page, "../" ...);
 //   data-root  (record pages) the record whose branch is drawn;
 //   data-src   (record pages) the source of that branch: glottolog, wals or a study id.
-// The top page also has the search form #home-q, the filters #evidence and
-// #category and the result list #results.
+// The top page also has the filters #evidence and #category. Search has its
+// own page, <site>/q=<terms> (dist/search.js).
 //
-// URL state (query string): q (search), evidence, category, dialects=0,
+// URL state (query string): evidence, category, dialects=0,
 // view=tree, x/y/z (tree centre and zoom).
 (()=>{
 const host=document.getElementById('atlas');if(!host)return;
@@ -19,7 +19,7 @@ const host=document.getElementById('atlas');if(!host)return;
 const siteFont=()=>getComputedStyle(document.body).fontFamily;
 const $=id=>document.getElementById(id),fmt=n=>n.toLocaleString(),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const base=host.dataset.base||'',rootId=host.dataset.root||null,rootSrc=host.dataset.src||'glottolog',branchPage=!!rootId;
-let data,unified,nodes,sourcePaths={},display='list',positions=[],scale=1,tx=0,ty=0,width=800,height=500,dirty=false,customView=false,restoring=false,searchTimer=0,viewTimer=0,matches=[];
+let data,unified,nodes,sourcePaths={},display='list',positions=[],scale=1,tx=0,ty=0,width=800,height=500,dirty=false,customView=false,restoring=false,viewTimer=0;
 const bySource=new Map(),conflictAncestors=new Set(),canvas=$('tree'),ctx=canvas.getContext('2d');
 const children=(sid,id)=>bySource.get(sid+'|'+id)||[],source=id=>unified.sources[id],title=id=>source(id)?.title||id;
 const eligible=n=>n&&($('dialects').checked||n.level!=='dialect');
@@ -27,23 +27,22 @@ const tc={},tok=h=>tc[h]||(tc[h]=getComputedStyle(document.documentElement).getP
 // One colour for every node: all records are languoids, so the tree does not mark them by kind.
 const col=()=>tok('397b7b');
 const round=(v,d)=>{const f=10**d;return Math.round(v*f)/f};
-const search=$('home-q'),evidence=$('evidence'),category=$('category');
+const evidence=$('evidence'),category=$('category');
 
 // The page of a record, relative to this page.
 function pageURL(id){if(data.nodes[id])return base+window.LineagePaths.url(id);if(sourcePaths[id])return base+sourcePaths[id];return base+'record.html?domain=language&id='+encodeURIComponent(id)}
 function open(id){location.href=pageURL(id)}
 
-function stateURL(){const p=new URLSearchParams(location.search);for(const k of ['q','evidence','category','dialects','view','x','y','z'])p.delete(k);
- const q=search?.value.trim();if(q)p.set('q',q);if(evidence&&evidence.value!=='all')p.set('evidence',evidence.value);if(category&&category.value!=='all')p.set('category',category.value);if(!$('dialects').checked)p.set('dialects','0');
+function stateURL(){const p=new URLSearchParams(location.search);for(const k of ['evidence','category','dialects','view','x','y','z'])p.delete(k);
+ if(evidence&&evidence.value!=='all')p.set('evidence',evidence.value);if(category&&category.value!=='all')p.set('category',category.value);if(!$('dialects').checked)p.set('dialects','0');
  if(display==='chart'){p.set('view','tree');if(customView){p.set('x',String(round((width/2-tx)/scale,0)));p.set('y',String(round((height/2-ty)/scale,0)));p.set('z',String(Number(scale.toPrecision(4))))}}
  const u=new URL(location.href);u.search=p.toString();return u}
 function saveURL(push){if(restoring||!data)return;const u=stateURL();if(u.href===location.href)return;try{history[push?'pushState':'replaceState'](null,'',u)}catch(e){}}
 function viewMoved(){customView=true;requestDraw();clearTimeout(viewTimer);viewTimer=setTimeout(()=>saveURL(false),400)}
 function setOption(el,v){if(el)el.value=[...el.options].some(o=>o.value===v)?v:'all'}
 function applyURL(){const p=new URLSearchParams(location.search);restoring=true;try{
- if(search)search.value=p.get('q')||'';setOption(evidence,p.get('evidence'));setOption(category,p.get('category'));$('dialects').checked=p.get('dialects')!=='0';
+ setOption(evidence,p.get('evidence'));setOption(category,p.get('category'));$('dialects').checked=p.get('dialects')!=='0';
  display=p.get('view')==='tree'?'chart':'list';showDisplay();
- updateResults();
  if(display==='list')renderOutline();else{resize();layout();const x=parseFloat(p.get('x')),y=parseFloat(p.get('y')),z=parseFloat(p.get('z'));if([x,y,z].every(Number.isFinite)&&z>0){scale=Math.max(.0001,Math.min(20,z));tx=width/2-x*scale;ty=height/2-y*scale;customView=true;requestDraw()}}
  syncButtons();
 }finally{restoring=false}}
@@ -51,23 +50,6 @@ function ancestors(id){const a=[],seen=new Set();while(data.nodes[id]&&!seen.has
 function native(n){return [...new Set((n.nativeNames||[]).map(r=>r.text))]}
 function rootsFiltered(){const c=category?.value||'all',f=evidence?.value||'all';return data.roots.filter(id=>{const n=nodes[id];return eligible(n)&&(c==='all'||(c==='isolates'?n.isolate:n.category===c))&&(f==='all'||(f==='conflicts'?conflictAncestors.has(id):unified.studyIndex[id]?.length))})}
 
-// Search (top page): matching records are ranked (exact name, ISO code or
-// Glottocode, then names that start with the query, then a word in the name,
-// then any match; languages before families and dialects) and listed in place
-// under the search box. Choosing one opens its page.
-const rankLevel={language:0,family:1,genus:2,dialect:3};
-function searchQuery(){const q0=(search?.value||'').trim().toLowerCase();return {q0,q:({'日本語族':'japonic','印欧':'indo-european','インドヨーロッパ':'indo-european','琉球':'ryukyuan','手話':'sign language'}[q0]||q0)}}
-function matchRank(n,q){const nm=n.name.toLowerCase();if(nm===q||(n.iso||'').toLowerCase()===q||n.id.toLowerCase()===q)return 0;if(nm.startsWith(q))return 1;if(nm.split(/[\s\-‑'’()]+/).some(w=>w.startsWith(q)))return 2;return 3}
-const kindRank=n=>n.isolate?0:rankLevel[n.level]??4;
-function updateResults(){if(!data||branchPage)return;const {q}=searchQuery(),f=evidence.value,c=category.value;
- let all=[];if(q){all=Object.values(nodes).filter(n=>n.level!=='clade'&&n.searchText.includes(q));if(f==='conflicts')all=all.filter(n=>conflictAncestors.has(n.id));if(f==='studies')all=all.filter(n=>unified.studyIndex[n.id]?.length);if(c!=='all')all=all.filter(n=>c==='isolates'?n.isolate:n.category===c);const r=new Map(all.map(n=>[n.id,matchRank(n,q)]));all.sort((a,b)=>r.get(a.id)-r.get(b.id)||kindRank(a)-kindRank(b)||(data.nodes[a.id]?0:1)-(data.nodes[b.id]?0:1)||a.name.localeCompare(b.name))}
- matches=all;$('results').hidden=!q;if(q)renderSearch()}
-function hitPath(n){if(data.nodes[n.id]){const a=ancestors(n.id).slice(0,-1);return a.length?a.map(id=>esc(nodes[id].name)).join(' › '):''}return esc(title(n.source))}
-// Matches shown at once; the message below says the same number.
-const SEARCH_LIMIT=150;
-function renderSearch(){const {q0}=searchQuery(),shown=matches.slice(0,SEARCH_LIMIT);
- $('results').innerHTML=`<div class="search-head"><h2>Search results</h2><p class="hit-count">${matches.length===1?'1 matching record':fmt(matches.length)+' matching records'}</p><span class="hit-query notranslate" dir="auto">${esc(q0)}</span><span class="search-actions"><button type="button" data-search-clear>Clear search</button></span></div>`+
- (shown.length?`<ol class="hits">${shown.map(n=>{const path=hitPath(n);return `<li><a class="hit" href="${esc(pageURL(n.id))}"><span class="dot"></span><span class="hit-main"><span class="hit-name notranslate" dir="auto">${esc(n.name)}</span><span class="hit-meta"><code class="notranslate">${esc(n.iso||n.id)}</code>${unified.conflictIndex[n.id]?' · competing branches':''}</span>${path?`<span class="hit-path notranslate" dir="auto">${path}</span>`:''}</span></a></li>`}).join('')}</ol>`+(matches.length>150?'<p class="small">First '+SEARCH_LIMIT+' matches. Refine your search.</p>':''):'<p class="empty">No matching records.</p>')}
 
 // Outline: each row links to the record's page; opening a row shows its members
 // in the same source, and below a Glottolog record the other sources' trees
@@ -130,10 +112,7 @@ canvas.addEventListener('pointercancel',e=>{pointers.delete(e.pointerId);moved=t
 canvas.addEventListener('pointerleave',()=>{$('tooltip').hidden=true});
 canvas.addEventListener('wheel',e=>{e.preventDefault();zoom(Math.exp(-e.deltaY*.0015),e.offsetX,e.offsetY)},{passive:false});
 
-document.addEventListener('click',e=>{if(e.target.closest('[data-search-clear]')){search.value='';updateResults();saveURL(true);search.focus()}});
-if(search){search.addEventListener('input',()=>{updateResults();clearTimeout(searchTimer);searchTimer=setTimeout(()=>saveURL(false),400)});
- search.form?.addEventListener('submit',e=>{e.preventDefault();updateResults();saveURL(true)})}
-for(const el of [evidence,category])el?.addEventListener('change',()=>{updateResults();renderOutline();if(display==='chart')layout();saveURL(true)});
+for(const el of [evidence,category])el?.addEventListener('change',()=>{renderOutline();if(display==='chart')layout();saveURL(true)});
 $('dialects').onchange=()=>{renderOutline();if(display==='chart')layout();saveURL(true)};
 $('listview').onclick=()=>setDisplay('list');$('chartview').onclick=()=>setDisplay('chart');
 $('collapse').onclick=()=>host.querySelectorAll('#outline details[open]').forEach(e=>e.open=false);
@@ -143,19 +122,17 @@ window.addEventListener('popstate',applyURL);new ResizeObserver(resize).observe(
 document.addEventListener('themechange',()=>{for(const k in tc)delete tc[k];requestDraw()});
 
 // Record pages load the data only when the visitor asks for the tree (dist/record-page.js);
-// the top page loads it at once for the search.
+// the top page loads it at once.
 let started=false;
 function start(){if(started)return;started=true;
 host.hidden=false;$('outline').innerHTML='<p class="outline-empty">Loading records…</p>';
 window.AtlasData.base=base+'data/';
 Promise.all([window.AtlasData.load(),fetch(base+'source-paths.json').then(r=>r.ok?r.json():{}).catch(()=>({}))]).then(async([{d,u},sp])=>{
  data=d;unified=u;sourcePaths=sp;await window.LineagePaths.init(d.nodes,d.roots,base);nodes={...data.nodes,...unified.extraNodes};
- for(const n of Object.values(nodes))n.searchText=[n.name,n.id,n.iso,...(n.names||[]).map(r=>r.text)].join(' ').toLowerCase();
  for(const e of u.assertions){if(!e.parent)continue;const k=e.source+'|'+e.parent;if(!bySource.has(k))bySource.set(k,[]);bySource.get(k).push(e)}
  for(const id of Object.keys(u.conflictIndex))for(const a of ancestors(id))conflictAncestors.add(a);
  if(branchPage&&!nodes[rootId]){$('outline').innerHTML='<p class="load-error">This record is not in the tree data.</p>';return}
  applyURL();
- if(!branchPage)window.AtlasData.search().then(t=>{for(const [id,s] of Object.entries(t))if(nodes[id])nodes[id].searchText+=' '+s;if(search.value.trim())updateResults()}).catch(console.error);
 }).catch(e=>{$('outline').innerHTML='<p class="load-error">'+esc(e.message)+'. Reload to retry.</p>';$('view-count').textContent=e.message;console.error(e)});
 }
 window.LangLogTree={start};
