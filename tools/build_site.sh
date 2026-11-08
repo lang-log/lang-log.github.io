@@ -3,6 +3,12 @@
 # Used by .github/workflows/site.yml (pull requests) and pages.yml (the live site).
 set -euo pipefail
 
+# Checks the interface text in i18n/*.yaml (every language has every text) and
+# writes the dictionaries the pages load: dist/i18n.js and dist/i18n/<code>.js
+# (not committed; .claude/rules/interface-text.md). Needs PyYAML
+# (requirements.txt).
+python3 tools/build_i18n.py
+
 # Converts the source data in source-data/ into the atlas data and its
 # downloads (not committed; built here): dist/data.json (Glottolog records
 # with WALS and names), dist/integrated.json (the study trees, conflicts and
@@ -31,6 +37,10 @@ python3 tools/build_paths.py
 # catalogue and one file per feature) and dist/schema/ (not committed;
 # built here). Checks every file against its schema.
 python3 tools/build_languoids.py
+# Groups a source lists that are not languoids (Glottolog's "Sign Language",
+# "L1 Sign Language" ...; source-data/lang-log/not-languoids.json) are left
+# out of the tree; fails if one is back in the data, the pages or languoid.json.
+python3 tools/check_not_languoids.py
 # Writes the small files the pages load (dist/data/, not committed):
 # the atlas tree, the search text and the names split into SHARDS files
 # (the number is set in dist/atlas-data.js).
@@ -50,10 +60,11 @@ python3 tools/build_releases.py
 # dist/manifest.webmanifest (not committed) from tools/site_brand.py.
 python3 tools/pwa.py
 
+# Writes dist/sitemap.xml and dist/robots.txt (not committed) from the pages
+# written above: every page without "noindex", for search engines.
+python3 tools/build_sitemap.py
 # The browser rebuilds the same objects as data.json and integrated.json.
 node tools/check_atlas_data.js
-# Every interface language has every string (.claude/rules/interface-text.md).
-node tools/check_i18n.js
 
 echo "Check that every page and data file is present"
 for f in index.html signs-and-scripts.html record.html 404.html \
@@ -68,7 +79,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          explore.js explore.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
          stats/index.html stats.js sources/index.html updates/index.html \
-         releases.html releases.json \
+         releases.html releases.json sitemap.xml robots.txt \
          afro-asiatic/berber/languoid.json features/index.json \
          features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }

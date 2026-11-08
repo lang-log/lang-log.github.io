@@ -27,16 +27,16 @@ owner 2026-11-08); dist/home.js sends old ?q= links to the top page there.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
-the three pools at random, then a record in it), so tapping the word does
+the pools at random, then a record in it), so tapping the word does
 something instead of selecting it as text. The buttons per domain and the
 row of links to the three atlases are gone (owner, 2026-11-07: Lang Log is
 one tree, not three domains). dist/home.js shows the row and, on a click, opens the page of a record
 drawn from dist/random.json, which this script writes (not committed):
 
-- language: page paths of Glottolog languages and dialects, without
-  bookkeeping records;
-- sign: sign languages and dialects of the signs-and-scripts data;
-- scripts: writing systems, without special and collection codes.
+- language: page paths of Glottolog languages and dialects of every
+  modality (sign languages included), without bookkeeping records;
+- scripts: writing systems, without special and collection codes (not yet
+  in the one tree, so they open record.html).
 """
 
 from html import escape
@@ -50,7 +50,7 @@ from languoid_map import min_width, world_box, world_view
 import info_page
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, HOME_TITLE, by_yoshi
+from site_brand import COPYRIGHT, GOOGLE_SITE_VERIFICATION, HOME_TITLE, by_yoshi
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -67,11 +67,6 @@ def random_pools():
             bp.path_of(n["id"]) + ("" if "/#" in bp.path_of(n["id"]) else "/")
             for n in nodes.values()
             if n.get("level") in ("language", "dialect") and n.get("category") != "Bookkeeping"
-        ),
-        "sign": sorted(
-            n["id"]
-            for n in visual.values()
-            if n.get("domain") == "sign" and n.get("kind") in ("language", "dialect")
         ),
         "scripts": sorted(
             n["id"]
@@ -452,6 +447,7 @@ def main():
         + SECURITY_HEAD
         + '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<meta name="description" content="{escape(description)}">'
+        f'<meta name="google-site-verification" content="{escape(GOOGLE_SITE_VERIFICATION)}">'
         f"<title>{HOME_TITLE}</title>"
         '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
         + pwa_head("")

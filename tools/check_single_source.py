@@ -30,7 +30,7 @@ CODE = [
     "dist/*.js",
     "dist/*.css",
     "dist/*.html",
-    "dist/i18n/*.js",
+    "i18n/*.yaml",
     "tools/*.py",
     "tools/*.js",
     "tools/*.sh",
@@ -90,7 +90,7 @@ def main():
 
     seen = {}
     for f, text in texts.items():
-        if f.endswith((".html", ".css")) or "/i18n" in f:
+        if f.endswith((".html", ".css")) or f.startswith("i18n/"):
             continue
         for line in text.splitlines():
             for m in CONSTANT.finditer(line):

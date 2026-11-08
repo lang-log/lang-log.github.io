@@ -80,7 +80,9 @@ jobs:
       id-token: write
     uses: nguekwang/research-aide/.github/workflows/pages-with-previews.yml@main
     with:
-      build: bash tools/build_site.sh
+      build: |
+        python3 -m pip install --require-hashes -r requirements.txt
+        bash tools/build_site.sh
       site-dir: dist
       # Downloaded into build/ before the build (research-aide pages-with-previews.yml).
       artifact: github-releases

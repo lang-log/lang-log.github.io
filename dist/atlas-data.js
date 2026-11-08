@@ -45,6 +45,8 @@ window.AtlasData = (() => {
         children: [],
         root: null,
         category: codes.category[c.category[i]],
+        modality: codes.modality[c.modality[i]],
+        constructed: !!c.constructed[i],
         size: 1,
         nativeNames: [],
       };
