@@ -13,6 +13,10 @@
     'North America': 'América do Norte',
     'South America': 'América do Sul',
     'Australia': 'Austrália',
+    'Oceania': 'Oceania',
+    'No location in the data': 'Sem localização nos dados',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Cada um aparece sob o continente onde se fala a maioria das suas línguas.',
     'Stats': 'Estatísticas',
     'Updates': 'Novidades',
     'About Lang Log': 'Sobre o Lang Log',

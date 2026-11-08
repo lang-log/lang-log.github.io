@@ -13,6 +13,10 @@
     'North America': 'Kuzey Amerika',
     'South America': 'Güney Amerika',
     'Australia': 'Avustralya',
+    'Oceania': 'Okyanusya',
+    'No location in the data': 'Verilerde konumu olmayanlar',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Her biri, dillerinin çoğunun konuşulduğu kıtanın altında listelenir.',
     'Stats': 'İstatistikler',
     'Updates': 'Güncellemeler',
     'About Lang Log': 'Lang Log hakkında',

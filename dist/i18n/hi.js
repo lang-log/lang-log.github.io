@@ -13,6 +13,10 @@
     'North America': 'उत्तरी अमेरिका',
     'South America': 'दक्षिणी अमेरिका',
     'Australia': 'ऑस्ट्रेलिया',
+    'Oceania': 'ओशिआनिया',
+    'No location in the data': 'डेटा में स्थान नहीं',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'हर एक को उस महाद्वीप के नीचे रखा गया है जहाँ उसकी अधिकतर भाषाएँ बोली जाती हैं।',
     'Stats': 'आँकड़े',
     'Updates': 'अपडेट',
     'About Lang Log': 'Lang Log के बारे में',

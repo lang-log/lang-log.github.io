@@ -13,6 +13,10 @@
     'North America': 'آمریکای شمالی',
     'South America': 'آمریکای جنوبی',
     'Australia': 'استرالیا',
+    'Oceania': 'اقیانوسیه',
+    'No location in the data': 'بدون مکان در داده‌ها',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'هر کدام زیر قاره‌ای آمده است که بیشتر زبان‌هایش در آن گفته می‌شود.',
     'Stats': 'آمار',
     'Updates': 'تازه‌ها',
     'About Lang Log': 'دربارهٔ Lang Log',

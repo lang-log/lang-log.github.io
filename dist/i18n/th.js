@@ -13,6 +13,10 @@
     'North America': 'อเมริกาเหนือ',
     'South America': 'อเมริกาใต้',
     'Australia': 'ออสเตรเลีย',
+    'Oceania': 'โอเชียเนีย',
+    'No location in the data': 'ไม่มีตำแหน่งในข้อมูล',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'แต่ละรายการอยู่ใต้ทวีปที่มีผู้พูดภาษาส่วนใหญ่ของรายการนั้น',
     'Stats': 'สถิติ',
     'Updates': 'อัปเดต',
     'About Lang Log': 'เกี่ยวกับ Lang Log',

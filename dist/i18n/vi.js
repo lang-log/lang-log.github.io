@@ -13,6 +13,10 @@
     'North America': 'Bắc Mỹ',
     'South America': 'Nam Mỹ',
     'Australia': 'Úc',
+    'Oceania': 'Châu Đại Dương',
+    'No location in the data': 'Không có vị trí trong dữ liệu',
+    'Each is listed under the continent where most of its languages are spoken.':
+      'Mỗi mục được xếp dưới châu lục nơi phần lớn các ngôn ngữ của nó được nói.',
     'Stats': 'Thống kê',
     'Updates': 'Cập nhật',
     'About Lang Log': 'Giới thiệu Lang Log',
