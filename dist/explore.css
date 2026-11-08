@@ -206,10 +206,6 @@
   border-end-start-radius: 0;
   border-end-end-radius: 0;
 }
-.wm-cond.wm-or,
-.wm-cond.wm-or-next {
-  border-inline-start: 3px solid var(--orange);
-}
 .wm-cond-head {
   display: flex;
   gap: 6px;
