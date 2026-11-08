@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'Kaynaklar ve kapsam',
     'Sources & scope ↗': 'Kaynaklar ve kapsam ↗',
-    'All families': 'Tüm aileler',
     'Atlas domains': 'Atlasın alanları',
     'Language families': 'Dil aileleri',
     'Sign languages': 'İşaret dilleri',
@@ -73,13 +72,9 @@
       'Bu adreste bir sayfa yok. Sayfa taşınmış ya da bağlantı yanlış yazılmış olabilir.',
     'Top page': 'Ana sayfa',
     'Search': 'Ara',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Dil aileleri, işaret dilleri ve yazı sistemleri atlası. Her sınıflandırma hangi kaynağı izlediğini belirtir, birbiriyle yarışan sınıflandırmalar yan yana gösterilir ve veriler indirilebilir.',
     'Also': 'Ayrıca',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa.',
-    'Corpora and data for low-resource languages: planned.':
-      'Az kaynaklı diller için derlemler ve veriler: hazırlanıyor.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Kaynaklar: Glottolog, WALS, yayımlanmış çalışmaların soy ağaçları ve yazı katalogları; her biri kendi lisansıyla',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'Kayıtları ve diğer adları ara',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Örnek: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'Kanıta göre süz',
-    'All evidence': 'Tüm kanıtlar',
-    'With research trees': 'Araştırma ağaçları olanlar',
-    'With conflicting study clades': 'Çelişen çalışma kladları olanlar',
-    'Record category': 'Kayıt türü',
-    'All categories': 'Tüm türler',
     'Spoken genealogy': 'Sözlü dillerin soy kütüğü',
     'Isolates': 'Yalıtık diller',
     'View': 'Görünüm',
     'List': 'Liste',
     'Tree': 'Ağaç',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Harita',
+    'Yes': 'Evet',
+    'No': 'Hayır',
+    'Conflicting study clades': 'Çelişen çalışma kladları',
+    'Research trees': 'Araştırma ağaçları',
     'All roots': 'Tüm kökler',
     'Selected branch': 'Seçili dal',
     'Collapse all': 'Tümünü daralt',
@@ -122,8 +117,6 @@
     'Fit': 'Sığdır',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Kaydırmak için sürükleyin · Yakınlaştırmak için kaydırın veya iki parmakla sıkıştırın · Ayrıntılar için bir düğüme tıklayın',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Kesikli çizgi: gezinme bağlantısı, soy ilişkisi değil. Uzaklıklar zamanı göstermez.',
     'INTEGRATED · SOURCE-CONDITIONED': 'BÜTÜNLEŞİK · KAYNAĞA GÖRE',
     'Independent roots & alternatives': 'Bağımsız kökler ve seçenekler',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -226,14 +219,10 @@
     'Source register': 'Kaynak listesi',
     'Classification and names from': 'Sınıflandırma ve adların kaynağı:',
     ', used under': ', lisansı:',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Dallar kaynaklarına bağlıdır. Farklı konumlar birlikte görünür; kaynak değiştirmek gerekmez.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Bağımsız aileler ve yalıtık diller paralel köklerdir. Kayıtlı sınıflandırmasını izlemek için her dalı açın.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Açıp incelemek için bir satıra tıklayın. Kaynağa göre konumlarını ve makalelere bağlı diğer görüşleri karşılaştırmak için bir dil seçin. Çalışma dalları da aynı taslak içinde açılır.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Glottolog 5.3’ün en üst düzey kayıtları. Her kaydın, sınıflandırmasını izleyen bir URL’de kendi sayfası vardır.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': her kaynağın alıntıları ve lisansları aşağıdadır. İçe aktarılan özet ağaçlar yazarlarına ve küratörlerine aittir. Kod karşılıkları:',
     'Classification ·': 'Sınıflandırma ·',
@@ -263,16 +252,9 @@
       'Birden çok aileyi kapsayan veya dış grup kaynak ağaçları',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Birden fazla Glottolog ailesini kapsayan çalışma ağaçları ve WALS aileleri. Burada yalnızca gezinme için listelenmiştir.',
-    'Whole tree': 'Ağacın tamamı',
     'Show the tree of this branch': 'Bu dalın ağacını göster',
     'Where Lang Log attaches this tree': 'Lang Log’un bu ağacı bağladığı yer',
     "Other sources' trees below this record": 'Bu kaydın altındaki diğer kaynakların ağaçları',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Kaydırmak için sürükleyin · Yakınlaştırmak için kaydırın veya iki parmakla sıkıştırın · Sayfasını açmak için bir düğüme tıklayın',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Üyelerini görmek için bir satırı açın. Her ad, her kaynağa göre konumu ve makale bağlantılarıyla kendi sayfasını açar.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Bağımsız aileler ve yalıtık diller paralel köklerdir. Kesikli çizgi: gezinme bağlantısı, soy ilişkisi değil. Uzaklıklar zamanı göstermez.',
     '→ sampled study tree': '→ örneklenmiş çalışma ağacı',
     '→ catalog grouping': '→ katalog gruplaması',
     'sampled study tree': 'örneklenmiş çalışma ağacı',
@@ -294,9 +276,6 @@
     'Back to search results': 'Arama sonuçlarına dön',
     'genus': 'cins (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Dil özellikleri haritası',
-    'Language feature map · Lang Log by yoshi': 'Dil özellikleri haritası · Lang Log by yoshi',
-    'About': 'Hakkında',
     'About this map': 'Bu harita hakkında',
     'Colour by': 'Renklendirme ölçütü',
     'None (one colour)': 'Yok (tek renk)',
@@ -312,12 +291,8 @@
     'World map of the languages that match the conditions':
       'Koşullara uyan dillerin dünya haritası',
     'The map data could not be loaded.': 'Harita verileri yüklenemedi.',
-    'This map needs JavaScript. The feature data is in':
-      'Bu harita JavaScript gerektirir. Özellik verileri şurada:',
     'Land and borders: Natural Earth (public domain)':
       'Kara ve sınırlar: Natural Earth (kamu malı)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Dil özellikleri haritası: tüm diller bir dünya haritasında, WALS özelliklerine dair koşullarla daraltılır ve bunlardan birine göre renklendirilir.',
     'Land and borders:': 'Kara ve sınırlar:',
     'Reset': 'Sıfırla',
     'Reset view': 'Görünümü sıfırla',

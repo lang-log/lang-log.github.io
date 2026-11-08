@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'Nguồn và phạm vi',
     'Sources & scope ↗': 'Nguồn và phạm vi ↗',
-    'All families': 'Tất cả ngữ hệ',
     'Atlas domains': 'Các lĩnh vực của tập bản đồ',
     'Language families': 'Ngữ hệ',
     'Sign languages': 'Ngôn ngữ ký hiệu',
@@ -73,13 +72,9 @@
       'Không có trang nào tại địa chỉ này. Trang có thể đã được chuyển đi, hoặc liên kết bị gõ sai.',
     'Top page': 'Trang chủ',
     'Search': 'Tìm kiếm',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Tập bản đồ các ngữ hệ, ngôn ngữ ký hiệu và hệ chữ viết. Mỗi vị trí phân loại đều ghi rõ nguồn mà nó theo, các cách phân loại khác nhau được hiển thị cùng nhau, và có thể tải dữ liệu xuống.',
     'Also': 'Ngoài ra',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ.',
-    'Corpora and data for low-resource languages: planned.':
-      'Kho ngữ liệu và dữ liệu cho các ngôn ngữ ít tài nguyên: đang chuẩn bị.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Nguồn: Glottolog, WALS, cây phả hệ của các nghiên cứu đã công bố và danh mục chữ viết, mỗi nguồn theo giấy phép riêng',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'Tìm bản ghi và tên khác',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Ví dụ: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'Lọc theo bằng chứng',
-    'All evidence': 'Mọi bằng chứng',
-    'With research trees': 'Có cây nghiên cứu',
-    'With conflicting study clades': 'Có nhánh nghiên cứu mâu thuẫn',
-    'Record category': 'Loại bản ghi',
-    'All categories': 'Mọi loại',
     'Spoken genealogy': 'Phả hệ ngôn ngữ nói',
     'Isolates': 'Ngôn ngữ biệt lập',
     'View': 'Chế độ xem',
     'List': 'Danh sách',
     'Tree': 'Cây',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Bản đồ',
+    'Yes': 'Có',
+    'No': 'Không',
+    'Conflicting study clades': 'Các nhánh nghiên cứu mâu thuẫn',
+    'Research trees': 'Cây phả hệ nghiên cứu',
     'All roots': 'Mọi gốc',
     'Selected branch': 'Nhánh đã chọn',
     'Collapse all': 'Thu gọn tất cả',
@@ -123,8 +118,6 @@
     'Fit': 'Vừa khung',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Kéo để di chuyển · Cuộn hoặc chụm để thu phóng · Nhấp vào một nút để xem chi tiết',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Nét đứt: liên kết để điều hướng, không phải quan hệ tổ tiên. Khoảng cách không biểu thị thời gian.',
     'INTEGRATED · SOURCE-CONDITIONED': 'TÍCH HỢP · THEO NGUỒN',
     'Independent roots & alternatives': 'Các gốc độc lập và giả thuyết khác',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -228,14 +221,10 @@
     'Source register': 'Danh sách nguồn',
     'Classification and names from': 'Phân loại và tên lấy từ',
     ', used under': ', theo giấy phép',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Các nhánh phụ thuộc vào nguồn của chúng. Các vị trí khác nhau được hiển thị cùng nhau; không cần chuyển nguồn.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Các ngữ hệ độc lập và ngôn ngữ biệt lập là những gốc song song. Mở rộng từng nhánh để theo dõi cách phân loại đã ghi nhận.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Nhấp vào một dòng để mở rộng và xem xét. Chọn một ngôn ngữ để so sánh vị trí theo từng nguồn và các giả thuyết khác có liên kết đến bài báo. Nhánh nghiên cứu cũng mở rộng trong cùng dàn ý.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Các mục cấp cao nhất của Glottolog 5.3. Mỗi bản ghi có trang riêng tại URL theo cách phân loại của nó.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': trích dẫn và giấy phép của từng nguồn ở bên dưới. Các cây tóm tắt đã nhập thuộc về tác giả và người quản lý của chúng. Tương ứng mã:',
     'Classification ·': 'Phân loại ·',
@@ -264,16 +253,9 @@
     'Cross-family / outgroup source trees': 'Cây nguồn trải qua nhiều ngữ hệ / nhóm ngoài',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Các cây nghiên cứu và ngữ hệ WALS trải qua nhiều hơn một ngữ hệ của Glottolog. Chúng được liệt kê ở đây chỉ để điều hướng.',
-    'Whole tree': 'Toàn bộ cây',
     'Show the tree of this branch': 'Hiện cây của nhánh này',
     'Where Lang Log attaches this tree': 'Nơi Lang Log gắn cây này',
     "Other sources' trees below this record": 'Cây của các nguồn khác bên dưới bản ghi này',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Kéo để di chuyển · Cuộn hoặc chụm để thu phóng · Nhấp vào một nút để mở trang của nó',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Mở một dòng để xem các thành viên. Mỗi tên mở trang riêng, với vị trí theo từng nguồn và liên kết đến bài báo.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Các ngữ hệ độc lập và ngôn ngữ biệt lập là những gốc song song. Nét đứt: liên kết để điều hướng, không phải quan hệ tổ tiên. Khoảng cách không biểu thị thời gian.',
     '→ sampled study tree': '→ cây nghiên cứu theo mẫu',
     '→ catalog grouping': '→ nhóm của danh mục',
     'sampled study tree': 'cây nghiên cứu theo mẫu',
@@ -295,9 +277,6 @@
     'Back to search results': 'Quay lại kết quả tìm kiếm',
     'genus': 'chi (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Bản đồ đặc điểm ngôn ngữ',
-    'Language feature map · Lang Log by yoshi': 'Bản đồ đặc điểm ngôn ngữ · Lang Log by yoshi',
-    'About': 'Giới thiệu',
     'About this map': 'Về bản đồ này',
     'Colour by': 'Tô màu theo',
     'None (one colour)': 'Không (một màu)',
@@ -313,12 +292,8 @@
     'World map of the languages that match the conditions':
       'Bản đồ thế giới các ngôn ngữ thỏa điều kiện',
     'The map data could not be loaded.': 'Không tải được dữ liệu bản đồ.',
-    'This map needs JavaScript. The feature data is in':
-      'Bản đồ này cần JavaScript. Dữ liệu đặc điểm nằm ở',
     'Land and borders: Natural Earth (public domain)':
       'Đất liền và biên giới: Natural Earth (phạm vi công cộng)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Bản đồ đặc điểm ngôn ngữ: mọi ngôn ngữ trên bản đồ thế giới, lọc theo điều kiện về đặc điểm WALS và tô màu theo một trong số đó.',
     'Land and borders:': 'Đất liền và biên giới:',
     'Reset': 'Đặt lại',
     'Reset view': 'Đặt lại khung nhìn',

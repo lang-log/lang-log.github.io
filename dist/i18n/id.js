@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'Sumber dan cakupan',
     'Sources & scope ↗': 'Sumber dan cakupan ↗',
-    'All families': 'Semua rumpun',
     'Atlas domains': 'Bidang atlas',
     'Language families': 'Rumpun bahasa',
     'Sign languages': 'Bahasa isyarat',
@@ -73,13 +72,9 @@
       'Tidak ada halaman di alamat ini. Halaman mungkin telah dipindahkan, atau tautannya salah ketik.',
     'Top page': 'Halaman utama',
     'Search': 'Cari',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Atlas rumpun bahasa, bahasa isyarat, dan sistem tulisan. Setiap penempatan menyebutkan sumber yang diikutinya, klasifikasi yang bersaing ditampilkan bersama, dan datanya dapat diunduh.',
     'Also': 'Selain itu',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta.',
-    'Corpora and data for low-resource languages: planned.':
-      'Korpus dan data untuk bahasa bersumber daya rendah: sedang disiapkan.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Sumber: Glottolog, WALS, pohon kajian yang telah terbit, dan katalog aksara, masing-masing dengan lisensinya sendiri',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'Cari catatan dan nama lain',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Contoh: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'Saring menurut bukti',
-    'All evidence': 'Semua bukti',
-    'With research trees': 'Dengan pohon penelitian',
-    'With conflicting study clades': 'Dengan klad kajian yang bertentangan',
-    'Record category': 'Jenis catatan',
-    'All categories': 'Semua jenis',
     'Spoken genealogy': 'Silsilah bahasa lisan',
     'Isolates': 'Bahasa isolat',
     'View': 'Tampilan',
     'List': 'Daftar',
     'Tree': 'Pohon',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Peta',
+    'Yes': 'Ya',
+    'No': 'Tidak',
+    'Conflicting study clades': 'Klade studi yang bertentangan',
+    'Research trees': 'Pohon penelitian',
     'All roots': 'Semua akar',
     'Selected branch': 'Cabang terpilih',
     'Collapse all': 'Ciutkan semua',
@@ -122,8 +117,6 @@
     'Fit': 'Paskan',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Seret untuk menggeser · Gulir atau cubit untuk memperbesar · Klik simpul untuk melihat rinciannya',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Garis putus-putus: sambungan navigasi, bukan leluhur. Jarak tidak menunjukkan waktu.',
     'INTEGRATED · SOURCE-CONDITIONED': 'TERPADU · MENURUT SUMBER',
     'Independent roots & alternatives': 'Akar mandiri dan alternatif',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -227,14 +220,10 @@
     'Source register': 'Daftar sumber',
     'Classification and names from': 'Klasifikasi dan nama dari',
     ', used under': ', digunakan dengan lisensi',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Cabang bergantung pada sumbernya. Penempatan yang berbeda ditampilkan bersama; tidak perlu berganti sumber.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Rumpun mandiri dan bahasa isolat adalah akar sejajar. Buka setiap cabang untuk menelusuri klasifikasi yang tercatat.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Klik baris untuk membuka dan memeriksanya. Pilih bahasa untuk membandingkan penempatannya menurut setiap sumber dan alternatif yang tertaut ke makalah. Cabang kajian juga dibuka dalam kerangka yang sama.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Entri tingkat teratas Glottolog 5.3. Setiap catatan memiliki halaman sendiri pada URL yang mengikuti klasifikasinya.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': kutipan dan lisensi setiap sumber ada di bawah. Pohon ringkasan yang diimpor diatribusikan kepada penulis dan pengelolanya. Padanan kode:',
     'Classification ·': 'Klasifikasi ·',
@@ -263,16 +252,9 @@
     'Cross-family / outgroup source trees': 'Pohon sumber lintas rumpun / kelompok luar',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Pohon kajian dan rumpun WALS yang mencakup lebih dari satu rumpun Glottolog. Dicantumkan di sini hanya untuk navigasi.',
-    'Whole tree': 'Seluruh pohon',
     'Show the tree of this branch': 'Tampilkan pohon cabang ini',
     'Where Lang Log attaches this tree': 'Tempat Lang Log menyambungkan pohon ini',
     "Other sources' trees below this record": 'Pohon sumber lain di bawah catatan ini',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Seret untuk menggeser · Gulir atau cubit untuk memperbesar · Klik simpul untuk membuka halamannya',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Buka baris untuk melihat anggotanya. Setiap nama membuka halamannya sendiri, dengan penempatan menurut setiap sumber dan tautan makalah.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Rumpun mandiri dan bahasa isolat adalah akar sejajar. Garis putus-putus: sambungan navigasi, bukan leluhur. Jarak tidak menunjukkan waktu.',
     '→ sampled study tree': '→ pohon kajian bersampel',
     '→ catalog grouping': '→ pengelompokan katalog',
     'sampled study tree': 'pohon kajian bersampel',
@@ -294,9 +276,6 @@
     'Back to search results': 'Kembali ke hasil pencarian',
     'genus': 'genus (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Peta fitur bahasa',
-    'Language feature map · Lang Log by yoshi': 'Peta fitur bahasa · Lang Log by yoshi',
-    'About': 'Tentang',
     'About this map': 'Tentang peta ini',
     'Colour by': 'Warnai menurut',
     'None (one colour)': 'Tidak ada (satu warna)',
@@ -312,12 +291,8 @@
     'World map of the languages that match the conditions':
       'Peta dunia bahasa-bahasa yang memenuhi syarat',
     'The map data could not be loaded.': 'Data peta tidak dapat dimuat.',
-    'This map needs JavaScript. The feature data is in':
-      'Peta ini memerlukan JavaScript. Data fitur ada di',
     'Land and borders: Natural Earth (public domain)':
       'Daratan dan perbatasan: Natural Earth (domain publik)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Peta fitur bahasa: semua bahasa di peta dunia, disaring dengan syarat pada fitur WALS dan diwarnai menurut salah satunya.',
     'Land and borders:': 'Daratan dan perbatasan:',
     'Reset': 'Atur ulang',
     'Reset view': 'Atur ulang tampilan',

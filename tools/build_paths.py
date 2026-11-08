@@ -336,23 +336,20 @@ def tree_html(depth, i, sid):
 
 
 def atlas_html(base, root=None, src=None, downloads=""):
-    """The outline and zoomable tree that dist/tree.js fills (shared with the top page)."""
-    attrs = f' data-base="{escape(base)}"' + (f' data-root="{escape(root)}" data-src="{escape(src)}"' if root else "")
-    filters = "" if root else (
-        '<select id="evidence" aria-label="Evidence filter"><option value="all">All evidence</option>'
-        '<option value="conflicts">With conflicting study clades</option><option value="studies">With research trees</option></select>'
-        '<select id="category" aria-label="Record category"><option value="all">All categories</option>'
-        '<option value="Spoken genealogy">Spoken genealogy</option><option value="isolates">Isolates</option>'
-        + "".join(f"<option>{c}</option>" for c in ["Sign Language", "Unclassifiable", "Pidgin", "Mixed Language", "Unattested",
-                                                   "Artificial Language", "Speech Register", "Bookkeeping"])
-        + "</select>")
+    """The zoomable tree that dist/tree.js fills: the branch below a record (record
+    pages, with its outline and a List / Tree switch), or every root (the top page's
+    Tree view, without them: the top page has its own List view, dist/explore.js)."""
+    whole = root is None
+    attrs = f' data-base="{escape(base)}"' + ("" if whole else f' data-root="{escape(root)}" data-src="{escape(src)}"')
+    switch = "" if whole else (
+        '<div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
+        '<button id="chartview" type="button">Tree</button></div><button id="collapse" type="button">Collapse all</button>')
+    outline = "" if whole else '<div id="outline" aria-label="Expandable classification outline"></div>'
     return (f'<div id="atlas" class="workspace atlas-embed"{attrs} hidden>'
-            '<div class="toolbar"><div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
-            '<button id="chartview" type="button">Tree</button></div>'
-            f'{filters}<button id="collapse" type="button">Collapse all</button>'
+            f'<div class="toolbar">{switch}'
             f'<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
-            '<div id="outline" aria-label="Expandable classification outline"></div>'
-            '<div id="viewport" hidden><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
+            f'{outline}'
+            f'<div id="viewport"{"" if whole else " hidden"}><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
             '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Language families</h2>'
             '<p id="view-count">Loading records…</p></div><div id="tooltip" hidden></div>'
             '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'

@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'منابع و دامنه',
     'Sources & scope ↗': 'منابع و دامنه ↗',
-    'All families': 'همهٔ خانواده‌ها',
     'Atlas domains': 'بخش‌های اطلس',
     'Language families': 'خانواده‌های زبانی',
     'Sign languages': 'زبان‌های اشاره',
@@ -73,13 +72,9 @@
       'در این نشانی صفحه‌ای وجود ندارد. ممکن است جابه‌جا شده باشد یا پیوند اشتباه نوشته شده باشد.',
     'Top page': 'صفحهٔ اصلی',
     'Search': 'جست‌وجو',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'اطلسی از خانواده‌های زبانی، زبان‌های اشاره و نظام‌های نوشتاری. هر جایگاه منبعی را که از آن پیروی می‌کند ذکر می‌کند، رده‌بندی‌های رقیب کنار هم نمایش داده می‌شوند و داده‌ها قابل بارگیری‌اند.',
     'Also': 'همچنین',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': برای هر رکورد Glottolog یک صفحهٔ ساده، همراه با رده‌بندی و نقشهٔ آن.',
-    'Corpora and data for low-resource languages: planned.':
-      'پیکره‌ها و داده‌های زبان‌های کم‌منبع: در دست آماده‌سازی.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'منابع: Glottolog، WALS، درخت‌های پژوهش‌های منتشرشده و فهرست‌های خط‌ها، هر کدام با مجوز خودش',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'جست‌وجوی رکوردها و نام‌های دیگر',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'نمونه: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'پالایش بر پایهٔ شواهد',
-    'All evidence': 'همهٔ شواهد',
-    'With research trees': 'دارای درخت‌های پژوهشی',
-    'With conflicting study clades': 'دارای شاخه‌های ناسازگار پژوهش‌ها',
-    'Record category': 'نوع رکورد',
-    'All categories': 'همهٔ انواع',
     'Spoken genealogy': 'تبارشناسی زبان‌های گفتاری',
     'Isolates': 'زبان‌های منفرد',
     'View': 'نما',
     'List': 'فهرست',
     'Tree': 'درخت',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'نقشه',
+    'Yes': 'بله',
+    'No': 'خیر',
+    'Conflicting study clades': 'شاخه\u200cهای ناسازگار پژوهش\u200cها',
+    'Research trees': 'درخت\u200cهای پژوهشی',
     'All roots': 'همهٔ ریشه‌ها',
     'Selected branch': 'شاخهٔ برگزیده',
     'Collapse all': 'بستن همه',
@@ -122,8 +117,6 @@
     'Fit': 'هم‌اندازه با صفحه',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'برای جابه‌جایی بکشید · برای بزرگ‌نمایی پیمایش کنید یا دو انگشت را باز و بسته کنید · برای جزئیات روی یک گره کلیک کنید',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'خط‌چین: پیوند برای پیمایش، نه رابطهٔ نیاکانی. فاصله‌ها نشان‌دهندهٔ زمان نیستند.',
     'INTEGRATED · SOURCE-CONDITIONED': 'یکپارچه · بر پایهٔ منبع',
     'Independent roots & alternatives': 'ریشه‌های مستقل و دیدگاه‌های دیگر',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -225,14 +218,10 @@
     'Source register': 'فهرست منابع',
     'Classification and names from': 'رده‌بندی و نام‌ها از',
     ', used under': '، با مجوز',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'شاخه‌ها به منبع خود وابسته‌اند. جایگاه‌های گوناگون کنار هم نمایش داده می‌شوند؛ نیازی به تغییر منبع نیست.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'خانواده‌های مستقل و زبان‌های منفرد ریشه‌های موازی‌اند. هر شاخه را باز کنید تا رده‌بندی ثبت‌شدهٔ آن را دنبال کنید.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'روی یک ردیف کلیک کنید تا باز شود و آن را بررسی کنید. یک زبان را انتخاب کنید تا جایگاه‌های آن را بر پایهٔ هر منبع و دیدگاه‌های دیگرِ پیوندخورده به مقاله‌ها مقایسه کنید. شاخه‌های پژوهشی نیز در همین طرح باز می‌شوند.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'مدخل‌های بالاترین سطح Glottolog 5.3. هر رکورد صفحهٔ خود را در نشانی‌ای دارد که از رده‌بندی‌اش پیروی می‌کند.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': ارجاع‌ها و مجوزهای هر منبع در پایین آمده است. درخت‌های خلاصهٔ واردشده به نویسندگان و نگه‌دارندگانشان منسوب‌اند. هم‌ارزی کدها:',
     'Classification ·': 'رده‌بندی ·',
@@ -261,16 +250,9 @@
     'Cross-family / outgroup source trees': 'درخت‌های منابعِ فراخانواده‌ای یا برون‌گروهی',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'درخت‌های پژوهشی و خانواده‌های WALS که بیش از یک خانوادهٔ Glottolog را در بر می‌گیرند. این‌ها فقط برای پیمایش اینجا آمده‌اند.',
-    'Whole tree': 'کل درخت',
     'Show the tree of this branch': 'نمایش درخت این شاخه',
     'Where Lang Log attaches this tree': 'جایی که Lang Log این درخت را وصل می‌کند',
     "Other sources' trees below this record": 'درخت‌های منابع دیگر زیر این رکورد',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'برای جابه‌جایی بکشید · برای بزرگ‌نمایی پیمایش کنید یا دو انگشت را باز و بسته کنید · برای باز کردن صفحه روی یک گره کلیک کنید',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'یک ردیف را باز کنید تا اعضایش را ببینید. هر نام صفحهٔ خودش را باز می‌کند، با جایگاه بر پایهٔ هر منبع و پیوند مقاله‌ها.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'خانواده‌های مستقل و زبان‌های منفرد ریشه‌های موازی‌اند. خط‌چین: پیوند برای پیمایش، نه رابطهٔ نیاکانی. فاصله‌ها نشان‌دهندهٔ زمان نیستند.',
     '→ sampled study tree': '← درخت پژوهشی نمونه‌گیری‌شده',
     '→ catalog grouping': '← گروه‌بندی فهرست',
     'sampled study tree': 'درخت پژوهشی نمونه‌گیری‌شده',
@@ -292,9 +274,6 @@
     'Back to search results': 'بازگشت به نتایج جست‌وجو',
     'genus': 'جنس (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'نقشهٔ ویژگی‌های زبانی',
-    'Language feature map · Lang Log by yoshi': 'نقشهٔ ویژگی‌های زبانی · Lang Log by yoshi',
-    'About': 'درباره',
     'About this map': 'دربارهٔ این نقشه',
     'Colour by': 'رنگ‌آمیزی بر اساس',
     'None (one colour)': 'هیچ (یک رنگ)',
@@ -310,11 +289,7 @@
     'World map of the languages that match the conditions':
       'نقشهٔ جهان زبان‌هایی که با شرط‌ها منطبق‌اند',
     'The map data could not be loaded.': 'داده‌های نقشه بارگذاری نشد.',
-    'This map needs JavaScript. The feature data is in':
-      'این نقشه به JavaScript نیاز دارد. داده‌های ویژگی‌ها در این‌جاست:',
     'Land and borders: Natural Earth (public domain)': 'خشکی و مرزها: Natural Earth (مالکیت عمومی)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'نقشهٔ ویژگی‌های زبانی: همهٔ زبان‌ها روی نقشهٔ جهان، محدودشده با شرط‌هایی بر ویژگی‌های WALS و رنگ‌آمیزی‌شده بر اساس یکی از آن‌ها.',
     'Land and borders:': 'خشکی و مرزها:',
     'Reset': 'بازنشانی',
     'Reset view': 'بازنشانی نما',

@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'Bronnen en reikwijdte',
     'Sources & scope ↗': 'Bronnen en reikwijdte ↗',
-    'All families': 'Alle families',
     'Atlas domains': 'Onderdelen van de atlas',
     'Language families': 'Taalfamilies',
     'Sign languages': 'Gebarentalen',
@@ -73,13 +72,9 @@
       'Op dit adres staat geen pagina. Misschien is ze verplaatst, of is de link verkeerd getypt.',
     'Top page': 'Startpagina',
     'Search': 'Zoeken',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Een atlas van taalfamilies, gebarentalen en schriftsystemen. Bij elke indeling staat welke bron ze volgt, concurrerende classificaties staan naast elkaar en de gegevens zijn te downloaden.',
     'Also': 'Verder',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': één eenvoudige pagina per Glottolog-record, met de classificatie en een kaart.',
-    'Corpora and data for low-resource languages: planned.':
-      'Corpora en gegevens voor talen met weinig bronnen: in voorbereiding.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Bronnen: Glottolog, WALS, stambomen uit gepubliceerde studies en schriftcatalogi, elk onder een eigen licentie',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'Records en aliassen zoeken',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Bijvoorbeeld: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'Filter op bewijs',
-    'All evidence': 'Al het bewijs',
-    'With research trees': 'Met onderzoeksbomen',
-    'With conflicting study clades': 'Met tegenstrijdige studieclades',
-    'Record category': 'Soort record',
-    'All categories': 'Alle soorten',
     'Spoken genealogy': 'Genealogie van gesproken talen',
     'Isolates': 'Isolaten',
     'View': 'Weergave',
     'List': 'Lijst',
     'Tree': 'Boom',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Kaart',
+    'Yes': 'Ja',
+    'No': 'Nee',
+    'Conflicting study clades': 'Tegenstrijdige studieclades',
+    'Research trees': 'Onderzoeksbomen',
     'All roots': 'Alle wortels',
     'Selected branch': 'Gekozen tak',
     'Collapse all': 'Alles inklappen',
@@ -123,8 +118,6 @@
     'Fit': 'Passend maken',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Sleep om te verschuiven · Scroll of knijp om te zoomen · Klik op een knoop voor details',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Gestippeld: koppeling voor navigatie, geen afstamming. Afstanden staan niet voor tijd.',
     'INTEGRATED · SOURCE-CONDITIONED': 'GEÏNTEGREERD · PER BRON',
     'Independent roots & alternatives': 'Onafhankelijke wortels en alternatieven',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -228,14 +221,10 @@
     'Source register': 'Bronnenregister',
     'Classification and names from': 'Classificatie en namen uit',
     ', used under': ', gebruikt onder',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Takken hangen af van hun bron. Verschillende indelingen staan naast elkaar; overschakelen tussen bronnen is niet nodig.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Onafhankelijke families en isolaten zijn parallelle wortels. Klap een tak uit om de vastgelegde classificatie te volgen.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Klik op een rij om die uit te klappen en te bekijken. Kies een taal om de indelingen per bron en de alternatieven met artikelen te vergelijken. Studietakken klappen uit in hetzelfde overzicht.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Records op het hoogste niveau van Glottolog 5.3. Elk record heeft een eigen pagina op een URL die de classificatie volgt.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': citaten en licenties per bron hieronder. Geïmporteerde samenvattende bomen worden toegeschreven aan hun auteurs en beheerders. Codeovereenkomsten:',
     'Classification ·': 'Classificatie ·',
@@ -264,16 +253,9 @@
     'Cross-family / outgroup source trees': 'Bronbomen over meerdere families of buitengroepen',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Studiebomen en WALS-families die meer dan één Glottolog-familie omvatten. Ze staan hier alleen voor navigatie.',
-    'Whole tree': 'Hele boom',
     'Show the tree of this branch': 'Boom van deze tak tonen',
     'Where Lang Log attaches this tree': 'Waar Lang Log deze boom koppelt',
     "Other sources' trees below this record": 'Bomen van andere bronnen onder dit record',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Sleep om te verschuiven · Scroll of knijp om te zoomen · Klik op een knoop om de pagina te openen',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Open een rij om de leden te zien. Elke naam opent een eigen pagina, met de indeling volgens elke bron en links naar de artikelen.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Onafhankelijke families en isolaten zijn parallelle wortels. Gestippeld: koppeling voor navigatie, geen afstamming. Afstanden staan niet voor tijd.',
     '→ sampled study tree': '→ studieboom uit steekproef',
     '→ catalog grouping': '→ catalogusgroepering',
     'sampled study tree': 'studieboom uit steekproef',
@@ -295,9 +277,6 @@
     'Back to search results': 'Terug naar de zoekresultaten',
     'genus': 'genus (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Kaart van taalkenmerken',
-    'Language feature map · Lang Log by yoshi': 'Kaart van taalkenmerken · Lang Log by yoshi',
-    'About': 'Over',
     'About this map': 'Over deze kaart',
     'Colour by': 'Kleuren op',
     'None (one colour)': 'Geen (één kleur)',
@@ -313,12 +292,8 @@
     'World map of the languages that match the conditions':
       'Wereldkaart van de talen die aan de voorwaarden voldoen',
     'The map data could not be loaded.': 'De kaartgegevens konden niet worden geladen.',
-    'This map needs JavaScript. The feature data is in':
-      'Deze kaart heeft JavaScript nodig. De kenmerkgegevens staan in',
     'Land and borders: Natural Earth (public domain)':
       'Land en grenzen: Natural Earth (publiek domein)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Kaart van taalkenmerken: alle talen op een wereldkaart, gefilterd op voorwaarden over WALS-kenmerken en gekleurd naar een ervan.',
     'Land and borders:': 'Land en grenzen:',
     'Reset': 'Herstellen',
     'Reset view': 'Weergave herstellen',

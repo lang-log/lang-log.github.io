@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'Quellen und Umfang',
     'Sources & scope ↗': 'Quellen und Umfang ↗',
-    'All families': 'Alle Familien',
     'Atlas domains': 'Bereiche des Atlas',
     'Language families': 'Sprachfamilien',
     'Sign languages': 'Gebärdensprachen',
@@ -73,13 +72,9 @@
       'Unter dieser Adresse gibt es keine Seite. Sie wurde möglicherweise verschoben, oder der Link ist falsch geschrieben.',
     'Top page': 'Startseite',
     'Search': 'Suchen',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Ein Atlas der Sprachfamilien, Gebärdensprachen und Schriftsysteme. Jede Einordnung nennt die Quelle, der sie folgt, konkurrierende Klassifikationen werden nebeneinander gezeigt, und die Daten können heruntergeladen werden.',
     'Also': 'Außerdem',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': eine schlichte Seite pro Glottolog-Eintrag, mit Klassifikation und Karte.',
-    'Corpora and data for low-resource languages: planned.':
-      'Korpora und Daten für ressourcenarme Sprachen: in Vorbereitung.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Quellen: Glottolog, WALS, Stammbäume veröffentlichter Studien und Schriftkataloge, jeweils unter eigener Lizenz',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'Einträge und Aliasse durchsuchen',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Beispiele: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'Nach Belegen filtern',
-    'All evidence': 'Alle Belege',
-    'With research trees': 'Mit Forschungsbäumen',
-    'With conflicting study clades': 'Mit widersprüchlichen Studienkladen',
-    'Record category': 'Art des Eintrags',
-    'All categories': 'Alle Arten',
     'Spoken genealogy': 'Genealogie der Lautsprachen',
     'Isolates': 'Isolierte Sprachen',
     'View': 'Ansicht',
     'List': 'Liste',
     'Tree': 'Baum',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Karte',
+    'Yes': 'Ja',
+    'No': 'Nein',
+    'Conflicting study clades': 'Widersprüchliche Studienkladen',
+    'Research trees': 'Forschungsbäume',
     'All roots': 'Alle Wurzeln',
     'Selected branch': 'Gewählter Zweig',
     'Collapse all': 'Alle einklappen',
@@ -123,8 +118,6 @@
     'Fit': 'Einpassen',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Ziehen zum Verschieben · Scrollen oder Zweifingergeste zum Zoomen · Knoten anklicken für Details',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Gestrichelt: Anbindung zur Navigation, keine Abstammung. Abstände bedeuten keine Zeit.',
     'INTEGRATED · SOURCE-CONDITIONED': 'INTEGRIERT · NACH QUELLE',
     'Independent roots & alternatives': 'Unabhängige Wurzeln und Alternativen',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -228,14 +221,10 @@
     'Source register': 'Quellenverzeichnis',
     'Classification and names from': 'Klassifikation und Namen aus',
     ', used under': ', verwendet unter',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Zweige hängen von ihrer Quelle ab. Unterschiedliche Einordnungen erscheinen nebeneinander; ein Quellenwechsel ist nicht nötig.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Unabhängige Familien und isolierte Sprachen sind parallele Wurzeln. Klappen Sie einen Zweig auf, um seiner verzeichneten Klassifikation zu folgen.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Klicken Sie auf eine Zeile, um sie aufzuklappen und zu prüfen. Wählen Sie eine Sprache, um ihre Einordnungen nach Quelle und die mit Artikeln verknüpften Alternativen zu vergleichen. Studienzweige werden in derselben Gliederung aufgeklappt.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Einträge der obersten Ebene von Glottolog 5.3. Jeder Eintrag hat eine eigene Seite unter einer URL, die seiner Klassifikation folgt.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': Zitate und Lizenzen der einzelnen Quellen unten. Importierte zusammenfassende Bäume werden ihren Autorinnen, Autoren und Kuratoren zugeschrieben. Code-Entsprechungen:',
     'Classification ·': 'Klassifikation ·',
@@ -265,16 +254,9 @@
       'Familienübergreifende Bäume und Außengruppen-Bäume der Quellen',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Studienbäume und WALS-Familien, die mehr als eine Glottolog-Familie umfassen. Sie stehen hier nur zur Navigation.',
-    'Whole tree': 'Ganzer Baum',
     'Show the tree of this branch': 'Baum dieses Zweigs zeigen',
     'Where Lang Log attaches this tree': 'Wo Lang Log diesen Baum anbindet',
     "Other sources' trees below this record": 'Bäume anderer Quellen unterhalb dieses Eintrags',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Ziehen zum Verschieben · Scrollen oder Zweifingergeste zum Zoomen · Knoten anklicken, um seine Seite zu öffnen',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Öffnen Sie eine Zeile, um ihre Mitglieder zu sehen. Jeder Name öffnet eine eigene Seite mit der Einordnung jeder Quelle und Links zu den Artikeln.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Unabhängige Familien und isolierte Sprachen sind parallele Wurzeln. Gestrichelt: Anbindung zur Navigation, keine Abstammung. Abstände bedeuten keine Zeit.',
     '→ sampled study tree': '→ Studienbaum aus Stichprobe',
     '→ catalog grouping': '→ Kataloggruppierung',
     'sampled study tree': 'Studienbaum aus Stichprobe',
@@ -296,9 +278,6 @@
     'Back to search results': 'Zurück zu den Suchergebnissen',
     'genus': 'Genus (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Sprachmerkmal-Karte',
-    'Language feature map · Lang Log by yoshi': 'Sprachmerkmal-Karte · Lang Log by yoshi',
-    'About': 'Info',
     'About this map': 'Über diese Karte',
     'Colour by': 'Färben nach',
     'None (one colour)': 'Keine (eine Farbe)',
@@ -314,12 +293,8 @@
     'World map of the languages that match the conditions':
       'Weltkarte der Sprachen, die die Bedingungen erfüllen',
     'The map data could not be loaded.': 'Die Kartendaten konnten nicht geladen werden.',
-    'This map needs JavaScript. The feature data is in':
-      'Diese Karte braucht JavaScript. Die Merkmalsdaten liegen in',
     'Land and borders: Natural Earth (public domain)':
       'Land und Grenzen: Natural Earth (gemeinfrei)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Sprachmerkmal-Karte: alle Sprachen auf einer Weltkarte, eingegrenzt durch Bedingungen zu WALS-Merkmalen und nach einem davon gefärbt.',
     'Land and borders:': 'Land und Grenzen:',
     'Reset': 'Zurücksetzen',
     'Reset view': 'Ansicht zurücksetzen',

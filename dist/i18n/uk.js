@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'Джерела й охоплення',
     'Sources & scope ↗': 'Джерела й охоплення ↗',
-    'All families': 'Усі родини',
     'Atlas domains': 'Розділи атласу',
     'Language families': 'Мовні родини',
     'Sign languages': 'Жестові мови',
@@ -73,13 +72,9 @@
       'За цією адресою немає сторінки. Можливо, її перенесено або посилання введено з помилкою.',
     'Top page': 'Головна сторінка',
     'Search': 'Пошук',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'Атлас мовних родин, жестових мов і систем письма. Для кожного розміщення зазначено джерело, якому воно відповідає, конкурентні класифікації показано поруч, а дані можна завантажити.',
     'Also': 'Також',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': проста сторінка для кожного запису Glottolog із його класифікацією та мапою.',
-    'Corpora and data for low-resource languages: planned.':
-      'Корпуси й дані для малоресурсних мов: готуються.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'Джерела: Glottolog, WALS, дерева з опублікованих досліджень і каталоги писемностей, кожне за власною ліцензією',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'Пошук записів та інших назв',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'Наприклад: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'Фільтр за даними',
-    'All evidence': 'Усі дані',
-    'With research trees': 'З дослідницькими деревами',
-    'With conflicting study clades': 'Із суперечливими кладами досліджень',
-    'Record category': 'Тип запису',
-    'All categories': 'Усі типи',
     'Spoken genealogy': 'Генеалогія звукових мов',
     'Isolates': 'Ізольовані мови',
     'View': 'Вигляд',
     'List': 'Список',
     'Tree': 'Дерево',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'Мапа',
+    'Yes': 'Так',
+    'No': 'Ні',
+    'Conflicting study clades': 'Суперечливі клади досліджень',
+    'Research trees': 'Дослідницькі дерева',
     'All roots': 'Усі корені',
     'Selected branch': 'Вибрана гілка',
     'Collapse all': 'Згорнути все',
@@ -122,8 +117,6 @@
     'Fit': 'Умістити',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'Перетягуйте для переміщення · Прокручуйте або зводьте пальці для масштабу · Натисніть на вузол, щоб побачити подробиці',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Пунктир: навігаційне приєднання, а не походження. Відстані не означають час.',
     'INTEGRATED · SOURCE-CONDITIONED': 'ЗВЕДЕНО · ЗА ДЖЕРЕЛАМИ',
     'Independent roots & alternatives': 'Незалежні корені й альтернативи',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -227,14 +220,10 @@
     'Source register': 'Реєстр джерел',
     'Classification and names from': 'Класифікація й назви з',
     ', used under': ', за ліцензією',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'Гілки залежать від свого джерела. Різні розміщення показано разом; перемикати джерело не потрібно.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'Незалежні родини та ізольовані мови — паралельні корені. Розгорніть гілку, щоб простежити її записану класифікацію.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'Натисніть на рядок, щоб розгорнути й розглянути його. Виберіть мову, щоб порівняти її розміщення за джерелами та альтернативи з посиланнями на статті. Гілки досліджень розгортаються в тій самій схемі.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Записи найвищого рівня Glottolog 5.3. Кожен запис має власну сторінку з URL, що відповідає його класифікації.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': посилання на окремі джерела й ліцензії наведено нижче. Імпортовані зведені дерева належать їхнім авторам і кураторам. Відповідники кодів:',
     'Classification ·': 'Класифікація ·',
@@ -264,16 +253,9 @@
       'Дерева джерел, що охоплюють кілька родин або зовнішні групи',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Дерева досліджень і родини WALS, що охоплюють понад одну родину Glottolog. Їх наведено тут лише для навігації.',
-    'Whole tree': 'Усе дерево',
     'Show the tree of this branch': 'Показати дерево цієї гілки',
     'Where Lang Log attaches this tree': 'Де Lang Log приєднує це дерево',
     "Other sources' trees below this record": 'Дерева інших джерел нижче цього запису',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'Перетягуйте для переміщення · Прокручуйте або зводьте пальці для масштабу · Натисніть на вузол, щоб відкрити його сторінку',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'Відкрийте рядок, щоб побачити його членів. Кожна назва відкриває власну сторінку з розміщенням за кожним джерелом і посиланнями на статті.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Незалежні родини та ізольовані мови — паралельні корені. Пунктир: навігаційне приєднання, а не походження. Відстані не означають час.',
     '→ sampled study tree': '→ дерево дослідження за вибіркою',
     '→ catalog grouping': '→ групування каталогу',
     'sampled study tree': 'дерево дослідження за вибіркою',
@@ -295,9 +277,6 @@
     'Back to search results': 'Назад до результатів пошуку',
     'genus': 'рід (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'Мапа мовних ознак',
-    'Language feature map · Lang Log by yoshi': 'Мапа мовних ознак · Lang Log by yoshi',
-    'About': 'Про мапу',
     'About this map': 'Про цю мапу',
     'Colour by': 'Колір за ознакою',
     'None (one colour)': 'Немає (один колір)',
@@ -313,12 +292,8 @@
     'World map of the languages that match the conditions':
       'Мапа світу з мовами, що відповідають умовам',
     'The map data could not be loaded.': 'Не вдалося завантажити дані мапи.',
-    'This map needs JavaScript. The feature data is in':
-      'Для цієї мапи потрібен JavaScript. Дані про ознаки містяться в',
     'Land and borders: Natural Earth (public domain)':
       'Суходіл і кордони: Natural Earth (суспільне надбання)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'Мапа мовних ознак: усі мови на мапі світу, відібрані за умовами щодо ознак WALS і розфарбовані за однією з них.',
     'Land and borders:': 'Суходіл і кордони:',
     'Reset': 'Скинути',
     'Reset view': 'Скинути вигляд',

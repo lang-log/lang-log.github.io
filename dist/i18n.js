@@ -80,16 +80,9 @@ window.LANGLOG_I18N = {
       'Cross-family / outgroup source trees': '語族をまたぐ / 外群の系統樹',
       'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
         'Glottolog の複数の語族にまたがる研究の系統樹と WALS の語族です。案内のためだけに載せています。',
-      'Whole tree': '全体の樹形図',
       'Show the tree of this branch': 'この枝の樹形図を表示',
       'Where Lang Log attaches this tree': 'Lang Log でこの系統樹をつないでいる場所',
       "Other sources' trees below this record": 'この記録の下にあるほかの出典の系統樹',
-      'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-        'ドラッグで移動 · スクロールかピンチで拡大縮小 · 点をクリックでそのページへ',
-      "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-        '行を開くと下位の記録が見えます。名前を押すと、その記録のページ(出典ごとの位置づけと論文へのリンク付き)が開きます。',
-      'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-        '独立した語族と孤立言語は、並んだ根として表示します。破線は案内のためのつなぎで、祖先関係ではありません。距離は時間を表しません。',
       '→ sampled study tree': '→ 標本をとった研究の系統樹',
       '→ catalog grouping': '→ カタログのグループ',
       'sampled study tree': '標本をとった研究の系統樹',
@@ -111,17 +104,13 @@ window.LANGLOG_I18N = {
       'by': 'by',
       'Sources & scope': '出典と範囲',
       'Sources & scope ↗': '出典と範囲 ↗',
-      'All families': 'すべての語族',
       'Atlas domains': '地図の分野',
       'Language families': '語族',
       'Sign languages': '手話',
       'Writing systems': '文字体系',
       'Dark theme': 'ダークテーマ',
 
-      // Language feature map (dist/feature-map.html, dist/feature-map.js)
-      'Language feature map': '言語の特性地図',
-      'Language feature map · Lang Log by yoshi': '言語の特性地図 · Lang Log by yoshi',
-      'About': '説明',
+      // Map view and conditions of the top page (dist/explore.js)
       'About this map': 'この地図について',
       'Colour by': '色分けする特性',
       'None (one colour)': 'なし(1色)',
@@ -136,12 +125,8 @@ window.LANGLOG_I18N = {
       'Lang Log record': 'Lang Log の記録',
       'World map of the languages that match the conditions': '条件に合う言語の世界地図',
       'The map data could not be loaded.': '地図のデータを読み込めませんでした。',
-      'This map needs JavaScript. The feature data is in':
-        'この地図には JavaScript が必要です。特性のデータは次にあります:',
       'Land and borders: Natural Earth (public domain)':
         '陸地と国境: Natural Earth(パブリックドメイン)',
-      'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-        '言語の特性地図: すべての言語を世界地図に出し、WALS の特性の条件で絞り込み、1つの特性で色分けします。',
 
       // Not-found page (dist/404.html)
       'Page not found': 'ページが見つかりません',
@@ -151,13 +136,9 @@ window.LANGLOG_I18N = {
 
       // Top page (build_home.py)
       'Search': '検索',
-      'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-        '語族、手話、文字体系の地図です。どの位置づけにも、どの出典に従ったかを示し、食い違う分類は並べて見せます。データはダウンロードできます。',
       'Also': 'ほかに',
       ': one plain page per Glottolog record, with its classification and a map.':
         ': Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。',
-      'Corpora and data for low-resource languages: planned.':
-        '資源の少ない言語のコーパスとデータ: 準備中です。',
       'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
         '出典: Glottolog、WALS、公開された研究の系統樹、文字のカタログ(それぞれのライセンスに従います)',
       '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -173,12 +154,6 @@ window.LANGLOG_I18N = {
       'Search records and aliases': '記録と別名を検索',
       'Try Japanese · 日本語 · Basque · Austronesian':
         '例: Japanese · 日本語 · Basque · Austronesian',
-      'Evidence filter': '根拠で絞り込む',
-      'All evidence': 'すべての根拠',
-      'With research trees': '研究の系統樹があるもの',
-      'With conflicting study clades': '研究どうしで分岐が食い違うもの',
-      'Record category': '記録の種類',
-      'All categories': 'すべての種類',
       'Spoken genealogy': '音声言語の系統',
       'Isolates': '孤立言語',
 
@@ -186,6 +161,12 @@ window.LANGLOG_I18N = {
       'View': '表示',
       'List': '一覧',
       'Tree': '樹形図',
+      // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+      'Map': '地図',
+      'Yes': 'はい',
+      'No': 'いいえ',
+      'Conflicting study clades': '研究どうしで食い違う分岐',
+      'Research trees': '研究の系統樹',
       'All roots': 'すべての根',
       'Selected branch': '選んだ系統',
       'Collapse all': 'すべて閉じる',
@@ -204,8 +185,6 @@ window.LANGLOG_I18N = {
       'Fit': '全体',
       'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
         'ドラッグで移動 · スクロールかピンチで拡大縮小 · 点をクリックで詳細',
-      'Dashed: navigation attachment, not ancestry. Distances are not time.':
-        '破線: 案内のためのつなぎで、祖先関係ではありません。距離は時間を表しません。',
       'INTEGRATED · SOURCE-CONDITIONED': '統合 · 出典ごとの位置づけ',
       'Independent roots & alternatives': '独立した根と別の説',
       'Interactive language classification tree. Search or use the list to select a node.':
@@ -318,14 +297,10 @@ window.LANGLOG_I18N = {
       'Source register': '出典の一覧',
       'Classification and names from': '分類と名前の出典:',
       ', used under': '。ライセンス:',
-      'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-        '分岐は出典ごとのものです。違う位置づけが並んで表示されるので、出典を切り替える必要はありません。',
       'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
         '独立した語族と孤立言語は、並んだ根として表示されます。各系統を開くと、記録された分類をたどれます。',
       'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
         '行をクリックすると開いて詳しく見られます。言語を選ぶと、出典ごとの位置づけと、論文に基づく別の説を比べられます。研究の分岐も同じ一覧の中で開けます。',
-      'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-        'Glottolog 5.3 の最上位の項目です。どの記録にも、分類に沿った URL の専用ページがあります。',
 
       ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
         ': 個々の出典の引用とライセンスは下にあります。取り込んだ要約系統樹は、その著者と管理者に帰属します。コードの対応:',

@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'المصادر والنطاق',
     'Sources & scope ↗': 'المصادر والنطاق ↗',
-    'All families': 'كل الأسر',
     'Atlas domains': 'مجالات الأطلس',
     'Language families': 'الأسر اللغوية',
     'Sign languages': 'لغات الإشارة',
@@ -73,13 +72,9 @@
       'لا توجد صفحة على هذا العنوان. ربما نُقلت، أو كُتب الرابط خطأً.',
     'Top page': 'الصفحة الرئيسية',
     'Search': 'بحث',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'أطلس للأسر اللغوية ولغات الإشارة وأنظمة الكتابة. كل تصنيف يذكر المصدر الذي يتبعه، وتُعرض التصنيفات المتنافسة معًا، ويمكن تنزيل البيانات.',
     'Also': 'أيضًا',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': صفحة بسيطة لكل سجل في Glottolog، مع تصنيفه وخريطة.',
-    'Corpora and data for low-resource languages: planned.':
-      'مدونات وبيانات للغات قليلة الموارد: قيد الإعداد.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'المصادر: Glottolog وWALS وأشجار الدراسات المنشورة وفهارس الكتابات، ولكلٍّ منها ترخيصه',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'ابحث في السجلات والأسماء البديلة',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'مثال: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'التصفية حسب الأدلة',
-    'All evidence': 'كل الأدلة',
-    'With research trees': 'مع أشجار بحثية',
-    'With conflicting study clades': 'مع فروع دراسات متعارضة',
-    'Record category': 'نوع السجل',
-    'All categories': 'كل الأنواع',
     'Spoken genealogy': 'أنساب اللغات المنطوقة',
     'Isolates': 'اللغات المعزولة',
     'View': 'العرض',
     'List': 'قائمة',
     'Tree': 'شجرة',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'خريطة',
+    'Yes': 'نعم',
+    'No': 'لا',
+    'Conflicting study clades': 'فروع دراسات متعارضة',
+    'Research trees': 'أشجار بحثية',
     'All roots': 'كل الجذور',
     'Selected branch': 'الفرع المحدد',
     'Collapse all': 'طيّ الكل',
@@ -122,8 +117,6 @@
     'Fit': 'ملاءمة',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'اسحب للتحريك · مرّر أو اقرص للتكبير والتصغير · انقر على عقدة لعرض تفاصيلها',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'الخط المتقطع: ربط للتنقل، وليس نسبًا. المسافات لا تمثل الزمن.',
     'INTEGRATED · SOURCE-CONDITIONED': 'متكامل · بحسب المصدر',
     'Independent roots & alternatives': 'جذور مستقلة وبدائل',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -225,14 +218,10 @@
     'Source register': 'سجل المصادر',
     'Classification and names from': 'التصنيف والأسماء من',
     ', used under': '، بموجب ترخيص',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'الفروع مشروطة بمصدرها. تظهر المواضع المختلفة معًا؛ ولا حاجة إلى تبديل المصدر.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'الأسر المستقلة واللغات المعزولة جذور متوازية. وسّع كل فرع لتتبّع تصنيفه المسجَّل.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'انقر على صف لتوسيعه وفحصه. اختر لغة لمقارنة مواضعها بحسب كل مصدر والبدائل المرتبطة بالبحوث. وسّع فرع دراسة ضمن المخطط نفسه.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'مداخل المستوى الأعلى في Glottolog 5.3. لكل سجل صفحته الخاصة على عنوان URL يتبع تصنيفه.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': الاستشهادات والتراخيص الخاصة بكل مصدر أدناه. تُنسب الأشجار الموجزة المستوردة إلى مؤلفيها والقائمين عليها. مقابلات الرموز:',
     'Classification ·': 'التصنيف ·',
@@ -261,16 +250,9 @@
     'Cross-family / outgroup source trees': 'أشجار مصادر تمتد عبر عدة أسر أو مجموعات خارجية',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'أشجار دراسات وأسر WALS تمتد عبر أكثر من أسرة في Glottolog. وهي مدرجة هنا للتنقل فقط.',
-    'Whole tree': 'الشجرة كاملة',
     'Show the tree of this branch': 'عرض شجرة هذا الفرع',
     'Where Lang Log attaches this tree': 'حيث يربط Lang Log هذه الشجرة',
     "Other sources' trees below this record": 'أشجار مصادر أخرى تحت هذا السجل',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'اسحب للتحريك · مرّر أو اقرص للتكبير والتصغير · انقر على عقدة لفتح صفحتها',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'افتح صفًا لعرض أعضائه. يفتح كل اسم صفحته الخاصة، مع موضعه بحسب كل مصدر وروابط البحوث.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'الأسر المستقلة واللغات المعزولة جذور متوازية. الخط المتقطع: ربط للتنقل، وليس نسبًا. المسافات لا تمثل الزمن.',
     '→ sampled study tree': '← شجرة دراسة بالعينات',
     '→ catalog grouping': '← تجميع الفهرس',
     'sampled study tree': 'شجرة دراسة بالعينات',
@@ -292,9 +274,6 @@
     'Back to search results': 'العودة إلى نتائج البحث',
     'genus': 'جنس (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'خريطة سمات اللغات',
-    'Language feature map · Lang Log by yoshi': 'خريطة سمات اللغات · Lang Log by yoshi',
-    'About': 'حول',
     'About this map': 'حول هذه الخريطة',
     'Colour by': 'التلوين بحسب',
     'None (one colour)': 'لا شيء (لون واحد)',
@@ -309,12 +288,8 @@
     'Lang Log record': 'سجل Lang Log',
     'World map of the languages that match the conditions': 'خريطة العالم للغات التي تطابق الشروط',
     'The map data could not be loaded.': 'تعذّر تحميل بيانات الخريطة.',
-    'This map needs JavaScript. The feature data is in':
-      'تحتاج هذه الخريطة إلى JavaScript. بيانات السمات موجودة في',
     'Land and borders: Natural Earth (public domain)':
       'اليابسة والحدود: Natural Earth (ملكية عامة)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'خريطة سمات اللغات: كل اللغات على خريطة العالم، تُضيَّق بشروط على سمات WALS وتُلوَّن بحسب إحداها.',
     'Land and borders:': 'اليابسة والحدود:',
     'Reset': 'إعادة',
     'Reset view': 'إعادة العرض',

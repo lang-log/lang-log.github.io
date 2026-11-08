@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'แหล่งข้อมูลและขอบเขต',
     'Sources & scope ↗': 'แหล่งข้อมูลและขอบเขต ↗',
-    'All families': 'ตระกูลทั้งหมด',
     'Atlas domains': 'หมวดของแผนที่',
     'Language families': 'ตระกูลภาษา',
     'Sign languages': 'ภาษามือ',
@@ -73,13 +72,9 @@
       'ไม่มีหน้าที่ที่อยู่นี้ หน้าอาจถูกย้าย หรือพิมพ์ลิงก์ผิด',
     'Top page': 'หน้าแรก',
     'Search': 'ค้นหา',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'แผนที่ของตระกูลภาษา ภาษามือ และระบบการเขียน ทุกตำแหน่งระบุแหล่งข้อมูลที่ใช้ การจัดจำแนกที่แตกต่างกันแสดงไว้คู่กัน และดาวน์โหลดข้อมูลได้',
     'Also': 'นอกจากนี้',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่',
-    'Corpora and data for low-resource languages: planned.':
-      'คลังข้อมูลภาษาและข้อมูลของภาษาที่มีทรัพยากรน้อย: อยู่ระหว่างเตรียมการ',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'แหล่งข้อมูล: Glottolog, WALS, แผนภูมิต้นไม้จากงานวิจัยที่ตีพิมพ์ และบัญชีรายชื่ออักษร แต่ละแหล่งใช้สัญญาอนุญาตของตนเอง',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro สงวนลิขสิทธิ์',
@@ -92,17 +87,17 @@
     'Search records and aliases': 'ค้นหาระเบียนและชื่ออื่น',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'ตัวอย่าง: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'กรองตามหลักฐาน',
-    'All evidence': 'หลักฐานทั้งหมด',
-    'With research trees': 'มีแผนภูมิต้นไม้จากงานวิจัย',
-    'With conflicting study clades': 'มีเคลดจากงานวิจัยที่ขัดแย้งกัน',
-    'Record category': 'ประเภทระเบียน',
-    'All categories': 'ทุกประเภท',
     'Spoken genealogy': 'วงศ์วานของภาษาพูด',
     'Isolates': 'ภาษาโดดเดี่ยว',
     'View': 'มุมมอง',
     'List': 'รายการ',
     'Tree': 'แผนภูมิต้นไม้',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'แผนที่',
+    'Yes': 'ใช่',
+    'No': 'ไม่ใช่',
+    'Conflicting study clades': 'เคลดที่ขัดแย้งกันระหว่างงานวิจัย',
+    'Research trees': 'แผนภูมิต้นไม้จากงานวิจัย',
     'All roots': 'รากทั้งหมด',
     'Selected branch': 'สาขาที่เลือก',
     'Collapse all': 'ยุบทั้งหมด',
@@ -121,8 +116,6 @@
     'Fit': 'พอดีหน้าจอ',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'ลากเพื่อเลื่อน · เลื่อนหรือใช้สองนิ้วเพื่อซูม · คลิกจุดเพื่อดูรายละเอียด',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'เส้นประ: การเชื่อมเพื่อการนำทาง ไม่ใช่ความสัมพันธ์ทางบรรพบุรุษ ระยะห่างไม่ได้แทนเวลา',
     'INTEGRATED · SOURCE-CONDITIONED': 'รวม · ตามแหล่งข้อมูล',
     'Independent roots & alternatives': 'รากที่เป็นอิสระและทางเลือกอื่น',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -225,14 +218,10 @@
     'Source register': 'ทะเบียนแหล่งข้อมูล',
     'Classification and names from': 'การจัดจำแนกและชื่อจาก',
     ', used under': 'ใช้ภายใต้สัญญาอนุญาต',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'สาขาขึ้นอยู่กับแหล่งข้อมูลของตน ตำแหน่งที่ต่างกันแสดงไว้ด้วยกัน จึงไม่ต้องสลับแหล่งข้อมูล',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'ตระกูลที่เป็นอิสระและภาษาโดดเดี่ยวเป็นรากที่ขนานกัน ขยายแต่ละสาขาเพื่อติดตามการจัดจำแนกที่บันทึกไว้',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'คลิกแถวเพื่อขยายและตรวจดู เลือกภาษาเพื่อเปรียบเทียบตำแหน่งตามแต่ละแหล่งข้อมูลกับทางเลือกที่เชื่อมกับบทความ สาขาของงานวิจัยขยายได้ในโครงร่างเดียวกัน',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'รายการระดับบนสุดของ Glottolog 5.3 ทุกระเบียนมีหน้าของตนเองที่ URL ซึ่งเป็นไปตามการจัดจำแนก',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': การอ้างอิงและสัญญาอนุญาตของแต่ละแหล่งข้อมูลอยู่ด้านล่าง แผนภูมิต้นไม้สรุปที่นำเข้าเป็นผลงานของผู้เขียนและผู้ดูแล การเทียบรหัส:',
     'Classification ·': 'การจัดจำแนก ·',
@@ -262,16 +251,9 @@
       'แผนภูมิต้นไม้จากแหล่งข้อมูลที่ข้ามหลายตระกูลหรือเป็นกลุ่มนอก',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'แผนภูมิต้นไม้จากงานวิจัยและตระกูลของ WALS ที่ครอบคลุมมากกว่าหนึ่งตระกูลของ Glottolog แสดงไว้ที่นี่เพื่อการนำทางเท่านั้น',
-    'Whole tree': 'แผนภูมิต้นไม้ทั้งหมด',
     'Show the tree of this branch': 'แสดงแผนภูมิต้นไม้ของสาขานี้',
     'Where Lang Log attaches this tree': 'ตำแหน่งที่ Lang Log เชื่อมแผนภูมิต้นไม้นี้',
     "Other sources' trees below this record": 'แผนภูมิต้นไม้จากแหล่งข้อมูลอื่นใต้ระเบียนนี้',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'ลากเพื่อเลื่อน · เลื่อนหรือใช้สองนิ้วเพื่อซูม · คลิกจุดเพื่อเปิดหน้าของจุดนั้น',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'เปิดแถวเพื่อดูสมาชิก ชื่อแต่ละชื่อเปิดหน้าของตนเอง พร้อมตำแหน่งตามแต่ละแหล่งข้อมูลและลิงก์บทความ',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'ตระกูลที่เป็นอิสระและภาษาโดดเดี่ยวเป็นรากที่ขนานกัน เส้นประ: การเชื่อมเพื่อการนำทาง ไม่ใช่ความสัมพันธ์ทางบรรพบุรุษ ระยะห่างไม่ได้แทนเวลา',
     '→ sampled study tree': '→ แผนภูมิต้นไม้จากงานวิจัยแบบสุ่มตัวอย่าง',
     '→ catalog grouping': '→ กลุ่มของบัญชีรายชื่อ',
     'sampled study tree': 'แผนภูมิต้นไม้จากงานวิจัยแบบสุ่มตัวอย่าง',
@@ -293,9 +275,6 @@
     'Back to search results': 'กลับไปที่ผลการค้นหา',
     'genus': 'สกุล (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'แผนที่ลักษณะภาษา',
-    'Language feature map · Lang Log by yoshi': 'แผนที่ลักษณะภาษา · Lang Log by yoshi',
-    'About': 'เกี่ยวกับ',
     'About this map': 'เกี่ยวกับแผนที่นี้',
     'Colour by': 'ระบายสีตาม',
     'None (one colour)': 'ไม่มี (สีเดียว)',
@@ -310,12 +289,8 @@
     'Lang Log record': 'ระเบียน Lang Log',
     'World map of the languages that match the conditions': 'แผนที่โลกของภาษาที่ตรงตามเงื่อนไข',
     'The map data could not be loaded.': 'โหลดข้อมูลแผนที่ไม่ได้',
-    'This map needs JavaScript. The feature data is in':
-      'แผนที่นี้ต้องใช้ JavaScript ข้อมูลลักษณะอยู่ที่',
     'Land and borders: Natural Earth (public domain)':
       'แผ่นดินและพรมแดน: Natural Earth (สาธารณสมบัติ)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'แผนที่ลักษณะภาษา: ทุกภาษาบนแผนที่โลก กรองด้วยเงื่อนไขของลักษณะใน WALS และระบายสีตามลักษณะหนึ่ง',
     'Land and borders:': 'แผ่นดินและพรมแดน:',
     'Reset': 'รีเซ็ต',
     'Reset view': 'รีเซ็ตมุมมอง',

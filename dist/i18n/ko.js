@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': '출처와 범위',
     'Sources & scope ↗': '출처와 범위 ↗',
-    'All families': '모든 어족',
     'Atlas domains': '지도 분야',
     'Language families': '어족',
     'Sign languages': '수어',
@@ -73,13 +72,9 @@
       '이 주소에는 페이지가 없습니다. 페이지가 옮겨졌거나 링크가 잘못 입력되었을 수 있습니다.',
     'Top page': '첫 페이지',
     'Search': '검색',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      '어족, 수어, 문자 체계의 지도입니다. 모든 분류 위치에는 따른 출처를 밝히고, 서로 다른 분류는 함께 보여 주며, 데이터는 내려받을 수 있습니다.',
     'Also': '그 밖에',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다.',
-    'Corpora and data for low-resource languages: planned.':
-      '자원이 적은 언어의 말뭉치와 데이터: 준비 중입니다.',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       '출처: Glottolog, WALS, 발표된 연구의 계통수, 문자 목록(각각의 이용 허락 조건을 따릅니다)',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 MATSUURA Yoshihiro. 모든 권리 보유.',
@@ -92,17 +87,17 @@
     'Search records and aliases': '기록과 별칭 검색',
     'Try Japanese · 日本語 · Basque · Austronesian':
       '예: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': '근거로 거르기',
-    'All evidence': '모든 근거',
-    'With research trees': '연구 계통수가 있는 것',
-    'With conflicting study clades': '연구 간에 분기가 어긋나는 것',
-    'Record category': '기록 종류',
-    'All categories': '모든 종류',
     'Spoken genealogy': '음성 언어의 계통',
     'Isolates': '고립어',
     'View': '보기',
     'List': '목록',
     'Tree': '수형도',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': '지도',
+    'Yes': '예',
+    'No': '아니요',
+    'Conflicting study clades': '연구 간에 상충하는 분기군',
+    'Research trees': '연구 계통수',
     'All roots': '모든 뿌리',
     'Selected branch': '선택한 계통',
     'Collapse all': '모두 접기',
@@ -121,8 +116,6 @@
     'Fit': '맞추기',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       '끌어서 이동 · 스크롤이나 핀치로 확대·축소 · 점을 누르면 자세히 보기',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '점선: 탐색을 위한 연결이며 조상 관계가 아닙니다. 거리는 시간을 나타내지 않습니다.',
     'INTEGRATED · SOURCE-CONDITIONED': '통합 · 출처별 위치',
     'Independent roots & alternatives': '독립된 뿌리와 다른 학설',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -225,14 +218,10 @@
     'Source register': '출처 목록',
     'Classification and names from': '분류와 이름의 출처:',
     ', used under': ', 이용 허락:',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      '분기는 출처에 따라 달라집니다. 서로 다른 위치가 함께 표시되므로 출처를 바꿀 필요가 없습니다.',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       '독립된 어족과 고립어는 나란한 뿌리입니다. 각 계통을 펼치면 기록된 분류를 따라갈 수 있습니다.',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       '행을 누르면 펼쳐서 자세히 볼 수 있습니다. 언어를 고르면 출처별 위치와 논문에 근거한 다른 학설을 비교할 수 있습니다. 연구의 분기도 같은 목록 안에서 펼칠 수 있습니다.',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Glottolog 5.3의 최상위 항목입니다. 모든 기록에는 분류를 따르는 URL의 전용 페이지가 있습니다.',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': 출처별 인용과 이용 허락은 아래에 있습니다. 가져온 요약 계통수는 그 저자와 관리자에게 귀속됩니다. 코드 대응:',
     'Classification ·': '분류 ·',
@@ -261,16 +250,9 @@
     'Cross-family / outgroup source trees': '여러 어족에 걸치거나 외군인 출처 계통수',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Glottolog의 여러 어족에 걸치는 연구 계통수와 WALS 어족입니다. 탐색을 위해서만 여기에 싣습니다.',
-    'Whole tree': '전체 수형도',
     'Show the tree of this branch': '이 계통의 수형도 보기',
     'Where Lang Log attaches this tree': 'Lang Log가 이 계통수를 연결한 위치',
     "Other sources' trees below this record": '이 기록 아래에 있는 다른 출처의 계통수',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      '끌어서 이동 · 스크롤이나 핀치로 확대·축소 · 점을 누르면 그 페이지로 이동',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      '행을 열면 하위 기록이 보입니다. 이름을 누르면 출처별 위치와 논문 링크가 있는 그 기록의 페이지가 열립니다.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '독립된 어족과 고립어는 나란한 뿌리로 표시합니다. 점선은 탐색을 위한 연결이며 조상 관계가 아닙니다. 거리는 시간을 나타내지 않습니다.',
     '→ sampled study tree': '→ 표본을 뽑은 연구 계통수',
     '→ catalog grouping': '→ 목록의 집단',
     'sampled study tree': '표본을 뽑은 연구 계통수',
@@ -292,9 +274,6 @@
     'Back to search results': '검색 결과로 돌아가기',
     'genus': 'WALS의 속',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': '언어 특성 지도',
-    'Language feature map · Lang Log by yoshi': '언어 특성 지도 · Lang Log by yoshi',
-    'About': '설명',
     'About this map': '이 지도에 대하여',
     'Colour by': '색 구분 특성',
     'None (one colour)': '없음(한 가지 색)',
@@ -309,11 +288,7 @@
     'Lang Log record': 'Lang Log 기록',
     'World map of the languages that match the conditions': '조건에 맞는 언어의 세계 지도',
     'The map data could not be loaded.': '지도 데이터를 불러오지 못했습니다.',
-    'This map needs JavaScript. The feature data is in':
-      '이 지도에는 JavaScript가 필요합니다. 특성 데이터는 다음에 있습니다:',
     'Land and borders: Natural Earth (public domain)': '육지와 국경: Natural Earth(퍼블릭 도메인)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      '언어 특성 지도: 모든 언어를 세계 지도에 표시하고 WALS 특성 조건으로 좁히며 그중 한 특성으로 색칠합니다.',
     'Land and borders:': '육지와 국경:',
     'Reset': '초기화',
     'Reset view': '처음 보기로',

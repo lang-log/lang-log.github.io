@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': 'स्रोत और दायरा',
     'Sources & scope ↗': 'स्रोत और दायरा ↗',
-    'All families': 'सभी भाषा-परिवार',
     'Atlas domains': 'एटलस के खंड',
     'Language families': 'भाषा-परिवार',
     'Sign languages': 'सांकेतिक भाषाएँ',
@@ -73,13 +72,9 @@
       'इस पते पर कोई पृष्ठ नहीं है। हो सकता है कि वह कहीं और चला गया हो, या लिंक गलत टाइप हुआ हो।',
     'Top page': 'मुख्य पृष्ठ',
     'Search': 'खोजें',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      'भाषा-परिवारों, सांकेतिक भाषाओं और लेखन-प्रणालियों का एटलस। हर वर्गीकरण बताता है कि वह किस स्रोत पर आधारित है, परस्पर भिन्न वर्गीकरण साथ-साथ दिखाए जाते हैं, और डेटा डाउनलोड किया जा सकता है।',
     'Also': 'इसके अलावा',
     ': one plain page per Glottolog record, with its classification and a map.':
       ': Glottolog के हर रिकॉर्ड के लिए एक सरल पृष्ठ, उसके वर्गीकरण और मानचित्र के साथ।',
-    'Corpora and data for low-resource languages: planned.':
-      'कम संसाधन वाली भाषाओं के कॉर्पस और डेटा: तैयारी में।',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       'स्रोत: Glottolog, WALS, प्रकाशित अध्ययनों के वंशवृक्ष और लिपि-सूचियाँ, हर एक अपने लाइसेंस के अंतर्गत',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.':
@@ -93,17 +88,17 @@
     'Search records and aliases': 'रिकॉर्ड और उपनाम खोजें',
     'Try Japanese · 日本語 · Basque · Austronesian':
       'उदाहरण: Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': 'साक्ष्य के अनुसार छाँटें',
-    'All evidence': 'सभी साक्ष्य',
-    'With research trees': 'शोध-वंशवृक्षों वाले',
-    'With conflicting study clades': 'परस्पर विरोधी अध्ययन-शाखाओं वाले',
-    'Record category': 'रिकॉर्ड का प्रकार',
-    'All categories': 'सभी प्रकार',
     'Spoken genealogy': 'मौखिक भाषाओं की वंशावली',
     'Isolates': 'पृथक भाषाएँ',
     'View': 'दृश्य',
     'List': 'सूची',
     'Tree': 'वृक्ष',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': 'मानचित्र',
+    'Yes': 'हाँ',
+    'No': 'नहीं',
+    'Conflicting study clades': 'अध्ययनों के परस्पर विरोधी क्लेड',
+    'Research trees': 'शोध वृक्ष',
     'All roots': 'सभी मूल',
     'Selected branch': 'चुनी गई शाखा',
     'Collapse all': 'सब समेटें',
@@ -122,8 +117,6 @@
     'Fit': 'फ़िट करें',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       'खिसकाने के लिए खींचें · ज़ूम के लिए स्क्रॉल या पिंच करें · विवरण के लिए किसी बिंदु पर क्लिक करें',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'टूटी रेखा: नेविगेशन के लिए जोड़, वंश-संबंध नहीं। दूरियाँ समय नहीं दर्शातीं।',
     'INTEGRATED · SOURCE-CONDITIONED': 'एकीकृत · स्रोत के अनुसार',
     'Independent roots & alternatives': 'स्वतंत्र मूल और वैकल्पिक मत',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -225,14 +218,10 @@
     'Source register': 'स्रोत-सूची',
     'Classification and names from': 'वर्गीकरण और नामों का स्रोत:',
     ', used under': ', लाइसेंस:',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      'शाखाएँ अपने स्रोत पर निर्भर हैं। भिन्न स्थान साथ-साथ दिखते हैं; स्रोत बदलने की आवश्यकता नहीं है।',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       'स्वतंत्र भाषा-परिवार और पृथक भाषाएँ समानांतर मूल हैं। दर्ज वर्गीकरण देखने के लिए हर शाखा खोलें।',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       'किसी पंक्ति को खोलकर देखने के लिए उस पर क्लिक करें। किसी भाषा के स्रोत-वार स्थानों और शोधपत्रों से जुड़े वैकल्पिक मतों की तुलना के लिए उसे चुनें। अध्ययन-शाखाएँ भी उसी रूपरेखा में खुलती हैं।',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Glottolog 5.3 की सर्वोच्च स्तर की प्रविष्टियाँ। हर रिकॉर्ड का अपना पृष्ठ है, जिसका URL उसके वर्गीकरण के अनुसार है।',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       ': हर स्रोत के उद्धरण और लाइसेंस नीचे हैं। आयात किए गए सारांश-वृक्ष उनके लेखकों और संरक्षकों के नाम हैं। कोड-समकक्षताएँ:',
     'Classification ·': 'वर्गीकरण ·',
@@ -261,16 +250,9 @@
     'Cross-family / outgroup source trees': 'कई भाषा-परिवारों या बाहरी समूहों वाले स्रोत-वृक्ष',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'एक से अधिक Glottolog भाषा-परिवारों में फैले अध्ययन-वृक्ष और WALS भाषा-परिवार। ये यहाँ केवल नेविगेशन के लिए हैं।',
-    'Whole tree': 'पूरा वृक्ष',
     'Show the tree of this branch': 'इस शाखा का वृक्ष दिखाएँ',
     'Where Lang Log attaches this tree': 'जहाँ Lang Log इस वृक्ष को जोड़ता है',
     "Other sources' trees below this record": 'इस रिकॉर्ड के नीचे अन्य स्रोतों के वृक्ष',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      'खिसकाने के लिए खींचें · ज़ूम के लिए स्क्रॉल या पिंच करें · पृष्ठ खोलने के लिए किसी बिंदु पर क्लिक करें',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      'सदस्य देखने के लिए कोई पंक्ति खोलें। हर नाम अपना पृष्ठ खोलता है, जिसमें हर स्रोत के अनुसार स्थान और शोधपत्रों के लिंक हैं।',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'स्वतंत्र भाषा-परिवार और पृथक भाषाएँ समानांतर मूल हैं। टूटी रेखा: नेविगेशन के लिए जोड़, वंश-संबंध नहीं। दूरियाँ समय नहीं दर्शातीं।',
     '→ sampled study tree': '→ नमूना-आधारित अध्ययन-वृक्ष',
     '→ catalog grouping': '→ सूची का समूह',
     'sampled study tree': 'नमूना-आधारित अध्ययन-वृक्ष',
@@ -292,9 +274,6 @@
     'Back to search results': 'खोज-परिणामों पर लौटें',
     'genus': 'वंश (WALS)',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': 'भाषा-विशेषता मानचित्र',
-    'Language feature map · Lang Log by yoshi': 'भाषा-विशेषता मानचित्र · Lang Log by yoshi',
-    'About': 'परिचय',
     'About this map': 'इस मानचित्र के बारे में',
     'Colour by': 'इसके अनुसार रंग',
     'None (one colour)': 'कोई नहीं (एक रंग)',
@@ -310,12 +289,8 @@
     'World map of the languages that match the conditions':
       'शर्तों से मेल खाने वाली भाषाओं का विश्व मानचित्र',
     'The map data could not be loaded.': 'मानचित्र का डेटा लोड नहीं हो सका।',
-    'This map needs JavaScript. The feature data is in':
-      'इस मानचित्र के लिए JavaScript चाहिए। विशेषताओं का डेटा यहाँ है:',
     'Land and borders: Natural Earth (public domain)':
       'भूमि और सीमाएँ: Natural Earth (सार्वजनिक डोमेन)',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      'भाषा-विशेषता मानचित्र: सभी भाषाएँ विश्व मानचित्र पर, WALS विशेषताओं की शर्तों से छाँटी गईं और उनमें से एक के अनुसार रंगी गईं।',
     'Land and borders:': 'भूमि और सीमाएँ:',
     'Reset': 'रीसेट',
     'Reset view': 'दृश्य रीसेट करें',

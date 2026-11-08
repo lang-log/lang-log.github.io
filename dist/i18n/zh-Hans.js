@@ -62,7 +62,6 @@
     'by': 'by',
     'Sources & scope': '来源与范围',
     'Sources & scope ↗': '来源与范围 ↗',
-    'All families': '所有语系',
     'Atlas domains': '图谱分类',
     'Language families': '语系',
     'Sign languages': '手语',
@@ -73,12 +72,9 @@
       '此地址没有页面。页面可能已移动，或链接有误。',
     'Top page': '首页',
     'Search': '搜索',
-    'An atlas of language families, sign languages and writing systems. Every placement says which source it follows, competing classifications are shown together, and the data can be downloaded.':
-      '语系、手语和文字系统的图谱。每个归属都注明所依据的来源，相互竞争的分类并列显示，数据可以下载。',
     'Also': '另见',
     ': one plain page per Glottolog record, with its classification and a map.':
       '：每条 Glottolog 记录一个简明页面，附有分类和地图。',
-    'Corpora and data for low-resource languages: planned.': '低资源语言的语料库和数据：筹备中。',
     'Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license':
       '来源：Glottolog、WALS、已发表研究的谱系树和文字目录，各自遵循其许可协议',
     '© 2026 MATSUURA Yoshihiro. All rights reserved.': '© 2026 松浦 義広。保留所有权利。',
@@ -91,17 +87,17 @@
     'Search records and aliases': '搜索记录和别名',
     'Try Japanese · 日本語 · Basque · Austronesian':
       '例：Japanese · 日本語 · Basque · Austronesian',
-    'Evidence filter': '按证据筛选',
-    'All evidence': '全部证据',
-    'With research trees': '有研究谱系树',
-    'With conflicting study clades': '有相互冲突的研究分支',
-    'Record category': '记录类型',
-    'All categories': '全部类型',
     'Spoken genealogy': '有声语言谱系',
     'Isolates': '孤立语言',
     'View': '视图',
     'List': '列表',
     'Tree': '树状图',
+    // The top page's views and the Lang Log conditions (dist/explore.js, tools/build_wals_map.py)
+    'Map': '地图',
+    'Yes': '是',
+    'No': '否',
+    'Conflicting study clades': '研究之间相互冲突的分支',
+    'Research trees': '研究谱系树',
     'All roots': '所有根',
     'Selected branch': '所选分支',
     'Collapse all': '全部折叠',
@@ -119,8 +115,6 @@
     'Fit': '适合窗口',
     'Drag to pan · Scroll / pinch to zoom · Click a node to inspect':
       '拖动以平移 · 滚动或双指缩放 · 点击节点查看详情',
-    'Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '虚线：用于导航的连接，并非亲缘关系。距离不代表时间。',
     'INTEGRATED · SOURCE-CONDITIONED': '综合 · 按来源',
     'Independent roots & alternatives': '独立的根与其他说法',
     'Interactive language classification tree. Search or use the list to select a node.':
@@ -220,14 +214,10 @@
     'Source register': '来源一览',
     'Classification and names from': '分类和名称来自',
     ', used under': '，许可协议：',
-    'Branches are conditional on their source. Different placements appear together; no source switch is needed.':
-      '分支取决于其来源。不同的归属并列显示，无需切换来源。',
     'Independent families and isolates are parallel roots. Expand each branch to follow its recorded classification.':
       '独立的语系和孤立语言是并列的根。展开各分支即可追溯其记录的分类。',
     'Click a row to expand and inspect. Select a language to compare its source-conditioned placements and paper-linked alternatives. Expand a study branch within the same outline.':
       '点击一行即可展开查看。选择一种语言，可比较其按来源的归属和附有论文链接的其他说法。研究分支也在同一列表中展开。',
-    'Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.':
-      'Glottolog 5.3 的最高层级条目。每条记录都有自己的页面，其 URL 与分类对应。',
     ': individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:':
       '：各来源的引文和许可协议见下文。导入的汇总谱系树归其作者和维护者所有。代码对应：',
     'Classification ·': '分类 ·',
@@ -256,16 +246,9 @@
     'Cross-family / outgroup source trees': '跨语系 / 外群的来源谱系树',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       '跨越多个 Glottolog 语系的研究谱系树和 WALS 语系。列在此处仅供导航。',
-    'Whole tree': '完整树状图',
     'Show the tree of this branch': '显示此分支的树状图',
     'Where Lang Log attaches this tree': 'Lang Log 将此谱系树连接到的位置',
     "Other sources' trees below this record": '此记录之下其他来源的谱系树',
-    'Drag to pan · Scroll / pinch to zoom · Click a node to open its page':
-      '拖动以平移 · 滚动或双指缩放 · 点击节点打开其页面',
-    "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
-      '展开一行可查看其下位。点击名称会打开该记录的页面，其中有各来源的归属和论文链接。',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '独立的语系和孤立语言是并列的根。虚线：用于导航的连接，并非亲缘关系。距离不代表时间。',
     '→ sampled study tree': '→ 抽样研究谱系树',
     '→ catalog grouping': '→ 目录分组',
     'sampled study tree': '抽样研究谱系树',
@@ -287,9 +270,6 @@
     'Back to search results': '返回搜索结果',
     'genus': '属（WALS）',
     // Language feature map and map zoom (feature-map.js, map-zoom.js)
-    'Language feature map': '语言特征地图',
-    'Language feature map · Lang Log by yoshi': '语言特征地图 · Lang Log by yoshi',
-    'About': '说明',
     'About this map': '关于本地图',
     'Colour by': '着色依据',
     'None (one colour)': '无（单色）',
@@ -304,10 +284,7 @@
     'Lang Log record': 'Lang Log 记录',
     'World map of the languages that match the conditions': '符合条件的语言的世界地图',
     'The map data could not be loaded.': '无法加载地图数据。',
-    'This map needs JavaScript. The feature data is in': '本地图需要 JavaScript。特征数据位于',
     'Land and borders: Natural Earth (public domain)': '陆地与边界：Natural Earth（公有领域）',
-    'Language feature map: every language on a world map, narrowed by conditions on WALS features and coloured by one of them.':
-      '语言特征地图：在世界地图上显示所有语言，按 WALS 特征的条件筛选，并按其中一个特征着色。',
     'Land and borders:': '陆地与边界：',
     'Reset': '重置',
     'Reset view': '恢复原始视图',
