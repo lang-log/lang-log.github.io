@@ -86,12 +86,6 @@
       '예: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': '예: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': '예: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': '근거로 거르기',
-    'All evidence': '모든 근거',
-    'With research trees': '연구 계통수가 있는 것',
-    'With conflicting study clades': '연구 간에 분기가 어긋나는 것',
-    'Record category': '기록 종류',
-    'All categories': '모든 종류',
     'Spoken genealogy': '음성 언어의 계통',
     'Isolates': '고립어',
     'View': '보기',
@@ -119,7 +113,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       '점선: 탐색을 위한 연결이며 조상 관계가 아닙니다. 거리는 시간을 나타내지 않습니다.',
     'INTEGRATED · SOURCE-CONDITIONED': '통합 · 출처별 위치',
-    'Independent roots & alternatives': '독립된 뿌리와 다른 학설',
     'Interactive language classification tree. Search or use the list to select a node.':
       '대화형 언어 분류 수형도입니다. 검색하거나 목록에서 항목을 고르세요.',
     'Expandable classification outline': '펼칠 수 있는 분류 목록',
@@ -130,8 +123,6 @@
     'Expand A': 'A 펼치기',
     'Expand B': 'B 펼치기',
     'Show in tree': '수형도에서 보기',
-    'Cross-family / outgroup source trees · navigation only':
-      '여러 어족에 걸치거나 외군인 출처 계통수 · 탐색 전용',
     'Catalog classification': '목록의 분류',
     'Lexical-feature hypotheses': '어휘 특징에 따른 가설',
     'Manual-alphabet evidence': '지문자 근거',
@@ -229,9 +220,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': '출처 이력 ↓',
     'SVG (current view)': 'SVG(현재 보기)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'Glottolog와 WALS의 전체 계통수, 가져온 모든 이름과 출처 태그',
-    'Complete outline for compatible outliner tools': '호환되는 아웃라이너용 전체 목록',
     'Attribution and license notices ↗': '저작자 표시와 이용 허락 안내 ↗',
     'Close ×': '닫기 ×',
     'Scope': '범위',
@@ -350,7 +338,6 @@
     'Cross-family / outgroup source trees': '여러 어족에 걸치거나 외군인 출처 계통수',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Glottolog의 여러 어족에 걸치는 연구 계통수와 WALS 어족입니다. 탐색을 위해서만 여기에 싣습니다.',
-    'Whole tree': '전체 수형도',
     'Show the tree of this branch': '이 계통의 수형도 보기',
     'Where Lang Log attaches this tree': 'Lang Log가 이 계통수를 연결한 위치',
     "Other sources' trees below this record": '이 기록 아래에 있는 다른 출처의 계통수',
@@ -360,8 +347,6 @@
       '끌어서 이동 · 스크롤이나 핀치로 확대·축소 · 점을 누르면 그 페이지로 이동',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       '행을 열면 하위 기록이 보입니다. 이름을 누르면 출처별 위치와 논문 링크가 있는 그 기록의 페이지가 열립니다.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      '독립된 어족과 고립어는 나란한 뿌리로 표시합니다. 점선은 탐색을 위한 연결이며 조상 관계가 아닙니다. 거리는 시간을 나타내지 않습니다.',
     'Source-specific grouping or sample; not a new accepted language family.':
       '한 출처에만 있는 집단이나 표본입니다. 인정된 새 어족이 아닙니다.',
     '→ sampled study tree': '→ 표본을 뽑은 연구 계통수',

@@ -1,18 +1,17 @@
 'use strict';
-// The classification tree of Lang Log, drawn inside the top page (all roots,
-// with filters) and inside every record page (the branch below that
-// record). Every record has its own static page; this script only draws the
-// outline and the zoomable tree, and choosing a record opens its page.
+// The classification tree of one branch, drawn inside a record page when the
+// visitor asks for it (dist/record-page.js). Every record has its own static
+// page; this script only draws the outline and the zoomable tree of the
+// branch below that record, and choosing a record opens its page. There is
+// no tree of all roots (owner, 2026-11-08): the top page lists the top-level
+// records (tools/build_home.py).
 //
 // Markup: an element #atlas with
-//   data-base  path from the page to the site root ("" on the top page, "../" ...);
-//   data-root  (record pages) the record whose branch is drawn;
-//   data-src   (record pages) the source of that branch: glottolog, wals or a study id.
-// The top page also has the filters #evidence and #category. Search has its
-// own page, <site>/q=<terms> (dist/search.js).
+//   data-base  path from the page to the site root ("../" ...);
+//   data-root  the record whose branch is drawn;
+//   data-src   the source of that branch: glottolog, wals or a study id.
 //
-// URL state (query string): evidence, category,
-// view=tree, x/y/z (tree centre and zoom).
+// URL state (query string): view=tree, x/y/z (tree centre and zoom).
 (() => {
   const host = document.getElementById('atlas');
   if (!host) return;
@@ -26,9 +25,9 @@
         (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c],
       );
   const base = host.dataset.base || '',
-    rootId = host.dataset.root || null,
-    rootSrc = host.dataset.src || 'glottolog',
-    branchPage = !!rootId;
+    rootId = host.dataset.root,
+    rootSrc = host.dataset.src;
+  if (!rootId || !rootSrc) throw Error('#atlas needs data-root and data-src');
   let data,
     unified,
     nodes,
@@ -45,7 +44,6 @@
     restoring = false,
     viewTimer = 0;
   const bySource = new Map(),
-    conflictAncestors = new Set(),
     canvas = $('tree'),
     ctx = canvas.getContext('2d');
   const children = (sid, id) => bySource.get(sid + '|' + id) || [],
@@ -66,9 +64,6 @@
     const f = 10 ** d;
     return Math.round(v * f) / f;
   };
-  const evidence = $('evidence'),
-    category = $('category');
-
   // The page of a record, relative to this page.
   function pageURL(id) {
     if (data.nodes[id]) return base + window.LineagePaths.url(id);
@@ -81,9 +76,7 @@
 
   function stateURL() {
     const p = new URLSearchParams(location.search);
-    for (const k of ['evidence', 'category', 'dialects', 'view', 'x', 'y', 'z']) p.delete(k);
-    if (evidence && evidence.value !== 'all') p.set('evidence', evidence.value);
-    if (category && category.value !== 'all') p.set('category', category.value);
+    for (const k of ['view', 'x', 'y', 'z']) p.delete(k);
     if (display === 'chart') {
       p.set('view', 'tree');
       if (customView) {
@@ -112,15 +105,10 @@
     clearTimeout(viewTimer);
     viewTimer = setTimeout(() => saveURL(false), 400);
   }
-  function setOption(el, v) {
-    if (el) el.value = [...el.options].some((o) => o.value === v) ? v : 'all';
-  }
   function applyURL() {
     const p = new URLSearchParams(location.search);
     restoring = true;
     try {
-      setOption(evidence, p.get('evidence'));
-      setOption(category, p.get('category'));
       display = p.get('view') === 'tree' ? 'chart' : 'list';
       showDisplay();
       if (display === 'list') renderOutline();
@@ -143,33 +131,9 @@
       restoring = false;
     }
   }
-  function ancestors(id) {
-    const a = [],
-      seen = new Set();
-    while (data.nodes[id] && !seen.has(id)) {
-      seen.add(id);
-      a.unshift(id);
-      id = data.nodes[id].parent;
-    }
-    return a;
-  }
   function native(n) {
     return [...new Set((n.nativeNames || []).map((r) => r.text))];
   }
-  function rootsFiltered() {
-    const c = category?.value || 'all',
-      f = evidence?.value || 'all';
-    return data.roots.filter((id) => {
-      const n = nodes[id];
-      return (
-        eligible(n) &&
-        (c === 'all' || (c === 'isolates' ? n.isolate : n.category === c)) &&
-        (f === 'all' ||
-          (f === 'conflicts' ? conflictAncestors.has(id) : unified.studyIndex[id]?.length))
-      );
-    });
-  }
-
   // Outline: each row links to the record's page; opening a row shows its members
   // in the same source, and below a Glottolog record the other sources' trees
   // attached there.
@@ -239,19 +203,10 @@
     if (!data) return;
     const out = $('outline');
     out.replaceChildren();
-    if (branchPage) {
-      const el = makeNode(rootId, rootSrc);
-      out.appendChild(el);
-      el.populate();
-      el.open = true;
-      return;
-    }
-    for (const id of rootsFiltered()) out.appendChild(makeNode(id));
-    const intro = document.createElement('p');
-    intro.className = 'root-context';
-    intro.textContent = 'Cross-family / outgroup source trees · navigation only';
-    out.appendChild(intro);
-    for (const a of unified.anchors.__unplaced__ || []) out.appendChild(makeSourceBranch(a));
+    const el = makeNode(rootId, rootSrc);
+    out.appendChild(el);
+    el.populate();
+    el.open = true;
   }
   function syncButtons() {
     $('listview').classList.toggle('active', display === 'list');
@@ -287,20 +242,8 @@
       p.y = kids.length ? kids.reduce((s, c) => s + c.y, 0) / kids.length : leaf++ * 29;
       return p;
     }
-    if (branchPage) walk(rootId, rootSrc, 0, null, new Set());
-    else {
-      for (const id of rootsFiltered()) {
-        walk(id, 'glottolog', 0, null, new Set());
-        leaf += 7;
-      }
-      for (const a of unified.anchors.__unplaced__ || []) {
-        walk(a.root, a.source, 0, null, new Set());
-        leaf += 7;
-      }
-    }
-    $('view-title').textContent = branchPage
-      ? nodes[rootId].name
-      : 'Independent roots & alternatives';
+    walk(rootId, rootSrc, 0, null, new Set());
+    $('view-title').textContent = nodes[rootId].name;
     $('view-count').textContent =
       fmt(positions.length) +
       ' displayed occurrences · shared IDs may appear in multiple hypotheses';
@@ -457,15 +400,13 @@
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob(out, { type: 'image/svg+xml' }));
     a.download =
-      (branchPage
-        ? nodes[rootId].name
-            .normalize('NFKD')
-            // eslint-disable-next-line no-control-regex -- [^\x00-\x7f] drops every non-ASCII character
-            .replace(/[^\x00-\x7f]/g, '')
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '') || 'branch'
-        : 'language-families') + '.svg';
+      (nodes[rootId].name
+        .normalize('NFKD')
+        // eslint-disable-next-line no-control-regex -- [^\x00-\x7f] drops every non-ASCII character
+        .replace(/[^\x00-\x7f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'branch') + '.svg';
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 10000);
   }
@@ -535,12 +476,6 @@
     { passive: false },
   );
 
-  for (const el of [evidence, category])
-    el?.addEventListener('change', () => {
-      renderOutline();
-      if (display === 'chart') layout();
-      saveURL(true);
-    });
   $('listview').onclick = () => setDisplay('list');
   $('chartview').onclick = () => setDisplay('chart');
   $('collapse').onclick = () =>
@@ -562,8 +497,7 @@
     requestDraw();
   });
 
-  // Record pages load the data only when the visitor asks for the tree (dist/record-page.js);
-  // the top page loads it at once.
+  // The data is loaded only when the visitor asks for the tree (dist/record-page.js).
   let started = false;
   function start() {
     if (started) return;
@@ -589,9 +523,7 @@
           if (!bySource.has(k)) bySource.set(k, []);
           bySource.get(k).push(e);
         }
-        for (const id of Object.keys(u.conflictIndex))
-          for (const a of ancestors(id)) conflictAncestors.add(a);
-        if (branchPage && !nodes[rootId]) {
+        if (!nodes[rootId]) {
           $('outline').innerHTML = '<p class="load-error">This record is not in the tree data.</p>';
           return;
         }
@@ -605,5 +537,4 @@
       });
   }
   window.LangLogTree = { start };
-  if (!branchPage) start();
 })();

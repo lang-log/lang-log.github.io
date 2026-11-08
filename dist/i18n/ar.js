@@ -87,12 +87,6 @@
       'مثال: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'مثال: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'مثال: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'التصفية حسب الأدلة',
-    'All evidence': 'كل الأدلة',
-    'With research trees': 'مع أشجار بحثية',
-    'With conflicting study clades': 'مع فروع دراسات متعارضة',
-    'Record category': 'نوع السجل',
-    'All categories': 'كل الأنواع',
     'Spoken genealogy': 'أنساب اللغات المنطوقة',
     'Isolates': 'اللغات المعزولة',
     'View': 'العرض',
@@ -120,7 +114,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'الخط المتقطع: ربط للتنقل، وليس نسبًا. المسافات لا تمثل الزمن.',
     'INTEGRATED · SOURCE-CONDITIONED': 'متكامل · بحسب المصدر',
-    'Independent roots & alternatives': 'جذور مستقلة وبدائل',
     'Interactive language classification tree. Search or use the list to select a node.':
       'شجرة تفاعلية لتصنيف اللغات. ابحث أو استخدم القائمة لاختيار عقدة.',
     'Expandable classification outline': 'مخطط تصنيف قابل للتوسيع',
@@ -131,8 +124,6 @@
     'Expand A': 'توسيع A',
     'Expand B': 'توسيع B',
     'Show in tree': 'عرض في الشجرة',
-    'Cross-family / outgroup source trees · navigation only':
-      'أشجار مصادر تمتد عبر عدة أسر أو مجموعات خارجية · للتنقل فقط',
     'Catalog classification': 'تصنيف الفهرس',
     'Lexical-feature hypotheses': 'فرضيات قائمة على السمات المعجمية',
     'Manual-alphabet evidence': 'أدلة الأبجديات اليدوية',
@@ -228,9 +219,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'المصدرية ↓',
     'SVG (current view)': 'SVG (العرض الحالي)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'أشجار Glottolog وWALS الكاملة، وكل الأسماء المستوردة ووسوم المصادر',
-    'Complete outline for compatible outliner tools': 'مخطط كامل لبرامج المخططات المتوافقة',
     'Attribution and license notices ↗': 'الإسناد وإشعارات الترخيص ↗',
     'Close ×': 'إغلاق ×',
     'Scope': 'النطاق',
@@ -349,7 +337,6 @@
     'Cross-family / outgroup source trees': 'أشجار مصادر تمتد عبر عدة أسر أو مجموعات خارجية',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'أشجار دراسات وأسر WALS تمتد عبر أكثر من أسرة في Glottolog. وهي مدرجة هنا للتنقل فقط.',
-    'Whole tree': 'الشجرة كاملة',
     'Show the tree of this branch': 'عرض شجرة هذا الفرع',
     'Where Lang Log attaches this tree': 'حيث يربط Lang Log هذه الشجرة',
     "Other sources' trees below this record": 'أشجار مصادر أخرى تحت هذا السجل',
@@ -359,8 +346,6 @@
       'اسحب للتحريك · مرّر أو اقرص للتكبير والتصغير · انقر على عقدة لفتح صفحتها',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'افتح صفًا لعرض أعضائه. يفتح كل اسم صفحته الخاصة، مع موضعه بحسب كل مصدر وروابط البحوث.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'الأسر المستقلة واللغات المعزولة جذور متوازية. الخط المتقطع: ربط للتنقل، وليس نسبًا. المسافات لا تمثل الزمن.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'تجميع أو عينة خاصة بمصدر؛ وليست أسرة لغوية جديدة معترفًا بها.',
     '→ sampled study tree': '← شجرة دراسة بالعينات',

@@ -344,22 +344,13 @@ def tree_html(depth, i, sid):
             + atlas_html("../" * depth, root=i, src=sid) + "</section>")
 
 
-def atlas_html(base, root=None, src=None, downloads=""):
-    """The outline and zoomable tree that dist/tree.js fills (shared with the top page)."""
-    attrs = f' data-base="{escape(base)}"' + (f' data-root="{escape(root)}" data-src="{escape(src)}"' if root else "")
-    filters = "" if root else (
-        '<select id="evidence" aria-label="Evidence filter"><option value="all">All evidence</option>'
-        '<option value="conflicts">With conflicting study clades</option><option value="studies">With research trees</option></select>'
-        '<select id="category" aria-label="Record category"><option value="all">All categories</option>'
-        '<option value="Spoken genealogy">Spoken genealogy</option><option value="isolates">Isolates</option>'
-        + "".join(f"<option>{c}</option>" for c in ["Sign Language", "Unclassifiable", "Pidgin", "Mixed Language", "Unattested",
-                                                   "Artificial Language", "Speech Register", "Bookkeeping"])
-        + "</select>")
-    return (f'<div id="atlas" class="workspace atlas-embed"{attrs} hidden>'
+def atlas_html(base, root, src):
+    """The outline and zoomable tree of one record's branch, which dist/tree.js fills."""
+    return (f'<div id="atlas" class="workspace atlas-embed" data-base="{escape(base)}" data-root="{escape(root)}" data-src="{escape(src)}" hidden>'
             '<div class="toolbar"><div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
             '<button id="chartview" type="button">Tree</button></div>'
-            f'{filters}<button id="collapse" type="button">Collapse all</button>'
-            f'<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
+            '<button id="collapse" type="button">Collapse all</button>'
+            '<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button></div></details></div>'
             '<div id="outline" aria-label="Expandable classification outline"></div>'
             '<div id="viewport" hidden><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
             '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Language families</h2>'
@@ -369,7 +360,7 @@ def atlas_html(base, root=None, src=None, downloads=""):
             '<div class="canvas-note">Drag to pan · Scroll / pinch to zoom · Click a node to open its page</div></div>'
             '<div class="how-to-read"><p>Branches are conditional on their source. Different placements appear together; no source switch is needed.</p>'
             '<p>Open a row to see its members. Each name opens its own page, with every source\'s placement and paper links.</p>'
-            '<p>Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>'
+            '<p>Dashed: navigation attachment, not ancestry. Distances are not time.</p></div>'
             '</div>')
 
 

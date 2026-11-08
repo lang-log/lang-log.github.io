@@ -8,8 +8,11 @@ each of them (owner, 2026-11-06).
 The top page is also the top of the language-families tree (owner,
 2026-11-06): every Glottolog record and every source-only record has its own
 page below it (tools/build_paths.py), and this page lists the top-level
-families and isolates, draws the whole tree (dist/tree.js) and holds the
-downloads. There is no separate atlas page.
+families and isolates. There is no separate atlas page. The page does not
+draw the whole tree (owner, 2026-11-08): with every root at the top level it
+was only a long flat list; each record page draws the tree of its own branch
+(dist/tree.js), and the Sources page links the XML and OPML of the whole
+tree (source-data/sources-and-scope.html).
 
 Stats, sources and updates are pages of their own, not sections of the top
 page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
@@ -119,18 +122,6 @@ def families_html():
         '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
         "Glottolog family. They are listed here for navigation only.</p>"
         f'<ul class="record-links">{rows_unplaced}</ul></section>'
-    )
-
-
-def tree_section():
-    downloads = (
-        '<a class="exportlink" href="language-families.xml" download title="Complete Glottolog and WALS trees, all imported names and source tags">XML</a>'
-        '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
-    )
-    return (
-        '<section class="home-section tree-section" id="tree-section"><h2>Whole tree</h2>'
-        + bp.atlas_html("", downloads=downloads)
-        + "</section>"
     )
 
 
@@ -408,7 +399,7 @@ def main():
         '<p class="sub">An atlas of language families, sign languages and writing systems. '
         "Every placement says which source it follows, competing classifications are shown together, "
         "and the data can be downloaded.</p></section>\n"
-        f"{families_html()}{tree_section()}"
+        f"{families_html()}"
         '<section class="home-more"><h2>Also</h2><ul>'
         '<li><a href="feature-map.html">Language feature map</a>: every language on a world map, '
         "narrowed by conditions on WALS features and coloured by one of them.</li>"
@@ -417,7 +408,7 @@ def main():
         f"<footer><span>Glottolog 5.3 + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
         f"<span>{COPYRIGHT}</span></footer>\n"
-        '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script><script src="tree.js"></script>\n'
+        '<script src="home.js"></script>\n'
         "</body></html>\n"
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")

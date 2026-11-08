@@ -87,12 +87,6 @@
       'Например: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Например: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Например: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Фильтр по данным',
-    'All evidence': 'Все данные',
-    'With research trees': 'С исследовательскими деревьями',
-    'With conflicting study clades': 'С противоречащими кладами исследований',
-    'Record category': 'Тип записи',
-    'All categories': 'Все типы',
     'Spoken genealogy': 'Генеалогия звуковых языков',
     'Isolates': 'Изоляты',
     'View': 'Вид',
@@ -120,7 +114,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Пунктир: навигационная привязка, а не происхождение. Расстояния не означают время.',
     'INTEGRATED · SOURCE-CONDITIONED': 'СВОДНО · ПО ИСТОЧНИКАМ',
-    'Independent roots & alternatives': 'Независимые корни и альтернативы',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Интерактивное дерево классификации языков. Воспользуйтесь поиском или списком, чтобы выбрать узел.',
     'Expandable classification outline': 'Раскрываемая схема классификации',
@@ -131,8 +124,6 @@
     'Expand A': 'Раскрыть A',
     'Expand B': 'Раскрыть B',
     'Show in tree': 'Показать в дереве',
-    'Cross-family / outgroup source trees · navigation only':
-      'Деревья источников, охватывающие несколько семей или внешние группы · только для навигации',
     'Catalog classification': 'Классификация каталога',
     'Lexical-feature hypotheses': 'Гипотезы по лексическим признакам',
     'Manual-alphabet evidence': 'Данные дактильных алфавитов',
@@ -229,10 +220,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Происхождение данных ↓',
     'SVG (current view)': 'SVG (текущий вид)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'Полные деревья Glottolog и WALS, все импортированные названия и теги источников',
-    'Complete outline for compatible outliner tools':
-      'Полная схема для совместимых программ-аутлайнеров',
     'Attribution and license notices ↗': 'Атрибуция и лицензионные сведения ↗',
     'Close ×': 'Закрыть ×',
     'Scope': 'Охват',
@@ -352,7 +339,6 @@
       'Деревья источников, охватывающие несколько семей или внешние группы',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Деревья исследований и семьи WALS, охватывающие более одной семьи Glottolog. Они приведены здесь только для навигации.',
-    'Whole tree': 'Всё дерево',
     'Show the tree of this branch': 'Показать дерево этой ветви',
     'Where Lang Log attaches this tree': 'Где Lang Log прикрепляет это дерево',
     "Other sources' trees below this record": 'Деревья других источников ниже этой записи',
@@ -362,8 +348,6 @@
       'Перетаскивайте для перемещения · Прокрутка или щипок для масштаба · Нажмите на узел, чтобы открыть его страницу',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Раскройте строку, чтобы увидеть её членов. Каждое название открывает свою страницу с положением по каждому источнику и ссылками на статьи.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Независимые семьи и изоляты — параллельные корни. Пунктир: навигационная привязка, а не происхождение. Расстояния не означают время.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Группировка или образец отдельного источника; это не новая признанная языковая семья.',
     '→ sampled study tree': '→ дерево исследования по выборке',

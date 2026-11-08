@@ -87,12 +87,6 @@
       'Exemplos: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Exemplos: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Exemplos: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Filtrar por evidência',
-    'All evidence': 'Toda a evidência',
-    'With research trees': 'Com árvores de pesquisa',
-    'With conflicting study clades': 'Com clados de estudos em conflito',
-    'Record category': 'Tipo de registro',
-    'All categories': 'Todos os tipos',
     'Spoken genealogy': 'Genealogia das línguas orais',
     'Isolates': 'Línguas isoladas',
     'View': 'Visualização',
@@ -121,7 +115,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Tracejado: ligação de navegação, não ancestralidade. As distâncias não representam tempo.',
     'INTEGRATED · SOURCE-CONDITIONED': 'INTEGRADO · CONFORME A FONTE',
-    'Independent roots & alternatives': 'Raízes independentes e alternativas',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Árvore interativa de classificação de línguas. Pesquise ou use a lista para selecionar um nó.',
     'Expandable classification outline': 'Estrutura de classificação expansível',
@@ -132,8 +125,6 @@
     'Expand A': 'Expandir A',
     'Expand B': 'Expandir B',
     'Show in tree': 'Mostrar na árvore',
-    'Cross-family / outgroup source trees · navigation only':
-      'Árvores de fontes que abrangem várias famílias ou grupos externos · apenas para navegação',
     'Catalog classification': 'Classificação do catálogo',
     'Lexical-feature hypotheses': 'Hipóteses por traços lexicais',
     'Manual-alphabet evidence': 'Evidência de alfabetos manuais',
@@ -231,10 +222,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Proveniência ↓',
     'SVG (current view)': 'SVG (visualização atual)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'Árvores completas do Glottolog e do WALS, todos os nomes importados e etiquetas de fonte',
-    'Complete outline for compatible outliner tools':
-      'Estrutura completa para programas de estruturação compatíveis',
     'Attribution and license notices ↗': 'Atribuição e avisos de licença ↗',
     'Close ×': 'Fechar ×',
     'Scope': 'Abrangência',
@@ -355,7 +342,6 @@
       'Árvores de fontes que abrangem várias famílias ou grupos externos',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Árvores de estudos e famílias do WALS que abrangem mais de uma família do Glottolog. Estão listadas aqui apenas para navegação.',
-    'Whole tree': 'Árvore inteira',
     'Show the tree of this branch': 'Mostrar a árvore deste ramo',
     'Where Lang Log attaches this tree': 'Onde o Lang Log liga esta árvore',
     "Other sources' trees below this record": 'Árvores de outras fontes abaixo deste registro',
@@ -365,8 +351,6 @@
       'Arraste para mover · Role ou faça pinça para o zoom · Clique em um nó para abrir sua página',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Abra uma linha para ver seus membros. Cada nome abre sua própria página, com a posição segundo cada fonte e links para os artigos.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Famílias independentes e línguas isoladas são raízes paralelas. Tracejado: ligação de navegação, não ancestralidade. As distâncias não representam tempo.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Agrupamento ou amostra própria de uma fonte; não é uma nova família linguística aceita.',
     '→ sampled study tree': '→ árvore de estudo amostrada',

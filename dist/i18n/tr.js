@@ -87,12 +87,6 @@
       'Örnek: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'Örnek: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'Örnek: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'Kanıta göre süz',
-    'All evidence': 'Tüm kanıtlar',
-    'With research trees': 'Araştırma ağaçları olanlar',
-    'With conflicting study clades': 'Çelişen çalışma kladları olanlar',
-    'Record category': 'Kayıt türü',
-    'All categories': 'Tüm türler',
     'Spoken genealogy': 'Sözlü dillerin soy kütüğü',
     'Isolates': 'Yalıtık diller',
     'View': 'Görünüm',
@@ -120,7 +114,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'Kesikli çizgi: gezinme bağlantısı, soy ilişkisi değil. Uzaklıklar zamanı göstermez.',
     'INTEGRATED · SOURCE-CONDITIONED': 'BÜTÜNLEŞİK · KAYNAĞA GÖRE',
-    'Independent roots & alternatives': 'Bağımsız kökler ve seçenekler',
     'Interactive language classification tree. Search or use the list to select a node.':
       'Etkileşimli dil sınıflandırma ağacı. Bir düğüm seçmek için arayın veya listeyi kullanın.',
     'Expandable classification outline': 'Açılabilir sınıflandırma taslağı',
@@ -131,8 +124,6 @@
     'Expand A': 'A’yı aç',
     'Expand B': 'B’yi aç',
     'Show in tree': 'Ağaçta göster',
-    'Cross-family / outgroup source trees · navigation only':
-      'Birden çok aileyi kapsayan veya dış grup kaynak ağaçları · yalnızca gezinme için',
     'Catalog classification': 'Katalog sınıflandırması',
     'Lexical-feature hypotheses': 'Sözcüksel özelliklere dayalı hipotezler',
     'Manual-alphabet evidence': 'Parmak alfabesi kanıtı',
@@ -230,9 +221,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'Köken bilgisi ↓',
     'SVG (current view)': 'SVG (geçerli görünüm)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'Glottolog ve WALS’ın tüm ağaçları, içe aktarılan tüm adlar ve kaynak etiketleri',
-    'Complete outline for compatible outliner tools': 'Uyumlu taslak araçları için eksiksiz taslak',
     'Attribution and license notices ↗': 'Atıf ve lisans bildirimleri ↗',
     'Close ×': 'Kapat ×',
     'Scope': 'Kapsam',
@@ -352,7 +340,6 @@
       'Birden çok aileyi kapsayan veya dış grup kaynak ağaçları',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'Birden fazla Glottolog ailesini kapsayan çalışma ağaçları ve WALS aileleri. Burada yalnızca gezinme için listelenmiştir.',
-    'Whole tree': 'Ağacın tamamı',
     'Show the tree of this branch': 'Bu dalın ağacını göster',
     'Where Lang Log attaches this tree': 'Lang Log’un bu ağacı bağladığı yer',
     "Other sources' trees below this record": 'Bu kaydın altındaki diğer kaynakların ağaçları',
@@ -362,8 +349,6 @@
       'Kaydırmak için sürükleyin · Yakınlaştırmak için kaydırın veya iki parmakla sıkıştırın · Sayfasını açmak için bir düğüme tıklayın',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'Üyelerini görmek için bir satırı açın. Her ad, her kaynağa göre konumu ve makale bağlantılarıyla kendi sayfasını açar.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'Bağımsız aileler ve yalıtık diller paralel köklerdir. Kesikli çizgi: gezinme bağlantısı, soy ilişkisi değil. Uzaklıklar zamanı göstermez.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'Kaynağa özgü gruplama veya örnek; kabul görmüş yeni bir dil ailesi değildir.',
     '→ sampled study tree': '→ örneklenmiş çalışma ağacı',

@@ -87,12 +87,6 @@
       'उदाहरण: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'उदाहरण: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'उदाहरण: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'साक्ष्य के अनुसार छाँटें',
-    'All evidence': 'सभी साक्ष्य',
-    'With research trees': 'शोध-वंशवृक्षों वाले',
-    'With conflicting study clades': 'परस्पर विरोधी अध्ययन-शाखाओं वाले',
-    'Record category': 'रिकॉर्ड का प्रकार',
-    'All categories': 'सभी प्रकार',
     'Spoken genealogy': 'मौखिक भाषाओं की वंशावली',
     'Isolates': 'पृथक भाषाएँ',
     'View': 'दृश्य',
@@ -120,7 +114,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'टूटी रेखा: नेविगेशन के लिए जोड़, वंश-संबंध नहीं। दूरियाँ समय नहीं दर्शातीं।',
     'INTEGRATED · SOURCE-CONDITIONED': 'एकीकृत · स्रोत के अनुसार',
-    'Independent roots & alternatives': 'स्वतंत्र मूल और वैकल्पिक मत',
     'Interactive language classification tree. Search or use the list to select a node.':
       'भाषा-वर्गीकरण का इंटरैक्टिव वृक्ष। कोई बिंदु चुनने के लिए खोजें या सूची का उपयोग करें।',
     'Expandable classification outline': 'खुलने वाली वर्गीकरण-रूपरेखा',
@@ -131,8 +124,6 @@
     'Expand A': 'A खोलें',
     'Expand B': 'B खोलें',
     'Show in tree': 'वृक्ष में दिखाएँ',
-    'Cross-family / outgroup source trees · navigation only':
-      'कई भाषा-परिवारों या बाहरी समूहों वाले स्रोत-वृक्ष · केवल नेविगेशन के लिए',
     'Catalog classification': 'सूची का वर्गीकरण',
     'Lexical-feature hypotheses': 'शाब्दिक विशेषताओं पर आधारित परिकल्पनाएँ',
     'Manual-alphabet evidence': 'हस्त-वर्णमाला के साक्ष्य',
@@ -228,9 +219,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'उद्गम-विवरण ↓',
     'SVG (current view)': 'SVG (वर्तमान दृश्य)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'Glottolog और WALS के पूरे वृक्ष, आयात किए गए सभी नाम और स्रोत-टैग',
-    'Complete outline for compatible outliner tools': 'संगत रूपरेखा-उपकरणों के लिए पूरी रूपरेखा',
     'Attribution and license notices ↗': 'श्रेय और लाइसेंस-सूचनाएँ ↗',
     'Close ×': 'बंद करें ×',
     'Scope': 'दायरा',
@@ -349,7 +337,6 @@
     'Cross-family / outgroup source trees': 'कई भाषा-परिवारों या बाहरी समूहों वाले स्रोत-वृक्ष',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'एक से अधिक Glottolog भाषा-परिवारों में फैले अध्ययन-वृक्ष और WALS भाषा-परिवार। ये यहाँ केवल नेविगेशन के लिए हैं।',
-    'Whole tree': 'पूरा वृक्ष',
     'Show the tree of this branch': 'इस शाखा का वृक्ष दिखाएँ',
     'Where Lang Log attaches this tree': 'जहाँ Lang Log इस वृक्ष को जोड़ता है',
     "Other sources' trees below this record": 'इस रिकॉर्ड के नीचे अन्य स्रोतों के वृक्ष',
@@ -359,8 +346,6 @@
       'खिसकाने के लिए खींचें · ज़ूम के लिए स्क्रॉल या पिंच करें · पृष्ठ खोलने के लिए किसी बिंदु पर क्लिक करें',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'सदस्य देखने के लिए कोई पंक्ति खोलें। हर नाम अपना पृष्ठ खोलता है, जिसमें हर स्रोत के अनुसार स्थान और शोधपत्रों के लिंक हैं।',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'स्वतंत्र भाषा-परिवार और पृथक भाषाएँ समानांतर मूल हैं। टूटी रेखा: नेविगेशन के लिए जोड़, वंश-संबंध नहीं। दूरियाँ समय नहीं दर्शातीं।',
     'Source-specific grouping or sample; not a new accepted language family.':
       'स्रोत-विशिष्ट समूह या नमूना; कोई नया स्वीकृत भाषा-परिवार नहीं।',
     '→ sampled study tree': '→ नमूना-आधारित अध्ययन-वृक्ष',

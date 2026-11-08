@@ -1267,11 +1267,6 @@ dialog .close {
 .rowname {
   overflow-wrap: anywhere;
 }
-.root-context {
-  padding: 16px 0 4px;
-  font-size: 11px;
-  color: var(--c-76846e);
-}
 .conflict-witness {
   padding: 5px 7px;
   background: var(--c-efe6d7);
@@ -1709,11 +1704,6 @@ dialog .close {
     font-size: 13px;
   }
   .small-disclaimer,
-  .root-context {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--c-5c6c57);
-  }
   .source-branch > summary {
     font-size: 16px;
     min-height: 48px;
@@ -2545,7 +2535,7 @@ header .tools > button {
   background: var(--teal);
   opacity: 0.9;
 }
-/* The outline and tree of dist/tree.js inside the top page and the record pages. */
+/* The outline and tree of dist/tree.js inside the record pages. */
 .atlas-embed {
   height: auto;
   min-height: 0;
@@ -2563,16 +2553,6 @@ header .tools > button {
   flex: none;
   height: min(70vh, 640px);
 }
-.atlas-embed .toolbar select {
-  width: auto;
-  font-size: 12px;
-  padding: 5px 6px;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: transparent;
-  color: inherit;
-  max-width: 100%;
-}
 .atlas-embed .how-to-read {
   padding: 6px 16px 12px;
   font-size: 13px;
@@ -2588,10 +2568,6 @@ header .tools > button {
   color: inherit;
 }
 @media (max-width: 700px) {
-  .atlas-embed .toolbar select {
-    font-size: 14px;
-    min-height: 44px;
-  }
   .atlas-embed .how-to-read {
     font-size: 15px;
   }

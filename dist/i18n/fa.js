@@ -87,12 +87,6 @@
       'نمونه: Japanese · 日本語 · Basque · Austronesian',
     'Try Japanese · Czech · ASL · Lithuanian': 'نمونه: Japanese · Czech · ASL · Lithuanian',
     'Try Brahmi · Hangul · Latin · SignWriting': 'نمونه: Brahmi · Hangul · Latin · SignWriting',
-    'Evidence filter': 'پالایش بر پایهٔ شواهد',
-    'All evidence': 'همهٔ شواهد',
-    'With research trees': 'دارای درخت‌های پژوهشی',
-    'With conflicting study clades': 'دارای شاخه‌های ناسازگار پژوهش‌ها',
-    'Record category': 'نوع رکورد',
-    'All categories': 'همهٔ انواع',
     'Spoken genealogy': 'تبارشناسی زبان‌های گفتاری',
     'Isolates': 'زبان‌های منفرد',
     'View': 'نما',
@@ -120,7 +114,6 @@
     'Dashed: navigation attachment, not ancestry. Distances are not time.':
       'خط‌چین: پیوند برای پیمایش، نه رابطهٔ نیاکانی. فاصله‌ها نشان‌دهندهٔ زمان نیستند.',
     'INTEGRATED · SOURCE-CONDITIONED': 'یکپارچه · بر پایهٔ منبع',
-    'Independent roots & alternatives': 'ریشه‌های مستقل و دیدگاه‌های دیگر',
     'Interactive language classification tree. Search or use the list to select a node.':
       'درخت تعاملی رده‌بندی زبان‌ها. برای انتخاب یک گره جست‌وجو کنید یا از فهرست استفاده کنید.',
     'Expandable classification outline': 'طرح رده‌بندی بازشدنی',
@@ -131,8 +124,6 @@
     'Expand A': 'باز کردن A',
     'Expand B': 'باز کردن B',
     'Show in tree': 'نمایش در درخت',
-    'Cross-family / outgroup source trees · navigation only':
-      'درخت‌های منابعِ فراخانواده‌ای یا برون‌گروهی · فقط برای پیمایش',
     'Catalog classification': 'رده‌بندی فهرست',
     'Lexical-feature hypotheses': 'فرضیه‌های مبتنی بر ویژگی‌های واژگانی',
     'Manual-alphabet evidence': 'شواهد الفبای انگشتی',
@@ -228,9 +219,6 @@
     'OPML ↓': 'OPML ↓',
     'Provenance ↓': 'خاستگاه داده‌ها ↓',
     'SVG (current view)': 'SVG (نمای کنونی)',
-    'Complete Glottolog and WALS trees, all imported names and source tags':
-      'درخت‌های کامل Glottolog و WALS، همهٔ نام‌های واردشده و برچسب‌های منبع',
-    'Complete outline for compatible outliner tools': 'طرح کامل برای ابزارهای طرح‌نویسی سازگار',
     'Attribution and license notices ↗': 'ذکر منبع و اطلاعیه‌های مجوز ↗',
     'Close ×': 'بستن ×',
     'Scope': 'دامنه',
@@ -349,7 +337,6 @@
     'Cross-family / outgroup source trees': 'درخت‌های منابعِ فراخانواده‌ای یا برون‌گروهی',
     'Study trees and WALS families that span more than one Glottolog family. They are listed here for navigation only.':
       'درخت‌های پژوهشی و خانواده‌های WALS که بیش از یک خانوادهٔ Glottolog را در بر می‌گیرند. این‌ها فقط برای پیمایش اینجا آمده‌اند.',
-    'Whole tree': 'کل درخت',
     'Show the tree of this branch': 'نمایش درخت این شاخه',
     'Where Lang Log attaches this tree': 'جایی که Lang Log این درخت را وصل می‌کند',
     "Other sources' trees below this record": 'درخت‌های منابع دیگر زیر این رکورد',
@@ -359,8 +346,6 @@
       'برای جابه‌جایی بکشید · برای بزرگ‌نمایی پیمایش کنید یا دو انگشت را باز و بسته کنید · برای باز کردن صفحه روی یک گره کلیک کنید',
     "Open a row to see its members. Each name opens its own page, with every source's placement and paper links.":
       'یک ردیف را باز کنید تا اعضایش را ببینید. هر نام صفحهٔ خودش را باز می‌کند، با جایگاه بر پایهٔ هر منبع و پیوند مقاله‌ها.',
-    'Independent families and isolates are parallel roots. Dashed: navigation attachment, not ancestry. Distances are not time.':
-      'خانواده‌های مستقل و زبان‌های منفرد ریشه‌های موازی‌اند. خط‌چین: پیوند برای پیمایش، نه رابطهٔ نیاکانی. فاصله‌ها نشان‌دهندهٔ زمان نیستند.',
     'Source-specific grouping or sample; not a new accepted language family.':
       'گروه‌بندی یا نمونهٔ ویژهٔ یک منبع؛ خانوادهٔ زبانیِ تازهٔ پذیرفته‌شده نیست.',
     '→ sampled study tree': '← درخت پژوهشی نمونه‌گیری‌شده',
