@@ -7,7 +7,7 @@
   <Url
     type="text/html"
     method="get"
-    template="https://lang-log.github.io/?q={searchTerms}"
+    template="https://lang-log.github.io/q={searchTerms}"
   />
   <Url
     type="application/opensearchdescription+xml"
