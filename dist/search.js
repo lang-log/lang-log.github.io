@@ -20,6 +20,8 @@
   if (!m || !page) return;
   // Site root: '/' on the live site, '/preview/pr-<n>/' in a pull request preview.
   const base = m[1];
+  // Keep the title suffix 404.html was written with (tools/site_brand.py).
+  const titleSuffix = document.title.slice(document.title.lastIndexOf(' · '));
   const $ = (id) => document.getElementById(id),
     fmt = (n) => n.toLocaleString(),
     esc = (s) =>
@@ -90,7 +92,7 @@
   function render() {
     const q0 = termsOf(where()?.[2] || '');
     if (document.activeElement !== input) input.value = q0;
-    document.title = (q0 ? q0 + ' · ' : '') + 'Search results · Lang Log by yoshi';
+    document.title = (q0 ? q0 + ' · ' : '') + 'Search results' + titleSuffix;
     if (!q0) {
       out.replaceChildren();
       input.focus();
