@@ -43,6 +43,12 @@ python3 tools/split_data.py
 # committed) from source-data/wals/, source-data/wals.csv and
 # source-data/languages.csv.
 python3 tools/build_wals_map.py
+# Writes the Releases page dist/releases.html and dist/releases.json (not
+# committed) from the GitHub Releases: from build/github-releases.json, which
+# pages.yml and site.yml fetch first with a read-only token, or from the API
+# when that file is not there. Its tests run first.
+python3 -m unittest discover -s tools -p 'test_*.py'
+python3 tools/build_releases.py
 # The browser rebuilds the same objects as data.json and integrated.json.
 node tools/check_atlas_data.js
 # Every interface language has every string (.claude/rules/interface-text.md).
@@ -57,10 +63,11 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js random.json search.js \
+         home.js random.json q.html search.js \
          feature-map.html feature-map.js feature-map.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json \
          stats/index.html stats.js sources/index.html updates/index.html \
+         releases.html releases.json \
          afro-asiatic/berber/languoid.json features/index.json \
          features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do
   test -s "dist/$f" || { echo "missing dist/$f"; exit 1; }

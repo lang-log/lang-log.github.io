@@ -18,10 +18,9 @@ source-data/lang-log/updates.json). The top page links to them in a row of
 links next to the Random button. Every count on the Stats page is counted from the
 data here, at build time; no number is typed by hand.
 
-The list and the texts work without JavaScript. The search box opens the search
-results page, <site>/q=<terms> (dist/search.js, owner 2026-11-07; dist/home.js
-sends the box and old ?q= links there). Without JavaScript the box is a GET
-form to this page (?q=).
+The list and the texts work without JavaScript. The search box is a GET form to
+the search results page, dist/q.html at <site>/q?q=<terms> (dist/search.js,
+owner 2026-11-08); dist/home.js sends old ?q= links to the top page there.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
@@ -45,8 +44,9 @@ import json
 
 from locations import DIST
 import build_paths as bp
+import info_page
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, HOME_TITLE, TITLE_SUFFIX, by_yoshi
+from site_brand import COPYRIGHT, HOME_TITLE, by_yoshi
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -85,7 +85,12 @@ def random_row():
 
 
 # Links next to the Random button on the top page: (page, label).
-GUIDE_LINKS = [("stats/", "Stats"), ("sources/", "Sources"), ("updates/", "Updates")]
+GUIDE_LINKS = [
+    ("stats/", "Stats"),
+    ("sources/", "Sources"),
+    ("updates/", "Updates"),
+    ("releases.html", "Releases"),
+]
 
 
 def guide_row():
@@ -93,13 +98,66 @@ def guide_row():
     return f'<nav class="home-guide" aria-label="About Lang Log">{links}</nav>'
 
 
+# The continents of the top-page list, in the owner's order (2026-11-08), and
+# the Glottolog macroareas each one takes. The grouping is for display only:
+# a continent is a heading on the top page, never a node of the tree.
+CONTINENTS = {
+    "Africa": ("Africa",),
+    "Eurasia": ("Eurasia",),
+    "Oceania": ("Papunesia", "Australia"),
+    "North America": ("North America",),
+    "South America": ("South America",),
+}
+CONTINENT_OF_MACROAREA = {a: c for c, areas in CONTINENTS.items() for a in areas}
+
+
+def first_macroarea(node):
+    """A record's first Glottolog macroarea ("" if it has none); records in
+    several macroareas list them separated by ";"."""
+    return (node.get("area") or "").split(";")[0]
+
+
+# The heading for top-level records with no macroarea, neither their own nor
+# any of their languages' (for example a root whose records have no location).
+NO_CONTINENT = "No location in the data"
+
+
+def continent_of_roots():
+    """Each top-level record's continent: the one where most of its languages
+    (level "language", by their first macroarea) are; a tie goes to the
+    continent that comes first in CONTINENTS. A root with no such language
+    takes the continent of its own first macroarea, and one without that
+    either goes under NO_CONTINENT."""
+    tally = {r: dict.fromkeys(CONTINENTS, 0) for r in bp.data["roots"]}
+    for n in bp.nodes.values():
+        continent = CONTINENT_OF_MACROAREA.get(first_macroarea(n))
+        if n.get("level") == "language" and continent and n.get("root") in tally:
+            tally[n["root"]][continent] += 1
+    return {
+        r: max(t, key=t.get)
+        if any(t.values())
+        else CONTINENT_OF_MACROAREA.get(first_macroarea(bp.nodes[r]), NO_CONTINENT)
+        for r, t in tally.items()
+    }
+
+
 def families_html():
-    """The top-level families and isolates of Glottolog, each linked to its page."""
+    """The top-level records of Glottolog, each linked to its page, under the
+    continent where most of their languages are (continent_of_roots())."""
     roots = sorted(bp.data["roots"], key=lambda r: bp.nodes[r]["name"].lower())
+    continent_of = continent_of_roots()
     # No kind label (family, isolate) after the name: every record is a languoid.
-    rows = "".join(
-        f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
-        for r in roots
+    groups = "".join(
+        f"<h3>{escape(continent)}</h3>"
+        '<ul class="record-links">'
+        + "".join(
+            f'<li><a href="{escape(bp.path_of(r))}/">{escape(bp.nodes[r]["name"])}</a></li>'
+            for r in roots
+            if continent_of[r] == continent
+        )
+        + "</ul>"
+        for continent in (*CONTINENTS, NO_CONTINENT)
+        if continent in continent_of.values()
     )
     unplaced = bp.unified["anchors"].get("__unplaced__", [])
     rows_unplaced = "".join(
@@ -110,7 +168,8 @@ def families_html():
     return (
         f'<section class="home-section" id="families"><h2>Top-level languoids · {len(roots)}</h2>'
         '<p class="muted">Top-level entries of Glottolog 5.3. Each record has its own page at a URL that follows its classification.</p>'
-        f'<ul class="record-links">{rows}</ul>'
+        '<p class="muted">Each is listed under the continent where most of its languages are spoken.</p>'
+        f"{groups}"
         '<h3>Cross-family / outgroup source trees</h3><p class="muted">Study trees and WALS families that span more than one '
         "Glottolog family. They are listed here for navigation only.</p>"
         f'<ul class="record-links">{rows_unplaced}</ul></section>'
@@ -276,7 +335,7 @@ def by_macroarea():
     not_spoken = ("Sign Language", "Bookkeeping", "Artificial Language")
     tally = {a: 0 for a in MACROAREAS}
     for n in bp.nodes.values():
-        area = (n.get("area") or "").split(";")[0]
+        area = first_macroarea(n)
         if n.get("level") == "language" and n.get("category") not in not_spoken and area in tally:
             tally[area] += 1
     return list(tally.items())
@@ -344,25 +403,10 @@ def updates_body():
 def sub_page(slug, title, body, scripts=()):
     """A page one level below the root, such as dist/stats/index.html. `scripts` are
     extra files from dist/ loaded in <head> after lang.js."""
-    html = (
-        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
-        + SECURITY_HEAD
-        + '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
-        '<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../apple-touch-icon.png">'
-        '<link rel="stylesheet" href="../style.css">'
-        '<script src="../theme.js"></script><script src="../i18n.js"></script><script src="../lang.js"></script>'
-        + "".join(f'<script src="../{escape(s)}"></script>' for s in scripts)
-        + '</head><body class="info-page">\n'
-        '<header><div class="brand"><a class="home" href="../"><svg class="logo" role="img" aria-label="LANG LOG"><use href="../logo.svg#logo"/></svg></a> '
-        + by_yoshi()
-        + "</div></header>\n"
-        f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
-        f"<footer><span>{COPYRIGHT}</span></footer>\n"
-        "</body></html>\n"
-    )
     (DIST / slug).mkdir(exist_ok=True)
-    (DIST / slug / "index.html").write_text(html, encoding="utf-8")
+    (DIST / slug / "index.html").write_text(
+        info_page.page(title, body, "../", scripts), encoding="utf-8"
+    )
 
 
 def main():
@@ -391,7 +435,7 @@ def main():
         '<section class="home-intro">'
         '<h1 class="home-logo"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></h1>'
         + by_yoshi("p", "home-by")
-        + '<form class="home-search" action="./" method="get" role="search">'
+        + '<form class="home-search" action="q" method="get" role="search">'
         '<label class="visually-hidden" for="home-q">Search languages and families</label>'
         '<div class="search-pill">'
         '<input id="home-q" name="q" type="search" placeholder="Name, ISO code, Glottocode…" autocomplete="off">'
