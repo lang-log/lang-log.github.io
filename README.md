@@ -50,7 +50,6 @@ Left out on purpose:
 - Files written by scripts and committed: `dist/hf-iso-map.js`, `dist/logo.svg` and `dist/map/` (Prettier). OPML and CSV files are not formatted by any of the tools.
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
-- For now, `tools/build_paths.py` (Ruff format), which open pull request #60 changes, so that the two do not conflict. It is formatted in its own pull request once #60 is merged.
 
 ## Shareable URLs
 
