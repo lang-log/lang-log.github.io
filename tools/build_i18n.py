@@ -19,15 +19,20 @@ these dictionaries. Each maps English text to its translation:
             one, and $t1 that value translated.
 """
 
+import csv
 import json
 import re
 import sys
 
 import yaml
 
+from build_wals_map import AREAS
+from build_wals_map import SRC as WALS
 from locations import DIST, LANG_JS, ROOT
 
 SOURCE = ROOT / "i18n"
+# The sections of en.yaml that hold the names in the WALS data (check_wals).
+WALS_SECTIONS = {"wals_areas", "wals_features", "wals_values"}
 
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9]*)(\|tr)?\}")
 # What a placeholder matches unless en.yaml's `match` says otherwise: {count},
@@ -96,6 +101,29 @@ def replacement(text, names):
     )
 
 
+def wals_names():
+    """Every name the WALS data shows on the pages: the areas of the feature menu
+    (AREAS in tools/build_wals_map.py), the feature names and the value names."""
+    names = {name for _, _, name in AREAS}
+    for table in ("parameters.csv", "codes.csv"):
+        with open(WALS / table, encoding="utf-8", newline="") as f:
+            names |= {row["Name"] for row in csv.DictReader(f)}
+    return names
+
+
+def check_wals(english):
+    """Every WALS name has a text in en.yaml (so it can be translated), and the WALS
+    sections hold nothing WALS no longer has."""
+    names, errors = wals_names(), []
+    have = set(english.values())
+    for name in sorted(names - have):
+        errors.append(f"i18n/en.yaml: WALS name {name!r} has no text (add it under wals_*)")
+    for key, text in english.items():
+        if key.split(".")[0] in WALS_SECTIONS and text not in names:
+            errors.append(f"i18n/en.yaml: {key} {text!r} is not a WALS name any more")
+    return errors
+
+
 def main():
     errors = []
     codes = languages()
@@ -117,6 +145,8 @@ def main():
             seen[text] = key
         if "|tr}" in str(text):
             errors.append(f"i18n/en.yaml: {key}: |tr belongs in translations only")
+
+    errors += check_wals(english)
 
     files = {p.stem for p in SOURCE.glob("*.yaml")}
     for extra in sorted(files - set(codes)):

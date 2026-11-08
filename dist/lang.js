@@ -47,7 +47,7 @@
   ];
   // Digits other than 0-9 (Intl numbering system), as in the profile site's data/site.yaml.
   var DIGITS = { fa: 'arabext' };
-  var ATTRS = ['placeholder', 'aria-label', 'title', 'alt'];
+  var ATTRS = ['placeholder', 'aria-label', 'title', 'alt', 'label'];
   var SKIP = 'script,style,code,.notranslate';
   var LOAD_WAIT = 3000;
   // Content hashes of i18n/<code>.js, filled in by tools/version_assets.py in CI so a
