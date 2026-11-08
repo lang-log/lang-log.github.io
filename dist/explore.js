@@ -335,7 +335,7 @@
       draw();
       if (!mounted && window.LangLogMap) {
         mounted = true;
-        window.LangLogMap.mount(svg);
+        window.LangLogMap.mount(svg).onTap('#points circle', fillCard);
       }
       onZoom();
     }
@@ -470,8 +470,11 @@
     return v ? v.name : '';
   }
 
-  function showCard(i, evt) {
-    var row = L.rows[i];
+  // The box of a tapped dot. dist/map-zoom.js finds the dot (onTap in showView), shows the
+  // box and places it, as on the record maps.
+  function fillCard(c) {
+    var i = +c.dataset.i,
+      row = L.rows[i];
     card.textContent = '';
     // The name links to the record's own page once dist/atlas-data.js has found it, and
     // to its source detail until then (or when it has no page).
@@ -529,12 +532,7 @@
       card.hidden = true;
     });
     card.appendChild(close);
-    var box = svg.closest('.wm-map').getBoundingClientRect();
-    card.hidden = false;
-    var x = Math.min(evt.clientX - box.left + 10, box.width - card.offsetWidth - 8);
-    var y = Math.min(evt.clientY - box.top + 10, box.height - card.offsetHeight - 8);
-    card.style.left = Math.max(8, x) + 'px';
-    card.style.top = Math.max(8, y) + 'px';
+    return card;
   }
 
   function onZoom() {
@@ -593,18 +591,6 @@
         renderConds();
         var sels = document.querySelectorAll('#conditions .wm-feature');
         sels[sels.length - 1].focus();
-      });
-      // map-zoom.js captures the pointer, so a click lands on the svg: find the dot under the
-      // pointer instead, and ignore clicks that ended a drag.
-      var downAt = null;
-      svg.addEventListener('pointerdown', function (e) {
-        downAt = [e.clientX, e.clientY];
-      });
-      svg.addEventListener('click', function (e) {
-        if (downAt && Math.abs(e.clientX - downAt[0]) + Math.abs(e.clientY - downAt[1]) > 4) return;
-        var t = document.elementFromPoint(e.clientX, e.clientY);
-        var i = t && t.parentNode === layer ? t.dataset.i : null;
-        if (i != null) showCard(+i, e);
       });
     })
     .catch(function () {
