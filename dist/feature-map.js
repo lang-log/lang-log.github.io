@@ -30,11 +30,14 @@
   ];
   var OTHER = '--c-9ba8a4';
   var PLAIN = '--c-386e6d';
-  // Dot radius on screen in CSS pixels, whatever the zoom; smaller on narrow maps.
-  // Many dots (no conditions yet) are drawn a little smaller so they overlap less.
+  // Dot radius on screen in CSS pixels, whatever the zoom: the record maps' point size
+  // (LangLogMap.POINT_PX in map-zoom.js), smaller on narrow maps, and smaller again when
+  // many dots (no conditions yet) would overlap.
   var shown = 0;
   var dotPx = function () {
-    return (svg.clientWidth < 600 ? 2.6 : 4) * (shown > 3000 ? 0.7 : 1);
+    return (
+      window.LangLogMap.POINT_PX * (svg.clientWidth < 600 ? 0.65 : 1) * (shown > 3000 ? 0.7 : 1)
+    );
   };
 
   var L = null,

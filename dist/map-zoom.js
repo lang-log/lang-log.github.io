@@ -10,8 +10,10 @@
 //   the + / - buttons (only with a mouse or trackpad), Reset, and the keyboard
 //   (+ - arrows 0) move the view. Reset and the buttons glide to the new view instead of
 //   jumping, unless the visitor asked for reduced motion.
-// - Points keep their size on screen at every zoom (their r is rescaled), and border lines
-//   keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
+// - Points keep one size on screen at every zoom, on every screen and in the map view: a
+//   member point has radius POINT_PX in CSS pixels, and the other points keep their size
+//   relative to it (data-r on the svg is the member radius languoid_map.py wrote). Border
+//   lines keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
 // - Shapes that meet edge to edge (the three copies of the world, the pieces of land cut
@@ -31,10 +33,10 @@
 //   feature map, whose own box shows more.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
-// languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world). The svg receives an
-// "lmap:view" event, detail {k, x, y, w, h}, after every change; k is the view width
-// divided by the starting width, so a point of radius r0 should be drawn at r0 * k. A page
-// that adds or replaces points after mounting calls refresh() on the object mount returns.
+// languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
+// svg receives an "lmap:view" event, detail {k, x, y, w, h}, after every change; k is the
+// view width divided by the starting width, so a point of radius r0 should be drawn at
+// r0 * k to keep its size on screen. A page that adds or replaces points after mounting calls refresh() on the object mount returns.
 (function () {
   'use strict';
   var TILE_BELOW = 700; // view width (SVG units) below which tiles are drawn
@@ -57,6 +59,9 @@
   // Width on screen (CSS pixels) of the outline that closes seams (record.css --lmap-seam).
   var SEAM_PX = 0.6;
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
+  // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
+  // The feature map's dots start from it too (LangLogMap.POINT_PX).
+  var POINT_PX = 4;
   var manifest = null,
     manifestWait = [],
     atlas = null,
@@ -209,13 +214,17 @@
     bg.appendChild(tiles);
     var shown = {};
 
-    // Points: the radius of the ones written in the page, and their own x.
-    var scaled = Array.prototype.map.call(
-      svg.querySelectorAll('.lmap-ctx circle, .lmap-main circle, .lmap-self circle'),
-      function (c) {
-        return [c, parseFloat(c.getAttribute('r'))];
-      },
-    );
+    // Points written in the page, each with its size relative to a member point, and their
+    // own x.
+    var unitR = parseFloat(svg.getAttribute('data-r'));
+    var scaled = unitR
+      ? Array.prototype.map.call(
+          svg.querySelectorAll('.lmap-ctx circle, .lmap-main circle, .lmap-self circle'),
+          function (c) {
+            return [c, parseFloat(c.getAttribute('r')) / unitR];
+          },
+        )
+      : [];
     var points = null;
     function allPoints() {
       if (!points) {
@@ -273,8 +282,11 @@
       );
       var k = view.w / (home.w * px),
         e = view.w / px;
-      for (var i = 0; i < scaled.length; i++)
-        scaled[i][0].setAttribute('r', +(scaled[i][1] * k).toFixed(3));
+      // SVG units per CSS pixel; nothing to size while the map is not laid out.
+      var box = svg.getBoundingClientRect(),
+        unit = box.width && box.height ? Math.max(view.w / box.width, view.h / box.height) : 0;
+      for (var i = 0; unit && i < scaled.length; i++)
+        scaled[i][0].setAttribute('r', +(POINT_PX * scaled[i][1] * unit).toFixed(3));
       // Each point goes to the copy of the world nearest the centre of the view.
       var cx = view.x + view.w / 2,
         ps = allPoints();
@@ -836,7 +848,7 @@
     if (e.key === 'Escape' && opened && !e.defaultPrevented) opened.close(false);
   });
 
-  window.LangLogMap = { mount: mount, records: records };
+  window.LangLogMap = { mount: mount, records: records, POINT_PX: POINT_PX };
   function all() {
     Array.prototype.forEach.call(document.querySelectorAll('svg.lmap[data-map]'), mount);
   }
