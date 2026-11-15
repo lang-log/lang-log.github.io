@@ -12,6 +12,7 @@ the language part of the link's own address, so it keeps no copy of
 PROFILE_URL; dist/record.js keeps the title suffix its page was built with.
 """
 
+import json
 import re
 import sys
 from html import escape
@@ -39,6 +40,38 @@ PROFILE_REF = "langlog"
 PROFILE_URL = f"https://nguekwang.github.io/en/?ref={PROFILE_REF}"
 COPYRIGHT = f"© 2026 {OWNER}. All rights reserved."
 
+
+# The favicon links every page carries, relative to the page (`up` is "../" per level).
+# favicon-192.png is the same mark on the page background, square and a multiple of
+# 48 px, for search engines and browsers without SVG favicons.
+def icon_links(up=""):
+    return (
+        f'<link rel="icon" href="{up}favicon.svg" type="image/svg+xml">'
+        f'<link rel="icon" href="{up}favicon-192.png" type="image/png" sizes="192x192">'
+        f'<link rel="apple-touch-icon" href="{up}apple-touch-icon.png">'
+    )
+
+
+# The site name for link previews and search engines.
+SITE_NAME_META = f'<meta property="og:site_name" content="{escape(SITE_NAME)}">'
+
+
+# The WebSite structured data on the top page, which search engines read for the
+# site name they show above a result. "<" is escaped so the JSON cannot end the script.
+WEBSITE_JSONLD = (
+    '<script type="application/ld+json">'
+    + json.dumps(
+        {"@context": "https://schema.org", "@type": "WebSite", "name": SITE_NAME, "url": SITE_URL},
+        ensure_ascii=False,
+    ).replace("<", "\\u003c")
+    + "</script>"
+)
+
+
+# The query tools/version_assets.py adds to asset links.
+ASSET_VERSION = re.compile(r"\?v=[0-9a-f]+")
+
+
 # Any "by yoshi" link in a page, whatever its attributes.
 ANY_BY = re.compile(r'<(span|p) class="(by|home-by)">by <a [^>]*>yoshi</a></\1>')
 
@@ -56,6 +89,12 @@ def problems(text):
     title = re.search(r"<title>([^<]*)</title>", text)
     if not title or not title.group(1).endswith(TITLE_SUFFIX.strip()):
         out.append(f'has a title that does not end with "{TITLE_SUFFIX.strip()}"')
+    # tools/version_assets.py adds ?v=<hash> to the SVG link in CI; compare without it.
+    links = ASSET_VERSION.sub("", text)
+    if links.count(icon_links()) + links.count(icon_links("/")) != 1:
+        out.append("does not have the current favicon links (icon_links()) exactly once")
+    if text.count(SITE_NAME_META) != 1:
+        out.append("does not have the og:site_name tag (SITE_NAME_META) exactly once")
     return out
 
 
