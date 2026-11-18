@@ -273,12 +273,6 @@
     colourLegend(perValue);
   }
 
-  // WALS names are quoted from WALS and never translated; Lang Log's own feature and
-  // value names are interface text (dist/i18n.js).
-  function quoted(fid) {
-    return byId[fid].source === 'wals' ? 'notranslate' : '';
-  }
-
   function colourLegend(perValue) {
     var box = $('colour-legend');
     box.textContent = '';
@@ -289,7 +283,7 @@
       var dot = el('i', { class: 'wm-dot', 'aria-hidden': 'true' });
       dot.style.background = 'var(' + colour[v.n] + ')';
       li.appendChild(dot);
-      li.appendChild(el('span', { class: quoted(colourBy) }, v.name));
+      li.appendChild(el('span', null, v.name));
       li.appendChild(el('small', null, String(perValue[v.n] || 0)));
       ul.appendChild(li);
     });
@@ -400,7 +394,7 @@
         update();
       });
       lab.appendChild(cb);
-      lab.appendChild(el('span', { class: quoted(c.id) }, v.name));
+      lab.appendChild(el('span', null, v.name));
       lab.appendChild(el('small', null, String(v.count)));
       li.appendChild(lab);
       ul.appendChild(li);
