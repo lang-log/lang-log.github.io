@@ -48,6 +48,7 @@ from locations import DIST
 import build_paths as bp
 from languoid_map import min_width, world_box, world_view
 import info_page
+from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import COPYRIGHT, GOOGLE_SITE_VERIFICATION, HOME_TITLE, by_yoshi
 
@@ -449,7 +450,8 @@ def main():
         f'<meta name="google-site-verification" content="{escape(GOOGLE_SITE_VERIFICATION)}">'
         f"<title>{HOME_TITLE}</title>"
         '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
-        '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
+        + pwa_head("")
+        + '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
         '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'
         '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
         '</head><body class="home-page">\n'

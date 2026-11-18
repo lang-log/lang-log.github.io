@@ -26,6 +26,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - `.claude/rules/readable-code.md`: where each shared value is defined, and the check that finds copies.
 - `.claude/rules/code-quality.md`: Prettier, ESLint and Ruff on every pull request and before every deployment.
 - `.claude/rules/releases.md`: version tags, GitHub Releases and the Releases page.
+- `.claude/rules/pwa.md`: the web app manifest, the service worker and what works offline.
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in English and Japanese, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
 - Browsers: `.github/workflows/browsers.yml` runs the shared browser check (`web-browsers.md` in `research-aide`) on every pull request; add a page there when a new kind of page appears.
