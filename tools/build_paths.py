@@ -37,7 +37,7 @@ from html import escape
 
 from locations import DIST, ROOT
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import TITLE_SUFFIX, by_yoshi
+from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
 import csv
 import json
 import re
@@ -622,8 +622,9 @@ def page(depth, title, body):
         f"{SECURITY_HEAD}"
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
-        f'<link rel="icon" href="{up}favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="{up}apple-touch-icon.png">'
-        f'<link rel="stylesheet" href="{up}style.css"><link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css"><script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script><script src="{up}map-zoom.js" defer></script></head>'
+        + icon_links(up)
+        + SITE_NAME_META
+        + f'<link rel="stylesheet" href="{up}style.css"><link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css"><script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script><script src="{up}map-zoom.js" defer></script></head>'
         f'<body class="variant-page"><header><div class="brand"><a class="home" href="{up}"><svg class="logo" role="img" aria-label="LANG LOG"><use href="{up}logo.svg#logo"/></svg></a> {by_yoshi()}</div></header>'
         f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>"
     )

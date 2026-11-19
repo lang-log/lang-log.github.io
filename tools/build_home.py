@@ -49,7 +49,15 @@ import build_paths as bp
 from languoid_map import min_width, world_box, world_view
 import info_page
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, GOOGLE_SITE_VERIFICATION, HOME_TITLE, by_yoshi
+from site_brand import (
+    COPYRIGHT,
+    GOOGLE_SITE_VERIFICATION,
+    HOME_TITLE,
+    SITE_NAME_META,
+    WEBSITE_JSONLD,
+    by_yoshi,
+    icon_links,
+)
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -448,8 +456,10 @@ def main():
         f'<meta name="description" content="{escape(description)}">'
         f'<meta name="google-site-verification" content="{escape(GOOGLE_SITE_VERIFICATION)}">'
         f"<title>{HOME_TITLE}</title>"
-        '<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
-        '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
+        + icon_links()
+        + SITE_NAME_META
+        + WEBSITE_JSONLD
+        + '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
         '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'
         '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
         '</head><body class="home-page">\n'
