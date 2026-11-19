@@ -1,5 +1,11 @@
 # Lang Log
 
+[![site](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml/badge.svg?branch=main&event=push)](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml?query=branch%3Amain)
+[![pages](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml)
+[![Latest release](https://img.shields.io/github/v/release/lang-log/lang-log.github.io?sort=semver&display_name=tag)](https://github.com/lang-log/lang-log.github.io/releases)
+[![License: all rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/lang-log/lang-log.github.io/main)](https://github.com/lang-log/lang-log.github.io/commits/main)
+
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.
 
 It will also hold corpora and data for low-resource languages (planned).
@@ -83,6 +89,10 @@ Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `i
 Record pages (`record.html`): `domain`, `id` and `task`.
 
 Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
+
+## Badges
+
+The badges at the top show: the `site` workflow (code checks and build) on `main`, the `pages` deployment, the latest GitHub Release (none until the first version tag), the license and the last commit on `main`. Only badges that describe this repository are used; package, download, coverage, sponsor and community badges are left out because Lang Log publishes no package, has no coverage report, and is not open source (`LICENSE`). The images come from GitHub and shields.io and are shown only on GitHub, never on the site.
 
 ## Logo
 
