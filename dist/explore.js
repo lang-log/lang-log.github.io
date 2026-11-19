@@ -259,6 +259,8 @@
       var v = cv ? cv[i] : 0;
       c.setAttribute('fill', 'var(' + (cv ? (v ? colour[v] : '--c-a5aeb0') : PLAIN) + ')');
       if (cv && !v) c.setAttribute('class', 'wm-nodata');
+      // Its value (0: no data), for the legend entries that step through their points.
+      if (cv) c.setAttribute('data-v', v);
       if (cv) perValue[v] = (perValue[v] || 0) + 1;
       // Its Glottocode: dist/map-zoom.js shows the record box of a tapped dot, as on
       // the record maps.
@@ -273,27 +275,39 @@
     colourLegend(perValue);
   }
 
+  // One legend entry: a button that goes to the first point of value n on the map, after
+  // which the map's < and > buttons step through that value's points (dist/map-zoom.js).
+  function legendEntry(n, dot, name, count) {
+    var li = el('li'),
+      b = el('button', { type: 'button' });
+    b.appendChild(dot);
+    b.appendChild(el('span', null, name));
+    b.appendChild(el('small', null, String(count)));
+    b.disabled = !count;
+    b.addEventListener('click', function () {
+      if (!svg.__lmap) return;
+      // On narrow screens the legend sits above the map: bring the map into view first.
+      var r = svg.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) svg.scrollIntoView({ block: 'center' });
+      svg.__lmap.showGroup(layer.querySelectorAll('circle[data-v="' + n + '"]'));
+    });
+    li.appendChild(b);
+    return li;
+  }
+
   function colourLegend(perValue) {
     var box = $('colour-legend');
     box.textContent = '';
     if (!colourBy) return;
     var ul = el('ul');
     byId[colourBy].values.forEach(function (v) {
-      var li = el('li');
       var dot = el('i', { class: 'wm-dot', 'aria-hidden': 'true' });
       dot.style.background = 'var(' + colour[v.n] + ')';
-      li.appendChild(dot);
-      li.appendChild(el('span', null, v.name));
-      li.appendChild(el('small', null, String(perValue[v.n] || 0)));
-      ul.appendChild(li);
+      ul.appendChild(legendEntry(v.n, dot, v.name, perValue[v.n] || 0));
     });
     if (perValue[0]) {
-      var li = el('li'),
-        dot = el('i', { class: 'wm-dot wm-dot-nodata', 'aria-hidden': 'true' });
-      li.appendChild(dot);
-      li.appendChild(el('span', null, 'No data'));
-      li.appendChild(el('small', null, String(perValue[0])));
-      ul.appendChild(li);
+      var dot = el('i', { class: 'wm-dot wm-dot-nodata', 'aria-hidden': 'true' });
+      ul.appendChild(legendEntry(0, dot, 'No data', perValue[0]));
     }
     box.appendChild(ul);
   }

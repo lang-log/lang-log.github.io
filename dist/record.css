@@ -429,6 +429,23 @@ body > .domain-nav {
 .lmap-key-ctx::before {
   background: var(--c-8fa29c);
 }
+/* A key entry with points is a button (dist/map-zoom.js): it goes to its points. */
+.lmap-key-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .lmap-key-btn:hover {
+    text-decoration: underline;
+  }
+}
 .lmap-full .lmap-key {
   position: absolute;
   bottom: 12px;

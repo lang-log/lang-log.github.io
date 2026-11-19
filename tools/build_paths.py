@@ -555,13 +555,21 @@ def map_html(depth, i):
         return ""
     # The key: what each kind of point stands for, named by record (no kind labels).
     # dist/map-zoom.js moves it into the map box, so the map view shows it too.
+    # data-points names the points of each entry; dist/map-zoom.js makes the entry a button
+    # that steps through them.
+    main_points = escape(".lmap-main circle, .lmap-self circle")
+    ctx_points = escape(".lmap-ctx rect")
     key = []
     if main_ids == [i]:
-        key.append(f'<li class="lmap-key-main notranslate">{escape(n["name"])}</li>')
+        key.append(
+            f'<li class="lmap-key-main notranslate" data-points="{main_points}">{escape(n["name"])}</li>'
+        )
     elif main:
-        key.append(f'<li class="lmap-key-main">Members of {escape(n["name"])}</li>')
+        key.append(
+            f'<li class="lmap-key-main" data-points="{main_points}">Members of {escape(n["name"])}</li>'
+        )
     if context:
-        key.append('<li class="lmap-key-ctx">Sister languoids</li>')
+        key.append(f'<li class="lmap-key-ctx" data-points="{ctx_points}">Sister languoids</li>')
     key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
     return (
         f'<figure class="lmap-figure">{svg}{key_html}<figcaption>'
