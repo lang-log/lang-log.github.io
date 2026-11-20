@@ -68,9 +68,8 @@ The top page (`./`, `dist/index.html`) shows the logo, a search box and a short 
 
 The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in three views (owner, 2026-11-08), with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 
-- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript.
+- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript. With JavaScript each row opens into its members, as the outline on a record page does (`dist/tree.js`), and the Download menu above the list gives the whole tree as SVG, XML and OPML. The list and the former Tree view are one (issue #93).
 - Map: every Glottolog language with a point, coloured by one feature if chosen (this replaced the separate feature map page).
-- Tree: the zoomable tree of every root (`dist/tree.js`), with SVG, XML and OPML downloads.
 
 Conditions are on WALS features and on two Lang Log features, conflicting study clades and research trees (`tools/build_wals_map.py`); the values ticked in one condition are joined by OR, conditions by AND unless switched to OR. The Sources & scope text is on its own page (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
 
@@ -79,10 +78,10 @@ Query parameters:
 | Parameter     | Meaning                                                                                                         |
 | ------------- | --------------------------------------------------------------------------------------------------------------- |
 | `q`           | Search text on the top page; it opens the search results page `/q=<terms>`                                      |
-| `view`        | Top page: `map` or `tree` (the list when left out). Record pages: `tree` for the tree instead of the outline    |
+| `view`        | Top page: `map` (the list when left out; the former `tree` opens the list). Record pages: `tree` for the tree   |
 | `c`           | Top page: one condition, `<feature>` or `<feature>:<values>`; a leading `\|` joins it to the previous one by OR |
 | `k`           | Top page: the feature the map is coloured by                                                                    |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming                      |
+| `x`, `y`, `z` | Record pages: tree position (centre in tree coordinates) and zoom; present only after panning or zooming        |
 | `task`        | Hugging Face model task on a record page (for example `translation`)                                            |
 
 On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view` or `x`.

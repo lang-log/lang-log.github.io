@@ -2771,6 +2771,31 @@ header .tools > button {
 .home-section .record-links > li > a:first-child {
   display: block;
 }
+/* A row of the top-page list that opens into its members (dist/explore.js, issue #93): the
+   card's content becomes the summary of an outline row (.tree-node), and an opened row
+   takes the whole width of the grid so its members have room. */
+.home-section .record-links > li.openable {
+  padding: 0;
+}
+.home-section .record-links > li.openable > .tree-node {
+  min-width: 0;
+}
+.home-section .record-links > li.openable > .tree-node > summary {
+  flex-wrap: nowrap;
+  padding: 12px;
+  border-bottom: 0;
+  line-height: 1.5;
+}
+.home-section .record-links > li.openable > .tree-node > summary > * {
+  min-width: 0;
+}
+.home-section .record-links > li.openable:has(> .tree-node[open]) {
+  grid-column: 1 / -1;
+}
+.home-section .record-links > li.openable > .tree-node > .node-children {
+  padding-block-end: 8px;
+  margin-inline-end: 12px;
+}
 .sources-scope p,
 .sources-scope li {
   font-size: 15px;

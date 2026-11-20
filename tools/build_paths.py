@@ -383,7 +383,8 @@ def tree_html(depth, i, sid):
 def atlas_html(base, root=None, src=None, downloads=""):
     """The zoomable tree that dist/tree.js fills: the branch below a record (record
     pages, with its outline and a List / Tree switch), or every root (the top page's
-    Tree view, without them: the top page has its own List view, dist/explore.js)."""
+    list, without them: only its Download menu shows there, and the canvas is drawn
+    for the SVG export, dist/tree.js)."""
     whole = root is None
     attrs = f' data-base="{escape(base)}"' + (
         "" if whole else f' data-root="{escape(root)}" data-src="{escape(src)}"'

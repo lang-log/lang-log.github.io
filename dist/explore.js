@@ -1,11 +1,13 @@
-// The three views of every top-level record on the top page (owner, 2026-11-08;
-// markup from tools/build_home.py): a switch between them (List, Map, Tree), the
-// conditions they share, and the view itself.
+// The two views of every top-level record on the top page (markup from
+// tools/build_home.py): a switch between them (List, Map), the conditions they share,
+// and the view itself.
 //   List  the top-level records under their continents (static; works without
-//         JavaScript). Conditions hide the records no matching language belongs to.
+//         JavaScript). Each row opens into its members, as the outline of a record page
+//         does (dist/tree.js, LangLogTree.members); the list and the former Tree view
+//         are one (owner, issue #93), and the tree's Download menu sits above the list.
+//         Conditions hide the records no matching language belongs to, and the opened
+//         members keep only the matching languages, their ancestors and their dialects.
 //   Map   every Glottolog language with a point, coloured by one feature if chosen.
-//   Tree  the zoomable tree of every root (dist/tree.js, started when first shown),
-//         narrowed to the matching languages, their ancestors and their dialects.
 // Data: dist/data/features/ written by tools/build_wals_map.py (WALS features and
 // Lang Log's own evidence features).
 //
@@ -19,7 +21,7 @@
 // State lives in the address: ?view=map&c=81A:1,5&c=|6A:2,4&k=81A (view: the shown
 // view, left out for the list; one c per condition, in order; "|" joins it to the
 // previous one by OR; the values are left out when all are kept; k is the colour
-// feature). Other parameters (the tree's x/y/z, dist/tree.js) are kept as they are.
+// feature). Other parameters are kept as they are. The former ?view=tree opens the list.
 (function () {
   'use strict';
   var $ = function (id) {
@@ -64,7 +66,7 @@
     root = $('families'),
     view = 'list',
     mounted = false,
-    treeStarted = false;
+    lastMatch = '';
   if (!svg || !root) return;
   var viewButtons = root.querySelectorAll('.explore-views button[data-view]');
   var VIEWS = Array.prototype.map.call(viewButtons, function (b) {
@@ -216,7 +218,8 @@
     });
   }
 
-  // Apply the conditions to every view: the count, the list, the tree and the map.
+  // Apply the conditions to every view: the count, the list (with its opened rows) and the
+  // map.
   function apply() {
     var rows = L.rows,
       n = 0,
@@ -239,7 +242,14 @@
     });
     var outgroups = root.querySelector('.outgroups');
     if (outgroups) outgroups.hidden = on;
-    if (window.LangLogTree) window.LangLogTree.setMatch(on ? ids : null);
+    // Colouring alone changes nothing in the list: only a new set of languages
+    // redraws the tree and closes the opened rows.
+    var match = on ? ids.join(',') : '';
+    if (match !== lastMatch) {
+      lastMatch = match;
+      if (window.LangLogTree) window.LangLogTree.setMatch(on ? ids : null);
+      closeRows();
+    }
     if (view === 'map') draw();
   }
 
@@ -317,8 +327,7 @@
     writeURL();
   }
 
-  // Show one view. The map is mounted and the tree started the first time each is shown,
-  // when their box has a size.
+  // Show one view. The map is mounted the first time it is shown, when its box has a size.
   function showView(v) {
     view = v;
     viewButtons.forEach(function (b) {
@@ -337,10 +346,49 @@
       }
       onZoom();
     }
-    if (v === 'tree' && !treeStarted && window.LangLogTree) {
-      treeStarted = true;
-      window.LangLogTree.start();
-    }
+  }
+
+  // Each row of the list opens into its members (issue #93). The static row (its link,
+  // native names and notes) becomes the summary of a <details>; the members are drawn by
+  // dist/tree.js the first time it opens, so the data loads only when a row is opened.
+  var rows = [];
+  function openableRows() {
+    if (!window.LangLogTree) return;
+    root.querySelectorAll('.explore-view li[data-root]').forEach(function (li) {
+      var box = el('details', { class: 'tree-node' }),
+        sum = el('summary');
+      while (li.firstChild) sum.appendChild(li.firstChild);
+      box.appendChild(sum);
+      li.appendChild(box);
+      li.classList.add('openable');
+      var row = { box: box, id: li.dataset.root, drawn: null };
+      box.addEventListener('toggle', function () {
+        if (box.open && !row.drawn) fill(row);
+      });
+      rows.push(row);
+    });
+  }
+  function fill(row) {
+    var drawn = window.LangLogTree.members(row.id).then(function (kids) {
+      // A change of conditions while the data loaded closed the row: draw nothing.
+      if (row.drawn !== drawn) return;
+      row.box.appendChild(kids);
+    });
+    row.drawn = drawn;
+    drawn.catch(function (e) {
+      if (row.drawn === drawn) row.drawn = null;
+      console.error(e);
+    });
+  }
+  // Conditions changed: close every opened row, so it is drawn again with the new ones.
+  function closeRows() {
+    rows.forEach(function (row) {
+      if (!row.drawn) return;
+      row.drawn = null;
+      row.box.open = false;
+      var kids = row.box.querySelector(':scope > .node-children');
+      if (kids) kids.remove();
+    });
   }
 
   // One condition: feature menu, remove button, "Select all" and one checkbox per value.
@@ -467,6 +515,9 @@
     svg.style.setProperty('--unit', String(r / dotPx()));
   }
 
+  // The rows open and the tree downloads work even when the feature data cannot load.
+  openableRows();
+  if (window.LangLogTree) window.LangLogTree.start();
   Promise.all([get('data/features/languages.json'), get('data/features/features.json')])
     .then(function (res) {
       L = res[0];
