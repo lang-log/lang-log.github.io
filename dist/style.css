@@ -2335,7 +2335,7 @@ h1.visually-hidden + main {
   display: block;
   height: 26px;
   width: auto;
-  aspect-ratio: 861/180;
+  aspect-ratio: 853/180;
   color: var(--ink);
   overflow: visible;
 }
