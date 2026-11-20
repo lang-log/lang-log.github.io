@@ -60,37 +60,18 @@ Left out on purpose:
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
 
-## Shareable URLs
-
-Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
+## Top page
 
 The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Under the search box, a Random row (Language, Sign language, Writing system) opens the page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
-The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in three views (owner, 2026-11-08), with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
+The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in two views, with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 
 - List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript. With JavaScript each row opens into its members, as the outline on a record page does (`dist/tree.js`), and the Download menu above the list gives the whole tree as SVG, XML and OPML. The list and the former Tree view are one (issue #93).
 - Map: every Glottolog language with a point, coloured by one feature if chosen (this replaced the separate feature map page).
 
 Conditions are on WALS features and on two Lang Log features, conflicting study clades and research trees (`tools/build_wals_map.py`); the values ticked in one condition are joined by OR, conditions by AND unless switched to OR. The Sources & scope text is on its own page (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
 
-Query parameters:
-
-| Parameter     | Meaning                                                                                                         |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `q`           | Search text on the top page; it opens the search results page `/q=<terms>`                                      |
-| `view`        | Top page: `map` (the list when left out; the former `tree` opens the list). Record pages: `tree` for the tree   |
-| `c`           | Top page: one condition, `<feature>` or `<feature>:<values>`; a leading `\|` joins it to the previous one by OR |
-| `k`           | Top page: the feature the map is coloured by                                                                    |
-| `x`, `y`, `z` | Record pages: tree position (centre in tree coordinates) and zoom; present only after panning or zooming        |
-| `task`        | Hugging Face model task on a record page (for example `translation`)                                            |
-
-On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view` or `x`.
-
-Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
-
-Record pages (`record.html`): `domain`, `id` and `task`.
-
-Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
+Every address of the site and every query parameter, including the shareable state of each page, are listed in [`docs/urls.md`](docs/urls.md).
 
 ## Badges
 

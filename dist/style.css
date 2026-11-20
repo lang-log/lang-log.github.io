@@ -2731,7 +2731,7 @@ header .tools > button {
     font-size: 14px;
   }
 }
-/* Top page: the families list, the whole tree, Sources & scope, and search results under the search box. */
+/* Top page: the families list, Sources & scope, and search results under the search box. */
 .home-page .domain-nav {
   justify-content: center;
   margin: 8px auto 0;
