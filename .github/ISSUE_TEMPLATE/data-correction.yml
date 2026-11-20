@@ -1,0 +1,24 @@
+name: Data correction
+description: A name, code, location or other value of a record is wrong.
+labels: [data]
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Record
+      description: The address of the record's page, or its Glottocode.
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong and what it should be
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: The publication or dataset that supports the correction.
+    validations:
+      required: true

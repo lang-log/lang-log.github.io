@@ -2335,7 +2335,7 @@ h1.visually-hidden + main {
   display: block;
   height: 26px;
   width: auto;
-  aspect-ratio: 861/180;
+  aspect-ratio: 853/180;
   color: var(--ink);
   overflow: visible;
 }
@@ -2731,7 +2731,7 @@ header .tools > button {
     font-size: 14px;
   }
 }
-/* Top page: the families list, the whole tree, Sources & scope, and search results under the search box. */
+/* Top page: the families list, Sources & scope, and search results under the search box. */
 .home-page .domain-nav {
   justify-content: center;
   margin: 8px auto 0;
@@ -2770,6 +2770,31 @@ header .tools > button {
 }
 .home-section .record-links > li > a:first-child {
   display: block;
+}
+/* A row of the top-page list that opens into its members (dist/explore.js, issue #93): the
+   card's content becomes the summary of an outline row (.tree-node), and an opened row
+   takes the whole width of the grid so its members have room. */
+.home-section .record-links > li.openable {
+  padding: 0;
+}
+.home-section .record-links > li.openable > .tree-node {
+  min-width: 0;
+}
+.home-section .record-links > li.openable > .tree-node > summary {
+  flex-wrap: nowrap;
+  padding: 12px;
+  border-bottom: 0;
+  line-height: 1.5;
+}
+.home-section .record-links > li.openable > .tree-node > summary > * {
+  min-width: 0;
+}
+.home-section .record-links > li.openable:has(> .tree-node[open]) {
+  grid-column: 1 / -1;
+}
+.home-section .record-links > li.openable > .tree-node > .node-children {
+  padding-block-end: 8px;
+  margin-inline-end: 12px;
 }
 .sources-scope p,
 .sources-scope li {

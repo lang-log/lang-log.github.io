@@ -1,0 +1,12 @@
+// Markdown lint (markdownlint-cli2), run by the markdownlint job in .github/workflows/quality.yml.
+{
+  "config": {
+    "default": true,
+    // Line length is left to Prettier, which keeps prose lines as written.
+    "MD013": false,
+    // Rule files quote the title suffix " by yoshi" with its leading space, on purpose.
+    "MD038": false,
+  },
+  // Source data is kept as published (as for Prettier and Ruff); node_modules is not ours.
+  "ignores": ["source-data/**", "node_modules/**"],
+}

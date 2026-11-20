@@ -31,6 +31,13 @@
 //   screen, shows a box with the names of its records, each a link to the record's page.
 //   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
 //   the first tap. Every map that mounts this script shows the same box.
+// - Stepping through points (issue #94): the < and > buttons glide to the previous or next
+//   point, west to east, and show its box. A key entry under the map (data-points, a
+//   selector written by build_paths.py) or a legend entry of the top page's map
+//   (showGroup(), called by dist/explore.js) makes its points the ones stepped through, and
+//   goes to the first of them.
+// - PNG: the PNG button downloads the map as it is on screen (land, borders, points), drawn
+//   on a canvas from the same map files and the colours the page's CSS gives them.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
@@ -49,6 +56,12 @@
   // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
   // The top page's map dots start from it too (LangLogMap.POINT_PX).
   var POINT_PX = 4;
+  // A point stepped to is shown in a view at most 1/FOCUS_SHARE of the world wide, so the
+  // glide to it is visible even from the whole world.
+  var FOCUS_SHARE = 4;
+  // Pixels of the PNG per CSS pixel of the map on screen.
+  var PNG_SCALE = 2;
+  var PNG_NAME = 'lang-log-map.png';
   // Points are circles, or squares (<rect>) for the other members of a record's parent
   // (languoid_map.py). These read and change a point's centre and its radius (half the
   // side of a square), whichever shape it has.
@@ -409,12 +422,15 @@
 
     // Move smoothly to the view {x, y, w}: the centre slides along the shorter way round
     // the world while the width changes at an even rate of zoom.
-    function glideTo(to, ms) {
+    // done (optional) runs once the view is there.
+    function glideTo(to, ms, done) {
       stop();
       to.w = lim(to.w);
       if (reducedMotion()) {
         view = { x: to.x, y: to.y, w: to.w, h: to.w / aspect };
-        schedule();
+        clamp();
+        draw();
+        if (done) done();
         return;
       }
       var fw = view.w,
@@ -435,6 +451,7 @@
         clamp();
         draw();
         glide = t < 1 ? requestAnimationFrame(frame) : 0;
+        if (!glide && done) done();
       }
       glide = requestAnimationFrame(frame);
     }
@@ -631,6 +648,30 @@
         if (b[0] === 'Reset') btn.className = 'lmap-reset';
         bar.appendChild(btn);
       });
+    [
+      ['<', 'Previous point', -1],
+      ['>', 'Next point', 1],
+    ].forEach(function (b) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = b[0];
+      btn.setAttribute('aria-label', b[1]);
+      btn.title = b[1];
+      btn.addEventListener('click', function () {
+        step(b[2]);
+      });
+      bar.appendChild(btn);
+    });
+    var pngBtn = document.createElement('button');
+    pngBtn.type = 'button';
+    pngBtn.className = 'lmap-png';
+    pngBtn.textContent = 'PNG';
+    pngBtn.setAttribute('aria-label', 'Download the map as PNG');
+    pngBtn.title = 'Download the map as PNG';
+    pngBtn.addEventListener('click', function () {
+      exportPNG();
+    });
+    bar.appendChild(pngBtn);
     var fullBtn = document.createElement('button');
     fullBtn.type = 'button';
     fullBtn.className = 'lmap-full-btn';
@@ -654,6 +695,18 @@
     // map view shows it too (record.css places it over the map there).
     var key = wrap.parentNode.querySelector(':scope > .lmap-key');
     if (key) wrap.appendChild(key);
+    // Each key entry that names its points becomes a button that steps through them.
+    if (key)
+      Array.prototype.forEach.call(key.querySelectorAll('li[data-points]'), function (li) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'lmap-key-btn';
+        while (li.firstChild) b.appendChild(li.firstChild);
+        li.appendChild(b);
+        b.addEventListener('click', function () {
+          showGroup(svg.querySelectorAll(li.getAttribute('data-points')));
+        });
+      });
     // The part of the page that fills the window in the map view: the map, or a larger
     // box marked lmap-host that holds the map and its own overlays (the top page's map view).
     var host = wrap.closest('.lmap-host') || wrap;
@@ -847,6 +900,155 @@
       if (e.key === 'Escape' && !full) hidePop();
     });
 
+    // Stepping through points: group is the points the < and > buttons go through, west to
+    // east (all points until a key or legend entry chooses some), at the index of the last one.
+    var group = null,
+      at = -1;
+    function byPlace(list) {
+      allPoints();
+      return Array.prototype.filter
+        .call(list, function (c) {
+          return c.hasAttribute('data-g');
+        })
+        .sort(function (a, b) {
+          var ax = a.__x0 === undefined ? pointXY(a)[0] : a.__x0,
+            bx = b.__x0 === undefined ? pointXY(b)[0] : b.__x0;
+          return ax - bx || pointXY(a)[1] - pointXY(b)[1];
+        });
+    }
+    function focusPoint(c) {
+      hidePop();
+      allPoints();
+      var w = lim(Math.min(view.w, W / FOCUS_SHARE)),
+        x0 = c.__x0 === undefined ? pointXY(c)[0] : c.__x0,
+        cx = view.x + view.w / 2,
+        x = x0 + W * Math.round((cx - x0) / W),
+        y = pointXY(c)[1];
+      glideTo({ x: x - w / 2, y: y - w / aspect / 2, w: w }, GLIDE_MS, function () {
+        var r = c.getBoundingClientRect();
+        showPop(c, r.left + r.width / 2, r.top + r.height / 2);
+      });
+    }
+    function step(d) {
+      if (!group || !group.length || !group[0].isConnected) {
+        group = byPlace(svg.querySelectorAll(POINTS));
+        at = -1;
+      }
+      if (!group.length) return;
+      at = at < 0 ? (d > 0 ? 0 : group.length - 1) : (at + d + group.length) % group.length;
+      focusPoint(group[at]);
+    }
+    function showGroup(list) {
+      group = byPlace(list);
+      at = -1;
+      step(1);
+    }
+
+    // PNG: the background layers (each <use> of a map file, in the order drawn) and the
+    // points, painted on a canvas with the colours and line widths the page's CSS gives them.
+    // Lines keep their width on screen (non-scaling-stroke), as on the map.
+    var files = {};
+    function mapFile(href) {
+      if (!files[href])
+        files[href] = fetch(new URL(href, document.baseURI))
+          .then(function (r) {
+            if (!r.ok) throw new Error(href);
+            return r.text();
+          })
+          .then(function (t) {
+            return new DOMParser().parseFromString(t, 'image/svg+xml');
+          });
+      return files[href];
+    }
+    // A number from computed style, or 1 when it has none.
+    function share(v) {
+      var n = parseFloat(v);
+      return isNaN(n) ? 1 : n;
+    }
+    // own is the drawn element (a map file's path or a point); a fill or stroke of "none"
+    // written on it wins over the CSS, as in the SVG.
+    function paint(ctx, shape, own, cs, k, opacity) {
+      var fill = own.getAttribute('fill') === 'none' ? 'none' : cs.fill,
+        stroke = own.getAttribute('stroke') === 'none' ? 'none' : cs.stroke,
+        sw = parseFloat(cs.strokeWidth) || 0;
+      ctx.globalAlpha = opacity * share(cs.fillOpacity);
+      if (fill && fill !== 'none') {
+        ctx.fillStyle = fill;
+        ctx.fill(shape);
+      }
+      ctx.globalAlpha = opacity;
+      if (stroke && stroke !== 'none' && sw > 0) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = sw * k;
+        var dash = cs.strokeDasharray;
+        ctx.setLineDash(
+          dash && dash !== 'none'
+            ? dash.split(/[ ,]+/).map(function (v) {
+                return parseFloat(v) * k;
+              })
+            : [],
+        );
+        ctx.stroke(shape);
+      }
+    }
+    function exportPNG() {
+      var box = svg.getBoundingClientRect();
+      if (!box.width || !box.height) return;
+      var canvas = document.createElement('canvas');
+      canvas.width = Math.round(box.width * PNG_SCALE);
+      canvas.height = Math.round(box.height * PNG_SCALE);
+      var ctx = canvas.getContext('2d');
+      // preserveAspectRatio meet: the view, centred, as large as fits.
+      var s = Math.min(canvas.width / view.w, canvas.height / view.h),
+        ox = (canvas.width - view.w * s) / 2 - view.x * s,
+        oy = (canvas.height - view.h * s) / 2 - view.y * s;
+      // One CSS pixel of line width in the units of the map.
+      var k = PNG_SCALE / s;
+      var uses = Array.prototype.filter.call(svg.querySelectorAll('.lmap-bg use'), function (u) {
+        return getComputedStyle(u).display !== 'none' && !u.closest('[style*="display: none"]');
+      });
+      Promise.all(
+        uses.map(function (u) {
+          return mapFile(u.getAttribute('href').split('#')[0]);
+        }),
+      )
+        .then(function (docs) {
+          ctx.fillStyle = getComputedStyle(svg).backgroundColor;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          uses.forEach(function (u, i) {
+            var own = docs[i].getElementById(u.getAttribute('href').split('#')[1]);
+            if (!own || !own.getAttribute('d')) return;
+            ctx.setTransform(s, 0, 0, s, ox + (parseFloat(u.getAttribute('x')) || 0) * s, oy);
+            paint(ctx, new Path2D(own.getAttribute('d')), own, getComputedStyle(u), k, 1);
+          });
+          Array.prototype.forEach.call(svg.querySelectorAll(POINTS), function (c) {
+            if (c.closest('.lmap-inset')) return;
+            var cs = getComputedStyle(c);
+            if (cs.display === 'none') return;
+            var xy = pointXY(c),
+              r = pointR(c),
+              shape = new Path2D();
+            if (isSquare(c)) shape.rect(xy[0] - r, xy[1] - r, 2 * r, 2 * r);
+            else shape.arc(xy[0], xy[1], r, 0, 2 * Math.PI);
+            ctx.setTransform(s, 0, 0, s, ox, oy);
+            paint(ctx, shape, c, cs, k, share(cs.opacity));
+          });
+          canvas.toBlob(function (blob) {
+            if (!blob) return;
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = PNG_NAME;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(function () {
+              URL.revokeObjectURL(a.href);
+            });
+          }, 'image/png');
+        })
+        .catch(function () {});
+    }
+
     var api = {
       svg: svg,
       zoom: zoom,
@@ -859,11 +1061,15 @@
         return full;
       },
       refresh: function () {
-        // The points changed: a box for a point that may be gone is closed.
+        // The points changed: a box for a point that may be gone is closed, and stepping
+        // starts again from all points.
         hidePop();
         points = null;
+        group = null;
+        at = -1;
         schedule();
       },
+      showGroup: showGroup,
       view: function () {
         return { x: view.x, y: view.y, w: view.w, h: view.h };
       },

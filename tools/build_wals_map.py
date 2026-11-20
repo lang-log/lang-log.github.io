@@ -19,7 +19,7 @@ Two steps:
                         the point in the map's SVG units (Web Mercator, as
                         dist/map/land.svg; see languoid_map.py) and the
                         top-level record it belongs to (its "root" in
-                        dist/data.json), which the list and tree views use
+                        dist/data.json), which the top-page list uses
         features.json   every feature: id, name, area, source ("wals" or
                         "langlog") and its values with their counts
         f/<ID>.json     one feature's values: a list with one number per

@@ -8,11 +8,12 @@ each of them (owner, 2026-11-06).
 The top page is also the top of the language-families tree (owner,
 2026-11-06): every Glottolog record and every source-only record has its own
 page below it (tools/build_paths.py), and this page lists the top-level
-families and isolates in three views (owner, 2026-11-08): a list (works
-without JavaScript), a map of every language and the zoomable tree of every
-root (dist/tree.js), with conditions on WALS and Lang Log features that all
-three share (dist/explore.js; this replaced the separate feature map page and
-the "Whole tree" section). There is no separate atlas page.
+families and isolates in two views: a list (works without JavaScript), whose
+rows open to show their members (dist/tree.js; the list and the former Tree
+view were merged, owner 2026-11-20, issue #93), and a map of every language,
+with conditions on WALS and Lang Log features that both share
+(dist/explore.js; this replaced the separate feature map page and the "Whole
+tree" section). There is no separate atlas page.
 
 Stats, sources and updates are pages of their own, not sections of the top
 page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
@@ -176,9 +177,10 @@ def families_html():
         '<a class="exportlink" href="language-families.xml" download title="Complete Glottolog and WALS trees, all imported names and source tags">XML</a>'
         '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
     )
-    # Three views of every top-level record (owner, 2026-11-08): a switch (1), the
-    # conditions shared by the views (2) and the view (3). dist/explore.js runs them;
-    # without JavaScript only the list is shown.
+    # Two views of every top-level record: a switch (1), the conditions shared by the
+    # views (2) and the view (3). dist/explore.js runs them; without JavaScript only the
+    # list is shown. The list carries the tree's Download menu (issue #93); its canvas
+    # stays hidden on this page and is drawn only for the SVG export (dist/tree.js).
     views = "".join(
         f'<button type="button" data-view="{v}" aria-pressed="{str(v == "list").lower()}">{label}</button>'
         for v, label in VIEWS
@@ -192,7 +194,7 @@ def families_html():
         '<h3 class="wm-conds-title">Conditions</h3>'
         '<div id="conditions"></div>'
         '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
-        f'<div class="explore-view" data-view="list">{groups}'
+        f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
         '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
         f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
         '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
@@ -202,14 +204,13 @@ def families_html():
         '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
         '<g id="points"></g></svg>'
         "</div></div>"
-        f'<div class="explore-view" data-view="tree" hidden>{bp.atlas_html("", downloads=downloads)}</div>'
         "</section>"
     )
 
 
 # The views of the top-page list, in the order of the switch: (key, label).
 # dist/explore.js reads the keys from the buttons.
-VIEWS = [("list", "List"), ("map", "Map"), ("tree", "Tree")]
+VIEWS = [("list", "List"), ("map", "Map")]
 
 
 def root_row(r):

@@ -2,10 +2,13 @@
 "LANG LOG" as one drawing, so the logo link is a single rectangle (one tap
 highlight, one focus ring) on every page.
 
-The letters are outlines of Liberation Sans Bold (SIL Open Font License),
-which has the same metrics as Arial, the site's font, so the logo looks the
-same on every device and needs no web font. Run this script only to change
-the logo; it needs fontTools (`pip install fonttools`) and the font file.
+The letters are outlines of Montserrat Bold (SIL Open Font License; the
+owner's choice, issue #87, 2026-11-20), so the logo looks the same on every
+device and needs no web font. Run this script only to change the logo; it
+needs fontTools (`pip install fonttools`) and the variable font file, which is
+not kept in the repository. Download it from Google Fonts' repository:
+https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf
+and pass its path: python3 tools/build_logo.py <path to Montserrat[wght].ttf>
 
 The file holds one <symbol id="logo">. Pages draw it with
 <svg class="logo" viewBox="..."><use href="logo.svg#logo"/></svg>. Colours
@@ -15,26 +18,30 @@ come from the page: the letters use currentColor and the asterisk uses the
 
 import math
 import re
+import sys
 
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont
+from fontTools.varLib.instancer import instantiateVariableFont
 
 from locations import DIST
 
-FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+WEIGHT = 700  # Bold, on the variable font's wght axis
 OUT = DIST / "logo.svg"
 CSS = OUT.with_name("style.css")  # its .logo rule carries the same aspect ratio
 TEXT = "LANG LOG"
 SIZE = 100  # font size in logo units
 TRACKING = 13  # extra space after each letter (about 2px at 13px)
 MARK = 180  # side of the asterisk's square
-GAP = 62  # space between the asterisk and the letters
+GAP = 36  # space between the asterisk and the letters (narrowed from 62, issue #87)
 STROKE = MARK * 7 / 64  # same weight as the favicon
 
 
 def main():
-    font = TTFont(FONT)
+    if len(sys.argv) != 2:
+        raise SystemExit("usage: python3 tools/build_logo.py <path to Montserrat[wght].ttf>")
+    font = instantiateVariableFont(TTFont(sys.argv[1]), {"wght": WEIGHT})
     upm = font["head"].unitsPerEm
     scale = SIZE / upm
     cap = font["OS/2"].sCapHeight * scale
