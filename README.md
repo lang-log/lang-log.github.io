@@ -10,15 +10,15 @@ An interactive atlas of language families, sign languages and writing systems, w
 
 It will also hold corpora and data for low-resource languages (planned).
 
-Live site: https://lang-log.github.io/
+Live site: <https://lang-log.github.io/>
 
 ## Run locally
 
-The scripts live in `tools/`; run them from the repository root. Install the one package the build needs with `python3 -m pip install --require-hashes -r requirements.txt`, then run `bash tools/build_site.sh` (it converts `source-data/` into `dist/` and writes every page), then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+The scripts live in `tools/`; run them from the repository root. Install the one package the build needs with `python3 -m pip install --require-hashes -r requirements.txt`, then run `bash tools/build_site.sh` (it converts `source-data/` into `dist/` and writes every page), then serve the static site with `python -m http.server 8000 --directory dist` and open <http://localhost:8000>.
 
 ## Code quality checks
 
-Every pull request and every push to `main` runs Prettier (formatting, with `@prettier/plugin-xml` for XML and SVG), ESLint (JavaScript) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages (the build needs PyYAML, `requirements.txt`); these tools are only for development.
+Every pull request and every push to `main` runs Prettier (formatting, with `@prettier/plugin-xml` for XML and SVG; it also fails on JSON, YAML and XML that do not parse), ESLint (JavaScript), markdownlint (Markdown, `.markdownlint-cli2.jsonc`), html-validate (the hand-written pages in `dist/`, `.htmlvalidate.json`), Stylelint (CSS syntax, `.stylelintrc.json`), ShellCheck (shell scripts) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages (the build needs PyYAML, `requirements.txt`); these tools are only for development.
 
 Tools: Node.js 22 (`.nvmrc`) with npm, and Python 3.12 or later.
 
@@ -41,6 +41,9 @@ Or one at a time:
 | ----------------------------- | ------------------------------------------------ |
 | `npm run format:check`        | Prettier: lists files that are not formatted     |
 | `npm run lint:js`             | ESLint on the JavaScript in `dist/` and `tools/` |
+| `npm run lint:md`             | markdownlint on the Markdown files               |
+| `npm run lint:html`           | html-validate on the hand-written pages          |
+| `npm run lint:css`            | Stylelint on the stylesheets                     |
 | `npm run lint:python`         | Ruff lint on the Python in `tools/`              |
 | `npm run format:python:check` | Ruff: lists Python files that are not formatted  |
 | `npm run format`              | Prettier: formats the files (writes them)        |
@@ -106,7 +109,7 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to <https://lang-log.github.io/> on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
 ## Releases
 
@@ -181,13 +184,13 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ---
 
-# Data integration
+## Data integration
 
-## Rebuild
+### Rebuild
 
 `tools/build_site.sh` runs `tools/build_data.py`, `tools/enrich.py`, `tools/unify.py` and `tools/finish_unified.py` on every build. They read only `source-data/` and write `dist/data.json`, `dist/integrated.json`, `dist/provenance.json`, `dist/language-families.xml` and `dist/language-families.opml`; none of these is committed.
 
-## Integration model
+### Integration model
 
 All 27,177 Glottolog 5.3 records are retained. WALS and the 30 Phlorest data repositories discovered on 2026-10-12 contribute source-conditioned assertions. The software and .github repositories are not data sources. All 30 summary trees are imported; posterior tree samples are not. The D-PLACE catalog was used for discovery only; phylogeny data came directly from each original Phlorest repository.
 
@@ -197,25 +200,25 @@ The default details/summary outline embeds alternative study branches into Glott
 
 Automatic conflicts are crossing, non-nested rooted clades after restricting two summary trees to shared exact, non-repeated, non-ancestor tip IDs. Sampling differences, missing taxa and polytomies alone are not conflicts. These are computational comparisons of imported summary topologies, not a review of statistical uncertainty or scientific validity. The Transeurasian paper-level debate is separately curated with proposal, critique and response.
 
-## Exports
+### Exports
 
 XML schema v3 uses canonical nodes, named sources, source-conditioned placement assertions, conflict witnesses and paper debates. OPML repeats shared references to provide a hierarchical outline; node-id and source preserve their identity. SVG is a view export, not the authoritative graph model.
 
-## Verification and scope
+### Verification and scope
 
 All assertion endpoints, original node IDs, XML node/edge counts and 2,247 conflict witnesses were checked. The interaction harness exercises conditional placements, both paper links, native-name search, inherited debates, branch expansion, horizontal layout and export. Browser visual QA is unavailable in this authoring environment.
 
 This is not every publication worldwide. See Sources & scope and provenance.json for exact coverage, per-source licenses, hashes and remaining gaps. No unreviewed node is labeled consensus solely because no alternative has been imported.
 
-## Hugging Face model discovery
+### Hugging Face model discovery
 
 `dist/hf-models.js` queries the public Hub API when a language detail is opened, with no account, token, inference call, or model download. `dist/hf-iso-map.js` contains the existing 184 exact ISO 639-1/639-3 equivalences from `source-data/iso-map.json`. Only the selected record's own language/dialect ISO code is used; a family or dialect does not inherit support from its relatives.
 
 The client fetches up to 20 records per equivalent code and selected task, requires an exact `cardData.language` match, deduplicates model IDs, and displays up to 8 models sorted by downloads. Each entry links to its model card and shows task, matched codes, multilingual metadata, license when present, and download count. Results are publisher metadata, not independent quality evaluations or guarantees of coverage. A 30-minute in-memory cache and in-flight deduplication avoid repeated requests; failed calls are retryable, and Hub search links remain available. A stale response cannot overwrite a newer task or language selection. There is no inferred support for Chinese macrolanguage vs Mandarin, or other macrolanguage/member pairs.
 
-The Sources panel documents this integration. XML and OPML remain classification exports and do not embed the live model results. API reference: https://huggingface.co/docs/hub/api ; model card language reference: https://huggingface.co/docs/huggingface_hub/package_reference/cards .
+The Sources panel documents this integration. XML and OPML remain classification exports and do not embed the live model results. API reference: <https://huggingface.co/docs/hub/api> ; model card language reference: <https://huggingface.co/docs/huggingface_hub/package_reference/cards> .
 
-## Signs and scripts extension (17 October 2026)
+### Signs and scripts extension (17 October 2026)
 
 `signs-and-scripts.html?domain=sign` and `signs-and-scripts.html?domain=scripts` extend the same public atlas. The pages no longer show the domain navigation (language families / sign languages / writing systems): Lang Log is one tree, not three domains.
 
@@ -231,7 +234,7 @@ Validation passed for catalog coverage, mappings, acyclic relationships, complet
 
 Source files and their original licenses remain attributed. See `source-data/signs-and-scripts/input-provenance.json` and `dist/signs-and-scripts-licenses.txt`.
 
-## Variant details and simplified copy (18 October 2026 JST)
+### Variant details and simplified copy (18 October 2026 JST)
 
 Removed decorative hero copy and fixed “Start exploring” suggestions. Persistent dice controls select canonical language/dialect records (not families or study samples); the scripts section samples writing-system records and excludes special/collection codes. The currently selected record is excluded from the next draw.
 
@@ -239,7 +242,7 @@ Removed decorative hero copy and fixed “Start exploring” suggestions. Persis
 
 Syntax and DOM checks cover both list views, random selection, detail routes for language/dialect/source-node/sign/script records, copying URLs, navigation and unknown-ID handling. Real-browser visual QA remains unverified in this managed environment.
 
-## Page data
+### Page data
 
 The atlas and the record detail page (`record.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `tools/split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
 

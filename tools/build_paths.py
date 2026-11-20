@@ -397,7 +397,9 @@ def atlas_html(base, root=None, src=None, downloads=""):
         )
     )
     outline = (
-        "" if whole else '<div id="outline" aria-label="Expandable classification outline"></div>'
+        ""
+        if whole
+        else '<div id="outline" role="group" aria-label="Expandable classification outline"></div>'
     )
     return (
         f'<div id="atlas" class="workspace atlas-embed"{attrs} hidden>'
