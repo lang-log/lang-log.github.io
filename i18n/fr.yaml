@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: " : citations et licences de chaque source ci-dessous. Les arbres de synthèse importés sont attribués à leurs auteurs et à leurs responsables. Correspondances de codes :"
     classification: "Classification ·"
   record_map:
-    points_glottolog_5_3_cc: "Points : Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Terres et frontières :"
     reset: "Réinitialiser"
     reset_view: "Réinitialiser la vue"
     map_view: "Vue carte"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Télécharger la carte en PNG"
     records_at_this_point: "Fiches à ce point"
     public_domain: "(domaine public)."
-    projection_web_mercator: "Projection : Web Mercator."
     sister_languoids: "languoids sœurs"
   kinds:
     family: "famille"

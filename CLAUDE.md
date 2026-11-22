@@ -14,6 +14,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - **Show the sources.** Every classification says which source it follows; alternative hypotheses are shown side by side, not merged away.
 - **Static pages for now.** The site is plain files on GitHub Pages, with no server or database (the owner's decision, 2026-11-07; it may change later).
 - **A progressive web app.** Lang Log is to become a progressive web app (PWA) (the owner's decision, 2026-11-08).
+- **Simple and loosely coupled.** Always keep the structure as simple and as loosely coupled as possible (`simple-structure.md` in `research-aide`). Behaviour needed on several pages, such as the maps, is written once and shared, not rewritten per page.
 - **Fix things once, at the source.** Page generators in `tools/`, shared style and scripts in `dist/`; never patch one generated page.
 - **One look.** Every page is built from the same components; reuse one before adding a new one (`ui-design.md`).
 

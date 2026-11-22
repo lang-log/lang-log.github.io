@@ -267,8 +267,6 @@ text:
     individual_source_citations_and_licenses: ": 個々の出典の引用とライセンスは下にあります。取り込んだ要約系統樹は、その著者と管理者に帰属します。コードの対応:"
     classification: "分類 ·"
   record_map:
-    points_glottolog_5_3_cc: "点: Glottolog 5.3(CC BY 4.0)。"
-    land_and_borders: "陸地と国境:"
     reset: "戻す"
     reset_view: "元の表示に戻す"
     map_view: "マップビュー"
@@ -278,7 +276,6 @@ text:
     download_the_map_as_png: "地図を PNG でダウンロード"
     records_at_this_point: "この地点の記録"
     public_domain: "(パブリックドメイン)。"
-    projection_web_mercator: "図法: Web メルカトル図法。"
     sister_languoids: "姉妹 languoids"
   kinds:
     family: "語族"

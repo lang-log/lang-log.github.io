@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": Zitate und Lizenzen der einzelnen Quellen unten. Importierte zusammenfassende Bäume werden ihren Autorinnen, Autoren und Kuratoren zugeschrieben. Code-Entsprechungen:"
     classification: "Klassifikation ·"
   record_map:
-    points_glottolog_5_3_cc: "Punkte: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Land und Grenzen:"
     reset: "Zurücksetzen"
     reset_view: "Ansicht zurücksetzen"
     map_view: "Kartenansicht"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Karte als PNG herunterladen"
     records_at_this_point: "Einträge an diesem Punkt"
     public_domain: "(gemeinfrei)."
-    projection_web_mercator: "Projektion: Web Mercator."
     sister_languoids: "Schwester-Languoids"
   kinds:
     family: "Familie"

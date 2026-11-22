@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": cytaty i licencje poszczególnych źródeł poniżej. Zaimportowane drzewa podsumowujące przypisuje się ich autorom i kuratorom. Odpowiedniki kodów:"
     classification: "Klasyfikacja ·"
   record_map:
-    points_glottolog_5_3_cc: "Punkty: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Ląd i granice:"
     reset: "Przywróć"
     reset_view: "Przywróć widok"
     map_view: "Widok mapy"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Pobierz mapę jako PNG"
     records_at_this_point: "Rekordy w tym punkcie"
     public_domain: "(domena publiczna)."
-    projection_web_mercator: "Odwzorowanie: Web Mercator."
     sister_languoids: "siostrzane languoids"
   kinds:
     family: "rodzina"

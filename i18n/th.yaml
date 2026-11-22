@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": การอ้างอิงและสัญญาอนุญาตของแต่ละแหล่งข้อมูลอยู่ด้านล่าง แผนภูมิต้นไม้สรุปที่นำเข้าเป็นผลงานของผู้เขียนและผู้ดูแล การเทียบรหัส:"
     classification: "การจัดจำแนก ·"
   record_map:
-    points_glottolog_5_3_cc: "จุด: Glottolog 5.3 (CC BY 4.0)"
-    land_and_borders: "แผ่นดินและพรมแดน:"
     reset: "รีเซ็ต"
     reset_view: "รีเซ็ตมุมมอง"
     map_view: "มุมมองแผนที่"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "ดาวน์โหลดแผนที่เป็น PNG"
     records_at_this_point: "ระเบียนที่จุดนี้"
     public_domain: "(สาธารณสมบัติ)"
-    projection_web_mercator: "เส้นโครงแผนที่: Web Mercator"
     sister_languoids: "languoids พี่น้อง"
   kinds:
     family: "ตระกูล"

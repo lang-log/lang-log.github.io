@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: "：各來源的引文和授權條款見下文。匯入的彙總譜系樹歸其作者和維護者所有。代碼對應："
     classification: "分類 ·"
   record_map:
-    points_glottolog_5_3_cc: "點：Glottolog 5.3（CC BY 4.0）。"
-    land_and_borders: "陸地與邊界："
     reset: "重設"
     reset_view: "恢復原始檢視"
     map_view: "地圖檢視"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "將地圖下載為 PNG"
     records_at_this_point: "此處的記錄"
     public_domain: "（公有領域）。"
-    projection_web_mercator: "投影：Web 墨卡托投影。"
     sister_languoids: "姊妹 languoids"
   kinds:
     family: "語系"

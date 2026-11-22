@@ -42,16 +42,7 @@
   ];
   var OTHER = '--c-9ba8a4';
   var PLAIN = '--c-386e6d';
-  // Dot radius on screen in CSS pixels, whatever the zoom: the record maps' point size
-  // (LangLogMap.POINT_PX in map-zoom.js), smaller on narrow maps, and smaller again when
-  // many dots (no conditions yet) would overlap.
-  var shown = 0;
-  var dotPx = function () {
-    return (
-      window.LangLogMap.POINT_PX * (svg.clientWidth < 600 ? 0.65 : 1) * (shown > 3000 ? 0.7 : 1)
-    );
-  };
-
+  var NODATA = '--c-a5aeb0'; // colour of a dot without a value
   var L = null,
     ROOT = -1, // index of the "root" field in the rows of languages.json
     F = null,
@@ -231,7 +222,6 @@
         roots.add(rows[j][ROOT]);
         ids.push(rows[j][0]);
       }
-    shown = n;
     $('count').textContent = 'Showing ' + n + ' of ' + rows.length + ' languages';
     var on = anyCondition();
     root.querySelectorAll('.explore-view li[data-root]').forEach(function (li) {
@@ -257,7 +247,6 @@
     layer.textContent = '';
     var rows = L.rows,
       frag = document.createDocumentFragment();
-    var r = radius();
     var cv = colourBy ? vals[colourBy] : null,
       perValue = {};
     for (var i = 0; i < rows.length; i++) {
@@ -265,9 +254,8 @@
       var c = document.createElementNS(NS, 'circle');
       c.setAttribute('cx', rows[i][4]);
       c.setAttribute('cy', rows[i][5]);
-      c.setAttribute('r', r);
       var v = cv ? cv[i] : 0;
-      c.setAttribute('fill', 'var(' + (cv ? (v ? colour[v] : '--c-a5aeb0') : PLAIN) + ')');
+      c.setAttribute('fill', 'var(' + (cv ? (v ? colour[v] : NODATA) : PLAIN) + ')');
       if (cv && !v) c.setAttribute('class', 'wm-nodata');
       // Its value (0: no data), for the legend entries that step through their points.
       if (cv) c.setAttribute('data-v', v);
@@ -280,46 +268,34 @@
       else frag.appendChild(c);
     }
     layer.appendChild(frag);
-    // map-zoom.js moves each dot to the copy of the world in view.
-    if (svg.__lmap) svg.__lmap.refresh();
     colourLegend(perValue);
+    // map-zoom.js sizes the dots, moves each to the copy of the world in view, and makes
+    // the new key entries buttons.
+    if (svg.__lmap) svg.__lmap.refresh();
   }
 
-  // One legend entry: a button that goes to the first point of value n on the map, after
-  // which the map's < and > buttons step through that value's points (dist/map-zoom.js).
-  function legendEntry(n, dot, name, count) {
-    var li = el('li'),
-      b = el('button', { type: 'button' });
-    b.appendChild(dot);
-    b.appendChild(el('span', null, name));
-    b.appendChild(el('small', null, String(count)));
-    b.disabled = !count;
-    b.addEventListener('click', function () {
-      if (!svg.__lmap) return;
-      // On narrow screens the legend sits above the map: bring the map into view first.
-      var r = svg.getBoundingClientRect();
-      if (r.top < 0 || r.bottom > window.innerHeight) svg.scrollIntoView({ block: 'center' });
-      svg.__lmap.showGroup(layer.querySelectorAll('circle[data-v="' + n + '"]'));
-    });
-    li.appendChild(b);
+  // The key of the colours under the map: the same key as on the record maps
+  // (tools/build_paths.py). Each entry names its points (data-points), so dist/map-zoom.js
+  // makes it a button that goes to the first of them, after which the map's < and > buttons
+  // step through that value's points. The mark takes the value's colour (--key-colour).
+  function keyEntry(n, colourVar, name, count) {
+    var li = el('li', { class: 'lmap-key-value' });
+    li.style.setProperty('--key-colour', 'var(' + colourVar + ')');
+    if (count) li.setAttribute('data-points', '#points circle[data-v="' + n + '"]');
+    li.appendChild(el('span', null, name));
+    li.appendChild(el('small', null, String(count)));
     return li;
   }
 
   function colourLegend(perValue) {
-    var box = $('colour-legend');
-    box.textContent = '';
+    var key = $('colour-legend');
+    key.textContent = '';
+    key.hidden = !colourBy;
     if (!colourBy) return;
-    var ul = el('ul');
     byId[colourBy].values.forEach(function (v) {
-      var dot = el('i', { class: 'wm-dot', 'aria-hidden': 'true' });
-      dot.style.background = 'var(' + colour[v.n] + ')';
-      ul.appendChild(legendEntry(v.n, dot, v.name, perValue[v.n] || 0));
+      key.appendChild(keyEntry(v.n, colour[v.n], v.name, perValue[v.n] || 0));
     });
-    if (perValue[0]) {
-      var dot = el('i', { class: 'wm-dot wm-dot-nodata', 'aria-hidden': 'true' });
-      ul.appendChild(legendEntry(0, dot, 'No data', perValue[0]));
-    }
-    box.appendChild(ul);
+    if (perValue[0]) key.appendChild(keyEntry(0, NODATA, 'No data', perValue[0]));
   }
 
   function update() {
@@ -344,7 +320,6 @@
         mounted = true;
         window.LangLogMap.mount(svg);
       }
-      onZoom();
     }
   }
 
@@ -503,18 +478,6 @@
     });
   }
 
-  function radius() {
-    var vb = svg.viewBox.baseVal;
-    return (dotPx() * vb.width) / (svg.clientWidth || 1);
-  }
-
-  function onZoom() {
-    var r = radius(),
-      cs = layer.childNodes;
-    for (var i = 0; i < cs.length; i++) cs[i].setAttribute('r', r);
-    svg.style.setProperty('--unit', String(r / dotPx()));
-  }
-
   // The rows open and the tree downloads work even when the feature data cannot load.
   openableRows();
   if (window.LangLogTree) window.LangLogTree.start();
@@ -549,14 +512,11 @@
           writeURL();
         });
       });
-      // Zoom, pan, borders and detailed tiles come from the shared dist/map-zoom.js
-      // (mounted in showView); it changes the viewBox, so the dots are resized after
-      // every change.
+      // Zoom, pan, borders, detailed tiles, the size of the dots and the buttons of the
+      // key come from the shared dist/map-zoom.js (mounted in showView), as on the record maps.
       showView(view);
       apply();
       writeURL();
-      svg.addEventListener('lmap:view', onZoom);
-      window.addEventListener('resize', onZoom);
       $('colour').addEventListener('change', function () {
         setColour(this.value).then(update);
       });

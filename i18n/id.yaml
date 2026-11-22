@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": kutipan dan lisensi setiap sumber ada di bawah. Pohon ringkasan yang diimpor diatribusikan kepada penulis dan pengelolanya. Padanan kode:"
     classification: "Klasifikasi ·"
   record_map:
-    points_glottolog_5_3_cc: "Titik: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Daratan dan perbatasan:"
     reset: "Atur ulang"
     reset_view: "Atur ulang tampilan"
     map_view: "Tampilan peta"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Unduh peta sebagai PNG"
     records_at_this_point: "Catatan di titik ini"
     public_domain: "(domain publik)."
-    projection_web_mercator: "Proyeksi: Web Mercator."
     sister_languoids: "languoids saudara"
   kinds:
     family: "rumpun"

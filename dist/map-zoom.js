@@ -10,10 +10,14 @@
 //   the + / - buttons (only with a mouse or trackpad), Reset, and the keyboard
 //   (+ - arrows 0) move the view. Reset and the buttons glide to the new view instead of
 //   jumping, unless the visitor asked for reduced motion.
-// - Points keep one size on screen at every zoom, on every screen and in the map view: a
-//   member point has radius POINT_PX in CSS pixels, and the other points keep their size
-//   relative to it (data-r on the svg is the member radius languoid_map.py wrote). Border
-//   lines keep their width (vector-effect in the map files), so nothing grows blurry or blobby.
+// - Points keep one size on screen at every zoom and in the map view, by one rule on every
+//   map (pointPx()): a member point has radius POINT_PX in CSS pixels, smaller on a narrow
+//   map and when many points are shown. The other points keep their size relative to it
+//   (data-r on the svg is the member radius languoid_map.py wrote; without it, as on the top
+//   page, every point is a member point). Border lines keep their width (vector-effect in
+//   the map files), so nothing grows blurry or blobby.
+// - The locator (languoid_map.py) shows the whole world in the corner while the view is
+//   narrower than half the world, on every map.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
 // - The three copies of the world and the 1:10m tiles overlap their neighbours with the
@@ -42,8 +46,9 @@
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
 // languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
 // svg receives an "lmap:view" event, detail {k, x, y, w, h}, after every change; k is the
-// view width divided by the starting width, so a point of radius r0 should be drawn at
-// r0 * k to keep its size on screen. A page that adds or replaces points after mounting calls refresh() on the object mount returns.
+// view width divided by the starting width. A page that adds or replaces points, or the
+// entries of its key, after mounting calls refresh() on the object mount returns; this
+// script sizes the new points and makes the new key entries buttons.
 (function () {
   'use strict';
   var TILE_BELOW = 700; // view width (SVG units) below which tiles are drawn
@@ -53,9 +58,20 @@
   var HASH = '#map-view'; // address of the map view
   var TAP_PX = 14; // how far from a point (screen pixels) a tap still hits it
   var DRAG_PX = 4; // how far (screen pixels) a press may move and still be a tap
-  // Radius on screen (CSS pixels) of a member point, at every zoom and on every screen.
-  // The top page's map dots start from it too (LangLogMap.POINT_PX).
+  // Radius on screen (CSS pixels) of a member point, at every zoom, on every map.
   var POINT_PX = 4;
+  // On a map narrower than NARROW_MAP_PX (CSS pixels), points are NARROW_SHARE of that size,
+  // and with more than MANY_POINTS points shown, MANY_SHARE of it again, so dense maps and
+  // phone screens do not turn into one blot.
+  var NARROW_MAP_PX = 600;
+  var NARROW_SHARE = 0.65;
+  var MANY_POINTS = 3000;
+  var MANY_SHARE = 0.7;
+  function pointPx(mapPx, count) {
+    return (
+      POINT_PX * (mapPx < NARROW_MAP_PX ? NARROW_SHARE : 1) * (count > MANY_POINTS ? MANY_SHARE : 1)
+    );
+  }
   // A point stepped to is shown in a view at most 1/FOCUS_SHARE of the world wide, so the
   // glide to it is visible even from the whole world.
   var FOCUS_SHARE = 4;
@@ -253,17 +269,18 @@
     bg.appendChild(tiles);
     var shown = {};
 
-    // Points written in the page, each with its size relative to a member point, and their
-    // own x.
+    // Every point with its size relative to a member point (data-r: the member radius the
+    // page was written with; without it every point is a member point), and their own x.
     var unitR = parseFloat(svg.getAttribute('data-r'));
-    var scaled = unitR
-      ? Array.prototype.map.call(
-          svg.querySelectorAll('.lmap-ctx rect, .lmap-main circle, .lmap-self circle'),
-          function (c) {
-            return [c, pointR(c) / unitR];
-          },
-        )
-      : [];
+    var scaled = null;
+    function scaledPoints() {
+      if (!scaled)
+        scaled = allPoints().map(function (c) {
+          if (c.__share === undefined) c.__share = unitR ? pointR(c) / unitR : 1;
+          return [c, c.__share];
+        });
+      return scaled;
+    }
     var points = null;
     function allPoints() {
       if (!points) {
@@ -324,8 +341,10 @@
       // SVG units per CSS pixel; nothing to size while the map is not laid out.
       var box = svg.getBoundingClientRect(),
         unit = box.width && box.height ? Math.max(view.w / box.width, view.h / box.height) : 0;
-      for (var i = 0; unit && i < scaled.length; i++)
-        setPointR(scaled[i][0], +(POINT_PX * scaled[i][1] * unit).toFixed(3));
+      var sized = scaledPoints(),
+        size = unit ? pointPx(box.width, sized.length) * unit : 0;
+      for (var i = 0; size && i < sized.length; i++)
+        setPointR(sized[i][0], +(size * sized[i][1]).toFixed(3));
       // Each point goes to the copy of the world nearest the centre of the view.
       var cx = view.x + view.w / 2,
         ps = allPoints();
@@ -339,7 +358,7 @@
       }
       if (inset) {
         var show = e < W * 0.5;
-        inset.parentNode.style.display = show ? '' : 'none';
+        inset.parentNode.classList.toggle('lmap-inset-off', !show);
         if (show) {
           var iw = Math.min(view.w, view.h * 2) * 0.22,
             ih = iw / 2;
@@ -691,22 +710,32 @@
     parent.insertBefore(wrap, svg);
     wrap.appendChild(svg);
     wrap.appendChild(bar);
-    // The key that build_paths.py writes under the map moves into the box with it, so the
-    // map view shows it too (record.css places it over the map there).
+    // The key under the map (written by build_paths.py on record pages, filled by
+    // dist/explore.js on the top page) moves into the box with it, so the map view shows it
+    // too (record.css places it over the map there).
     var key = wrap.parentNode.querySelector(':scope > .lmap-key');
     if (key) wrap.appendChild(key);
-    // Each key entry that names its points becomes a button that steps through them.
-    if (key)
+    // Each key entry that names its points becomes a button that steps through them; run
+    // again by refresh() for entries a page adds later.
+    function keyButtons() {
+      if (!key) return;
       Array.prototype.forEach.call(key.querySelectorAll('li[data-points]'), function (li) {
+        if (li.querySelector(':scope > .lmap-key-btn')) return;
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'lmap-key-btn';
         while (li.firstChild) b.appendChild(li.firstChild);
         li.appendChild(b);
         b.addEventListener('click', function () {
+          // On a narrow screen the map may be partly off screen: bring it into view first.
+          var r = svg.getBoundingClientRect();
+          if (!full && (r.top < 0 || r.bottom > window.innerHeight))
+            svg.scrollIntoView({ block: 'center' });
           showGroup(svg.querySelectorAll(li.getAttribute('data-points')));
         });
       });
+    }
+    keyButtons();
     // The part of the page that fills the window in the map view: the map, or a larger
     // box marked lmap-host that holds the map and its own overlays (the top page's map view).
     var host = wrap.closest('.lmap-host') || wrap;
@@ -1069,7 +1098,9 @@
         // starts again from all points.
         hidePop();
         points = null;
+        scaled = null;
         group = null;
+        keyButtons();
         at = -1;
         schedule();
       },
@@ -1079,6 +1110,8 @@
       },
     };
     svg.__lmap = api;
+    // The size of the points depends on the width of the map on screen (pointPx()).
+    window.addEventListener('resize', schedule);
     schedule();
     // An address with #map-view opens the first map in the map view.
     if (location.hash === HASH && !opened) openView(false);
@@ -1098,7 +1131,7 @@
     if (e.key === 'Escape' && opened && !e.defaultPrevented) opened.close(false);
   });
 
-  window.LangLogMap = { mount: mount, POINT_PX: POINT_PX };
+  window.LangLogMap = { mount: mount };
   function all() {
     Array.prototype.forEach.call(document.querySelectorAll('svg.lmap[data-map]'), mount);
   }
