@@ -68,7 +68,7 @@ node tools/check_atlas_data.js
 
 echo "Check that every page and data file is present"
 for f in index.html signs-and-scripts.html record.html 404.html \
-         favicon.svg apple-touch-icon.png logo.svg theme.js i18n.js lang.js i18n/es.js i18n/ar.js i18n/fa.js \
+         favicon.svg favicon-192.png apple-touch-icon.png logo.svg theme.js i18n.js lang.js i18n/es.js i18n/ar.js i18n/fa.js \
          data.json integrated.json language-families.xml language-families.opml \
          provenance.json signs-and-scripts.json signs-and-scripts.xml signs-and-scripts.opml \
          lineage-paths.js tree.js record-page.js source-paths.json \

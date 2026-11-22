@@ -2,7 +2,7 @@
 
 @../research-aide/.claude/common.md
 
-Lang Log (https://lang-log.github.io/): an atlas of language families, sign languages and writing systems, built from source data into static pages in `dist/` by the scripts in `tools/`, checked and deployed by GitHub Actions.
+Lang Log (<https://lang-log.github.io/>): an atlas of language families, sign languages and writing systems, built from source data into static pages in `dist/` by the scripts in `tools/`, checked and deployed by GitHub Actions.
 
 This file holds only the principles. The owner's shared rules come from the `research-aide` repository (imported above; clone it next to this repository). Rules only for this repository live in `.claude/rules/`.
 
@@ -15,6 +15,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - **Static pages for now.** The site is plain files on GitHub Pages, with no server or database (the owner's decision, 2026-11-07; it may change later).
 - **A progressive web app.** Lang Log is to become a progressive web app (PWA) (the owner's decision, 2026-11-08).
 - **Fix things once, at the source.** Page generators in `tools/`, shared style and scripts in `dist/`; never patch one generated page.
+- **One look.** Every page is built from the same components; reuse one before adding a new one (`ui-design.md`).
 
 ## Where the rules are
 
@@ -29,4 +30,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - `.claude/rules/pwa.md`: the web app manifest, the service worker and what works offline.
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in English and Japanese, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
+- `.claude/rules/ui-design.md` (`dist/**`, `tools/build_*.py`): reusing components, phone layout, pages without JavaScript, shareable state, accessible controls.
+- `.claude/skills/add-to-lang-log/`: the steps for adding a component, interface text or data.
+- `docs/`: the documentation (no GitHub Wiki): `docs/urls.md` (every address and query parameter) and `docs/components.md` (every UI component by name).
 - Browsers: `.github/workflows/browsers.yml` runs the shared browser check (`web-browsers.md` in `research-aide`) on every pull request; add a page there when a new kind of page appears.

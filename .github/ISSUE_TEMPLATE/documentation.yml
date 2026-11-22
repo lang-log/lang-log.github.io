@@ -1,0 +1,16 @@
+name: Documentation
+description: Something in README.md, docs/ or the rule files is missing, wrong or unclear.
+labels: [documentation]
+body:
+  - type: input
+    id: file
+    attributes:
+      label: File
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What to change
+    validations:
+      required: true

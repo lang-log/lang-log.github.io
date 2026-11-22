@@ -10,7 +10,7 @@ from html import escape
 
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, TITLE_SUFFIX, by_yoshi
+from site_brand import COPYRIGHT, SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
 
 
 def page(title, body, up, scripts=()):
@@ -21,7 +21,8 @@ def page(title, body, up, scripts=()):
         + SECURITY_HEAD
         + '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
-        f'<link rel="icon" href="{up}favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="{up}apple-touch-icon.png">'
+        + icon_links(up)
+        + SITE_NAME_META
         + pwa_head(up)
         + f'<link rel="stylesheet" href="{up}style.css">'
         f'<script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script>'
