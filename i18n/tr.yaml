@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "En üst düzey languoid"
     belongs_to: "Ait olduğu grup"
     constructed_language: "Yapay dil"
-    languoid: "Languoid"
+    type: "Tür"
     iso_639_3_code: "ISO 639-3 kodu"
     point_on_the_map: "Haritada nokta"
     number_of_dialects: "Lehçe sayısı"

@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "Languoid في المستوى الأعلى"
     belongs_to: "ينتمي إلى"
     constructed_language: "لغة مصطنعة"
-    languoid: "Languoid"
+    type: "النوع"
     iso_639_3_code: "رمز ISO 639-3"
     point_on_the_map: "نقطة على الخريطة"
     number_of_dialects: "عدد اللهجات"

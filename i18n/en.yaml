@@ -1533,7 +1533,7 @@ text:
     top_level_languoid: "Top-level languoid"
     belongs_to: "Belongs to"
     constructed_language: "Constructed language"
-    languoid: "Languoid"
+    type: "Type"
     iso_639_3_code: "ISO 639-3 code"
     point_on_the_map: "Point on the map"
     number_of_dialects: "Number of dialects"

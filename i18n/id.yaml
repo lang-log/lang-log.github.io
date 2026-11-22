@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "Languoid tingkat teratas"
     belongs_to: "Termasuk dalam"
     constructed_language: "Bahasa buatan"
-    languoid: "Languoid"
+    type: "Jenis"
     iso_639_3_code: "Kode ISO 639-3"
     point_on_the_map: "Titik di peta"
     number_of_dialects: "Jumlah dialek"

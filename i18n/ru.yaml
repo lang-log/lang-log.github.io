@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "Languoid верхнего уровня"
     belongs_to: "Входит в"
     constructed_language: "Искусственный язык"
-    languoid: "Languoid"
+    type: "Тип"
     iso_639_3_code: "Код ISO 639-3"
     point_on_the_map: "Точка на карте"
     number_of_dialects: "Число диалектов"

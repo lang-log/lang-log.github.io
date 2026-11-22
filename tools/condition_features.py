@@ -196,7 +196,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     out.append(
         category(
             "grouping",
-            "Languoid",
+            "Type",
             GROUP,
             [n.get("category") for n in node],
             names="data",

@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "최상위 Languoid"
     belongs_to: "소속"
     constructed_language: "인공어"
-    languoid: "Languoid"
+    type: "유형"
     iso_639_3_code: "ISO 639-3 코드"
     point_on_the_map: "지도 위의 점"
     number_of_dialects: "방언 수"
