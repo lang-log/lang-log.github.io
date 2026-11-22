@@ -4,10 +4,8 @@
   margin: 16px 0 12px;
 }
 /* One segmented control, like the List / Tree switch of the record pages' toolbar. */
-.explore-views:not([hidden]) {
-  display: inline-flex;
-}
 .explore-views {
+  display: inline-flex;
   border: 1px solid var(--line);
   border-radius: 6px;
   overflow: hidden;
@@ -26,6 +24,14 @@
 }
 .explore-filter {
   margin: 0 0 16px;
+}
+/* The switch and the conditions are in the page from the start, so they are drawn with
+   it; they work only with scripts, so without them only the list is shown. */
+@media (scripting: none) {
+  .explore-views,
+  .explore-filter {
+    display: none;
+  }
 }
 .explore-view .continent h3 {
   margin-top: 18px;

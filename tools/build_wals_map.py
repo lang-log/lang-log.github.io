@@ -93,6 +93,20 @@ def fetch():
         )
 
 
+def glottolog():
+    """The rows of Glottolog's languages.csv."""
+    return list(csv.DictReader((ROOT / "source-data" / "languages.csv").open(encoding="utf-8")))
+
+
+def point_languages(glotto):
+    """The languages the map has a point for, one row each in languages.json, in its
+    order. tools/build_home.py counts them for the top page's first count line."""
+    return sorted(
+        (r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
+        key=lambda r: r["ID"],
+    )
+
+
 def build():
     """Points are every Glottolog language (level "language") with coordinates, so the
     map starts from all languages, not only those in WALS. Each WALS language is
@@ -100,12 +114,9 @@ def build():
     dialect's language; one mapped to a family, or to nothing, is left out. When
     several WALS lects fall on one language, the first in WALS code order with a value
     for a feature gives that value."""
-    glotto = list(csv.DictReader((ROOT / "source-data" / "languages.csv").open(encoding="utf-8")))
+    glotto = glottolog()
     by_id = {r["ID"]: r for r in glotto}
-    langs = sorted(
-        (r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
-        key=lambda r: r["ID"],
-    )
+    langs = point_languages(glotto)
     index = {r["ID"]: i for i, r in enumerate(langs)}
 
     wals_to = {}  # WALS code -> index in langs
