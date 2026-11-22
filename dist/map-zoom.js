@@ -975,7 +975,9 @@
 
     // PNG: the background layers (each <use> of a map file, in the order drawn) and the
     // points, painted on a canvas with the colours and line widths the page's CSS gives them.
-    // Lines keep their width on screen (non-scaling-stroke), as on the map.
+    // A line with non-scaling-stroke (in the CSS, or written on a map file's path) keeps its
+    // width on screen, as on the map; any other line is as wide in the units of the map as the
+    // SVG draws it. Every point's outline is non-scaling (dist/record.css).
     var files = {};
     function mapFile(href) {
       if (!files[href])
@@ -994,12 +996,14 @@
       var n = parseFloat(v);
       return isNaN(n) ? 1 : n;
     }
-    // own is the drawn element (a map file's path or a point); a fill or stroke of "none"
+    // own is the drawn element (a map file's path or a point); a fill, stroke or vector-effect
     // written on it wins over the CSS, as in the SVG.
     function paint(ctx, shape, own, cs, k, opacity) {
       var fill = own.getAttribute('fill') === 'none' ? 'none' : cs.fill,
         stroke = own.getAttribute('stroke') === 'none' ? 'none' : cs.stroke,
         sw = parseFloat(cs.strokeWidth) || 0;
+      // k turns screen pixels into units of the map; a scaling line is in those units already.
+      if ((own.getAttribute('vector-effect') || cs.vectorEffect) !== 'non-scaling-stroke') k = 1;
       ctx.globalAlpha = opacity * share(cs.fillOpacity);
       if (fill && fill !== 'none') {
         ctx.fillStyle = fill;
