@@ -773,8 +773,10 @@ canvas:active {
 }
 footer {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 15px;
+  text-align: center;
   padding: 17px 30px 28px;
   font-size: 9px;
   color: var(--muted);
