@@ -1,4 +1,4 @@
-# Check the code (quality.yml: Prettier, ESLint, Ruff), then build and check the site
+# Check the code (quality.yml: Prettier, ESLint, markdownlint, html-validate, Stylelint, ShellCheck, Ruff), then build and check the site
 # (tools/build_site.sh), for every pull request and every push to main. The build runs only when
 # the code checks pass.
 # For pull requests from this repository (not forks or Dependabot) it also uploads a preview as
@@ -35,6 +35,13 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - run: python3 -m pip install --require-hashes -r requirements.txt
       - run: bash tools/build_site.sh
+      # The built pages are valid HTML (.htmlvalidate.json): the top page, the Releases page, the
+      # info pages, every top-level record page and every record page of one family.
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci --ignore-scripts
+      - run: npx html-validate dist/index.html dist/releases.html "dist/*/index.html" "dist/afro-asiatic/**/index.html"
       - name: Make the preview (all but the record pages of other families)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: |

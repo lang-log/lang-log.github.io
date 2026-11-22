@@ -1,18 +1,24 @@
 # Lang Log
 
+[![site](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml/badge.svg?branch=main&event=push)](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml?query=branch%3Amain)
+[![pages](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml)
+[![Latest release](https://img.shields.io/github/v/release/lang-log/lang-log.github.io?sort=semver&display_name=tag)](https://github.com/lang-log/lang-log.github.io/releases)
+[![License: all rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/lang-log/lang-log.github.io/main)](https://github.com/lang-log/lang-log.github.io/commits/main)
+
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.
 
 It will also hold corpora and data for low-resource languages (planned).
 
-Live site: https://lang-log.github.io/
+Live site: <https://lang-log.github.io/>
 
 ## Run locally
 
-The scripts live in `tools/`; run them from the repository root. Install the one package the build needs with `python3 -m pip install --require-hashes -r requirements.txt`, then run `bash tools/build_site.sh` (it converts `source-data/` into `dist/` and writes every page), then serve the static site with `python -m http.server 8000 --directory dist` and open http://localhost:8000.
+The scripts live in `tools/`; run them from the repository root. Install the one package the build needs with `python3 -m pip install --require-hashes -r requirements.txt`, then run `bash tools/build_site.sh` (it converts `source-data/` into `dist/` and writes every page), then serve the static site with `python -m http.server 8000 --directory dist` and open <http://localhost:8000>.
 
 ## Code quality checks
 
-Every pull request and every push to `main` runs Prettier (formatting, with `@prettier/plugin-xml` for XML and SVG), ESLint (JavaScript) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages (the build needs PyYAML, `requirements.txt`); these tools are only for development.
+Every pull request and every push to `main` runs Prettier (formatting, with `@prettier/plugin-xml` for XML and SVG; it also fails on JSON, YAML and XML that do not parse), ESLint (JavaScript), markdownlint (Markdown, `.markdownlint-cli2.jsonc`), html-validate (the hand-written pages in `dist/`, `.htmlvalidate.json`), Stylelint (CSS syntax, `.stylelintrc.json`), ShellCheck (shell scripts) and Ruff (Python lint and formatting) before the site is built (`.github/workflows/quality.yml`, called by `site.yml`). `pages.yml` runs the same checks on `main` before every deployment, so nothing is published while they fail. The site itself needs no packages (the build needs PyYAML, `requirements.txt`); these tools are only for development.
 
 Tools: Node.js 22 (`.nvmrc`) with npm, and Python 3.12 or later.
 
@@ -35,6 +41,9 @@ Or one at a time:
 | ----------------------------- | ------------------------------------------------ |
 | `npm run format:check`        | Prettier: lists files that are not formatted     |
 | `npm run lint:js`             | ESLint on the JavaScript in `dist/` and `tools/` |
+| `npm run lint:md`             | markdownlint on the Markdown files               |
+| `npm run lint:html`           | html-validate on the hand-written pages          |
+| `npm run lint:css`            | Stylelint on the stylesheets                     |
 | `npm run lint:python`         | Ruff lint on the Python in `tools/`              |
 | `npm run format:python:check` | Ruff: lists Python files that are not formatted  |
 | `npm run format`              | Prettier: formats the files (writes them)        |
@@ -51,42 +60,26 @@ Left out on purpose:
 - Everything in `.gitignore`, such as the pages and data that `tools/build_site.sh` writes into `dist/` (all tools).
 - `dist/*.html`: `tools/security_policy.py --write` keeps their policy `<meta>` tags as one exact string after `<meta charset="utf-8">`, and `--check` compares that text (Prettier).
 
-## Shareable URLs
-
-Every screen state that can be shared is kept in the query string, so a copied address bar URL reopens the same view. Back and Forward step through selections, branches, filters and view changes; typing, panning and zooming update the current entry instead of adding new ones.
+## Top page
 
 The top page (`./`, `dist/index.html`) shows the logo, a search box and a short introduction. It is written by `tools/build_home.py`. Under the search box, a Random row (Language, Sign language, Writing system) opens the page of a random record of that kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the row stays hidden.
 
-The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in three views (owner, 2026-11-08), with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
+The top page is also the top of the language-families tree. Below the introduction it shows all top-level families and isolates in two views, with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 
-- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript.
+- List: the top-level records under their continents, each with up to two native names, the number of sources that place it and a flag for conflicting study trees. It works without JavaScript. With JavaScript each row opens into its members, as the outline on a record page does (`dist/tree.js`), and the Download menu above the list gives the whole tree as SVG, XML and OPML. The list and the former Tree view are one (issue #93).
 - Map: every Glottolog language with a point, coloured by one feature if chosen (this replaced the separate feature map page).
-- Tree: the zoomable tree of every root (`dist/tree.js`), with SVG, XML and OPML downloads.
 
 Conditions are on WALS features and on two Lang Log features, conflicting study clades and research trees (`tools/build_wals_map.py`); the values ticked in one condition are joined by OR, conditions by AND unless switched to OR. The Sources & scope text is on its own page (`source-data/sources-and-scope.html`). There is no separate atlas page; every record has its own page (see Record pages).
 
-Query parameters:
+Every address of the site and every query parameter, including the shareable state of each page, are listed in [`docs/urls.md`](docs/urls.md).
 
-| Parameter     | Meaning                                                                                                         |
-| ------------- | --------------------------------------------------------------------------------------------------------------- |
-| `q`           | Search text on the top page; it opens the search results page `/q=<terms>`                                      |
-| `view`        | Top page: `map` or `tree` (the list when left out). Record pages: `tree` for the tree instead of the outline    |
-| `c`           | Top page: one condition, `<feature>` or `<feature>:<values>`; a leading `\|` joins it to the previous one by OR |
-| `k`           | Top page: the feature the map is coloured by                                                                    |
-| `x`, `y`, `z` | Tree position (centre in tree coordinates) and zoom; present only after panning or zooming                      |
-| `task`        | Hugging Face model task on a record page (for example `translation`)                                            |
+## Badges
 
-On a record page the tree is drawn when the visitor presses "Show the tree of this branch", or at once when the URL has `view` or `x`.
-
-Signs and scripts (`signs-and-scripts.html`): `domain` (`sign` or `scripts`), `id`, `branch`, `q`, `view=tree`, `task` and `about=1`, with the same meanings.
-
-Record pages (`record.html`): `domain`, `id` and `task`.
-
-Not kept in the URL: rows expanded by hand in the list, the mobile search menu, scroll position and random draws (the drawn record is kept as `id`).
+The badges at the top show: the `site` workflow (code checks and build) on `main`, the `pages` deployment, the latest GitHub Release (none until the first version tag), the license and the last commit on `main`. Only badges that describe this repository are used; package, download, coverage, sponsor and community badges are left out because Lang Log publishes no package, has no coverage report, and is not open source (`LICENSE`). The images come from GitHub and shields.io and are shown only on GitHub, never on the site.
 
 ## Logo
 
-The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `tools/build_logo.py` writes it from Liberation Sans Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (see `.claude/rules/logo.md`; the `pages` workflow checks it).
+The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `tools/build_logo.py` writes it from Montserrat Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and the Montserrat variable font file (not in the repository; the script says where to get it) and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (see `.claude/rules/logo.md`; the `pages` workflow checks it).
 
 ## License
 
@@ -96,7 +89,7 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to https://lang-log.github.io/ on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+The workflow `.github/workflows/pages.yml` runs `tools/build_site.sh` (which builds and checks `dist/`) and publishes `dist/` to <https://lang-log.github.io/> on every push to `main` and after every release (see Releases); pull requests only build. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
 ## Releases
 
@@ -171,13 +164,13 @@ The right end of the header on every page has a light/dark theme toggle and a la
 
 ---
 
-# Data integration
+## Data integration
 
-## Rebuild
+### Rebuild
 
 `tools/build_site.sh` runs `tools/build_data.py`, `tools/enrich.py`, `tools/unify.py` and `tools/finish_unified.py` on every build. They read only `source-data/` and write `dist/data.json`, `dist/integrated.json`, `dist/provenance.json`, `dist/language-families.xml` and `dist/language-families.opml`; none of these is committed.
 
-## Integration model
+### Integration model
 
 All 27,177 Glottolog 5.3 records are retained. WALS and the 30 Phlorest data repositories discovered on 2026-10-12 contribute source-conditioned assertions. The software and .github repositories are not data sources. All 30 summary trees are imported; posterior tree samples are not. The D-PLACE catalog was used for discovery only; phylogeny data came directly from each original Phlorest repository.
 
@@ -187,25 +180,25 @@ The default details/summary outline embeds alternative study branches into Glott
 
 Automatic conflicts are crossing, non-nested rooted clades after restricting two summary trees to shared exact, non-repeated, non-ancestor tip IDs. Sampling differences, missing taxa and polytomies alone are not conflicts. These are computational comparisons of imported summary topologies, not a review of statistical uncertainty or scientific validity. The Transeurasian paper-level debate is separately curated with proposal, critique and response.
 
-## Exports
+### Exports
 
 XML schema v3 uses canonical nodes, named sources, source-conditioned placement assertions, conflict witnesses and paper debates. OPML repeats shared references to provide a hierarchical outline; node-id and source preserve their identity. SVG is a view export, not the authoritative graph model.
 
-## Verification and scope
+### Verification and scope
 
 All assertion endpoints, original node IDs, XML node/edge counts and 2,247 conflict witnesses were checked. The interaction harness exercises conditional placements, both paper links, native-name search, inherited debates, branch expansion, horizontal layout and export. Browser visual QA is unavailable in this authoring environment.
 
 This is not every publication worldwide. See Sources & scope and provenance.json for exact coverage, per-source licenses, hashes and remaining gaps. No unreviewed node is labeled consensus solely because no alternative has been imported.
 
-## Hugging Face model discovery
+### Hugging Face model discovery
 
 `dist/hf-models.js` queries the public Hub API when a language detail is opened, with no account, token, inference call, or model download. `dist/hf-iso-map.js` contains the existing 184 exact ISO 639-1/639-3 equivalences from `source-data/iso-map.json`. Only the selected record's own language/dialect ISO code is used; a family or dialect does not inherit support from its relatives.
 
 The client fetches up to 20 records per equivalent code and selected task, requires an exact `cardData.language` match, deduplicates model IDs, and displays up to 8 models sorted by downloads. Each entry links to its model card and shows task, matched codes, multilingual metadata, license when present, and download count. Results are publisher metadata, not independent quality evaluations or guarantees of coverage. A 30-minute in-memory cache and in-flight deduplication avoid repeated requests; failed calls are retryable, and Hub search links remain available. A stale response cannot overwrite a newer task or language selection. There is no inferred support for Chinese macrolanguage vs Mandarin, or other macrolanguage/member pairs.
 
-The Sources panel documents this integration. XML and OPML remain classification exports and do not embed the live model results. API reference: https://huggingface.co/docs/hub/api ; model card language reference: https://huggingface.co/docs/huggingface_hub/package_reference/cards .
+The Sources panel documents this integration. XML and OPML remain classification exports and do not embed the live model results. API reference: <https://huggingface.co/docs/hub/api> ; model card language reference: <https://huggingface.co/docs/huggingface_hub/package_reference/cards> .
 
-## Signs and scripts extension (17 October 2026)
+### Signs and scripts extension (17 October 2026)
 
 `signs-and-scripts.html?domain=sign` and `signs-and-scripts.html?domain=scripts` extend the same public atlas. The pages no longer show the domain navigation (language families / sign languages / writing systems): Lang Log is one tree, not three domains.
 
@@ -221,7 +214,7 @@ Validation passed for catalog coverage, mappings, acyclic relationships, complet
 
 Source files and their original licenses remain attributed. See `source-data/signs-and-scripts/input-provenance.json` and `dist/signs-and-scripts-licenses.txt`.
 
-## Variant details and simplified copy (18 October 2026 JST)
+### Variant details and simplified copy (18 October 2026 JST)
 
 Removed decorative hero copy and fixed “Start exploring” suggestions. Persistent dice controls select canonical language/dialect records (not families or study samples); the scripts section samples writing-system records and excludes special/collection codes. The currently selected record is excluded from the next draw.
 
@@ -229,7 +222,7 @@ Removed decorative hero copy and fixed “Start exploring” suggestions. Persis
 
 Syntax and DOM checks cover both list views, random selection, detail routes for language/dialect/source-node/sign/script records, copying URLs, navigation and unknown-ID handling. Real-browser visual QA remains unverified in this managed environment.
 
-## Page data
+### Page data
 
 The atlas and the record detail page (`record.html`) do not load the 30 MB `data.json` and `integrated.json`; those stay as downloads. `tools/split_data.py` writes smaller files to `dist/data/` (built by the Pages workflow, not committed), and `dist/atlas-data.js` rebuilds the same objects from them in the browser:
 

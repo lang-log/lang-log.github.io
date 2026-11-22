@@ -1,0 +1,23 @@
+name: Bug report
+description: Something on the site does not work or looks wrong.
+labels: [bug]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Page
+      description: The address of the page where it happens.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: What you did, what you expected and what happened instead.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      description: For example "Safari on iPhone" or "Firefox on Windows".
