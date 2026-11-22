@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": trích dẫn và giấy phép của từng nguồn ở bên dưới. Các cây tóm tắt đã nhập thuộc về tác giả và người quản lý của chúng. Tương ứng mã:"
     classification: "Phân loại ·"
   record_map:
-    points_glottolog_5_3_cc: "Điểm: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Đất liền và biên giới:"
     reset: "Đặt lại"
     reset_view: "Đặt lại khung nhìn"
     map_view: "Chế độ bản đồ"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Tải bản đồ xuống dạng PNG"
     records_at_this_point: "Các bản ghi tại điểm này"
     public_domain: "(phạm vi công cộng)."
-    projection_web_mercator: "Phép chiếu: Web Mercator."
     sister_languoids: "languoids chị em"
   kinds:
     family: "ngữ hệ"

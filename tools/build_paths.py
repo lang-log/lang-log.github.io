@@ -574,11 +574,9 @@ def map_html(depth, i):
     if context:
         key.append(f'<li class="lmap-key-ctx" data-points="{ctx_points}">Sister languoids</li>')
     key_html = f'<ul class="lmap-key">{"".join(key)}</ul>' if key else ""
-    return (
-        f'<figure class="lmap-figure">{svg}{key_html}<figcaption>'
-        'Points: Glottolog 5.3 (CC BY 4.0). Land and borders: <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a> (public domain). '
-        "Projection: Web Mercator.</figcaption></figure>"
-    )
+    # No caption under the map (owner, 2026-11-22): the sources are credited in the footer
+    # and on the Sources page.
+    return f'<figure class="lmap-figure">{svg}{key_html}</figure>'
 
 
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.

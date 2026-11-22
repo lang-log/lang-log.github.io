@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": посилання на окремі джерела й ліцензії наведено нижче. Імпортовані зведені дерева належать їхнім авторам і кураторам. Відповідники кодів:"
     classification: "Класифікація ·"
   record_map:
-    points_glottolog_5_3_cc: "Точки: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Суходіл і кордони:"
     reset: "Скинути"
     reset_view: "Скинути вигляд"
     map_view: "Режим мапи"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Завантажити мапу у PNG"
     records_at_this_point: "Записи в цій точці"
     public_domain: "(суспільне надбання)."
-    projection_web_mercator: "Проєкція: Web Mercator."
     sister_languoids: "сестринські languoids"
   kinds:
     family: "родина"

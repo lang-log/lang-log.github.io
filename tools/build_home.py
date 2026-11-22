@@ -47,7 +47,7 @@ import json
 
 from locations import DIST
 import build_paths as bp
-from languoid_map import min_width, world_box, world_view
+from languoid_map import locator, min_width, world_box, world_view, world_view_box
 import info_page
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
@@ -190,7 +190,7 @@ def families_html():
         f'<div class="seg explore-views" role="group" aria-label="View" hidden>{views}</div>'
         '<div class="explore-filter wm-legend" hidden>'
         '<p id="count" class="wm-count"></p>'
-        '<div class="explore-colour"><label class="wm-colour">Colour by <span id="colour-slot"></span></label><div id="colour-legend"></div></div>'
+        '<div class="explore-colour"><label class="wm-colour">Colour by <span id="colour-slot"></span></label></div>'
         '<h3 class="wm-conds-title">Conditions</h3>'
         '<div id="conditions"></div>'
         '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
@@ -202,7 +202,10 @@ def families_html():
         f'preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="{min_width()}" data-world="{world_box()}">'
         '<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>'
         '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
-        '<g id="points"></g></svg>'
+        f'<g id="points"></g>{locator("map/land.svg", *world_view_box())}</svg>'
+        # The key of the colours, filled by dist/explore.js: the same key as under a record's
+        # map (tools/build_paths.py), which dist/map-zoom.js moves into the map box.
+        '<ul id="colour-legend" class="lmap-key" hidden></ul>'
         "</div></div>"
         "</section>"
     )

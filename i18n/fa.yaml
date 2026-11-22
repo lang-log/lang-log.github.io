@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": ارجاع‌ها و مجوزهای هر منبع در پایین آمده است. درخت‌های خلاصهٔ واردشده به نویسندگان و نگه‌دارندگانشان منسوب‌اند. هم‌ارزی کدها:"
     classification: "رده‌بندی ·"
   record_map:
-    points_glottolog_5_3_cc: "نقطه‌ها: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "خشکی و مرزها:"
     reset: "بازنشانی"
     reset_view: "بازنشانی نما"
     map_view: "نمای نقشه"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "بارگیری نقشه به‌صورت PNG"
     records_at_this_point: "رکوردهای این نقطه"
     public_domain: "(مالکیت عمومی)."
-    projection_web_mercator: "تصویر نقشه: Web Mercator."
     sister_languoids: "languoids خواهر"
   kinds:
     family: "خانواده"

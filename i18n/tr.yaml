@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": her kaynağın alıntıları ve lisansları aşağıdadır. İçe aktarılan özet ağaçlar yazarlarına ve küratörlerine aittir. Kod karşılıkları:"
     classification: "Sınıflandırma ·"
   record_map:
-    points_glottolog_5_3_cc: "Noktalar: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Kara ve sınırlar:"
     reset: "Sıfırla"
     reset_view: "Görünümü sıfırla"
     map_view: "Harita görünümü"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Haritayı PNG olarak indir"
     records_at_this_point: "Bu noktadaki kayıtlar"
     public_domain: "(kamu malı)."
-    projection_web_mercator: "İzdüşüm: Web Mercator."
     sister_languoids: "kardeş languoids"
   kinds:
     family: "aile"
