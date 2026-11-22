@@ -391,19 +391,41 @@ body > .domain-nav {
   border: 0;
   border-radius: 0;
 }
+/* The map view's buttons keep their size on the screen when the browser zooms the page (the
+   owner's request, 2026-11-22). Zooming in makes the window narrower in CSS pixels, so with a
+   mouse the buttons are measured in --lmap-tool-px: one pixel while the window's longer side is
+   at least 1280 CSS pixels (a 1920 px screen at 150%), and less below that, shrinking with it. The map's own zoom never
+   touches them (they sit outside the svg). Touch screens keep whole pixels, so the buttons stay
+   44 px for a finger; pinch zoom there does not change the layout. */
 .lmap-full .lmap-tools {
-  top: 12px;
-  right: 12px;
-  gap: 6px;
+  --lmap-tool-px: 1px;
+  top: calc(12 * var(--lmap-tool-px));
+  right: calc(12 * var(--lmap-tool-px));
+  gap: calc(6 * var(--lmap-tool-px));
+}
+@media (pointer: fine) {
+  .lmap-full .lmap-tools {
+    --lmap-tool-px: min(1px, 100vmax / 1280);
+  }
 }
 .lmap-full .lmap-tools button {
-  min-width: 44px;
-  height: 44px;
+  min-width: calc(44 * var(--lmap-tool-px));
+  height: calc(44 * var(--lmap-tool-px));
+  padding: 0 calc(8 * var(--lmap-tool-px));
+  font-size: calc(16 * var(--lmap-tool-px));
+  border-radius: calc(5 * var(--lmap-tool-px));
   box-shadow: 0 2px 8px var(--c-24302e1f);
 }
 .lmap-full .lmap-tools .lmap-reset {
-  font-size: 14px;
-  padding: 0 12px;
+  font-size: calc(14 * var(--lmap-tool-px));
+  padding: 0 calc(12 * var(--lmap-tool-px));
+}
+.lmap-full .lmap-tools .lmap-full-btn {
+  padding: 0;
+}
+.lmap-full .lmap-tools .lmap-full-btn svg {
+  width: calc(16 * var(--lmap-tool-px));
+  height: calc(16 * var(--lmap-tool-px));
 }
 /* The key of the points (tools/build_paths.py): under the map, and over it in the map view.
    The marks repeat the colours and shapes of .lmap-main and .lmap-ctx above. */
