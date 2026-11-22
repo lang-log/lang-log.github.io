@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "शीर्ष स्तर का Languoid"
     belongs_to: "इसका हिस्सा"
     constructed_language: "कृत्रिम भाषा"
-    catalog_grouping: "सूची का वर्गीकरण समूह"
+    languoid: "Languoid"
     iso_639_3_code: "ISO 639-3 कोड"
     point_on_the_map: "मानचित्र पर बिंदु"
     number_of_dialects: "बोलियों की संख्या"

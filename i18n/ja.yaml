@@ -1516,7 +1516,7 @@ text:
     top_level_languoid: "最上位の Languoid"
     belongs_to: "所属"
     constructed_language: "人工言語"
-    catalog_grouping: "カタログ上の区分"
+    languoid: "Languoid"
     iso_639_3_code: "ISO 639-3 コード"
     point_on_the_map: "地図上の点"
     number_of_dialects: "方言の数"

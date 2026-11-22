@@ -1517,7 +1517,7 @@ text:
     top_level_languoid: "Languoid di primo livello"
     belongs_to: "Appartiene a"
     constructed_language: "Lingua artificiale"
-    catalog_grouping: "Raggruppamento del catalogo"
+    languoid: "Languoid"
     iso_639_3_code: "Codice ISO 639-3"
     point_on_the_map: "Punto sulla mappa"
     number_of_dialects: "Numero di dialetti"
