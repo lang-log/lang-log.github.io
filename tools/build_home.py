@@ -47,7 +47,7 @@ import json
 
 from locations import DIST
 import build_paths as bp
-from build_wals_map import glottolog, point_languages
+from build_wals_map import condition_languages, glottolog
 from languoid_map import locator, min_width, world_box, world_view, world_view_box
 import info_page
 from pwa import head_tags as pwa_head
@@ -191,15 +191,20 @@ def families_html():
     # data arrives; dist/explore.css hides them when scripts are off. The count line
     # starts with every language, the sentence dist/explore.js apply() writes with no
     # conditions.
-    total = len(point_languages(glottolog()))
+    total = len(condition_languages(glottolog()))
     return (
         '<section class="home-section home-views" id="families">'
         f'<div class="seg explore-views" role="group" aria-label="View">{views}</div>'
         '<div class="explore-filter wm-legend">'
         f'<p id="count" class="wm-count">Showing {total} of {total} languages</p>'
-        '<div class="explore-colour" hidden><label class="wm-colour">Colour by <span id="colour-slot"></span></label></div>'
+        '<div class="explore-colour" hidden><label class="wm-colour">Colour by <span id="colour-slot"></span></label>'
+        # Sets the Latitude and Longitude conditions to the part of the map in view.
+        '<button type="button" id="use-area" class="wm-add">Use the area in view</button></div>'
         '<h3 class="wm-conds-title">Conditions</h3>'
         '<div id="conditions"></div>'
+        # Shown by dist/explore.js once there are two conditions; empty = AND / OR as set.
+        '<label class="wm-min" hidden>Minimum number of conditions to match '
+        '<input type="number" id="min-match" min="1" step="1" inputmode="numeric"></label>'
         '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
         f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
         '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
