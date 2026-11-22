@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": 출처별 인용과 이용 허락은 아래에 있습니다. 가져온 요약 계통수는 그 저자와 관리자에게 귀속됩니다. 코드 대응:"
     classification: "분류 ·"
   record_map:
-    points_glottolog_5_3_cc: "점: Glottolog 5.3(CC BY 4.0)."
-    land_and_borders: "육지와 국경:"
     reset: "초기화"
     reset_view: "처음 보기로"
     map_view: "지도 보기"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "지도를 PNG로 내려받기"
     records_at_this_point: "이 지점의 기록"
     public_domain: "(퍼블릭 도메인)."
-    projection_web_mercator: "도법: 웹 메르카토르 도법."
     sister_languoids: "자매 languoids"
   kinds:
     family: "어족"

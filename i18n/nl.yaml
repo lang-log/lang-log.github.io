@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": citaten en licenties per bron hieronder. Geïmporteerde samenvattende bomen worden toegeschreven aan hun auteurs en beheerders. Codeovereenkomsten:"
     classification: "Classificatie ·"
   record_map:
-    points_glottolog_5_3_cc: "Punten: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Land en grenzen:"
     reset: "Herstellen"
     reset_view: "Weergave herstellen"
     map_view: "Kaartweergave"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Kaart downloaden als PNG"
     records_at_this_point: "Records op dit punt"
     public_domain: "(publiek domein)."
-    projection_web_mercator: "Projectie: Web Mercator."
     sister_languoids: "zuster-languoids"
   kinds:
     family: "familie"

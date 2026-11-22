@@ -136,6 +136,25 @@ def inset_rects(vx, vy, vw, vh):
     )
 
 
+def locator(land, vx, vy, vw, vh):
+    """The locator: the whole world in the corner of a map, with the shown area marked.
+
+    Every map gets one (record pages and the top page's map view), so they behave alike.
+    It is hidden (lmap-inset-off) while the view is wider than half the world;
+    dist/map-zoom.js shows, hides and moves it as the view changes.
+    """
+    iw = vw * 0.22
+    ih = iw / ASPECT
+    ix, iy = vx + vw - iw - vw * 0.015, vy + vh - ih - vw * 0.015
+    cls = "lmap-inset" if vw < WORLD_W * 0.5 else "lmap-inset lmap-inset-off"
+    return (
+        f'<g class="{cls}"><svg x="{_num(ix)}" y="{_num(iy)}" width="{_num(iw)}" height="{_num(ih)}" '
+        f'viewBox="{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}">'
+        f'<use class="lmap-sphere" href="{land}#sphere"/><use class="lmap-land" href="{land}#land"/>'
+        f"{inset_rects(vx, vy, vw, vh)}</svg></g>"
+    )
+
+
 def map_svg(
     map_dir, main, context=(), self_point=None, label="", main_ids=(), context_ids=(), self_id=""
 ):
@@ -166,7 +185,6 @@ def map_svg(
     # The record's points and the points of the other members of its parent share one size;
     # the others are squares, so the two read apart by shape (owner, 2026-11-08).
     big = r * BIG_POINT
-    show_inset = vw < WORLD_W * 0.5
 
     def circles(pts, rad, ids=(), square=False):
         ids = list(ids) or [""] * len(pts)
@@ -212,24 +230,19 @@ def map_svg(
             + (f' data-g="{escape(self_id)}"' if self_id else "")
             + "/></g>"
         )
-    if show_inset:
-        # Locator: the whole world in the corner, with the shown area marked.
-        iw = vw * 0.22
-        ih = iw / ASPECT
-        ix, iy = vx + vw - iw - vw * 0.015, vy + vh - ih - vw * 0.015
-        parts.append(
-            f'<g class="lmap-inset"><svg x="{_num(ix)}" y="{_num(iy)}" width="{_num(iw)}" height="{_num(ih)}" '
-            f'viewBox="{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}">'
-            f'<use class="lmap-sphere" href="{land}#sphere"/><use class="lmap-land" href="{land}#land"/>'
-            f"{inset_rects(vx, vy, vw, vh)}</svg></g>"
-        )
+    parts.append(locator(land, vx, vy, vw, vh))
     parts.append("</svg>")
     return "".join(parts)
 
 
+def world_view_box():
+    """(x, y, width, height) of a view that shows the whole world once (the top page's map view)."""
+    return -WORLD_W / 2, INSET_Y, WORLD_W, WORLD_W / ASPECT
+
+
 def world_view():
     """viewBox of a map that shows the whole world once (the top page's map view)."""
-    return f"{_num(-WORLD_W / 2)} {_num(INSET_Y)} {_num(WORLD_W)} {_num(WORLD_W / ASPECT)}"
+    return " ".join(_num(v) for v in world_view_box())
 
 
 def world_box():

@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": हर स्रोत के उद्धरण और लाइसेंस नीचे हैं। आयात किए गए सारांश-वृक्ष उनके लेखकों और संरक्षकों के नाम हैं। कोड-समकक्षताएँ:"
     classification: "वर्गीकरण ·"
   record_map:
-    points_glottolog_5_3_cc: "बिंदु: Glottolog 5.3 (CC BY 4.0)।"
-    land_and_borders: "भूमि और सीमाएँ:"
     reset: "रीसेट"
     reset_view: "दृश्य रीसेट करें"
     map_view: "मानचित्र दृश्य"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "मानचित्र PNG के रूप में डाउनलोड करें"
     records_at_this_point: "इस बिंदु के रिकॉर्ड"
     public_domain: "(सार्वजनिक डोमेन)।"
-    projection_web_mercator: "प्रक्षेप: Web Mercator।"
     sister_languoids: "सहोदर languoids"
   kinds:
     family: "भाषा-परिवार"

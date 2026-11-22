@@ -284,8 +284,6 @@ text:
     individual_source_citations_and_licenses: ": individual source citations and licenses below. Imported summary trees are attributed to their authors and curators. Code equivalences:"
     classification: "Classification ·"
   record_map:
-    points_glottolog_5_3_cc: "Points: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Land and borders:"
     reset: "Reset"
     reset_view: "Reset view"
     map_view: "Map view"
@@ -295,7 +293,6 @@ text:
     download_the_map_as_png: "Download the map as PNG"
     records_at_this_point: "Records at this point"
     public_domain: "(public domain)."
-    projection_web_mercator: "Projection: Web Mercator."
     sister_languoids: "Sister languoids"
   kinds:
     family: "family"

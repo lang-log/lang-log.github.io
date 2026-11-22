@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": citações e licenças de cada fonte abaixo. As árvores resumidas importadas são atribuídas a seus autores e curadores. Equivalências de códigos:"
     classification: "Classificação ·"
   record_map:
-    points_glottolog_5_3_cc: "Pontos: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "Terras e fronteiras:"
     reset: "Redefinir"
     reset_view: "Redefinir a vista"
     map_view: "Vista de mapa"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "Transferir o mapa em PNG"
     records_at_this_point: "Registos neste ponto"
     public_domain: "(domínio público)."
-    projection_web_mercator: "Projeção: Web Mercator."
     sister_languoids: "languoids irmãos"
   kinds:
     family: "família"

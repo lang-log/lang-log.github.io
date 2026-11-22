@@ -268,8 +268,6 @@ text:
     individual_source_citations_and_licenses: ": الاستشهادات والتراخيص الخاصة بكل مصدر أدناه. تُنسب الأشجار الموجزة المستوردة إلى مؤلفيها والقائمين عليها. مقابلات الرموز:"
     classification: "التصنيف ·"
   record_map:
-    points_glottolog_5_3_cc: "النقاط: Glottolog 5.3 (CC BY 4.0)."
-    land_and_borders: "اليابسة والحدود:"
     reset: "إعادة"
     reset_view: "إعادة العرض"
     map_view: "عرض الخريطة"
@@ -279,7 +277,6 @@ text:
     download_the_map_as_png: "تنزيل الخريطة بصيغة PNG"
     records_at_this_point: "السجلات في هذه النقطة"
     public_domain: "(ملك عام)."
-    projection_web_mercator: "الإسقاط: Web Mercator."
     sister_languoids: "languoids الشقيقة"
   kinds:
     family: "أسرة"

@@ -183,11 +183,24 @@
 .lmap-land {
   fill: var(--c-cdd6cf);
 }
+/* Every point of every map (record pages and the top page's map view, dist/explore.js):
+   a white outline that keeps its width at every zoom, and a darker one under the pointer. */
+.lmap circle,
+.lmap .lmap-ctx rect {
+  stroke: var(--c-ffffff);
+  stroke-width: 0.6px;
+  vector-effect: non-scaling-stroke;
+  cursor: pointer;
+}
+@media (hover: hover) {
+  .lmap circle:hover,
+  .lmap .lmap-ctx rect:hover {
+    stroke: var(--ink);
+  }
+}
 .lmap-ctx rect {
   fill: var(--c-8fa29c);
-  stroke: var(--c-ffffff);
   stroke-width: 1.5px;
-  vector-effect: non-scaling-stroke;
 }
 /* Every point of a record's map is drawn alike (tools/build_paths.py, map_html): a size or
    colour for the record's own point would set families and languages apart, since Glottolog's
@@ -197,15 +210,17 @@
 .lmap-main circle,
 .lmap-self circle {
   fill: var(--orange);
-  stroke: var(--c-ffffff);
-  vector-effect: non-scaling-stroke;
 }
 .lmap-main circle {
   fill-opacity: 0.85;
-  stroke-width: 0.6px;
 }
 .lmap-self circle {
   stroke-width: 1.5px;
+}
+/* The locator is hidden while the view is wider than half the world (languoid_map.py,
+   dist/map-zoom.js). */
+.lmap-inset-off {
+  display: none;
 }
 .lmap-inset .lmap-sphere {
   fill: var(--c-f2f5f3);
@@ -278,12 +293,6 @@
 }
 .lmap-moved + .lmap-tools .lmap-reset {
   display: block;
-}
-.lmap-figure figcaption {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--c-61726d);
-  margin-top: 8px;
 }
 /* Record pages after the merge with the atlas (tools/build_paths.py): classification cards, conflicts,
    debates, the branch tree and the Hugging Face models. */
@@ -429,10 +438,22 @@ body > .domain-nav {
 .lmap-key-ctx::before {
   background: var(--c-8fa29c);
 }
+/* An entry of the top page's colour key (dist/explore.js): the value's colour and its count. */
+.lmap-key-value::before {
+  background: var(--key-colour);
+  border-radius: 50%;
+}
+.lmap-key small {
+  font-size: 12px;
+}
 /* A key entry with points is a button (dist/map-zoom.js): it goes to its points. */
 .lmap-key-btn {
   -webkit-appearance: none;
   appearance: none;
+  /* The name and the count (top page) stay apart in either writing direction. */
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
   padding: 0;
   border: 0;
   background: none;
