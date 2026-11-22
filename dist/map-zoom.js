@@ -977,7 +977,7 @@
     // points, painted on a canvas with the colours and line widths the page's CSS gives them.
     // A line with non-scaling-stroke (in the CSS, or written on a map file's path) keeps its
     // width on screen, as on the map; any other line is as wide in the units of the map as the
-    // SVG draws it (the top page's points set theirs from --unit, dist/explore.css).
+    // SVG draws it. Every point's outline is non-scaling (dist/record.css).
     var files = {};
     function mapFile(href) {
       if (!files[href])
