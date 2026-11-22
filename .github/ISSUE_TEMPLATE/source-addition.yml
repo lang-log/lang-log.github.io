@@ -1,0 +1,20 @@
+name: Source addition
+description: A dataset or publication that Lang Log could take in.
+labels: [source]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Source
+      description: Its name and address.
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: The license the source is published under, if you know it.
+  - type: textarea
+    id: what
+    attributes:
+      label: What it adds

@@ -1,0 +1,15 @@
+name: Feature request
+description: Something the site could do.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What you would like
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: What it would help you do.

@@ -1,0 +1,11 @@
+# Settings for the weekly link checker lychee (.github/workflows/links.yml): every link on the
+# built site, between its own pages and to other sites (sources, papers, DOIs).
+scheme = ["https", "http", "file"]
+# Links between pages are relative; they are resolved against the built site.
+root_dir = "dist"
+# The live site itself, and the Hugging Face API that dist/hf-models.js calls in the browser.
+exclude = ["^https://lang-log\\.github\\.io", "^https://huggingface\\.co/api/"]
+# Publishers and university sites answer automated requests slowly or rate-limit them.
+max_retries = 3
+timeout = 30
+accept = ["200..=299", "429"]

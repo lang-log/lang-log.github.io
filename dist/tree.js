@@ -1,17 +1,20 @@
 'use strict';
-// The classification tree of Lang Log, drawn inside the top page (all roots:
-// the Tree view of dist/explore.js) and inside every record page (the branch
-// below that record). Every record has its own static page; this script only
-// draws the outline and the zoomable tree, and choosing a record opens its page.
+// The classification tree of Lang Log, inside every record page (the branch below
+// that record: outline and zoomable tree) and on the top page (the members that open
+// under each row of the list, and the tree downloads). Every record has its own static
+// page; this script only draws the outline and the tree, and choosing a record opens
+// its page.
 //
 // Markup: an element #atlas with
 //   data-base  path from the page to the site root ("" on the top page, "../" ...);
 //   data-root  (record pages) the record whose branch is drawn;
 //   data-src   (record pages) the source of that branch: glottolog, wals or a study id.
-// The top page draws only the zoomable tree (its list is the List view of
-// dist/explore.js); explore.js starts it and narrows it to the languages that
-// match its conditions (window.LangLogTree.setMatch). Search has its own page,
-// <site>/q?q=<terms> (dist/q.html, dist/search.js).
+// The top page has no tree view of its own (issue #93: the list and the tree are one):
+// its list (dist/explore.js) opens each row into its members with members(), the
+// Download menu exports the whole tree, and explore.js narrows both to the languages
+// that match its conditions (window.LangLogTree.setMatch). The data is loaded on the
+// first opened row or download. Search has its own page, <site>/q?q=<terms>
+// (dist/q.html, dist/search.js).
 //
 // URL state (query string): x/y/z (tree centre and zoom); on record pages also
 // view=tree. On the top page "view" belongs to dist/explore.js.
@@ -117,7 +120,7 @@
     const p = new URLSearchParams(location.search);
     restoring = true;
     try {
-      display = !branchPage || p.get('view') === 'tree' ? 'chart' : 'list';
+      display = branchPage && p.get('view') === 'tree' ? 'chart' : 'list';
       showDisplay();
       if (display === 'list') renderOutline();
       else {
@@ -205,24 +208,28 @@
     function populate() {
       if (populated) return;
       populated = true;
-      const kids = document.createElement('div');
-      kids.className = 'node-children';
-      for (const e of children(sid, id))
-        if (eligible(nodes[e.child]) && (!keep || keep.has(e.child)))
-          kids.appendChild(makeNode(e.child, sid, path, e.sample));
-      // Other sources' trees attached here are left out while conditions are set: the
-      // conditions are on Glottolog languages.
-      if (sid === 'glottolog' && !keep)
-        for (const a of unified.anchors[id] || []) kids.appendChild(makeSourceBranch(a, path));
-      if (!kids.childElementCount)
-        kids.innerHTML = '<p class="small-disclaimer">No members recorded here.</p>';
-      el.appendChild(kids);
+      el.appendChild(membersOf(id, sid, path));
     }
     el.populate = populate;
     el.addEventListener('toggle', (e) => {
       if (e.target === el && el.open) populate();
     });
     return el;
+  }
+  // The members of a record in one source, each an outline row of its own.
+  function membersOf(id, sid = 'glottolog', path = new Set(['glottolog|' + id])) {
+    const kids = document.createElement('div');
+    kids.className = 'node-children';
+    for (const e of children(sid, id))
+      if (eligible(nodes[e.child]) && (!keep || keep.has(e.child)))
+        kids.appendChild(makeNode(e.child, sid, path, e.sample));
+    // Other sources' trees attached here are left out while conditions are set: the
+    // conditions are on Glottolog languages.
+    if (sid === 'glottolog' && !keep)
+      for (const a of unified.anchors[id] || []) kids.appendChild(makeSourceBranch(a, path));
+    if (!kids.childElementCount)
+      kids.innerHTML = '<p class="small-disclaimer">No members recorded here.</p>';
+    return kids;
   }
   function makeSourceBranch(a, trail = new Set()) {
     const d = document.createElement('details');
@@ -269,7 +276,8 @@
   }
   function showDisplay() {
     if ($('outline')) $('outline').hidden = display !== 'list';
-    $('viewport').hidden = display === 'list';
+    // The top page never shows the canvas; it keeps only the Download menu.
+    $('viewport').hidden = !branchPage || display === 'list';
     if ($('collapse')) $('collapse').hidden = display !== 'list';
   }
 
@@ -560,8 +568,10 @@
     saveURL(false);
   };
   $('export').onclick = () => {
-    if (display !== 'chart') layout();
-    exportSVG();
+    load().then(() => {
+      if (display !== 'chart') layout();
+      exportSVG();
+    });
   };
   window.addEventListener('popstate', applyURL);
   new ResizeObserver(resize).observe($('viewport'));
@@ -571,39 +581,54 @@
   });
 
   // Record pages load the data only when the visitor asks for the tree (dist/record-page.js);
-  // the top page loads it at once.
+  // the top page when a row of its list is first opened or the tree is downloaded.
+  let loading = null;
+  function load() {
+    if (loading) return loading;
+    window.AtlasData.base = base + 'data/';
+    loading = Promise.all([
+      window.AtlasData.load(),
+      fetch(base + 'source-paths.json')
+        .then((r) => (r.ok ? r.json() : {}))
+        .catch(() => ({})),
+    ]).then(async ([{ d, u }, sp]) => {
+      data = d;
+      unified = u;
+      sourcePaths = sp;
+      await window.LineagePaths.init(d.nodes, d.roots, base);
+      nodes = { ...data.nodes, ...unified.extraNodes };
+      for (const e of u.assertions) {
+        if (!e.parent) continue;
+        const k = e.source + '|' + e.parent;
+        if (!bySource.has(k)) bySource.set(k, []);
+        bySource.get(k).push(e);
+      }
+      if (matched) setMatch(matched);
+    });
+    loading.catch(() => {
+      loading = null;
+    });
+    return loading;
+  }
   let started = false;
   function start() {
     if (started) return;
     started = true;
     host.hidden = false;
+    // The top page shows only the Download menu; its data waits for the first use.
+    if (!branchPage) {
+      showDisplay();
+      return;
+    }
     $('view-count').textContent = 'Loading records…';
     if ($('outline')) $('outline').innerHTML = '<p class="outline-empty">Loading records…</p>';
-    window.AtlasData.base = base + 'data/';
-    Promise.all([
-      window.AtlasData.load(),
-      fetch(base + 'source-paths.json')
-        .then((r) => (r.ok ? r.json() : {}))
-        .catch(() => ({})),
-    ])
-      .then(async ([{ d, u }, sp]) => {
-        data = d;
-        unified = u;
-        sourcePaths = sp;
-        await window.LineagePaths.init(d.nodes, d.roots, base);
-        nodes = { ...data.nodes, ...unified.extraNodes };
-        for (const e of u.assertions) {
-          if (!e.parent) continue;
-          const k = e.source + '|' + e.parent;
-          if (!bySource.has(k)) bySource.set(k, []);
-          bySource.get(k).push(e);
-        }
+    load()
+      .then(() => {
         if (branchPage && !nodes[rootId]) {
           $('outline').innerHTML = '<p class="load-error">This record is not in the tree data.</p>';
           return;
         }
         applyURL();
-        if (matched) setMatch(matched);
       })
       .catch((e) => {
         if ($('outline'))
@@ -613,7 +638,12 @@
         console.error(e);
       });
   }
+  // The members of a top-level record, for a row of the top page's list: a promise of an
+  // element whose rows open in turn.
+  function members(id) {
+    return load().then(() => membersOf(id));
+  }
   // Record pages start it when the visitor asks for the tree (dist/record-page.js), the top
-  // page when its Tree view is first shown (dist/explore.js).
-  window.LangLogTree = { start, setMatch };
+  // page as soon as it loads (dist/explore.js), which shows the Download menu without data.
+  window.LangLogTree = { start, setMatch, members };
 })();

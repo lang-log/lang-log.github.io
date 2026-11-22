@@ -1,4 +1,4 @@
-/* The three views of the top page and their conditions (dist/explore.js, tools/build_home.py).
+/* The two views of the top page and their conditions (dist/explore.js, tools/build_home.py).
    Colours are the variables at the top of style.css. */
 .explore-views {
   margin: 16px 0 12px;
@@ -164,12 +164,29 @@
   margin: 4px 0 0;
 }
 #colour-legend li {
+  padding: 0;
+  border: 0;
+}
+/* Each legend entry is a button (dist/explore.js legendEntry): it goes to the value's points. */
+#colour-legend button {
+  -webkit-appearance: none;
+  appearance: none;
   display: flex;
   align-items: center;
   gap: 7px;
+  width: 100%;
+  min-height: inherit;
   padding: 4px 0;
-  font-size: 13px;
   border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  text-align: start;
+  cursor: pointer;
+}
+#colour-legend button:disabled {
+  cursor: default;
 }
 #colour-legend li span {
   flex: 1;

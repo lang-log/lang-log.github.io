@@ -1,0 +1,25 @@
+name: Classification dispute
+description: A record is placed in a family or subgroup that a study disputes.
+labels: [classification]
+body:
+  - type: input
+    id: record
+    attributes:
+      label: Record
+      description: The address of the record's page, or its Glottocode.
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: The other placement
+      description: Where the study places it.
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference
+      description: The study, with a DOI or address where possible.
+    validations:
+      required: true
