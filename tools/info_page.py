@@ -8,6 +8,7 @@ dist/stats/index.html, "" for dist/releases.html), so every link stays relative.
 
 from html import escape
 
+from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import COPYRIGHT, SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
 
@@ -22,6 +23,7 @@ def page(title, body, up, scripts=()):
         f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
         + icon_links(up)
         + SITE_NAME_META
+        + pwa_head(up)
         + f'<link rel="stylesheet" href="{up}style.css">'
         f'<script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script>'
         + "".join(f'<script src="{up}{escape(s)}"></script>' for s in scripts)

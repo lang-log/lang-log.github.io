@@ -50,6 +50,7 @@ import build_paths as bp
 from build_wals_map import glottolog, point_languages
 from languoid_map import min_width, world_box, world_view
 import info_page
+from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
     COPYRIGHT,
@@ -465,6 +466,7 @@ def main():
         f"<title>{HOME_TITLE}</title>"
         + icon_links()
         + SITE_NAME_META
+        + pwa_head("")
         + WEBSITE_JSONLD
         + '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
         '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'

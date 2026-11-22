@@ -6,7 +6,7 @@ paths:
 
 # Interface text and colours
 
-- Every page loads `theme.js`, `i18n.js` and `lang.js` in `<head>`, after `style.css`. A new page or page generator does the same.
+- Every page loads `theme.js`, `i18n.js` and `lang.js` in `<head>`, after `style.css`, and links the manifest and `pwa.js` (`pwa.md`). A new page or page generator does the same.
 - Link local CSS, JS and SVG files by plain relative paths (`style.css`, `../logo.svg#logo`). `tools/version_assets.py` adds `?v=<content hash>` to them in CI so browsers never mix a new page with an old cached file; do not add a query by hand.
 - Lang Log offers the same languages as the profile site, in the same order (`LANGS` in `dist/lang.js`). Write interface text in English. All interface text lives in `i18n/<code>.yaml`, one file per language with the same keys: English in `i18n/en.yaml`, a value the page fills in as a placeholder (`{count}`, `{date}`, `{name}`). Add every new text to every file in the same pull request. `tools/build_i18n.py` (run by `tools/build_site.sh`) fails CI when a language lacks a key or uses a placeholder its English text lacks, and writes the dictionaries the pages load (`dist/i18n.js`, `dist/i18n/<code>.js`; not committed, never edited by hand).
 - Never write a count or a limit into interface text (`generated-values.md` in `research-aide`): the script fills it in from the data or from the constant the code uses (`data.counts` in `dist/signs-and-scripts.js`, `SEARCH_LIMIT` in `dist/search.js`, the comments in `source-data/sources-and-scope.html` filled by `tools/build_home.py`), and the YAML text holds a placeholder for it.
