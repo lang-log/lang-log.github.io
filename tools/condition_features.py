@@ -32,7 +32,26 @@ import re
 from locations import DIST, ROOT
 
 SRC = ROOT / "source-data"
-GLOTTOLOG, WALS, LANGLOG = "Glottolog", "WALS", "Lang Log"
+# Groups of the feature menu, by what a feature is about (owner, 2026-11-22: no source
+# names such as WALS or Glottolog in the menu; sources are credited in the footer and on
+# the Sources page).
+PLACE, CLASSIFICATION, NAMES, FEATURE_DATA = (
+    "Place",
+    "Classification",
+    "Names and codes",
+    "Feature data",
+)
+# The group of each feature below; features() sets it last, so the code of each feature
+# says only where its data comes from.
+GROUP_OF = {
+    PLACE: "macroarea country countries lat lon point distance",
+    CLASSIFICATION: "top group depth size dialects grouping medium constructed"
+    " study nstudies debate stage power",
+    NAMES: "name names native provider iso",
+    FEATURE_DATA: "inwals sample wfamily wsubfamily wgenus wcountry wcount wareas"
+    " wdisagree wref wshared nsources",
+}
+GROUP = ""  # replaced by the feature's group from GROUP_OF
 YES, NO = 1, 2
 # Decimal places kept for latitudes and longitudes (about 1 km).
 COORD_PLACES = 2
@@ -134,23 +153,23 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
             p = nodes[p].get("parent")
         return got
 
-    # Glottolog
+    # From Glottolog
     out.append(
         category(
             "macroarea",
             "Macroarea",
-            GLOTTOLOG,
+            GROUP,
             [r["Macroarea"].split(";") if r["Macroarea"] else [] for r in langs],
             multi=True,
         )
     )
     countries = [r["Countries"].split(";") if r["Countries"] else [] for r in langs]
-    out.append(category("country", "Country", GLOTTOLOG, countries, names="region", multi=True))
+    out.append(category("country", "Country", GROUP, countries, names="region", multi=True))
     out.append(
-        number("countries", "Number of countries", GLOTTOLOG, [len(c) or None for c in countries])
+        number("countries", "Number of countries", GROUP, [len(c) or None for c in countries])
     )
     top = [nodes[n["root"]]["name"] if n.get("root") in nodes else None for n in node]
-    out.append(category("top", "Top-level languoid", GLOTTOLOG, top, names="data"))
+    out.append(category("top", "Top-level languoid", GROUP, top, names="data"))
 
     # A higher record is named with its top-level languoid, as names repeat ("Northern").
     def label(gid):
@@ -161,26 +180,24 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         category(
             "group",
             "Belongs to",
-            GLOTTOLOG,
+            GROUP,
             [[label(a) for a in ancestors(i)] for i in ids],
             names="data",
             multi=True,
         )
     )
     media = [n.get("modality") for n in node]
-    out.append(
-        category("medium", "Medium", GLOTTOLOG, media, order=["spoken", "signed", "written"])
-    )
+    out.append(category("medium", "Medium", GROUP, media, order=["spoken", "signed", "written"]))
     out.append(
         yes_no_feature(
-            "constructed", "Constructed language", GLOTTOLOG, [n.get("constructed") for n in node]
+            "constructed", "Constructed language", GROUP, [n.get("constructed") for n in node]
         )
     )
     out.append(
         category(
             "grouping",
-            "Glottolog grouping",
-            GLOTTOLOG,
+            "Catalog grouping",
+            GROUP,
             [n.get("category") for n in node],
             names="data",
         )
@@ -189,7 +206,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         category(
             "iso",
             "ISO 639-3 code",
-            GLOTTOLOG,
+            GROUP,
             [
                 "Own code"
                 if r["ISO639P3code"]
@@ -202,12 +219,10 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         )
     )
     out.append(
-        yes_no_feature("point", "Point on the map", GLOTTOLOG, [bool(r["Latitude"]) for r in langs])
+        yes_no_feature("point", "Point on the map", GROUP, [bool(r["Latitude"]) for r in langs])
     )
-    out.append(
-        number("dialects", "Number of dialects", GLOTTOLOG, [len(below(i)) - 1 for i in ids])
-    )
-    out.append(number("depth", "Depth in the tree", GLOTTOLOG, [len(ancestors(i)) for i in ids]))
+    out.append(number("dialects", "Number of dialects", GROUP, [len(below(i)) - 1 for i in ids]))
+    out.append(number("depth", "Depth in the tree", GROUP, [len(ancestors(i)) for i in ids]))
     languages_in = collections.Counter(
         n["root"] for n in nodes.values() if n["level"] == "language"
     )
@@ -215,7 +230,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         number(
             "size",
             "Languages in its top-level languoid",
-            GLOTTOLOG,
+            GROUP,
             [languages_in[n["root"]] if n.get("root") else None for n in node],
         )
     )
@@ -223,23 +238,19 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     def coord(r, key):
         return round(float(r[key]), COORD_PLACES) if r[key] else None
 
-    out.append(number("lat", "Latitude", GLOTTOLOG, [coord(r, "Latitude") for r in langs]))
-    out.append(
-        number("lon", "Longitude", GLOTTOLOG, [coord(r, "Longitude") for r in langs], wrap=True)
-    )
-    out.append(
-        number("names", "Number of names", GLOTTOLOG, [len(n.get("names", [])) for n in node])
-    )
+    out.append(number("lat", "Latitude", GROUP, [coord(r, "Latitude") for r in langs]))
+    out.append(number("lon", "Longitude", GROUP, [coord(r, "Longitude") for r in langs], wrap=True))
+    out.append(number("names", "Number of names", GROUP, [len(n.get("names", [])) for n in node]))
     out.append(
         yes_no_feature(
-            "native", "Name in the language itself", GLOTTOLOG, [n.get("nativeNames") for n in node]
+            "native", "Name in the language itself", GROUP, [n.get("nativeNames") for n in node]
         )
     )
     out.append(
         category(
             "provider",
             "Name source",
-            GLOTTOLOG,
+            GROUP,
             [[x["provider"] for x in n.get("names", [])] for n in node],
             names="data",
             multi=True,
@@ -247,19 +258,19 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     )
     out.append(
         (
-            {"id": "name", "name": "Name", "area": GLOTTOLOG, "source": "langlog", "type": "text"},
+            {"id": "name", "name": "Name", "area": GROUP, "source": "langlog", "type": "text"},
             None,
         )
     )
 
-    # WALS
+    # From WALS
     lects = [wals_lects.get(i, []) for i in range(len(langs))]
-    out.append(yes_no_feature("inwals", "In WALS", WALS, lects))
+    out.append(yes_no_feature("inwals", "Has feature data", GROUP, lects))
     out.append(
         category(
             "sample",
-            "WALS sample",
-            WALS,
+            "Feature sample",
+            GROUP,
             [
                 [
                     s
@@ -276,15 +287,15 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         )
     )
     for fid, name, key in (
-        ("wfamily", "WALS family", "Family"),
-        ("wsubfamily", "WALS subfamily", "Subfamily"),
-        ("wgenus", "WALS genus", "Genus"),
+        ("wfamily", "Family in the feature data", "Family"),
+        ("wsubfamily", "Subfamily in the feature data", "Subfamily"),
+        ("wgenus", "Genus", "Genus"),
     ):
         out.append(
             category(
                 fid,
                 name,
-                WALS,
+                GROUP,
                 [[w[key] for w in ls if w[key]] for ls in lects],
                 names="data",
                 multi=True,
@@ -293,8 +304,8 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     out.append(
         category(
             "wcountry",
-            "WALS country",
-            WALS,
+            "Country in the feature data",
+            GROUP,
             [[c for w in ls for c in w["Country_ID"].split() if c] for ls in lects],
             names="region",
             multi=True,
@@ -311,14 +322,17 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     n_lang = range(len(langs))
     out.append(
         number(
-            "wcount", "Number of WALS features", WALS, [len(per_lang[i]) or None for i in n_lang]
+            "wcount",
+            "Number of features with data",
+            GROUP,
+            [len(per_lang[i]) or None for i in n_lang],
         )
     )
     out.append(
         category(
             "wareas",
-            "WALS areas with data",
-            WALS,
+            "Feature areas with data",
+            GROUP,
             [sorted({area_of[p] for p in per_lang[i]}) for i in n_lang],
             multi=True,
         )
@@ -326,16 +340,16 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     out.append(
         yes_no_feature(
             "wdisagree",
-            "WALS lects disagree",
-            WALS,
+            "Varieties disagree on a feature",
+            GROUP,
             [any(len(s) > 1 for s in per_lang[i].values()) for i in n_lang],
         )
     )
     out.append(
         category(
             "wref",
-            "WALS reference",
-            WALS,
+            "Reference for feature data",
+            GROUP,
             [sorted(refs[i]) for i in n_lang],
             names="data",
             multi=True,
@@ -345,8 +359,8 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         (
             {
                 "id": "wshared",
-                "name": "WALS values shared with a language",
-                "area": WALS,
+                "name": "Features shared with a language",
+                "area": GROUP,
                 "source": "langlog",
                 "type": "relative",
                 "measure": "shared",
@@ -355,18 +369,18 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         )
     )
 
-    # Lang Log
+    # From Lang Log's own data
     study_index = unified["studyIndex"]
     title = {k: s["title"] for k, s in unified["sources"].items()}
     studies = [sorted({title[s] for d in below(i) for s in study_index.get(d, [])}) for i in ids]
-    out.append(category("study", "Research tree", LANGLOG, studies, names="data", multi=True))
-    out.append(number("nstudies", "Number of research trees", LANGLOG, [len(s) for s in studies]))
+    out.append(category("study", "Research tree", GROUP, studies, names="data", multi=True))
+    out.append(number("nstudies", "Number of research trees", GROUP, [len(s) for s in studies]))
     debate_title = {d["id"]: d["title"] for d in unified["debates"]}
     out.append(
         category(
             "debate",
             "Debate",
-            LANGLOG,
+            GROUP,
             [
                 sorted(
                     {
@@ -389,7 +403,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         category(
             "stage",
             "Historical stage",
-            LANGLOG,
+            GROUP,
             [
                 [
                     s
@@ -409,7 +423,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
         number(
             "nsources",
             "Number of sources",
-            LANGLOG,
+            GROUP,
             [1 + bool(lects[k]) + len(studies[k]) for k in n_lang],
         )
     )
@@ -422,8 +436,8 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     out.append(
         category(
             "power",
-            "Sign language group (Power et al.)",
-            LANGLOG,
+            "Sign language group",
+            GROUP,
             [sorted({g for d in below(i) for g in power.get(d, ())}) for i in ids],
             names="data",
             multi=True,
@@ -434,7 +448,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
             {
                 "id": "distance",
                 "name": "Distance from a language (km)",
-                "area": LANGLOG,
+                "area": GROUP,
                 "source": "langlog",
                 "type": "relative",
                 "measure": "km",
@@ -442,4 +456,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
             None,
         )
     )
+    group = {fid: g for g, ids in GROUP_OF.items() for fid in ids.split()}
+    for entry, _ in out:
+        entry["area"] = group[entry["id"]]
     return out
