@@ -15,31 +15,31 @@ Every piece of interface on Lang Log, by name, with the markup that marks it, th
 
 ## Top page (`/`)
 
-| Name             | Markup                                                                                            | Built by                                                                     | Styled in          |
-| ---------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------ |
-| Big logo         | `.home-logo`                                                                                      | `tools/build_home.py`                                                        | `dist/style.css`   |
-| Search box       | `form.home-search` with `.search-pill`                                                            | `tools/build_home.py`                                                        | `dist/style.css`   |
-| Random row       | `.home-random` with the `.random-any` button                                                      | `tools/build_home.py`, `dist/home.js`                                        | `dist/style.css`   |
-| Guide row        | `nav.home-guide` (Stats, Sources, Updates, Releases)                                              | `tools/build_home.py`                                                        | `dist/style.css`   |
-| View switch      | `.seg.explore-views`, buttons with `data-view` and `aria-pressed`                                 | `VIEWS` in `tools/build_home.py`, `dist/explore.js`                          | `dist/explore.css` |
-| Conditions panel | `.explore-filter` (`#count`, `.explore-colour`, `#conditions`, `#add-condition`)                  | `tools/build_home.py`, `dist/explore.js`                                     | `dist/explore.css` |
-| Condition        | `.wm-cond` (feature menu, values)                                                                 | `condBox()` in `dist/explore.js`                                             | `dist/explore.css` |
-| Colour legend    | `ul#colour-legend.lmap-key` under the map, one `.lmap-key-value` entry per value (the Map key)    | `tools/build_home.py`, `keyEntry()` in `dist/explore.js`, `dist/map-zoom.js` | `dist/record.css`  |
-| List view        | `.explore-view[data-view="list"]`: `.continent` headings and `ul.record-links`                    | `tools/build_home.py`                                                        | `dist/style.css`   |
-| List row         | `li[data-root]`; with JavaScript `li.openable` holding a `.tree-node` that opens into its members | `root_row()` in `tools/build_home.py`, `dist/explore.js`, `dist/tree.js`     | `dist/style.css`   |
-| Map view         | `.explore-view[data-view="map"]` holding the Map                                                  | `tools/build_home.py`, `dist/explore.js`                                     | `dist/explore.css` |
+| Name             | Markup                                                                                                | Built by                                                                     | Styled in          |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------ |
+| Big logo         | `.home-logo`                                                                                          | `tools/build_home.py`                                                        | `dist/style.css`   |
+| Search box       | `form.home-search` with `.search-pill`                                                                | `tools/build_home.py`                                                        | `dist/style.css`   |
+| Random row       | `.home-random` with the `.random-any` button                                                          | `tools/build_home.py`, `dist/home.js`                                        | `dist/style.css`   |
+| Guide row        | `nav.home-guide` (Stats, Sources, Updates, Releases)                                                  | `tools/build_home.py`                                                        | `dist/style.css`   |
+| View switch      | `.seg.explore-views`, buttons with `data-view` and `aria-pressed`                                     | `VIEWS` in `tools/build_home.py`, `dist/explore.js`                          | `dist/explore.css` |
+| Conditions panel | `.explore-filter` (`#count`, `.explore-colour` holding `.wm-colour`, `#conditions`, `#add-condition`) | `tools/build_home.py`, `dist/explore.js`                                     | `dist/explore.css` |
+| Condition        | `.wm-cond` (feature menu, values)                                                                     | `condBox()` in `dist/explore.js`                                             | `dist/explore.css` |
+| Colour legend    | `ul#colour-legend.lmap-key` under the map, one `.lmap-key-value` entry per value (the Map key)        | `tools/build_home.py`, `keyEntry()` in `dist/explore.js`, `dist/map-zoom.js` | `dist/record.css`  |
+| List view        | `.explore-view[data-view="list"]`: `.continent` headings and `ul.record-links`                        | `tools/build_home.py`                                                        | `dist/style.css`   |
+| List row         | `li[data-root]`; with JavaScript `li.openable` holding a `.tree-node` that opens into its members     | `root_row()` in `tools/build_home.py`, `dist/explore.js`, `dist/tree.js`     | `dist/style.css`   |
+| Map view         | `.explore-view[data-view="map"]` holding the Map                                                      | `tools/build_home.py`, `dist/explore.js`                                     | `dist/explore.css` |
 
 ## Record pages (`/<path>/`)
 
-| Name                 | Markup                                          | Built by                                                   | Styled in         |
-| -------------------- | ----------------------------------------------- | ---------------------------------------------------------- | ----------------- |
-| Breadcrumb           | `.lineage` (`.lineage-path`, `.lineage-source`) | `tools/build_paths.py`                                     | `dist/style.css`  |
-| Record heading       | `<h1>` and `.meta` (codes and Medium)           | `tools/build_paths.py`                                     | `dist/record.css` |
-| Classification cards | `section.classification`, `.evidence-card`      | `tools/build_paths.py`                                     | `dist/record.css` |
-| Members              | `section.members` with `ul.record-links`        | `tools/build_paths.py`                                     | `dist/record.css` |
-| Tree section         | `section.tree-section`, opened by `#show-tree`  | `tools/build_paths.py`, `dist/record-page.js`              | `dist/record.css` |
-| Hugging Face models  | `section.hf-models`                             | `hf_html()` in `tools/build_paths.py`, `dist/hf-models.js` | `dist/record.css` |
-| Source credit        | `footer.credit` (where the data comes from)     | `tools/build_paths.py`                                     | `dist/record.css` |
+| Name                 | Markup                                                                  | Built by                                                   | Styled in                       |
+| -------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------- |
+| Breadcrumb           | `.lineage` (`.lineage-path`, `.lineage-source`)                         | `tools/build_paths.py`                                     | `dist/style.css`                |
+| Record heading       | `<h1>` and `.meta` (codes and Medium)                                   | `tools/build_paths.py`                                     | `dist/record.css`               |
+| Classification cards | `section.classification`, `.evidence-card`                              | `tools/build_paths.py`                                     | `dist/record.css`               |
+| Members              | `section.members` with `ul.record-links`                                | `tools/build_paths.py`                                     | `dist/record.css`               |
+| Tree section         | `section#tree-section`, opened by `#show-tree`; it holds the Atlas host | `tools/build_paths.py`, `dist/record-page.js`              | `dist/style.css` (its contents) |
+| Hugging Face models  | `section.hf-models`                                                     | `hf_html()` in `tools/build_paths.py`, `dist/hf-models.js` | `dist/record.css`               |
+| Source credit        | `footer.credit` (where the data comes from)                             | `tools/build_paths.py`                                     | `dist/record.css`               |
 
 ## Shared parts
 
@@ -49,7 +49,7 @@ Every piece of interface on Lang Log, by name, with the markup that marks it, th
 | Download menu        | `details.menu.downloads` with `.menu-panel`; entries named by format: `SVG (current view)`, `XML`, `OPML`                | `atlas_html()` in `tools/build_paths.py`                                                                                                                                    | `dist/style.css`                               |
 | Map                  | `svg.lmap` (`.lmap-bg`, points, `.lmap-inset` locator, `.lmap-key`)                                                      | `tools/languoid_map.py` (`map_svg()`, `locator()`), `map_html()` in `tools/build_paths.py`, `tools/build_home.py`; zoom, point size, stepping and PNG by `dist/map-zoom.js` | `dist/record.css`                              |
 | Map key              | `.lmap-key`; an entry with points (`data-points`) is a `.lmap-key-btn`                                                   | `tools/build_paths.py`, `dist/explore.js` (top page), `dist/map-zoom.js`                                                                                                    | `dist/record.css`                              |
-| Map view             | the full-window map at `#map-view`                                                                                       | `dist/map-zoom.js`                                                                                                                                                          | `dist/record.css`                              |
+| Map view             | the map's host with `.lmap-full` (and `html.lmap-full-open`) while open, at `#map-view`                                  | `dist/map-zoom.js`                                                                                                                                                          | `dist/record.css`                              |
 | Atlas host           | `#atlas.workspace.atlas-embed` with `.toolbar`                                                                           | `atlas_html()` in `tools/build_paths.py`                                                                                                                                    | `dist/style.css`                               |
 | Outline              | `#outline` of `.tree-node` rows (`.rowname`, `.native-inline`, `.rowmeta`) and `.node-children`                          | `makeNode()` and `membersOf()` in `dist/tree.js`                                                                                                                            | `dist/style.css`                               |
 | Other sources' trees | `details.source-branch` under an outline row                                                                             | `makeSourceBranch()` in `dist/tree.js`                                                                                                                                      | `dist/style.css`                               |

@@ -15,7 +15,7 @@ every record whatever source it comes from (schema/languoid.schema.json):
 
 Sources read here, each converted by its own function:
 
-- Glottolog 5.3 (languages.csv, classification.nex, dialects.md, names.csv,
+- Glottolog (languages.csv, classification.nex, dialects.md, names.csv,
   iso-map.json): records, classification, names, location, countries.
 - WALS (wals.csv and source-data/wals/): WALS codes, WALS classification
   and feature values, mapped to Lang Log features by the catalogue.

@@ -61,6 +61,7 @@ from site_brand import (
     by_yoshi,
     icon_links,
 )
+from source_versions import GLOTTOLOG
 
 # TODO: sections planned for the top page, not built yet (owner, 2026-11-06):
 # - Data sources band: names (and logos only where each source's brand terms
@@ -495,7 +496,7 @@ def main():
         "</section>\n"
         f"{families_html()}"
         "</main>\n"
-        f"<footer><span>Glottolog 5.3 + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
+        f"<footer><span>{GLOTTOLOG} + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
         f"<span>{COPYRIGHT}</span></footer>\n"
         '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'

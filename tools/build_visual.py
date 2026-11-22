@@ -10,6 +10,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 
 from modality import MODALITY_OF_DOMAIN
+from source_versions import GLOTTOLOG
 
 P = Path("source-data/signs-and-scripts")
 D = Path("dist")
@@ -47,7 +48,7 @@ def edge(p, c, s, kind="historical descent", status="reported", **kw):
 
 src(
     "glottolog",
-    "Glottolog 5.3",
+    GLOTTOLOG,
     "https://doi.org/10.5281/zenodo.18840935",
     "catalog",
     license="CC BY 4.0",
