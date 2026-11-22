@@ -36,6 +36,7 @@ tools/build_site.sh runs them in order.
 from html import escape
 
 from locations import DIST, ROOT
+from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
 import csv
@@ -633,6 +634,7 @@ def page(depth, title, body):
         f"<title>{escape(title)}{TITLE_SUFFIX}</title>"
         + icon_links(up)
         + SITE_NAME_META
+        + pwa_head(up)
         + f'<link rel="stylesheet" href="{up}style.css"><link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css"><script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script><script src="{up}map-zoom.js" defer></script></head>'
         f'<body class="variant-page"><header><div class="brand"><a class="home" href="{up}"><svg class="logo" role="img" aria-label="LANG LOG"><use href="{up}logo.svg#logo"/></svg></a> {by_yoshi()}</div></header>'
         f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>"

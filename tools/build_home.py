@@ -47,8 +47,10 @@ import json
 
 from locations import DIST
 import build_paths as bp
+from build_wals_map import glottolog, point_languages
 from languoid_map import locator, min_width, world_box, world_view, world_view_box
 import info_page
+from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
     COPYRIGHT,
@@ -185,12 +187,17 @@ def families_html():
         f'<button type="button" data-view="{v}" aria-pressed="{str(v == "list").lower()}">{label}</button>'
         for v, label in VIEWS
     )
+    # The switch and the conditions are in the first paint, so nothing moves when the
+    # data arrives; dist/explore.css hides them when scripts are off. The count line
+    # starts with every language, the sentence dist/explore.js apply() writes with no
+    # conditions.
+    total = len(point_languages(glottolog()))
     return (
         '<section class="home-section home-views" id="families">'
-        f'<div class="seg explore-views" role="group" aria-label="View" hidden>{views}</div>'
-        '<div class="explore-filter wm-legend" hidden>'
-        '<p id="count" class="wm-count"></p>'
-        '<div class="explore-colour"><label class="wm-colour">Colour by <span id="colour-slot"></span></label></div>'
+        f'<div class="seg explore-views" role="group" aria-label="View">{views}</div>'
+        '<div class="explore-filter wm-legend">'
+        f'<p id="count" class="wm-count">Showing {total} of {total} languages</p>'
+        '<div class="explore-colour" hidden><label class="wm-colour">Colour by <span id="colour-slot"></span></label></div>'
         '<h3 class="wm-conds-title">Conditions</h3>'
         '<div id="conditions"></div>'
         '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
@@ -462,6 +469,7 @@ def main():
         f"<title>{HOME_TITLE}</title>"
         + icon_links()
         + SITE_NAME_META
+        + pwa_head("")
         + WEBSITE_JSONLD
         + '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
         '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'

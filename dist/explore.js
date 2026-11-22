@@ -506,8 +506,6 @@
     })
     .then(function () {
       renderConds();
-      root.querySelector('.explore-views').hidden = false;
-      root.querySelector('.explore-filter').hidden = false;
       viewButtons.forEach(function (b) {
         b.addEventListener('click', function () {
           showView(b.dataset.view);
