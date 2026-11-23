@@ -25,9 +25,9 @@ SITE_NAME = "Lang Log"
 # from it (tools/github_api.py) and the Releases page links to it.
 REPOSITORY = "lang-log/lang-log.github.io"
 REPOSITORY_URL = f"https://github.com/{REPOSITORY}"
-# The live site: an organization site of GitHub Pages is served at the host
-# its repository is named after.
-SITE_URL = f"https://{REPOSITORY.split('/')[1]}/"
+# The live site: GitHub Pages serves it at the custom domain set in the
+# repository's Settings > Pages, and redirects lang-log.github.io there.
+SITE_URL = "https://lang-log.com/"
 # Google Search Console ownership check ("HTML tag" method; the value of
 # content="..." only), written into the top page by tools/build_home.py.
 GOOGLE_SITE_VERIFICATION = "vbHfV0w41tKXYEAid8L6_XhA01IqC_ekt7L6tF8P2Fo"

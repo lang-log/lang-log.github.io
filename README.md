@@ -9,7 +9,7 @@ An interactive atlas of language families, sign languages and writing systems, w
 
 It will also hold corpora and data for low-resource languages (planned).
 
-Live site: <https://lang-log.github.io/>
+Live site: <https://lang-log.com/>
 
 ## Run locally
 
@@ -75,7 +75,7 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.github.io/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`) and adds a preview of every open pull request at `/preview/pr-<number>/`. It runs on every push to `main`, after every passing `site.yml` run of a pull request, after every release (see Releases), when a pull request is closed (which drops its preview), and by hand. `site.yml` builds and checks each pull request and uploads its preview. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.com/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`) and adds a preview of every open pull request at `/preview/pr-<number>/`. It runs on every push to `main`, after every passing `site.yml` run of a pull request, after every release (see Releases), when a pull request is closed (which drops its preview), and by hand. `site.yml` builds and checks each pull request and uploads its preview. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions, and Custom domain: `lang-log.com` with Enforce HTTPS (`SITE_URL` in `tools/site_brand.py` must match it); GitHub then redirects `lang-log.github.io` to it. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
 ## Releases
 

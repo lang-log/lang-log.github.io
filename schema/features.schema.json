@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://lang-log.github.io/schema/features.schema.json",
+  "$id": "https://lang-log.com/schema/features.schema.json",
   "title": "Lang Log feature catalogue",
   "description": "Lang Log's own list of features (source-data/lang-log/features.json). Each feature has its own value ids; mappings say which feature and value of each source give them.",
   "type": "object",

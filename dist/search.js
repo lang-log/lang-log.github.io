@@ -1,6 +1,6 @@
 'use strict';
 // The search results page of Lang Log, dist/q.html, at <site>/q?q=<terms> (owner,
-// 2026-11-08), such as https://lang-log.github.io/q?q=mxi. GitHub Pages serves q.html at
+// 2026-11-08), such as https://lang-log.com/q?q=mxi. GitHub Pages serves q.html at
 // /q. Browsers can save it as a search engine with %s in place of the terms
 // (dist/opensearch.xml says the same), and the search boxes here and on the top page are
 // plain GET forms to it, so they need no script to reach it.
