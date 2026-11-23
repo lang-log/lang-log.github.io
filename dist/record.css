@@ -287,6 +287,24 @@
 .lmap-tools button:hover {
   background: var(--c-e3e9df);
 }
+/* < and > as one box split by a line (dist/map-zoom.js): the halves touch, the first keeps its
+   end border as the line, and only the outer corners are round. Logical sides, so the box
+   mirrors in right-to-left languages like the rest of the bar. */
+.lmap-tools .lmap-step {
+  display: flex;
+}
+.lmap-tools .lmap-step button:first-child {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+.lmap-tools .lmap-step button:last-child {
+  border-inline-start: 0;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+.lmap-tools .lmap-step button:focus-visible {
+  position: relative;
+}
 .lmap-tools .lmap-reset {
   font-size: 13px;
   display: none;

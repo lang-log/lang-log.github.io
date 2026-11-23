@@ -667,6 +667,11 @@
         if (b[0] === 'Reset') btn.className = 'lmap-reset';
         bar.appendChild(btn);
       });
+    // < and > sit in one box with a line between them (the owner's request, 2026-11-23); each
+    // half stays its own button, for the keyboard and screen readers (record.css draws the box).
+    var stepper = document.createElement('span');
+    stepper.className = 'lmap-step';
+    bar.appendChild(stepper);
     [
       ['<', 'Previous point', -1],
       ['>', 'Next point', 1],
@@ -679,7 +684,7 @@
       btn.addEventListener('click', function () {
         step(b[2]);
       });
-      bar.appendChild(btn);
+      stepper.appendChild(btn);
     });
     var pngBtn = document.createElement('button');
     pngBtn.type = 'button';
