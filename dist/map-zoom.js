@@ -645,57 +645,52 @@
     // Buttons, placed over the top right corner of the map.
     var bar = document.createElement('div');
     bar.className = 'lmap-tools';
-    // + and - only where a mouse or trackpad exists; on phones and tablets people pinch.
-    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
-    (fine
-      ? [
-          [
-            ICON_ZOOM_IN,
-            'Zoom in',
-            function () {
-              zoomSmooth(STEP);
-            },
-          ],
-          [
-            ICON_ZOOM_OUT,
-            'Zoom out',
-            function () {
-              zoomSmooth(1 / STEP);
-            },
-          ],
-        ]
-      : []
-    )
-      .concat([[ICON_RESET, 'Reset view', reset]])
-      .forEach(function (b) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        if (b[0] === ICON_RESET) btn.className = 'lmap-reset';
-        btn.appendChild(icon(b[0]));
-        btn.setAttribute('aria-label', b[1]);
-        btn.title = b[1];
-        btn.addEventListener('click', b[2]);
-        bar.appendChild(btn);
-      });
-    // Previous and next sit in one box with a line between them (the owner's request, 2026-11-23); each
-    // half stays its own button, for the keyboard and screen readers (record.css draws the box).
-    var stepper = document.createElement('span');
-    stepper.className = 'lmap-step';
-    bar.appendChild(stepper);
-    [
-      [ICON_PREV, 'Previous point', -1],
-      [ICON_NEXT, 'Next point', 1],
-    ].forEach(function (b) {
+    // Every button shows an icon and carries its label for screen readers and as a tooltip.
+    function toolButton(path, text, onClick) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.appendChild(icon(b[0]));
-      btn.setAttribute('aria-label', b[1]);
-      btn.title = b[1];
-      btn.addEventListener('click', function () {
-        step(b[2]);
-      });
-      stepper.appendChild(btn);
-    });
+      btn.appendChild(icon(path));
+      btn.setAttribute('aria-label', text);
+      btn.title = text;
+      btn.addEventListener('click', onClick);
+      return btn;
+    }
+    // Two buttons in one box with a line between them, [ - | + ] and [ < | > ] (the owner's
+    // requests, 2026-11-23); each half stays its own button, for the keyboard and screen
+    // readers (record.css draws the box).
+    function pair(className, first, second) {
+      var box = document.createElement('span');
+      box.className = className;
+      box.appendChild(first);
+      box.appendChild(second);
+      bar.appendChild(box);
+    }
+    // Reset comes first, at the start of the bar: the left end, or the right end on
+    // right-to-left pages (the owner's request, 2026-11-23).
+    var resetBtn = toolButton(ICON_RESET, 'Reset view', reset);
+    resetBtn.className = 'lmap-reset';
+    bar.appendChild(resetBtn);
+    // - and + only where a mouse or trackpad exists; on phones and tablets people pinch.
+    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
+    if (fine)
+      pair(
+        'lmap-pair',
+        toolButton(ICON_ZOOM_OUT, 'Zoom out', function () {
+          zoomSmooth(1 / STEP);
+        }),
+        toolButton(ICON_ZOOM_IN, 'Zoom in', function () {
+          zoomSmooth(STEP);
+        }),
+      );
+    pair(
+      'lmap-pair lmap-step',
+      toolButton(ICON_PREV, 'Previous point', function () {
+        step(-1);
+      }),
+      toolButton(ICON_NEXT, 'Next point', function () {
+        step(1);
+      }),
+    );
     var pngBtn = document.createElement('button');
     pngBtn.type = 'button';
     pngBtn.className = 'lmap-png';
