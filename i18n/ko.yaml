@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "Glottolog {version}에 따른 분류"
     classification_according_to_glottolog: "Glottolog에 따른 분류"
     classification_according_to_lang_log: "Lang Log에 따른 분류"
-    lang_log_s_own: "Lang Log 자체"
     according_to: "출처:"
     according_to_glottolog_version: "Glottolog {version}에 따름"
     name_in_this_language: "이 언어로 된 이름"

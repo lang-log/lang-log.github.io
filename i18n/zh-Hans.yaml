@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "根据 Glottolog {version} 的分类"
     classification_according_to_glottolog: "根据 Glottolog 的分类"
     classification_according_to_lang_log: "根据 Lang Log 的分类"
-    lang_log_s_own: "Lang Log 自有"
     according_to: "依据"
     according_to_glottolog_version: "依据 Glottolog {version}"
     name_in_this_language: "本语言中的名称"

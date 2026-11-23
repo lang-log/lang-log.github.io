@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "Klasifikasi menurut Glottolog {version}"
     classification_according_to_glottolog: "Klasifikasi menurut Glottolog"
     classification_according_to_lang_log: "Klasifikasi menurut Lang Log"
-    lang_log_s_own: "Milik Lang Log"
     according_to: "Menurut"
     according_to_glottolog_version: "Menurut Glottolog {version}"
     name_in_this_language: "Nama dalam bahasa ini"

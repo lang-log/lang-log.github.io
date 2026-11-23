@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "Glottolog {version}’e göre sınıflandırma"
     classification_according_to_glottolog: "Glottolog’a göre sınıflandırma"
     classification_according_to_lang_log: "Lang Log’a göre sınıflandırma"
-    lang_log_s_own: "Lang Log’un kendi"
     according_to: "Kaynak:"
     according_to_glottolog_version: "Glottolog {version}’e göre"
     name_in_this_language: "Bu dildeki adı"

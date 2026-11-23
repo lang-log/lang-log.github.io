@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "การจัดจำแนกตาม Glottolog {version}"
     classification_according_to_glottolog: "การจัดจำแนกตาม Glottolog"
     classification_according_to_lang_log: "การจัดจำแนกตาม Lang Log"
-    lang_log_s_own: "ของ Lang Log เอง"
     according_to: "ตาม"
     according_to_glottolog_version: "ตาม Glottolog {version}"
     name_in_this_language: "ชื่อในภาษานี้"

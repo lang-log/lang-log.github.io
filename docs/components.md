@@ -34,7 +34,7 @@ Every piece of interface on Lang Log, by name, with the markup that marks it, th
 
 | Name                 | Markup                                                                  | Built by                                                   | Styled in                       |
 | -------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- | ------------------------------- |
-| Breadcrumb           | `.lineage` (`.lineage-path`, `.lineage-source`)                         | `tools/build_paths.py`                                     | `dist/style.css`                |
+| Breadcrumb           | `.lineage` (`.lineage-path`)                                            | `tools/build_paths.py`                                     | `dist/style.css`                |
 | Record heading       | `<h1>` and `.meta` (codes and Medium)                                   | `tools/build_paths.py`                                     | `dist/record.css`               |
 | Classification cards | `section.classification`, `.evidence-card`                              | `tools/build_paths.py`                                     | `dist/record.css`               |
 | Members              | `section.members` with `ul.record-links`                                | `tools/build_paths.py`                                     | `dist/record.css`               |

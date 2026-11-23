@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "Glottolog {version} के अनुसार वर्गीकरण"
     classification_according_to_glottolog: "Glottolog के अनुसार वर्गीकरण"
     classification_according_to_lang_log: "Lang Log के अनुसार वर्गीकरण"
-    lang_log_s_own: "Lang Log का अपना"
     according_to: "स्रोत:"
     according_to_glottolog_version: "Glottolog {version} के अनुसार"
     name_in_this_language: "इस भाषा में नाम"

@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "Classificatie volgens Glottolog {version}"
     classification_according_to_glottolog: "Classificatie volgens Glottolog"
     classification_according_to_lang_log: "Classificatie volgens Lang Log"
-    lang_log_s_own: "Eigen aan Lang Log"
     according_to: "Volgens"
     according_to_glottolog_version: "Volgens Glottolog {version}"
     name_in_this_language: "Naam in deze taal"
