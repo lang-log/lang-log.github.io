@@ -287,15 +287,8 @@
   background: var(--c-ffffff);
   color: var(--ink);
 }
-/* Every symbol in the bar is an SVG icon (icon() in dist/map-zoom.js), centred by the flex
-   rules above. The one word left, Reset, is centred by its letters where text-box works (the
-   owner's request, 2026-11-23): the font's line box is taller above the letters than below,
-   which left it about a pixel high. Browsers without text-box keep the plain centring. */
-@supports (text-box: trim-both cap alphabetic) {
-  .lmap-tools .lmap-reset {
-    text-box: trim-both cap alphabetic;
-  }
-}
+/* Every button in the bar shows an SVG icon (icon() in dist/map-zoom.js), not text, so it
+   looks and sits the same in every font and browser (the owner's request, 2026-11-23). */
 .lmap-tools button:hover {
   background: var(--c-e3e9df);
 }
@@ -317,17 +310,17 @@
 .lmap-tools .lmap-step button:focus-visible {
   position: relative;
 }
-/* The previous and next arrows point the other way on right-to-left pages, as the < and >
+/* The previous, next and reset arrows point the other way on right-to-left pages, as the < and >
    characters they replace did. */
-[dir='rtl'] .lmap-tools .lmap-step svg {
+[dir='rtl'] .lmap-tools .lmap-step svg,
+[dir='rtl'] .lmap-tools .lmap-reset svg {
   transform: scaleX(-1);
 }
 .lmap-tools .lmap-reset {
-  font-size: 13px;
   display: none;
 }
 .lmap-moved + .lmap-tools .lmap-reset {
-  display: block;
+  display: inline-flex;
 }
 /* Record pages after the merge with the atlas (tools/build_paths.py): classification cards, conflicts,
    debates, the branch tree and the Hugging Face models. */
@@ -447,10 +440,6 @@ body > .domain-nav {
   font-size: calc(16 * var(--lmap-tool-px));
   border-radius: calc(5 * var(--lmap-tool-px));
   box-shadow: 0 2px 8px var(--c-24302e1f);
-}
-.lmap-full .lmap-tools .lmap-reset {
-  font-size: calc(14 * var(--lmap-tool-px));
-  padding: 0 calc(12 * var(--lmap-tool-px));
 }
 .lmap-full .lmap-tools .lmap-full-btn {
   padding: 0;
