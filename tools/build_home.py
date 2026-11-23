@@ -266,8 +266,8 @@ def sources_section():
     text = re.sub(r'href="(?!https?:|#|\.\./)', 'href="../', text)
     register = "".join(
         f'<div class="registry-source"><strong><a href="../{escape(bp.SOURCE_SLUG[s["id"]])}/">{escape(s["title"])}</a></strong><br>{escape(s["citation"])}<br>'
-        f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a> · '
-        f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
+        f'<a href="{escape(s["url"])}" target="_blank" rel="noopener">Paper ↗</a> · '
+        f'<a href="{escape(s["dataset"])}" target="_blank" rel="noopener">Source tree &amp; data ↗</a>'
         f"<small>{escape(s['family'])} · {escape(s['license'])} · summary tree imported</small>"
         + "</div>"
         for s in u["sources"].values()

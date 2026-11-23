@@ -7,7 +7,9 @@ accepts from a <meta> element are written into the <head> of every page:
   for the model list on record pages (dist/hf-models.js). The web app manifest
   and the service worker come from the site itself. No inline scripts,
   inline styles allowed only for WebKit's <select> (see CSP), no plugins, no frames, no <base>.
-- referrer: no-referrer, so no page address leaves the site.
+- referrer: strict-origin-when-cross-origin (the owner's choice, 2026-11-23):
+  requests inside the site carry the full page address, other sites get only
+  the origin (https://lang-log.com/), and nothing goes from HTTPS to HTTP.
 
 Policies that only work as response headers (frame-ancestors,
 X-Frame-Options, Strict-Transport-Security, X-Content-Type-Options,
@@ -54,9 +56,11 @@ CSP = "; ".join(
     ]
 )
 
+REFERRER = "strict-origin-when-cross-origin"
+
 HEAD = (
     f'<meta http-equiv="Content-Security-Policy" content="{CSP}">'
-    '<meta name="referrer" content="no-referrer">'
+    f'<meta name="referrer" content="{REFERRER}">'
 )
 
 CHARSET = '<meta charset="utf-8">'

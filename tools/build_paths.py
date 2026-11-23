@@ -228,7 +228,7 @@ def source_link(sid):
     s = sources.get(sid)
     if not s:
         return escape(sid)
-    return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">{escape(s["title"])}</a>'
+    return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener">{escape(s["title"])}</a>'
 
 
 def names_html(n):
@@ -259,7 +259,7 @@ def ext_link(sid):
     if not src:
         return ""
     label = "Catalog" if src.get("kind") == "catalog" else "Paper"
-    return f'<a href="{escape(src["url"])}" target="_blank" rel="noopener noreferrer">{label} ↗</a>'
+    return f'<a href="{escape(src["url"])}" target="_blank" rel="noopener">{label} ↗</a>'
 
 
 def source_name_link(depth, sid):
@@ -339,7 +339,7 @@ def debates_html(i):
             out += (
                 f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong>'
                 f'<span class="evidence-tag">{escape(p["publication"])}</span><br>'
-                f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>'
+                f'<a href="{escape(p["url"])}" target="_blank" rel="noopener">Paper ↗</a></div>'
             )
         out += "</section>"
     return out
@@ -536,7 +536,7 @@ def record_body(depth, i, heading="h1"):
         links = [ext_link(n["source"])]
     else:
         links = [
-            f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener noreferrer">Glottolog record ↗</a>'
+            f'<a href="https://glottolog.org/resource/languoid/id/{escape(i)}" target="_blank" rel="noopener">Glottolog record ↗</a>'
         ]
     links.append(
         f'<a href="{"../" * depth}record.html?domain=language&amp;id={escape(i)}">Full source detail</a>'
@@ -600,12 +600,12 @@ def map_html(depth, i):
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
 FOOTER = (
     '<footer class="credit"><p>Classification and names from '
-    '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">'
+    '<a href="https://glottolog.org/" target="_blank" rel="noopener">'
     + GLOTTOLOG
     + "</a> "
     "(Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
-    '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
-    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>'
+    '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener">doi:10.5281/zenodo.18840935</a>), '
+    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p></footer>'
 )
 
 
@@ -752,7 +752,7 @@ def source_page_body(sid):
     links = [ext_link(sid)]
     if src.get("dataset"):
         links.append(
-            f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener noreferrer">Source tree &amp; data ↗</a>'
+            f'<a href="{escape(src["dataset"])}" target="_blank" rel="noopener">Source tree &amp; data ↗</a>'
         )
     body += "<p>" + " · ".join(links) + "</p>"
     attached = sorted(
