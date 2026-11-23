@@ -284,6 +284,15 @@
   background: var(--c-ffffff);
   color: var(--ink);
 }
+/* The symbols and words sit in the middle of each button (the owner's request, 2026-11-23):
+   trimmed to the capital height and the baseline, the text is centred by its letters instead of
+   by the font's taller line box, which left it about a pixel high. Browsers without text-box keep
+   the plain centring above. */
+@supports (text-box: trim-both cap alphabetic) {
+  .lmap-tools button {
+    text-box: trim-both cap alphabetic;
+  }
+}
 .lmap-tools button:hover {
   background: var(--c-e3e9df);
 }
