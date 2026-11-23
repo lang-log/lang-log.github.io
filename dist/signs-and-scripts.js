@@ -74,15 +74,13 @@
   const sl = (s) =>
     `<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`;
   const short = (s) =>
-    s === 'glottolog'
-      ? 'Glottolog 5.3'
-      : s === 'abner2024'
-        ? 'Abner et al. 2024'
-        : s === 'power2020'
-          ? 'Power et al. 2020'
-          : /^u\d+$/.test(s)
-            ? 'Unicode 17 · §' + s.slice(1)
-            : S[s].title;
+    s === 'abner2024'
+      ? 'Abner et al. 2024'
+      : s === 'power2020'
+        ? 'Power et al. 2020'
+        : /^u\d+$/.test(s)
+          ? 'Unicode 17 · §' + s.slice(1)
+          : S[s].title;
   const badge = (e) =>
     `${esc(e.kind)} · according to <a href="${esc(S[e.source].url)}" target="_blank" rel="noopener noreferrer">${esc(short(e.source))}</a>${e.status !== 'reported' ? ` · <span class="v-status">${esc(e.status)}</span>` : ''}${e.run ? ' · ' + esc(e.run) : ''}${e.posterior != null ? ' · posterior ' + e.posterior : ''}`;
   if (domain === 'scripts') {

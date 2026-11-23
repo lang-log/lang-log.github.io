@@ -48,6 +48,7 @@ import unicodedata
 
 from languoid_map import map_svg
 from modality import labels, medium_text
+from source_versions import GLOTTOLOG
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
@@ -374,7 +375,7 @@ def tree_html(depth, i, sid):
     """The branch below a record, drawn by dist/tree.js when the visitor asks for it.
     Hidden without JavaScript; the Members list gives the same records."""
     return (
-        '<section class="tree-section" id="tree-section" hidden><h2>Tree</h2>'
+        '<section id="tree-section" hidden><h2>Tree</h2>'
         '<p><button type="button" id="show-tree" class="show-tree">Show the tree of this branch</button></p>'
         + atlas_html("../" * depth, root=i, src=sid)
         + "</section>"
@@ -583,7 +584,9 @@ def map_html(depth, i):
 # Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
 FOOTER = (
     '<footer class="credit"><p>Classification and names from '
-    '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">Glottolog 5.3</a> '
+    '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">'
+    + GLOTTOLOG
+    + "</a> "
     "(Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
     '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
     'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>'
@@ -706,7 +709,7 @@ def record_json(i):
         "names": n.get("names", []),
         "nativeNames": n.get("nativeNames", []),
         "placements": [e for e in unified["placements"].get(i, [])],
-        "source": "Glottolog 5.3 (CC BY 4.0)",
+        "source": f"{GLOTTOLOG} (CC BY 4.0)",
     }
 
 

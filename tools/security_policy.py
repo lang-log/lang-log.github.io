@@ -46,7 +46,7 @@ CSP = "; ".join(
         "manifest-src 'self'",
         "worker-src 'self'",
         "base-uri 'none'",
-        "form-action 'self'",  # the search form on the top page goes to ./
+        "form-action 'self'",  # the search forms go to the search page, q
         "object-src 'none'",
         # No upgrade-insecure-requests: no source above allows http:, so it would
         # add nothing on the live HTTPS site, and WebKit applies it to

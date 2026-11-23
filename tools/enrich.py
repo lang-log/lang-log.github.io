@@ -5,6 +5,7 @@ import hashlib
 import xml.etree.ElementTree as ET
 
 from not_languoids import NOT_LANGUOIDS
+from source_versions import GLOTTOLOG, GLOTTOLOG_VERSION
 
 out = pathlib.Path("dist")
 data = json.load(open(out / "data.json"))
@@ -39,7 +40,7 @@ prov = json.load(open(out / "provenance.json"))
 prov["files"]["names.csv"] = {
     "sha256": hashlib.sha256(pathlib.Path("source-data/names.csv").read_bytes()).hexdigest(),
     "source_blob_sha": "643f45dc3fa7acb3069f65d10a7450f35987666d",
-    "source": "https://github.com/glottolog/glottolog-cldf/blob/v5.3/cldf/names.csv",
+    "source": f"https://github.com/glottolog/glottolog-cldf/blob/v{GLOTTOLOG_VERSION}/cldf/names.csv",
     "rows": len(rows),
 }
 prov["names_method"] = (
@@ -65,7 +66,7 @@ root = ET.Element(
 )
 ET.SubElement(root, "method").text = prov["names_method"]
 for key, rs, label in [
-    ("nodes", "roots", "Glottolog 5.3"),
+    ("nodes", "roots", GLOTTOLOG),
     ("wals", "walsRoots", "WALS CLDF snapshot"),
 ]:
     ds = ET.SubElement(root, "classification", {"source": label})
@@ -103,10 +104,10 @@ for key, rs, label in [
 ET.ElementTree(root).write(out / "language-families.xml", encoding="utf-8", xml_declaration=True)
 op = ET.Element("opml", {"version": "2.0"})
 head = ET.SubElement(op, "head")
-ET.SubElement(head, "title").text = "Lang Log — Glottolog 5.3 and WALS"
+ET.SubElement(head, "title").text = f"Lang Log — {GLOTTOLOG} and WALS"
 body = ET.SubElement(op, "body")
 for key, rs, label in [
-    ("nodes", "roots", "Glottolog 5.3"),
+    ("nodes", "roots", GLOTTOLOG),
     ("wals", "walsRoots", "WALS CLDF snapshot"),
 ]:
     ds = ET.SubElement(body, "outline", {"text": label})

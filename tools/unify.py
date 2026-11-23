@@ -5,6 +5,7 @@ import re
 import collections
 import hashlib
 import itertools
+from source_versions import GLOTTOLOG
 
 P = pathlib.Path("dist")
 data = json.load(open(P / "data.json"))
@@ -24,7 +25,7 @@ def S(id, title, url, kind, **kw):
 
 S(
     "glottolog",
-    "Glottolog 5.3",
+    GLOTTOLOG,
     "https://doi.org/10.5281/zenodo.18840935",
     "catalog",
     license="CC BY 4.0",
