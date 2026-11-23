@@ -72,7 +72,7 @@
     (inc[e.child] ??= []).push(e);
   }
   const sl = (s) =>
-    `<a href="${esc(S[s].url)}" target="_blank" rel="noopener">${esc(S[s].title)}</a>`;
+    `<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`;
   const short = (s) =>
     s === 'abner2024'
       ? 'Abner et al. 2024'
@@ -82,7 +82,7 @@
           ? 'Unicode 17 · §' + s.slice(1)
           : S[s].title;
   const badge = (e) =>
-    `${esc(e.kind)} · according to <a href="${esc(S[e.source].url)}" target="_blank" rel="noopener">${esc(short(e.source))}</a>${e.status !== 'reported' ? ` · <span class="v-status">${esc(e.status)}</span>` : ''}${e.run ? ' · ' + esc(e.run) : ''}${e.posterior != null ? ' · posterior ' + e.posterior : ''}`;
+    `${esc(e.kind)} · according to <a href="${esc(S[e.source].url)}" target="_blank" rel="noopener noreferrer">${esc(short(e.source))}</a>${e.status !== 'reported' ? ` · <span class="v-status">${esc(e.status)}</span>` : ''}${e.run ? ' · ' + esc(e.run) : ''}${e.posterior != null ? ' · posterior ' + e.posterior : ''}`;
   if (domain === 'scripts') {
     $('heading').textContent = 'Writing systems';
   }
@@ -331,7 +331,7 @@
   $('source-register').innerHTML = Object.values(S)
     .map(
       (s) =>
-        `<div class="v-source">${sl(s.id)}<p>${esc(s.kind)}${s.license ? ' · ' + esc(s.license) : ''}</p>${s.dataset ? `<a href="${esc(s.dataset)}" target="_blank" rel="noopener">Research data ↗</a>` : ''}</div>`,
+        `<div class="v-source">${sl(s.id)}<p>${esc(s.kind)}${s.license ? ' · ' + esc(s.license) : ''}</p>${s.dataset ? `<a href="${esc(s.dataset)}" target="_blank" rel="noopener noreferrer">Research data ↗</a>` : ''}</div>`,
     )
     .join('');
   function applyURL() {

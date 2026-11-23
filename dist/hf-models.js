@@ -96,7 +96,7 @@ window.LanguageModels = (() => {
         ? 'Multiple language tags'
         : 'Matching language tag';
     const license = m.cardData?.license;
-    return `<article class="hf-model"><a href="${escape(modelLink(m.id))}" target="_blank" rel="noopener">${escape(m.id)} ↗</a><div class="hf-tags"><span>${escape(m.pipeline_tag || 'Task unspecified')}</span><span>${escape(scope)}</span></div><small>Matched: ${m.matched.map(escape).join(', ')} · ${Number(m.downloads || 0).toLocaleString()} downloads${typeof license === 'string' ? ' · ' + escape(license) : ''}</small></article>`;
+    return `<article class="hf-model"><a href="${escape(modelLink(m.id))}" target="_blank" rel="noopener noreferrer">${escape(m.id)} ↗</a><div class="hf-tags"><span>${escape(m.pipeline_tag || 'Task unspecified')}</span><span>${escape(scope)}</span></div><small>Matched: ${m.matched.map(escape).join(', ')} · ${Number(m.downloads || 0).toLocaleString()} downloads${typeof license === 'string' ? ' · ' + escape(license) : ''}</small></article>`;
   }
   function mount(host, node, options = {}) {
     const codes = codesFor(node);
@@ -104,7 +104,7 @@ window.LanguageModels = (() => {
     if (!codes.length) {
       host.insertAdjacentHTML(
         'beforeend',
-        `<a class="hf-browse" href="https://huggingface.co/models?search=${encodeURIComponent(node.name)}" target="_blank" rel="noopener">Search the name on Hugging Face ↗</a>`,
+        `<a class="hf-browse" href="https://huggingface.co/models?search=${encodeURIComponent(node.name)}" target="_blank" rel="noopener noreferrer">Search the name on Hugging Face ↗</a>`,
       );
       return;
     }
@@ -124,7 +124,7 @@ window.LanguageModels = (() => {
       links.innerHTML = codes
         .map(
           (c) =>
-            `<a class="hf-browse" href="${escape(hubURL(c, selectedTask))}" target="_blank" rel="noopener">All ${escape(c)} models ↗</a>`,
+            `<a class="hf-browse" href="${escape(hubURL(c, selectedTask))}" target="_blank" rel="noopener noreferrer">All ${escape(c)} models ↗</a>`,
         )
         .join('');
       status.textContent = 'Loading public model metadata from Hugging Face…';

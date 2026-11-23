@@ -75,7 +75,7 @@
       nl = (i) => (N[i] ? `<a href="${esc(url(i))}">${esc(N[i].name)}</a>` : esc(i)),
       sl = (s) =>
         S[s]
-          ? `<a href="${esc(S[s].url)}" target="_blank" rel="noopener">${esc(S[s].title)}</a>`
+          ? `<a href="${esc(S[s].url)}" target="_blank" rel="noopener noreferrer">${esc(S[s].title)}</a>`
           : esc(s);
     const incoming = E.filter((e) => e.child === id && e.parent),
       outgoing = E.filter((e) => e.parent === id),
@@ -157,7 +157,7 @@
       for (const note of notes)
         html += `<article class="evidence-card"><h3>${esc(note.title)}</h3><p>${esc(note.text)}</p>${note.sources.map(sl).join('<br>')}</article>`;
       for (const d of debates)
-        html += `<article><h3>${esc(d.title)}</h3>${d.positions.map((p) => `<div class="evidence-card"><strong>According to ${esc(p.author)}</strong><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.publication)} ↗</a></div>`).join('')}</article>`;
+        html += `<article><h3>${esc(d.title)}</h3>${d.positions.map((p) => `<div class="evidence-card"><strong>According to ${esc(p.author)}</strong><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.publication)} ↗</a></div>`).join('')}</article>`;
       for (const c of comparisons.values()) {
         const [a, b, d] = c.witness;
         html += `<div class="evidence-card"><h3>${esc(S[c.a].title)} / ${esc(S[c.b].title)}</h3><p>According to ${sl(c.a)}: ${nl(a)} + ${nl(b)} group before ${nl(d)}.</p><p>According to ${sl(c.b)}: ${nl(b)} + ${nl(d)} group before ${nl(a)}.</p><p>${nl(c.cladeA)} · ${nl(c.cladeB)}</p></div>`;
@@ -169,7 +169,7 @@
       html += `<section><h2>Language usage · ${usage.length}</h2><p>${sl('cldr')}</p><ul class="v-usage">${usage.map((u) => '<li>' + esc(u.language) + ' · ' + esc(u.status) + (u.territories.length ? ' · ' + esc(u.territories.join(', ')) : '') + '</li>').join('')}</ul></section>`;
     if (n.iso && ['language', 'dialect'].includes(n.level || n.kind))
       html += '<section id="variant-models"></section>';
-    html += `<section><h2>Sources</h2>${[...sourceIds].map((s) => '<p>' + sl(s) + '</p>').join('')}${base?.[id] ? `<p><a href="https://glottolog.org/resource/languoid/id/${encodeURIComponent(id)}" target="_blank" rel="noopener">Glottolog record & bibliography ↗</a></p>` : ''}</section>`;
+    html += `<section><h2>Sources</h2>${[...sourceIds].map((s) => '<p>' + sl(s) + '</p>').join('')}${base?.[id] ? `<p><a href="https://glottolog.org/resource/languoid/id/${encodeURIComponent(id)}" target="_blank" rel="noopener noreferrer">Glottolog record & bibliography ↗</a></p>` : ''}</section>`;
     $('variant-content').innerHTML = html;
     if ($('variant-models') && window.LanguageModels)
       window.LanguageModels.mount(
