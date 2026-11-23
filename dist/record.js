@@ -9,7 +9,7 @@
   const params = new URLSearchParams(location.search),
     domain = ['sign', 'scripts'].includes(params.get('domain')) ? params.get('domain') : 'language',
     id = params.get('id');
-  // The "Medium" line, as medium_text() in tools/modality.py writes it on record pages.
+  // The "Medium" line, with the words medium_words() in tools/modality.py gives record pages.
   const medium = (n) =>
     'Medium: ' + [n.modality, ...(n.constructed ? ['constructed'] : [])].join(' · ');
   // Language records: the list is the top page, and every record has its own page there.

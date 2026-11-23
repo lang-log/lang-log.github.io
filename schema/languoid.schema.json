@@ -20,6 +20,15 @@
     "modality",
     "constructed",
     "features",
+    "registry",
+    "scripts",
+    "linguameta",
+    "phonemes",
+    "societies",
+    "speakers_by_country",
+    "plural_categories",
+    "endangerment",
+    "description",
     "sources"
   ],
   "properties": {
@@ -197,6 +206,263 @@
           }
         }
       }
+    },
+    "registry": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["tag", "scope", "macrolanguage", "replaced_by", "retired", "script", "source"],
+      "properties": {
+        "tag": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["individual", "macrolanguage", "collection", "special", "private-use"]
+        },
+        "macrolanguage": {
+          "type": ["string", "null"]
+        },
+        "replaced_by": {
+          "type": ["string", "null"]
+        },
+        "retired": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "script": {
+          "type": ["string", "null"]
+        },
+        "source": {
+          "type": "string",
+          "enum": ["iana"]
+        }
+      },
+      "description": "What the IANA Language Subtag Registry says of the record's ISO 639-3 code: its language tag (the ISO 639-1 code where there is one), its scope, the macrolanguage it belongs to, the tag that replaced it if it was retired, the retired tags it replaced, and the script its tags leave out. Null without an ISO 639-3 code in the registry."
+    },
+    "scripts": {
+      "type": "array",
+      "description": "Scripts the language is written in, from Unicode CLDR (main and other scripts), the IANA registry (the script its tags leave out) and LinguaMeta (scripts CLDR and IANA lack, as main scripts).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["script", "use", "source"],
+        "properties": {
+          "script": {
+            "type": "string",
+            "pattern": "^[A-Z][a-z]{3}$",
+            "description": "ISO 15924 code."
+          },
+          "use": {
+            "type": "string",
+            "enum": ["main", "other"]
+          },
+          "source": {
+            "type": "string",
+            "enum": ["cldr", "iana", "linguameta"]
+          }
+        }
+      }
+    },
+    "linguameta": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["speakers", "scripts", "endangerment", "iso639_2b", "wikidata", "source"],
+      "description": "From LinguaMeta (CC BY-SA 4.0; these values stay under that license): estimated number of speakers, scripts, endangerment status, ISO 639-2/B code and Wikidata item. Matched by Glottocode, else by ISO 639-3 code.",
+      "properties": {
+        "speakers": {
+          "type": ["integer", "null"]
+        },
+        "scripts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "endangerment": {
+          "type": ["string", "null"],
+          "enum": [
+            "Not endangered",
+            "Vulnerable",
+            "Definitely endangered",
+            "Severely endangered",
+            "Critically endangered",
+            "Extinct",
+            null
+          ]
+        },
+        "iso639_2b": {
+          "type": ["string", "null"]
+        },
+        "wikidata": {
+          "type": ["string", "null"],
+          "pattern": "^Q[0-9]+$"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["linguameta"]
+        }
+      }
+    },
+    "phonemes": {
+      "type": "array",
+      "description": "PHOIBLE's phoneme inventories of the languoid, by Glottocode.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["inventory", "contributor", "consonants", "vowels", "tones", "source"],
+        "properties": {
+          "inventory": {
+            "type": "string"
+          },
+          "contributor": {
+            "type": "string"
+          },
+          "consonants": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vowels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source": {
+            "type": "string",
+            "enum": ["phoible"]
+          }
+        }
+      }
+    },
+    "societies": {
+      "type": "array",
+      "description": "From D-PLACE (CC BY-NC 4.0; never used in a paid feature): the societies whose language this languoid is.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["society", "name", "region", "focal_year", "source"],
+        "properties": {
+          "society": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "region": {
+            "type": ["string", "null"]
+          },
+          "focal_year": {
+            "type": ["integer", "null"]
+          },
+          "source": {
+            "type": "string",
+            "enum": ["dplace"]
+          }
+        }
+      }
+    },
+    "speakers_by_country": {
+      "type": "array",
+      "description": "From Unicode CLDR: the share of each country's population that uses the language, and its official status there.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["country", "population_percent", "official_status", "source"],
+        "properties": {
+          "country": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{2,3}$"
+          },
+          "population_percent": {
+            "type": "number"
+          },
+          "official_status": {
+            "type": ["string", "null"],
+            "enum": ["official", "de_facto_official", "official_regional", null]
+          },
+          "source": {
+            "type": "string",
+            "enum": ["cldr"]
+          }
+        }
+      }
+    },
+    "plural_categories": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["values", "source"],
+      "properties": {
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["zero", "one", "two", "few", "many", "other"]
+          }
+        },
+        "source": {
+          "type": "string",
+          "enum": ["cldr"]
+        }
+      },
+      "description": "The cardinal plural categories of the language, from Unicode CLDR."
+    },
+    "endangerment": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "not endangered",
+            "threatened",
+            "shifting",
+            "moribund",
+            "nearly extinct",
+            "extinct"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "enum": ["glottolog"]
+        }
+      },
+      "description": "Glottolog's agglomerated endangerment status."
+    },
+    "description": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": {
+          "type": "string",
+          "enum": [
+            "long grammar",
+            "grammar",
+            "grammar sketch",
+            "phonology/text",
+            "Wordlist or less"
+          ]
+        },
+        "reference": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["glottolog"]
+        }
+      },
+      "description": "The most extensive description of the language known to Glottolog, and its reference."
     },
     "sources": {
       "type": "object",

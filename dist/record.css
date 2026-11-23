@@ -50,7 +50,6 @@
   font-size: 16px;
 }
 .variant-page section {
-  border-top: 1px solid var(--line);
   padding: 24px 0;
   overflow-wrap: anywhere;
 }
@@ -127,7 +126,6 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px 30px 40px;
-  border-top: 1px solid var(--line);
   color: var(--c-526762);
 }
 .variant-page footer.credit p {
@@ -331,25 +329,17 @@
 .lmap-moved + .lmap-tools .lmap-reset {
   display: inline-flex;
 }
-/* Record pages after the merge with the atlas (tools/build_paths.py): classification cards, conflicts,
-   debates, the branch tree and the Hugging Face models. */
-.variant-page .classification .evidence-card p,
-.variant-page .conflicts .evidence-card p,
-.variant-page .debate .evidence-card p {
-  margin: 6px 0;
-}
-.variant-page .classification .evidence-card p a,
-.variant-page .conflicts .conflict-witness a {
-  display: inline;
-  margin: 0;
-  padding: 0;
-  min-height: 0;
-}
-.variant-page .classification h3 {
+/* Record pages after the merge with the atlas (tools/build_paths.py): the branch tree and the
+   Hugging Face models. */
+.variant-page .classification h4 {
   margin-top: 24px;
 }
-.variant-page .evidence-card {
-  padding: 14px 16px;
+/* A group of a record page (group() in tools/build_paths.py) and the parts inside it. */
+.variant-page .record-group section {
+  padding: 8px 0;
+}
+.variant-page .record-group h3 {
+  margin: 16px 0 8px;
 }
 .variant-page .show-tree {
   font-size: 16px;
@@ -357,14 +347,11 @@
   min-height: 46px;
 }
 .variant-page .hf-models {
-  border-top: 1px solid var(--line);
   padding: 24px 0;
   margin: 0;
   background: none;
+  border: 0;
   border-radius: 0;
-  border-inline-start: 0;
-  border-inline-end: 0;
-  border-bottom: 0;
 }
 .variant-page > .domain-nav,
 body > .domain-nav {
@@ -608,4 +595,93 @@ body > .domain-nav {
   border: 0;
   background: none;
   color: var(--ink);
+}
+
+/* Data table (tools/build_paths.py: data_table() and facts_table()): every fact of a record page,
+   one table per section. A facts table has one row per fact with the label as its row header.
+   At phone width a table with a header row shows each row as a block, with the column's label
+   (.data-label, repeated in each cell) above the value, so nothing scrolls sideways. */
+.variant-page .data-table {
+  width: 100%;
+  margin: 16px 0 20px;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.variant-page .data-table th,
+.variant-page .data-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  text-align: start;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.variant-page .data-table th {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-526762);
+}
+.variant-page .facts-table th {
+  width: 30%;
+}
+.variant-page .data-table .data-label {
+  display: none;
+}
+.variant-page .data-table .conflict-row td {
+  background: var(--c-fff9ef);
+}
+.variant-page .data-table .conflict-row td:first-child {
+  border-inline-start: 3px solid var(--c-cb8557);
+}
+.variant-page .data-table details > summary {
+  padding: 0;
+  font-size: 16px;
+}
+.variant-page .data-table .name-list {
+  margin: 8px 0 0;
+  padding-inline-start: 18px;
+}
+.variant-page .data-table .conflict-witness,
+.variant-page .data-table .small-disclaimer {
+  display: block;
+  margin-bottom: 6px;
+}
+@media (max-width: 700px) {
+  .variant-page .data-table thead {
+    display: none;
+  }
+  .variant-page .data-table:not(.facts-table),
+  .variant-page .data-table:not(.facts-table) tbody,
+  .variant-page .data-table:not(.facts-table) tr,
+  .variant-page .data-table:not(.facts-table) td {
+    display: block;
+  }
+  .variant-page .data-table:not(.facts-table) tr {
+    margin-bottom: 10px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+  .variant-page .data-table:not(.facts-table) td {
+    border: 0;
+    border-top: 1px solid var(--line);
+    padding: 6px 12px;
+  }
+  .variant-page .data-table:not(.facts-table) td:first-child {
+    border-top: 0;
+  }
+  .variant-page .data-table:not(.facts-table) .data-empty {
+    display: none;
+  }
+  .variant-page .data-table .data-label {
+    display: block;
+    font-size: 13px;
+    color: var(--c-526762);
+  }
+  .variant-page .facts-table th {
+    width: 38%;
+  }
+}
+/* "Paper ↗" and the other links to a source's own site stay on one line. */
+.variant-page .data-table a[target='_blank'] {
+  white-space: nowrap;
 }
