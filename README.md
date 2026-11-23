@@ -76,7 +76,11 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.github.io/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`) and adds a preview of every open pull request at `/preview/pr-<number>/`. It runs on every push to `main`, after every passing `site.yml` run of a pull request, after every release (see Releases), when a pull request is closed (which drops its preview), and by hand. `site.yml` builds and checks each pull request and uploads its preview. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.github.io/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`). It runs on every push to `main`, after every release (see Releases), and by hand. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
+
+## Pull request previews
+
+`site.yml` builds and checks each pull request and uploads its preview; `.github/workflows/previews.yml` (shared workflow `cloudflare-previews.yml` of `nguekwang/research-aide`) publishes it on Cloudflare Pages at `https://pr-<number>.lang-log-preview.pages.dev/`, links it on the pull request, and deletes it when the pull request is closed. One-time setup: a Cloudflare Pages project `lang-log-preview` made with Direct Upload, and the repository secrets `CLOUDFLARE_API_TOKEN` (a token with only "Account / Cloudflare Pages / Edit") and `CLOUDFLARE_ACCOUNT_ID`. The other workflows need no secrets: they use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
 The beta site, <https://lang-log-beta.pages.dev/>, is the `beta` branch: `site.yml` builds and checks each push to it, and `.github/workflows/beta.yml` uploads part of the site (`tools/make_preview.sh`) to the Cloudflare Pages project `lang-log-beta`, which it creates on its first run. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (only "Account / Cloudflare Pages / Edit") and `CLOUDFLARE_ACCOUNT_ID`.
 
