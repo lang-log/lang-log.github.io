@@ -12,10 +12,14 @@
 //   hash as in the last finished save are skipped, and the worker skips any it holds with
 //   the same hash, so after a failure or a new release a second call fetches only what is
 //   missing or changed.
+// - Once the whole site is stored, every page opened online checks offline-version.txt (a
+//   few bytes) and, when the list changed after a release, runs save() in the background, so
+//   only the changed files are fetched (the owner's decision, 2026-11-23).
 (function () {
   if (!('serviceWorker' in navigator) || !document.currentScript) return;
   var worker = new URL('sw.js', document.currentScript.src).href;
   var fileList = new URL('offline-files.json', document.currentScript.src).href;
+  var listVersion = new URL('offline-version.txt', document.currentScript.src).href;
   // Files fetched at once: a few in parallel keeps the download fast without many
   // requests waiting on the server at the same time.
   var BATCH_FILES = 8;
@@ -34,14 +38,17 @@
     });
   }
 
+  function fetchText(url) {
+    return fetch(url, { cache: 'no-cache' }).then(function (response) {
+      if (!response.ok) throw new Error(url + ': HTTP ' + response.status);
+      return response.text();
+    });
+  }
+
   // The text of offline-files.json, fetched once per page: size() and save() both read it.
   var listText = null;
   function list() {
-    if (!listText)
-      listText = fetch(fileList, { cache: 'no-cache' }).then(function (response) {
-        if (!response.ok) throw new Error(fileList + ': HTTP ' + response.status);
-        return response.text();
-      });
+    if (!listText) listText = fetchText(fileList);
     listText.catch(function () {
       listText = null; // a failed fetch is tried again on the next call
     });
@@ -56,22 +63,31 @@
     });
   }
 
+  // One save at a time across the visitor's tabs (Web Locks), so the button and a
+  // background update never fetch the same files twice. Without Web Locks, run at once.
+  function oneAtATime(run) {
+    if (!navigator.locks) return run();
+    return navigator.locks.request('lang-log-save', run);
+  }
+
   function save(progress) {
+    return oneAtATime(function () {
+      return saveNow(progress);
+    });
+  }
+
+  function saveNow(progress) {
     // Ask the browser to keep the copy instead of clearing it when space runs low.
     if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
-    return list()
-      .then(function (text) {
-        return ask({ previous: true }).then(function (previous) {
-          return [text, previous];
-        });
-      })
-      .then(function (texts) {
+    return Promise.all([list(), fetchText(listVersion), ask({ previous: true })]).then(
+      function (texts) {
         var text = texts[0];
+        var version = texts[1].trim();
         var files = JSON.parse(text).files;
         // Files whose hash is the same as in the last finished save are already stored.
         var had = {};
-        if (texts[1]) {
-          JSON.parse(texts[1]).files.forEach(function (file) {
+        if (texts[2]) {
+          JSON.parse(texts[2]).files.forEach(function (file) {
             had[file[0]] = file[2];
           });
         }
@@ -81,7 +97,7 @@
         });
         var done = total - files.length;
         function next(start) {
-          if (start >= files.length) return ask({ finish: text });
+          if (start >= files.length) return ask({ finish: { list: text, version: version } });
           var batch = files.slice(start, start + BATCH_FILES);
           return ask({ save: batch }).then(function () {
             done += batch.length;
@@ -91,7 +107,8 @@
         }
         progress(done, total);
         return next(0);
-      });
+      },
+    );
   }
 
   window.LangLogOffline = {
@@ -162,12 +179,32 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addButton);
   else addButton();
 
+  // After a release, brings a stored copy of the whole site up to date in the background.
+  // Nothing happens unless the visitor stored the whole site before. A failure is left for
+  // the next page to try again.
+  function update() {
+    if (navigator.onLine === false) return;
+    window.LangLogOffline.status()
+      .then(function (saved) {
+        if (!saved) return;
+        return Promise.all([fetchText(listVersion), ask({ version: true })]).then(
+          function (versions) {
+            if (versions[0].trim() !== versions[1]) return save(function () {});
+          },
+        );
+      })
+      .catch(function () {});
+  }
+
   window.addEventListener('load', function () {
     // updateViaCache "none": always ask the server for a new sw.js, past the ten-minute
     // browser cache of GitHub Pages, so a deployed change reaches visitors on their next visit.
-    navigator.serviceWorker.register(worker, { updateViaCache: 'none' }).catch(function () {
-      // Some browsers refuse service workers (private windows, blocked storage). The site
-      // works the same without one; only the offline copies are missing.
-    });
+    navigator.serviceWorker
+      .register(worker, { updateViaCache: 'none' })
+      .then(update)
+      .catch(function () {
+        // Some browsers refuse service workers (private windows, blocked storage). The site
+        // works the same without one; only the offline copies are missing.
+      });
   });
 })();

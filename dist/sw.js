@@ -22,6 +22,8 @@ var SITE_CACHE = 'lang-log-site-' + CACHE_VERSION;
 var HASH_HEADER = 'X-Lang-Log-Hash';
 // offline-files.json itself is stored last, as the sign that the whole site is saved.
 var FILE_LIST = new URL('offline-files.json', self.registration.scope).href;
+// The list's own hash (offline-version.txt, tools/pwa.py) is kept on the stored list as
+// HASH_HEADER, so a page can tell whether the stored copy is current.
 // At most this many stored responses; the oldest go first. Bounds the space the site takes
 // on a visitor's device (a record page with its data and map is about ten files).
 var MAX_ENTRIES = 1000;
@@ -154,7 +156,8 @@ function saveFile(cache, file) {
 //   { status: true }            -> { saved: whether the whole site is stored }
 //   { previous: true }          -> the list stored by the last finished save, or null
 //   { save: [files] }           -> { ok } once every file of the batch is stored
-//   { finish: list text }       -> drops files the previous list had and this one lacks,
+//   { version: true }           -> the version of the stored list, or null
+//   { finish: { list, version } } -> drops files the previous list had and this one lacks,
 //                                  then stores the list itself
 var ACTIONS = {
   status: function () {
@@ -182,7 +185,15 @@ var ACTIONS = {
       });
     });
   },
-  finish: function (text) {
+  version: function () {
+    return caches.open(SITE_CACHE).then(function (cache) {
+      return cache.match(FILE_LIST).then(function (list) {
+        return list ? list.headers.get(HASH_HEADER) : null;
+      });
+    });
+  },
+  finish: function (finished) {
+    var text = finished.list;
     // Files of the previous list that the new one lacks are dropped. The previous list
     // says which they are: Cache.keys() over the whole site is too large for Chromium.
     var listed = {};
@@ -210,8 +221,9 @@ var ACTIONS = {
           );
         })
         .then(function () {
-          var type = { 'Content-Type': 'application/json' };
-          return cache.put(FILE_LIST, new Response(text, { headers: type }));
+          var headers = { 'Content-Type': 'application/json' };
+          headers[HASH_HEADER] = finished.version;
+          return cache.put(FILE_LIST, new Response(text, { headers: headers }));
         })
         .then(function () {
           return { ok: true };
