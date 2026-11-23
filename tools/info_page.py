@@ -1,6 +1,6 @@
 """The shell of Lang Log's information pages: one place for their <head>, header and footer.
 
-The Stats, Sources and Updates pages (tools/build_home.py, one level below the
+The Stats and Sources pages (tools/build_home.py, one level below the
 root) and the Releases page (tools/build_releases.py, at the root) are written
 with page(). `up` is the way from the page's folder back to dist/ ("../" for
 dist/stats/index.html, "" for dist/releases.html), so every link stays relative.

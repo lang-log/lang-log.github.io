@@ -4,7 +4,7 @@ How the pages of Lang Log work. Addresses and query parameters are in [`urls.md`
 
 ## Top page
 
-The top page (`./`, `dist/index.html`) shows the logo, the `by yoshi` line and a search box. It is written by `tools/build_home.py`. Under the search box, a Random button opens the page of a random record of any kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the button stays hidden. Next to it, a row of links leads to the Stats, Sources, Updates and Releases pages.
+The top page (`./`, `dist/index.html`) shows the logo, the `by yoshi` line and a search box. It is written by `tools/build_home.py`. Under the search box, a Random button opens the page of a random record of any kind; the top page is the only page with Random. `dist/home.js` draws from `dist/random.json`, which `tools/build_home.py` writes (not committed). Without JavaScript the button stays hidden. Next to it, a row of links leads to the Stats, Sources and Releases pages.
 
 The top page is also the top of the language-families tree. Below the search box it shows all top-level families and isolates in two views, with one switch between them and one set of conditions they share (`dist/explore.js`, markup from `tools/build_home.py`):
 

@@ -34,7 +34,8 @@
 //   languoid_map.py, and by dist/explore.js on the top page's map view), within TAP_PX on
 //   screen, shows a box with the names of its records, each a link to the record's page.
 //   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
-//   the first tap. Every map that mounts this script shows the same box.
+//   the first tap. The box moves with its point when the view moves, and is out of sight
+//   while the point is outside the map. Every map that mounts this script shows the same box.
 // - Stepping through points (issue #94): the < and > buttons glide to the previous or next
 //   point, west to east, and show its box. A key entry under the map (data-points, a
 //   selector written by build_paths.py) or a legend entry of the top page's map
@@ -393,6 +394,7 @@
       svg.classList.toggle('lmap-moved', moved);
       svg.classList.toggle('lmap-in', e < home.w - 0.01);
       updateTiles(e);
+      follow();
       svg.dispatchEvent(
         new CustomEvent('lmap:view', {
           detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h },
@@ -836,8 +838,11 @@
     // data-g within TAP_PX on screen (points are only a few pixels wide) and shows the box
     // of its records next to the tap; a tap elsewhere, Escape, closing the map view or new
     // points (refresh()) hide it. The same on the record maps and the top page's map view.
+    // While it is open, the box moves with its point whenever the view changes (follow()),
+    // and is out of sight while the point is outside the map.
     var root = base.replace(/map\/$/, '');
     var pop = null,
+      popAt = null,
       downAt = null,
       tapAt = null;
     // Each tap gets a number; a box whose names arrive after a newer tap or after hidePop()
@@ -845,7 +850,13 @@
     var popTap = 0;
     function hidePop() {
       popTap++;
+      popAt = null;
       if (pop) pop.hidden = true;
+    }
+    // The centre of a point on screen.
+    function onScreen(c) {
+      var r = c.getBoundingClientRect();
+      return [r.left + r.width / 2, r.top + r.height / 2];
     }
     function nearest(clientX, clientY) {
       var p = toSvg(clientX, clientY),
@@ -905,7 +916,10 @@
           });
           pop.appendChild(x);
           pop.hidden = false;
-          place(clientX, clientY);
+          // The box keeps the distance from its point that the tap had.
+          var xy = onScreen(c);
+          popAt = { point: c, dx: clientX - xy[0], dy: clientY - xy[1] };
+          follow();
         },
         function () {},
       );
@@ -917,6 +931,16 @@
       var y = Math.min(clientY - b.top + 10, b.height - pop.offsetHeight - 8);
       pop.style.left = Math.max(8, x) + 'px';
       pop.style.top = Math.max(8, y) + 'px';
+    }
+    // Runs after every change of the view (draw()): the open box goes next to its point
+    // again, which draw() may have moved to another copy of the world.
+    function follow() {
+      if (!popAt) return;
+      var xy = onScreen(popAt.point),
+        r = svg.getBoundingClientRect(),
+        inside = xy[0] >= r.left && xy[0] <= r.right && xy[1] >= r.top && xy[1] <= r.bottom;
+      pop.style.visibility = inside ? '' : 'hidden';
+      if (inside) place(xy[0] + popAt.dx, xy[1] + popAt.dy);
     }
     // Where the finger or pointer went down and came up decides, not the click: phone
     // browsers move a tap's click towards the nearest element they think it meant.
@@ -967,8 +991,8 @@
         x = x0 + W * Math.round((cx - x0) / W),
         y = pointXY(c)[1];
       glideTo({ x: x - w / 2, y: y - w / aspect / 2, w: w }, GLIDE_MS, function () {
-        var r = c.getBoundingClientRect();
-        showPop(c, r.left + r.width / 2, r.top + r.height / 2);
+        var xy = onScreen(c);
+        showPop(c, xy[0], xy[1]);
       });
     }
     function step(d) {
