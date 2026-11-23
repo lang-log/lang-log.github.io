@@ -779,14 +779,17 @@
       schedule();
     }
     // The map view's buttons, key and lines keep their size on the screen when the browser
-    // zooms (dist/record.css): --lmap-screen-scale is the window's longer side over
-    // --lmap-screen-base, or 1 where the stylesheet sets no base (touch screens).
+    // zooms (dist/record.css). The scale is the window's longer side over --lmap-screen-base,
+    // or 1 where the stylesheet sets no base (touch screens). --lmap-screen-grow is the part
+    // above 1 (zoomed out: lengths are multiplied) and --lmap-screen-shrink the part below 1
+    // (zoomed in: the boxes are shrunk with transform), so neither the browser's smallest font
+    // size nor its whole-pixel borders can make them grow.
+    var SCREEN_VARS = ['--lmap-screen-grow', '--lmap-screen-shrink'];
     function screenScale() {
-      var base = parseFloat(getComputedStyle(host).getPropertyValue('--lmap-screen-base'));
-      host.style.setProperty(
-        '--lmap-screen-scale',
-        base > 0 ? String(Math.max(window.innerWidth, window.innerHeight) / base) : '1',
-      );
+      var base = parseFloat(getComputedStyle(host).getPropertyValue('--lmap-screen-base')),
+        s = base > 0 ? Math.max(window.innerWidth, window.innerHeight) / base : 1;
+      host.style.setProperty(SCREEN_VARS[0], String(Math.max(s, 1)));
+      host.style.setProperty(SCREEN_VARS[1], String(Math.min(s, 1)));
     }
     function openView(push) {
       if (full) return;
@@ -826,7 +829,9 @@
       if (opened === api) opened = null;
       host.classList.remove('lmap-full');
       document.documentElement.classList.remove('lmap-full-open');
-      host.style.removeProperty('--lmap-screen-scale');
+      SCREEN_VARS.forEach(function (v) {
+        host.style.removeProperty(v);
+      });
       label(false);
       window.removeEventListener('resize', onResize);
       resize(before);

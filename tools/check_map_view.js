@@ -25,6 +25,13 @@ const ROUND_TRIP = [4.7, 7.1, 1.5, 0.25, 1.5, 0.5, 3, 1.5];
 // so its width moves by a few per cent; a key or a line that grows with the zoom moves by
 // far more (three times at 470%).
 const TOLERANCE = 0.1;
+// WebKit draws a border in whole device pixels, so a border may be off by up to this many
+// device pixels at any zoom (a border that grows with the zoom is off by far more at 300%).
+const SNAP_PX = 0.6;
+// Safari zooms a page from 50% (Safari > Settings > Websites > Page Zoom). Below that, WebKit
+// in Playwright stops resizing the page once it has been made 11520 device pixels wide, so
+// its series of zooms starts at this one.
+const SAFARI_MIN_ZOOM = 0.5;
 const PHONE = { width: 390, height: 844 }; // CSS pixels
 const FINGER_PX = 44; // buttons on a touch screen (record.css)
 const PAGES = [
@@ -91,8 +98,8 @@ function measure() {
 }
 
 const failures = [];
-function near(what, got, want) {
-  if (!(Math.abs(got - want) <= want * TOLERANCE))
+function near(what, got, want, slack = 0) {
+  if (!(Math.abs(got - want) <= Math.max(want * TOLERANCE, slack)))
     failures.push(
       `${what}: ${got.toFixed(2)} device px, ${want.toFixed(2)} at ${HOME_ZOOM * 100}%`,
     );
@@ -105,10 +112,10 @@ function compare(where, m, ref) {
   if (ref.key) {
     near(`${where}: key width`, m.key.w, ref.key.w);
     near(`${where}: key height`, m.key.h, ref.key.h);
-    near(`${where}: key border`, m.key.border, ref.key.border);
+    near(`${where}: key border`, m.key.border, ref.key.border, SNAP_PX);
   }
   near(`${where}: button height`, m.button.h, ref.button.h);
-  near(`${where}: button border`, m.button.border, ref.button.border);
+  near(`${where}: button border`, m.button.border, ref.button.border, SNAP_PX);
   near(`${where}: border line`, m.line, ref.line);
 }
 
@@ -156,7 +163,7 @@ let base = '';
         // every engine, so the window's size plays the zoom and sizes are compared in CSS
         // pixels times HOME_ZOOM / zoom, the device pixels they would take.
         ({ ctx, tab } = await open(browser, page, variant, HOME_ZOOM));
-        for (const zoom of ROUND_TRIP) {
+        for (const zoom of ROUND_TRIP.filter((z) => name !== 'webkit' || z >= SAFARI_MIN_ZOOM)) {
           await tab.setViewportSize({
             width: Math.round(SCREEN.width / zoom),
             height: Math.round(SCREEN.height / zoom),
