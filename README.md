@@ -78,6 +78,8 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.github.io/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`) and adds a preview of every open pull request at `/preview/pr-<number>/`. It runs on every push to `main`, after every passing `site.yml` run of a pull request, after every release (see Releases), when a pull request is closed (which drops its preview), and by hand. `site.yml` builds and checks each pull request and uploads its preview. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
+The beta site, <https://lang-log-beta.pages.dev/>, is the `beta` branch: `site.yml` builds and checks each push to it, and `.github/workflows/beta.yml` uploads part of the site (`tools/make_preview.sh`) to the Cloudflare Pages project `lang-log-beta`, which it creates on its first run. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (only "Account / Cloudflare Pages / Edit") and `CLOUDFLARE_ACCOUNT_ID`.
+
 ## Releases
 
 A release is a version tag on a commit of `main`; GitHub Releases hold the release information, and the site shows it on `releases.html`. The rules are in `.claude/rules/releases.md`.
