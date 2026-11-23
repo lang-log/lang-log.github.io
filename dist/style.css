@@ -2550,6 +2550,45 @@ header .tools > button {
   background: var(--c-fcfcf7);
   overflow: hidden;
 }
+/* The top page's Download menu, alone (atlas_html() in tools/build_paths.py): no box, so the
+   open menu is not cut off, and the map's download symbol as its button (.lmap-tools in
+   record.css), at the end of the line. */
+.atlas-whole {
+  border: 0;
+  background: none;
+  overflow: visible;
+}
+.atlas-whole .toolbar {
+  justify-content: flex-end;
+  padding: 0;
+  border-bottom: 0;
+}
+.atlas-whole .menu-panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+.atlas-whole .downloads summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-color: var(--line);
+  background: var(--c-ffffff);
+  color: var(--ink);
+}
+.atlas-whole .downloads summary::after {
+  content: none;
+}
+@media (hover: hover) {
+  .atlas-whole .downloads summary:hover {
+    background: var(--c-e3e9df);
+  }
+}
+.atlas-whole .downloads[open] summary {
+  background: var(--c-e3e9df);
+}
 .atlas-embed #outline {
   flex: none;
   max-height: 70vh;
