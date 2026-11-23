@@ -830,7 +830,11 @@
     var pop = null,
       downAt = null,
       tapAt = null;
+    // Each tap gets a number; a box whose names arrive after a newer tap or after hidePop()
+    // is dropped.
+    var popTap = 0;
     function hidePop() {
+      popTap++;
       if (pop) pop.hidden = true;
     }
     function nearest(clientX, clientY) {
@@ -852,52 +856,51 @@
       }
       return best;
     }
+    // The box opens only once the records' names have loaded (records() fetches the atlas
+    // data on the first tap), so it never shows the bare ids of data-g in the meantime.
     function showPop(c, clientX, clientY) {
       var ids = c.getAttribute('data-g').split(' ').filter(Boolean);
-      if (!pop) {
-        pop = document.createElement('div');
-        pop.className = 'lmap-pop';
-        pop.setAttribute('role', 'dialog');
-        pop.setAttribute('aria-label', 'Records at this point');
-        host.appendChild(pop);
-      }
-      pop.textContent = '';
-      var list = document.createElement('ul');
-      list.className = 'notranslate';
-      ids.forEach(function (id) {
-        var li = document.createElement('li');
-        li.textContent = id;
-        list.appendChild(li);
-      });
-      pop.appendChild(list);
-      var x = document.createElement('button');
-      x.type = 'button';
-      x.className = 'lmap-pop-close';
-      x.setAttribute('aria-label', 'Close');
-      x.appendChild(icon(ICON_CLOSE));
-      x.addEventListener('click', function () {
-        hidePop();
-        svg.focus();
-      });
-      pop.appendChild(x);
-      pop.hidden = false;
-      place(clientX, clientY);
+      hidePop();
+      var tap = popTap;
       records(ids, root).then(
         function (rs) {
-          if (pop.hidden || pop.firstChild !== list) return;
-          rs.forEach(function (r, i) {
-            var li = list.childNodes[i];
-            li.textContent = '';
+          if (tap !== popTap) return;
+          if (!pop) {
+            pop = document.createElement('div');
+            pop.className = 'lmap-pop';
+            pop.setAttribute('role', 'dialog');
+            pop.setAttribute('aria-label', 'Records at this point');
+            host.appendChild(pop);
+          }
+          pop.textContent = '';
+          var list = document.createElement('ul');
+          list.className = 'notranslate';
+          rs.forEach(function (r) {
+            var li = document.createElement('li');
             var a = document.createElement(r.url ? 'a' : 'span');
             a.textContent = r.name;
             if (r.url) a.href = r.url;
             li.appendChild(a);
+            list.appendChild(li);
           });
+          pop.appendChild(list);
+          var x = document.createElement('button');
+          x.type = 'button';
+          x.className = 'lmap-pop-close';
+          x.setAttribute('aria-label', 'Close');
+          x.appendChild(icon(ICON_CLOSE));
+          x.addEventListener('click', function () {
+            hidePop();
+            svg.focus();
+          });
+          pop.appendChild(x);
+          pop.hidden = false;
           place(clientX, clientY);
         },
         function () {},
       );
     }
+
     function place(clientX, clientY) {
       var b = host.getBoundingClientRect();
       var x = Math.min(clientX - b.left + 10, b.width - pop.offsetWidth - 8);
