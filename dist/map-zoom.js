@@ -168,6 +168,16 @@
   }
   var ICON_OPEN = 'M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4';
   var ICON_CLOSE = 'M3.5 3.5l9 9M12.5 3.5l-9 9';
+  // The bar's symbols are drawn, not typed, so they look the same in every font and browser
+  // (the owner's request, 2026-11-23). PREV, NEXT and RESET point left or right; record.css
+  // mirrors them on right-to-left pages, as the < and > characters were mirrored there.
+  var ICON_ZOOM_IN = 'M8 3v10M3 8h10';
+  var ICON_ZOOM_OUT = 'M3 8h10';
+  var ICON_PREV = 'M10 3L5 8l5 5';
+  var ICON_NEXT = 'M6 3l5 5-5 5';
+  // A back arrow that turns (↩), for Reset.
+  var ICON_RESET = 'M6 3L3 6l3 3M3 6h6.5a3.5 3.5 0 0 1 0 7H6';
+  var ICON_DOWNLOAD = 'M8 2v8M4.5 6.5L8 10l3.5-3.5M3 13.5h10';
 
   function loadManifest(base, done) {
     if (manifest) return done(manifest);
@@ -637,56 +647,56 @@
     // Buttons, placed over the top right corner of the map.
     var bar = document.createElement('div');
     bar.className = 'lmap-tools';
-    // + and - only where a mouse or trackpad exists; on phones and tablets people pinch.
-    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
-    (fine
-      ? [
-          [
-            '+',
-            'Zoom in',
-            function () {
-              zoomSmooth(STEP);
-            },
-          ],
-          [
-            '−',
-            'Zoom out',
-            function () {
-              zoomSmooth(1 / STEP);
-            },
-          ],
-        ]
-      : []
-    )
-      .concat([['Reset', 'Reset view', reset]])
-      .forEach(function (b) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.textContent = b[0];
-        btn.setAttribute('aria-label', b[1]);
-        btn.title = b[1];
-        btn.addEventListener('click', b[2]);
-        if (b[0] === 'Reset') btn.className = 'lmap-reset';
-        bar.appendChild(btn);
-      });
-    [
-      ['<', 'Previous point', -1],
-      ['>', 'Next point', 1],
-    ].forEach(function (b) {
+    // Every button shows an icon and carries its label for screen readers and as a tooltip.
+    function toolButton(path, text, onClick) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = b[0];
-      btn.setAttribute('aria-label', b[1]);
-      btn.title = b[1];
-      btn.addEventListener('click', function () {
-        step(b[2]);
-      });
-      bar.appendChild(btn);
-    });
+      btn.appendChild(icon(path));
+      btn.setAttribute('aria-label', text);
+      btn.title = text;
+      btn.addEventListener('click', onClick);
+      return btn;
+    }
+    // Two buttons in one box with a line between them, [ - | + ] and [ < | > ] (the owner's
+    // requests, 2026-11-23); each half stays its own button, for the keyboard and screen
+    // readers (record.css draws the box).
+    function pair(className, first, second) {
+      var box = document.createElement('span');
+      box.className = className;
+      box.appendChild(first);
+      box.appendChild(second);
+      bar.appendChild(box);
+    }
+    // Reset comes first, at the start of the bar: the left end, or the right end on
+    // right-to-left pages (the owner's request, 2026-11-23).
+    var resetBtn = toolButton(ICON_RESET, 'Reset view', reset);
+    resetBtn.className = 'lmap-reset';
+    bar.appendChild(resetBtn);
+    // - and + only where a mouse or trackpad exists; on phones and tablets people pinch.
+    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
+    if (fine)
+      pair(
+        'lmap-pair',
+        toolButton(ICON_ZOOM_OUT, 'Zoom out', function () {
+          zoomSmooth(1 / STEP);
+        }),
+        toolButton(ICON_ZOOM_IN, 'Zoom in', function () {
+          zoomSmooth(STEP);
+        }),
+      );
+    pair(
+      'lmap-pair lmap-step',
+      toolButton(ICON_PREV, 'Previous point', function () {
+        step(-1);
+      }),
+      toolButton(ICON_NEXT, 'Next point', function () {
+        step(1);
+      }),
+    );
     var pngBtn = document.createElement('button');
     pngBtn.type = 'button';
     pngBtn.className = 'lmap-png';
-    pngBtn.textContent = 'PNG';
+    pngBtn.appendChild(icon(ICON_DOWNLOAD));
     pngBtn.setAttribute('aria-label', 'Download the map as PNG');
     pngBtn.title = 'Download the map as PNG';
     pngBtn.addEventListener('click', function () {
