@@ -37,10 +37,10 @@ import re
 import shutil
 
 import build_paths  # path rules: build_paths.path_of
-from locations import DIST, ROOT
+from locations import DIST, ROOT, SOURCE_DATA
 from not_languoids import NOT_LANGUOIDS, lift
 
-SRC = ROOT / "source-data"
+SRC = SOURCE_DATA
 SCHEMA = ROOT / "schema"
 
 SOURCES = {

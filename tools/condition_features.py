@@ -29,9 +29,8 @@ import csv
 import json
 import re
 
-from locations import DIST, ROOT
+from locations import DIST, SOURCE_DATA
 
-SRC = ROOT / "source-data"
 # Groups of the feature menu, by what a feature is about (owner, 2026-11-22: no source
 # names such as WALS or Glottolog in the menu; sources are credited in the footer and on
 # the Sources page).
@@ -395,9 +394,9 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
             multi=True,
         )
     )
-    parents = json.loads((SRC / "lang-log" / "classification.json").read_text(encoding="utf-8"))[
-        "parents"
-    ]
+    parents = json.loads(
+        (SOURCE_DATA / "lang-log" / "classification.json").read_text(encoding="utf-8")
+    )["parents"]
     stage_of = {p["parent"] for p in parents.values()}
     out.append(
         category(
@@ -429,7 +428,7 @@ def features(langs, nodes, wals_lects, wals_values, area_of):
     )
     power = {}
     for r in csv.DictReader(
-        (SRC / "signs-and-scripts" / "power-languages.csv").open(encoding="utf-8")
+        (SOURCE_DATA / "signs-and-scripts" / "power-languages.csv").open(encoding="utf-8")
     ):
         if r["Glottocode"] and r["SubGroup"]:
             power.setdefault(r["Glottocode"], set()).add(r["SubGroup"])

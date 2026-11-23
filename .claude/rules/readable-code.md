@@ -5,7 +5,7 @@ The shared rule is `readable-code.md` in the `research-aide` repository (each va
 ## Where each shared value lives
 
 - Site name, title suffix (` · Lang Log by yoshi`), the profile link and the copyright line: `tools/site_brand.py`. The generators import it; the hand-written pages in `dist/*.html` are kept equal by `python3 tools/site_brand.py --check` (`--write` rewrites them). `dist/lang.js` and `dist/record.js` read what the page already has.
-- Repository folders (`ROOT`, `DIST`): `tools/locations.py`. Never work them out again from `__file__`.
+- Repository folders (`ROOT`, `DIST`, `SOURCE_DATA`): `tools/locations.py`. Never work them out again from `__file__`.
 - Source versions: `source-data/sources.json`. Scripts import `GLOTTOLOG` and `GLOTTOLOG_VERSION` from `tools/source_versions.py`, the dictionaries write `{version}`, and browser scripts read the source titles in the data.
 - Colours: the tokens at the top of `dist/style.css`. Other CSS uses `var(--...)`; scripts read a token with `getComputedStyle`. Exceptions (files opened on their own, where the stylesheet does not apply) are listed in `tools/single-source.json`.
 - A length the CSS and a script both need (such as `--stats-duration`): a custom property in `dist/style.css`, read by the script.
