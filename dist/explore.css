@@ -227,6 +227,76 @@
 .wm-cond .wm-selectall {
   margin-top: 6px;
 }
+/* NOT next to a condition's feature menu: pressed, the condition leaves out what it matches
+   (dist/explore.js condBox). Drawn like the AND / OR buttons. */
+.wm-not {
+  font-size: 11px;
+  padding: 5px 9px;
+  min-height: 36px;
+}
+.wm-not[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--c-ffffff);
+}
+/* Minimum and Maximum of a number condition, the chosen language of a relative one, the
+   text of the Name condition and the minimum number of conditions (dist/explore.js). */
+.wm-range {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.wm-legend .wm-range label,
+.wm-legend .wm-language,
+.wm-legend .wm-min {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: default;
+}
+.wm-legend .wm-range label {
+  flex: 1 1 120px;
+}
+.wm-legend .wm-language,
+.wm-legend .wm-min {
+  margin-top: 6px;
+}
+.wm-legend .wm-min[hidden] {
+  display: none;
+}
+.wm-legend input[type='number'],
+.wm-legend input[type='search'] {
+  appearance: none;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  min-height: 40px;
+  padding: 8px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--c-ffffff);
+  color: inherit;
+  /* 16px keeps iOS Safari from zooming into the box. */
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  accent-color: auto;
+}
+.wm-legend .wm-find {
+  margin-top: 6px;
+}
+/* A long list of values scrolls inside the condition. */
+.wm-legend ul.wm-long {
+  max-height: 320px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.wm-legend li[hidden] {
+  display: none;
+}
 /* Map view: the map and its record box fill the window (record.css .lmap-full; relative above would win). */
 .wm-map.lmap-full {
   position: fixed;

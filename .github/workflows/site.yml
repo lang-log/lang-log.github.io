@@ -45,6 +45,10 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci --ignore-scripts
       - run: npx html-validate dist/index.html dist/releases.html "dist/*/index.html" "dist/afro-asiatic/**/index.html"
+      # The map view keeps its key, buttons and lines the same size on screen at every browser
+      # zoom, in Chromium, Firefox and WebKit (tools/check_map_view.js).
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: node tools/check_map_view.js
       - name: Make the preview (all but the record pages of other families)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: |
