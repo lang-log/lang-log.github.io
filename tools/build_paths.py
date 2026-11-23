@@ -746,7 +746,7 @@ def features_html(n, f):
                 f'target="_blank" rel="noopener noreferrer">{escape(x["contributor"])} {escape(x["inventory"])} ↗</a>',
             ]
             + [
-                f'<span dir="ltr">{len(x[k])}</span> <span class="notranslate phonemes">{escape(" ".join(x[k]))}</span>'
+                f'<span dir="ltr"><span>{len(x[k])}</span> <span class="notranslate phonemes">{escape(" ".join(x[k]))}</span></span>'
                 if x[k]
                 else ""
                 for k in ("consonants", "vowels", "tones")

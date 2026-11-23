@@ -34,17 +34,15 @@ import json
 
 from locations import SOURCE_DATA
 
-SRC = SOURCE_DATA
-
 
 @functools.cache
 def glottolog_values():
     """Glottocode -> {"endangerment": ..., "description": ...} from Glottolog's values."""
-    with open(SRC / "codes.csv", encoding="utf-8", newline="") as f:
+    with open(SOURCE_DATA / "codes.csv", encoding="utf-8", newline="") as f:
         names = {r["ID"]: r["Name"] for r in csv.DictReader(f)}
     out = {}
     citations = {}
-    with open(SRC / "values.csv", encoding="utf-8", newline="") as f:
+    with open(SOURCE_DATA / "values.csv", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
             p = r["Parameter_ID"]
             if p == "aes":
@@ -77,7 +75,7 @@ def glottolog_values():
 @functools.cache
 def iana_registry():
     """Language subtag -> its registry entry, and preferred tag -> the retired tags it replaced."""
-    entries = json.loads((SRC / "iana" / "registry.json").read_text(encoding="utf-8"))
+    entries = json.loads((SOURCE_DATA / "iana" / "registry.json").read_text(encoding="utf-8"))
     languages = {e["Subtag"]: e for e in entries if e["Type"] == "language"}
     retired = {}
     for e in languages.values():
@@ -108,13 +106,13 @@ def iana(iso):
 @functools.cache
 def iso_map():
     """ISO 639-1 -> ISO 639-3, as Glottolog publishes it (source-data/iso-map.json)."""
-    return json.loads((SRC / "iso-map.json").read_text(encoding="utf-8"))
+    return json.loads((SOURCE_DATA / "iso-map.json").read_text(encoding="utf-8"))
 
 
 @functools.cache
 def cldr_data():
     def read(name):
-        return json.loads((SRC / "cldr" / name).read_text(encoding="utf-8"))["supplemental"]
+        return json.loads((SOURCE_DATA / "cldr" / name).read_text(encoding="utf-8"))["supplemental"]
 
     aliases = read("aliases.json")["metadata"]["alias"]["languageAlias"]
     languages = read("languageData.json")["languageData"]
@@ -155,7 +153,7 @@ def cldr(iso):
 @functools.cache
 def linguameta_rows():
     """Glottocode and ISO 639-3 code -> the LinguaMeta overview row."""
-    with open(SRC / "linguameta" / "linguameta.tsv", encoding="utf-8", newline="") as f:
+    with open(SOURCE_DATA / "linguameta" / "linguameta.tsv", encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f, delimiter="\t"))
     by_glottocode = {r["glottocode"]: r for r in rows if r["glottocode"]}
     by_iso = {r["iso_639_3_code"]: r for r in rows if r["iso_639_3_code"]}
@@ -183,7 +181,7 @@ def linguameta(glottocode, iso):
 def phoible_inventories():
     """Glottocode -> PHOIBLE's inventories, each with its phonemes by class."""
     inventories = {}
-    with open(SRC / "phoible" / "phoible.csv", encoding="utf-8", newline="") as f:
+    with open(SOURCE_DATA / "phoible" / "phoible.csv", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
             inv = inventories.setdefault(
                 r["InventoryID"],
@@ -219,7 +217,7 @@ def phoible_inventories():
 def dplace_societies():
     """Glottocode -> the D-PLACE societies whose language it is."""
     out = {}
-    with open(SRC / "dplace" / "societies.csv", encoding="utf-8", newline="") as f:
+    with open(SOURCE_DATA / "dplace" / "societies.csv", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
             if r["Glottocode"]:
                 out.setdefault(r["Glottocode"], []).append(
