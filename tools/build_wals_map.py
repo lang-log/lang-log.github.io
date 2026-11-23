@@ -14,22 +14,26 @@ Two steps:
       source-data/wals.csv (WALS languages and their Glottocodes),
       dist/data.json and dist/integrated.json (tools/finish_unified.py) and
       writes dist/data/features/ (not committed; built in CI):
-        languages.json  one entry per Glottolog language with a point:
-                        Glottocode, name, family, first WALS code (or ""),
-                        the point in the map's SVG units (Web Mercator, as
-                        dist/map/land.svg; see languoid_map.py) and the
-                        top-level record it belongs to (its "root" in
+        languages.json  one entry per Glottolog language: Glottocode, name,
+                        family, first WALS code (or ""), the point in the
+                        map's SVG units (Web Mercator, as dist/map/land.svg;
+                        see languoid_map.py; null without coordinates) and
+                        the top-level record it belongs to (its "root" in
                         dist/data.json), which the top-page list uses
         features.json   every feature: id, name, area, source ("wals" or
                         "langlog") and its values with their counts
-        f/<ID>.json     one feature's values: a list with one number per
+        f/<ID>.json     one feature's values: a list with one entry per
                         language in languages.json (0 = no data)
+        f/<ID>.values.json  the values of a feature with more than
+                        LONG_VALUES of them (features.json has null)
+        wals.json       every language's WALS values in one table
 
 Besides the WALS features, Lang Log's own evidence gives two features that
 every language has a value for (LANGLOG_FEATURES): whether the language (or
 one of its dialects) is in a conflict between study trees, and whether it is
 placed in a research tree. They take the place of the evidence filter of the
-former whole tree on the top page (owner, 2026-11-08).
+former whole tree on the top page (owner, 2026-11-08). The other conditions
+(Glottolog, WALS and Lang Log data) come from tools/condition_features.py.
 
 Points are Glottolog's representative coordinates, not the area where a
 language is spoken.
@@ -41,6 +45,7 @@ import json
 import sys
 import urllib.request
 
+from condition_features import features as condition_features
 from locations import DIST, ROOT
 from languoid_map import project
 
@@ -74,6 +79,9 @@ LANGLOG_FEATURES = [
 ]
 LANGLOG_AREA = "Lang Log"
 YES, NO = 1, 2
+# A feature with more values than this keeps them in f/<ID>.values.json, which the page
+# loads only when the feature is chosen, so features.json stays small.
+LONG_VALUES = 60
 
 
 def area(chapter):
@@ -98,29 +106,29 @@ def glottolog():
     return list(csv.DictReader((ROOT / "source-data" / "languages.csv").open(encoding="utf-8")))
 
 
-def point_languages(glotto):
-    """The languages the map has a point for, one row each in languages.json, in its
-    order. tools/build_home.py counts them for the top page's first count line."""
-    return sorted(
-        (r for r in glotto if r["Level"] == "language" and r["Latitude"] and r["Longitude"]),
-        key=lambda r: r["ID"],
-    )
+def condition_languages(glotto):
+    """The languages the conditions choose from, one row each in languages.json, in its
+    order: every Glottolog language, with or without a point on the map.
+    tools/build_home.py counts them for the top page's first count line."""
+    return sorted((r for r in glotto if r["Level"] == "language"), key=lambda r: r["ID"])
 
 
 def build():
-    """Points are every Glottolog language (level "language") with coordinates, so the
-    map starts from all languages, not only those in WALS. Each WALS language is
+    """The languages are every Glottolog language (level "language"), so the conditions
+    start from all languages, not only those in WALS; the map draws those with
+    coordinates. Each WALS language is
     attached to its Glottolog language: a WALS lect mapped to a dialect counts for the
     dialect's language; one mapped to a family, or to nothing, is left out. When
     several WALS lects fall on one language, the first in WALS code order with a value
     for a feature gives that value."""
     glotto = glottolog()
     by_id = {r["ID"]: r for r in glotto}
-    langs = point_languages(glotto)
+    langs = condition_languages(glotto)
     index = {r["ID"]: i for i, r in enumerate(langs)}
 
     wals_to = {}  # WALS code -> index in langs
     wals_codes = {}  # index -> first WALS code
+    wals_lects = {}  # index -> rows of wals.csv
     for w in sorted(
         csv.DictReader((ROOT / "source-data" / "wals.csv").open(encoding="utf-8")),
         key=lambda r: r["ID"],
@@ -135,29 +143,35 @@ def build():
             continue
         wals_to[w["ID"]] = i
         wals_codes.setdefault(i, w["ID"])
+        wals_lects.setdefault(i, []).append(w)
 
     params = list(csv.DictReader((SRC / "parameters.csv").open(encoding="utf-8")))
     codes = {}
     for c in csv.DictReader((SRC / "codes.csv").open(encoding="utf-8")):
         codes.setdefault(c["Parameter_ID"], []).append({"n": int(c["Number"]), "name": c["Name"]})
     values = {}
+    attached = []  # the WALS values of the languages, each with "i", its index
     for v in sorted(
         csv.DictReader((SRC / "values.csv").open(encoding="utf-8")), key=lambda r: r["Language_ID"]
     ):
         i = wals_to.get(v["Language_ID"])
         if i is not None:
             values.setdefault(v["Parameter_ID"], {}).setdefault(i, int(v["Value"]))
+            attached.append({**v, "i": i})
 
     OUT.joinpath("f").mkdir(parents=True, exist_ok=True)
     nodes = json.loads((DIST / "data.json").read_text(encoding="utf-8"))["nodes"]
     rows = []
     for i, r in enumerate(langs):
-        x, y = project(float(r["Longitude"]), float(r["Latitude"]))
+        # A language without coordinates has no point (x and y null).
+        x, y = (
+            (round(c, 1) for c in project(float(r["Longitude"]), float(r["Latitude"])))
+            if r["Latitude"] and r["Longitude"]
+            else (None, None)
+        )
         fam = by_id.get(r["Family_ID"], {}).get("Name", "") if r["Family_ID"] else ""
         root = nodes[r["ID"]]["root"] if r["ID"] in nodes else ""
-        rows.append(
-            [r["ID"], r["Name"], fam, wals_codes.get(i, ""), round(x, 1), round(y, 1), root]
-        )
+        rows.append([r["ID"], r["Name"], fam, wals_codes.get(i, ""), x, y, root])
     write(
         OUT / "languages.json",
         {"fields": ["glottocode", "name", "family", "wals", "x", "y", "root"], "rows": rows},
@@ -186,7 +200,28 @@ def build():
             }
         )
         write(OUT / "f" / f"{pid}.json", [got.get(i, 0) for i in range(len(langs))])
+    # Every language's WALS values in one table, for the condition "WALS values shared
+    # with a language" (dist/explore.js): {"features": [ids], "rows": {index: [values]}}.
+    ids = [f["id"] for f in features]
+    write(
+        OUT / "wals.json",
+        {
+            "features": ids,
+            "rows": {
+                i: [values[f].get(i, 0) for f in ids]
+                for i in sorted({i for got in values.values() for i in got})
+            },
+        },
+    )
     features += langlog_features(langs, nodes)
+    area_of = {p["ID"]: area(int(p["Chapter_ID"])) for p in params}
+    for entry, data in condition_features(langs, nodes, wals_lects, attached, area_of):
+        if data is not None:
+            write(OUT / "f" / f"{entry['id']}.json", data)
+        if len(entry.get("values", [])) > LONG_VALUES:
+            write(OUT / "f" / f"{entry['id']}.values.json", entry["values"])
+            entry["values"] = None
+        features.append(entry)
     write(OUT / "features.json", {"version": VERSION, "features": features})
     print(
         f"Wrote dist/data/features/: {len(langs)} Glottolog languages, {len(wals_codes)} with WALS data, {len(features)} features"

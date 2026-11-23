@@ -48,6 +48,12 @@
       "pattern": "Glottolog v?\\d",
       "source": "tools/source_versions.py",
       "why": "the Glottolog version; it is written in source-data/sources.json, scripts import GLOTTOLOG, dictionaries use {version}"
+    },
+    {
+      "pattern": "M8 2v8M4\\.5 6\\.5L8 10l3\\.5-3\\.5M3 13\\.5h10",
+      "source": "dist/map-zoom.js",
+      "also": ["dist/signs-and-scripts.html"],
+      "why": "the download symbol (ICON_DOWNLOAD); tools/build_paths.py reads it, the hand-written page carries a copy"
     }
   ],
   "colours": {

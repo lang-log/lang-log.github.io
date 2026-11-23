@@ -414,4 +414,9 @@
   window.LANGLOG_LANG = function () {
     return lang;
   };
+  // Text a script shows outside the page, such as in a confirm() box, which the observer
+  // above cannot reach: the translation in the chosen language, or the English text.
+  window.LANGLOG_TEXT = function (s) {
+    return (lang !== 'en' && tr(s)) || s;
+  };
 })();

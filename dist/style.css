@@ -97,7 +97,6 @@
   --c-2d463c: #2d463c;
   --c-417f80: #417f80;
   --c-a5aeb0: #a5aeb0;
-  --c-24302e1f: #24302e1f;
   --c-2a78d6: #2a78d6;
   --c-eb6834: #eb6834;
   --c-1baf7a: #1baf7a;
@@ -202,7 +201,6 @@
     --c-2d463c: #acc3ba;
     --c-417f80: #7fb1b1;
     --c-a5aeb0: #596062;
-    --c-24302e1f: #0000004d;
     --c-2a78d6: #3987e5;
     --c-eb6834: #d95926;
     --c-1baf7a: #199e70;
@@ -307,7 +305,6 @@
   --c-2d463c: #acc3ba;
   --c-417f80: #7fb1b1;
   --c-a5aeb0: #596062;
-  --c-24302e1f: #0000004d;
   --c-2a78d6: #3987e5;
   --c-eb6834: #d95926;
   --c-1baf7a: #199e70;
@@ -780,6 +777,20 @@ footer {
   padding: 17px 30px 28px;
   font-size: 9px;
   color: var(--muted);
+}
+/* The "save the whole site" button that dist/pwa.js adds to the end of every page's footer. */
+.offline-save {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+  font-size: 14px;
+}
+.offline-save button {
+  min-height: 44px;
 }
 dialog {
   border: 1px solid var(--line);
@@ -1979,7 +1990,6 @@ body .domain-nav a:last-child {
   background: var(--c-fafbf6);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   padding: 6px;
   min-width: 190px;
   display: flex;
@@ -2069,9 +2079,6 @@ body .domain-nav a:last-child {
     padding: 8px 10px;
     display: inline-flex;
     align-items: center;
-  }
-  .toolbar .downloads {
-    margin-inline-start: 0;
   }
   .menu-panel {
     inset-inline-end: auto;
@@ -2232,7 +2239,6 @@ body .domain-nav a:last-child {
   border: 1px solid var(--c-cdd6ce);
   border-radius: 999px;
   overflow: hidden;
-  box-shadow: 0 1px 6px var(--c-24302e1f);
 }
 .search-pill:focus-within {
   border-color: var(--teal);
@@ -2450,7 +2456,6 @@ header details.langmenu > summary::after {
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   padding: 6px;
 }
 .langmenu ul {
@@ -2555,6 +2560,55 @@ header .tools > button {
   border-radius: 6px;
   background: var(--c-fcfcf7);
   overflow: hidden;
+}
+/* The top page's Download menu, alone (atlas_html() in tools/build_paths.py): no box, so the
+   open menu is not cut off, at the end of the line. */
+.atlas-whole {
+  border: 0;
+  background: none;
+  overflow: visible;
+}
+.atlas-whole .toolbar {
+  justify-content: flex-end;
+  padding: 0;
+  border-bottom: 0;
+}
+/* The Download menu's button: the map's download symbol (download_icon() in
+   tools/build_paths.py, the look of .lmap-tools buttons in record.css), never the word
+   (the owner's rule, 2026-11-23); 44 px on phones, for a finger. */
+.toolbar .downloads summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-color: var(--line);
+  background: var(--c-ffffff);
+  color: var(--ink);
+}
+.toolbar .downloads summary::after {
+  content: none;
+}
+@media (hover: hover) {
+  .toolbar .downloads summary:hover {
+    background: var(--c-e3e9df);
+  }
+}
+.toolbar .downloads[open] summary {
+  background: var(--c-e3e9df);
+}
+/* The menu opens from the button's end, which is the end of the line, so it stays inside the
+   page and the toolbar's box on phones too. */
+.toolbar .downloads .menu-panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+@media (max-width: 700px) {
+  .toolbar .downloads summary {
+    min-width: 44px;
+    height: 44px;
+  }
 }
 .atlas-embed #outline {
   flex: none;
@@ -2846,7 +2900,7 @@ header .tools > button {
   background: var(--c-397b7b);
 }
 /* The guide row under the Random row on the top page, and the pages it links to
-   (dist/stats/, dist/sources/, dist/updates/, written by tools/build_home.py). */
+   (dist/stats/ and dist/sources/, written by tools/build_home.py). */
 .home-actions {
   display: flex;
   flex-wrap: wrap;
@@ -3028,30 +3082,6 @@ header .tools > button {
 .stat-list dd {
   margin: 0;
   font-variant-numeric: tabular-nums;
-}
-.updates {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 46em;
-}
-.updates li {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 18px;
-  padding: 14px 0;
-  border-top: 1px solid var(--line);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.updates time {
-  color: var(--muted);
-  min-width: 8em;
-}
-.updates li > span {
-  flex: 1 1 20em;
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 /* The Releases page (dist/releases.html, tools/build_releases.py). The notes are GitHub's HTML of
    the release Markdown, cleaned to plain formatting tags. */

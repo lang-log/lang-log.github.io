@@ -1,9 +1,9 @@
 # Lang Log
 
 [![site](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml/badge.svg?branch=main&event=push)](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml?query=branch%3Amain)
-[![pages](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml)
-[![Latest release](https://img.shields.io/github/v/release/lang-log/lang-log.github.io?sort=semver&display_name=tag)](https://github.com/lang-log/lang-log.github.io/releases)
+[![pages](https://img.shields.io/github/deployments/lang-log/lang-log.github.io/github-pages?label=pages)](https://github.com/lang-log/lang-log.github.io/deployments/github-pages)
 [![License: all rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/lang-log/lang-log.github.io)](https://github.com/lang-log/lang-log.github.io/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/lang-log/lang-log.github.io/main)](https://github.com/lang-log/lang-log.github.io/commits/main)
 
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.

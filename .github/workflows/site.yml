@@ -16,8 +16,11 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+# A newer push to a pull request cancels the older run. Every run on main gets a group of its own,
+# so none is cancelled or replaced and every commit on main gets a result (a cancelled run shows as
+# "failing" on the README badge).
 concurrency:
-  group: site-${{ github.ref }}
+  group: ${{ github.event_name == 'pull_request' && format('site-{0}', github.ref) || format('site-{0}', github.run_id) }}
   cancel-in-progress: true
 jobs:
   quality:
@@ -43,12 +46,16 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci --ignore-scripts
       - run: npx html-validate dist/index.html dist/releases.html "dist/*/index.html" "dist/afro-asiatic/**/index.html"
+      # The map view keeps its key, buttons and lines the same size on screen at every browser
+      # zoom, in Chromium, Firefox and WebKit (tools/check_map_view.js).
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: node tools/check_map_view.js
       - name: Make the preview (all but the record pages of other families)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: |
           mkdir _preview
           tar -C dist -cf - \
-            $(cd dist && for e in *; do if [ ! -d "$e" ] || [ "$e" = map ] || [ "$e" = data ] || [ "$e" = afro-asiatic ] || [ "$e" = stats ] || [ "$e" = sources ] || [ "$e" = updates ]; then echo "$e"; fi; done) \
+            $(cd dist && for e in *; do if [ ! -d "$e" ] || [ "$e" = map ] || [ "$e" = data ] || [ "$e" = afro-asiatic ] || [ "$e" = stats ] || [ "$e" = sources ]; then echo "$e"; fi; done) \
             | tar -C _preview -xf -
           # The preview holds only part of the site, so its file list is written again.
           python3 tools/pwa.py --files _preview
