@@ -416,11 +416,12 @@ body > .domain-nav {
   border: 0;
   border-radius: 0;
 }
-/* The map view's buttons keep their size on the screen when the browser zooms the page (the
-   owner's request, 2026-11-22). Zooming in makes the window narrower in CSS pixels, so with a
-   mouse the buttons are measured in --lmap-tool-px: one pixel while the window's longer side is
-   at least 1280 CSS pixels (a 1920 px screen at 150%), and less below that, shrinking with it. The map's own zoom never
-   touches them (they sit outside the svg). Touch screens keep whole pixels, so the buttons stay
+/* The map view's buttons keep their size on the screen when the browser zooms the page, in
+   and out (the owner's requests, 2026-11-22 and 2026-11-23). Zooming in makes the window
+   narrower in CSS pixels and zooming out makes it wider, so with a mouse the buttons are
+   measured in --lmap-tool-px, a share of the window's longer side: one pixel when that side is
+   1280 CSS pixels (a 1920 px screen at 150%), more when it is wider, less when it is narrower.
+   The map's own zoom never touches them (they sit outside the svg). Touch screens keep whole pixels, so the buttons stay
    44 px for a finger; pinch zoom there does not change the layout. */
 .lmap-full .lmap-tools {
   --lmap-tool-px: 1px;
@@ -430,7 +431,7 @@ body > .domain-nav {
 }
 @media (pointer: fine) {
   .lmap-full .lmap-tools {
-    --lmap-tool-px: min(1px, 100vmax / 1280);
+    --lmap-tool-px: calc(100vmax / 1280);
   }
 }
 .lmap-full .lmap-tools button {
