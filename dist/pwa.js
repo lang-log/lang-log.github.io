@@ -2,8 +2,8 @@
 // opened so they open again offline (.claude/rules/pwa.md). Loaded in <head> by every page
 // (tools/pwa.py writes the tag).
 // The worker's address comes from this script's own address, so it is the sw.js at the root
-// of the site the page belongs to: the live site, or a pull request preview under
-// /preview/pr-<number>/. Its scope is that folder.
+// of the site the page belongs to (the live site, or a pull request preview on its own
+// host). Its scope is that folder.
 // It also gives window.LangLogOffline, which the "save the whole site" button below uses:
 // - status() resolves to true when the whole site is stored.
 // - size() resolves to the size in bytes of every file in offline-files.json (tools/pwa.py).

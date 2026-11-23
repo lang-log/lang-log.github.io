@@ -1,0 +1,35 @@
+# The preview of every pull request from this repository, on Cloudflare Pages at
+# https://pr-<number>.lang-log-preview.pages.dev/ (the same paths as the live site), with a link
+# comment on the pull request; deleted when the pull request is closed. The shared workflow in
+# nguekwang/research-aide does the work (rule: research-aide .claude/rules/pr-previews.md); it
+# uploads the artifact "preview" of a passing site.yml run and never runs pull request code.
+# workflow_run and pull_request_target use the default branch's workflow files.
+#
+# One-time setup by the owner: a Cloudflare Pages project "lang-log-preview" (Direct Upload), and
+# the repository secrets CLOUDFLARE_API_TOKEN (only "Account / Cloudflare Pages / Edit") and
+# CLOUDFLARE_ACCOUNT_ID.
+name: previews
+on:
+  workflow_run:
+    workflows: [site]
+    types: [completed]
+  pull_request_target:
+    types: [closed]
+permissions: {}
+jobs:
+  preview:
+    permissions:
+      actions: read
+      pull-requests: write
+    uses: nguekwang/research-aide/.github/workflows/cloudflare-previews.yml@main
+    with:
+      project: lang-log-preview
+      links: |
+        Top page|
+        Language families|#families
+        Signs and scripts|signs-and-scripts.html
+        A record page|afro-asiatic/berber/
+        Releases|releases.html
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
