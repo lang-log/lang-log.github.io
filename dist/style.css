@@ -2846,7 +2846,7 @@ header .tools > button {
   background: var(--c-397b7b);
 }
 /* The guide row under the Random row on the top page, and the pages it links to
-   (dist/stats/, dist/sources/, dist/updates/, written by tools/build_home.py). */
+   (dist/stats/ and dist/sources/, written by tools/build_home.py). */
 .home-actions {
   display: flex;
   flex-wrap: wrap;
@@ -3028,30 +3028,6 @@ header .tools > button {
 .stat-list dd {
   margin: 0;
   font-variant-numeric: tabular-nums;
-}
-.updates {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  max-width: 46em;
-}
-.updates li {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 18px;
-  padding: 14px 0;
-  border-top: 1px solid var(--line);
-  font-size: 15px;
-  line-height: 1.6;
-}
-.updates time {
-  color: var(--muted);
-  min-width: 8em;
-}
-.updates li > span {
-  flex: 1 1 20em;
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 /* The Releases page (dist/releases.html, tools/build_releases.py). The notes are GitHub's HTML of
    the release Markdown, cleaned to plain formatting tags. */
