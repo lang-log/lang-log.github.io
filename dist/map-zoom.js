@@ -167,6 +167,14 @@
   }
   var ICON_OPEN = 'M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4';
   var ICON_CLOSE = 'M3.5 3.5l9 9M12.5 3.5l-9 9';
+  // The bar's symbols are drawn, not typed, so they look the same in every font and browser
+  // (the owner's request, 2026-11-23). PREV and NEXT point left and right; record.css mirrors
+  // them on right-to-left pages, as the < and > characters were mirrored there.
+  var ICON_ZOOM_IN = 'M8 3v10M3 8h10';
+  var ICON_ZOOM_OUT = 'M3 8h10';
+  var ICON_PREV = 'M10 3L5 8l5 5';
+  var ICON_NEXT = 'M6 3l5 5-5 5';
+  var ICON_DOWNLOAD = 'M8 2v8M4.5 6.5L8 10l3.5-3.5M3 13.5h10';
 
   function loadManifest(base, done) {
     if (manifest) return done(manifest);
@@ -640,14 +648,14 @@
     (fine
       ? [
           [
-            '+',
+            ICON_ZOOM_IN,
             'Zoom in',
             function () {
               zoomSmooth(STEP);
             },
           ],
           [
-            '−',
+            ICON_ZOOM_OUT,
             'Zoom out',
             function () {
               zoomSmooth(1 / STEP);
@@ -660,25 +668,29 @@
       .forEach(function (b) {
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.textContent = b[0];
+        if (b[0] === 'Reset') {
+          btn.className = 'lmap-reset';
+          btn.textContent = b[0];
+        } else {
+          btn.appendChild(icon(b[0]));
+        }
         btn.setAttribute('aria-label', b[1]);
         btn.title = b[1];
         btn.addEventListener('click', b[2]);
-        if (b[0] === 'Reset') btn.className = 'lmap-reset';
         bar.appendChild(btn);
       });
-    // < and > sit in one box with a line between them (the owner's request, 2026-11-23); each
+    // Previous and next sit in one box with a line between them (the owner's request, 2026-11-23); each
     // half stays its own button, for the keyboard and screen readers (record.css draws the box).
     var stepper = document.createElement('span');
     stepper.className = 'lmap-step';
     bar.appendChild(stepper);
     [
-      ['<', 'Previous point', -1],
-      ['>', 'Next point', 1],
+      [ICON_PREV, 'Previous point', -1],
+      [ICON_NEXT, 'Next point', 1],
     ].forEach(function (b) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = b[0];
+      btn.appendChild(icon(b[0]));
       btn.setAttribute('aria-label', b[1]);
       btn.title = b[1];
       btn.addEventListener('click', function () {
@@ -689,7 +701,7 @@
     var pngBtn = document.createElement('button');
     pngBtn.type = 'button';
     pngBtn.className = 'lmap-png';
-    pngBtn.textContent = 'PNG';
+    pngBtn.appendChild(icon(ICON_DOWNLOAD));
     pngBtn.setAttribute('aria-label', 'Download the map as PNG');
     pngBtn.title = 'Download the map as PNG';
     pngBtn.addEventListener('click', function () {

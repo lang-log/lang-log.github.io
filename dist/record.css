@@ -274,6 +274,9 @@
   gap: 4px;
 }
 .lmap-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 32px;
   height: 32px;
   padding: 0 8px;
@@ -284,12 +287,12 @@
   background: var(--c-ffffff);
   color: var(--ink);
 }
-/* The symbols and words sit in the middle of each button (the owner's request, 2026-11-23):
-   trimmed to the capital height and the baseline, the text is centred by its letters instead of
-   by the font's taller line box, which left it about a pixel high. Browsers without text-box keep
-   the plain centring above. */
+/* Every symbol in the bar is an SVG icon (icon() in dist/map-zoom.js), centred by the flex
+   rules above. The one word left, Reset, is centred by its letters where text-box works (the
+   owner's request, 2026-11-23): the font's line box is taller above the letters than below,
+   which left it about a pixel high. Browsers without text-box keep the plain centring. */
 @supports (text-box: trim-both cap alphabetic) {
-  .lmap-tools button {
+  .lmap-tools .lmap-reset {
     text-box: trim-both cap alphabetic;
   }
 }
@@ -313,6 +316,11 @@
 }
 .lmap-tools .lmap-step button:focus-visible {
   position: relative;
+}
+/* The previous and next arrows point the other way on right-to-left pages, as the < and >
+   characters they replace did. */
+[dir='rtl'] .lmap-tools .lmap-step svg {
+  transform: scaleX(-1);
 }
 .lmap-tools .lmap-reset {
   font-size: 13px;
@@ -387,9 +395,6 @@ body > .domain-nav {
 }
 /* Map view (dist/map-zoom.js): the map, or the box marked lmap-host around it, fills the window. */
 .lmap-tools .lmap-full-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
 }
 .lmap-full-open,
@@ -450,7 +455,7 @@ body > .domain-nav {
 .lmap-full .lmap-tools .lmap-full-btn {
   padding: 0;
 }
-.lmap-full .lmap-tools .lmap-full-btn svg {
+.lmap-full .lmap-tools button svg {
   width: calc(16 * var(--lmap-tool-px));
   height: calc(16 * var(--lmap-tool-px));
 }
