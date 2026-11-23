@@ -333,6 +333,12 @@ text:
     members_of: "{name}의 하위"
     medium: "매체: {medium|tr}"
     medium_constructed: "매체: {medium|tr} · 인공"
+  offline:
+    save_the_whole_site_for_offline_use: "오프라인용으로 사이트 전체 저장"
+    this_saves_the_whole_site: "사이트 전체(약 {count} MB)를 이 기기에 저장합니다. 계속하시겠습니까?"
+    saving_files: "저장 중… {count} / {count2}개 파일"
+    saved_the_site_now_opens_offline: "저장했습니다. 이제 오프라인에서도 열 수 있습니다."
+    could_not_save_please_try_again: "저장하지 못했습니다. 다시 시도해 주세요."
   wals_areas:
     phonology: "음운론"
     morphology: "형태론"

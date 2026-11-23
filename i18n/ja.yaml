@@ -332,6 +332,12 @@ text:
     members_of: "{name} の下位"
     medium: "媒体: {medium|tr}"
     medium_constructed: "媒体: {medium|tr} · 人工"
+  offline:
+    save_the_whole_site_for_offline_use: "オフライン用にサイト全体を保存"
+    this_saves_the_whole_site: "サイト全体(約 {count} MB)をこの端末に保存します。よろしいですか?"
+    saving_files: "保存中… {count} / {count2} ファイル"
+    saved_the_site_now_opens_offline: "保存しました。オフラインでも開けます。"
+    could_not_save_please_try_again: "保存できませんでした。もう一度お試しください。"
   wals_areas:
     phonology: "音韻論"
     morphology: "形態論"

@@ -333,6 +333,12 @@ text:
     members_of: "{name} 的下位"
     medium: "媒介：{medium|tr}"
     medium_constructed: "媒介：{medium|tr} · 人造"
+  offline:
+    save_the_whole_site_for_offline_use: "保存整个网站以供离线使用"
+    this_saves_the_whole_site: "将把整个网站（约 {count} MB）保存到此设备。是否继续？"
+    saving_files: "正在保存… {count} / {count2} 个文件"
+    saved_the_site_now_opens_offline: "已保存。现在可以离线打开本网站。"
+    could_not_save_please_try_again: "保存失败。请重试。"
   wals_areas:
     phonology: "音系学"
     morphology: "形态学"

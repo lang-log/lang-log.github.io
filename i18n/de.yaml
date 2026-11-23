@@ -333,6 +333,12 @@ text:
     members_of: "Mitglieder von {name}"
     medium: "Modalität: {medium|tr}"
     medium_constructed: "Modalität: {medium|tr} · konstruiert"
+  offline:
+    save_the_whole_site_for_offline_use: "Gesamte Website für die Offline-Nutzung speichern"
+    this_saves_the_whole_site: "Dadurch wird die gesamte Website (etwa {count} MB) auf diesem Gerät gespeichert. Fortfahren?"
+    saving_files: "Wird gespeichert… {count} / {count2} Dateien"
+    saved_the_site_now_opens_offline: "Gespeichert. Die Website lässt sich jetzt offline öffnen."
+    could_not_save_please_try_again: "Speichern fehlgeschlagen. Bitte versuchen Sie es erneut."
   wals_areas:
     phonology: "Phonologie"
     morphology: "Morphologie"

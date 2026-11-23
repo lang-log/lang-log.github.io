@@ -333,6 +333,12 @@ text:
     members_of: "Leden van {name}"
     medium: "Modaliteit: {medium|tr}"
     medium_constructed: "Modaliteit: {medium|tr} · kunstmatig"
+  offline:
+    save_the_whole_site_for_offline_use: "Hele site opslaan voor offline gebruik"
+    this_saves_the_whole_site: "De hele site (ongeveer {count} MB) wordt op dit apparaat opgeslagen. Doorgaan?"
+    saving_files: "Opslaan… {count} / {count2} bestanden"
+    saved_the_site_now_opens_offline: "Opgeslagen. De site opent nu ook offline."
+    could_not_save_please_try_again: "Opslaan mislukt. Probeer het opnieuw."
   wals_areas:
     phonology: "Fonologie"
     morphology: "Morfologie"

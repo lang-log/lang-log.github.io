@@ -333,6 +333,12 @@ text:
     members_of: "أعضاء {name}"
     medium: "الوسيط: {medium|tr}"
     medium_constructed: "الوسيط: {medium|tr} · مصطنعة"
+  offline:
+    save_the_whole_site_for_offline_use: "حفظ الموقع كاملًا للاستخدام دون اتصال"
+    this_saves_the_whole_site: "سيُحفظ الموقع كاملًا (نحو {count} ميغابايت) على هذا الجهاز. هل تريد المتابعة؟"
+    saving_files: "جارٍ الحفظ… {count} / {count2} ملف"
+    saved_the_site_now_opens_offline: "تم الحفظ. يمكن الآن فتح الموقع دون اتصال."
+    could_not_save_please_try_again: "تعذّر الحفظ. يُرجى المحاولة مرة أخرى."
   wals_areas:
     phonology: "علم الأصوات الوظيفي"
     morphology: "علم الصرف"

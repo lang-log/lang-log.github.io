@@ -4,10 +4,11 @@
 // The worker's address comes from this script's own address, so it is the sw.js at the root
 // of the site the page belongs to: the live site, or a pull request preview under
 // /preview/pr-<number>/. Its scope is that folder.
-// It also gives window.LangLogOffline, which the "save the whole site" button uses:
+// It also gives window.LangLogOffline, which the "save the whole site" button below uses:
 // - status() resolves to true when the whole site is stored.
-// - save(progress) stores every file in offline-files.json (tools/pwa.py), BATCH_FILES at a
-//   time, and calls progress(bytesDone, bytesTotal) after each batch. Files with the same
+// - size() resolves to the size in bytes of every file in offline-files.json (tools/pwa.py).
+// - save(progress) stores every file in that list, BATCH_FILES at a
+//   time, and calls progress(filesDone, filesTotal) after each batch. Files with the same
 //   hash as in the last finished save are skipped, and the worker skips any it holds with
 //   the same hash, so after a failure or a new release a second call fetches only what is
 //   missing or changed.
@@ -33,14 +34,32 @@
     });
   }
 
+  // The text of offline-files.json, fetched once per page: size() and save() both read it.
+  var listText = null;
+  function list() {
+    if (!listText)
+      listText = fetch(fileList, { cache: 'no-cache' }).then(function (response) {
+        if (!response.ok) throw new Error(fileList + ': HTTP ' + response.status);
+        return response.text();
+      });
+    listText.catch(function () {
+      listText = null; // a failed fetch is tried again on the next call
+    });
+    return listText;
+  }
+
+  function size() {
+    return list().then(function (text) {
+      return JSON.parse(text).files.reduce(function (sum, file) {
+        return sum + file[1];
+      }, 0);
+    });
+  }
+
   function save(progress) {
     // Ask the browser to keep the copy instead of clearing it when space runs low.
     if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
-    return fetch(fileList, { cache: 'no-cache' })
-      .then(function (response) {
-        if (!response.ok) throw new Error(fileList + ': HTTP ' + response.status);
-        return response.text();
-      })
+    return list()
       .then(function (text) {
         return ask({ previous: true }).then(function (previous) {
           return [text, previous];
@@ -56,21 +75,16 @@
             had[file[0]] = file[2];
           });
         }
-        var total = 0;
-        var done = 0;
+        var total = files.length;
         files = files.filter(function (file) {
-          total += file[1];
-          if (had[file[0]] !== file[2]) return true;
-          done += file[1];
-          return false;
+          return had[file[0]] !== file[2];
         });
+        var done = total - files.length;
         function next(start) {
           if (start >= files.length) return ask({ finish: text });
           var batch = files.slice(start, start + BATCH_FILES);
           return ask({ save: batch }).then(function () {
-            batch.forEach(function (file) {
-              done += file[1];
-            });
+            done += batch.length;
             progress(done, total);
             return next(start + BATCH_FILES);
           });
@@ -86,8 +100,67 @@
         return answer.saved;
       });
     },
+    size: size,
     save: save,
   };
+
+  // The "save the whole site" button (owner, 2026-11-23), at the end of the page's footer, or
+  // in a footer of its own on pages without one. Its words are English; dist/lang.js
+  // translates them like the rest of the page, and LANGLOG_TEXT the confirm() question.
+  var BYTES_PER_MB = 1000 * 1000;
+  function text(english) {
+    return window.LANGLOG_TEXT ? window.LANGLOG_TEXT(english) : english;
+  }
+  function addButton() {
+    var footers = document.querySelectorAll('body > footer');
+    var footer = footers[footers.length - 1];
+    if (!footer) {
+      footer = document.createElement('footer');
+      document.body.appendChild(footer);
+    }
+    var box = document.createElement('span');
+    box.className = 'offline-save';
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = 'Save the whole site for offline use';
+    var status = document.createElement('span');
+    status.setAttribute('role', 'status');
+    box.appendChild(button);
+    box.appendChild(status);
+    footer.appendChild(box);
+
+    function failed() {
+      status.textContent = 'Could not save. Please try again.';
+      button.disabled = false;
+    }
+    button.addEventListener('click', function () {
+      button.disabled = true;
+      size()
+        .then(function (bytes) {
+          var mb = Math.round(bytes / BYTES_PER_MB).toLocaleString('en-US');
+          var question =
+            'This saves the whole site (about ' + mb + ' MB) on this device. Continue?';
+          if (!window.confirm(text(question))) {
+            button.disabled = false;
+            return;
+          }
+          return save(function (done, total) {
+            status.textContent =
+              'Saving… ' +
+              done.toLocaleString('en-US') +
+              ' / ' +
+              total.toLocaleString('en-US') +
+              ' files';
+          }).then(function () {
+            status.textContent = 'Saved. The site now opens offline.';
+            button.disabled = false;
+          });
+        })
+        .catch(failed);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addButton);
+  else addButton();
 
   window.addEventListener('load', function () {
     // updateViaCache "none": always ask the server for a new sw.js, past the ten-minute

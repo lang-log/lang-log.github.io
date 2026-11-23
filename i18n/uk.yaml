@@ -333,6 +333,12 @@ text:
     members_of: "Члени {name}"
     medium: "Модальність: {medium|tr}"
     medium_constructed: "Модальність: {medium|tr} · штучна"
+  offline:
+    save_the_whole_site_for_offline_use: "Зберегти весь сайт для роботи офлайн"
+    this_saves_the_whole_site: "Весь сайт (близько {count} МБ) буде збережено на цьому пристрої. Продовжити?"
+    saving_files: "Збереження… {count} / {count2} файлів"
+    saved_the_site_now_opens_offline: "Збережено. Тепер сайт відкривається без інтернету."
+    could_not_save_please_try_again: "Не вдалося зберегти. Спробуйте ще раз."
   wals_areas:
     phonology: "Фонологія"
     morphology: "Морфологія"
