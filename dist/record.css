@@ -202,6 +202,15 @@
   fill: var(--c-8fa29c);
   stroke-width: 1.5px;
 }
+/* The point whose box is open (dist/map-zoom.js, PICK_SHARE also draws it larger): a thick ring
+   in the text colour, which stands out from every point colour and from land and sea in both
+   themes. */
+.lmap circle.lmap-picked,
+.lmap .lmap-ctx rect.lmap-picked {
+  stroke: var(--ink);
+  stroke-width: 2.5px;
+  fill-opacity: 1;
+}
 /* Every point of a record's map is drawn alike (tools/build_paths.py, map_html): a size or
    colour for the record's own point would set families and languages apart, since Glottolog's
    point for a family is computed from its members (.claude/rules/interface-text.md). The
