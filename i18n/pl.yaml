@@ -333,6 +333,12 @@ text:
     members_of: "Członkowie {name}"
     medium: "Modalność: {medium|tr}"
     medium_constructed: "Modalność: {medium|tr} · sztuczny"
+  offline:
+    save_the_whole_site_for_offline_use: "Zapisz całą witrynę do użytku offline"
+    this_saves_the_whole_site: "Cała witryna (około {count} MB) zostanie zapisana na tym urządzeniu. Kontynuować?"
+    saving_files: "Zapisywanie… {count} / {count2} plików"
+    saved_the_site_now_opens_offline: "Zapisano. Witryna otwiera się teraz offline."
+    could_not_save_please_try_again: "Nie udało się zapisać. Spróbuj ponownie."
   wals_areas:
     phonology: "Fonologia"
     morphology: "Morfologia"

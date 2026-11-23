@@ -4,14 +4,15 @@ Every piece of interface on Lang Log, by name, with the markup that marks it, th
 
 ## On every page
 
-| Name          | Markup                                                         | Built by                                              | Styled in        |
-| ------------- | -------------------------------------------------------------- | ----------------------------------------------------- | ---------------- |
-| Header        | `<header>` with `.brand` on the left and `.tools` on the right | page generators, `tools/site_brand.py`                | `dist/style.css` |
-| Logo          | `svg.logo` using `logo.svg#logo`                               | `tools/build_logo.py` (`.claude/rules/logo.md`)       | `dist/style.css` |
-| Profile link  | `.by` (`by yoshi`, `yoshi` links to the profile site)          | `by_yoshi()` in `tools/site_brand.py`, `dist/lang.js` | `dist/style.css` |
-| Theme toggle  | button in `header .tools`                                      | `dist/theme.js`                                       | `dist/style.css` |
-| Language menu | menu in `header .tools`                                        | `dist/lang.js`                                        | `dist/style.css` |
-| Footer        | `<footer>` with the copyright line                             | `COPYRIGHT` in `tools/site_brand.py`                  | `dist/style.css` |
+| Name          | Markup                                                                | Built by                                              | Styled in        |
+| ------------- | --------------------------------------------------------------------- | ----------------------------------------------------- | ---------------- |
+| Header        | `<header>` with `.brand` on the left and `.tools` on the right        | page generators, `tools/site_brand.py`                | `dist/style.css` |
+| Logo          | `svg.logo` using `logo.svg#logo`                                      | `tools/build_logo.py` (`.claude/rules/logo.md`)       | `dist/style.css` |
+| Profile link  | `.by` (`by yoshi`, `yoshi` links to the profile site)                 | `by_yoshi()` in `tools/site_brand.py`, `dist/lang.js` | `dist/style.css` |
+| Theme toggle  | button in `header .tools`                                             | `dist/theme.js`                                       | `dist/style.css` |
+| Language menu | menu in `header .tools`                                               | `dist/lang.js`                                        | `dist/style.css` |
+| Footer        | `<footer>` with the copyright line                                    | `COPYRIGHT` in `tools/site_brand.py`                  | `dist/style.css` |
+| Offline save  | `.offline-save` (button and `role="status"`) at the end of the footer | `dist/pwa.js`                                         | `dist/style.css` |
 
 ## Top page (`/`)
 

@@ -333,6 +333,12 @@ text:
     members_of: "{name} के सदस्य"
     medium: "माध्यम: {medium|tr}"
     medium_constructed: "माध्यम: {medium|tr} · कृत्रिम"
+  offline:
+    save_the_whole_site_for_offline_use: "ऑफ़लाइन उपयोग के लिए पूरी साइट सहेजें"
+    this_saves_the_whole_site: "इससे पूरी साइट (लगभग {count} MB) इस डिवाइस पर सहेजी जाएगी। जारी रखें?"
+    saving_files: "सहेजा जा रहा है… {count} / {count2} फ़ाइलें"
+    saved_the_site_now_opens_offline: "सहेज ली गई। अब साइट ऑफ़लाइन भी खुलेगी।"
+    could_not_save_please_try_again: "सहेजा नहीं जा सका। कृपया फिर से प्रयास करें।"
   wals_areas:
     phonology: "स्वनिमविज्ञान"
     morphology: "रूपविज्ञान"

@@ -333,6 +333,12 @@ text:
     members_of: "Các thành viên của {name}"
     medium: "Phương thức: {medium|tr}"
     medium_constructed: "Phương thức: {medium|tr} · nhân tạo"
+  offline:
+    save_the_whole_site_for_offline_use: "Lưu toàn bộ trang để dùng ngoại tuyến"
+    this_saves_the_whole_site: "Toàn bộ trang (khoảng {count} MB) sẽ được lưu vào thiết bị này. Tiếp tục?"
+    saving_files: "Đang lưu… {count} / {count2} tệp"
+    saved_the_site_now_opens_offline: "Đã lưu. Giờ đây có thể mở trang khi ngoại tuyến."
+    could_not_save_please_try_again: "Không lưu được. Vui lòng thử lại."
   wals_areas:
     phonology: "Âm vị học"
     morphology: "Hình thái học"
