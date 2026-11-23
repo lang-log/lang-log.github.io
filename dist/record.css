@@ -501,7 +501,6 @@ body > .domain-nav {
   background: var(--c-ffffff);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 2px 8px var(--c-24302e1f);
   color: var(--ink);
 }
 /* The records of a tapped point, each linked to its page. */
@@ -517,7 +516,6 @@ body > .domain-nav {
   background: var(--c-ffffff);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 4px 18px var(--c-24302e1f);
   font-size: 14px;
   line-height: 1.5;
 }

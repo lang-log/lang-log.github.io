@@ -1979,7 +1979,6 @@ body .domain-nav a:last-child {
   background: var(--c-fafbf6);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   padding: 6px;
   min-width: 190px;
   display: flex;
@@ -2232,7 +2231,6 @@ body .domain-nav a:last-child {
   border: 1px solid var(--c-cdd6ce);
   border-radius: 999px;
   overflow: hidden;
-  box-shadow: 0 1px 6px var(--c-24302e1f);
 }
 .search-pill:focus-within {
   border-color: var(--teal);
@@ -2450,7 +2448,6 @@ header details.langmenu > summary::after {
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   padding: 6px;
 }
 .langmenu ul {
