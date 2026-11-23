@@ -431,11 +431,12 @@ body > .domain-nav {
    zooming out makes it wider, so with a mouse they follow a scale that dist/map-zoom.js
    (screenScale()) works out as the window's longer side divided by --lmap-screen-base: 1 when
    that side is 1280 CSS pixels (a 1920 px screen at 150%), more when it is wider, less when it
-   is narrower. Above 1 (--lmap-screen-grow) the buttons and the key are enlarged with zoom,
-   which multiplies their lengths before the browser rounds borders to whole pixels; below 1
-   (--lmap-screen-shrink) they are shrunk with transform, because lengths under a pixel would
-   meet the browser's smallest font size and whole-pixel borders and grow again. The lines
-   are multiplied by both. The map's own zoom never touches them (the buttons and
+   is narrower. Above 1 (--lmap-screen-grow) the boxes' lengths are multiplied and what is
+   inside them (icons, the key's entries) is enlarged with zoom; borders are never zoomed,
+   because WebKit rounds a border to whole device pixels before zooming it. Below 1
+   (--lmap-screen-shrink) the boxes are shrunk with transform, because lengths under a pixel
+   would meet the browser's smallest font size and whole-pixel borders and grow again. The
+   lines are multiplied by both. The map's own zoom never touches them (the buttons and
    the key sit outside the svg; the lines keep their width with vector-effect). Touch screens
    have no --lmap-screen-base, so the scale is 1 and the buttons stay 44 px for a finger; pinch
    zoom there does not change the layout. */
@@ -445,19 +446,24 @@ body > .domain-nav {
   }
 }
 .lmap-full .lmap-tools {
-  top: calc(12px * var(--lmap-screen-shrink));
-  right: calc(12px * var(--lmap-screen-shrink));
-  gap: 6px;
-  zoom: var(--lmap-screen-grow);
+  top: calc(12px * var(--lmap-screen-grow) * var(--lmap-screen-shrink));
+  right: calc(12px * var(--lmap-screen-grow) * var(--lmap-screen-shrink));
+  gap: calc(6px * var(--lmap-screen-grow));
   transform: scale(var(--lmap-screen-shrink));
   transform-origin: top right;
 }
 .lmap-full .lmap-tools button {
-  min-width: 44px;
-  height: 44px;
+  min-width: calc(44px * var(--lmap-screen-grow));
+  height: calc(44px * var(--lmap-screen-grow));
+  padding: 0 calc(8px * var(--lmap-screen-grow));
+  border-width: calc(1px * var(--lmap-screen-grow));
+  border-radius: calc(5px * var(--lmap-screen-grow));
 }
 .lmap-full .lmap-tools .lmap-full-btn {
   padding: 0;
+}
+.lmap-full .lmap-tools button svg {
+  zoom: var(--lmap-screen-grow);
 }
 /* The lines of the map in the map view: borders and the locator's frames. */
 .lmap-full .lmap-border,
@@ -538,25 +544,28 @@ body > .domain-nav {
 }
 .lmap-full .lmap-key {
   position: absolute;
-  bottom: calc(12px * var(--lmap-screen-shrink));
-  inset-inline-start: calc(12px * var(--lmap-screen-shrink));
+  bottom: calc(12px * var(--lmap-screen-grow) * var(--lmap-screen-shrink));
+  inset-inline-start: calc(12px * var(--lmap-screen-grow) * var(--lmap-screen-shrink));
   /* Leaves the bottom right to the locator (.lmap-inset, 22% of the map's width), measured
      before the transform below. */
   max-width: calc(70% / var(--lmap-screen-shrink));
   margin: 0;
-  padding: 8px 12px;
+  padding: calc(8px * var(--lmap-screen-grow)) calc(12px * var(--lmap-screen-grow));
   flex-direction: column;
+  gap: calc(4px * var(--lmap-screen-grow)) calc(16px * var(--lmap-screen-grow));
   background: var(--c-ffffff);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  border: calc(1px * var(--lmap-screen-grow)) solid var(--line);
+  border-radius: calc(6px * var(--lmap-screen-grow));
   color: var(--ink);
   /* Keeps its size on the screen like the buttons (--lmap-screen-base above). */
-  zoom: var(--lmap-screen-grow);
   transform: scale(var(--lmap-screen-shrink));
   transform-origin: bottom left;
 }
 [dir='rtl'] .lmap-full .lmap-key {
   transform-origin: bottom right;
+}
+.lmap-full .lmap-key > li {
+  zoom: var(--lmap-screen-grow);
 }
 /* The records of a tapped point, each linked to its page. */
 .lmap-pop {
