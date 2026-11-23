@@ -5,7 +5,7 @@ Lang Log is to be a PWA (the owner's decision, 2026-11-08; CLAUDE.md). Two parts
 - dist/manifest.webmanifest, written here at build time (not committed) from the
   site name in tools/site_brand.py and the icons already in dist/. Its addresses are
   relative to the manifest, so the same file works on the live site and in a pull
-  request preview under /preview/pr-<number>/.
+  request preview.
 - dist/sw.js, the service worker, registered by dist/pwa.js. It keeps the pages and
   files a visitor has opened, so they open again offline (.claude/rules/pwa.md).
 
@@ -21,7 +21,9 @@ hand-written pages in dist/*.html carry the same text.
 Usage (tools/build_site.sh, .github/workflows/site.yml):
   python3 tools/pwa.py           write dist/manifest.webmanifest
   python3 tools/pwa.py --files DIR
-                                 write DIR/offline-files.json for the site in DIR
+                                 write DIR/offline-files.json for the site in DIR, and
+                                 DIR/offline-version.txt, the list's own hash, which
+                                 pages read to tell whether a stored copy is current
   python3 tools/pwa.py --check   fail if a page in dist/ lacks the tags, or the
                                  manifest or the service worker is missing
 """
@@ -41,12 +43,13 @@ MANIFEST = DIST / "manifest.webmanifest"
 REGISTER_SCRIPT = "pwa.js"
 SERVICE_WORKER = DIST / "sw.js"
 FILE_LIST = "offline-files.json"
+LIST_VERSION = "offline-version.txt"
 # Characters of the SHA-256 hex digest kept per file: enough to tell versions of one file
 # apart, as in tools/version_assets.py.
 HASH_CHARS = 10
 # Files never stored by the "save the whole site" button: the list itself, and the service
 # worker, which the browser fetches on its own.
-NOT_STORED = {FILE_LIST, SERVICE_WORKER.name}
+NOT_STORED = {FILE_LIST, LIST_VERSION, SERVICE_WORKER.name}
 # The icons are the favicon (the asterisk, .claude/rules/logo.md): the SVG for any size,
 # and the PNG that iOS uses for the home screen.
 ICON_SVG = "favicon.svg"
@@ -145,9 +148,10 @@ def main(argv):
     if len(argv) == 3 and argv[1] == "--files":
         site = Path(argv[2])
         files = file_list(site)
-        (site / FILE_LIST).write_text(
-            json.dumps({"files": files}, separators=(",", ":")), encoding="utf-8"
-        )
+        text = json.dumps({"files": files}, separators=(",", ":"))
+        (site / FILE_LIST).write_text(text, encoding="utf-8")
+        version = hashlib.sha256(text.encode("utf-8")).hexdigest()[:HASH_CHARS]
+        (site / LIST_VERSION).write_text(version, encoding="utf-8")
         print(f"{FILE_LIST}: {len(files)} files, {sum(f[1] for f in files)} bytes")
         return 0
     if argv[1:]:

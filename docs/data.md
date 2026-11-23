@@ -18,7 +18,7 @@ Lang Log keeps its own data in one shape for every record, whatever source it co
 ## What each page generator reads
 
 - `tools/build_paths.py` (record pages) reads `dist/data.json` and `dist/integrated.json`, Glottolog's `source-data/languages.csv` for the map points, and Lang Log's own `source-data/lang-log/classification.json`.
-- `tools/build_wals_map.py` (the top page's map and its conditions, `dist/data/features/`) reads WALS's `source-data/wals/` and `source-data/wals.csv`, Glottolog's `source-data/languages.csv`, `dist/data.json` and `dist/integrated.json`. `tools/build_home.py` uses it for the top page, and also reads `source-data/sources-and-scope.html`.
+- `tools/build_wals_map.py` (the top page's map and its conditions, `dist/data/features/`) reads WALS's `source-data/wals/` and `source-data/wals.csv`, Glottolog's `source-data/languages.csv`, `dist/data.json` and `dist/integrated.json`. Its other conditions come from `tools/condition_features.py`, which also reads `source-data/lang-log/classification.json` and the sign language groups in `source-data/signs-and-scripts/power-languages.csv`. `tools/build_home.py` uses it for the top page, and also reads `source-data/sources-and-scope.html`.
 - Lang Log's own data (`languoid.json`, `dist/features/`) is written for download; no page generator reads it yet.
 
 ## Rebuild

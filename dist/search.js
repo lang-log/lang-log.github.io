@@ -17,8 +17,7 @@
 // Languages come before families and dialects (the order only; no record is
 // labelled by its kind, .claude/rules/interface-text.md).
 (() => {
-  // The page is at the site root, so every address here is relative to it (the live site
-  // and a pull request preview under /preview/pr-<n>/ alike).
+  // The page is at the site root, so every address here is relative to it.
   const PARAM = 'q';
   const termsNow = () => (new URLSearchParams(location.search).get(PARAM) || '').trim();
   const urlOf = (q) => '?' + new URLSearchParams({ [PARAM]: q });

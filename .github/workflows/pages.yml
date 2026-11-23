@@ -1,8 +1,7 @@
 # Publish the site with GitHub Pages at https://lang-log.com/ (the organization site of
-# lang-log), plus a preview of every open pull request at /preview/pr-<number>/ with a link
-# comment on the pull request. The shared workflow in nguekwang/research-aide does the work
-# (rule: research-aide .claude/rules/pr-previews.md); site.yml builds and checks pull requests.
-# All paths in dist/ are relative, so the site files work at any prefix.
+# lang-log). The shared workflow in nguekwang/research-aide does the work (rule: research-aide
+# .claude/rules/pr-previews.md). Pull request previews are on Cloudflare Pages (previews.yml),
+# not here.
 # It also runs when release.yml has created a release, so the Releases page (dist/releases.html)
 # shows it (.claude/rules/releases.md).
 #
@@ -13,27 +12,25 @@ on:
   push:
     branches: [main]
   workflow_run:
-    workflows: [site, release]
+    workflows: [release]
     types: [completed]
-  pull_request_target:
-    types: [closed]
   workflow_dispatch:
 permissions:
   contents: read
-# One deploying run at a time, whatever started it (a push, a pull request preview, a release),
-# and never cancelled while it works. While one runs, GitHub keeps only the newest waiting run in
-# the group; that run reads the releases and the previews when it starts, so it publishes
-# everything the replaced runs would have. Runs that deploy nothing (a site.yml run of a push)
-# get a group of their own, so they never replace a waiting run that deploys.
+# One deploying run at a time, whatever started it (a push, a release), and never cancelled while
+# it works. While one runs, GitHub keeps only the newest waiting run in the group; that run reads
+# the releases when it starts, so it publishes everything the replaced runs would have. Runs that
+# deploy nothing (after a failed release run) get a group of their own, so they never replace a
+# waiting run that deploys.
 # The condition is the one of the "wanted" job below; keep the two equal.
 concurrency:
-  group: ${{ (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.event == 'pull_request' || github.event.workflow_run.name == 'release'))) && 'pages' || format('pages-idle-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') && 'pages' || format('pages-idle-{0}', github.run_id) }}
   cancel-in-progress: false
 jobs:
-  # Whether this run deploys: every trigger except a workflow_run of a site.yml run that was not a
-  # pull request, or of a run that failed. The other jobs need it, so they are skipped with it.
+  # Whether this run deploys: every trigger except a release run that failed. The other jobs need
+  # it, so they are skipped with it.
   wanted:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && (github.event.workflow_run.event == 'pull_request' || github.event.workflow_run.name == 'release'))
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     permissions: {}
     steps:
@@ -75,7 +72,6 @@ jobs:
     permissions:
       contents: read
       actions: read
-      pull-requests: write
       pages: write
       id-token: write
     uses: nguekwang/research-aide/.github/workflows/pages-with-previews.yml@main
@@ -87,10 +83,5 @@ jobs:
       # Downloaded into build/ before the build (research-aide pages-with-previews.yml).
       artifact: github-releases
       artifact-path: build
-      preview-workflow: site.yml
-      links: |
-        Top page|
-        Language families|#families
-        Signs and scripts|signs-and-scripts.html
-        A record page|afro-asiatic/berber/
-        Releases|releases.html
+      # Previews are on Cloudflare Pages (previews.yml).
+      previews: false

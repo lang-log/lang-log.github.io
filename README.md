@@ -1,8 +1,9 @@
 # Lang Log
 
 [![site](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml/badge.svg?branch=main&event=push)](https://github.com/lang-log/lang-log.github.io/actions/workflows/site.yml?query=branch%3Amain)
-[![pages](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/lang-log/lang-log.github.io/actions/workflows/pages.yml)
+[![pages](https://img.shields.io/github/deployments/lang-log/lang-log.github.io/github-pages?label=pages)](https://github.com/lang-log/lang-log.github.io/deployments/github-pages)
 [![License: all rights reserved](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/lang-log/lang-log.github.io)](https://github.com/lang-log/lang-log.github.io/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/lang-log/lang-log.github.io/main)](https://github.com/lang-log/lang-log.github.io/commits/main)
 
 An interactive atlas of language families, sign languages and writing systems, with source-linked classifications, alternative hypotheses and exportable data.
@@ -75,7 +76,11 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.com/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`) and adds a preview of every open pull request at `/preview/pr-<number>/`. It runs on every push to `main`, after every passing `site.yml` run of a pull request, after every release (see Releases), when a pull request is closed (which drops its preview), and by hand. `site.yml` builds and checks each pull request and uploads its preview. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions, and Custom domain: `lang-log.com` with Enforce HTTPS (`SITE_URL` in `tools/site_brand.py` must match it); GitHub then redirects `lang-log.github.io` to it. All paths in `dist/` are relative, so the site works at any prefix. No secrets are required: the workflows use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
+The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.com/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`). It runs on every push to `main`, after every release (see Releases), and by hand. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions, and Custom domain: `lang-log.com` with Enforce HTTPS (`SITE_URL` in `tools/site_brand.py` must match it); GitHub then redirects `lang-log.github.io` to it.
+
+## Pull request previews
+
+`site.yml` builds and checks each pull request and uploads its preview; `.github/workflows/previews.yml` (shared workflow `cloudflare-previews.yml` of `nguekwang/research-aide`) publishes it on Cloudflare Pages at `https://pr-<number>.lang-log-preview.pages.dev/`, links it on the pull request, and deletes it when the pull request is closed. One-time setup: a Cloudflare Pages project `lang-log-preview` made with Direct Upload, and the repository secrets `CLOUDFLARE_API_TOKEN` (a token with only "Account / Cloudflare Pages / Edit") and `CLOUDFLARE_ACCOUNT_ID`. The other workflows need no secrets: they use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
 ## Releases
 
