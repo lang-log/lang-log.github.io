@@ -25,6 +25,7 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 ## Look
 
 - No shadows (the owner's rule, 2026-11-23): no `box-shadow`, `text-shadow` or `filter: drop-shadow()` on any page, component, popup or map, in either theme.
+- No Download button with the word on it (the owner's rule, 2026-11-23): every Download button and menu shows the map's download symbol (`ICON_DOWNLOAD` in `dist/map-zoom.js`, written into pages by `download_icon()` in `tools/build_paths.py`), with `Download` only as its `aria-label` and `title`.
 
 ## Behaviour
 

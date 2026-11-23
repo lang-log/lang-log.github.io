@@ -2080,9 +2080,6 @@ body .domain-nav a:last-child {
     display: inline-flex;
     align-items: center;
   }
-  .toolbar .downloads {
-    margin-inline-start: 0;
-  }
   .menu-panel {
     inset-inline-end: auto;
     inset-inline-start: 0;
@@ -2565,8 +2562,7 @@ header .tools > button {
   overflow: hidden;
 }
 /* The top page's Download menu, alone (atlas_html() in tools/build_paths.py): no box, so the
-   open menu is not cut off, and the map's download symbol as its button (.lmap-tools in
-   record.css), at the end of the line. */
+   open menu is not cut off, at the end of the line. */
 .atlas-whole {
   border: 0;
   background: none;
@@ -2577,11 +2573,10 @@ header .tools > button {
   padding: 0;
   border-bottom: 0;
 }
-.atlas-whole .menu-panel {
-  inset-inline-start: auto;
-  inset-inline-end: 0;
-}
-.atlas-whole .downloads summary {
+/* The Download menu's button: the map's download symbol (download_icon() in
+   tools/build_paths.py, the look of .lmap-tools buttons in record.css), never the word
+   (the owner's rule, 2026-11-23); 44 px on phones, for a finger. */
+.toolbar .downloads summary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2592,16 +2587,28 @@ header .tools > button {
   background: var(--c-ffffff);
   color: var(--ink);
 }
-.atlas-whole .downloads summary::after {
+.toolbar .downloads summary::after {
   content: none;
 }
 @media (hover: hover) {
-  .atlas-whole .downloads summary:hover {
+  .toolbar .downloads summary:hover {
     background: var(--c-e3e9df);
   }
 }
-.atlas-whole .downloads[open] summary {
+.toolbar .downloads[open] summary {
   background: var(--c-e3e9df);
+}
+/* The menu opens from the button's end, which is the end of the line, so it stays inside the
+   page and the toolbar's box on phones too. */
+.toolbar .downloads .menu-panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+@media (max-width: 700px) {
+  .toolbar .downloads summary {
+    min-width: 44px;
+    height: 44px;
+  }
 }
 .atlas-embed #outline {
   flex: none;
