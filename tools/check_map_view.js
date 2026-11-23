@@ -8,7 +8,7 @@
 // The browser's zoom is played by the window's size and its device pixel ratio: at zoom z
 // on a screen of SCREEN pixels the page is SCREEN / z CSS pixels wide with z device pixels
 // per CSS pixel. Sizes on the screen are measured in device pixels.
-/* global window, document, getComputedStyle -- measure() runs in the page, not in Node.js */
+/* global window, document, getComputedStyle, requestAnimationFrame -- measure() runs in the page, not in Node.js */
 const http = require('http'),
   fs = require('fs'),
   path = require('path'),
@@ -97,6 +97,51 @@ function measure() {
   };
 }
 
+// A point of the map view that a click reaches (not under the key or the buttons), as
+// [x, y] in CSS pixels, or null.
+function pointOnScreen() {
+  const ps = document.querySelectorAll(
+    '.lmap-full circle[data-g], .lmap-full .lmap-ctx rect[data-g]',
+  );
+  for (const p of ps) {
+    const r = p.getBoundingClientRect(),
+      x = r.left + r.width / 2,
+      y = r.top + r.height / 2;
+    if (x > 0 && y > 0 && x < window.innerWidth && y < window.innerHeight)
+      if (document.elementFromPoint(x, y) === p) return [x, y];
+  }
+  return null;
+}
+// The picked point (the one whose box is open) against the other points of its kind: how
+// many times wider it is on screen, and how many times thicker its outline.
+function picked() {
+  const p = document.querySelector('.lmap-full .lmap-picked');
+  if (!p) return null;
+  const other = Array.prototype.find.call(
+    p.parentNode.children,
+    (c) => c !== p && c.tagName === p.tagName,
+  );
+  if (!other) return null;
+  const w = (e) => e.getBoundingClientRect().width,
+    sw = (e) => parseFloat(getComputedStyle(e).strokeWidth);
+  return { size: w(p) / w(other), ring: sw(p) / sw(other) };
+}
+async function pick(tab) {
+  const at = await tab.evaluate(pointOnScreen);
+  if (!at) return null;
+  await tab.mouse.click(at[0], at[1]);
+  // The point is marked at once and drawn larger on the next frame; wait for both.
+  await tab
+    .waitForFunction(() => document.querySelector('.lmap-full .lmap-picked'), null, {
+      timeout: 5000,
+    })
+    .catch(() => null);
+  await tab.evaluate(
+    () => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))),
+  );
+  return tab.evaluate(picked);
+}
+
 const failures = [];
 function near(what, got, want, slack = 0) {
   if (!(Math.abs(got - want) <= Math.max(want * TOLERANCE, slack)))
@@ -147,7 +192,9 @@ let base = '';
         const at = `${name} ${page.path} ${variant.locale} ${variant.colorScheme}`;
         let { ctx, tab } = await open(browser, page, variant, HOME_ZOOM);
         const ref = await tab.evaluate(measure);
+        const refPick = await pick(tab);
         await ctx.close();
+        if (!refPick) failures.push(`${at}: no point could be picked at ${HOME_ZOOM * 100}%`);
         if (!ref || (page.key && !ref.key)) {
           failures.push(`${at}: no map view or key at ${HOME_ZOOM * 100}%`);
           continue;
@@ -156,6 +203,15 @@ let base = '';
         for (const zoom of ZOOMS) {
           ({ ctx, tab } = await open(browser, page, variant, zoom));
           compare(`${at} opened at ${zoom * 100}%`, await tab.evaluate(measure), ref);
+          // The picked point keeps its share of the others' size and outline.
+          const got = await pick(tab);
+          if (refPick && !got) failures.push(`${at} at ${zoom * 100}%: no point could be picked`);
+          else if (refPick)
+            for (const what of ['size', 'ring'])
+              if (Math.abs(got[what] - refPick[what]) > refPick[what] * TOLERANCE)
+                failures.push(
+                  `${at} at ${zoom * 100}%: picked point ${what} ${got[what].toFixed(2)} times the others, ${refPick[what].toFixed(2)} at ${HOME_ZOOM * 100}%`,
+                );
           await ctx.close();
         }
         // One map view through a series of browser zooms, then the map's own zoom in and
@@ -216,5 +272,5 @@ let base = '';
     console.error(failures.join('\n'));
     process.exit(1);
   }
-  console.log('map view: key, buttons and lines keep their size at every zoom');
+  console.log('map view: key, buttons, lines and the picked point keep their size at every zoom');
 })();
