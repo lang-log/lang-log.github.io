@@ -10,8 +10,7 @@
 //   offline-files.json (tools/pwa.py) here in batches; they go into SITE_CACHE, which is
 //   never trimmed, each with its content hash, so a second press skips what is current.
 // - Only requests to this site, inside this worker's scope. Other sites (huggingface.co)
-//   and the pull request previews under the live site (/preview/, written by the shared
-//   workflow in research-aide, pages-with-previews.yml) are left to the browser.
+//   are left to the browser.
 'use strict';
 
 // Change CACHE_VERSION when the way files are stored changes; the old cache is then deleted.
@@ -26,7 +25,6 @@ var FILE_LIST = new URL('offline-files.json', self.registration.scope).href;
 // on a visitor's device (a record page with its data and map is about ten files).
 var MAX_ENTRIES = 1000;
 var SCOPE = new URL(self.registration.scope);
-var PREVIEWS = new URL('preview/', SCOPE).pathname;
 var START = new URL('./', SCOPE).href;
 
 self.addEventListener('install', function (event) {
@@ -66,11 +64,7 @@ self.addEventListener('activate', function (event) {
 function handled(request) {
   if (request.method !== 'GET') return false;
   var url = new URL(request.url);
-  return (
-    url.origin === SCOPE.origin &&
-    url.pathname.indexOf(SCOPE.pathname) === 0 &&
-    url.pathname.indexOf(PREVIEWS) !== 0
-  );
+  return url.origin === SCOPE.origin && url.pathname.indexOf(SCOPE.pathname) === 0;
 }
 
 function trim(cache) {

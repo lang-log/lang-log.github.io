@@ -5,7 +5,7 @@ Lang Log is to be a PWA (the owner's decision, 2026-11-08; CLAUDE.md). Two parts
 - dist/manifest.webmanifest, written here at build time (not committed) from the
   site name in tools/site_brand.py and the icons already in dist/. Its addresses are
   relative to the manifest, so the same file works on the live site and in a pull
-  request preview under /preview/pr-<number>/.
+  request preview.
 - dist/sw.js, the service worker, registered by dist/pwa.js. It keeps the pages and
   files a visitor has opened, so they open again offline (.claude/rules/pwa.md).
 
