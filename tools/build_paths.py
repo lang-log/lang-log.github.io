@@ -417,13 +417,9 @@ def atlas_html(base, root=None, src=None, downloads=""):
         if whole
         else '<div id="outline" role="group" aria-label="Expandable classification outline"></div>'
     )
-    # The top page shows only the Download menu, with no box around it, as the map's
-    # download symbol (the owner's request, 2026-11-23); record pages keep their toolbar.
-    summary = (
-        f'<summary aria-label="Download" title="Download">{download_icon()}</summary>'
-        if whole
-        else "<summary>Download</summary>"
-    )
+    # The Download menu's button is always the map's download symbol, never the word
+    # (the owner's rule, 2026-11-23). The top page shows only this menu, with no box.
+    summary = f'<summary aria-label="Download" title="Download">{download_icon()}</summary>'
     return (
         f'<div id="atlas" class="workspace atlas-embed{" atlas-whole" if whole else ""}"{attrs} hidden>'
         f'<div class="toolbar">{switch}'
