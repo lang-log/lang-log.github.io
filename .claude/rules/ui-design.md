@@ -22,6 +22,10 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 - Design the phone layout (390 px wide) together with the desktop one; the phone rules sit in the `@media (max-width: 700px)` blocks next to the desktop rules they change. Nothing may scroll sideways.
 - Motion goes inside `@media (prefers-reduced-motion: no-preference)`, and hover effects inside `@media (hover: hover)`.
 
+## Look
+
+- No shadows (the owner's rule, 2026-11-23): no `box-shadow`, `text-shadow` or `filter: drop-shadow()` on any page, component, popup or map, in either theme.
+
 ## Behaviour
 
 - Every page is readable without JavaScript. A control that needs a script is in the markup with `hidden` and the script shows it (the Random row, the view switch); content is never only drawn by a script when the generator can write it.

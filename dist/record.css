@@ -131,7 +131,7 @@
   color: var(--c-526762);
 }
 .variant-page footer.credit p {
-  margin: 0;
+  margin: 0 auto;
   max-width: 72ch;
   font-size: 14px;
   line-height: 1.7;
@@ -274,6 +274,9 @@
   gap: 4px;
 }
 .lmap-tools button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 32px;
   height: 32px;
   padding: 0 8px;
@@ -284,15 +287,40 @@
   background: var(--c-ffffff);
   color: var(--ink);
 }
+/* Every button in the bar shows an SVG icon (icon() in dist/map-zoom.js), not text, so it
+   looks and sits the same in every font and browser (the owner's request, 2026-11-23). */
 .lmap-tools button:hover {
   background: var(--c-e3e9df);
 }
+/* Two buttons as one box split by a line, [ - | + ] and [ < | > ] (pair() in dist/map-zoom.js):
+   the halves touch, the first keeps its end border as the line, and only the outer corners are
+   round. Logical sides, so the box mirrors in right-to-left languages like the rest of the bar. */
+.lmap-tools .lmap-pair {
+  display: flex;
+}
+.lmap-tools .lmap-pair button:first-child {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+.lmap-tools .lmap-pair button:last-child {
+  border-inline-start: 0;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+.lmap-tools .lmap-pair button:focus-visible {
+  position: relative;
+}
+/* The previous, next and reset arrows point the other way on right-to-left pages, as the < and >
+   characters they replace did. */
+[dir='rtl'] .lmap-tools .lmap-step svg,
+[dir='rtl'] .lmap-tools .lmap-reset svg {
+  transform: scaleX(-1);
+}
 .lmap-tools .lmap-reset {
-  font-size: 13px;
   display: none;
 }
 .lmap-moved + .lmap-tools .lmap-reset {
-  display: block;
+  display: inline-flex;
 }
 /* Record pages after the merge with the atlas (tools/build_paths.py): classification cards, conflicts,
    debates, the branch tree and the Hugging Face models. */
@@ -360,9 +388,6 @@ body > .domain-nav {
 }
 /* Map view (dist/map-zoom.js): the map, or the box marked lmap-host around it, fills the window. */
 .lmap-tools .lmap-full-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   padding: 0;
 }
 .lmap-full-open,
@@ -391,19 +416,37 @@ body > .domain-nav {
   border: 0;
   border-radius: 0;
 }
+/* The map view's buttons keep their size on the screen when the browser zooms the page, in
+   and out (the owner's requests, 2026-11-22 and 2026-11-23). Zooming in makes the window
+   narrower in CSS pixels and zooming out makes it wider, so with a mouse the buttons are
+   measured in --lmap-tool-px, a share of the window's longer side: one pixel when that side is
+   1280 CSS pixels (a 1920 px screen at 150%), more when it is wider, less when it is narrower.
+   The map's own zoom never touches them (they sit outside the svg). Touch screens keep whole pixels, so the buttons stay
+   44 px for a finger; pinch zoom there does not change the layout. */
 .lmap-full .lmap-tools {
-  top: 12px;
-  right: 12px;
-  gap: 6px;
+  --lmap-tool-px: 1px;
+  top: calc(12 * var(--lmap-tool-px));
+  right: calc(12 * var(--lmap-tool-px));
+  gap: calc(6 * var(--lmap-tool-px));
+}
+@media (pointer: fine) {
+  .lmap-full .lmap-tools {
+    --lmap-tool-px: calc(100vmax / 1280);
+  }
 }
 .lmap-full .lmap-tools button {
-  min-width: 44px;
-  height: 44px;
-  box-shadow: 0 2px 8px var(--c-24302e1f);
+  min-width: calc(44 * var(--lmap-tool-px));
+  height: calc(44 * var(--lmap-tool-px));
+  padding: 0 calc(8 * var(--lmap-tool-px));
+  font-size: calc(16 * var(--lmap-tool-px));
+  border-radius: calc(5 * var(--lmap-tool-px));
 }
-.lmap-full .lmap-tools .lmap-reset {
-  font-size: 14px;
-  padding: 0 12px;
+.lmap-full .lmap-tools .lmap-full-btn {
+  padding: 0;
+}
+.lmap-full .lmap-tools button svg {
+  width: calc(16 * var(--lmap-tool-px));
+  height: calc(16 * var(--lmap-tool-px));
 }
 /* The key of the points (tools/build_paths.py): under the map, and over it in the map view.
    The marks repeat the colours and shapes of .lmap-main and .lmap-ctx above. */
@@ -479,7 +522,6 @@ body > .domain-nav {
   background: var(--c-ffffff);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 2px 8px var(--c-24302e1f);
   color: var(--ink);
 }
 /* The records of a tapped point, each linked to its page. */
@@ -495,7 +537,6 @@ body > .domain-nav {
   background: var(--c-ffffff);
   border: 1px solid var(--line);
   border-radius: 6px;
-  box-shadow: 0 4px 18px var(--c-24302e1f);
   font-size: 14px;
   line-height: 1.5;
 }

@@ -19,5 +19,5 @@ The owner's rule (2026-11-07): Lang Log has its own data, in one shape for every
 - Every value carries its source and version. Keep every source's value as evidence when they disagree; never drop one to resolve a conflict.
 - Features are Lang Log's own, in `source-data/lang-log/features.json`; each source's features are mapped onto them. Values the owner adds go under source `lang-log`, with a reference.
 - One function per source converts it, and it writes only that source's values, so a new release of one source never changes another source's or the owner's values.
-- A new source, field or feature changes the schema, the converter and `README.md` (section "Lang Log data") in the same pull request.
-- Page generators and page scripts read Lang Log's data, not a source's files directly. (Until the record pages are built from it, `tools/build_paths.py` still reads `dist/data.json` and `dist/integrated.json`.)
+- A new source, field or feature changes the schema, the converter and `docs/data.md` (section "Lang Log data") in the same pull request.
+- What each page generator reads, Lang Log's data or a source's files, is listed in `docs/data.md` ("What each page generator reads"). Change that list in the same pull request as the generator.

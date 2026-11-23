@@ -7,6 +7,7 @@ import pathlib
 
 from modality import labels
 from not_languoids import NOT_LANGUOIDS, lift
+from source_versions import GLOTTOLOG, GLOTTOLOG_VERSION
 
 src = pathlib.Path("source-data")
 out = pathlib.Path("dist")
@@ -191,7 +192,7 @@ data = {
     "walsRoots": sorted(wroots, key=lambda x: wn[x]["name"]),
     "stats": stats,
     "retrieved": "2026-10-12",
-    "glottologVersion": "5.3",
+    "glottologVersion": GLOTTOLOG_VERSION,
 }
 (out / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
 print(json.dumps(stats, indent=2))
@@ -202,12 +203,12 @@ provenance = {
     "retrieved": "2026-10-12",
     "sources": [
         {
-            "name": "Glottolog 5.3",
+            "name": GLOTTOLOG,
             "authors": "Hammarström, Harald; Forkel, Robert; Haspelmath, Martin; Bank, Sebastian",
             "year": 2026,
             "doi": "10.5281/zenodo.18840935",
-            "data": "https://github.com/glottolog/glottolog-cldf/tree/v5.3",
-            "classification": "https://github.com/glottolog/glottolog/tree/v5.3",
+            "data": f"https://github.com/glottolog/glottolog-cldf/tree/v{GLOTTOLOG_VERSION}",
+            "classification": f"https://github.com/glottolog/glottolog/tree/v{GLOTTOLOG_VERSION}",
             "license": "CC BY 4.0",
         },
         {
@@ -226,7 +227,7 @@ provenance = {
         }
         for name in ["classification.nex", "languages.csv", "dialects.md", "wals.csv"]
     },
-    "method": "Complete Glottolog languoid CSV; direct-parent edges from Glottolog v5.3 NEXUS plus all 27 dialect indexes. Separate WALS hierarchy. Exact Glottocode links only. No synthetic genealogical edges.",
+    "method": f"Complete Glottolog languoid CSV; direct-parent edges from Glottolog v{GLOTTOLOG_VERSION} NEXUS plus all 27 dialect indexes. Separate WALS hierarchy. Exact Glottocode links only. No synthetic genealogical edges.",
     # tools/finish_unified.py writes the final list.
     "limitations": [],
 }

@@ -43,6 +43,11 @@
       "pattern": "Path\\(__file__\\)",
       "source": "tools/locations.py",
       "why": "where the repository is; scripts import ROOT and DIST"
+    },
+    {
+      "pattern": "Glottolog v?\\d",
+      "source": "tools/source_versions.py",
+      "why": "the Glottolog version; it is written in source-data/sources.json, scripts import GLOTTOLOG, dictionaries use {version}"
     }
   ],
   "colours": {

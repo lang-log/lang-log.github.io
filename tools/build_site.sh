@@ -24,8 +24,8 @@ python3 tools/build_visual.py
 python3 tools/validate_visual.py
 # Writes the top page dist/index.html (the top-level families in a list,
 # a map and a tree), dist/random.json (the records its Random buttons draw
-# from) and the pages linked under the Random row: dist/stats/,
-# dist/sources/ and dist/updates/ (not committed; built here).
+# from) and the pages linked under the Random row: dist/stats/ and
+# dist/sources/ (not committed; built here).
 python3 tools/build_home.py
 # Writes one page and one record.json per Glottolog record under
 # dist/<family>/.../<language>/, and per source-only record under
@@ -78,7 +78,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          home.js random.json q.html search.js manifest.webmanifest pwa.js sw.js \
          explore.js explore.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
-         stats/index.html stats.js sources/index.html updates/index.html \
+         stats/index.html stats.js sources/index.html \
          releases.html releases.json sitemap.xml robots.txt \
          afro-asiatic/berber/languoid.json features/index.json \
          features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do

@@ -3,6 +3,7 @@ import pathlib
 import xml.etree.ElementTree as E
 import gzip
 import collections
+from source_versions import GLOTTOLOG
 
 p = pathlib.Path("dist")
 data = json.load(open(p / "data.json"))
@@ -241,7 +242,7 @@ prov["integrated_classifications"] = {
 prov["limitations"] = [
     "No claim to include every language or every published classification worldwide.",
     "All 30 Phlorest catalogued dataset summary trees were imported; posterior tree samples were not imported.",
-    "Entire Glottolog 5.3 node inventory and WALS classification snapshot retained. Underlying catalog bibliographies and all regional monographs are not fully ingested.",
+    f"Entire {GLOTTOLOG} node inventory and WALS classification snapshot retained. Underlying catalog bibliographies and all regional monographs are not fully ingested.",
     "Exact Glottocode identity only. Unmatched samples remain separate. Multiple samples of one Glottocode are preserved as source edge labels and excluded from automatic common-tip conflict detection.",
     "Computed topological incompatibility is not a judgment of scientific validity.",
     "Explicit paper-level debate currently curated for Transeurasian only; other debates remain unreviewed.",

@@ -10,7 +10,7 @@ Every address of Lang Log, and every query parameter a page reads (issue #92). T
 | `/q?q=<terms>`                       | Search results (`dist/q.html`; GitHub Pages serves `q.html` at `/q`)                             | hand-written, `dist/search.js`            |
 | `/<family>/<subgroup>/.../<record>/` | Record page of a Glottolog record, at its place in the Glottolog tree (see "Record paths" below) | `tools/build_paths.py`                    |
 | `/<source>/.../<record>/`            | Record page of a record that exists only in another source (`wals/`, `gray-et-al-2009/`, ...)    | `tools/build_paths.py`                    |
-| `/stats/`, `/sources/`, `/updates/`  | Stats, Sources & scope, Updates                                                                  | `tools/build_home.py`                     |
+| `/stats/`, `/sources/`               | Stats, Sources & scope                                                                           | `tools/build_home.py`                     |
 | `/releases.html`                     | Releases (from the GitHub Releases of this repository)                                           | `tools/build_releases.py`                 |
 | `/signs-and-scripts.html`            | Sign languages and writing systems                                                               | hand-written, `dist/signs-and-scripts.js` |
 | `/record.html?domain=<d>&id=<id>`    | Record of a sign language or writing system                                                      | hand-written, `dist/record.js`            |
