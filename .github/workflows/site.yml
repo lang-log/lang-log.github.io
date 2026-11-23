@@ -15,8 +15,11 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+# A newer push to a pull request cancels the older run. Every run on main gets a group of its own,
+# so none is cancelled or replaced and every commit on main gets a result (a cancelled run shows as
+# "failing" on the README badge).
 concurrency:
-  group: site-${{ github.ref }}
+  group: ${{ github.event_name == 'pull_request' && format('site-{0}', github.ref) || format('site-{0}', github.run_id) }}
   cancel-in-progress: true
 jobs:
   quality:
