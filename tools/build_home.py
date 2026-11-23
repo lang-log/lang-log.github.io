@@ -15,10 +15,10 @@ with conditions on WALS and Lang Log features that both share
 (dist/explore.js; this replaced the separate feature map page and the "Whole
 tree" section). There is no separate atlas page.
 
-Stats, sources and updates are pages of their own, not sections of the top
-page (owner, 2026-11-07): dist/stats/, dist/sources/ (the "Sources & scope"
-text, source-data/sources-and-scope.html) and dist/updates/ (the entries of
-source-data/lang-log/updates.json). The top page links to them in a row of
+Stats and sources are pages of their own, not sections of the top
+page (owner, 2026-11-07): dist/stats/ and dist/sources/ (the "Sources & scope"
+text, source-data/sources-and-scope.html). The Updates page was removed
+(owner, 2026-11-23). The top page links to them in a row of
 links next to the Random button. Every count on the Stats page is counted from the
 data here, at build time; no number is typed by hand.
 
@@ -103,7 +103,6 @@ def random_row():
 GUIDE_LINKS = [
     ("stats/", "Stats"),
     ("sources/", "Sources"),
-    ("updates/", "Updates"),
     ("releases.html", "Releases"),
 ]
 
@@ -429,22 +428,6 @@ def stats_body():
     )
 
 
-def updates_body():
-    entries = json.loads(
-        (bp.ROOT / "source-data" / "lang-log" / "updates.json").read_text(encoding="utf-8")
-    )["updates"]
-    rows = []
-    for e in entries:
-        day = datetime.date.fromisoformat(e["date"])
-        text = escape(e["text"])
-        if e.get("link"):
-            text = f'<a href="../{escape(e["link"])}">{text}</a>'
-        rows.append(
-            f'<li><time datetime="{day.isoformat()}">{day.strftime("%-d %b %Y")}</time> <span>{text}</span></li>'
-        )
-    return f'<ul class="updates">{"".join(rows)}</ul>'
-
-
 def sub_page(slug, title, body, scripts=()):
     """A page one level below the root, such as dist/stats/index.html. `scripts` are
     extra files from dist/ loaded in <head> after lang.js."""
@@ -506,7 +489,6 @@ def main():
     (DIST / "index.html").write_text(html, encoding="utf-8")
     sub_page("stats", "Stats", stats_body(), scripts=("stats.js",))
     sub_page("sources", "Sources & scope", sources_section())
-    sub_page("updates", "Updates", updates_body())
     (DIST / "random.json").write_text(
         json.dumps(random_pools(), separators=(",", ":")), encoding="utf-8"
     )

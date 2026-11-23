@@ -34,7 +34,8 @@
 //   languoid_map.py, and by dist/explore.js on the top page's map view), within TAP_PX on
 //   screen, shows a box with the names of its records, each a link to the record's page.
 //   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
-//   the first tap. Every map that mounts this script shows the same box.
+//   the first tap. The box moves with its point when the view moves, and is out of sight
+//   while the point is outside the map. Every map that mounts this script shows the same box.
 // - Stepping through points (issue #94): the < and > buttons glide to the previous or next
 //   point, west to east, and show its box. A key entry under the map (data-points, a
 //   selector written by build_paths.py) or a legend entry of the top page's map
@@ -167,6 +168,16 @@
   }
   var ICON_OPEN = 'M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4';
   var ICON_CLOSE = 'M3.5 3.5l9 9M12.5 3.5l-9 9';
+  // The bar's symbols are drawn, not typed, so they look the same in every font and browser
+  // (the owner's request, 2026-11-23). PREV, NEXT and RESET point left or right; record.css
+  // mirrors them on right-to-left pages, as the < and > characters were mirrored there.
+  var ICON_ZOOM_IN = 'M8 3v10M3 8h10';
+  var ICON_ZOOM_OUT = 'M3 8h10';
+  var ICON_PREV = 'M10 3L5 8l5 5';
+  var ICON_NEXT = 'M6 3l5 5-5 5';
+  // A back arrow that turns (↩), for Reset.
+  var ICON_RESET = 'M6 3L3 6l3 3M3 6h6.5a3.5 3.5 0 0 1 0 7H6';
+  var ICON_DOWNLOAD = 'M8 2v8M4.5 6.5L8 10l3.5-3.5M3 13.5h10';
 
   function loadManifest(base, done) {
     if (manifest) return done(manifest);
@@ -383,6 +394,7 @@
       svg.classList.toggle('lmap-moved', moved);
       svg.classList.toggle('lmap-in', e < home.w - 0.01);
       updateTiles(e);
+      follow();
       svg.dispatchEvent(
         new CustomEvent('lmap:view', {
           detail: { k: k, x: view.x, y: view.y, w: view.w, h: view.h },
@@ -635,56 +647,56 @@
     // Buttons, placed over the top right corner of the map.
     var bar = document.createElement('div');
     bar.className = 'lmap-tools';
-    // + and - only where a mouse or trackpad exists; on phones and tablets people pinch.
-    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
-    (fine
-      ? [
-          [
-            '+',
-            'Zoom in',
-            function () {
-              zoomSmooth(STEP);
-            },
-          ],
-          [
-            '−',
-            'Zoom out',
-            function () {
-              zoomSmooth(1 / STEP);
-            },
-          ],
-        ]
-      : []
-    )
-      .concat([['Reset', 'Reset view', reset]])
-      .forEach(function (b) {
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.textContent = b[0];
-        btn.setAttribute('aria-label', b[1]);
-        btn.title = b[1];
-        btn.addEventListener('click', b[2]);
-        if (b[0] === 'Reset') btn.className = 'lmap-reset';
-        bar.appendChild(btn);
-      });
-    [
-      ['<', 'Previous point', -1],
-      ['>', 'Next point', 1],
-    ].forEach(function (b) {
+    // Every button shows an icon and carries its label for screen readers and as a tooltip.
+    function toolButton(path, text, onClick) {
       var btn = document.createElement('button');
       btn.type = 'button';
-      btn.textContent = b[0];
-      btn.setAttribute('aria-label', b[1]);
-      btn.title = b[1];
-      btn.addEventListener('click', function () {
-        step(b[2]);
-      });
-      bar.appendChild(btn);
-    });
+      btn.appendChild(icon(path));
+      btn.setAttribute('aria-label', text);
+      btn.title = text;
+      btn.addEventListener('click', onClick);
+      return btn;
+    }
+    // Two buttons in one box with a line between them, [ - | + ] and [ < | > ] (the owner's
+    // requests, 2026-11-23); each half stays its own button, for the keyboard and screen
+    // readers (record.css draws the box).
+    function pair(className, first, second) {
+      var box = document.createElement('span');
+      box.className = className;
+      box.appendChild(first);
+      box.appendChild(second);
+      bar.appendChild(box);
+    }
+    // Reset comes first, at the start of the bar: the left end, or the right end on
+    // right-to-left pages (the owner's request, 2026-11-23).
+    var resetBtn = toolButton(ICON_RESET, 'Reset view', reset);
+    resetBtn.className = 'lmap-reset';
+    bar.appendChild(resetBtn);
+    // - and + only where a mouse or trackpad exists; on phones and tablets people pinch.
+    var fine = !window.matchMedia || window.matchMedia('(any-pointer: fine)').matches;
+    if (fine)
+      pair(
+        'lmap-pair',
+        toolButton(ICON_ZOOM_OUT, 'Zoom out', function () {
+          zoomSmooth(1 / STEP);
+        }),
+        toolButton(ICON_ZOOM_IN, 'Zoom in', function () {
+          zoomSmooth(STEP);
+        }),
+      );
+    pair(
+      'lmap-pair lmap-step',
+      toolButton(ICON_PREV, 'Previous point', function () {
+        step(-1);
+      }),
+      toolButton(ICON_NEXT, 'Next point', function () {
+        step(1);
+      }),
+    );
     var pngBtn = document.createElement('button');
     pngBtn.type = 'button';
     pngBtn.className = 'lmap-png';
-    pngBtn.textContent = 'PNG';
+    pngBtn.appendChild(icon(ICON_DOWNLOAD));
     pngBtn.setAttribute('aria-label', 'Download the map as PNG');
     pngBtn.title = 'Download the map as PNG';
     pngBtn.addEventListener('click', function () {
@@ -826,8 +838,11 @@
     // data-g within TAP_PX on screen (points are only a few pixels wide) and shows the box
     // of its records next to the tap; a tap elsewhere, Escape, closing the map view or new
     // points (refresh()) hide it. The same on the record maps and the top page's map view.
+    // While it is open, the box moves with its point whenever the view changes (follow()),
+    // and is out of sight while the point is outside the map.
     var root = base.replace(/map\/$/, '');
     var pop = null,
+      popAt = null,
       downAt = null,
       tapAt = null;
     // Each tap gets a number; a box whose names arrive after a newer tap or after hidePop()
@@ -835,7 +850,13 @@
     var popTap = 0;
     function hidePop() {
       popTap++;
+      popAt = null;
       if (pop) pop.hidden = true;
+    }
+    // The centre of a point on screen.
+    function onScreen(c) {
+      var r = c.getBoundingClientRect();
+      return [r.left + r.width / 2, r.top + r.height / 2];
     }
     function nearest(clientX, clientY) {
       var p = toSvg(clientX, clientY),
@@ -895,7 +916,10 @@
           });
           pop.appendChild(x);
           pop.hidden = false;
-          place(clientX, clientY);
+          // The box keeps the distance from its point that the tap had.
+          var xy = onScreen(c);
+          popAt = { point: c, dx: clientX - xy[0], dy: clientY - xy[1] };
+          follow();
         },
         function () {},
       );
@@ -907,6 +931,16 @@
       var y = Math.min(clientY - b.top + 10, b.height - pop.offsetHeight - 8);
       pop.style.left = Math.max(8, x) + 'px';
       pop.style.top = Math.max(8, y) + 'px';
+    }
+    // Runs after every change of the view (draw()): the open box goes next to its point
+    // again, which draw() may have moved to another copy of the world.
+    function follow() {
+      if (!popAt) return;
+      var xy = onScreen(popAt.point),
+        r = svg.getBoundingClientRect(),
+        inside = xy[0] >= r.left && xy[0] <= r.right && xy[1] >= r.top && xy[1] <= r.bottom;
+      pop.style.visibility = inside ? '' : 'hidden';
+      if (inside) place(xy[0] + popAt.dx, xy[1] + popAt.dy);
     }
     // Where the finger or pointer went down and came up decides, not the click: phone
     // browsers move a tap's click towards the nearest element they think it meant.
@@ -957,8 +991,8 @@
         x = x0 + W * Math.round((cx - x0) / W),
         y = pointXY(c)[1];
       glideTo({ x: x - w / 2, y: y - w / aspect / 2, w: w }, GLIDE_MS, function () {
-        var r = c.getBoundingClientRect();
-        showPop(c, r.left + r.width / 2, r.top + r.height / 2);
+        var xy = onScreen(c);
+        showPop(c, xy[0], xy[1]);
       });
     }
     function step(d) {
