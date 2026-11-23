@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": หน้าเรียบง่ายหนึ่งหน้าต่อหนึ่งระเบียนของ Glottolog พร้อมการจัดจำแนกและแผนที่"
     sources_glottolog_wals_published_study: "แหล่งข้อมูล: Glottolog, WALS, แผนภูมิต้นไม้จากงานวิจัยที่ตีพิมพ์ และบัญชีรายชื่ออักษร แต่ละแหล่งใช้สัญญาอนุญาตของตนเอง"
     copyright: "© 2026 MATSUURA Yoshihiro สงวนลิขสิทธิ์"
+    contact: "ติดต่อ:"
     top_level_languoids: "Languoids ระดับบนสุด"
   search:
     find_a_branch: "ค้นหาสาขา"

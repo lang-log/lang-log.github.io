@@ -1,11 +1,12 @@
-"""The site name, the owner's profile link and the copyright line: one place for each.
+"""The site name, the owner's profile link, the copyright line and the contact line: one place for each.
 
 Every page title ends with TITLE_SUFFIX, and "yoshi" in the header links to
 PROFILE_URL (the owner's title rule: research-aide .claude/rules/titles.md and
 .claude/rules/titles.md here). The page generators (tools/build_home.py,
 tools/build_paths.py) write them from here. The hand-written pages in dist/
 carry the same text: `--check` (run by tools/build_site.sh) fails if one of
-them differs, and `--write` rewrites their "by yoshi" link from here.
+them differs, and `--write` rewrites their "by yoshi" link and contact line from here.
+Every page has one footer with the contact line (contact_line()).
 
 dist/lang.js switches the profile link to the interface language by changing
 the language part of the link's own address, so it keeps no copy of
@@ -39,6 +40,9 @@ TITLE_SUFFIX = f" · {HOME_TITLE}"
 PROFILE_REF = "langlog"
 PROFILE_URL = f"https://nguekwang.github.io/en/?ref={PROFILE_REF}"
 COPYRIGHT = f"© 2026 {OWNER}. All rights reserved."
+# The contact address shown in the footer of every page (owner, 2026-11-23). Mail to it
+# is forwarded to the owner by Cloudflare Email Routing.
+CONTACT_EMAIL = "contact@lang-log.com"
 
 
 # The favicon links every page carries, relative to the page (`up` is "../" per level).
@@ -76,16 +80,31 @@ ASSET_VERSION = re.compile(r"\?v=[0-9a-f]+")
 ANY_BY = re.compile(r'<(span|p) class="(by|home-by)">by <a [^>]*>yoshi</a></\1>')
 
 
+# Any contact line in a page, whatever its address.
+ANY_CONTACT = re.compile(r'<(span|p) class="contact">Contact: <a [^>]*>[^<]*</a></\1>')
+
+
 def by_yoshi(tag="span", cls="by"):
     """The "by yoshi" line; "yoshi" links to the profile (class "profile", for dist/lang.js)."""
     link = f'<a class="profile" href="{escape(PROFILE_URL)}" title="{escape(OWNER)}">yoshi</a>'
     return f'<{tag} class="{cls}">by {link}</{tag}>'
 
 
+def contact_line(tag="span"):
+    """The footer's contact line. "Contact:" is translated by dist/lang.js; the address is not."""
+    address = escape(CONTACT_EMAIL)
+    return (
+        f'<{tag} class="contact">Contact: '
+        f'<a class="notranslate" href="mailto:{address}" dir="ltr">{address}</a></{tag}>'
+    )
+
+
 def problems(text):
     out = []
     if text.count(by_yoshi()) != 1 or len(ANY_BY.findall(text)) != 1:
         out.append('does not have the current "by yoshi" link exactly once')
+    if text.count("<footer") != 1 or text.count(CONTACT_EMAIL) != 2 or contact_line() not in text:
+        out.append("does not have one footer with the current contact line (contact_line())")
     title = re.search(r"<title>([^<]*)</title>", text)
     if not title or not title.group(1).endswith(TITLE_SUFFIX.strip()):
         out.append(f'has a title that does not end with "{TITLE_SUFFIX.strip()}"')
@@ -104,6 +123,7 @@ def main(argv):
         for page in pages:
             text = page.read_text(encoding="utf-8")
             new = ANY_BY.sub(lambda m: by_yoshi(m.group(1), m.group(2)), text)
+            new = ANY_CONTACT.sub(lambda m: contact_line(m.group(1)), new)
             if new != text:
                 page.write_text(new, encoding="utf-8")
         return 0

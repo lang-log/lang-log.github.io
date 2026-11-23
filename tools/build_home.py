@@ -54,6 +54,7 @@ from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
     COPYRIGHT,
+    contact_line,
     GOOGLE_SITE_VERIFICATION,
     HOME_TITLE,
     SITE_NAME_META,
@@ -486,7 +487,7 @@ def main():
         "</main>\n"
         f"<footer><span>{GLOTTOLOG} + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
-        f"<span>{COPYRIGHT}</span></footer>\n"
+        f"<span>{COPYRIGHT}</span>{contact_line()}</footer>\n"
         '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'
         '<script src="map-zoom.js"></script><script src="tree.js"></script><script src="explore.js"></script>\n'
         "</body></html>\n"

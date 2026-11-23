@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": صفحة بسيطة لكل سجل في Glottolog، مع تصنيفه وخريطة."
     sources_glottolog_wals_published_study: "المصادر: Glottolog وWALS وأشجار الدراسات المنشورة وفهارس الكتابات، ولكلٍّ منها ترخيصه"
     copyright: "© 2026 MATSUURA Yoshihiro. جميع الحقوق محفوظة."
+    contact: "للتواصل:"
     top_level_languoids: "Languoids في المستوى الأعلى"
   search:
     find_a_branch: "ابحث عن فرع"
