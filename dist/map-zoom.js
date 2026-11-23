@@ -777,19 +777,41 @@
     // Map view. resize() keeps the centre and the scale on screen while the box changes.
     var pushed = false,
       boxW = 0;
+    // The width and centre the last resize asked for, before fit() held them inside the world,
+    // and the view that came out. While the view is still that one, the next resize starts from
+    // what was asked, so zooming the browser far out (or in) and back brings back the same view.
+    var asked = null;
     function resize(before) {
       var r = svg.getBoundingClientRect();
       if (!r.width || !r.height || !before) return;
-      var cx = view.x + view.w / 2,
-        cy = view.y + view.h / 2;
+      var from =
+        asked && asked.x === view.x && asked.y === view.y && asked.w === view.w ? asked : null;
+      var cx = from ? from.cx : view.x + view.w / 2,
+        cy = from ? from.cy : view.y + view.h / 2,
+        w = ((from ? from.want : view.w) * r.width) / before;
       aspect = full ? r.width / r.height : homeAspect;
       px = full ? r.width / pageW : 1;
-      view.w = lim((view.w * r.width) / before);
+      view.w = lim(w);
       view.h = view.w / aspect;
       view.x = cx - view.w / 2;
       view.y = cy - view.h / 2;
       boxW = r.width;
+      clamp();
+      asked = { cx: cx, cy: cy, want: w, x: view.x, y: view.y, w: view.w };
       schedule();
+    }
+    // The map view's buttons, key and lines keep their size on the screen when the browser
+    // zooms (dist/record.css). The scale is the window's longer side over --lmap-screen-base,
+    // or 1 where the stylesheet sets no base (touch screens). --lmap-screen-grow is the part
+    // above 1 (zoomed out: lengths are multiplied) and --lmap-screen-shrink the part below 1
+    // (zoomed in: the boxes are shrunk with transform), so neither the browser's smallest font
+    // size nor its whole-pixel borders can make them grow.
+    var SCREEN_VARS = ['--lmap-screen-grow', '--lmap-screen-shrink'];
+    function screenScale() {
+      var base = parseFloat(getComputedStyle(host).getPropertyValue('--lmap-screen-base')),
+        s = base > 0 ? Math.max(window.innerWidth, window.innerHeight) / base : 1;
+      host.style.setProperty(SCREEN_VARS[0], String(Math.max(s, 1)));
+      host.style.setProperty(SCREEN_VARS[1], String(Math.min(s, 1)));
     }
     function openView(push) {
       if (full) return;
@@ -801,6 +823,7 @@
       opened = api;
       host.classList.add('lmap-full');
       document.documentElement.classList.add('lmap-full-open');
+      screenScale();
       label(true);
       resize(before);
       draw();
@@ -828,6 +851,9 @@
       if (opened === api) opened = null;
       host.classList.remove('lmap-full');
       document.documentElement.classList.remove('lmap-full-open');
+      SCREEN_VARS.forEach(function (v) {
+        host.style.removeProperty(v);
+      });
       label(false);
       window.removeEventListener('resize', onResize);
       resize(before);
@@ -849,6 +875,7 @@
       close(false);
     }
     function onResize() {
+      screenScale();
       resize(boxW);
     }
     fullBtn.addEventListener('click', function () {
