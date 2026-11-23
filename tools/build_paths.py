@@ -382,6 +382,19 @@ def tree_html(depth, i, sid):
     )
 
 
+def download_icon():
+    """The download symbol of the map's PNG button, drawn as icon() in dist/map-zoom.js
+    draws it; the path is read from ICON_DOWNLOAD there, so it is written once."""
+    m = re.search(r"ICON_DOWNLOAD = '([^']+)'", (DIST / "map-zoom.js").read_text())
+    if not m:
+        sys.exit("dist/map-zoom.js has no ICON_DOWNLOAD")
+    return (
+        '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">'
+        f'<path d="{escape(m[1])}" fill="none" stroke="currentColor" stroke-width="1.6" '
+        'stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    )
+
+
 def atlas_html(base, root=None, src=None, downloads=""):
     """The zoomable tree that dist/tree.js fills: the branch below a record (record
     pages, with its outline and a List / Tree switch), or every root (the top page's
@@ -404,10 +417,17 @@ def atlas_html(base, root=None, src=None, downloads=""):
         if whole
         else '<div id="outline" role="group" aria-label="Expandable classification outline"></div>'
     )
+    # The top page shows only the Download menu, with no box around it, as the map's
+    # download symbol (the owner's request, 2026-11-23); record pages keep their toolbar.
+    summary = (
+        f'<summary aria-label="Download" title="Download">{download_icon()}</summary>'
+        if whole
+        else "<summary>Download</summary>"
+    )
     return (
-        f'<div id="atlas" class="workspace atlas-embed"{attrs} hidden>'
+        f'<div id="atlas" class="workspace atlas-embed{" atlas-whole" if whole else ""}"{attrs} hidden>'
         f'<div class="toolbar">{switch}'
-        f'<details class="menu downloads"><summary>Download</summary><div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
+        f'<details class="menu downloads">{summary}<div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
         f"{outline}"
         f'<div id="viewport"{"" if whole else " hidden"}><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
         '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Language families</h2>'
