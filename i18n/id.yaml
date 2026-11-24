@@ -409,12 +409,6 @@ text:
     members_of: "Anggota {name}"
     medium: "Media: {medium|tr}"
     medium_constructed: "Media: {medium|tr} · buatan"
-  offline:
-    save_the_whole_site_for_offline_use: "Simpan seluruh situs untuk penggunaan luring"
-    this_saves_the_whole_site: "Seluruh situs (sekitar {count} MB) akan disimpan di perangkat ini. Lanjutkan?"
-    saving_files: "Menyimpan… {count} / {count2} berkas"
-    saved_the_site_now_opens_offline: "Tersimpan. Situs kini dapat dibuka secara luring."
-    could_not_save_please_try_again: "Gagal menyimpan. Silakan coba lagi."
   wals_areas:
     phonology: "Fonologi"
     morphology: "Morfologi"

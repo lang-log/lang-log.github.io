@@ -425,12 +425,6 @@ text:
     members_of: "Members of {name}"
     medium: "Medium: {medium}"
     medium_constructed: "Medium: {medium} · constructed"
-  offline:
-    save_the_whole_site_for_offline_use: "Save the whole site for offline use"
-    this_saves_the_whole_site: "This saves the whole site (about {count} MB) on this device. Continue?"
-    saving_files: "Saving… {count} / {count2} files"
-    saved_the_site_now_opens_offline: "Saved. The site now opens offline."
-    could_not_save_please_try_again: "Could not save. Please try again."
   wals_areas:
     phonology: "Phonology"
     morphology: "Morphology"

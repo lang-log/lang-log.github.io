@@ -409,12 +409,6 @@ text:
     members_of: "{name} 的下位"
     medium: "媒介：{medium|tr}"
     medium_constructed: "媒介：{medium|tr} · 人造"
-  offline:
-    save_the_whole_site_for_offline_use: "儲存整個網站以供離線使用"
-    this_saves_the_whole_site: "將把整個網站（約 {count} MB）儲存到此裝置。是否繼續？"
-    saving_files: "正在儲存… {count} / {count2} 個檔案"
-    saved_the_site_now_opens_offline: "已儲存。現在可以離線開啟本網站。"
-    could_not_save_please_try_again: "儲存失敗。請再試一次。"
   wals_areas:
     phonology: "音系學"
     morphology: "形態學"
