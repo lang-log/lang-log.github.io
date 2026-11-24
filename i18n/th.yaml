@@ -409,12 +409,6 @@ text:
     members_of: "สมาชิกของ {name}"
     medium: "สื่อ: {medium|tr}"
     medium_constructed: "สื่อ: {medium|tr} · ประดิษฐ์"
-  offline:
-    save_the_whole_site_for_offline_use: "บันทึกทั้งเว็บไซต์ไว้ใช้แบบออฟไลน์"
-    this_saves_the_whole_site: "ระบบจะบันทึกทั้งเว็บไซต์ (ประมาณ {count} MB) ไว้ในอุปกรณ์นี้ ต้องการดำเนินการต่อหรือไม่"
-    saving_files: "กำลังบันทึก… {count} / {count2} ไฟล์"
-    saved_the_site_now_opens_offline: "บันทึกแล้ว ตอนนี้เปิดเว็บไซต์แบบออฟไลน์ได้"
-    could_not_save_please_try_again: "บันทึกไม่สำเร็จ โปรดลองอีกครั้ง"
   wals_areas:
     phonology: "สัทวิทยา"
     morphology: "สัณฐานวิทยา"

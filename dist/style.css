@@ -482,10 +482,7 @@ main {
   margin: 0 25px;
   display: grid;
   grid-template-columns: 250px minmax(350px, 1fr) 285px;
-  border: 1px solid var(--line);
-  border-radius: 9px;
   overflow: hidden;
-  background: var(--c-fafbf6);
   height: 650px;
   min-height: 550px;
 }
@@ -777,20 +774,6 @@ footer {
   padding: 17px 30px 28px;
   font-size: 9px;
   color: var(--muted);
-}
-/* The "save the whole site" button that dist/pwa.js adds to the end of every page's footer. */
-.offline-save {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  margin-top: 8px;
-  font-size: 14px;
-}
-.offline-save button {
-  min-height: 44px;
 }
 dialog {
   border: 1px solid var(--line);
@@ -2302,8 +2285,6 @@ body .domain-nav a:last-child {
   display: block;
   height: auto;
   min-height: 0;
-  border: 0;
-  background: none;
   overflow: visible;
   max-width: 1080px;
   margin: 0 auto;
@@ -2955,8 +2936,6 @@ header .tools > button {
   display: block;
   height: auto;
   min-height: 0;
-  border: 0;
-  background: none;
   overflow: visible;
   max-width: 1080px;
   margin: 0 auto;
@@ -3211,8 +3190,6 @@ header .tools > button {
 /* Search results page, <site>/q?q=<terms> (dist/q.html, dist/search.js): the box on top and one full-width list below it that grows with the page, with no scroll box of its own. */
 .variant-page.search-route main {
   max-width: 820px;
-  border: 0;
-  background: none;
   padding-top: 8px;
 }
 .variant-page.search-route .search-page {

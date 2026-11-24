@@ -409,12 +409,6 @@ text:
     members_of: "اعضای {name}"
     medium: "رسانه: {medium|tr}"
     medium_constructed: "رسانه: {medium|tr} · ساختگی"
-  offline:
-    save_the_whole_site_for_offline_use: "ذخیرهٔ کل سایت برای استفادهٔ آفلاین"
-    this_saves_the_whole_site: "کل سایت (حدود {count} مگابایت) روی این دستگاه ذخیره می‌شود. ادامه می‌دهید؟"
-    saving_files: "در حال ذخیره… {count} / {count2} پرونده"
-    saved_the_site_now_opens_offline: "ذخیره شد. اکنون سایت بدون اینترنت هم باز می‌شود."
-    could_not_save_please_try_again: "ذخیره نشد. لطفاً دوباره تلاش کنید."
   wals_areas:
     phonology: "واج‌شناسی"
     morphology: "ساخت‌واژه"

@@ -409,12 +409,6 @@ text:
     members_of: "{name} üyeleri"
     medium: "Ortam: {medium|tr}"
     medium_constructed: "Ortam: {medium|tr} · yapay"
-  offline:
-    save_the_whole_site_for_offline_use: "Sitenin tamamını çevrimdışı kullanım için kaydet"
-    this_saves_the_whole_site: "Sitenin tamamı (yaklaşık {count} MB) bu cihaza kaydedilecek. Devam edilsin mi?"
-    saving_files: "Kaydediliyor… {count} / {count2} dosya"
-    saved_the_site_now_opens_offline: "Kaydedildi. Site artık çevrimdışı da açılıyor."
-    could_not_save_please_try_again: "Kaydedilemedi. Lütfen yeniden deneyin."
   wals_areas:
     phonology: "Ses bilgisi"
     morphology: "Biçim bilgisi"

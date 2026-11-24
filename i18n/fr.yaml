@@ -409,12 +409,6 @@ text:
     members_of: "Membres de {name}"
     medium: "Modalité : {medium|tr}"
     medium_constructed: "Modalité : {medium|tr} · construite"
-  offline:
-    save_the_whole_site_for_offline_use: "Enregistrer tout le site pour une utilisation hors ligne"
-    this_saves_the_whole_site: "Tout le site (environ {count} Mo) sera enregistré sur cet appareil. Continuer ?"
-    saving_files: "Enregistrement… {count} / {count2} fichiers"
-    saved_the_site_now_opens_offline: "Enregistré. Le site s’ouvre désormais hors ligne."
-    could_not_save_please_try_again: "Échec de l’enregistrement. Veuillez réessayer."
   wals_areas:
     phonology: "Phonologie"
     morphology: "Morphologie"
