@@ -21,8 +21,6 @@ node_modules/
 /dist/releases.json
 # The web app manifest (tools/pwa.py).
 /dist/manifest.webmanifest
-/dist/offline-files.json
-/dist/offline-version.txt
 /build/
 # The sitemap and robots.txt (tools/build_sitemap.py).
 /dist/sitemap*.xml

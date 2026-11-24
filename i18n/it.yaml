@@ -409,12 +409,6 @@ text:
     members_of: "Membri di {name}"
     medium: "Modalità: {medium|tr}"
     medium_constructed: "Modalità: {medium|tr} · artificiale"
-  offline:
-    save_the_whole_site_for_offline_use: "Salva l’intero sito per l’uso offline"
-    this_saves_the_whole_site: "L’intero sito (circa {count} MB) verrà salvato su questo dispositivo. Continuare?"
-    saving_files: "Salvataggio… {count} / {count2} file"
-    saved_the_site_now_opens_offline: "Salvato. Ora il sito si apre anche offline."
-    could_not_save_please_try_again: "Impossibile salvare. Riprova."
   wals_areas:
     phonology: "Fonologia"
     morphology: "Morfologia"
