@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": Glottolog 기록마다 분류와 지도를 담은 간단한 페이지가 하나씩 있습니다."
     sources_glottolog_wals_published_study: "출처: Glottolog, WALS, 발표된 연구의 계통수, 문자 목록(각각의 이용 허락 조건을 따릅니다)"
     copyright: "© 2026 MATSUURA Yoshihiro. 모든 권리 보유."
+    contact: "문의:"
     top_level_languoids: "최상위 Languoids"
   search:
     find_a_branch: "계통 찾기"

@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": eine schlichte Seite pro Glottolog-Eintrag, mit Klassifikation und Karte."
     sources_glottolog_wals_published_study: "Quellen: Glottolog, WALS, Stammbäume veröffentlichter Studien und Schriftkataloge, jeweils unter eigener Lizenz"
     copyright: "© 2026 MATSUURA Yoshihiro. Alle Rechte vorbehalten."
+    contact: "Kontakt:"
     top_level_languoids: "Languoids der obersten Ebene"
   search:
     find_a_branch: "ZWEIG SUCHEN"

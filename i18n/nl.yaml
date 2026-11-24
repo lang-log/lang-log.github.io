@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": één eenvoudige pagina per Glottolog-record, met de classificatie en een kaart."
     sources_glottolog_wals_published_study: "Bronnen: Glottolog, WALS, stambomen uit gepubliceerde studies en schriftcatalogi, elk onder een eigen licentie"
     copyright: "© 2026 MATSUURA Yoshihiro. Alle rechten voorbehouden."
+    contact: "Contact:"
     top_level_languoids: "Languoids op het hoogste niveau"
   search:
     find_a_branch: "TAK ZOEKEN"

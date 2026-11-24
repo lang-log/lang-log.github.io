@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": uma página simples para cada registro do Glottolog, com sua classificação e um mapa."
     sources_glottolog_wals_published_study: "Fontes: Glottolog, WALS, árvores de estudos publicados e catálogos de escritas, cada um com sua própria licença"
     copyright: "© 2026 MATSUURA Yoshihiro. Todos os direitos reservados."
+    contact: "Contato:"
     top_level_languoids: "Languoids de nível superior"
   search:
     find_a_branch: "ENCONTRAR UM RAMO"
