@@ -2135,14 +2135,6 @@ body .domain-nav a:last-child {
   text-align: start;
   font-size: inherit;
 }
-.lineage-source,
-.lineage-source a {
-  font-size: 10px;
-  color: var(--muted);
-}
-.lineage-source::after {
-  content: ':';
-}
 @media (max-width: 700px) {
   .lineage {
     font-size: 14px;

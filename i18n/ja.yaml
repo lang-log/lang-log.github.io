@@ -184,7 +184,6 @@ text:
     classification_according_to_glottolog_version: "Glottolog {version} による分類"
     classification_according_to_glottolog: "Glottolog による分類"
     classification_according_to_lang_log: "Lang Log による分類"
-    lang_log_s_own: "Lang Log 独自"
     according_to: "出典:"
     according_to_glottolog_version: "Glottolog {version} による"
     name_in_this_language: "この言語での名前"

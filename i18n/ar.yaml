@@ -185,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "التصنيف وفق Glottolog {version}"
     classification_according_to_glottolog: "التصنيف وفق Glottolog"
     classification_according_to_lang_log: "التصنيف وفق Lang Log"
-    lang_log_s_own: "خاص بـ Lang Log"
     according_to: "وفقًا لـ"
     according_to_glottolog_version: "وفقًا لـ Glottolog {version}"
     name_in_this_language: "الاسم بهذه اللغة"

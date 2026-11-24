@@ -1,4 +1,4 @@
-# Publish the site with GitHub Pages at https://lang-log.github.io/ (the organization site of
+# Publish the site with GitHub Pages at https://lang-log.com/ (the organization site of
 # lang-log). The shared workflow in nguekwang/research-aide does the work (rule: research-aide
 # .claude/rules/pr-previews.md). Pull request previews are on Cloudflare Pages (previews.yml),
 # not here.

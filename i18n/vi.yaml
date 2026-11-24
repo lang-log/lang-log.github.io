@@ -185,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "Phân loại theo Glottolog {version}"
     classification_according_to_glottolog: "Phân loại theo Glottolog"
     classification_according_to_lang_log: "Phân loại theo Lang Log"
-    lang_log_s_own: "Riêng của Lang Log"
     according_to: "Theo"
     according_to_glottolog_version: "Theo Glottolog {version}"
     name_in_this_language: "Tên trong chính ngôn ngữ này"

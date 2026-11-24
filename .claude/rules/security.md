@@ -15,6 +15,8 @@ The shared rule is `web-security.md` in the `research-aide` repository (security
 
 ## What GitHub Pages cannot do (waits for a host that sends headers)
 
+The beta site on Cloudflare Pages already sends every header below except `report-to` and Trusted Types: `HEADERS` in `tools/security_policy.py`, written as `_headers` (see `previews.md`).
+
 These work only as HTTP response headers, which GitHub Pages does not let a site set. Add them when Lang Log moves to a host with headers (see `/decisions/lang-log-backend.md` in the project files; Cloudflare `_headers` would do):
 
 - `Content-Security-Policy` as a header, with `frame-ancestors 'none'` (browsers ignore `frame-ancestors` in `<meta>`) and a `report-to` endpoint.

@@ -1,6 +1,6 @@
 """Write one static page and one JSON file per Glottolog record, at a URL
 that follows the classification: dist/<family>/<subgroup>/.../<language>/
-(served as https://lang-log.github.io/<family>/.../<language>/).
+(served as https://lang-log.com/<family>/.../<language>/).
 
 Run after tools/finish_unified.py (it reads dist/data.json and dist/integrated.json);
 tools/build_site.sh runs them in order.
@@ -457,7 +457,7 @@ def breadcrumb(depth, ids, sid="glottolog"):
         for a in ids
         if a not in study_root
     )
-    return f'<nav class="lineage" aria-label="Classification according to {title}"><span class="lineage-source">{title}</span><ol class="lineage-path">{items}</ol></nav>'
+    return f'<nav class="lineage" aria-label="Classification according to {title}"><ol class="lineage-path">{items}</ol></nav>'
 
 
 def lang_log_lineage(depth, i):
@@ -473,7 +473,7 @@ def lang_log_lineage(depth, i):
         f'<li><a href="{escape(href(depth, a))}">{escape(nodes[a]["name"])}</a></li>' for a in up
     )
     return (
-        '<nav class="lineage" aria-label="Classification according to Lang Log"><span class="lineage-source">Lang Log’s own</span>'
+        '<nav class="lineage" aria-label="Classification according to Lang Log">'
         f'<ol class="lineage-path">{items}</ol></nav>'
     )
 
@@ -743,7 +743,7 @@ def source_page_body(sid):
     """Top of a source's tree: what the source is, and its top-level records."""
     src = sources[sid]
     body = (
-        f'<nav class="lineage" aria-label="Classification according to {escape(src["title"])}"><span class="lineage-source">{escape(src["title"])}</span>'
+        f'<nav class="lineage" aria-label="Classification according to {escape(src["title"])}">'
         '<ol class="lineage-path"><li><a href="../">Top</a></li></ol></nav>'
         f'<h1>{escape(src["title"])}</h1><div class="meta"><span>{"catalog" if src.get("kind") == "catalog" else "study tree"}</span>'
         + (f"<span>{escape(src['family'])}</span>" if src.get("family") else "")
