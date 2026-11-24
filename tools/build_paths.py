@@ -930,29 +930,66 @@ def map_html(depth, i):
 
 # Credit for the data on every page: Glottolog and WALS (CC BY 4.0 requires it), the IANA
 # registry and Unicode CLDR (tools/record_facts.py; sources in source-data/sources.json).
+# One source per line (owner, 2026-11-24: "footer はセクションを分けて"), then the contact line.
 _NEW = 'target="_blank" rel="noopener noreferrer"'
+CC_BY = "https://creativecommons.org/licenses/by/4.0/"
+
+
+def _credit(what, name, url, license_name=None, license_url=None, cite=""):
+    """One line of the credit: what the data is, its source, and the license it is used under.
+    The citation sits in its own span, so ", used under" stays a text node dist/lang.js knows."""
+    line = f'<li>{what} <a href="{url}" {_NEW}>{name}</a>'
+    if cite:
+        # A citation is data in English: kept left to right inside right-to-left pages.
+        line += f' <span class="cite" dir="ltr">({cite})</span>'
+    if license_name:
+        line += f', used under <a href="{license_url}" {_NEW}>{license_name}</a>'
+    return line + "</li>"
+
+
 FOOTER = (
-    '<footer class="credit"><p>Classification, names, endangerment and descriptions from '
-    '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">'
-    + GLOTTOLOG
-    + "</a> "
-    "(Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
-    '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
-    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p>'
-    f'<p>Language tags from <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" {_NEW}>IANA Language Subtag Registry</a>'
-    f'; scripts, speakers and official status from <a href="https://cldr.unicode.org/" {_NEW}>{CLDR}</a>'
-    f', used under <a href="https://www.unicode.org/license.txt" {_NEW}>Unicode License v3</a>'
-    f'; feature values from <a href="https://wals.info/" {_NEW}>WALS Online</a>'
-    f', used under <a href="https://creativecommons.org/licenses/by/4.0/" {_NEW}>CC BY 4.0</a>'
-    f'; phoneme inventories from <a href="https://phoible.org/" {_NEW}>PHOIBLE</a>'
-    f', used under <a href="https://creativecommons.org/licenses/by/4.0/" {_NEW}>CC BY 4.0</a>.'
-    "</p>"
+    '<footer class="credit"><ul class="credit-list">'
+    + _credit(
+        "Classification, names, endangerment and descriptions from",
+        GLOTTOLOG,
+        "https://glottolog.org/",
+        "CC BY 4.0",
+        CC_BY,
+        "Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
+        f'<a href="https://doi.org/10.5281/zenodo.18840935" {_NEW}>doi:10.5281/zenodo.18840935</a>',
+    )
+    + _credit(
+        "Language tags from",
+        "IANA Language Subtag Registry",
+        "https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+    )
+    + _credit(
+        "Scripts, speakers and official status from",
+        CLDR,
+        "https://cldr.unicode.org/",
+        "Unicode License v3",
+        "https://www.unicode.org/license.txt",
+    )
+    + _credit("Feature values from", "WALS Online", "https://wals.info/", "CC BY 4.0", CC_BY)
+    + _credit("Phoneme inventories from", "PHOIBLE", "https://phoible.org/", "CC BY 4.0", CC_BY)
     # Share-alike and non-commercial data, named with their licenses (.claude/rules/license.md).
-    f'<p>Estimated speakers, scripts, endangerment and Wikidata items from <a href="https://github.com/google-research/url-nlp/tree/main/linguameta" {_NEW}>LinguaMeta</a>'
-    f', used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" {_NEW}>CC BY-SA 4.0</a>'
-    f'; societies from <a href="https://d-place.org/" {_NEW}>D-PLACE</a>'
-    f', used under <a href="https://creativecommons.org/licenses/by-nc/4.0/" {_NEW}>CC BY-NC 4.0</a>.'
-    "</p>" + contact_line("p") + "</footer>"
+    + _credit(
+        "Estimated speakers, scripts, endangerment and Wikidata items from",
+        "LinguaMeta",
+        "https://github.com/google-research/url-nlp/tree/main/linguameta",
+        "CC BY-SA 4.0",
+        "https://creativecommons.org/licenses/by-sa/4.0/",
+    )
+    + _credit(
+        "Societies from",
+        "D-PLACE",
+        "https://d-place.org/",
+        "CC BY-NC 4.0",
+        "https://creativecommons.org/licenses/by-nc/4.0/",
+    )
+    + "</ul>"
+    + contact_line("p")
+    + "</footer>"
 )
 
 
