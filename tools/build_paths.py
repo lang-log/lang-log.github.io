@@ -490,8 +490,8 @@ def atlas_html(base, root=None, src=None, downloads=""):
         ""
         if whole
         else (
-            '<div class="seg" role="group" aria-label="View"><button id="listview" class="active" type="button">List</button>'
-            '<button id="chartview" type="button">Tree</button></div><button id="collapse" type="button">Collapse all</button>'
+            '<div class="seg" role="group" aria-label="View"><button id="listview" type="button" aria-pressed="true">List</button>'
+            '<button id="chartview" type="button" aria-pressed="false">Tree</button></div><button id="collapse" type="button">Collapse all</button>'
         )
     )
     outline = (

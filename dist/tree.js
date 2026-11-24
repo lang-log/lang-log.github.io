@@ -271,8 +271,8 @@
   }
   function syncButtons() {
     // The top page has no List / Tree switch: it draws the tree only.
-    $('listview')?.classList.toggle('active', display === 'list');
-    $('chartview')?.classList.toggle('active', display === 'chart');
+    $('listview')?.setAttribute('aria-pressed', String(display === 'list'));
+    $('chartview')?.setAttribute('aria-pressed', String(display === 'chart'));
   }
   function showDisplay() {
     if ($('outline')) $('outline').hidden = display !== 'list';
