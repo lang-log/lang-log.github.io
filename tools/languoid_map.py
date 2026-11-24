@@ -212,14 +212,7 @@ def map_svg(
                 out.append(f'<circle cx="{_num(x)}" cy="{_num(y)}" r="{_num(rad)}"{data}/>')
         return "".join(out)
 
-    land = escape(map_dir + "land.svg")
-    parts = [
-        f'<svg class="lmap" viewBox="{_num(vx)} {_num(vy)} {_num(vw)} {_num(vh)}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet" '
-        f'data-map="land" data-base="{escape(map_dir)}" data-min="{min_width()}" data-r="{_num(r)}" '
-        f'data-world="{world_box()}">',
-        f"<title>{escape(label)}</title>",
-        f'<g class="lmap-bg">{background(land, vx, vw)}</g>',
-    ]
+    parts = []
     if context:
         parts.append(f'<g class="lmap-ctx">{circles(context, r, context_ids, square=True)}</g>')
     if main_xy:
@@ -230,19 +223,39 @@ def map_svg(
             + (f' data-g="{escape(self_id)}"' if self_id else "")
             + "/></g>"
         )
-    parts.append(locator(land, vx, vy, vw, vh))
-    parts.append("</svg>")
-    return "".join(parts)
+    return frame(
+        map_dir,
+        (vx, vy, vw, vh),
+        label,
+        attrs=f' data-r="{_num(r)}"',
+        head=f"<title>{escape(label)}</title>",
+        body="".join(parts),
+    )
+
+
+def frame(map_dir, view, label, attrs="", head="", body=""):
+    """The <svg> every map is drawn in: its attributes for dist/map-zoom.js, the background
+    and the locator, around the points in body.
+
+    map_dir: relative URL of the map/ directory from the page, ending in "/".
+    view: (x, y, width, height) of the starting view.
+    attrs: more attributes for the <svg> (each with a leading space); head: elements before
+    the background (a <title>).
+    """
+    vx, vy, vw, vh = view
+    land = escape(map_dir + "land.svg")
+    return (
+        f'<svg class="lmap" viewBox="{_num(vx)} {_num(vy)} {_num(vw)} {_num(vh)}" role="img" aria-label="{escape(label)}" preserveAspectRatio="xMidYMid meet" '
+        f'data-map="land" data-base="{escape(map_dir)}" data-min="{min_width()}" '
+        f'data-world="{world_box()}"{attrs}>'
+        f'{head}<g class="lmap-bg">{background(land, vx, vw)}</g>{body}'
+        f"{locator(land, vx, vy, vw, vh)}</svg>"
+    )
 
 
 def world_view_box():
     """(x, y, width, height) of a view that shows the whole world once (the top page's map view)."""
     return -WORLD_W / 2, INSET_Y, WORLD_W, WORLD_W / ASPECT
-
-
-def world_view():
-    """viewBox of a map that shows the whole world once (the top page's map view)."""
-    return " ".join(_num(v) for v in world_view_box())
 
 
 def world_box():
