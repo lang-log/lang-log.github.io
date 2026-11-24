@@ -10,7 +10,7 @@ An interactive atlas of language families, sign languages and writing systems, w
 
 It will also hold corpora and data for low-resource languages (planned).
 
-Live site: <https://lang-log.github.io/>
+Live site: <https://lang-log.com/>
 
 ## Run locally
 
@@ -76,7 +76,7 @@ Third-party source datasets are not covered by this and keep their own licenses 
 
 ## GitHub Pages
 
-The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.github.io/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`). It runs on every push to `main`, after every release (see Releases), and by hand. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions.
+The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-log.com/> through the shared workflow `pages-with-previews.yml` of `nguekwang/research-aide`: it builds the default branch with `tools/build_site.sh` (which builds and checks `dist/`). It runs on every push to `main`, after every release (see Releases), and by hand. One-time setup: Settings > Pages > Build and deployment > Source: GitHub Actions, and Custom domain: `lang-log.com` with Enforce HTTPS (`SITE_URL` in `tools/site_brand.py` must match it); GitHub then redirects `lang-log.github.io` to it.
 
 ## Pull request previews
 

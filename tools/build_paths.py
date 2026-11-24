@@ -1,6 +1,6 @@
 """Write one static page and one JSON file per Glottolog record, at a URL
 that follows the classification: dist/<family>/<subgroup>/.../<language>/
-(served as https://lang-log.github.io/<family>/.../<language>/).
+(served as https://lang-log.com/<family>/.../<language>/).
 
 Run after tools/finish_unified.py (it reads dist/data.json and dist/integrated.json);
 tools/build_site.sh runs them in order.
