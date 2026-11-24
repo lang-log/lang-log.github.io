@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": satu halaman sederhana untuk setiap catatan Glottolog, dengan klasifikasi dan peta."
     sources_glottolog_wals_published_study: "Sumber: Glottolog, WALS, pohon kajian yang telah terbit, dan katalog aksara, masing-masing dengan lisensinya sendiri"
     copyright: "© 2026 MATSUURA Yoshihiro. Hak cipta dilindungi undang-undang."
+    contact: "Kontak:"
     top_level_languoids: "Languoids tingkat teratas"
   search:
     find_a_branch: "CARI CABANG"
@@ -184,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "Klasifikasi menurut Glottolog {version}"
     classification_according_to_glottolog: "Klasifikasi menurut Glottolog"
     classification_according_to_lang_log: "Klasifikasi menurut Lang Log"
-    lang_log_s_own: "Milik Lang Log"
     according_to: "Menurut"
     according_to_glottolog_version: "Menurut Glottolog {version}"
     name_in_this_language: "Nama dalam bahasa ini"

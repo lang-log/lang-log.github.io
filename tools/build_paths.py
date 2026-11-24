@@ -1,6 +1,6 @@
 """Write one static page and one JSON file per Glottolog record, at a URL
 that follows the classification: dist/<family>/<subgroup>/.../<language>/
-(served as https://lang-log.github.io/<family>/.../<language>/).
+(served as https://lang-log.com/<family>/.../<language>/).
 
 Run after tools/finish_unified.py (it reads dist/data.json and dist/integrated.json);
 tools/build_site.sh runs them in order.
@@ -38,7 +38,7 @@ from html import escape
 from locations import DIST, ROOT
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
+from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, contact_line, icon_links
 import csv
 import json
 import re
@@ -457,7 +457,7 @@ def breadcrumb(depth, ids, sid="glottolog"):
         for a in ids
         if a not in study_root
     )
-    return f'<nav class="lineage" aria-label="Classification according to {title}"><span class="lineage-source">{title}</span><ol class="lineage-path">{items}</ol></nav>'
+    return f'<nav class="lineage" aria-label="Classification according to {title}"><ol class="lineage-path">{items}</ol></nav>'
 
 
 def lang_log_lineage(depth, i):
@@ -473,7 +473,7 @@ def lang_log_lineage(depth, i):
         f'<li><a href="{escape(href(depth, a))}">{escape(nodes[a]["name"])}</a></li>' for a in up
     )
     return (
-        '<nav class="lineage" aria-label="Classification according to Lang Log"><span class="lineage-source">Lang Log’s own</span>'
+        '<nav class="lineage" aria-label="Classification according to Lang Log">'
         f'<ol class="lineage-path">{items}</ol></nav>'
     )
 
@@ -605,7 +605,9 @@ FOOTER = (
     + "</a> "
     "(Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
     '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
-    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>'
+    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p>'
+    + contact_line("p")
+    + "</footer>"
 )
 
 
@@ -741,7 +743,7 @@ def source_page_body(sid):
     """Top of a source's tree: what the source is, and its top-level records."""
     src = sources[sid]
     body = (
-        f'<nav class="lineage" aria-label="Classification according to {escape(src["title"])}"><span class="lineage-source">{escape(src["title"])}</span>'
+        f'<nav class="lineage" aria-label="Classification according to {escape(src["title"])}">'
         '<ol class="lineage-path"><li><a href="../">Top</a></li></ol></nav>'
         f'<h1>{escape(src["title"])}</h1><div class="meta"><span>{"catalog" if src.get("kind") == "catalog" else "study tree"}</span>'
         + (f"<span>{escape(src['family'])}</span>" if src.get("family") else "")

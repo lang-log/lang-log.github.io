@@ -130,6 +130,7 @@ text:
     one_plain_page_per_glottolog: ": one plain page per Glottolog record, with its classification and a map."
     sources_glottolog_wals_published_study: "Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license"
     copyright: "© 2026 MATSUURA Yoshihiro. All rights reserved."
+    contact: "Contact:"
     top_level_languoids: "Top-level languoids"
   search:
     find_a_branch: "FIND A BRANCH"
@@ -200,7 +201,6 @@ text:
     classification_according_to_glottolog_version: "Classification according to Glottolog {version}"
     classification_according_to_glottolog: "Classification according to Glottolog"
     classification_according_to_lang_log: "Classification according to Lang Log"
-    lang_log_s_own: "Lang Log’s own"
     according_to: "According to"
     according_to_glottolog_version: "According to Glottolog {version}"
     name_in_this_language: "Name in this language"

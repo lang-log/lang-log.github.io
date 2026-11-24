@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": Glottolog’daki her kayıt için sınıflandırmasını ve bir haritayı içeren sade bir sayfa."
     sources_glottolog_wals_published_study: "Kaynaklar: Glottolog, WALS, yayımlanmış çalışmaların soy ağaçları ve yazı katalogları; her biri kendi lisansıyla"
     copyright: "© 2026 MATSUURA Yoshihiro. Tüm hakları saklıdır."
+    contact: "İletişim:"
     top_level_languoids: "En üst düzey Languoids"
   search:
     find_a_branch: "DAL BUL"
@@ -184,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "Glottolog {version}’e göre sınıflandırma"
     classification_according_to_glottolog: "Glottolog’a göre sınıflandırma"
     classification_according_to_lang_log: "Lang Log’a göre sınıflandırma"
-    lang_log_s_own: "Lang Log’un kendi"
     according_to: "Kaynak:"
     according_to_glottolog_version: "Glottolog {version}’e göre"
     name_in_this_language: "Bu dildeki adı"

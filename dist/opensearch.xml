@@ -7,11 +7,11 @@
   <Url
     type="text/html"
     method="get"
-    template="https://lang-log.github.io/q?q={searchTerms}"
+    template="https://lang-log.com/q?q={searchTerms}"
   />
   <Url
     type="application/opensearchdescription+xml"
     rel="self"
-    template="https://lang-log.github.io/opensearch.xml"
+    template="https://lang-log.com/opensearch.xml"
   />
 </OpenSearchDescription>

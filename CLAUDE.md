@@ -2,7 +2,7 @@
 
 @../research-aide/.claude/common.md
 
-Lang Log (<https://lang-log.github.io/>): an atlas of language families, sign languages and writing systems, built from source data into static pages in `dist/` by the scripts in `tools/`, checked and deployed by GitHub Actions.
+Lang Log (<https://lang-log.com/>): an atlas of language families, sign languages and writing systems, built from source data into static pages in `dist/` by the scripts in `tools/`, checked and deployed by GitHub Actions.
 
 This file holds only the principles. The owner's shared rules come from the `research-aide` repository (imported above; clone it next to this repository). Rules only for this repository live in `.claude/rules/`.
 

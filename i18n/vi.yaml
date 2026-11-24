@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": mỗi bản ghi Glottolog có một trang đơn giản, kèm cách phân loại và bản đồ."
     sources_glottolog_wals_published_study: "Nguồn: Glottolog, WALS, cây phả hệ của các nghiên cứu đã công bố và danh mục chữ viết, mỗi nguồn theo giấy phép riêng"
     copyright: "© 2026 MATSUURA Yoshihiro. Bảo lưu mọi quyền."
+    contact: "Liên hệ:"
     top_level_languoids: "Languoids cấp cao nhất"
   search:
     find_a_branch: "TÌM MỘT NHÁNH"
@@ -184,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "Phân loại theo Glottolog {version}"
     classification_according_to_glottolog: "Phân loại theo Glottolog"
     classification_according_to_lang_log: "Phân loại theo Lang Log"
-    lang_log_s_own: "Riêng của Lang Log"
     according_to: "Theo"
     according_to_glottolog_version: "Theo Glottolog {version}"
     name_in_this_language: "Tên trong chính ngôn ngữ này"
