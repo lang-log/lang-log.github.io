@@ -25,6 +25,7 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 ## Look
 
 - No shadows (the owner's rule, 2026-11-23): no `box-shadow`, `text-shadow` or `filter: drop-shadow()` on any page, component, popup or map, in either theme.
+- No line under the header (the owner's rule, 2026-11-24). The footer puts each part (figures, sources, copyright, contact) on its own line, still centred, and the record pages' source credit lists one source per line (`FOOTER` in `tools/build_paths.py`), never one paragraph.
 - No Download button with the word on it (the owner's rule, 2026-11-23): every Download button and menu shows the map's download symbol (`ICON_DOWNLOAD` in `dist/map-zoom.js`, written into pages by `download_icon()` in `tools/build_paths.py`), with `Download` only as its `aria-label` and `title`.
 
 ## Behaviour
