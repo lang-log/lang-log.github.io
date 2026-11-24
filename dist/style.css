@@ -605,10 +605,6 @@ select {
   padding: 7px;
   border: 0;
 }
-.toolbar .active {
-  background: var(--ink);
-  color: var(--c-ffffff);
-}
 .toolbar label {
   font-size: 10px;
   color: var(--c-6c7772);
@@ -1961,7 +1957,7 @@ body .domain-nav a:last-child {
 .toolbar .seg button + button {
   border-inline-start: 1px solid var(--line);
 }
-.toolbar .active {
+.toolbar .seg button[aria-pressed='true'] {
   background: var(--ink);
   color: var(--c-ffffff);
 }

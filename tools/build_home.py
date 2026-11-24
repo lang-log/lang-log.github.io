@@ -51,7 +51,7 @@ from locations import DIST
 import build_paths as bp
 from explore_panel import explore_open
 from build_wals_map import condition_languages, glottolog
-from languoid_map import locator, min_width, world_box, world_view, world_view_box
+from languoid_map import frame, world_view_box
 import info_page
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
@@ -195,14 +195,16 @@ def families_html():
         '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
         f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
         '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
-        f'<svg id="map" class="lmap" viewBox="{world_view()}" role="img" aria-label="World map of the languages that match the conditions" '
-        f'preserveAspectRatio="xMidYMid meet" data-map="land" data-base="map/" data-min="{min_width()}" data-world="{world_box()}">'
-        '<g class="lmap-bg"><use class="lmap-sphere" href="map/land.svg#sphere"/><use class="lmap-land" href="map/land.svg#land"/>'
-        '<use class="lmap-border" href="map/land.svg#borders"/><use class="lmap-disputed" href="map/land.svg#disputed"/></g>'
-        f'<g id="points"></g>{locator("map/land.svg", *world_view_box())}</svg>'
+        + frame(
+            "map/",
+            world_view_box(),
+            "World map of the languages that match the conditions",
+            attrs=' id="map"',
+            body='<g id="points"></g>',
+        )
         # The key of the colours, filled by dist/explore.js: the same key as under a record's
         # map (tools/build_paths.py), which dist/map-zoom.js moves into the map box.
-        '<ul id="colour-legend" class="lmap-key" hidden></ul>'
+        + '<ul id="colour-legend" class="lmap-key" hidden></ul>'
         "</div></div>"
         "</section>"
     )

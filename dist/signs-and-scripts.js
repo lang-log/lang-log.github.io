@@ -144,8 +144,8 @@
   function forest(id = null) {
     focusId = id;
     saveURL(true);
-    $('world').classList.toggle('active', !id);
-    $('branch').classList.toggle('active', !!id);
+    $('world').setAttribute('aria-pressed', String(!id));
+    $('branch').setAttribute('aria-pressed', String(!!id));
     const host = $('visual-outline');
     host.replaceChildren();
     if (id) {
@@ -311,8 +311,8 @@
     horizontal = h;
     saveURL(true);
     $('visual-outline').classList.toggle('horizontal', horizontal);
-    $('listview').classList.toggle('active', !horizontal);
-    $('chartview').classList.toggle('active', horizontal);
+    $('listview').setAttribute('aria-pressed', String(!horizontal));
+    $('chartview').setAttribute('aria-pressed', String(horizontal));
   }
   $('listview').onclick = () => view(false);
   $('chartview').onclick = () => view(true);
