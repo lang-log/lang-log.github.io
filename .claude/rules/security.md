@@ -26,3 +26,12 @@ These work only as HTTP response headers, which GitHub Pages does not let a site
 - `Permissions-Policy` turning off camera, microphone, geolocation and the rest (no `<meta>` form exists).
 - `Cross-Origin-Opener-Policy: same-origin`, `Cross-Origin-Resource-Policy: same-origin`.
 - Trusted Types (`require-trusted-types-for 'script'`) needs every `innerHTML` write in `dist/*.js` rewritten first; it is Chromium-only for now.
+
+## The certificate behind the Cloudflare proxy
+
+GitHub Pages renews the Let's Encrypt certificate for `lang-log.com`, and renewal is reported to fail sometimes while Cloudflare proxies the domain; with SSL "Full (strict)" an expired GitHub certificate takes the site down. The owner's choice (2026-11-24): fix it automatically and email every step.
+
+- `.github/workflows/certificate.yml` runs `tools/certificate_renewal.py` every day. It reads the custom domain from the Pages settings, checks GitHub's certificate straight at GitHub Pages, and under 21 days left turns the proxy off for the site's A, AAAA and CNAME records (marked by a record comment), waits up to an hour for the new certificate, then turns the proxy back on for the marked records only. Records the owner left "DNS only" are never proxied by it.
+- Each step goes to the owner by email at once through one issue, `Certificate renewal for <domain>`, assigned to `NOTIFY_LOGIN` in the workflow: opened when renewal is stuck, commented and closed when it worked, commented with the GitHub and Cloudflare screens and the steps when it did not.
+- The Cloudflare token (`CLOUDFLARE_DNS_TOKEN`, only "Zone / DNS / Edit" for `lang-log.com`) and `CLOUDFLARE_ZONE_ID` live in the `dns` environment, which only the default branch may use. Never give that token to another workflow, and never reuse the Pages token (`CLOUDFLARE_API_TOKEN`) for it.
+- Before the token is set up, the check only reads the certificate, and fails only if renewal is stuck.
