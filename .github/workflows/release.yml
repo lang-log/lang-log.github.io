@@ -38,7 +38,7 @@ jobs:
           TAG: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ github.token }}
         run: python3 tools/release.py "$TAG"
-  # The interface languages, one ZIP each (LANGS in dist/lang.js, read by tools/offline_zip.js).
+  # The interface languages, one ZIP each (LANGS in dist/lang.js, read by tools/build_i18n.py).
   languages:
     runs-on: ubuntu-latest
     outputs:
@@ -47,8 +47,12 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --require-hashes -r requirements.txt
       - id: list
-        run: echo "codes=$(node tools/offline_zip.js --list)" >> "$GITHUB_OUTPUT"
+        run: echo "codes=$(python3 tools/build_i18n.py --languages)" >> "$GITHUB_OUTPUT"
   # The whole site as Markdown and PDF in each language, attached to the release as
   # lang-log.<code>.zip (the owner's decision, 2026-11-24; .claude/rules/releases.md). A ZIP the
   # release already has is left as it is.

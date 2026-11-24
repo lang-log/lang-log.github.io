@@ -5,7 +5,6 @@
 //   build/offline/lang-log.<code>/pdf/<top-level folder>.pdf        one PDF per top-level family
 // Run after tools/build_site.sh, from the repository root, with Playwright's Chromium:
 //   node tools/offline_zip.js <code> [<top-level folder> ...]
-//   node tools/offline_zip.js --list      the language codes, as JSON (for the release's job matrix)
 // Naming top-level folders builds only those (for a quick look); the release builds them all.
 //
 // The files are read from the built record pages themselves, in a browser, so they hold exactly
@@ -15,6 +14,7 @@
 // map, the tree, the view switch and conditions, the Hugging Face models) are left out.
 /* global document, window, Node -- readPage() runs in the page, not in Node.js */
 const fs = require('fs'),
+  { execFileSync } = require('child_process'),
   path = require('path'),
   { chromium } = require('playwright'),
   { DIST, serve } = require('./serve_dist');
@@ -43,10 +43,13 @@ function constant(file, pattern) {
   if (!m) throw new Error(`${pattern} not found in ${file}`);
   return m[1];
 }
-// The interface languages (LANGS in dist/lang.js) and the live site (SITE_URL in tools/site_brand.py).
-const LANGUAGES = [
-  ...constant('dist/lang.js', /var LANGS = \[([\s\S]*?)\];/).matchAll(/\['([A-Za-z-]+)',/g),
-].map((m) => m[1]);
+// The interface languages (LANGS in dist/lang.js, read by tools/build_i18n.py) and the live
+// site (SITE_URL in tools/site_brand.py).
+const LANGUAGES = JSON.parse(
+  execFileSync('python3', [path.join(ROOT, 'tools', 'build_i18n.py'), '--languages'], {
+    encoding: 'utf8',
+  }),
+);
 const SITE_URL = constant('tools/site_brand.py', /^SITE_URL = "([^"]+)"/m);
 
 // The path of every record page, such as "japonic/" or "japonic/japanese/", sorted so that a
@@ -172,10 +175,6 @@ const escapeHtml = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace
 
 async function main() {
   const [code, ...only] = process.argv.slice(2);
-  if (code === '--list') {
-    console.log(JSON.stringify(LANGUAGES));
-    return;
-  }
   if (!LANGUAGES.includes(code)) {
     console.error('usage: node tools/offline_zip.js <code> [<top-level folder> ...]');
     console.error('codes: ' + LANGUAGES.join(' '));
