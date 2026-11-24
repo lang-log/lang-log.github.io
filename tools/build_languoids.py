@@ -21,6 +21,11 @@ Sources read here, each converted by its own function:
   and feature values, mapped to Lang Log features by the catalogue.
 - Lang Log (source-data/lang-log/classification.json): Lang Log's own
   parents, such as a historical stage as the parent of the later language.
+- Glottolog's values (values.csv), the IANA Language Subtag Registry,
+  Unicode CLDR, LinguaMeta, PHOIBLE and D-PLACE: endangerment, the most
+  extensive description, the language tag, scripts, speakers, phoneme
+  inventories, societies and plural categories, each read by its own
+  function in tools/record_facts.py (shared with the record pages).
 
 Every file is checked against its schema; the build stops on the first
 record that does not match, and when a WALS feature or value is missing from
@@ -37,10 +42,11 @@ import re
 import shutil
 
 import build_paths  # path rules: build_paths.path_of
-from locations import DIST, ROOT
+from locations import DIST, ROOT, SOURCE_DATA
 from not_languoids import NOT_LANGUOIDS, lift
+from record_facts import facts
 
-SRC = ROOT / "source-data"
+SRC = SOURCE_DATA
 SCHEMA = ROOT / "schema"
 
 SOURCES = {
@@ -73,6 +79,15 @@ def blank(i, name, source):
         "modality": "spoken",
         "constructed": False,
         "features": {},
+        "registry": None,
+        "scripts": [],
+        "linguameta": None,
+        "phonemes": [],
+        "societies": [],
+        "speakers_by_country": [],
+        "plural_categories": None,
+        "endangerment": None,
+        "description": None,
         "sources": {source: VERSION[source]},
     }
 
@@ -272,6 +287,31 @@ def import_lang_log(records):
             i = parents[i]
 
 
+def import_facts(records):
+    """The facts of tools/record_facts.py, by Glottocode and ISO 639-3 code."""
+    for n in records.values():
+        f = facts(n["codes"]["glottocode"], n["codes"]["iso639_3"])
+        n.update(f)
+        for key in ("endangerment", "description"):
+            if f[key]:
+                n["sources"]["glottolog"] = VERSION["glottolog"]
+        if f["registry"] or any(s["source"] == "iana" for s in f["scripts"]):
+            n["sources"]["iana"] = VERSION["iana"]
+        if (
+            f["speakers_by_country"]
+            or f["plural_categories"]
+            or any(s["source"] == "cldr" for s in f["scripts"])
+        ):
+            n["sources"]["cldr"] = VERSION["cldr"]
+        for sid, used in (
+            ("linguameta", f["linguameta"]),
+            ("phoible", f["phonemes"]),
+            ("dplace", f["societies"]),
+        ):
+            if used:
+                n["sources"][sid] = VERSION[sid]
+
+
 def choose_values(records):
     """Pick each feature's value from its evidence by source priority, then by majority."""
     disagreements = 0
@@ -337,6 +377,7 @@ def main():
         raise SystemExit("Glottolog import has other records than dist/data.json")
     catalogue = import_wals(records)
     import_lang_log(records)
+    import_facts(records)
     choose_values(records)
 
     languoid_schema = json.loads((SCHEMA / "languoid.schema.json").read_text(encoding="utf-8"))

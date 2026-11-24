@@ -19,3 +19,7 @@ _SOURCES = {
 GLOTTOLOG_VERSION = _SOURCES["glottolog"]["version"]
 # The name and version as pages and exports show it, such as "Glottolog 5.3".
 GLOTTOLOG = f"Glottolog {GLOTTOLOG_VERSION}"
+# Unicode CLDR as the record pages credit it, such as "Unicode CLDR 49".
+CLDR = f"{_SOURCES['cldr']['title']} {_SOURCES['cldr']['version']}"
+# Each source's title, as record pages name it where they cite a value's source.
+SOURCE_TITLES = {sid: s["title"] for sid, s in _SOURCES.items()}

@@ -36,6 +36,8 @@
 //   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
 //   the first tap. The box moves with its point when the view moves, and is out of sight
 //   while the point is outside the map. Every map that mounts this script shows the same box.
+//   While the box is open, its point is drawn larger, over the others and with a ring
+//   (.lmap-picked), so it stands out among crowded points; the PNG leaves the mark out.
 // - Stepping through points (issue #94): the < and > buttons glide to the previous or next
 //   point, west to east, and show its box. A key entry under the map (data-points, a
 //   selector written by build_paths.py) or a legend entry of the top page's map
@@ -76,6 +78,10 @@
   // A point stepped to is shown in a view at most 1/FOCUS_SHARE of the world wide, so the
   // glide to it is visible even from the whole world.
   var FOCUS_SHARE = 4;
+  // The point whose box is open is drawn PICK_SHARE times its size, on top of the others, with
+  // the ring of .lmap-picked (dist/record.css), so it can be told apart among crowded points.
+  var PICK_SHARE = 1.8;
+  var PICKED = 'lmap-picked';
   // Pixels of the PNG per CSS pixel of the map on screen.
   var PNG_SCALE = 2;
   var PNG_NAME = 'lang-log-map.png';
@@ -292,6 +298,19 @@
         });
       return scaled;
     }
+    // The point whose box is open (PICK_SHARE), or null. It is moved to the end of its group so
+    // that it is drawn over its neighbours.
+    var picked = null;
+    function pick(c) {
+      if (c === picked) return;
+      if (picked) picked.classList.remove(PICKED);
+      picked = c;
+      if (c) {
+        c.classList.add(PICKED);
+        c.parentNode.appendChild(c);
+      }
+      schedule();
+    }
     var points = null;
     function allPoints() {
       if (!points) {
@@ -355,7 +374,10 @@
       var sized = scaledPoints(),
         size = unit ? pointPx(box.width, sized.length) * unit : 0;
       for (var i = 0; size && i < sized.length; i++)
-        setPointR(sized[i][0], +(size * sized[i][1]).toFixed(3));
+        setPointR(
+          sized[i][0],
+          +(size * sized[i][1] * (sized[i][0] === picked ? PICK_SHARE : 1)).toFixed(3),
+        );
       // Each point goes to the copy of the world nearest the centre of the view.
       var cx = view.x + view.w / 2,
         ps = allPoints();
@@ -755,19 +777,41 @@
     // Map view. resize() keeps the centre and the scale on screen while the box changes.
     var pushed = false,
       boxW = 0;
+    // The width and centre the last resize asked for, before fit() held them inside the world,
+    // and the view that came out. While the view is still that one, the next resize starts from
+    // what was asked, so zooming the browser far out (or in) and back brings back the same view.
+    var asked = null;
     function resize(before) {
       var r = svg.getBoundingClientRect();
       if (!r.width || !r.height || !before) return;
-      var cx = view.x + view.w / 2,
-        cy = view.y + view.h / 2;
+      var from =
+        asked && asked.x === view.x && asked.y === view.y && asked.w === view.w ? asked : null;
+      var cx = from ? from.cx : view.x + view.w / 2,
+        cy = from ? from.cy : view.y + view.h / 2,
+        w = ((from ? from.want : view.w) * r.width) / before;
       aspect = full ? r.width / r.height : homeAspect;
       px = full ? r.width / pageW : 1;
-      view.w = lim((view.w * r.width) / before);
+      view.w = lim(w);
       view.h = view.w / aspect;
       view.x = cx - view.w / 2;
       view.y = cy - view.h / 2;
       boxW = r.width;
+      clamp();
+      asked = { cx: cx, cy: cy, want: w, x: view.x, y: view.y, w: view.w };
       schedule();
+    }
+    // The map view's buttons, key and lines keep their size on the screen when the browser
+    // zooms (dist/record.css). The scale is the window's longer side over --lmap-screen-base,
+    // or 1 where the stylesheet sets no base (touch screens). --lmap-screen-grow is the part
+    // above 1 (zoomed out: lengths are multiplied) and --lmap-screen-shrink the part below 1
+    // (zoomed in: the boxes are shrunk with transform), so neither the browser's smallest font
+    // size nor its whole-pixel borders can make them grow.
+    var SCREEN_VARS = ['--lmap-screen-grow', '--lmap-screen-shrink'];
+    function screenScale() {
+      var base = parseFloat(getComputedStyle(host).getPropertyValue('--lmap-screen-base')),
+        s = base > 0 ? Math.max(window.innerWidth, window.innerHeight) / base : 1;
+      host.style.setProperty(SCREEN_VARS[0], String(Math.max(s, 1)));
+      host.style.setProperty(SCREEN_VARS[1], String(Math.min(s, 1)));
     }
     function openView(push) {
       if (full) return;
@@ -779,6 +823,7 @@
       opened = api;
       host.classList.add('lmap-full');
       document.documentElement.classList.add('lmap-full-open');
+      screenScale();
       label(true);
       resize(before);
       draw();
@@ -806,6 +851,9 @@
       if (opened === api) opened = null;
       host.classList.remove('lmap-full');
       document.documentElement.classList.remove('lmap-full-open');
+      SCREEN_VARS.forEach(function (v) {
+        host.style.removeProperty(v);
+      });
       label(false);
       window.removeEventListener('resize', onResize);
       resize(before);
@@ -827,6 +875,7 @@
       close(false);
     }
     function onResize() {
+      screenScale();
       resize(boxW);
     }
     fullBtn.addEventListener('click', function () {
@@ -851,6 +900,7 @@
     function hidePop() {
       popTap++;
       popAt = null;
+      pick(null);
       if (pop) pop.hidden = true;
     }
     // The centre of a point on screen.
@@ -916,6 +966,7 @@
           });
           pop.appendChild(x);
           pop.hidden = false;
+          pick(c);
           // The box keeps the distance from its point that the tap had.
           var xy = onScreen(c);
           popAt = { point: c, dx: clientX - xy[0], dy: clientY - xy[1] };
@@ -1091,6 +1142,10 @@
             ctx.setTransform(s, 0, 0, s, ox + (parseFloat(u.getAttribute('x')) || 0) * s, oy);
             paint(ctx, new Path2D(own.getAttribute('d')), own, getComputedStyle(u), k, 1);
           });
+          // The PNG leaves out the box, and so the mark of its point too.
+          var was = picked;
+          pick(null);
+          draw();
           Array.prototype.forEach.call(svg.querySelectorAll(POINTS), function (c) {
             if (c.closest('.lmap-inset')) return;
             var cs = getComputedStyle(c);
@@ -1103,6 +1158,10 @@
             ctx.setTransform(s, 0, 0, s, ox, oy);
             paint(ctx, shape, c, cs, k, share(cs.opacity));
           });
+          if (was && was.isConnected) {
+            pick(was);
+            draw();
+          }
           canvas.toBlob(function (blob) {
             if (!blob) return;
             var a = document.createElement('a');

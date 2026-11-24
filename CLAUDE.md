@@ -2,7 +2,7 @@
 
 @../research-aide/.claude/common.md
 
-Lang Log (<https://lang-log.github.io/>): an atlas of language families, sign languages and writing systems, built from source data into static pages in `dist/` by the scripts in `tools/`, checked and deployed by GitHub Actions.
+Lang Log (<https://lang-log.com/>): an atlas of language families, sign languages and writing systems, built from source data into static pages in `dist/` by the scripts in `tools/`, checked and deployed by GitHub Actions.
 
 This file holds only the principles. The owner's shared rules come from the `research-aide` repository (imported above; clone it next to this repository). Rules only for this repository live in `.claude/rules/`.
 
@@ -12,6 +12,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 
 - **Only what was asked.** Do what the owner asked and nothing else (`only-what-was-asked.md` in `research-aide`). Never add page or interface text, descriptions, "coming soon" placeholders or features the owner did not ask for; when asked to explain or investigate, answer and stop, with no pull request.
 - **Show the sources.** Every classification says which source it follows; alternative hypotheses are shown side by side, not merged away.
+- **No source names in the interface.** Wording never names a data source such as WALS, Glottolog or PHOIBLE; sources are named only where they are credited or cited (`interface-text.md`).
 - **Static pages for now.** The site is plain files on GitHub Pages, with no server or database (the owner's decision, 2026-11-07; it may change later).
 - **A progressive web app.** Lang Log is to become a progressive web app (PWA) (the owner's decision, 2026-11-08).
 - **Simple and loosely coupled.** Always keep the structure as simple and as loosely coupled as possible (`simple-structure.md` in `research-aide`). Behaviour needed on several pages, such as the maps, is written once and shared, not rewritten per page.

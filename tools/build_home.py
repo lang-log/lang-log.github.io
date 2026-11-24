@@ -24,7 +24,9 @@ data here, at build time; no number is typed by hand.
 
 The list and the texts work without JavaScript. The search box is a GET form to
 the search results page, dist/q.html at <site>/q?q=<terms> (dist/search.js,
-owner 2026-11-08); dist/home.js sends old ?q= links to the top page there.
+owner 2026-11-08). Top-page addresses with ?q=<terms> (old links, search shortcuts
+set up by hand) are sent there by dist/search-redirect.js, loaded in <head> so the top
+page is never drawn first.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
@@ -47,13 +49,14 @@ import json
 
 from locations import DIST
 import build_paths as bp
-from build_wals_map import glottolog, point_languages
+from build_wals_map import condition_languages, glottolog
 from languoid_map import locator, min_width, world_box, world_view, world_view_box
 import info_page
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
     COPYRIGHT,
+    contact_line,
     GOOGLE_SITE_VERIFICATION,
     HOME_TITLE,
     SITE_NAME_META,
@@ -191,15 +194,20 @@ def families_html():
     # data arrives; dist/explore.css hides them when scripts are off. The count line
     # starts with every language, the sentence dist/explore.js apply() writes with no
     # conditions.
-    total = len(point_languages(glottolog()))
+    total = len(condition_languages(glottolog()))
     return (
         '<section class="home-section home-views" id="families">'
         f'<div class="seg explore-views" role="group" aria-label="View">{views}</div>'
         '<div class="explore-filter wm-legend">'
         f'<p id="count" class="wm-count">Showing {total} of {total} languages</p>'
-        '<div class="explore-colour" hidden><label class="wm-colour">Colour by <span id="colour-slot"></span></label></div>'
+        '<div class="explore-colour" hidden><label class="wm-colour">Colour by <span id="colour-slot"></span></label>'
+        # Sets the Latitude and Longitude conditions to the part of the map in view.
+        '<button type="button" id="use-area" class="wm-add">Use the area in view</button></div>'
         '<h3 class="wm-conds-title">Conditions</h3>'
         '<div id="conditions"></div>'
+        # Shown by dist/explore.js once there are two conditions; empty = AND / OR as set.
+        '<label class="wm-min" hidden>Minimum number of conditions to match '
+        '<input type="number" id="min-match" min="1" step="1" inputmode="numeric"></label>'
         '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
         f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
         '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
@@ -220,6 +228,10 @@ def families_html():
 
 # The views of the top-page list, in the order of the switch: (key, label).
 # dist/explore.js reads the keys from the buttons.
+# The search results page (dist/q.html, served at <site>/q), relative to the top page: the
+# search form's action and dist/search-redirect.js's target.
+SEARCH_PAGE = "q"
+
 VIEWS = [("list", "List"), ("map", "Map")]
 
 
@@ -447,7 +459,8 @@ def main():
     html = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         + SECURITY_HEAD
-        + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        + f'<script src="search-redirect.js" data-results="{SEARCH_PAGE}"></script>'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<meta name="description" content="{escape(description)}">'
         f'<meta name="google-site-verification" content="{escape(GOOGLE_SITE_VERIFICATION)}">'
         f"<title>{HOME_TITLE}</title>"
@@ -467,7 +480,7 @@ def main():
         '<section class="home-intro">'
         '<h1 class="home-logo"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></h1>'
         + by_yoshi("p", "home-by")
-        + '<form class="home-search" action="q" method="get" role="search">'
+        + f'<form class="home-search" action="{SEARCH_PAGE}" method="get" role="search">'
         '<label class="visually-hidden" for="home-q">Search languages and families</label>'
         '<div class="search-pill">'
         '<input id="home-q" name="q" type="search" placeholder="Name, ISO code, Glottocode…" autocomplete="off">'
@@ -481,7 +494,7 @@ def main():
         "</main>\n"
         f"<footer><span>{GLOTTOLOG} + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
         "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
-        f"<span>{COPYRIGHT}</span></footer>\n"
+        f"<span>{COPYRIGHT}</span>{contact_line()}</footer>\n"
         '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'
         '<script src="map-zoom.js"></script><script src="tree.js"></script><script src="explore.js"></script>\n'
         "</body></html>\n"
