@@ -75,7 +75,7 @@ for f in index.html signs-and-scripts.html record.html 404.html \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
          map/land.svg map/tiles.json map-zoom.js data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js random.json q.html search.js manifest.webmanifest pwa.js sw.js \
+         home.js search-redirect.js random.json q.html search.js manifest.webmanifest pwa.js sw.js \
          explore.js explore.css data/features/languages.json \
          data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
          stats/index.html stats.js sources/index.html \
