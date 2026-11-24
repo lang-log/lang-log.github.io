@@ -13,9 +13,11 @@ accepts from a <meta> element are written into the <head> of every page:
 Policies that only work as response headers (frame-ancestors,
 X-Frame-Options, Strict-Transport-Security, X-Content-Type-Options,
 Permissions-Policy, Cross-Origin-*-Policy) are listed in
-.claude/rules/security.md; the live site waits for a host that can send headers.
-The beta site on Cloudflare Pages sends them: `--headers <dir>` writes
-<dir>/_headers (Cloudflare's header file) from HEADERS below.
+.claude/rules/security.md and written once below (LIVE_HEADERS). Cloudflare sends
+them in front of GitHub Pages for the live site (`--live` prints them for its
+Transform Rule, `--check-live <url>` checks what the site sends), and the beta
+site on Cloudflare Pages sends them too: `--headers <dir>` writes <dir>/_headers
+(Cloudflare's header file) from HEADERS below.
 
 The page generators (tools/build_home.py, tools/build_paths.py) write HEAD
 from here. The hand-written pages in dist/ carry the same text; run
@@ -27,6 +29,7 @@ inline script, which the policy would block.
 
 import re
 import sys
+import urllib.request
 from pathlib import Path
 
 from locations import DIST
@@ -69,8 +72,10 @@ HEAD = (
 # .claude/rules/web-security.md), used by the beta site on Cloudflare Pages
 # (.claude/rules/previews.md). The beta is the production deployment of its
 # Cloudflare project, which gets no noindex of its own, so it is added here.
-HEADERS = {
-    "X-Robots-Tag": "noindex",
+# The response headers of the live site, sent by Cloudflare in front of GitHub Pages (one
+# Response Header Transform Rule; the owner's choice, 2026-11-24, to proxy lang-log.com).
+# `--live` prints them for that rule and `--check-live <url>` compares what the site sends.
+LIVE_HEADERS = {
     # frame-ancestors works only as a header, so it is added to the page policy here.
     "Content-Security-Policy": f"{CSP}; frame-ancestors 'none'",
     "X-Frame-Options": "DENY",
@@ -106,6 +111,8 @@ HEADERS = {
     "Cross-Origin-Opener-Policy": "same-origin",
     "Cross-Origin-Resource-Policy": "same-origin",
 }
+# The beta site (Cloudflare Pages' _headers file, --headers): the same, and kept out of search engines.
+HEADERS = {"X-Robots-Tag": "noindex", **LIVE_HEADERS}
 
 CHARSET = '<meta charset="utf-8">'
 ANY_POLICY = re.compile(
@@ -147,7 +154,27 @@ def write_headers(directory):
     (Path(directory) / "_headers").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def check_live(url):
+    """Compare the headers the live site sends with LIVE_HEADERS; the number of differences."""
+    request = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "lang-log-check"})
+    with urllib.request.urlopen(request, timeout=30) as response:
+        sent = response.headers
+    bad = 0
+    for name, value in LIVE_HEADERS.items():
+        if sent.get(name) != value:
+            bad += 1
+            print(f"{name}: expected {value!r}, the site sends {sent.get(name)!r}")
+    print(f"{url}: {len(LIVE_HEADERS) - bad} of {len(LIVE_HEADERS)} headers as in LIVE_HEADERS")
+    return bad
+
+
 def main(argv):
+    if argv[1:] == ["--live"]:
+        for name, value in LIVE_HEADERS.items():
+            print(f"{name}: {value}")
+        return 0
+    if len(argv) == 3 and argv[1] == "--check-live":
+        return 1 if check_live(argv[2]) else 0
     if len(argv) == 3 and argv[1] == "--headers":
         write_headers(argv[2])
         return 0
@@ -156,7 +183,10 @@ def main(argv):
             write(page)
         return 0
     if argv[1:] != ["--check"]:
-        print("usage: security_policy.py --check | --write | --headers <dir>", file=sys.stderr)
+        print(
+            "usage: security_policy.py --check | --write | --headers <dir> | --live | --check-live <url>",
+            file=sys.stderr,
+        )
         return 2
     bad = 0
     count = 0
