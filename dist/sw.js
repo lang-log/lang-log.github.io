@@ -21,6 +21,8 @@ var SITE_CACHE = 'lang-log-site-' + CACHE_VERSION;
 var HASH_HEADER = 'X-Lang-Log-Hash';
 // offline-files.json itself is stored last, as the sign that the whole site is saved.
 var FILE_LIST = new URL('offline-files.json', self.registration.scope).href;
+// The list's version, read by dist/pwa.js to tell whether a stored copy is current.
+var LIST_VERSION = new URL('offline-version.txt', self.registration.scope).href;
 // The list's own hash (offline-version.txt, tools/pwa.py) is kept on the stored list as
 // HASH_HEADER, so a page can tell whether the stored copy is current.
 // At most this many stored responses; the oldest go first. Bounds the space the site takes
@@ -66,6 +68,11 @@ self.addEventListener('activate', function (event) {
 function handled(request) {
   if (request.method !== 'GET') return false;
   var url = new URL(request.url);
+  // The whole-site list (about 14 MB) and its version are only read online by dist/pwa.js,
+  // so they go straight to the network: storing a copy of the list on every press of the
+  // button kept the worker busy and slowed every page meanwhile (issue 134).
+  var address = url.origin + url.pathname;
+  if (address === FILE_LIST || address === LIST_VERSION) return false;
   return url.origin === SCOPE.origin && url.pathname.indexOf(SCOPE.pathname) === 0;
 }
 

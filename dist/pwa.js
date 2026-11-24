@@ -23,6 +23,10 @@
   // Files fetched at once: a few in parallel keeps the download fast without many
   // requests waiting on the server at the same time.
   var BATCH_FILES = 8;
+  // Waits in milliseconds before trying a failed batch again, one per retry. A batch fails
+  // when a file cannot be fetched for a moment, for example while the site is being
+  // redeployed (a few minutes), so the save goes on instead of stopping (issue 134).
+  var RETRY_WAITS_MS = [5000, 30000, 120000];
 
   // Sends one message to the worker and resolves to its answer (dist/sw.js, ACTIONS).
   function ask(message) {
@@ -70,6 +74,22 @@
     return navigator.locks.request('lang-log-save', run);
   }
 
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, ms);
+    });
+  }
+
+  // Stores one batch, trying again after each wait in RETRY_WAITS_MS before giving up.
+  function saveBatch(batch, retry) {
+    return ask({ save: batch }).catch(function (error) {
+      if (retry >= RETRY_WAITS_MS.length) throw error;
+      return wait(RETRY_WAITS_MS[retry]).then(function () {
+        return saveBatch(batch, retry + 1);
+      });
+    });
+  }
+
   function save(progress) {
     return oneAtATime(function () {
       return saveNow(progress);
@@ -99,7 +119,7 @@
         function next(start) {
           if (start >= files.length) return ask({ finish: { list: text, version: version } });
           var batch = files.slice(start, start + BATCH_FILES);
-          return ask({ save: batch }).then(function () {
+          return saveBatch(batch, 0).then(function () {
             done += batch.length;
             progress(done, total);
             return next(start + BATCH_FILES);
