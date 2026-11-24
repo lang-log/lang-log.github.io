@@ -26,7 +26,7 @@ def labels(category):
 MODALITY_OF_DOMAIN = {"sign": "signed", "scripts": "written"}
 
 
-def medium_text(n):
-    """The "Medium" line of a page, such as "Medium: spoken · constructed".
-    dist/record.js writes the same text for records it shows."""
-    return "Medium: " + " · ".join([n["modality"]] + (["constructed"] if n["constructed"] else []))
+def medium_words(n):
+    """The words of a page's "Medium" row, such as ["spoken", "constructed"].
+    dist/record.js writes the same words for records it shows."""
+    return [n["modality"]] + (["constructed"] if n["constructed"] else [])

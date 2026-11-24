@@ -47,8 +47,9 @@ import sys
 import unicodedata
 
 from languoid_map import map_svg
-from modality import labels, medium_text
-from source_versions import GLOTTOLOG
+from modality import labels, medium_words
+from record_facts import facts
+from source_versions import CLDR, GLOTTOLOG, SOURCE_TITLES
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
@@ -147,12 +148,38 @@ def rec(i):
     return nodes.get(i) or extra.get(i) or {"id": i, "name": i, "level": "", "children": []}
 
 
-# Glottolog's representative point of each record, as (longitude, latitude).
+# Glottolog's representative point of each record, as (longitude, latitude), and the first
+# and last years in which it was documented, as Glottolog gives them (either may be empty).
 coords = {}
+documented = {}
 with open(ROOT / "source-data" / "languages.csv", encoding="utf-8", newline="") as f:
     for row in csv.DictReader(f):
-        if row["Latitude"] and row["Longitude"] and row["ID"] in nodes:
+        if row["ID"] not in nodes:
+            continue
+        if row["Latitude"] and row["Longitude"]:
             coords[row["ID"]] = (float(row["Longitude"]), float(row["Latitude"]))
+        years = (row["First_Year_Of_Documentation"], row["Last_Year_Of_Documentation"])
+        if any(years):
+            documented[row["ID"]] = years
+# ISO 639-3 -> ISO 639-1, from the exact equivalences Lang Log keeps (also used by dist/hf-iso-map.js).
+iso_639_1 = {
+    three: two
+    for two, three in json.loads(
+        (ROOT / "source-data" / "iso-map.json").read_text(encoding="utf-8")
+    ).items()
+}
+# Feature values of each WALS language, as ((order, feature name), value name), read from
+# the WALS files (the same values tools/build_languoids.py converts).
+wals_values = {}
+with open(ROOT / "source-data" / "wals" / "parameters.csv", encoding="utf-8", newline="") as f:
+    _features = {r["ID"]: (k, r["Name"]) for k, r in enumerate(csv.DictReader(f))}
+with open(ROOT / "source-data" / "wals" / "codes.csv", encoding="utf-8", newline="") as f:
+    _values = {r["ID"]: r["Name"] for r in csv.DictReader(f)}
+with open(ROOT / "source-data" / "wals" / "values.csv", encoding="utf-8", newline="") as f:
+    for r in csv.DictReader(f):
+        wals_values.setdefault(r["Language_ID"], []).append(
+            (_features[r["Parameter_ID"]], _values[r["Code_ID"]])
+        )
 
 
 def _points_under():
@@ -231,26 +258,34 @@ def source_link(sid):
     return f'<a href="{escape(s["url"])}" target="_blank" rel="noopener noreferrer">{escape(s["title"])}</a>'
 
 
-def names_html(n):
+def names_rows(n):
+    """The facts-table rows for a record's own names and the names other sources record."""
     own = sorted({r["text"] for r in n.get("nativeNames", [])})
     seen = {}
     for r in n.get("names", []):
         if r.get("placeholder"):
             continue
         seen.setdefault((r["text"], r.get("lang", "")), set()).add(r.get("provider", ""))
-    out = (
-        f'<h3>Name in this language</h3><p dir="auto">{" / ".join(escape(x) for x in own)}</p>'
-        if own
-        else ""
-    )
-    if not seen:  # an empty toggle would open onto nothing, so leave it out
-        return out
-    out += f'<details><summary>Recorded names and spellings · {len(seen)}</summary><ul class="name-list">'
-    out += "".join(
-        f'<li dir="auto">{escape(t)} <span class="muted">{escape(tag or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
-        for (t, tag), p in sorted(seen.items())
-    )
-    return out + "</ul></details>"
+    rows = []
+    if own:
+        rows.append(
+            (
+                "Name in this language",
+                f'<span dir="auto">{" / ".join(escape(x) for x in own)}</span>',
+            )
+        )
+    if seen:  # an empty toggle would open onto nothing, so leave it out
+        items = "".join(
+            f'<li dir="auto">{escape(t)} <span class="muted">{escape(tag or "tag unspecified")} · {escape(" · ".join(sorted(p)))}</span></li>'
+            for (t, tag), p in sorted(seen.items())
+        )
+        rows.append(
+            (
+                "Recorded names and spellings",
+                f'<details><summary>{len(seen)}</summary><ul class="name-list">{items}</ul></details>',
+            )
+        )
+    return rows
 
 
 def ext_link(sid):
@@ -273,16 +308,45 @@ def record_link(depth, i):
     return f'<a href="{escape(href(depth, i))}">{escape(name)}</a>'
 
 
+def cell(content, label):
+    """One cell of a data table. The column's label is repeated inside the cell for
+    the phone layout (dist/record.css shows each row as a block there)."""
+    if not content:
+        return '<td class="data-empty"></td>'
+    return f'<td><span class="data-label" aria-hidden="true">{escape(label)}</span>{content}</td>'
+
+
+def data_table(head, rows):
+    """A table with a header row (the data table of record pages, dist/record.css).
+    Each row is (cells, row class): one HTML string per column, an empty string for an
+    empty cell, and "" when the row has no class of its own."""
+    thead = "".join(f'<th scope="col">{escape(h)}</th>' for h in head)
+    body = ""
+    for cells, cls in rows:
+        attr = f' class="{escape(cls)}"' if cls else ""
+        body += (
+            f"<tr{attr}>" + "".join(cell(x, h) for x, h in zip(cells, head, strict=True)) + "</tr>"
+        )
+    return f'<table class="data-table"><thead><tr>{thead}</tr></thead><tbody>{body}</tbody></table>'
+
+
+def facts_table(rows, header_html=False):
+    """A table of one fact per row: the label as a row header, then the value (HTML).
+    With header_html the labels are HTML too (links), otherwise plain text."""
+    body = "".join(
+        f'<tr><th scope="row">{k if header_html else escape(k)}</th><td>{v}</td></tr>'
+        for k, v in rows
+    )
+    return f'<table class="data-table facts-table"><tbody>{body}</tbody></table>'
+
+
 def classification_html(depth, i):
     """Every source's placement of a record, with its other direct members, and
-    the other sources' trees attached below it (the old atlas evidence cards)."""
+    the other sources' trees attached below it, as tables."""
     n = rec(i)
-    cards = []
+    rows = []
     if i in nodes and not nodes[i].get("parent"):
-        cards.append(
-            f'<div class="evidence-card"><strong>According to {source_name_link(depth, "glottolog")}</strong>'
-            f"{ext_link('glottolog')}</div>"
-        )
+        rows.append(([source_name_link(depth, "glottolog"), "", "", "", ext_link("glottolog")], ""))
     seen = set()
     unique = []
     for e in unified["placements"].get(i, []):
@@ -298,31 +362,33 @@ def classification_html(depth, i):
             if x["child"] != i and x["child"] not in peers:
                 peers.append(x["child"])
         more = f' <span class="muted">and {len(peers) - 5} more</span>' if len(peers) > 5 else ""
-        card = (
-            f'<div class="evidence-card"><strong>According to {source_name_link(depth, e["source"])}</strong>'
-            f"<p>Placement: {record_link(depth, e['parent'])}</p>"
-        )
-        if e.get("sample"):
-            card += f'<p class="small-disclaimer">Source sample / record: {escape(e["sample"])}</p>'
-        if peers:
-            card += (
-                '<p class="small-disclaimer">Other direct members: '
-                + ", ".join(record_link(depth, x) for x in peers[:5])
-                + more
-                + "</p>"
+        peer_html = ", ".join(record_link(depth, x) for x in peers[:5]) + more if peers else ""
+        rows.append(
+            (
+                [
+                    source_name_link(depth, e["source"]),
+                    record_link(depth, e["parent"]),
+                    escape(e.get("sample", "")),
+                    peer_html,
+                    ext_link(e["source"]),
+                ],
+                "",
             )
-        cards.append(card + ext_link(e["source"]) + "</div>")
-    out = '<section class="classification"><h2>Classification by source</h2>' + "".join(cards)
+        )
+    out = '<section class="classification"><h3>Classification by source</h3>' + data_table(
+        ["Source", "Placement", "Source sample / record", "Other direct members", "Link"], rows
+    )
     attached = unified["anchors"].get(i, []) if i in nodes else []
     if attached:
-        out += (
-            '<h3>Other sources\' trees below this record</h3><ul class="record-links">'
-            + "".join(
-                f'<li><a href="{escape(href(depth, a["root"]))}">If following {escape(sources[a["source"]]["title"])}</a>'
-                f' <span class="muted">{"catalog grouping" if a["type"] == "catalog" else "sampled study tree"}</span></li>'
+        out += "<h4>Other sources' trees below this record</h4>" + facts_table(
+            [
+                (
+                    f'<a href="{escape(href(depth, a["root"]))}">If following {escape(sources[a["source"]]["title"])}</a>',
+                    "catalog grouping" if a["type"] == "catalog" else "sampled study tree",
+                )
                 for a in attached
-            )
-            + "</ul>"
+            ],
+            header_html=True,
         )
     return out + "</section>"
 
@@ -333,15 +399,22 @@ def debates_html(i):
     for d in unified.get("debates", []):
         if not ids & set(d["appliesTo"]):
             continue
-        out += f'<section class="debate"><h2>{escape(d["title"])}</h2>'
-        for p in d["positions"]:
-            cls = " conflict-card" if p.get("stance") == "critique" else ""
-            out += (
-                f'<div class="evidence-card{cls}"><strong>According to {escape(p["author"])}</strong>'
-                f'<span class="evidence-tag">{escape(p["publication"])}</span><br>'
-                f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a></div>'
+        rows = [
+            (
+                [
+                    escape(p["author"]),
+                    escape(p["publication"]),
+                    f'<a href="{escape(p["url"])}" target="_blank" rel="noopener noreferrer">Paper ↗</a>',
+                ],
+                "conflict-row" if p.get("stance") == "critique" else "",
             )
-        out += "</section>"
+            for p in d["positions"]
+        ]
+        out += (
+            f'<section class="debate"><h3>{escape(d["title"])}</h3>'
+            + data_table(["Source", "Publication", "Link"], rows)
+            + "</section>"
+        )
     return out
 
 
@@ -357,17 +430,26 @@ def conflicts_html(depth, i):
     def title(sid):
         return escape(sources[sid]["title"])
 
-    out = f'<section class="conflicts"><h2>Incompatible study branches · {len(pairs)} source pairs</h2>'
+    rows = []
     for c, count in pairs.values():
         a, b, d = (escape(rec(x)["name"]) for x in c["witness"])
-        out += (
-            f'<div class="evidence-card conflict-card"><strong>{title(c["a"])} vs {title(c["b"])}</strong>'
-            f'<div class="conflict-witness">{title(c["a"])}: [{a} + {b}] before {d}.<br>{title(c["b"])}: [{b} + {d}] before {a}.</div>'
-            f'<p class="small-disclaimer">Same {c["sharedTips"]} sampled IDs compared · {count} incompatible clade pair(s) involving this record.</p>'
-            f"{ext_link(c['a'])} {ext_link(c['b'])}<br>"
-            f'<a href="{escape(href(depth, c["cladeA"]))}">Clade in {title(c["a"])}</a> · '
-            f'<a href="{escape(href(depth, c["cladeB"]))}">Clade in {title(c["b"])}</a></div>'
+        rows.append(
+            (
+                [
+                    f"{title(c['a'])} vs {title(c['b'])}",
+                    f'<span class="conflict-witness">{title(c["a"])}: [{a} + {b}] before {d}.<br>{title(c["b"])}: [{b} + {d}] before {a}.</span>'
+                    f'<span class="small-disclaimer">Same {c["sharedTips"]} sampled IDs compared · {count} incompatible clade pair(s) involving this record.</span>',
+                    f"{ext_link(c['a'])} {ext_link(c['b'])}<br>"
+                    f'<a href="{escape(href(depth, c["cladeA"]))}">Clade in {title(c["a"])}</a> · '
+                    f'<a href="{escape(href(depth, c["cladeB"]))}">Clade in {title(c["b"])}</a>',
+                ],
+                "conflict-row",
+            )
         )
+    out = (
+        f'<section class="conflicts"><h3>Incompatible study branches · {len(pairs)} source pairs</h3>'
+        + data_table(["Source", "Difference", "Link"], rows)
+    )
     return out + "</section>"
 
 
@@ -375,7 +457,7 @@ def tree_html(depth, i, sid):
     """The branch below a record, drawn by dist/tree.js when the visitor asks for it.
     Hidden without JavaScript; the Members list gives the same records."""
     return (
-        '<section id="tree-section" hidden><h2>Tree</h2>'
+        '<section id="tree-section" hidden><h3>Tree</h3>'
         '<p><button type="button" id="show-tree" class="show-tree">Show the tree of this branch</button></p>'
         + atlas_html("../" * depth, root=i, src=sid)
         + "</section>"
@@ -483,10 +565,14 @@ def lang_log_members(depth, i):
     kids = sorted(lang_log_children.get(i, []), key=lambda c: nodes[c]["name"].lower())
     if not kids:
         return ""
-    rows = "".join(
-        f'<li><a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a></li>' for c in kids
+    rows = [
+        ([f'<a href="{escape(href(depth, c))}">{escape(nodes[c]["name"])}</a>'], "") for c in kids
+    ]
+    return (
+        f'<section class="members"><h3>Members according to Lang Log · {len(kids)}</h3>'
+        + data_table(["Name"], rows)
+        + "</section>"
     )
-    return f'<section class="members"><h2>Members according to Lang Log · {len(kids)}</h2><ul class="record-links">{rows}</ul></section>'
 
 
 def children_html(depth, i):
@@ -501,37 +587,280 @@ def children_html(depth, i):
     if not kids:
         return ""
     kids.sort(key=lambda c: rec(c[0])["name"].lower())
-    rows = "".join(
-        f'<li><a href="{escape(href(depth, c))}">{escape(rec(c)["name"])}</a>'
-        + (
-            f' <small class="muted">sample: {escape(sm)}</small>'
-            if sm and sm != rec(c)["name"]
-            else ""
+    samples = any(sm and sm != rec(c)["name"] for c, sm in kids)
+    head = ["Name", "Source sample / record"] if samples else ["Name"]
+    rows = [
+        (
+            [record_link(depth, c)]
+            + ([escape(sm) if sm and sm != rec(c)["name"] else ""] if samples else []),
+            "",
         )
-        + "</li>"
         for c, sm in kids
+    ]
+    return (
+        f'<section class="members"><h3>Members · {len(kids)}</h3>{data_table(head, rows)}</section>'
     )
-    # A section gets the rule and spacing that set it apart from the names above.
-    return f'<section class="members"><h2>Members · {len(kids)}</h2><ul class="record-links">{rows}</ul></section>'
 
 
-def meta_html(n):
-    parts = [n["id"]]  # no kind label (family, language, dialect): every record is a languoid
-    if n["id"] in extra:
-        parts.append("According to " + sources[n["source"]]["title"])
+def group(title, inner, hidden=False):
+    """One group of a record page (names, codes, classification ...): a heading and its tables.
+    The groups and their order are the owner's (2026-11-23); a group with nothing in it is left out."""
+    if not inner:
+        return ""
+    return f'<section class="record-group"{" hidden" if hidden else ""}><h2>{escape(title)}</h2>{inner}</section>'
+
+
+def codes_rows(n, f):
+    """The record's identifiers: its Lang Log id (a Glottocode for Glottolog records) and codes."""
+    i = n["id"]
+    rows = [("Glottocode" if i in nodes else "ID", escape(i))]
+    if i in extra:
+        rows.append(("Source", escape(sources[n["source"]]["title"])))
     if n.get("iso"):
-        parts.append("ISO 639-3: " + n["iso"])
-    if n.get("area"):
-        parts.append(n["area"])
+        rows.append(("ISO 639-3", escape(n["iso"])))
+        if n["iso"] in iso_639_1:
+            rows.append(("ISO 639-1", escape(iso_639_1[n["iso"]])))
+    meta = f["linguameta"]
+    if meta and meta["iso639_2b"]:
+        rows.append(("ISO 639-2/B", escape(meta["iso639_2b"])))
+    registry = f["registry"]
+    if registry:
+        rows.append(("Language tag", f'<span dir="ltr">{escape(registry["tag"])}</span>'))
+        rows.append(("Code scope", f"<span>{escape(SCOPES[registry['scope']])}</span>"))
+        if registry["macrolanguage"]:
+            rows.append(("Macrolanguage", escape(registry["macrolanguage"])))
+        if registry["replaced_by"]:
+            rows.append(("Replaced by", escape(registry["replaced_by"])))
+        if registry["retired"]:
+            rows.append(("Retired tags", escape(", ".join(registry["retired"]))))
+    if n.get("wals"):
+        rows.append(("WALS code", escape(", ".join(n["wals"]))))
+    return rows
+
+
+# Display names of the values the sources give (tools/record_facts.py), as interface text.
+SCOPES = {
+    "individual": "Individual language",
+    "macrolanguage": "Macrolanguage",
+    "collection": "Collection",
+    "special": "Special",
+    "private-use": "Special",
+}
+OFFICIAL = {
+    "official": "Official",
+    "de_facto_official": "Official in practice",
+    "official_regional": "Official in a region",
+}
+
+
+def sentence_case(value):
+    """A source's value name ("nearly extinct") as a label ("Nearly extinct")."""
+    return value[:1].upper() + value[1:]
+
+
+def scripts_html(scripts):
+    # Script codes, named by dist/record-page.js in the page's language (Intl.DisplayNames).
+    return ", ".join(
+        f'<span class="script" data-script="{escape(s["script"])}">{escape(s["script"])}</span>'
+        for s in scripts
+    )
+
+
+def percent_html(value):
+    # A plain number here; dist/record-page.js writes it in the page's language.
+    return f'<span class="percent" data-percent="{value:g}" dir="ltr">{value:g}%</span>'
+
+
+def number_html(value):
+    # A plain number here; dist/record-page.js writes it in the page's language.
+    return f'<span class="number" data-number="{value}" dir="ltr">{value}</span>'
+
+
+def speakers_html(f):
+    out = ""
+    meta = f["linguameta"]
+    if meta and meta["speakers"]:
+        out += facts_table([("Estimated speakers", number_html(meta["speakers"]))])
+    societies = [
+        (
+            [
+                f'<a class="notranslate" href="https://d-place.org/society/{escape(x["society"])}" '
+                f'target="_blank" rel="noopener noreferrer">{escape(x["name"])} ↗</a>',
+                f'<span class="notranslate">{escape(x["region"])}</span>' if x["region"] else "",
+                f'<span dir="ltr">{x["focal_year"]}</span>' if x["focal_year"] is not None else "",
+            ],
+            "",
+        )
+        for x in f["societies"]
+    ]
+    if societies:
+        out += data_table(["Society", "Region", "Focal year"], societies)
+    rows = [
+        ([region_html(c["country"]), percent_html(c["population_percent"])], "")
+        for c in f["speakers_by_country"]
+    ]
+    if rows:
+        out += data_table(["Country", "Share of the population"], rows)
+    return out
+
+
+def society_html(f):
+    rows = [
+        (
+            [region_html(c["country"]), f"<span>{escape(OFFICIAL[c['official_status']])}</span>"],
+            "",
+        )
+        for c in f["speakers_by_country"]
+        if c["official_status"]
+    ]
+    return data_table(["Country", "Status"], rows) if rows else ""
+
+
+def vitality_html(f):
+    # Each source's own scale, side by side, never merged (.claude/rules/data.md).
+    rows = []
+    if f["endangerment"]:
+        rows.append((sentence_case(f["endangerment"]["value"]), "glottolog"))
+    if f["linguameta"] and f["linguameta"]["endangerment"]:
+        rows.append((f["linguameta"]["endangerment"], "linguameta"))
+    if not rows:
+        return ""
+    return data_table(
+        ["Endangerment", "Source"],
+        [([f"<span>{escape(v)}</span>", escape(SOURCE_TITLES[sid])], "") for v, sid in rows],
+    )
+
+
+def features_html(n, f):
+    out = ""
+    plural = f["plural_categories"]
+    if plural:
+        words = escape(", ".join(plural["values"]))
+        out += facts_table(
+            [("Plural categories", f'<span class="notranslate" dir="ltr">{words}</span>')]
+        )
+    inventories = [
+        (
+            [
+                f'<a class="notranslate" href="https://phoible.org/inventories/view/{escape(x["inventory"])}" '
+                f'target="_blank" rel="noopener noreferrer">{escape(x["contributor"])} {escape(x["inventory"])} ↗</a>',
+            ]
+            + [
+                f'<span dir="ltr"><span>{len(x[k])}</span> <span class="notranslate phonemes">{escape(" ".join(x[k]))}</span></span>'
+                if x[k]
+                else ""
+                for k in ("consonants", "vowels", "tones")
+            ],
+            "",
+        )
+        for x in f["phonemes"]
+    ]
+    if inventories:
+        out += data_table(["Inventory", "Consonants", "Vowels", "Tones"], inventories)
+    seen = {}
+    for w in n.get("wals") or []:
+        for feature, value in wals_values.get(w, []):
+            seen.setdefault(feature, value)
+    if seen:
+        rows = [
+            ([f"<span>{escape(name)}</span>", f"<span>{escape(v)}</span>"], "")
+            for (_, name), v in sorted(seen.items())
+        ]
+        # As long as a hundred rows, so folded like the recorded names (names_rows).
+        out += facts_table(
+            [
+                (
+                    "Feature values",
+                    f"<details><summary>{len(rows)}</summary>{data_table(['Feature', 'Value'], rows)}</details>",
+                )
+            ]
+        )
+    return out
+
+
+def description_rows(f):
+    d = f["description"]
+    if not d:
+        return []
+    value = f"<span>{escape(sentence_case(d['value']))}</span>"
+    if d.get("reference"):
+        value += f'<br><span class="notranslate">{escape(d["reference"])}</span>'
+    return [("Most extensive description", value)]
+
+
+def medium_rows(n, f):
     # Every languoid is labelled with its medium (tools/modality.py); records that
-    # exist only in a study tree or WALS are spoken languages.
-    parts.append(medium_text(n if "modality" in n else labels(None)))
-    return '<div class="meta">' + "".join(f"<span>{escape(p)}</span>" for p in parts) + "</div>"
+    # exist only in a study tree or WALS are spoken languages. Each word is its own
+    # element, so dist/lang.js translates them one by one.
+    words = medium_words(n if "modality" in n else labels(None))
+    rows = [("Medium", " · ".join(f"<span>{escape(w)}</span>" for w in words))]
+    main = [s for s in f["scripts"] if s["use"] == "main"]
+    other = [s for s in f["scripts"] if s["use"] == "other"]
+    if main:
+        rows.append(("Scripts", scripts_html(main)))
+    if other:
+        rows.append(("Other scripts", scripts_html(other)))
+    return rows
 
 
-def record_body(depth, i, heading="h1"):
+def region_html(code):
+    # A country code, named by dist/record-page.js in the page's language (Intl.DisplayNames).
+    return f'<span class="region" data-region="{escape(code)}">{escape(code)}</span>'
+
+
+def place_rows(n):
+    """Area, countries (named by dist/record-page.js in the page's language) and the point."""
+    rows = []
+    if n.get("area"):
+        rows.append(("Area", f"<span>{escape(n['area'])}</span>"))
+    if n.get("countries"):
+        rows.append(
+            (
+                "Countries",
+                ", ".join(region_html(c) for c in n["countries"].split(";")),
+            )
+        )
+    if n["id"] in coords:
+        lon, lat = coords[n["id"]]
+        rows.append(("Coordinates", f'<span dir="ltr">{lat}, {lon}</span>'))
+    return rows
+
+
+def record_body(depth, i, sid):
+    """Everything on a record page after the breadcrumb, in the owner's groups (2026-11-23):
+    names, codes, medium and writing, classification, place, speakers, vitality, status in
+    society, features, records and resources, links. A group with nothing in it is left out."""
     n = rec(i)
-    body = f"<{heading}>{escape(n['name'])}</{heading}>{meta_html(n)}"
+    names = names_rows(n)
+    place = place_rows(n)
+    years = documented.get(i)
+    f = facts(i if i in nodes else None, n.get("iso") or None)
+    body = f"<h1>{escape(n['name'])}</h1>"
+    body += group("Names", facts_table(names) if names else "")
+    body += group("Codes", facts_table(codes_rows(n, f)))
+    body += group("Medium and writing", facts_table(medium_rows(n, f)))
+    body += group(
+        "Classification",
+        classification_html(depth, i)
+        + conflicts_html(depth, i)
+        + debates_html(i)
+        + children_html(depth, i)
+        + (lang_log_members(depth, i) if i in nodes else "")
+        + tree_html(depth, i, sid),
+    )
+    body += group(
+        "Place", (facts_table(place) if place else "") + (map_html(depth, i) if i in nodes else "")
+    )
+    body += group("Speakers", speakers_html(f))
+    body += group("Vitality", vitality_html(f))
+    body += group("Status in society", society_html(f))
+    body += group("Features", features_html(n, f))
+    record_rows = [("Years of documentation", escape("–".join(years)))] if years else []
+    record_rows += description_rows(f)
+    records = facts_table(record_rows) if record_rows else ""
+    # The models section needs JavaScript; with nothing else in the group, the group starts
+    # hidden and dist/record-page.js shows it with the models.
+    body += group("Records and resources", records + hf_html(n), hidden=not records)
     if i in extra:
         links = [ext_link(n["source"])]
     else:
@@ -541,12 +870,14 @@ def record_body(depth, i, heading="h1"):
     links.append(
         f'<a href="{"../" * depth}record.html?domain=language&amp;id={escape(i)}">Full source detail</a>'
     )
-    body += "<p>" + " · ".join(links) + "</p>"
-    if heading == "h1" and i in nodes:
-        body += map_html(depth, i)
-    if i in nodes or n.get("names") or n.get("nativeNames"):
-        body += names_html(n)
-    return body + classification_html(depth, i) + conflicts_html(depth, i) + debates_html(i)
+    if f["linguameta"] and f["linguameta"]["wikidata"]:
+        q = escape(f["linguameta"]["wikidata"])
+        links.append(
+            f'<a href="https://www.wikidata.org/wiki/{q}" target="_blank" rel="noopener noreferrer">Wikidata item ↗</a>'
+        )
+    links.append('<a href="record.json">This record as JSON</a>')
+    body += group("Links", facts_table([("Links", " · ".join(links))]))
+    return body
 
 
 def map_html(depth, i):
@@ -597,17 +928,31 @@ def map_html(depth, i):
     return f'<figure class="lmap-figure">{svg}{key_html}</figure>'
 
 
-# Credit for the Glottolog data, which CC BY 4.0 requires on every page that uses it.
+# Credit for the data on every page: Glottolog and WALS (CC BY 4.0 requires it), the IANA
+# registry and Unicode CLDR (tools/record_facts.py; sources in source-data/sources.json).
+_NEW = 'target="_blank" rel="noopener noreferrer"'
 FOOTER = (
-    '<footer class="credit"><p>Classification and names from '
+    '<footer class="credit"><p>Classification, names, endangerment and descriptions from '
     '<a href="https://glottolog.org/" target="_blank" rel="noopener noreferrer">'
     + GLOTTOLOG
     + "</a> "
     "(Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
     '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
     'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p>'
-    + contact_line("p")
-    + "</footer>"
+    f'<p>Language tags from <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" {_NEW}>IANA Language Subtag Registry</a>'
+    f'; scripts, speakers and official status from <a href="https://cldr.unicode.org/" {_NEW}>{CLDR}</a>'
+    f', used under <a href="https://www.unicode.org/license.txt" {_NEW}>Unicode License v3</a>'
+    f'; feature values from <a href="https://wals.info/" {_NEW}>WALS Online</a>'
+    f', used under <a href="https://creativecommons.org/licenses/by/4.0/" {_NEW}>CC BY 4.0</a>'
+    f'; phoneme inventories from <a href="https://phoible.org/" {_NEW}>PHOIBLE</a>'
+    f', used under <a href="https://creativecommons.org/licenses/by/4.0/" {_NEW}>CC BY 4.0</a>.'
+    "</p>"
+    # Share-alike and non-commercial data, named with their licenses (.claude/rules/license.md).
+    f'<p>Estimated speakers, scripts, endangerment and Wikidata items from <a href="https://github.com/google-research/url-nlp/tree/main/linguameta" {_NEW}>LinguaMeta</a>'
+    f', used under <a href="https://creativecommons.org/licenses/by-sa/4.0/" {_NEW}>CC BY-SA 4.0</a>'
+    f'; societies from <a href="https://d-place.org/" {_NEW}>D-PLACE</a>'
+    f', used under <a href="https://creativecommons.org/licenses/by-nc/4.0/" {_NEW}>CC BY-NC 4.0</a>.'
+    "</p>" + contact_line("p") + "</footer>"
 )
 
 
@@ -797,15 +1142,12 @@ def write_source_pages():
         sid = n["source"]
         depth = path_of(i).count("/") + 1
         if i in study_root:
-            body = source_page_body(sid) + children_html(depth, i)
+            body = source_page_body(sid) + group("Classification", children_html(depth, i))
         else:
-            body = (
-                breadcrumb(depth, extra_lineage(i)[:-1], sid)
-                + record_body(depth, i)
-                + children_html(depth, i)
-            )
-        body += tree_html(depth, i, sid) + hf_html(n)
-        body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
+            body = breadcrumb(depth, extra_lineage(i)[:-1], sid) + record_body(depth, i, sid)
+        if i in study_root:  # a record page has these in its groups
+            body += tree_html(depth, i, sid) + hf_html(n)
+            body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
         write_page(i, body, sources[sid]["title"] if i in study_root else n["name"])
         written += 1
     # dist/wals/: the WALS catalog and its families.
@@ -843,14 +1185,9 @@ def main():
         target = OUT / p
         target.mkdir(parents=True, exist_ok=True)
         anc = lineage(i)[:-1]
-        body = breadcrumb(depth, anc) + lang_log_lineage(depth, i) + record_body(depth, i)
-        body += (
-            children_html(depth, i)
-            + lang_log_members(depth, i)
-            + tree_html(depth, i, "glottolog")
-            + hf_html(nodes[i])
+        body = (
+            breadcrumb(depth, anc) + lang_log_lineage(depth, i) + record_body(depth, i, "glottolog")
         )
-        body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
         (target / "index.html").write_text(page(depth, nodes[i]["name"], body), encoding="utf-8")
         (target / "record.json").write_text(
             json.dumps(record_json(i), ensure_ascii=False, separators=(",", ":")), encoding="utf-8"

@@ -9,7 +9,8 @@
       "license": "CC BY 4.0",
       "url": "https://glottolog.org/",
       "download": "https://github.com/glottolog/glottolog-cldf",
-      "files": ["languages.csv", "classification.nex", "dialects.md", "names.csv", "iso-map.json"]
+      "files": ["languages.csv", "classification.nex", "dialects.md", "names.csv", "iso-map.json", "values.csv", "codes.csv"],
+      "note": "values.csv and codes.csv (endangerment, most extensive description) were taken from the same release (tag v5.3) on 2026-11-23."
     },
     {
       "id": "wals",
@@ -21,6 +22,63 @@
       "download": "https://github.com/cldf-datasets/wals (cldf/, branch master)",
       "citation": "Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. The World Atlas of Language Structures Online. Leipzig: Max Planck Institute for Evolutionary Anthropology.",
       "files": ["wals.csv", "wals/values.csv", "wals/parameters.csv", "wals/codes.csv", "wals/chapters.csv", "wals/areas.csv"]
+    },
+    {
+      "id": "iana",
+      "title": "IANA Language Subtag Registry",
+      "version": "2025-08-25",
+      "retrieved": "2026-11-23",
+      "license": "Public registry (RFC 5646); this JSON form CC0 1.0",
+      "url": "https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
+      "download": "https://www.npmjs.com/package/language-subtag-registry (version 0.4.2, data/json/)",
+      "note": "The registry as JSON, converted without change by the language-subtag-registry package; version is the registry's File-Date (meta.json).",
+      "files": ["iana/registry.json", "iana/meta.json"]
+    },
+    {
+      "id": "cldr",
+      "title": "Unicode CLDR",
+      "version": "49",
+      "retrieved": "2026-11-23",
+      "license": "Unicode License v3 (cldr/LICENSE)",
+      "url": "https://cldr.unicode.org/",
+      "download": "https://www.npmjs.com/package/cldr-core (version 49.0.0, supplemental/)",
+      "citation": "Unicode Common Locale Data Repository (CLDR), version 49. Unicode, Inc.",
+      "files": ["cldr/languageData.json", "cldr/territoryInfo.json", "cldr/plurals.json", "cldr/aliases.json", "cldr/LICENSE"]
+    },
+    {
+      "id": "linguameta",
+      "title": "LinguaMeta",
+      "version": "main",
+      "retrieved": "2026-11-23",
+      "license": "CC BY-SA 4.0 (linguameta/LICENSE)",
+      "url": "https://github.com/google-research/url-nlp/tree/main/linguameta",
+      "download": "https://github.com/google-research/url-nlp (linguameta/linguameta.tsv, branch main)",
+      "citation": "Ritchie, Sandy, Daan van Esch, Uche Okonkwo, Shikhar Vashishth & Emily Drummond. 2024. LinguaMeta: Unified metadata for thousands of languages. In Proceedings of LREC-COLING 2024, 10530–10538. Torino: ELRA.",
+      "note": "Share-alike: values from it carry source linguameta and stay under CC BY-SA 4.0 (.claude/rules/license.md).",
+      "files": ["linguameta/linguameta.tsv", "linguameta/LICENSE"]
+    },
+    {
+      "id": "phoible",
+      "title": "PHOIBLE",
+      "version": "master",
+      "retrieved": "2026-11-23",
+      "license": "CC BY 4.0 (phoible/LICENSE-DATA)",
+      "url": "https://phoible.org/",
+      "download": "https://github.com/phoible/dev (data/phoible.csv, branch master)",
+      "citation": "Moran, Steven & Daniel McCloy (eds.) 2019. PHOIBLE 2.0. Jena: Max Planck Institute for the Science of Human History.",
+      "files": ["phoible/phoible.csv", "phoible/LICENSE-DATA"]
+    },
+    {
+      "id": "dplace",
+      "title": "D-PLACE",
+      "version": "master",
+      "retrieved": "2026-11-23",
+      "license": "CC BY-NC 4.0",
+      "url": "https://d-place.org/",
+      "download": "https://github.com/D-PLACE/dplace-cldf (cldf/societies.csv, branch master)",
+      "citation": "Kirby, Kathryn R. et al. 2016. D-PLACE: A Global Database of Cultural, Linguistic and Environmental Diversity. PLoS ONE 11(7): e0158391. doi:10.1371/journal.pone.0158391.",
+      "note": "Non-commercial: values from it carry source dplace and are never used in a paid feature (.claude/rules/license.md). The other files in dplace/ were used only to discover the Phlorest trees.",
+      "files": ["dplace/societies.csv"]
     },
     {
       "id": "lang-log",
