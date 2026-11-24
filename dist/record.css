@@ -350,11 +350,15 @@
 .variant-page .classification h4 {
   margin-top: 24px;
 }
+/* The map and the tree of descendants at the top of a record page (record_views() in
+   tools/build_paths.py, run by dist/explore.js). */
 /* A group of a record page (group() in tools/build_paths.py) and the parts inside it. */
-.variant-page .record-group section {
+.variant-page .record-group section,
+.variant-page .record-views section {
   padding: 8px 0;
 }
-.variant-page .record-group h3 {
+.variant-page .record-group h3,
+.variant-page .record-views h3 {
   margin: 16px 0 8px;
 }
 .variant-page .show-tree {

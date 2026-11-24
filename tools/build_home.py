@@ -49,6 +49,7 @@ import json
 
 from locations import DIST
 import build_paths as bp
+from explore_panel import explore_open
 from build_wals_map import condition_languages, glottolog
 from languoid_map import frame, world_view_box
 import info_page
@@ -183,33 +184,14 @@ def families_html():
         '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
     )
     # Two views of every top-level record: a switch (1), the conditions shared by the
-    # views (2) and the view (3). dist/explore.js runs them; without JavaScript only the
-    # list is shown. The list carries the tree's Download menu (issue #93); its canvas
-    # stays hidden on this page and is drawn only for the SVG export (dist/tree.js).
-    views = "".join(
-        f'<button type="button" data-view="{v}" aria-pressed="{str(v == "list").lower()}">{label}</button>'
-        for v, label in VIEWS
-    )
-    # The switch and the conditions are in the first paint, so nothing moves when the
-    # data arrives; dist/explore.css hides them when scripts are off. The count line
-    # starts with every language, the sentence dist/explore.js apply() writes with no
-    # conditions.
+    # views (2) and the view (3) (tools/explore_panel.py). dist/explore.js runs them;
+    # without JavaScript only the list is shown. The list carries the tree's Download menu
+    # (issue #93); its canvas stays hidden on this page and is drawn only for the SVG
+    # export (dist/tree.js).
     total = len(condition_languages(glottolog()))
     return (
-        '<section class="home-section home-views" id="families">'
-        f'<div class="seg explore-views" role="group" aria-label="View">{views}</div>'
-        '<div class="explore-filter wm-legend">'
-        f'<p id="count" class="wm-count">Showing {total} of {total} languages</p>'
-        '<div class="explore-colour" hidden><label class="wm-colour">Colour by <span id="colour-slot"></span></label>'
-        # Sets the Latitude and Longitude conditions to the part of the map in view.
-        '<button type="button" id="use-area" class="wm-add">Use the area in view</button></div>'
-        '<h3 class="wm-conds-title">Conditions</h3>'
-        '<div id="conditions"></div>'
-        # Shown by dist/explore.js once there are two conditions; empty = AND / OR as set.
-        '<label class="wm-min" hidden>Minimum number of conditions to match '
-        '<input type="number" id="min-match" min="1" step="1" inputmode="numeric"></label>'
-        '<button type="button" id="add-condition" class="wm-add">+ Add condition</button></div>'
-        f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
+        explore_open("home-section home-views", "", "list", total, section_id="families")
+        + f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
         '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
         f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
         '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
@@ -228,13 +210,9 @@ def families_html():
     )
 
 
-# The views of the top-page list, in the order of the switch: (key, label).
-# dist/explore.js reads the keys from the buttons.
 # The search results page (dist/q.html, served at <site>/q), relative to the top page: the
 # search form's action and dist/search-redirect.js's target.
 SEARCH_PAGE = "q"
-
-VIEWS = [("list", "List"), ("map", "Map")]
 
 
 def root_row(r):
