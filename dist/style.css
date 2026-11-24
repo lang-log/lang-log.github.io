@@ -1936,6 +1936,33 @@ body .domain-nav a:last-child {
   min-height: 0;
   line-height: 1.4;
 }
+/* The switch between a list and a map (view_switch() in tools/build_paths.py): the top page
+   (dist/explore.js) and the record pages (dist/record-page.js). One segmented control, like
+   the List / Tree switch of the record pages' toolbar. It works only with scripts. */
+.explore-views {
+  display: inline-flex;
+  margin: 16px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.explore-views button {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+.explore-views button + button {
+  border-inline-start: 1px solid var(--line);
+}
+.explore-views button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--c-ffffff);
+}
+@media (scripting: none) {
+  .explore-views {
+    display: none;
+  }
+}
 .toolbar .seg {
   display: inline-flex;
   flex-wrap: nowrap;

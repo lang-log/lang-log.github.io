@@ -1,34 +1,11 @@
 /* The two views of the top page and their conditions (dist/explore.js, tools/build_home.py).
    Colours are the variables at the top of style.css. */
-.explore-views {
-  margin: 16px 0 12px;
-}
-/* One segmented control, like the List / Tree switch of the record pages' toolbar. */
-.explore-views {
-  display: inline-flex;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  overflow: hidden;
-}
-.explore-views button {
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-}
-.explore-views button + button {
-  border-inline-start: 1px solid var(--line);
-}
-.explore-views button[aria-pressed='true'] {
-  background: var(--ink);
-  color: var(--c-ffffff);
-}
 .explore-filter {
   margin: 0 0 16px;
 }
-/* The switch and the conditions are in the page from the start, so they are drawn with
-   it; they work only with scripts, so without them only the list is shown. */
+/* The conditions are in the page from the start, so they are drawn with it; they work only
+   with scripts, so without them only the list is shown (the switch: style.css). */
 @media (scripting: none) {
-  .explore-views,
   .explore-filter {
     display: none;
   }
