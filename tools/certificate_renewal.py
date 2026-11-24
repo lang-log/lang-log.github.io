@@ -20,6 +20,7 @@ Every step is sent to the owner by email at once, through one GitHub issue
 ("Certificate renewal for <domain>", assigned to NOTIFY_LOGIN; the owner's choice,
 2026-11-24): opened when renewal is found stuck, a comment and closed when it
 worked, a comment with the screens and steps to fix it by hand when it did not.
+The texts are the owner's, kept in GitHub Secrets (MESSAGE_SECRETS).
 
 Records the owner left unproxied are never touched: only records this script marked
 are proxied again. Needs CLOUDFLARE_DNS_TOKEN (a token with only "Zone / DNS / Edit"
@@ -200,16 +201,46 @@ def open_issue(host):
     return None
 
 
+# The owner keeps the email texts in GitHub Secrets (the owner's choice, 2026-11-24), in the
+# "dns" environment: one secret per step, each a text with the placeholders of message().
+MESSAGE_SECRETS = {
+    "detected": "CERT_MAIL_DETECTED",
+    "renewed": "CERT_MAIL_RENEWED",
+    "failed": "CERT_MAIL_FAILED",
+}
+
+
+def message(step, host, days, records=0):
+    """The text for one step, from its secret, with {host}, {days}, {records}, {wait_minutes},
+    {threshold_days}, {pages_url}, {cloudflare_url} and {run} filled in.
+
+    Fails when the secret is missing or names another placeholder: there is no default text.
+    """
+    name = MESSAGE_SECRETS[step]
+    template = os.environ.get(name, "")
+    if not template.strip():
+        raise RuntimeError(f"the secret {name} is not set")
+    values = {
+        "host": host,
+        "days": describe(days),
+        "records": records,
+        "wait_minutes": RENEWAL_WAIT_S // 60,
+        "threshold_days": RENEW_BELOW_DAYS,
+        "pages_url": PAGES_SETTINGS_URL,
+        "cloudflare_url": CLOUDFLARE_DNS_URL,
+        "run": run_url(),
+    }
+    try:
+        return template.format_map(values)
+    except (KeyError, IndexError, ValueError) as e:
+        raise RuntimeError(
+            f"the secret {name} has a placeholder this check does not fill: {e}"
+        ) from None
+
+
 def notify_detected(host, days, changes):
     """Open the renewal issue, assigned to NOTIFY_LOGIN, so the owner gets an email at once."""
-    body = (
-        f"GitHub's certificate for {host} ({describe(days)}, checked straight at GitHub Pages) "
-        f"is not being renewed. Renewal seems to be stuck behind the Cloudflare proxy.\n\n"
-        f'This run turned the proxy off ("DNS only") for {len(changes)} site records, so '
-        f"GitHub can renew, and waits up to {RENEWAL_WAIT_S // 60} minutes for the new "
-        f"certificate. The site keeps working, served straight from GitHub.\n\n"
-        f"Run: {run_url()}"
-    )
+    body = message("detected", host, days, len(changes))
     number = open_issue(host)
     if number is not None:
         _comment(number, body)
@@ -226,11 +257,7 @@ def notify_renewed(host, days, number):
     """Say on the issue that renewal worked, and close it."""
     if number is None:
         return
-    _comment(
-        number,
-        f"GitHub renewed the certificate for {host} ({describe(days)}). The Cloudflare proxy "
-        f"is back on for the records this check had turned off.\n\nRun: {run_url()}",
-    )
+    _comment(number, message("renewed", host, days))
     github_api.request("PATCH", github_api.repo_path(f"/issues/{number}"), {"state": "closed"})
 
 
@@ -238,21 +265,7 @@ def notify_failed(host, days, number):
     """Say on the issue that renewal did not come, with the screens and steps to fix it."""
     if number is None:
         return
-    _comment(
-        number,
-        f"GitHub did not renew the certificate for {host} within {RENEWAL_WAIT_S // 60} "
-        f'minutes ({describe(days)}). The site records stay "DNS only", so the site is '
-        f"served straight from GitHub and keeps working.\n\n"
-        f"1. GitHub Pages settings: {PAGES_SETTINGS_URL}\n"
-        f"   If it shows a certificate error, remove the custom domain, save, enter {host} "
-        f'again and save. Wait until the certificate is issued, then tick "Enforce HTTPS".\n'
-        f"2. Cloudflare DNS records: {CLOUDFLARE_DNS_URL}\n"
-        f"   The A, AAAA and CNAME records of {host} and www.{host} must point to GitHub "
-        f'Pages and stay "DNS only" until GitHub has a new certificate.\n'
-        f"3. Nothing else to do: the next daily run turns the proxy back on and closes this "
-        f"issue once the certificate has {RENEW_BELOW_DAYS} days or more left.\n\n"
-        f"Run: {run_url()}",
-    )
+    _comment(number, message("failed", host, days))
 
 
 def _comment(number, body):
@@ -271,6 +284,10 @@ def main():
             print("Cloudflare is not set up for this check yet; nothing to change.")
             return 0
         raise RuntimeError("renewal is stuck and CLOUDFLARE_DNS_TOKEN is not set up")
+    if days is None or days < RENEW_BELOW_DAYS:
+        # Every email text must work before anything changes in Cloudflare.
+        for step in MESSAGE_SECRETS:
+            message(step, host, days)
     changes = plan(days, dns_records(), host)
     apply(changes)
     if days is not None and days >= RENEW_BELOW_DAYS:

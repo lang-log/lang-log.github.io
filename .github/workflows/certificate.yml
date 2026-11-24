@@ -36,4 +36,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           CLOUDFLARE_DNS_TOKEN: ${{ secrets.CLOUDFLARE_DNS_TOKEN }}
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          # The email texts (tools/certificate_renewal.py, MESSAGE_SECRETS).
+          CERT_MAIL_DETECTED: ${{ secrets.CERT_MAIL_DETECTED }}
+          CERT_MAIL_RENEWED: ${{ secrets.CERT_MAIL_RENEWED }}
+          CERT_MAIL_FAILED: ${{ secrets.CERT_MAIL_FAILED }}
           NOTIFY_LOGIN: nguekwang # assigned to the issue, so the owner gets each email

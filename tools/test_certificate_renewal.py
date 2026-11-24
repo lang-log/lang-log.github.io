@@ -5,7 +5,9 @@ Run from the repository root (tools/build_site.sh does):
     python3 -m unittest discover -s tools -p 'test_*.py'
 """
 
+import os
 import unittest
+from unittest import mock
 
 import certificate_renewal as cr
 
@@ -45,6 +47,24 @@ class PlanTest(unittest.TestCase):
             record("other", f"mail.{HOST}", proxied=False, comment=cr.MARKER),
         ]
         self.assertEqual(cr.plan(cr.RENEW_BELOW_DAYS + 30, records, HOST), [("a", True, "")])
+
+
+class MessageTest(unittest.TestCase):
+    def test_fills_the_placeholders(self):
+        env = {"CERT_MAIL_FAILED": "{host}: {days}, {records} records, {threshold_days} days"}
+        with mock.patch.dict(os.environ, env):
+            text = cr.message("failed", HOST, 3.04, 3)
+        self.assertEqual(text, f"{HOST}: 3.0 days left, 3 records, {cr.RENEW_BELOW_DAYS} days")
+
+    def test_missing_secret_fails(self):
+        with mock.patch.dict(os.environ, {"CERT_MAIL_RENEWED": " "}):
+            with self.assertRaises(RuntimeError):
+                cr.message("renewed", HOST, 80)
+
+    def test_unknown_placeholder_fails(self):
+        with mock.patch.dict(os.environ, {"CERT_MAIL_DETECTED": "{hots}"}):
+            with self.assertRaises(RuntimeError):
+                cr.message("detected", HOST, None)
 
 
 if __name__ == "__main__":
