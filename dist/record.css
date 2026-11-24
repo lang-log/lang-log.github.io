@@ -701,3 +701,8 @@ body > .domain-nav {
 .variant-page .data-table a[target='_blank'] {
   white-space: nowrap;
 }
+
+/* Offline PDF: one record after another, each on a new page (tools/offline_zip.js). */
+.offline-record + .offline-record {
+  break-before: page;
+}

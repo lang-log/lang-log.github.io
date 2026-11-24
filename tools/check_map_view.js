@@ -9,12 +9,9 @@
 // on a screen of SCREEN pixels the page is SCREEN / z CSS pixels wide with z device pixels
 // per CSS pixel. Sizes on the screen are measured in device pixels.
 /* global window, document, getComputedStyle, requestAnimationFrame -- measure() runs in the page, not in Node.js */
-const http = require('http'),
-  fs = require('fs'),
-  path = require('path'),
-  { chromium, firefox, webkit } = require('playwright');
+const { chromium, firefox, webkit } = require('playwright'),
+  { serve } = require('./serve_dist');
 
-const DIST = path.join(__dirname, '..', 'dist');
 const SCREEN = { width: 1920, height: 960 }; // a desktop screen, in device pixels
 const HOME_ZOOM = 1.5; // the zoom every other zoom is compared with (the owner's 150%)
 // Browser zooms to open the map view at, from the smallest to the largest browsers offer.
@@ -43,32 +40,6 @@ const VARIANTS = [
   { locale: 'en-US', colorScheme: 'light' },
   { locale: 'ar', colorScheme: 'dark' }, // right to left
 ];
-
-const TYPES = {
-  '.html': 'text/html',
-  '.js': 'text/javascript',
-  '.css': 'text/css',
-  '.svg': 'image/svg+xml',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.webmanifest': 'application/manifest+json',
-};
-
-function serve() {
-  const server = http.createServer((req, res) => {
-    let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-    if (p.endsWith('/')) p += 'index.html';
-    const file = path.join(DIST, path.normalize(p));
-    if (!file.startsWith(DIST) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
-      res.writeHead(404);
-      res.end();
-      return;
-    }
-    res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream' });
-    fs.createReadStream(file).pipe(res);
-  });
-  return new Promise((resolve) => server.listen(0, '127.0.0.1', () => resolve(server)));
-}
 
 // Everything measured on the open map view, in device pixels where it is a size on screen.
 function measure() {

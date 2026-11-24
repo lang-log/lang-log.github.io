@@ -50,6 +50,9 @@ jobs:
       # zoom, in Chromium, Firefox and WebKit (tools/check_map_view.js).
       - run: npx playwright install --with-deps chromium firefox webkit
       - run: node tools/check_map_view.js
+      # The release's ZIP builder still works: one family, in a right-to-left language
+      # (tools/offline_zip.js; the release builds every family in every language).
+      - run: node tools/offline_zip.js ar japonic
       - name: Make the preview (all but the record pages of other families)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: bash tools/make_preview.sh _preview
