@@ -45,7 +45,7 @@ jobs:
           tip=$(gh api "repos/$GITHUB_REPOSITORY/branches/$BRANCH" --jq .commit.sha)
           if [ "$tip" = "$SHA" ]; then echo "publish=yes" >> "$GITHUB_OUTPUT"; else echo "beta is at $tip now; skipping $SHA"; fi
       - if: steps.latest.outputs.publish
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: beta
           path: _beta
@@ -61,7 +61,7 @@ jobs:
             exit 1
           fi
       - if: steps.latest.outputs.publish
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
       # The first run creates the project, with beta as its production branch, so the site is at

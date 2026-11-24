@@ -29,8 +29,8 @@ jobs:
     needs: quality
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       # The releases for dist/releases.html (read-only token; tools/build_releases.py).
@@ -41,7 +41,7 @@ jobs:
       - run: bash tools/build_site.sh
       # The built pages are valid HTML (.htmlvalidate.json): the top page, the Releases page, the
       # info pages, every top-level record page and every record page of one family.
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
       - run: npm ci --ignore-scripts
@@ -54,7 +54,7 @@ jobs:
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: bash tools/make_preview.sh _preview
       - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: preview
           path: _preview
@@ -67,7 +67,7 @@ jobs:
           bash tools/make_preview.sh _beta
           python3 tools/security_policy.py --headers _beta
       - if: github.event_name == 'push' && github.ref == 'refs/heads/beta'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: beta
           path: _beta
