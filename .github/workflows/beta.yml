@@ -1,0 +1,90 @@
+# Publish the beta site at https://lang-log-beta.pages.dev/ (the owner's decision, 2026-11-23):
+# after every passing site.yml run of a push to the beta branch, upload the artifact "beta" it made
+# (part of the site, with Cloudflare's _headers file; tools/make_preview.sh) to the Cloudflare
+# Pages project lang-log-beta as its production deployment. The live site stays on GitHub Pages
+# (pages.yml). Rules: .claude/rules/previews.md.
+#
+# No code is checked out or run here: site.yml built and checked the files. The secrets are the
+# ones the pull request previews use (an API token with only "Account / Cloudflare Pages / Edit",
+# and the account ID).
+name: beta
+on:
+  workflow_run:
+    workflows: [site]
+    types: [completed]
+permissions: {}
+env:
+  PROJECT: lang-log-beta
+  BRANCH: beta
+  # Pinned, the same version as research-aide's cloudflare-previews.yml; update on purpose.
+  WRANGLER: wrangler@4.158.0
+  NODE_VERSION: "22"
+jobs:
+  deploy:
+    if: >-
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'beta' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    # One upload at a time, in order.
+    concurrency:
+      group: beta
+      cancel-in-progress: false
+    permissions:
+      actions: read
+      contents: read
+    steps:
+      # Runs of older commits can end after newer ones; only the latest commit of beta is published.
+      - id: latest
+        name: Check that this run built the latest commit of beta
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          tip=$(gh api "repos/$GITHUB_REPOSITORY/branches/$BRANCH" --jq .commit.sha)
+          if [ "$tip" = "$SHA" ]; then echo "publish=yes" >> "$GITHUB_OUTPUT"; else echo "beta is at $tip now; skipping $SHA"; fi
+      - if: steps.latest.outputs.publish
+        uses: actions/download-artifact@v4
+        with:
+          name: beta
+          path: _beta
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+      # Files that would make Cloudflare run code on its servers (Pages Functions) are never published.
+      - if: steps.latest.outputs.publish
+        name: Refuse server code
+        run: |
+          found=$(find _beta \( -name _worker.js -o -name _routes.json -o -name 'wrangler.*' -o -name functions \) -print -quit)
+          if [ -n "$found" ]; then
+            echo "::error::the beta site holds $found; Pages Functions are not allowed"
+            exit 1
+          fi
+      - if: steps.latest.outputs.publish
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      # The first run creates the project, with beta as its production branch, so the site is at
+      # https://lang-log-beta.pages.dev/ itself rather than at a branch address.
+      - if: steps.latest.outputs.publish
+        name: Create the Cloudflare Pages project if it does not exist
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          status=$(curl -sS -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT")
+          case $status in
+            200) echo "project $PROJECT exists" ;;
+            404) npx --yes "$WRANGLER" pages project create "$PROJECT" --production-branch="$BRANCH" ;;
+            *) echo "::error::Cloudflare answered $status for project $PROJECT"; exit 1 ;;
+          esac
+      - if: steps.latest.outputs.publish
+        name: Upload the beta site to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SHA: ${{ github.event.workflow_run.head_sha }}
+        run: >-
+          npx --yes "$WRANGLER" pages deploy _beta
+          --project-name="$PROJECT" --branch="$BRANCH" --commit-hash="$SHA" --commit-dirty=true
