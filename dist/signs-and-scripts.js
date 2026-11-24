@@ -240,7 +240,7 @@
       ids.unshift(p);
       p = (inc[p] || []).find((e) => e.source === sid)?.parent;
     }
-    return `<nav class="lineage" aria-label="Classification according to ${esc(S[sid]?.title || sid)}"><span class="lineage-source">${sl(sid)}</span><ol class="lineage-path">${ids
+    return `<nav class="lineage" aria-label="Classification according to ${esc(S[sid]?.title || sid)}"><ol class="lineage-path">${ids
       .slice(0, -1)
       .map((i) => `<li><button type="button" data-jump="${esc(i)}">${esc(N[i].name)}</button></li>`)
       .join('')}</ol></nav>`;

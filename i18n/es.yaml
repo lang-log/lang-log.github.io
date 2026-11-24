@@ -185,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "Clasificación según Glottolog {version}"
     classification_according_to_glottolog: "Clasificación según Glottolog"
     classification_according_to_lang_log: "Clasificación según Lang Log"
-    lang_log_s_own: "Propia de Lang Log"
     according_to: "Según"
     according_to_glottolog_version: "Según Glottolog {version}"
     name_in_this_language: "Nombre en esta lengua"
