@@ -34,6 +34,6 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in every interface language, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
 - `.claude/rules/ui-design.md` (`dist/**`, `tools/build_*.py`): reusing components, phone layout, pages without JavaScript, shareable state, accessible controls.
-- `.claude/skills/add-to-lang-log/`: the steps for adding a component, interface text or data.
+- `.claude/skills/add-to-lang-log/`: the steps for adding a component, interface text or data (`SKILL.md` says which file in `references/` to read).
 - `docs/`: the documentation (no GitHub Wiki): `docs/site.md` (how the pages work), `docs/data.md` (how the data is built), `docs/urls.md` (every address and query parameter) and `docs/components.md` (every UI component by name).
 - Browsers: `.github/workflows/browsers.yml` runs the shared browser check (`browser-check.md` in `research-aide`) on every pull request; add a page there when a new kind of page appears.
