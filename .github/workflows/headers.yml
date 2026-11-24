@@ -1,0 +1,23 @@
+# Weekly check that the live site sends the response headers of LIVE_HEADERS in
+# tools/security_policy.py. Cloudflare adds them in front of GitHub Pages through one Response
+# Header Transform Rule that the owner keeps (.claude/rules/security.md); a change to the policy
+# in the repository that is not copied into that rule fails here. Run it by hand after changing
+# the rule.
+name: headers
+on:
+  schedule:
+    - cron: "41 21 * * 1" # Mondays 21:41 UTC (Tuesdays 06:41 in Japan)
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python3 tools/security_policy.py --check-live https://lang-log.com/

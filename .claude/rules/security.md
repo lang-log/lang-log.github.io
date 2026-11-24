@@ -13,18 +13,19 @@ The shared rule is `web-security.md` in the `research-aide` repository (security
 - Every link that opens a new tab has `rel="noopener noreferrer"`.
 - `dist/404.html` is served at any depth, so it uses root-relative links (`/style.css`) instead of `<base>`.
 
-## What GitHub Pages cannot do (waits for a host that sends headers)
+## Response headers (Cloudflare in front of GitHub Pages)
 
-The beta site on Cloudflare Pages already sends every header below except `report-to` and Trusted Types: `HEADERS` in `tools/security_policy.py`, written as `_headers` (see `previews.md`).
+The owner's choice (2026-11-24): `lang-log.com` goes through the Cloudflare proxy, so the live site gets the headers GitHub Pages cannot send.
 
-These work only as HTTP response headers, which GitHub Pages does not let a site set. Add them when Lang Log moves to a host with headers (see `/decisions/lang-log-backend.md` in the project files; Cloudflare `_headers` would do):
+- The headers are written once, as `LIVE_HEADERS` in `tools/security_policy.py`: the page policy as a header with `frame-ancestors 'none'` (ignored in `<meta>`), `X-Frame-Options: DENY`, `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`, `X-Content-Type-Options: nosniff`, `Referrer-Policy` (`REFERRER`), `Permissions-Policy` turning off every feature the site does not use, and `Cross-Origin-Opener-Policy` / `Cross-Origin-Resource-Policy: same-origin`.
+- Cloudflare adds them with one Response Header Transform Rule ("Set static", every request) that the owner keeps; `python3 tools/security_policy.py --live` prints the names and values to enter. Change `LIVE_HEADERS` and the rule together.
+- `.github/workflows/headers.yml` (weekly, and by hand) runs `--check-live https://lang-log.com/` and fails when the site sends anything else.
+- The beta site on Cloudflare Pages sends the same headers plus `X-Robots-Tag: noindex` (`HEADERS`, written as `_headers`, see `previews.md`).
+- Cloudflare settings that would inject scripts into the pages and break the policy stay off: Email Address Obfuscation, Rocket Loader, automatic Web Analytics. "Block AI bots" stays off (the pages are meant to be read by AI assistants too).
 
-- `Content-Security-Policy` as a header, with `frame-ancestors 'none'` (browsers ignore `frame-ancestors` in `<meta>`) and a `report-to` endpoint.
-- `X-Frame-Options: DENY`.
-- `Strict-Transport-Security`. Until then, keep "Enforce HTTPS" on in Settings > Pages (github.io is expected to be on the browsers' HSTS preload list; confirm at hstspreload.org).
-- `X-Content-Type-Options: nosniff`.
-- `Permissions-Policy` turning off camera, microphone, geolocation and the rest (no `<meta>` form exists).
-- `Cross-Origin-Opener-Policy: same-origin`, `Cross-Origin-Resource-Policy: same-origin`.
+Not yet:
+
+- CSP reporting (`report-to`): needs an endpoint to receive the reports.
 - Trusted Types (`require-trusted-types-for 'script'`) needs every `innerHTML` write in `dist/*.js` rewritten first; it is Chromium-only for now.
 
 ## The certificate behind the Cloudflare proxy
