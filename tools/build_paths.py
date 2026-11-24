@@ -38,7 +38,7 @@ from html import escape
 from locations import DIST, ROOT
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
+from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, contact_line, icon_links
 import csv
 import json
 import re
@@ -605,7 +605,9 @@ FOOTER = (
     + "</a> "
     "(Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
     '<a href="https://doi.org/10.5281/zenodo.18840935" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.18840935</a>), '
-    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>'
+    'used under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p>'
+    + contact_line("p")
+    + "</footer>"
 )
 
 

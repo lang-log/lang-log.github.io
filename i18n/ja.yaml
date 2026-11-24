@@ -113,6 +113,7 @@ text:
     one_plain_page_per_glottolog: ": Glottolog の記録ごとに 1 ページずつ、分類と地図を載せたシンプルなページです。"
     sources_glottolog_wals_published_study: "出典: Glottolog、WALS、公開された研究の系統樹、文字のカタログ(それぞれのライセンスに従います)"
     copyright: "© 2026 松浦 義広。無断での転載・利用を禁じます。"
+    contact: "お問い合わせ:"
     top_level_languoids: "最上位の Languoids"
   search:
     find_a_branch: "系統を探す"

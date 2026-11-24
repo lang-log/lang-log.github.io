@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": простая страница для каждой записи Glottolog с её классификацией и картой."
     sources_glottolog_wals_published_study: "Источники: Glottolog, WALS, деревья из опубликованных исследований и каталоги письменностей, каждый под своей лицензией"
     copyright: "© 2026 MATSUURA Yoshihiro. Все права защищены."
+    contact: "Контакты:"
     top_level_languoids: "Languoids верхнего уровня"
   search:
     find_a_branch: "НАЙТИ ВЕТВЬ"
