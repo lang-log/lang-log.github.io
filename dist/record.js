@@ -124,7 +124,7 @@
     }
     const lineHTML = !lineSource
       ? ''
-      : `<nav class="lineage" aria-label="Classification according to ${esc(S[lineSource]?.title || lineSource)}"><span class="lineage-source">${sl(lineSource)}</span>${
+      : `<nav class="lineage" aria-label="Classification according to ${esc(S[lineSource]?.title || lineSource)}">${
           lineIds.length > 1
             ? `<ol class="lineage-path">${lineIds
                 .slice(0, -1)

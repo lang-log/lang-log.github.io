@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": prosta strona dla każdego rekordu Glottologu, z klasyfikacją i mapą."
     sources_glottolog_wals_published_study: "Źródła: Glottolog, WALS, drzewa z opublikowanych badań i katalogi pism, każde na własnej licencji"
     copyright: "© 2026 MATSUURA Yoshihiro. Wszelkie prawa zastrzeżone."
+    contact: "Kontakt:"
     top_level_languoids: "Languoids najwyższego poziomu"
   search:
     find_a_branch: "ZNAJDŹ GAŁĄŹ"
@@ -184,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "Klasyfikacja według Glottologu {version}"
     classification_according_to_glottolog: "Klasyfikacja według Glottologu"
     classification_according_to_lang_log: "Klasyfikacja według Lang Log"
-    lang_log_s_own: "Własna Lang Log"
     according_to: "Według"
     according_to_glottolog_version: "Według Glottologu {version}"
     name_in_this_language: "Nazwa w tym języku"

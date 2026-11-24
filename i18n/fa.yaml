@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: ": برای هر رکورد Glottolog یک صفحهٔ ساده، همراه با رده‌بندی و نقشهٔ آن."
     sources_glottolog_wals_published_study: "منابع: Glottolog، WALS، درخت‌های پژوهش‌های منتشرشده و فهرست‌های خط‌ها، هر کدام با مجوز خودش"
     copyright: "© ۲۰۲۶ MATSUURA Yoshihiro. کلیهٔ حقوق محفوظ است."
+    contact: "تماس:"
     top_level_languoids: "Languoids سطح بالا"
   search:
     find_a_branch: "یافتن شاخه"
@@ -184,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "رده‌بندی بر پایهٔ Glottolog {version}"
     classification_according_to_glottolog: "رده‌بندی بر پایهٔ Glottolog"
     classification_according_to_lang_log: "رده‌بندی بر پایهٔ Lang Log"
-    lang_log_s_own: "ویژهٔ Lang Log"
     according_to: "به گفتهٔ"
     according_to_glottolog_version: "به گفتهٔ Glottolog {version}"
     name_in_this_language: "نام به همین زبان"

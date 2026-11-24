@@ -114,6 +114,7 @@ text:
     one_plain_page_per_glottolog: "：每筆 Glottolog 紀錄一個簡明網頁，附有分類和地圖。"
     sources_glottolog_wals_published_study: "來源：Glottolog、WALS、已發表研究的譜系樹和文字目錄，各自依其授權條款"
     copyright: "© 2026 松浦 義広。保留所有權利。"
+    contact: "聯絡方式："
     top_level_languoids: "頂層 Languoids"
   search:
     find_a_branch: "尋找分支"
@@ -184,7 +185,6 @@ text:
     classification_according_to_glottolog_version: "根據 Glottolog {version} 的分類"
     classification_according_to_glottolog: "根據 Glottolog 的分類"
     classification_according_to_lang_log: "根據 Lang Log 的分類"
-    lang_log_s_own: "Lang Log 自有"
     according_to: "依據"
     according_to_glottolog_version: "依據 Glottolog {version}"
     name_in_this_language: "本語言中的名稱"

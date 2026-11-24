@@ -20,6 +20,12 @@
       "why": "the copyright line"
     },
     {
+      "pattern": "contact@lang-log\\.com",
+      "source": "tools/site_brand.py",
+      "also": ["dist/*.html"],
+      "why": "the contact address; hand-written pages are kept equal by site_brand.py --check"
+    },
+    {
       "pattern": "lang-log/lang-log\\.github\\.io",
       "source": "tools/site_brand.py",
       "why": "the repository the releases are read from and linked to; tools/github_api.py and tools/build_releases.py import it"

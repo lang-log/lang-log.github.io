@@ -10,7 +10,14 @@ from html import escape
 
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import COPYRIGHT, SITE_NAME_META, TITLE_SUFFIX, by_yoshi, icon_links
+from site_brand import (
+    COPYRIGHT,
+    SITE_NAME_META,
+    TITLE_SUFFIX,
+    by_yoshi,
+    contact_line,
+    icon_links,
+)
 
 
 def page(title, body, up, scripts=()):
@@ -32,6 +39,6 @@ def page(title, body, up, scripts=()):
         + by_yoshi()
         + "</div></header>\n"
         f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
-        f"<footer><span>{COPYRIGHT}</span></footer>\n"
+        f"<footer><span>{COPYRIGHT}</span>{contact_line()}</footer>\n"
         "</body></html>\n"
     )
