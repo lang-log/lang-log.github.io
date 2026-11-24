@@ -930,7 +930,7 @@ def map_html(depth, i):
 
 # Credit for the data on every page: Glottolog and WALS (CC BY 4.0 requires it), the IANA
 # registry and Unicode CLDR (tools/record_facts.py; sources in source-data/sources.json).
-# One source per line (owner, 2026-11-24: "footer はセクションを分けて"), then the contact line.
+# One source per line (owner, 2026-11-24), then the contact line.
 _NEW = 'target="_blank" rel="noopener noreferrer"'
 CC_BY = "https://creativecommons.org/licenses/by/4.0/"
 
