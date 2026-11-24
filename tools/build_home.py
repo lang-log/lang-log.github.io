@@ -24,7 +24,9 @@ data here, at build time; no number is typed by hand.
 
 The list and the texts work without JavaScript. The search box is a GET form to
 the search results page, dist/q.html at <site>/q?q=<terms> (dist/search.js,
-owner 2026-11-08); dist/home.js sends old ?q= links to the top page there.
+owner 2026-11-08). Top-page addresses with ?q=<terms> (old links, search shortcuts
+set up by hand) are sent there by dist/search-redirect.js, loaded in <head> so the top
+page is never drawn first.
 
 Random lives on this page only (owner, 2026-11-06): a row of buttons under
 the search box. "Random" itself is a button that picks any record (one of
@@ -225,6 +227,10 @@ def families_html():
 
 # The views of the top-page list, in the order of the switch: (key, label).
 # dist/explore.js reads the keys from the buttons.
+# The search results page (dist/q.html, served at <site>/q), relative to the top page: the
+# search form's action and dist/search-redirect.js's target.
+SEARCH_PAGE = "q"
+
 VIEWS = [("list", "List"), ("map", "Map")]
 
 
@@ -452,7 +458,8 @@ def main():
     html = (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         + SECURITY_HEAD
-        + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+        + f'<script src="search-redirect.js" data-results="{SEARCH_PAGE}"></script>'
+        '<meta name="viewport" content="width=device-width,initial-scale=1">'
         f'<meta name="description" content="{escape(description)}">'
         f'<meta name="google-site-verification" content="{escape(GOOGLE_SITE_VERIFICATION)}">'
         f"<title>{HOME_TITLE}</title>"
@@ -472,7 +479,7 @@ def main():
         '<section class="home-intro">'
         '<h1 class="home-logo"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></h1>'
         + by_yoshi("p", "home-by")
-        + '<form class="home-search" action="q" method="get" role="search">'
+        + f'<form class="home-search" action="{SEARCH_PAGE}" method="get" role="search">'
         '<label class="visually-hidden" for="home-q">Search languages and families</label>'
         '<div class="search-pill">'
         '<input id="home-q" name="q" type="search" placeholder="Name, ISO code, Glottocode…" autocomplete="off">'
