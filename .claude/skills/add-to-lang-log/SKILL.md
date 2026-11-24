@@ -27,7 +27,10 @@ The rules live in `CLAUDE.md`, `.claude/rules/` and the shared rules of `researc
 
 ## B. Interface text
 
-Follow the `i18n` skill (`.claude/skills/i18n/SKILL.md`): the wording, the keys in every `i18n/<code>.yaml`, the translations, the checks and the right-to-left look.
+1. Use the owner's wording; if there is none, show a draft and wait. A draft never names a data source (WALS, Glottolog, PHOIBLE ...) outside credits and citations (`interface-text.md`).
+2. Add the English text to `i18n/en.yaml` and the same key to every other `i18n/<code>.yaml` (`LANGS` in `dist/lang.js`), in the same pull request. Counts and dates are placeholders (`{count}`, `{date}`), never typed numbers.
+3. Run `python3 tools/build_i18n.py`; it fails when a language lacks the key or a placeholder.
+4. Check Japanese and Arabic at phone width: no letter-spacing on Japanese, right-to-left layout correct.
 
 ## C. Data
 
