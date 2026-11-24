@@ -1,6 +1,8 @@
-// The two views of every top-level record on the top page (markup from
-// tools/build_home.py): a switch between them (List, Map), the conditions they share,
-// and the view itself.
+// The explorer: two views of the languages, a switch between them (List, Map) and the
+// conditions they share (markup from tools/explore_panel.py). It runs on the element
+// marked "explorer": data-base is the path to the site root, and data-langs (record
+// pages) the Glottocodes of the languages it narrows; without it, every language.
+// Top page (tools/build_home.py):
 //   List  the top-level records under their continents (static; works without
 //         JavaScript). Each row opens into its members, as the outline of a record page
 //         does (dist/tree.js, LangLogTree.members); the list and the former Tree view
@@ -8,6 +10,12 @@
 //         Conditions hide the records no matching language belongs to, and the opened
 //         members keep only the matching languages, their ancestors and their dialects.
 //   Map   every Glottolog language with a point, coloured by one feature if chosen.
+// Record pages (record_views() in tools/build_paths.py; owner, 2026-11-24):
+//   List  the tree of the record's descendants (dist/tree.js), narrowed like the top
+//         page's opened rows.
+//   Map   the record's map (tools/build_paths.py). With a condition or a colour, its own
+//         points give way to the record's matching languages, drawn as on the top page.
+// The view shown when the address names none is the one pressed in the markup.
 // Data: dist/data/features/ written by tools/build_wals_map.py (WALS features and
 // Lang Log's own evidence features).
 //
@@ -23,12 +31,13 @@
 // many, and the joints are not used. Colouring is separate: one feature, or none.
 //
 // State lives in the address: ?view=map&c=81A:1,5&c=|!6A:2,4,0&c=lat:10~40&k=81A&m=2
-// (view: the shown view, left out for the list; one c per condition, in order; "|"
+// (view: the shown view, left out for the first one; one c per condition, in order; "|"
 // joins it to the previous one by OR, "!" is NOT; values are left out when all are kept
 // and 0 is "No data"; a range is lo~hi, either end may be empty, and ,0 adds "No data";
 // text is URL-encoded; @<Glottocode> names the chosen language; k is the colour feature;
 // m the minimum number of conditions). Other parameters are kept as they are. The
-// former ?view=tree opens the list.
+// former ?view=tree opens the list (on record pages it is dist/tree.js's drawn tree,
+// inside the list, and is kept).
 (function () {
   'use strict';
   var $ = function (id) {
@@ -70,17 +79,37 @@
   var minMatch = 0; // 0: AND / OR as set
   var colourBy = '',
     colour = {};
-  var svg = $('map'),
+  var root = document.querySelector('.explorer');
+  if (!root) return;
+  var svg = root.querySelector('svg.lmap'),
     layer = $('points'),
-    root = $('families'),
-    view = 'list',
+    BASE = root.dataset.base || '',
+    // The record's languages (record pages): a Set of Glottocodes, or null for all.
+    scope = root.dataset.langs ? new Set(root.dataset.langs.split(' ')) : null,
+    idx = [], // indexes of the rows of languages.json the explorer narrows
     mounted = false,
     lastMatch = '';
-  if (!svg || !root) return;
+  if (!svg) return;
   var viewButtons = root.querySelectorAll('.explore-views button[data-view]');
   var VIEWS = Array.prototype.map.call(viewButtons, function (b) {
     return b.dataset.view;
   });
+  var FIRST = (root.querySelector('.explore-views button[aria-pressed="true"]') || viewButtons[0])
+    .dataset.view;
+  var view = FIRST;
+  // A record map keeps its own points (tools/build_paths.py) until a condition or a colour
+  // asks for the languages: they are drawn in a layer of their own, as on the top page.
+  // While they give way, they are taken out of the map, so dist/map-zoom.js sizes and steps
+  // through the drawn points only.
+  var own = layer ? [] : Array.prototype.slice.call(svg.querySelectorAll('.lmap-main, .lmap-self'));
+  if (!layer) {
+    layer = document.createElementNS(NS, 'g');
+    layer.setAttribute('class', 'explore-points');
+    (own[0] ? own[0].parentNode : svg).insertBefore(layer, own[0] || null);
+  }
+  // The radius a record map gives its points (data-r, tools/languoid_map.py); the top
+  // page's map has none.
+  var UNIT_R = svg.getAttribute('data-r');
 
   function get(url) {
     if (!cache[url])
@@ -112,19 +141,19 @@
       jobs = [];
     if (t === 'relative')
       return f.measure === 'shared'
-        ? get('data/features/wals.json').then(function (w) {
+        ? get(BASE + 'data/features/wals.json').then(function (w) {
             walsTable = w;
           })
         : Promise.all([load('lat'), load('lon')]);
     if (t !== 'text' && !vals[id])
       jobs.push(
-        get('data/features/f/' + id + '.json').then(function (v) {
+        get(BASE + 'data/features/f/' + id + '.json').then(function (v) {
           vals[id] = v;
         }),
       );
     if (t === 'category' && !f.values)
       jobs.push(
-        get('data/features/f/' + id + '.values.json').then(function (v) {
+        get(BASE + 'data/features/f/' + id + '.values.json').then(function (v) {
           f.values = v;
         }),
       );
@@ -242,8 +271,15 @@
       conds: out,
       k: byId[p.get('k')] && colourable(byId[p.get('k')]) ? p.get('k') : '',
       m: m > 0 ? m : 0,
-      view: VIEWS.indexOf(p.get('view')) > 0 ? p.get('view') : VIEWS[0],
+      view: viewOf(p.get('view')),
     };
+  }
+
+  // The view an address names: one of the switch's, or the list for the former (top page)
+  // or drawn (record pages) tree; otherwise the first.
+  function viewOf(v) {
+    if (v === 'tree' && VIEWS.indexOf('list') >= 0) return 'list';
+    return VIEWS.indexOf(v) >= 0 ? v : FIRST;
   }
 
   function condParam(c) {
@@ -269,11 +305,13 @@
   }
 
   function writeURL() {
-    var p = new URLSearchParams(location.search);
+    var p = new URLSearchParams(location.search),
+      drawnTree = scope && view === 'list' && p.get('view') === 'tree';
     ['view', 'c', 'k', 'm'].forEach(function (key) {
       p.delete(key);
     });
-    if (view !== VIEWS[0]) p.set('view', view);
+    if (drawnTree) p.set('view', 'tree');
+    else if (view !== FIRST) p.set('view', view);
     conds.forEach(function (c) {
       if (c.id) p.append('c', condParam(c));
     });
@@ -453,13 +491,14 @@
       n = 0,
       roots = new Set(),
       ids = [];
-    for (var j = 0; j < rows.length; j++)
+    idx.forEach(function (j) {
       if (passes(j)) {
         n++;
         roots.add(rows[j][ROOT]);
         ids.push(rows[j][0]);
       }
-    $('count').textContent = 'Showing ' + n + ' of ' + rows.length + ' languages';
+    });
+    $('count').textContent = 'Showing ' + n + ' of ' + idx.length + ' languages';
     var on = anyCondition();
     root.querySelectorAll('.explore-view li[data-root]').forEach(function (li) {
       li.hidden = on && !roots.has(li.dataset.root);
@@ -481,17 +520,31 @@
   }
 
   function draw() {
+    if (!L) return;
     layer.textContent = '';
     var rows = L.rows,
       frag = document.createDocumentFragment();
     var cv = colourBy ? vals[colourBy] : null,
       perValue = {};
-    for (var i = 0; i < rows.length; i++) {
+    // A record map shows its own points until a condition or a colour is set.
+    var ownPoints = own.length && !colourBy && !anyCondition();
+    own.forEach(function (g) {
+      if (ownPoints && !g.parentNode) layer.parentNode.insertBefore(g, layer);
+      else if (!ownPoints && g.parentNode) g.remove();
+    });
+    if (ownPoints) {
+      colourLegend(perValue);
+      if (svg.__lmap) svg.__lmap.refresh();
+      return;
+    }
+    for (var x = 0; x < idx.length; x++) {
+      var i = idx[x];
       // A language without coordinates has no point.
       if (rows[i][4] == null || !passes(i)) continue;
       var c = document.createElementNS(NS, 'circle');
       c.setAttribute('cx', rows[i][4]);
       c.setAttribute('cy', rows[i][5]);
+      if (UNIT_R) c.setAttribute('r', UNIT_R);
       var v = cv ? cv[i] : 0;
       c.setAttribute('fill', 'var(' + (cv ? (v ? colour[v] : NODATA) : PLAIN) + ')');
       if (cv && !v) c.setAttribute('class', 'wm-nodata');
@@ -519,16 +572,25 @@
   function keyEntry(n, colourVar, name, count, data) {
     var li = el('li', { class: 'lmap-key-value' });
     li.style.setProperty('--key-colour', 'var(' + colourVar + ')');
-    if (count) li.setAttribute('data-points', '#points circle[data-v="' + n + '"]');
+    if (count) li.setAttribute('data-points', '.explore-points circle[data-v="' + n + '"]');
     li.appendChild(el('span', data ? { class: 'notranslate' } : null, name));
     li.appendChild(el('small', null, String(count)));
     return li;
   }
 
+  // The top page has a key of its own for the colours (#colour-legend); a record map adds the
+  // entries to its key, in place of the entries of its own points while they are hidden.
   function colourLegend(perValue) {
-    var key = $('colour-legend');
-    key.textContent = '';
-    key.hidden = !colourBy;
+    var key = $('colour-legend') || svg.parentNode.querySelector('.lmap-key');
+    if (!key) return;
+    Array.prototype.forEach.call(key.querySelectorAll('.lmap-key-value'), function (li) {
+      li.remove();
+    });
+    if (key.id === 'colour-legend') key.hidden = !colourBy;
+    else
+      Array.prototype.forEach.call(key.children, function (li) {
+        li.hidden = !!colourBy;
+      });
     if (!colourBy) return;
     var f = byId[colourBy];
     f.values.forEach(function (v) {
@@ -559,6 +621,8 @@
     });
     // Colouring and the area in view belong to the map only.
     root.querySelector('.explore-colour').hidden = v !== 'map';
+    // The tree is drawn the first time the list is shown (the top page: its Download menu).
+    if (v === 'list' && window.LangLogTree) window.LangLogTree.start();
     if (v === 'map') {
       draw();
       if (!mounted && window.LangLogMap) {
@@ -684,6 +748,20 @@
     return lab;
   }
 
+  // The number of the record's languages with each value of a feature (0: no data).
+  function scopeCounts(id) {
+    var out = {},
+      v = vals[id],
+      multi = byId[id].multi;
+    idx.forEach(function (i) {
+      var x = v[i];
+      (multi ? (x && x.length ? x : [0]) : [x || 0]).forEach(function (n) {
+        out[n] = (out[n] || 0) + 1;
+      });
+    });
+    return out;
+  }
+
   // The values of a category condition: "Select all", one box per value and "No data".
   function valueBoxes(c, f, box) {
     var all = allValues(c.id),
@@ -727,6 +805,9 @@
       });
       box.appendChild(find);
     }
+    // The number of languages with each value: the feature's own counts, or on a record
+    // page the record's languages counted here.
+    var counts = scope ? scopeCounts(c.id) : null;
     // Country names are sorted as the page names them, in its language.
     var shown = f.values.slice();
     if (f.names === 'region')
@@ -735,7 +816,7 @@
       });
     shown.forEach(function (v) {
       var name = valueName(f, v),
-        r = checkRow(name, v.count, data);
+        r = checkRow(name, counts ? counts[v.n] || 0 : v.count, data);
       boxes.push({ cb: r.cb, n: v.n, li: r.li, name: fold(name) });
       r.cb.addEventListener('change', function () {
         if (r.cb.checked) c.shown.add(v.n);
@@ -747,7 +828,7 @@
     });
     box.appendChild(ul);
     // Only a feature some languages lack offers "No data".
-    if (f.languages < L.rows.length) {
+    if (counts ? counts[0] : f.languages < L.rows.length) {
       var rest = el('ul');
       rest.appendChild(noDataRow(c));
       box.appendChild(rest);
@@ -900,16 +981,37 @@
     });
   }
 
-  // The rows open and the tree downloads work even when the feature data cannot load.
+  // The rows open, the views switch and the tree works even when the feature data cannot
+  // load.
   openableRows();
-  if (window.LangLogTree) window.LangLogTree.start();
-  Promise.all([get('data/features/languages.json'), get('data/features/features.json')])
+  view = viewOf(new URLSearchParams(location.search).get('view'));
+  showView(view);
+  viewButtons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      showView(b.dataset.view);
+      if (L) writeURL();
+      else {
+        // Before the data has loaded, only the view changes in the address.
+        var u = new URL(location.href);
+        u.searchParams.delete('view');
+        if (b.dataset.view !== FIRST) u.searchParams.set('view', b.dataset.view);
+        history.replaceState(history.state, '', u);
+      }
+    });
+  });
+  Promise.all([
+    get(BASE + 'data/features/languages.json'),
+    get(BASE + 'data/features/features.json'),
+  ])
     .then(function (res) {
       L = res[0];
       ROOT = L.fields.indexOf('root');
       NAME = L.fields.indexOf('name');
       folded = L.rows.map(function (r) {
         return fold(r[NAME]);
+      });
+      L.rows.forEach(function (r, i) {
+        if (!scope || scope.has(r[0])) idx.push(i);
       });
       F = res[1];
       F.features.forEach(function (f) {
@@ -918,7 +1020,7 @@
       var s = readURL();
       conds = s.conds;
       minMatch = s.m;
-      view = s.view;
+      if (s.view !== view) showView(s.view);
       var colourMenu = featureSelect(s.k, 'None (one colour)', colourable);
       colourMenu.id = 'colour';
       $('colour-slot').appendChild(colourMenu);
@@ -937,15 +1039,8 @@
     })
     .then(function () {
       renderConds();
-      viewButtons.forEach(function (b) {
-        b.addEventListener('click', function () {
-          showView(b.dataset.view);
-          writeURL();
-        });
-      });
       // Zoom, pan, borders, detailed tiles, the size of the dots and the buttons of the
       // key come from the shared dist/map-zoom.js (mounted in showView), as on the record maps.
-      showView(view);
       var min = $('min-match');
       if (min) {
         min.value = minMatch ? String(minMatch) : '';

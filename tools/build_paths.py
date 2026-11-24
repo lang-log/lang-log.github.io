@@ -46,6 +46,8 @@ import shutil
 import sys
 import unicodedata
 
+from build_wals_map import condition_languages, glottolog
+from explore_panel import explore_open
 from languoid_map import map_svg
 from modality import labels, medium_words
 from record_facts import facts
@@ -147,6 +149,9 @@ def rec(i):
     """A record of any source: a Glottolog record or a source-only record."""
     return nodes.get(i) or extra.get(i) or {"id": i, "name": i, "level": "", "children": []}
 
+
+# The Glottocodes of the languages the conditions of the explorer choose from.
+condition_ids = {r["ID"] for r in condition_languages(glottolog())}
 
 # Glottolog's representative point of each record, as (longitude, latitude), and the first
 # and last years in which it was documented, as Glottolog gives them (either may be empty).
@@ -836,6 +841,16 @@ def record_body(depth, i, sid):
     years = documented.get(i)
     f = facts(i if i in nodes else None, n.get("iso") or None)
     body = f"<h1>{escape(n['name'])}</h1>"
+    # The map comes first, right under the name, with the tree of the record's descendants
+    # as the list view behind the same switch as the top page's (owner, 2026-11-24). A
+    # record with no descendants shows only the map; one with no map keeps the tree under
+    # Classification.
+    the_map = map_html(depth, i) if i in nodes else ""
+    langs = languages_under(i) if the_map else []
+    tree_in_views = bool(langs)
+    if the_map:
+        body += record_views(depth, i, sid, the_map, langs)
+    members = children_html(depth, i) + (lang_log_members(depth, i) if i in nodes else "")
     body += group("Names", facts_table(names) if names else "")
     body += group("Codes", facts_table(codes_rows(n, f)))
     body += group("Medium and writing", facts_table(medium_rows(n, f)))
@@ -844,13 +859,10 @@ def record_body(depth, i, sid):
         classification_html(depth, i)
         + conflicts_html(depth, i)
         + debates_html(i)
-        + children_html(depth, i)
-        + (lang_log_members(depth, i) if i in nodes else "")
-        + tree_html(depth, i, sid),
+        + members
+        + ("" if tree_in_views else tree_html(depth, i, sid)),
     )
-    body += group(
-        "Place", (facts_table(place) if place else "") + (map_html(depth, i) if i in nodes else "")
-    )
+    body += group("Place", facts_table(place) if place else "")
     body += group("Speakers", speakers_html(f))
     body += group("Vitality", vitality_html(f))
     body += group("Status in society", society_html(f))
@@ -878,6 +890,38 @@ def record_body(depth, i, sid):
     links.append('<a href="record.json">This record as JSON</a>')
     body += group("Links", facts_table([("Links", " · ".join(links))]))
     return body
+
+
+def record_views(depth, i, sid, the_map, langs):
+    """The top of a record page: its map and, when it has descendants, the same explorer as
+    the top page's (tools/explore_panel.py, run by dist/explore.js): the switch between the
+    map and the tree of its descendants (the list view), and the conditions, which narrow
+    both to its languages. The map is shown first (?view=list for the tree). Without
+    scripts only the map is shown. `langs`: languages_under(i)."""
+    if not langs:
+        return f'<section class="record-views">{the_map}</section>'
+    return (
+        explore_open("record-views", "../" * depth, "map", len(langs), langs)
+        + f'<div class="explore-view" data-view="list" hidden>{atlas_html("../" * depth, root=i, src=sid)}</div>'
+        + f'<div class="explore-view" data-view="map">{the_map}</div></section>'
+    )
+
+
+def languages_under(i):
+    """The languages the conditions choose from (condition_languages() in
+    tools/build_wals_map.py) that are among the record's descendants, sorted; empty when
+    the record has no descendants."""
+    if not nodes[i]["children"]:
+        return []
+    found, todo = [], list(nodes[i]["children"])
+    while todo:
+        c = todo.pop()
+        if c not in nodes:
+            continue
+        if c in condition_ids:
+            found.append(c)
+        todo.extend(nodes[c]["children"])
+    return sorted(found)
 
 
 def map_html(depth, i):
@@ -1013,7 +1057,8 @@ def domain_nav(up, current="language"):
     )
 
 
-# Scripts at the end of every record page: the branch tree (on request) and the Hugging Face models.
+# Scripts at the end of every record page: the branch tree, the explorer above it (the map
+# and the tree with the top page's conditions) and the Hugging Face models.
 def page_scripts(up):
     return "".join(
         f'<script src="{up}{f}"></script>'
@@ -1023,6 +1068,7 @@ def page_scripts(up):
             "hf-iso-map.js",
             "hf-models.js",
             "tree.js",
+            "explore.js",
             "record-page.js",
         ]
     )
@@ -1038,7 +1084,7 @@ def page(depth, title, body):
         + icon_links(up)
         + SITE_NAME_META
         + pwa_head(up)
-        + f'<link rel="stylesheet" href="{up}style.css"><link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css"><script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script><script src="{up}map-zoom.js" defer></script></head>'
+        + f'<link rel="stylesheet" href="{up}style.css"><link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css"><link rel="stylesheet" href="{up}explore.css"><script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script><script src="{up}map-zoom.js" defer></script></head>'
         f'<body class="variant-page"><header><div class="brand"><a class="home" href="{up}"><svg class="logo" role="img" aria-label="LANG LOG"><use href="{up}logo.svg#logo"/></svg></a> {by_yoshi()}</div></header>'
         f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>"
     )
