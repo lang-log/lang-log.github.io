@@ -1,0 +1,80 @@
+# Attach the whole site to each new release, one ZIP of Markdown and PDF per interface language
+# (lang-log.<code>.zip; the owner's decision, 2026-11-24; .claude/rules/releases.md).
+# It runs after release.yml has created the release, beside pages.yml, so the site's Releases
+# page is not held up by the ZIPs (about an hour) and a failed ZIP never stops a deployment.
+# workflow_run uses this file from the default branch; the code it runs is the tagged commit,
+# which tools/release.py has checked is on main.
+name: release-zips
+on:
+  workflow_run:
+    workflows: [release]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: release-zips-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+jobs:
+  # The interface languages, one ZIP each (LANGS in dist/lang.js, read by tools/build_i18n.py).
+  languages:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      codes: ${{ steps.list.outputs.codes }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install --require-hashes -r requirements.txt
+      - id: list
+        run: echo "codes=$(python3 tools/build_i18n.py --languages)" >> "$GITHUB_OUTPUT"
+  # The whole site as Markdown and PDF in each language, attached to the release as
+  # lang-log.<code>.zip (the owner's decision, 2026-11-24; .claude/rules/releases.md). A ZIP the
+  # release already has is left as it is.
+  offline:
+    needs: languages
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    permissions:
+      contents: write # attach the ZIP to the release; nothing else
+    strategy:
+      fail-fast: false
+      matrix:
+        code: ${{ fromJSON(needs.languages.outputs.codes) }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: python3 -m pip install --require-hashes -r requirements.txt
+      - run: npm ci --ignore-scripts
+      # Chromium, and fonts for every interface language's script (Noto, SIL Open Font License).
+      - run: npx playwright install --with-deps chromium
+      - run: sudo apt-get install -y --no-install-recommends fonts-noto-core fonts-noto-cjk
+      - run: bash tools/build_site.sh
+      - run: node tools/offline_zip.js "$CODE"
+        env:
+          CODE: ${{ matrix.code }}
+      - name: Attach the ZIP
+        env:
+          CODE: ${{ matrix.code }}
+          TAG: ${{ github.event.workflow_run.head_branch }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          name="lang-log.$CODE.zip"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' | grep -qx "$name"; then
+            echo "$name is already attached; leaving it as it is"
+            exit 0
+          fi
+          (cd build/offline && zip -qr "$name" "lang-log.$CODE")
+          gh release upload "$TAG" "build/offline/$name" --repo "$GITHUB_REPOSITORY"

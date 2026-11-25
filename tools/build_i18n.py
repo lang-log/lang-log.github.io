@@ -6,6 +6,9 @@ are LANGS in dist/lang.js). This script fails when a language lacks a key, has
 a key en.yaml does not, has an empty text, or uses a placeholder its English
 text does not have.
 
+`python3 tools/build_i18n.py --languages` only prints the language codes as JSON
+(for tools/offline_zip.js and the release's job matrix).
+
 It writes (not committed; run by tools/build_site.sh):
   dist/i18n.js         the Japanese dictionary, loaded by every page
   dist/i18n/<code>.js  every other language, loaded by dist/lang.js when chosen
@@ -125,6 +128,9 @@ def check_wals(english):
 
 
 def main():
+    if sys.argv[1:] == ["--languages"]:
+        print(json.dumps(languages()))
+        return
     errors = []
     codes = languages()
     en = load("en")
