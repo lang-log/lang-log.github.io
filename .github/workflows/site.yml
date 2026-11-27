@@ -49,8 +49,7 @@ jobs:
       # The map view keeps its key, buttons and lines the same size on screen at every browser
       # zoom, in Chromium, Firefox and WebKit (tools/check_map_view.js).
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: node tools/diag_pick.js
-      - run: node tools/check_map_view.js firefox
+      - run: node tools/check_map_view.js
       # The release's ZIP builder still works: one family, in a right-to-left language
       # (tools/offline_zip.js; the release builds every family in every language).
       - run: node tools/offline_zip.js ar japonic
