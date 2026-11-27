@@ -24,8 +24,8 @@ const OUT = path.join(ROOT, 'build', 'offline');
 // Pages open at the same time; each takes about 0.1 s, so 8 keep a GitHub runner busy without
 // running out of memory.
 const PARALLEL = 8;
-// Every record page has the classification path; no other page has it.
-const RECORD_MARK = 'class="lineage"';
+// Every record page (tools/build_paths.py) loads record-page.js; no other page does.
+const RECORD_MARK = 'record-page.js"></script>';
 // Links inside the site come back from the page as LINK + path, and are pointed at the right
 // file (or the live site) here, where the list of records is.
 const LINK = 'lang-log-path:';

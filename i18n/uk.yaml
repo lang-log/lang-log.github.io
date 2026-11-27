@@ -49,7 +49,6 @@ text:
     date_unknown: "Дата невідома"
     sources_scope_lang_log_by: "Джерела й охоплення · Lang Log by yoshi"
   records:
-    top: "Головна"
     classification_by_source: "Класифікація за джерелами"
     placement: "Розміщення:"
     other_direct_members: "Інші прямі члени:"

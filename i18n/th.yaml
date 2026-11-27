@@ -49,7 +49,6 @@ text:
     date_unknown: "ไม่ทราบวันที่"
     sources_scope_lang_log_by: "แหล่งข้อมูลและขอบเขต · Lang Log by yoshi"
   records:
-    top: "หน้าแรก"
     classification_by_source: "การจัดจำแนกตามแหล่งข้อมูล"
     placement: "ตำแหน่ง:"
     other_direct_members: "สมาชิกโดยตรงอื่น:"

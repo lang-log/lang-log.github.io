@@ -65,7 +65,6 @@ text:
     date_unknown: "Date unknown"
     sources_scope_lang_log_by: "Sources & scope · Lang Log by yoshi"
   records:
-    top: "Top"
     classification_by_source: "Classification by source"
     placement: "Placement:"
     other_direct_members: "Other direct members:"
