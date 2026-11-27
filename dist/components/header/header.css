@@ -90,8 +90,10 @@ header button {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
-.brand .by a:hover {
-  color: var(--teal);
+@media (hover: hover) {
+  .brand .by a:hover {
+    color: var(--teal);
+  }
 }
 /* Logo: asterisk and "LANG LOG" in one SVG (dist/logo.svg, written by build_logo.py), so the link is one rectangle */
 .logo {

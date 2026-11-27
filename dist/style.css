@@ -385,8 +385,10 @@ button {
   padding: 9px 12px;
   cursor: pointer;
 }
-button:hover {
-  background: var(--c-e3e9df);
+@media (hover: hover) {
+  button:hover {
+    background: var(--c-e3e9df);
+  }
 }
 button:focus-visible,
 input:focus-visible,

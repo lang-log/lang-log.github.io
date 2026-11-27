@@ -134,8 +134,10 @@
 }
 /* Every button in the bar shows an SVG icon (icon() in dist/components/map/map.js), not text, so it
    looks and sits the same in every font and browser (the owner's request, 2026-11-23). */
-.lmap-tools button:hover {
-  background: var(--c-e3e9df);
+@media (hover: hover) {
+  .lmap-tools button:hover {
+    background: var(--c-e3e9df);
+  }
 }
 /* Two buttons as one box split by a line, [ - | + ] and [ < | > ] (pair() in dist/components/map/map.js):
    the halves touch, the first keeps its end border as the line, and only the outer corners are

@@ -72,8 +72,10 @@ header details.langmenu > summary::after {
   background: transparent;
   min-height: 0;
 }
-.langmenu li button:hover {
-  background: var(--line);
+@media (hover: hover) {
+  .langmenu li button:hover {
+    background: var(--line);
+  }
 }
 .langmenu li span {
   font-weight: 700;

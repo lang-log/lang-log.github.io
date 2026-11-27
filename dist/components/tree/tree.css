@@ -176,8 +176,10 @@ canvas:active {
 [dir='rtl'] .tree-node:not([open]) > summary::before {
   content: '◂';
 }
-.tree-node > summary:hover {
-  background: var(--c-edf2e7);
+@media (hover: hover) {
+  .tree-node > summary:hover {
+    background: var(--c-edf2e7);
+  }
 }
 .tree-node.selected-node > summary {
   background: var(--c-e0ebd9);

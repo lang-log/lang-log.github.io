@@ -27,9 +27,11 @@
   color: var(--c-ffffff);
   font-weight: 700;
 }
-.home-random .random-any:hover {
-  background: var(--teal);
-  opacity: 0.9;
+@media (hover: hover) {
+  .home-random .random-any:hover {
+    background: var(--teal);
+    opacity: 0.9;
+  }
 }
 .home-actions .home-random {
   display: contents;

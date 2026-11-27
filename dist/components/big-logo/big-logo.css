@@ -26,8 +26,10 @@
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
-.home-by a:hover {
-  color: var(--teal);
+@media (hover: hover) {
+  .home-by a:hover {
+    color: var(--teal);
+  }
 }
 .home-intro .sub {
   font-size: 15px;
