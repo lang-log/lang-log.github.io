@@ -385,8 +385,10 @@ button {
   padding: 9px 12px;
   cursor: pointer;
 }
-button:hover {
-  background: var(--c-e3e9df);
+@media (hover: hover) {
+  button:hover {
+    background: var(--c-e3e9df);
+  }
 }
 button:focus-visible,
 input:focus-visible,
@@ -1045,8 +1047,10 @@ dialog .close {
 [dir='rtl'] .tree-node:not([open]) > summary::before {
   content: '◂';
 }
-.tree-node > summary:hover {
-  background: var(--c-edf2e7);
+@media (hover: hover) {
+  .tree-node > summary:hover {
+    background: var(--c-edf2e7);
+  }
 }
 .tree-node.selected-node > summary {
   background: var(--c-e0ebd9);
@@ -2159,8 +2163,10 @@ body .domain-nav a:last-child {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
-.brand .by a:hover {
-  color: var(--teal);
+@media (hover: hover) {
+  .brand .by a:hover {
+    color: var(--teal);
+  }
 }
 /* Heading kept for screen readers and search engines on the atlas pages; the domain menu already shows it */
 .visually-hidden {
@@ -2209,8 +2215,10 @@ body .domain-nav a:last-child {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
-.home-by a:hover {
-  color: var(--teal);
+@media (hover: hover) {
+  .home-by a:hover {
+    color: var(--teal);
+  }
 }
 .home-search {
   width: 100%;
@@ -2254,8 +2262,10 @@ body .domain-nav a:last-child {
   align-items: center;
   justify-content: center;
 }
-.search-pill button:hover {
-  background: var(--c-e3e9df);
+@media (hover: hover) {
+  .search-pill button:hover {
+    background: var(--c-e3e9df);
+  }
 }
 .home-intro .sub {
   font-size: 15px;
@@ -2462,8 +2472,10 @@ header details.langmenu > summary::after {
   background: transparent;
   min-height: 0;
 }
-.langmenu li button:hover {
-  background: var(--line);
+@media (hover: hover) {
+  .langmenu li button:hover {
+    background: var(--line);
+  }
 }
 .langmenu li span {
   font-weight: 700;
@@ -2531,9 +2543,11 @@ header .tools > button {
   color: var(--c-ffffff);
   font-weight: 700;
 }
-.home-random .random-any:hover {
-  background: var(--teal);
-  opacity: 0.9;
+@media (hover: hover) {
+  .home-random .random-any:hover {
+    background: var(--teal);
+    opacity: 0.9;
+  }
 }
 /* The outline and tree of dist/tree.js inside the top page and the record pages. */
 .atlas-embed {
@@ -2860,8 +2874,10 @@ header .tools > button {
   color: inherit;
   text-decoration: none;
 }
-.home-results .hit:hover {
-  background: var(--c-edf2e7);
+@media (hover: hover) {
+  .home-results .hit:hover {
+    background: var(--c-edf2e7);
+  }
 }
 @media (max-width: 700px) {
   #results.home-results {
