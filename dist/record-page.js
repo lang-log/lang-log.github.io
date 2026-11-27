@@ -1,7 +1,7 @@
 'use strict';
 // Parts of a record page that need JavaScript (the page is complete without them):
 // - the Hugging Face models section, filled from the Hub when it scrolls into view;
-// - the Tree section, whose button asks dist/tree.js to draw the branch;
+// - the Tree section, whose button asks dist/components/tree/tree.js to draw the branch;
 // - country and script names and percentages, which the browser writes in the page's
 //   language (Intl), so no dictionary.
 (() => {
@@ -45,7 +45,7 @@
   };
   if (named.some(([, els]) => els.length) || percents.length || numbers.length) {
     localize();
-    // dist/lang.js sets <html lang> when the visitor changes the language.
+    // dist/components/language-menu/language-menu.js sets <html lang> when the visitor changes the language.
     new MutationObserver(localize).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['lang'],

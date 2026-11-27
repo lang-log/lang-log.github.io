@@ -2,6 +2,7 @@
 paths:
   - "dist/**"
   - "tools/build_*.py"
+  - "tools/components/**"
 ---
 
 # UI design
@@ -10,12 +11,13 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 
 ## Reuse before adding
 
-- Look for an existing component that does the same job and use it, with its class, before writing a new one. Search the section comments of `dist/style.css`, which name the components and the files that build them, and the page styles `dist/explore.css` and `dist/record.css`.
-- The same job always gets the same component: one switch between views (`.seg` buttons with `aria-pressed`, as `VIEWS` and `view_switch()` in `tools/explore_panel.py`), one set of conditions over a list and a map (`conditions_html()` there, run by `dist/explore.js` on the top page and the record pages), one Download menu (`details.menu.downloads` in `tools/build_paths.py`, each entry named by its format: `SVG (current view)`, `XML`, `OPML`), one map (`.lmap`, mounted by `dist/map-zoom.js`), one search box and results list (`dist/search.js`).
-- Every map behaves the same on every page (owner, 2026-11-22): the points' size (`pointPx()` in `dist/map-zoom.js`), outline and hover, the key under the map (`.lmap-key`), the locator (`locator()` in `tools/languoid_map.py`) and the frame (`dist/record.css`). Only how the points are written differs: record maps by `tools/build_paths.py`, the top page's map by `dist/explore.js` (which also draws a record map's matching languages while a condition or a colour is set). Maps carry no caption; the sources are credited in the footer and on the Sources page.
-- When a component is changed, change it at its source (the generator in `tools/` or the shared script and style in `dist/`) so every page that uses it changes together; never restyle it for one page.
+- Look for an existing component that does the same job and use it, with its class, before writing a new one: `docs/components.md` lists them, and each has its directory in `dist/components/`.
+- The same job always gets the same component: one switch between views (`.seg` buttons with `aria-pressed`, as `VIEWS` and `view_switch()` in `tools/components/view_switch.py`), one set of conditions over a list and a map (`conditions_html()` there, run by `dist/components/explorer/explorer.js` on the top page and the record pages), one Download menu (`download_menu()` in `tools/components/download_menu.py`, each entry named by its format: `SVG (current view)`, `XML`, `OPML`), one map (`.lmap`, mounted by `dist/components/map/map.js`), one search box and results list (`dist/components/search-results/search-results.js`).
+- Every map behaves the same on every page (owner, 2026-11-22): the points' size (`pointPx()` in `dist/components/map/map.js`), outline and hover, the key under the map (`.lmap-key`), the locator (`locator()` in `tools/components/map.py`) and the frame (`dist/components/map/map.css`). Only how the points are written differs: record maps by `tools/build_paths.py`, the top page's map by `dist/components/explorer/explorer.js` (which also draws a record map's matching languages while a condition or a colour is set). Maps carry no caption; the sources are credited in the footer and on the Sources page.
+- Every component lives in its own directory and pages only call it (the owner's request, 2026-11-27): its look in `dist/components/<name>/<name>.css`, its behaviour in `dist/components/<name>/<name>.js`, and the function that writes its markup in `tools/components/<snake_name>.py`. Page generators and hand-written pages never copy its markup, style or script; `docs/components.md` ("Where a component lives") has the details and `tools/check_components.py` the check.
+- When a component is changed, change it in its directory so every page that uses it changes together; never restyle it for one page.
 - `docs/components.md` names every component with its markup and the files that build and style it; a new or renamed component is added there in the same pull request.
-- A new component gets a section comment in the stylesheet that names it and the file that builds it. Put it in `dist/style.css` when more than one page can use it, otherwise in the page's own stylesheet.
+- A new component gets its own directory: `dist/components/<name>/` with a comment at the top of its stylesheet that names it and the file that writes its markup, an entry in `STYLES` in `tools/components/__init__.py` (the place in the list is its place in the cascade), and its markup function in `tools/components/` when the build writes it. `dist/style.css` holds only the colour tokens, the fonts, the defaults of plain elements and the layout of the pages.
 
 ## Layout
 
@@ -26,11 +28,11 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 
 - No shadows (the owner's rule, 2026-11-23): no `box-shadow`, `text-shadow` or `filter: drop-shadow()` on any page, component, popup or map, in either theme.
 - No line under the header (the owner's rule, 2026-11-24). The footer puts each part (figures, sources, copyright, contact) on its own line, still centred, and the record pages' source credit lists one source per line (`FOOTER` in `tools/build_paths.py`), never one paragraph.
-- No Download button with the word on it (the owner's rule, 2026-11-23): every Download button and menu shows the map's download symbol (`ICON_DOWNLOAD` in `dist/map-zoom.js`, written into pages by `download_icon()` in `tools/build_paths.py`), with `Download` only as its `aria-label` and `title`.
+- No Download button with the word on it (the owner's rule, 2026-11-23): every Download button and menu shows the map's download symbol (`ICON_DOWNLOAD` in `dist/components/map/map.js`, written into pages by `download_icon()` in `tools/components/download_menu.py`), with `Download` only as its `aria-label` and `title`.
 
 ## Behaviour
 
-- The map view keeps its buttons, its key and the map's lines the same size on the screen at every browser zoom and after zooming back (the owner's requests, 2026-11-22 and 2026-11-23): they follow `--lmap-screen-grow` and `--lmap-screen-shrink` (`dist/record.css`, set by `screenScale()` in `dist/map-zoom.js`), never plain CSS pixels. `tools/check_map_view.js` (run by `site.yml`) checks it in Chromium, Firefox and WebKit, from 25% to 710%, with the picked point (`PICK_SHARE`) keeping its share of the other points; a new overlay on the map view gets the same scale and a line in that check.
+- The map view keeps its buttons, its key and the map's lines the same size on the screen at every browser zoom and after zooming back (the owner's requests, 2026-11-22 and 2026-11-23): they follow `--lmap-screen-grow` and `--lmap-screen-shrink` (`dist/record.css`, set by `screenScale()` in `dist/components/map/map.js`), never plain CSS pixels. `tools/check_map_view.js` (run by `site.yml`) checks it in Chromium, Firefox and WebKit, from 25% to 710%, with the picked point (`PICK_SHARE`) keeping its share of the other points; a new overlay on the map view gets the same scale and a line in that check.
 - Every page is readable without JavaScript. A control that needs a script is in the markup with `hidden` and the script shows it (the Random row, the view switch); content is never only drawn by a script when the generator can write it.
 - A state a visitor may want to share (view, conditions, selection, position) is kept in the query string, and `docs/urls.md` lists every parameter. A new parameter is added there in the same pull request.
 - Toggle buttons carry `aria-pressed`; a button with only a symbol (`×`, `<`) carries an `aria-label`; groups of buttons are `role="group"` with an `aria-label`. These labels are interface text like any other (`interface-text.md`).

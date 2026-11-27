@@ -10,7 +10,7 @@
 // soon as the parser adds it, so nothing is drawn that is not the search page; once the
 // page is parsed it lists every matching record, one per row, each linking to its own
 // page. Searching again from the box changes the address to the new ?q=<terms>.
-// The top page's old ?q= links come here too (dist/home.js).
+// The top page's old ?q= links come here too (dist/search-redirect.js).
 //
 // Ranking: exact name, ISO code or Glottocode; then names that start with the
 // query; then a word in the name that starts with it; then any other match.

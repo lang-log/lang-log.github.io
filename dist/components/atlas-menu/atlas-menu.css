@@ -1,0 +1,45 @@
+/* The menu of the three atlases (tools/components/atlas_menu.py). Every page loads this
+   file (STYLES in tools/components/__init__.py). */
+body .domain-nav {
+  gap: 0;
+  margin: 16px 34px 0;
+}
+body .domain-nav a {
+  border-radius: 0;
+  margin-inline-start: -1px;
+  padding: 8px 14px;
+  font-size: 14px;
+}
+body .domain-nav a:first-child {
+  border-radius: 6px 0 0 6px;
+  margin-inline-start: 0;
+}
+body .domain-nav a:last-child {
+  border-radius: 0 6px 6px 0;
+}
+@media (max-width: 700px) {
+  body .domain-nav {
+    margin: 10px 16px 0;
+    flex-wrap: nowrap;
+  }
+  body .domain-nav a {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px 2px;
+    white-space: nowrap;
+  }
+}
+/* The menu of the three atlases, on the top page and on every record page (same as signs-and-scripts.css). */
+.domain-nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+.domain-nav a {
+  border: 1px solid var(--line);
+  text-decoration: none;
+}
+.domain-nav a[aria-current='page'] {
+  background: var(--ink);
+  color: var(--c-ffffff);
+}

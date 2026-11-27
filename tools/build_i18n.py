@@ -2,7 +2,7 @@
 
 i18n/en.yaml holds every piece of interface text in English, under a key; each
 other interface language has i18n/<code>.yaml with the same keys (the languages
-are LANGS in dist/lang.js). This script fails when a language lacks a key, has
+are LANGS in dist/components/language-menu/language-menu.js). This script fails when a language lacks a key, has
 a key en.yaml does not, has an empty text, or uses a placeholder its English
 text does not have.
 
@@ -11,9 +11,9 @@ text does not have.
 
 It writes (not committed; run by tools/build_site.sh):
   dist/i18n.js         the Japanese dictionary, loaded by every page
-  dist/i18n/<code>.js  every other language, loaded by dist/lang.js when chosen
+  dist/i18n/<code>.js  every other language, loaded by dist/components/language-menu/language-menu.js when chosen
 
-The pages are written in English and dist/lang.js translates their text with
+The pages are written in English and dist/components/language-menu/language-menu.js translates their text with
 these dictionaries. Each maps English text to its translation:
   exact     text without placeholders: {English: translation}
   patterns  text with placeholders: [regular expression, replacement], where
@@ -40,7 +40,7 @@ WALS_SECTIONS = {"wals_areas", "wals_features", "wals_values"}
 PLACEHOLDER = re.compile(r"\{([a-z][a-z0-9]*)(\|tr)?\}")
 # What a placeholder matches unless en.yaml's `match` says otherwise: {count},
 # {count2} ... are numbers as the scripts write them (1,234), {date} a date as
-# dist/lang.js reads it (3 Nov 2026), any other name any text.
+# dist/components/language-menu/language-menu.js reads it (3 Nov 2026), any other name any text.
 NUMBER = r"[\d,]+"
 DATE = r"\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}"
 ANY_TEXT = r".+?"
@@ -57,10 +57,10 @@ def default_match(name):
 
 
 def languages():
-    """The interface languages, from LANGS in dist/lang.js (English first)."""
+    """The interface languages, from LANGS in dist/components/language-menu/language-menu.js (English first)."""
     table = re.search(r"var LANGS = \[([\s\S]*?)\];", LANG_JS.read_text(encoding="utf-8"))
     if not table:
-        sys.exit("dist/lang.js: LANGS table not found")
+        sys.exit("dist/components/language-menu/language-menu.js: LANGS table not found")
     return re.findall(r"\['([A-Za-z-]+)'", table.group(1))
 
 
@@ -98,7 +98,7 @@ def pattern(english, match):
 
 
 def replacement(text, names):
-    """A translation with placeholders -> the replacement dist/lang.js applies."""
+    """A translation with placeholders -> the replacement dist/components/language-menu/language-menu.js applies."""
     return PLACEHOLDER.sub(
         lambda m: "$" + ("t" if m.group(2) else "") + str(names.index(m.group(1)) + 1), text
     )
@@ -156,7 +156,9 @@ def main():
 
     files = {p.stem for p in SOURCE.glob("*.yaml")}
     for extra in sorted(files - set(codes)):
-        errors.append(f"i18n/{extra}.yaml: not a language in LANGS (dist/lang.js)")
+        errors.append(
+            f"i18n/{extra}.yaml: not a language in LANGS (dist/components/language-menu/language-menu.js)"
+        )
 
     dictionaries = {}
     for code in codes:

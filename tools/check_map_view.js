@@ -1,6 +1,6 @@
 // Checks that the map view keeps its key, its buttons and its lines the same size on the
 // screen whatever the browser zoom, and that zooming the browser and the map in and back
-// out brings everything back (dist/map-zoom.js, dist/record.css; the owner's requests,
+// out brings everything back (dist/components/map/map.js, dist/record.css; the owner's requests,
 // 2026-11-23). Run after tools/build_site.sh, from the repository root, with Playwright and
 // its browsers installed (.github/workflows/browsers.yml):
 //   node tools/check_map_view.js [chromium firefox webkit]
@@ -32,7 +32,7 @@ const SAFARI_MIN_ZOOM = 0.5;
 const PHONE = { width: 390, height: 844 }; // CSS pixels
 const FINGER_PX = 44; // buttons on a touch screen (record.css)
 const PAGES = [
-  // A record's map and the top page's map, which share dist/map-zoom.js and dist/record.css.
+  // A record's map and the top page's map, which share dist/components/map/map.js and dist/record.css.
   { path: '/afro-asiatic/berber/#map-view', key: true },
   { path: '/?view=map#map-view', key: false },
 ];

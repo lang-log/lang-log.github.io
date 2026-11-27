@@ -2,8 +2,8 @@
 
 The owner's rule (2026-11-07): every page, modal, popup, menu, tooltip and drawing uses the one font stack, in every interface language.
 
-- The stack is `--font` on `:root` in `dist/style.css`: Arial for Latin text, then the fonts of the interface language for Japanese, Simplified and Traditional Chinese and Korean (`:lang(...)` rules next to it). `dist/lang.js` sets `<html lang>`, so the stack follows the language menu. Keep this per-language part when changing fonts.
-- Never name a font anywhere else. CSS uses `var(--font)` or `inherit`; scripts that draw text (canvas, SVG export) read the page's font, as `siteFont()` in `dist/tree.js` does.
+- The stack is `--font` on `:root` in `dist/style.css`: Arial for Latin text, then the fonts of the interface language for Japanese, Simplified and Traditional Chinese and Korean (`:lang(...)` rules next to it). `dist/components/language-menu/language-menu.js` sets `<html lang>`, so the stack follows the language menu. Keep this per-language part when changing fonts.
+- Never name a font anywhere else. CSS uses `var(--font)` or `inherit`; scripts that draw text (canvas, SVG export) read the page's font, as `siteFont()` in `dist/components/tree/tree.js` does.
 - Letter-spacing is for Latin text only; Japanese, Chinese and Korean text is set without it (the rule after `--font`). The header brand keeps its spacing in every language.
 - The only exception is `.v-glyphs` in `dist/signs-and-scripts.css` (script samples, `serif`).
 - `tools/build_site.sh` fails when a style or script names a font outside `--font`.

@@ -16,7 +16,7 @@
     "check": "npm run format:check && npm run lint:js && npm run lint:md && npm run lint:html && npm run lint:css && npm run lint:python && npm run format:python:check",
     "lint:md": "markdownlint-cli2 \"**/*.md\"",
     "lint:html": "html-validate \"dist/*.html\"",
-    "lint:css": "stylelint \"dist/*.css\""
+    "lint:css": "stylelint \"dist/*.css\" \"dist/components/*/*.css\""
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

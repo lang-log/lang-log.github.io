@@ -1,17 +1,17 @@
 // The explorer: two views of the languages, a switch between them (List, Map) and the
-// conditions they share (markup from tools/explore_panel.py). It runs on the element
+// conditions they share (markup from tools/components/explorer.py). It runs on the element
 // marked "explorer": data-base is the path to the site root, and data-langs (record
 // pages) the Glottocodes of the languages it narrows; without it, every language.
 // Top page (tools/build_home.py):
 //   List  the top-level records under their continents (static; works without
 //         JavaScript). Each row opens into its members, as the outline of a record page
-//         does (dist/tree.js, LangLogTree.members); the list and the former Tree view
+//         does (dist/components/tree/tree.js, LangLogTree.members); the list and the former Tree view
 //         are one (owner, issue #93), and the tree's Download menu sits above the list.
 //         Conditions hide the records no matching language belongs to, and the opened
 //         members keep only the matching languages, their ancestors and their dialects.
 //   Map   every Glottolog language with a point, coloured by one feature if chosen.
 // Record pages (record_views() in tools/build_paths.py; owner, 2026-11-24):
-//   List  the tree of the record's descendants (dist/tree.js), narrowed like the top
+//   List  the tree of the record's descendants (dist/components/tree/tree.js), narrowed like the top
 //         page's opened rows.
 //   Map   the record's map (tools/build_paths.py). With a condition or a colour, its own
 //         points give way to the record's matching languages, drawn as on the top page.
@@ -36,7 +36,7 @@
 // and 0 is "No data"; a range is lo~hi, either end may be empty, and ,0 adds "No data";
 // text is URL-encoded; @<Glottocode> names the chosen language; k is the colour feature;
 // m the minimum number of conditions). Other parameters are kept as they are. The
-// former ?view=tree opens the list (on record pages it is dist/tree.js's drawn tree,
+// former ?view=tree opens the list (on record pages it is dist/components/tree/tree.js's drawn tree,
 // inside the list, and is kept).
 (function () {
   'use strict';
@@ -99,7 +99,7 @@
   var view = FIRST;
   // A record map keeps its own points (tools/build_paths.py) until a condition or a colour
   // asks for the languages: they are drawn in a layer of their own, as on the top page.
-  // While they give way, they are taken out of the map, so dist/map-zoom.js sizes and steps
+  // While they give way, they are taken out of the map, so dist/components/map/map.js sizes and steps
   // through the drawn points only.
   var own = layer ? [] : Array.prototype.slice.call(svg.querySelectorAll('.lmap-main, .lmap-self'));
   if (!layer) {
@@ -107,7 +107,7 @@
     layer.setAttribute('class', 'explore-points');
     (own[0] ? own[0].parentNode : svg).insertBefore(layer, own[0] || null);
   }
-  // The radius a record map gives its points (data-r, tools/languoid_map.py); the top
+  // The radius a record map gives its points (data-r, tools/components/map.py); the top
   // page's map has none.
   var UNIT_R = svg.getAttribute('data-r');
 
@@ -325,7 +325,7 @@
       .replace(/%7E/g, '~')
       .replace(/%40/g, '@')
       .replace(/%21/g, '!');
-    // Keep the #map-view of the full-screen map (dist/map-zoom.js) and its history entry.
+    // Keep the #map-view of the full-screen map (dist/components/map/map.js) and its history entry.
     history.replaceState(history.state, '', (q ? '?' + q : location.pathname) + location.hash);
   }
 
@@ -551,7 +551,7 @@
       // Its value (0: no data), for the legend entries that step through their points.
       if (cv) c.setAttribute('data-v', v);
       if (cv) perValue[v] = (perValue[v] || 0) + 1;
-      // Its Glottocode: dist/map-zoom.js shows the record box of a tapped dot, as on
+      // Its Glottocode: dist/components/map/map.js shows the record box of a tapped dot, as on
       // the record maps.
       c.setAttribute('data-g', rows[i][0]);
       // Dots with no colour value go underneath.
@@ -560,13 +560,13 @@
     }
     layer.appendChild(frag);
     colourLegend(perValue);
-    // map-zoom.js sizes the dots, moves each to the copy of the world in view, and makes
+    // dist/components/map/map.js sizes the dots, moves each to the copy of the world in view, and makes
     // the new key entries buttons.
     if (svg.__lmap) svg.__lmap.refresh();
   }
 
   // The key of the colours under the map: the same key as on the record maps
-  // (tools/build_paths.py). Each entry names its points (data-points), so dist/map-zoom.js
+  // (tools/build_paths.py). Each entry names its points (data-points), so dist/components/map/map.js
   // makes it a button that goes to the first of them, after which the map's < and > buttons
   // step through that value's points. The mark takes the value's colour (--key-colour).
   function keyEntry(n, colourVar, name, count, data) {
@@ -634,7 +634,7 @@
 
   // Each row of the list opens into its members (issue #93). The static row (its link,
   // native names and notes) becomes the summary of a <details>; the members are drawn by
-  // dist/tree.js the first time it opens, so the data loads only when a row is opened.
+  // dist/components/tree/tree.js the first time it opens, so the data loads only when a row is opened.
   var rows = [];
   function openableRows() {
     if (!window.LangLogTree) return;
@@ -941,7 +941,7 @@
   }
 
   // "Use the area in view": the part of the map in view as a Latitude and a Longitude
-  // condition, worked back from the map's Web Mercator units (tools/languoid_map.py:
+  // condition, worked back from the map's Web Mercator units (tools/components/map.py:
   // x = SCALE * longitude, y = -SCALE * ln(tan(pi / 4 + latitude / 2)), with the world
   // WORLD_W = 2 * pi * SCALE wide, as data-world gives it).
   function useArea() {
@@ -1040,7 +1040,7 @@
     .then(function () {
       renderConds();
       // Zoom, pan, borders, detailed tiles, the size of the dots and the buttons of the
-      // key come from the shared dist/map-zoom.js (mounted in showView), as on the record maps.
+      // key come from the shared dist/components/map/map.js (mounted in showView), as on the record maps.
       var min = $('min-match');
       if (min) {
         min.value = minMatch ? String(minMatch) : '';

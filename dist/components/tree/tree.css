@@ -1,0 +1,637 @@
+/* The atlas host (tools/components/tree.py, dist/components/tree/tree.js): the toolbar,
+   the outline of the records and the zoomable tree. Every page loads this file (STYLES in
+   tools/components/__init__.py). */
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.toolbar button {
+  font-size: 10px;
+  padding: 7px;
+  border: 0;
+}
+.toolbar label {
+  font-size: 10px;
+  color: var(--c-6c7772);
+  margin-inline-end: 8px;
+}
+.toolbar input {
+  accent-color: var(--teal);
+  vertical-align: middle;
+}
+#viewport {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  overflow: hidden;
+  background: radial-gradient(ellipse, var(--c-fdfef9), var(--c-f3f5ed));
+}
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+canvas:active {
+  cursor: grabbing;
+}
+.canvas-title {
+  position: absolute;
+  top: 20px;
+  inset-inline-start: 22px;
+  pointer-events: none;
+  background: var(--c-f7f9f0db);
+  padding: 8px 12px;
+  border-radius: 4px;
+  max-width: 80%;
+}
+.canvas-title h2 {
+  font: 24px var(--font);
+  margin: 0 0 6px;
+}
+.canvas-title .eyebrow {
+  font-size: 8px;
+  margin-bottom: 7px;
+}
+.canvas-title p:last-child {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 0;
+}
+.zoom {
+  position: absolute;
+  bottom: 35px;
+  inset-inline-end: 18px;
+  display: flex;
+  background: var(--c-fffefa);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.zoom button {
+  border: 0;
+  border-radius: 0;
+  padding: 7px 10px;
+  font-size: 13px;
+}
+.canvas-note {
+  position: absolute;
+  bottom: 13px;
+  inset-inline-start: 16px;
+  font-size: 9px;
+  color: var(--muted);
+  pointer-events: none;
+}
+#tooltip {
+  position: absolute;
+  background: var(--c-243c3bee);
+  color: var(--c-ffffff);
+  padding: 9px 12px;
+  font-size: 11px;
+  pointer-events: none;
+  border-radius: 4px;
+  max-width: 250px;
+}
+@media (max-width: 1100px) {
+  .workspace,
+  .explore {
+    height: 600px;
+  }
+}
+@media (max-width: 700px) {
+  .workspace {
+    height: 520px;
+    flex: none;
+  }
+  .toolbar {
+    padding: 9px 5px;
+  }
+  .toolbar button {
+    font-size: 9px;
+    padding: 7px 5px;
+  }
+  .toolbar label {
+    font-size: 9px;
+    margin: 0;
+  }
+  .canvas-title {
+    inset-inline-start: 10px;
+    top: 12px;
+  }
+  .canvas-title h2 {
+    font-size: 20px;
+  }
+  .canvas-note {
+    font-size: 8px;
+  }
+}
+#outline {
+  flex: 1;
+  overflow: auto;
+  min-height: 250px;
+  padding: 14px 15px 40px;
+  scroll-behavior: smooth;
+  background: var(--c-fcfcf7);
+}
+.tree-node {
+  min-width: 250px;
+  margin: 0;
+}
+.tree-node > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 10px 9px;
+  border-radius: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  min-height: 41px;
+  line-height: 1.4;
+  border-bottom: 1px solid var(--c-eef0e9);
+}
+.tree-node > summary::-webkit-details-marker {
+  display: none;
+}
+.tree-node > summary::before {
+  content: '▸';
+  font-size: 12px;
+  color: var(--c-7b9086);
+  flex-shrink: 0;
+  width: 10px;
+}
+.tree-node[open] > summary::before {
+  content: '▾';
+}
+[dir='rtl'] .tree-node:not([open]) > summary::before {
+  content: '◂';
+}
+.tree-node > summary:hover {
+  background: var(--c-edf2e7);
+}
+.tree-node.selected-node > summary {
+  background: var(--c-e0ebd9);
+}
+.rowname {
+  font-weight: 600;
+  font-size: 12px;
+}
+.native-inline {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--c-41756b);
+  unicode-bidi: plaintext;
+}
+.rowmeta {
+  font-size: 9px;
+  color: var(--muted);
+  margin-inline-start: auto;
+  white-space: nowrap;
+}
+.node-children {
+  border-inline-start: 1px solid var(--c-dbe4d4);
+  margin-inline-start: 14px;
+  padding-inline-start: 16px;
+}
+.node-information {
+  font-size: 11px;
+  padding: 3px 10px 12px 29px;
+  color: var(--c-637a6c);
+  line-height: 1.6;
+}
+.node-information p {
+  margin: 5px 0;
+}
+.node-information .inspect {
+  padding: 4px 7px;
+  font-size: 10px;
+  margin: 6px 0;
+}
+.name-group {
+  border-bottom: 1px solid var(--c-e1e7da);
+  padding: 7px 0;
+  line-height: 1.5;
+}
+.name-group b {
+  font-weight: 500;
+  color: var(--c-2d4940);
+  unicode-bidi: plaintext;
+}
+.name-group small {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+}
+.name-list {
+  max-height: 280px;
+  overflow: auto;
+  margin-top: 9px;
+  padding-inline-end: 7px;
+}
+.recorded-names {
+  margin: 9px 0;
+  font-size: 11px;
+}
+.recorded-names summary {
+  cursor: pointer;
+  padding: 7px 0;
+  color: var(--teal);
+}
+.own-name {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--c-275f51);
+  unicode-bidi: plaintext;
+}
+.missing-name {
+  font-size: 10px !important;
+  color: var(--c-89958d) !important;
+}
+.tree-node summary:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 1px;
+}
+.detail .recorded-names {
+  margin-bottom: 20px;
+}
+.workspace {
+  min-height: 450px;
+}
+.outline-empty {
+  padding: 25px;
+  color: var(--muted);
+}
+@media (max-width: 700px) {
+  #outline {
+    padding: 8px 8px 30px;
+  }
+  .node-children {
+    padding-inline-start: 12px;
+    margin-inline-start: 9px;
+  }
+  .tree-node > summary {
+    gap: 6px;
+  }
+  .native-inline {
+    font-size: 11px;
+  }
+  .rowmeta {
+    font-size: 8px;
+  }
+  .workspace {
+    height: 610px;
+  }
+  .toolbar {
+    gap: 3px;
+  }
+}
+.unified-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--c-2a6656);
+  padding: 8px;
+  background: var(--c-e5eedf);
+  border-radius: 4px;
+}
+.source-branch {
+  border: 1px dashed var(--c-b6c9a7);
+  border-radius: 5px;
+  padding: 4px;
+  margin: 9px 0;
+  background: var(--c-f2f6e9);
+}
+.source-branch > summary {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 11px;
+  color: var(--c-446d35);
+  line-height: 1.5;
+}
+.source-branch > div {
+  padding-inline-start: 10px;
+}
+.source-branch .paper-link {
+  font-size: 10px;
+  display: block;
+  margin: 6px 12px;
+}
+.placements {
+  max-height: 460px;
+  overflow: auto;
+}
+.all-source-label {
+  display: block;
+  font-size: 9px;
+  color: var(--c-87957e);
+  line-height: 1.4;
+}
+.rowname {
+  overflow-wrap: anywhere;
+}
+.root-context {
+  padding: 16px 0 4px;
+  font-size: 11px;
+  color: var(--c-76846e);
+}
+.node-information h3 {
+  font-size: 10px;
+  margin: 15px 0 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.node-information .evidence-card {
+  max-width: 680px;
+}
+@media (max-width: 700px) {
+  .unified-badge {
+    width: 100%;
+  }
+  .workspace {
+    height: 690px;
+  }
+}
+@media (max-width: 700px) {
+  .unified-badge {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .toolbar {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  .toolbar > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+  .toolbar button {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 10px 8px;
+    line-height: 1.6;
+  }
+  .toolbar label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  .toolbar input {
+    width: 20px;
+    height: 20px;
+  }
+  .workspace {
+    height: max(780px, 85svh);
+  }
+  #outline {
+    padding: 10px 8px 30px;
+    overscroll-behavior: contain;
+  }
+  .tree-node > summary {
+    min-height: 50px;
+    padding: 12px 8px;
+    flex-wrap: wrap;
+    gap: 5px 8px;
+    line-height: 1.5;
+  }
+  .tree-node > summary::before {
+    font-size: 16px;
+    width: 12px;
+  }
+  .rowname {
+    font-size: 17px;
+    min-width: 0;
+  }
+  .native-inline {
+    font-size: 16px;
+    overflow-wrap: anywhere;
+  }
+  .rowmeta {
+    font-size: 13px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .node-information {
+    font-size: 16px;
+    padding: 8px 8px 16px 20px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+  .node-information h3,
+  .detail h3 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+  .recorded-names {
+    font-size: 16px;
+  }
+  .recorded-names summary {
+    min-height: 44px;
+    padding: 10px 0;
+  }
+  .name-group small,
+  .all-source-label {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .own-name {
+    font-size: 22px;
+  }
+  .missing-name {
+    font-size: 14px !important;
+    color: var(--c-637166) !important;
+  }
+  .node-information .inspect {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 9px 10px;
+    white-space: normal;
+  }
+  .evidence-card a,
+  .source-branch .paper-link {
+    font-size: 15px;
+    min-height: 44px;
+    padding: 8px 0;
+    overflow-wrap: anywhere;
+  }
+  .small-disclaimer,
+  .root-context {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--c-5c6c57);
+  }
+  .source-branch > summary {
+    font-size: 16px;
+    min-height: 48px;
+    line-height: 1.6;
+  }
+  .empty,
+  .outline-empty {
+    font-size: 16px;
+  }
+  .canvas-title {
+    max-width: calc(100% - 20px);
+  }
+  .canvas-title h2 {
+    font-size: 26px;
+  }
+  .canvas-title .eyebrow {
+    font-size: 12px;
+  }
+  .canvas-title p:last-child {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .canvas-note {
+    font-size: 12px;
+    line-height: 1.5;
+    max-width: calc(100% - 24px);
+    bottom: 10px;
+  }
+  .zoom {
+    bottom: 64px;
+    inset-inline-end: 12px;
+  }
+  .zoom button {
+    font-size: 17px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+.toolbar {
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 8px 10px;
+}
+.toolbar button,
+.toolbar summary,
+.toolbar label {
+  font-size: 12px;
+  padding: 6px 7px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  margin: 0;
+  min-height: 0;
+  line-height: 1.4;
+}
+.toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink);
+}
+@media (max-width: 700px) {
+  .toolbar {
+    padding: 8px;
+    gap: 6px;
+  }
+  .toolbar button,
+  .toolbar summary,
+  .toolbar label {
+    font-size: 14px;
+    min-height: 40px;
+    padding: 8px 10px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+/* The outline and tree of dist/components/tree/tree.js inside the top page and the record pages. */
+.atlas-embed {
+  height: auto;
+  min-height: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--c-fcfcf7);
+  overflow: hidden;
+}
+/* The top page's Download menu, alone (atlas_html() in tools/build_paths.py): no box, so the
+   open menu is not cut off, at the end of the line. */
+.atlas-whole {
+  border: 0;
+  background: none;
+  overflow: visible;
+}
+.atlas-whole .toolbar {
+  justify-content: flex-end;
+  padding: 0;
+  border-bottom: 0;
+}
+.atlas-embed #outline {
+  flex: none;
+  max-height: 70vh;
+  min-height: 200px;
+}
+.atlas-embed #viewport {
+  flex: none;
+  height: min(70vh, 640px);
+}
+.atlas-embed .toolbar select {
+  width: auto;
+  font-size: 12px;
+  padding: 5px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  max-width: 100%;
+}
+.atlas-embed .how-to-read {
+  padding: 6px 16px 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+.atlas-embed .how-to-read p {
+  margin: 6px 0;
+  max-width: 80ch;
+}
+.atlas-embed .tree-node .rowname a {
+  color: inherit;
+}
+@media (max-width: 700px) {
+  .atlas-embed .toolbar select {
+    font-size: 14px;
+    min-height: 44px;
+  }
+  .atlas-embed .how-to-read {
+    font-size: 15px;
+  }
+}
+.home-section .record-links > li.openable > .tree-node {
+  min-width: 0;
+}
+.home-section .record-links > li.openable > .tree-node > summary {
+  flex-wrap: nowrap;
+  padding: 12px;
+  border-bottom: 0;
+  line-height: 1.5;
+}
+.home-section .record-links > li.openable > .tree-node > summary > * {
+  min-width: 0;
+}
+.home-section .record-links > li.openable > .tree-node > .node-children {
+  padding-block-end: 8px;
+  margin-inline-end: 12px;
+}
+.tree-node .rowname a,
+.v-name a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--c-a6b9ac);
+  text-underline-offset: 3px;
+}

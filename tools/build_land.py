@@ -4,7 +4,7 @@
   used by every map; the maps repeat it east and west. Land from Natural
   Earth 1:50m, country borders from 1:50m.
 - dist/map/tiles/land/<column>-<row>.svg: the same map cut into a grid of
-  TILES_X by TILES_Y tiles at 1:10m, which dist/map-zoom.js loads for the
+  TILES_X by TILES_Y tiles at 1:10m, which dist/components/map/map.js loads for the
   part of the map in view. Each tile also holds the sea inside it, so it
   covers the coarser world map under it completely.
 - dist/map/tiles.json: the grid and the list of tiles that exist.
@@ -27,7 +27,7 @@ to download the sources, or pass --cache DIR holding the .geojson files.
 
 Sources: Natural Earth v5.1.2 (public domain,
 https://www.naturalearthdata.com/about/terms-of-use/). Projection and units:
-see languoid_map.py.
+see tools/components/map.py.
 """
 
 from pathlib import Path
@@ -38,7 +38,7 @@ import sys
 import urllib.request
 
 from locations import DIST, ROOT
-from languoid_map import MAX_LAT, project, SCALE, WORLD_W
+from components.map import MAX_LAT, project, SCALE, WORLD_W
 
 OUT = DIST / "map"
 BASE_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/"
@@ -56,7 +56,7 @@ TILES_X, TILES_Y = 16, 16
 # Shapes that meet edge to edge leave a thin light line where the browser smooths both edges,
 # so neighbouring shapes overlap instead, by at least one screen pixel:
 # - tiles by OVERLAP SVG units: they are drawn once the view is narrower than TILE_BELOW in
-#   dist/map-zoom.js, about 2 SVG units per CSS pixel on a phone;
+#   dist/components/map/map.js, about 2 SVG units per CSS pixel on a phone;
 # - the copies of the world drawn east and west of each other by WRAP_OVERLAP: the whole
 #   world on a phone is about 6 SVG units per CSS pixel.
 OVERLAP = 3
@@ -483,7 +483,7 @@ def world(name, src):
     svg = (
         '<svg xmlns="http://www.w3.org/2000/svg" '
         f'viewBox="{-WORLD_W / 2:.1f} {-h / 2:.1f} {WORLD_W:.1f} {h:.1f}">'
-        "<!-- Natural Earth 1:50m land and boundary lines v5.1.2, public domain. Web Mercator; see languoid_map.py. -->"
+        "<!-- Natural Earth 1:50m land and boundary lines v5.1.2, public domain. Web Mercator; see tools/components/map.py. -->"
         f"<defs>{layers(f'<path id="sphere" d="{sphere_path()}"/><path id="sea" d="{sea_path()}"/>', land, solid, dashed)}</defs>"
         '<use href="#sphere" fill="#e4ecea"/><use href="#land" fill="#c9d3cc"/>'
         '<use href="#borders" stroke="#9fb0aa" stroke-width="0.6"/><use href="#disputed" stroke="#9fb0aa" stroke-width="0.6" stroke-dasharray="3 2"/></svg>\n'

@@ -68,17 +68,17 @@ node tools/check_atlas_data.js
 
 echo "Check that every page and data file is present"
 for f in index.html signs-and-scripts.html record.html 404.html \
-         favicon.svg favicon-192.png apple-touch-icon.png logo.svg theme.js i18n.js lang.js i18n/es.js i18n/ar.js i18n/fa.js \
+         favicon.svg favicon-192.png apple-touch-icon.png logo.svg i18n.js i18n/es.js i18n/ar.js i18n/fa.js \
          data.json integrated.json language-families.xml language-families.opml \
          provenance.json signs-and-scripts.json signs-and-scripts.xml signs-and-scripts.opml \
-         lineage-paths.js tree.js record-page.js source-paths.json \
+         lineage-paths.js record-page.js source-paths.json \
          afro-asiatic/berber/index.html wals/index.html gray-et-al-2009/index.html \
-         map/land.svg map/tiles.json map-zoom.js data/atlas.json \
+         map/land.svg map/tiles.json data/atlas.json \
          data/search.json data/names/0.json atlas-data.js \
-         home.js search-redirect.js random.json q.html search.js manifest.webmanifest pwa.js sw.js \
-         explore.js explore.css data/features/languages.json \
+         search-redirect.js random.json q.html manifest.webmanifest pwa.js sw.js \
+         data/features/languages.json \
          data/features/features.json data/features/f/81A.json data/features/f/conflicts.json \
-         stats/index.html stats.js sources/index.html \
+         stats/index.html sources/index.html \
          releases.html releases.json sitemap.xml robots.txt \
          afro-asiatic/berber/languoid.json features/index.json \
          features/order-of-subject-object-and-verb.json schema/languoid.schema.json; do
@@ -92,7 +92,7 @@ done
 # (Japanese, Chinese and Korean add their own fonts). Styles and scripts read
 # it instead of naming a font; .v-glyphs (script samples) keeps serif.
 echo "Check that styles and scripts use the one font stack"
-fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: serif;" || true)
+fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js dist/components/*/* | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: serif;" || true)
 [ -z "$fonts" ] || { echo "fonts named outside --font:"; echo "$fonts"; exit 1; }
 
 echo "Check that every page draws the SVG logo"
@@ -107,7 +107,7 @@ text=$(find dist -name '*.html' -print0 | xargs -0 grep -il '>[[:space:]]*\(✱\
 echo "Check that no page labels records by kind"
 kinds=$( { find dist -name '*.html' -print0 | xargs -0 grep -lE 'class="legend"|id="dialects"|Family / subgroup|class="muted">(family|isolate|language|dialect|clade|sample)<' || true; } | head)
 [ -z "$kinds" ] || { echo "pages with kind labels:"; echo "$kinds"; exit 1; }
-if grep -nE 'lv-(hit-)?(family|language|dialect)|hit-kind|v-kind|n\.isolate\?.isolate.:n\.level' dist/*.js dist/*.css; then
+if grep -nE 'lv-(hit-)?(family|language|dialect)|hit-kind|v-kind|n\.isolate\?.isolate.:n\.level' dist/*.js dist/*.css dist/components/*/*; then
   echo "scripts or styles that label records by kind (above)"; exit 1
 fi
 # A family has no point of its own in Glottolog, so its map shows only member
@@ -116,13 +116,13 @@ fi
 echo "Check that a record's own point and its members' points share one colour"
 python3 - <<'PY'
 import re, sys
-css = re.sub(r"/\*.*?\*/", "", open("dist/record.css", encoding="utf-8").read(), flags=re.S)
+css = re.sub(r"/\*.*?\*/", "", open("dist/components/map/map.css", encoding="utf-8").read(), flags=re.S)
 fills = [(sel.strip(), fill) for sel, body in re.findall(r"([^{}]*)\{([^{}]*)\}", css)
          for fill in re.findall(r"(?:^|;)\s*fill\s*:\s*([^;]+)", body)
          if re.search(r"\.lmap-(main|self)\b", sel)]
 shared = [f for sel, f in fills if ".lmap-main" in sel and ".lmap-self" in sel]
 if len(fills) != 1 or len(shared) != 1:
-    sys.exit("dist/record.css: .lmap-main and .lmap-self must take their fill from one shared rule: %r" % fills)
+    sys.exit("dist/components/map/map.css: .lmap-main and .lmap-self must take their fill from one shared rule: %r" % fills)
 PY
 # The points of a map are chosen the same way for every record: the code that
 # chooses them must not read a record's level or kind.
@@ -136,6 +136,11 @@ for f in tree.body:
             if isinstance(node, ast.Constant) and node.value in ("level", "kind", "isolate", "family", "language", "dialect"):
                 sys.exit(f"tools/build_paths.py:{node.lineno}: {f.name} reads the record's kind ({node.value!r})")
 PY
+
+# Every component lives in dist/components/<name>/ and every page loads the
+# component stylesheets in one order (tools/components/__init__.py); the
+# hand-written pages must match it. Runs before the links get their versions.
+python3 tools/check_components.py --check
 
 # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
 # pages, so a browser never pairs new HTML with an old cached file
