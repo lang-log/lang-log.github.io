@@ -47,6 +47,8 @@ CSP = "; ".join(
         # stay strict, and --check still refuses style="..." in the site's own pages.
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self'",
+        # The fallback fonts (tools/fallback_fonts.py: dist/fonts/, from the site itself).
+        "font-src 'self'",
         "connect-src 'self' https://huggingface.co",
         # Lang Log is a progressive web app (.claude/rules/pwa.md): its manifest and its
         # service worker come from the site itself (tools/pwa.py, dist/sw.js).

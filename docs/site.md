@@ -35,6 +35,10 @@ Records that exist only in another source's tree (WALS genera and families, stud
 
 The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `tools/build_logo.py` writes it from Montserrat Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and the Montserrat variable font file (not in the repository; the script says where to get it) and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (`.claude/rules/logo.md`; `tools/build_site.sh` checks it).
 
+## Fonts for every script
+
+A device without a font for a script would show empty boxes for its letters, as Android phones did for the Duployan sample. The site therefore carries its own fallback fonts: `tools/fallback_fonts.py` cuts the Noto fonts listed in `tools/fallback-fonts.json` (one fixed release of notofonts.github.io, each file checked by its SHA-256) down to the characters the built pages and data use, and writes one small WOFF2 file per font in `dist/fonts/` and their `@font-face` rules in `dist/fonts.css`, which `dist/style.css` imports. The family comes last in every font stack, and each file names its characters in `unicode-range`, so a browser downloads a file only when a page has a character no other font on the device can draw. The fonts' license (SIL Open Font License 1.1) is `dist/fonts/LICENSE` (`.claude/rules/fonts.md`).
+
 ## Interface language and theme
 
 The right end of the header on every page has a light/dark theme toggle and a language menu with the same languages as the owner's profile site, in the same order (`LANGS` in `dist/lang.js`).

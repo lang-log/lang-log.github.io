@@ -25,6 +25,8 @@ node_modules/
 # The sitemap and robots.txt (tools/build_sitemap.py).
 /dist/sitemap*.xml
 /dist/robots.txt
+# The fallback fonts (tools/fallback_fonts.py; dist/fonts/ is covered by /dist/*/ below).
+/dist/fonts.css
 # Record pages written by build_paths.py (one directory per top-level family
 # and per source). Committed directories under dist/ are listed with !.
 /dist/*/

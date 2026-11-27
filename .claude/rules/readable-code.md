@@ -7,6 +7,7 @@ The shared rule is `readable-code.md` in the `research-aide` repository (each va
 - Site name, title suffix (` · Lang Log by yoshi`), the profile link, the copyright line and the contact address (`CONTACT_EMAIL`, shown by `contact_line()` in the footer of every page): `tools/site_brand.py`. The generators import it; the hand-written pages in `dist/*.html` are kept equal by `python3 tools/site_brand.py --check` (`--write` rewrites them). `dist/lang.js` and `dist/record.js` read what the page already has.
 - Repository folders (`ROOT`, `DIST`, `SOURCE_DATA`): `tools/locations.py`. Never work them out again from `__file__`.
 - Source versions: `source-data/sources.json`. Scripts import `GLOTTOLOG` and `GLOTTOLOG_VERSION` from `tools/source_versions.py`, the dictionaries write `{version}`, and browser scripts read the source titles in the data.
+- The fallback font family's name: `--font-fallback` in `dist/style.css`; `tools/fallback_fonts.py` reads it.
 - Colours: the tokens at the top of `dist/style.css`. Other CSS uses `var(--...)`; scripts read a token with `getComputedStyle`. Exceptions (files opened on their own, where the stylesheet does not apply) are listed in `tools/single-source.json`.
 - A length the CSS and a script both need (such as `--stats-duration`): a custom property in `dist/style.css`, read by the script.
 - Map sizes (`ZOOM_MIN_W`, the world box, the layers): `tools/languoid_map.py`, written into each map's attributes and `<use>` elements; `dist/map-zoom.js` reads them and keeps no defaults of its own.
