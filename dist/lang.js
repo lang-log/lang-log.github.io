@@ -52,7 +52,7 @@
   var LOAD_WAIT = 3000;
   // Content hashes of i18n/<code>.js, filled in by tools/version_assets.py in CI so a
   // browser never uses an old cached dictionary.
-  var VERSIONS = {};
+  var VERSIONS = {'ar': '0b1209d8e8', 'de': '496f68a7dd', 'es': '2f59554e5b', 'fa': 'f9db89d60e', 'fr': '13d2859a64', 'hi': '64de244c89', 'id': 'eeae879969', 'it': '834d4f9e48', 'ko': '92e60376d4', 'nl': 'b0135ef50a', 'pl': '58fbfe267e', 'pt': 'ec130010e0', 'ru': '049002f46f', 'th': '86f7196dc0', 'tr': 'cd81afc0c0', 'uk': '852e222c99', 'vi': '182d652b9d', 'zh-Hans': '6d3c16c56a', 'zh-Hant': 'd905de6d7d'};
   var script = document.currentScript;
   var BASE = script && script.src ? script.src.replace(/[^/]*$/, '') : '';
 
