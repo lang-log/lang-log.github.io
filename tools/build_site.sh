@@ -90,11 +90,11 @@ done
 # word mark as text.
 # One font stack, --font in dist/style.css, chosen by the interface language
 # (Japanese, Chinese and Korean add their own fonts). Styles and scripts read
-# it instead of naming a font; .v-glyphs (script samples) keeps serif, then the
-# fallback fonts. dist/fonts.css (tools/fallback_fonts.py) declares the fallback
+# it instead of naming a font; .v-glyphs (script samples) uses the fallback
+# fonts, then serif. dist/fonts.css (tools/fallback_fonts.py) declares the fallback
 # family itself.
 echo "Check that styles and scripts use the one font stack"
-fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: serif, var(--font-fallback);" | grep -v "^dist/fonts.css:" || true)
+fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: var(--font-fallback), serif;" | grep -v "^dist/fonts.css:" || true)
 [ -z "$fonts" ] || { echo "fonts named outside --font:"; echo "$fonts"; exit 1; }
 
 echo "Check that every page draws the SVG logo"

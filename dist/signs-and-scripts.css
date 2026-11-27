@@ -105,7 +105,7 @@
   font-size: 30px;
   line-height: 1.8;
   overflow-wrap: anywhere;
-  font-family: serif, var(--font-fallback);
+  font-family: var(--font-fallback), serif;
 }
 .v-card {
   border-top: 1px solid var(--line);

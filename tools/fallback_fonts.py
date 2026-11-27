@@ -13,8 +13,9 @@ characters the site uses:
   dist/fonts.css: one @font-face of the fallback family per file, with its unicode-range, so a
   browser downloads a file only when a page needs one of its characters and no font before it
   in the stack has that character. dist/fonts/LICENSE is the fonts' license.
-- dist/style.css imports dist/fonts.css and puts the family last in --font (and in .v-glyphs), so
-  a device's own fonts are used whenever they have the character. The family name is written once,
+- dist/style.css imports dist/fonts.css and puts the family after the named fonts and before the
+  generic family in --font (and first in .v-glyphs), so the named fonts are used whenever they have
+  the character, and the system's fallback never comes first. The family name is written once,
   as --font-fallback in dist/style.css; family() reads it.
 
 Characters no listed font has (Han, Hangul and kana, which every system has, and scripts

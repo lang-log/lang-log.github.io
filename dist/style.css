@@ -323,32 +323,35 @@
    between them) on every system, even when the phone's own language is another one. lang.js
    sets <html lang>; an element with its own lang (the language menu) gets its own stack.
    Letter-spacing is for Latin text: CJK text is set solid, so it is turned off there.
-   --font-fallback comes last in every stack: the site's own fonts (fonts.css), used only for a
-   character no font before it has, so a device without a font for a script shows no empty boxes.
+   --font-fallback comes after the named fonts and before the generic family in every stack: the
+   site's own fonts (fonts.css), used for a character no named font has, so a device without a
+   font for a script shows no empty boxes. It comes before the generic family, so a browser
+   tries it before it turns to the system's own fonts (a fallback listed after sans-serif still
+   showed empty boxes in Chrome on Android, 2026-11-27).
    tools/fallback_fonts.py reads the family name from here. */
 :root {
   --font-fallback: 'Lang Log fallback';
-  --font: Arial, Helvetica, sans-serif, var(--font-fallback);
+  --font: Arial, Helvetica, var(--font-fallback), sans-serif;
 }
 :lang(ja) {
   --font:
     Arial, Helvetica, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
-    'Noto Sans CJK JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, sans-serif, var(--font-fallback);
+    'Noto Sans CJK JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, var(--font-fallback), sans-serif;
 }
 :lang(zh-Hans) {
   --font:
     Arial, Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Noto Sans CJK SC',
-    'Microsoft YaHei', sans-serif, var(--font-fallback);
+    'Microsoft YaHei', var(--font-fallback), sans-serif;
 }
 :lang(zh-Hant) {
   --font:
     Arial, Helvetica, 'PingFang TC', 'Noto Sans TC', 'Noto Sans CJK TC', 'Microsoft JhengHei',
-    sans-serif, var(--font-fallback);
+    var(--font-fallback), sans-serif;
 }
 :lang(ko) {
   --font:
     Arial, Helvetica, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic',
-    sans-serif, var(--font-fallback);
+    var(--font-fallback), sans-serif;
 }
 body [lang] {
   font-family: var(--font);
