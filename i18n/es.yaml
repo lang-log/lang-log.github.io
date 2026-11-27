@@ -49,7 +49,6 @@ text:
     date_unknown: "Fecha desconocida"
     sources_scope_lang_log_by: "Fuentes y alcance · Lang Log by yoshi"
   records:
-    top: "Inicio"
     classification_by_source: "Clasificación según cada fuente"
     placement: "Ubicación:"
     other_direct_members: "Otros miembros directos:"

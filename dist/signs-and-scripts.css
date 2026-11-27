@@ -65,8 +65,10 @@
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
-.v-node > summary:hover {
-  background: var(--c-e8ede3);
+@media (hover: hover) {
+  .v-node > summary:hover {
+    background: var(--c-e8ede3);
+  }
 }
 .v-node > summary .v-name {
   font-size: 16px;

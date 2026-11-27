@@ -22,7 +22,8 @@ tools/build_site.sh runs them in order.
   dist/source-paths.json maps each of these records to its path for the
   scripts.
 - The top page (dist/index.html, tools/build_home.py) lists the top-level
-  families and isolates; breadcrumbs start there ("Top").
+  families and isolates; the header logo links there, so breadcrumbs start
+  at the top-level family (the owner's request, 2026-11-27: no "Top").
 - A top-level slug (family or source) must not equal another top-level slug
   or a name already used at the top of dist/ (RESERVED); the build stops if
   one does.
@@ -530,13 +531,14 @@ def hf_html(n):
 
 
 def breadcrumb(depth, ids, sid="glottolog"):
-    """Classification path from the top page down to (not including) this record."""
+    """Classification path from the top-level record down to (not including) this record;
+    nothing for a top-level record. The header logo leads to the top page."""
     title = escape(
         sources.get(sid, {}).get("title", sid).split(" ")[0]
         if sid == "glottolog"
         else sources.get(sid, {}).get("title", sid)
     )
-    items = f'<li><a href="{"../" * depth}">Top</a></li>'
+    items = ""
     if sid != "glottolog":
         items += f'<li><a href="{escape(href_source(depth, sid))}">{escape(sources[sid]["title"])}</a></li>'
     items += "".join(
@@ -544,6 +546,8 @@ def breadcrumb(depth, ids, sid="glottolog"):
         for a in ids
         if a not in study_root
     )
+    if not items:
+        return ""
     return f'<nav class="lineage" aria-label="Classification according to {title}"><ol class="lineage-path">{items}</ol></nav>'
 
 
@@ -1171,8 +1175,6 @@ def source_page_body(sid):
     """Top of a source's tree: what the source is, and its top-level records."""
     src = sources[sid]
     body = (
-        f'<nav class="lineage" aria-label="Classification according to {escape(src["title"])}">'
-        '<ol class="lineage-path"><li><a href="../">Top</a></li></ol></nav>'
         f'<h1>{escape(src["title"])}</h1><div class="meta"><span>{"catalog" if src.get("kind") == "catalog" else "study tree"}</span>'
         + (f"<span>{escape(src['family'])}</span>" if src.get("family") else "")
         + f"<span>{escape(src.get('license', ''))}</span></div>"
