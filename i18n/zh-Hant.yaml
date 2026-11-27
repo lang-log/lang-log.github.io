@@ -49,7 +49,6 @@ text:
     date_unknown: "日期不明"
     sources_scope_lang_log_by: "來源與範圍 · Lang Log by yoshi"
   records:
-    top: "首頁"
     classification_by_source: "依來源的分類"
     placement: "歸屬："
     other_direct_members: "其他直接下位："

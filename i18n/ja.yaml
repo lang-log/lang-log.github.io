@@ -48,7 +48,6 @@ text:
     date_unknown: "日付不明"
     sources_scope_lang_log_by: "出典と範囲 · Lang Log by yoshi"
   records:
-    top: "トップ"
     classification_by_source: "出典ごとの分類"
     placement: "位置づけ:"
     other_direct_members: "ほかの直接の下位:"
