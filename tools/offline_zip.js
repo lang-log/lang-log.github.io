@@ -25,7 +25,7 @@ const OUT = path.join(ROOT, 'build', 'offline');
 // running out of memory.
 const PARALLEL = 8;
 // Every record page (tools/build_paths.py) loads record-page.js; no other page does.
-const RECORD_MARK = 'record-page.js"></script>';
+const RECORD_MARK = '/record-page.js';
 // Links inside the site come back from the page as LINK + path, and are pointed at the right
 // file (or the live site) here, where the list of records is.
 const LINK = 'lang-log-path:';
