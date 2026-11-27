@@ -258,8 +258,23 @@
   stroke-width: 1.5px;
   vector-effect: non-scaling-stroke;
 }
+/* The map and its buttons share one grid cell, so the buttons sit over the map's top right
+   corner and the box is always as tall as the taller of the two. The buttons wrap onto more
+   rows when the map is narrower than the bar, and a map shorter than those rows grows with
+   them (the view stays centred in it), so at any browser zoom and any width the buttons
+   stay inside the map (the owner's request, 2026-11-28). The key, when there is one, takes
+   the next row. */
 .lmap-wrap {
   position: relative;
+  display: grid;
+}
+.lmap-wrap > .lmap,
+.lmap-wrap > .lmap-tools {
+  grid-area: 1 / 1;
+}
+.lmap-wrap > .lmap {
+  align-self: stretch;
+  min-width: 0;
 }
 .lmap {
   touch-action: none;
@@ -290,11 +305,20 @@
   display: none;
 }
 .lmap-tools {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+  position: relative;
+  align-self: start;
+  justify-self: end;
+  margin: 8px;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 4px;
+}
+/* The bar stays at the right on right-to-left pages too, with its buttons in reverse order;
+   wrapped rows still end at the right. */
+[dir='rtl'] .lmap-tools {
+  justify-self: start;
+  justify-content: flex-start;
 }
 .lmap-tools button {
   display: inline-flex;
@@ -455,6 +479,8 @@ body > .domain-nav {
   }
 }
 .lmap-full .lmap-tools {
+  position: absolute;
+  margin: 0;
   top: calc(12px * var(--lmap-screen-grow) * var(--lmap-screen-shrink));
   right: calc(12px * var(--lmap-screen-grow) * var(--lmap-screen-shrink));
   gap: calc(6px * var(--lmap-screen-grow));
