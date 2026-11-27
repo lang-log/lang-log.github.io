@@ -1,6 +1,3 @@
-/* The fallback fonts (tools/fallback_fonts.py writes fonts.css at build time): Noto fonts cut down to
-   the characters the site uses, for devices that have no font for a script. */
-@import url('fonts.css');
 /* Colour tokens. Every colour on the site is one of these variables, named after its
    light-theme value (--c-f5f4ee is var(--c-f5f4ee) in the light theme). The dark values keep each
    colour's hue and flip its lightness, so the tints keep their meaning. Without a saved
@@ -322,36 +319,29 @@
    language, so Japanese, Chinese and Korean get their own glyph forms (Han characters differ
    between them) on every system, even when the phone's own language is another one. lang.js
    sets <html lang>; an element with its own lang (the language menu) gets its own stack.
-   Letter-spacing is for Latin text: CJK text is set solid, so it is turned off there.
-   --font-fallback comes after the named fonts and before the generic family in every stack: the
-   site's own fonts (fonts.css), used for a character no named font has, so a device without a
-   font for a script shows no empty boxes. It comes before the generic family, so a browser
-   tries it before it turns to the system's own fonts (a fallback listed after sans-serif still
-   showed empty boxes in Chrome on Android, 2026-11-27).
-   tools/fallback_fonts.py reads the family name from here. */
+   Letter-spacing is for Latin text: CJK text is set solid, so it is turned off there. */
 :root {
-  --font-fallback: 'Lang Log fallback';
-  --font: Arial, Helvetica, var(--font-fallback), sans-serif;
+  --font: Arial, Helvetica, sans-serif;
 }
 :lang(ja) {
   --font:
     Arial, Helvetica, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP',
-    'Noto Sans CJK JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, var(--font-fallback), sans-serif;
+    'Noto Sans CJK JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, sans-serif;
 }
 :lang(zh-Hans) {
   --font:
     Arial, Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Noto Sans CJK SC',
-    'Microsoft YaHei', var(--font-fallback), sans-serif;
+    'Microsoft YaHei', sans-serif;
 }
 :lang(zh-Hant) {
   --font:
     Arial, Helvetica, 'PingFang TC', 'Noto Sans TC', 'Noto Sans CJK TC', 'Microsoft JhengHei',
-    var(--font-fallback), sans-serif;
+    sans-serif;
 }
 :lang(ko) {
   --font:
     Arial, Helvetica, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic',
-    var(--font-fallback), sans-serif;
+    sans-serif;
 }
 body [lang] {
   font-family: var(--font);

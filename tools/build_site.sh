@@ -90,11 +90,10 @@ done
 # word mark as text.
 # One font stack, --font in dist/style.css, chosen by the interface language
 # (Japanese, Chinese and Korean add their own fonts). Styles and scripts read
-# it instead of naming a font; .v-glyphs (script samples) uses the fallback
-# fonts, then serif. dist/fonts.css (tools/fallback_fonts.py) declares the fallback
-# family itself.
+# it instead of naming a font. Script samples are pictures
+# (tools/glyph_images.py), not text.
 echo "Check that styles and scripts use the one font stack"
-fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" | grep -v "^dist/signs-and-scripts.css:[0-9]*:  font-family: var(--font-fallback), serif;" | grep -v "^dist/fonts.css:" || true)
+fonts=$(grep -nE "font-family *: *[^ v;}i]|font *: *[^;}]*(Arial|Helvetica|sans-serif|serif)|\.font *=.*(Arial|serif)|font-family=\"[A-Za-z]" dist/*.css dist/*.js | grep -v "^dist/style.css:.*--font:" || true)
 [ -z "$fonts" ] || { echo "fonts named outside --font:"; echo "$fonts"; exit 1; }
 
 echo "Check that every page draws the SVG logo"
@@ -138,13 +137,6 @@ for f in tree.body:
             if isinstance(node, ast.Constant) and node.value in ("level", "kind", "isolate", "family", "language", "dialect"):
                 sys.exit(f"tools/build_paths.py:{node.lineno}: {f.name} reads the record's kind ({node.value!r})")
 PY
-
-# Writes the fallback fonts dist/fonts/ and dist/fonts.css (not committed): Noto
-# fonts cut down to every character the built pages and data use, for devices
-# without a font for a script. Downloads the fonts listed in
-# tools/fallback-fonts.json into build/fonts/ first. Runs after every page and
-# data file is written. Needs fontTools and Brotli (requirements.txt).
-python3 tools/fallback_fonts.py
 
 # Adds ?v=<content hash> to every local CSS, JS and SVG link in the
 # pages, so a browser never pairs new HTML with an old cached file

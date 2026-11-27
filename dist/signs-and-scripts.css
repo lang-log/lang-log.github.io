@@ -101,11 +101,18 @@
   color: var(--c-677670);
   font-size: 14px;
 }
+/* Script samples: a picture of a few letters (tools/glyph_images.py), in the text colour.
+   Its height follows the font size; its width follows the picture. */
 .v-glyphs {
   font-size: 30px;
   line-height: 1.8;
-  overflow-wrap: anywhere;
-  font-family: var(--font-fallback), serif;
+}
+.v-glyphs svg {
+  display: block;
+  height: 1.5em;
+  width: auto;
+  max-width: 100%;
+  fill: currentColor;
 }
 .v-card {
   border-top: 1px solid var(--line);
