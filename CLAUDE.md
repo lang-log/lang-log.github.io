@@ -35,5 +35,6 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
 - `.claude/rules/ui-design.md` (`dist/**`, `tools/build_*.py`, `tools/components/**`): reusing components, one directory per component, phone layout, pages without JavaScript, shareable state, accessible controls.
 - `.claude/skills/add-to-lang-log/`: the steps for adding a component, interface text or data (`SKILL.md` says which file in `references/` to read).
+- `.claude/skills/ui-edge-cases/`: the edge cases to try (zoom, width, touch, keyboard, theme, language, fonts, data) before a pull request that changes what visitors see (`SKILL.md` says which file in `references/` to read).
 - `docs/`: the documentation (no GitHub Wiki): `docs/site.md` (how the pages work), `docs/data.md` (how the data is built), `docs/urls.md` (every address and query parameter) and `docs/components.md` (every UI component by name).
 - Browsers: `.github/workflows/browsers.yml` runs the shared browser check (`browser-check.md` in `research-aide`) on every pull request; add a page there when a new kind of page appears.
