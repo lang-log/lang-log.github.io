@@ -20,7 +20,6 @@ The owner's choice (2026-11-24): `lang-log.com` goes through the Cloudflare prox
 - The headers are written once, as `LIVE_HEADERS` in `tools/security_policy.py`: the page policy as a header with `frame-ancestors 'none'` (ignored in `<meta>`), `X-Frame-Options: DENY`, `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`, `X-Content-Type-Options: nosniff`, `Referrer-Policy` (`REFERRER`), `Permissions-Policy` turning off every feature the site does not use, and `Cross-Origin-Opener-Policy` / `Cross-Origin-Resource-Policy: same-origin`.
 - Cloudflare adds them with one Response Header Transform Rule ("Set static", every request) that the owner keeps; `python3 tools/security_policy.py --live` prints the names and values to enter. Change `LIVE_HEADERS` and the rule together.
 - `.github/workflows/headers.yml` (weekly, and by hand) runs `--check-live https://lang-log.com/` and fails when the site sends anything else.
-- The beta site on Cloudflare Pages sends the same headers plus `X-Robots-Tag: noindex` (`HEADERS`, written as `_headers`, see `previews.md`).
 - Cloudflare settings that would inject scripts into the pages and break the policy stay off: Email Address Obfuscation, Rocket Loader, automatic Web Analytics. "Block AI bots" stays off (the pages are meant to be read by AI assistants too).
 
 Not yet:
