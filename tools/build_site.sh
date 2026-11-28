@@ -20,6 +20,8 @@ python3 tools/unify.py
 python3 tools/finish_unified.py
 # Writes the sign language and writing system data and its exports
 # (dist/signs-and-scripts.json, .xml and .opml; not committed) and checks it.
+# Script sample pictures for scripts no font can draw: each file as its register says.
+python3 tools/glyph_pictures.py --check
 python3 tools/build_visual.py
 python3 tools/validate_visual.py
 # Writes the top page dist/index.html (the top-level families in a list,

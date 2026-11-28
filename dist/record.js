@@ -148,8 +148,12 @@
         : '');
     // The sample is a picture drawn at build time (tools/glyph_images.py), never text: most
     // devices have no font for most scripts. No picture, no sample.
+    // A script no font can draw yet shows a free-licensed picture instead (tools/glyph_pictures.py),
+    // credited by its own source line.
     if (n.glyphImage)
-      html += `<p class="v-glyphs"><svg viewBox="0 0 ${esc(n.glyphImage.width)} ${esc(n.glyphImage.height)}" role="img" aria-label="${esc(n.glyphSample)}"><use href="${esc(n.glyphImage.src)}#glyphs"/></svg></p><p class="muted">${sl('ucd')}</p>`;
+      html += `<p class="v-glyphs"><svg viewBox="0 0 ${esc(n.glyphImage.width)} ${esc(n.glyphImage.height)}" role="img" aria-label="${esc(n.glyphSample)}"><use href="${esc(n.glyphImage.src)}#glyphs"/></svg></p><p class="muted">${sl(n.glyphSource)}</p>`;
+    else if (n.glyphPicture)
+      html += `<p class="v-picture"><img src="${esc(n.glyphPicture.src)}" width="${esc(n.glyphPicture.width)}" height="${esc(n.glyphPicture.height)}" alt="${esc(n.name)}"></p><p class="muted">${sl(n.glyphSource)}</p>`;
     html += `<details><summary>Aliases and spellings · ${aliases.length}</summary><ul class="name-list">${aliases.map((a) => `<li dir="auto">${esc(a.text || a.name || a)} <span class="muted">${esc(a.lang || '')} · ${esc(a.provider || a.source || '')}</span></li>`).join('')}</ul></details></section>`;
     if (n.area || n.region || n.silType)
       html += `<section><h2>Record information</h2>${n.area ? '<p>Macroarea: ' + esc(n.area) + '</p>' : ''}${n.region ? '<p>Region: ' + esc(n.region) + '</p>' : ''}${n.silType ? '<p>SIL-reported type: ' + esc(n.silType) + '<br>Direction: ' + esc(n.direction) + '<br>Status: ' + esc(n.silStatus) + '</p>' : ''}</section>`;

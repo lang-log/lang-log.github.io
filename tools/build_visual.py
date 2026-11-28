@@ -13,6 +13,7 @@ from html.parser import HTMLParser
 from glyph_images import OUT as GLYPH_DIR
 from glyph_images import Glyphs
 from glyph_images import draw as draw_glyphs
+import glyph_pictures
 from modality import MODALITY_OF_DOMAIN
 from source_versions import GLOTTOLOG
 
@@ -525,12 +526,20 @@ for line in (P / "Scripts.txt").read_text().splitlines():
 # most devices have no font for most scripts; the pages show only the picture.
 glyph_fonts = Glyphs()
 shutil.rmtree(GLYPH_DIR, ignore_errors=True)
+glyph_picture_list = glyph_pictures.load()
 for i, chars in samples.items():
     N[i]["glyphSample"] = " ".join(chars)
     N[i]["glyphSource"] = "ucd"
     image = draw_glyphs(glyph_fonts, i, chars)
     if image:
         N[i]["glyphImage"] = image
+    elif i in glyph_picture_list:
+        # No font can draw it yet: a free-licensed picture, credited as its own source
+        # (tools/glyph_pictures.py).
+        credit = glyph_pictures.source(i, glyph_picture_list[i])
+        src(**credit)
+        N[i]["glyphPicture"] = glyph_pictures.place(i, glyph_picture_list[i])
+        N[i]["glyphSource"] = credit["i"]
 for e in E:
     for i in [e["parent"], e["child"]]:
         if e["source"] not in N[i]["sources"]:
