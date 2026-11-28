@@ -34,6 +34,9 @@ const SAFARI_MIN_ZOOM = 0.5;
 // screen 1280 CSS pixels wide, which is 1000% here): every zoom above, and far past what
 // browsers offer.
 const INSIDE_ZOOMS = [...ZOOMS, 10, 15, 20];
+// How long a page may take to open the map view or draw its points (ms). In CI, Firefox at
+// 25% (a page 7680 CSS pixels wide) sometimes takes seconds to draw them.
+const READY_MS = 15000;
 const PHONE = { width: 390, height: 844 }; // CSS pixels
 const FINGER_PX = 44; // buttons on a touch screen (map.css)
 const PAGES = [
@@ -124,8 +127,20 @@ function picked() {
     sw = (e) => parseFloat(getComputedStyle(e).strokeWidth);
   return { size: w(p) / w(other), ring: sw(p) / sw(other) };
 }
+// Resolves once the page has drawn two more frames, so a draw that
+// dist/components/map/map.js scheduled (requestAnimationFrame) has run. A busy browser draws
+// later, so this waits as long as it takes, not a fixed time.
+function frames(tab) {
+  return tab.evaluate(
+    () => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))),
+  );
+}
 async function pick(tab) {
-  const at = await tab.evaluate(pointOnScreen);
+  // A busy browser may not have drawn the points yet; wait for one a click can reach.
+  const found = await tab
+    .waitForFunction(pointOnScreen, null, { timeout: READY_MS })
+    .catch(() => null);
+  const at = found && (await found.jsonValue());
   if (!at) return null;
   await tab.mouse.click(at[0], at[1]);
   // The point is marked at once and drawn larger on the next frame; wait for both.
@@ -134,9 +149,7 @@ async function pick(tab) {
       timeout: 5000,
     })
     .catch(() => null);
-  await tab.evaluate(
-    () => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(() => done()))),
-  );
+  await frames(tab);
   return tab.evaluate(picked);
 }
 
@@ -175,9 +188,10 @@ async function open(browser, page, variant, zoom, mapView = true) {
   await tab.waitForFunction(
     (sel) => document.querySelector(sel),
     mapView ? '.lmap-full' : '.lmap-tools',
-    { timeout: 15000 },
+    { timeout: READY_MS },
   );
   await tab.waitForTimeout(300);
+  await frames(tab);
   return { ctx, tab };
 }
 
@@ -268,7 +282,7 @@ let base = '';
           const p = await phone.newPage();
           await p.goto(base + page.path, { waitUntil: 'networkidle' });
           await p.waitForFunction(() => document.querySelector('.lmap-full'), null, {
-            timeout: 15000,
+            timeout: READY_MS,
           });
           const m = await p.evaluate(measure);
           const h = m.button.h / 3;
