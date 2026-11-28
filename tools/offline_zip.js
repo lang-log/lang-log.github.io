@@ -8,7 +8,7 @@
 // Naming top-level folders builds only those (for a quick look); the release builds them all.
 //
 // The files are read from the built record pages themselves, in a browser, so they hold exactly
-// what a visitor sees: dist/lang.js translates each page as it does for visitors, and this
+// what a visitor sees: dist/components/language-menu/language-menu.js translates each page as it does for visitors, and this
 // script only turns the page's main content and its source credit into Markdown (and the same
 // part, as HTML, into the PDF). Parts that need a script or the network to mean anything (the
 // map, the tree, the view switch and conditions, the Hugging Face models) are left out.
@@ -24,13 +24,11 @@ const OUT = path.join(ROOT, 'build', 'offline');
 // Pages open at the same time; each takes about 0.1 s, so 8 keep a GitHub runner busy without
 // running out of memory.
 const PARALLEL = 8;
-// Every record page has the classification path; no other page has it.
-const RECORD_MARK = 'class="lineage"';
+// Every record page (tools/build_paths.py) loads record-page.js; no other page does.
+const RECORD_MARK = '/record-page.js';
 // Links inside the site come back from the page as LINK + path, and are pointed at the right
 // file (or the live site) here, where the list of records is.
 const LINK = 'lang-log-path:';
-// Stylesheets the PDF is printed with: the site's own, so it looks like the pages.
-const PDF_STYLES = ['style.css', 'record.css'];
 // Paper and margins of the PDF.
 const PDF_OPTIONS = {
   format: 'A4',
@@ -43,7 +41,7 @@ function constant(file, pattern) {
   if (!m) throw new Error(`${pattern} not found in ${file}`);
   return m[1];
 }
-// The interface languages (LANGS in dist/lang.js, read by tools/build_i18n.py) and the live
+// The interface languages (LANGS in dist/components/language-menu/language-menu.js, read by tools/build_i18n.py) and the live
 // site (SITE_URL in tools/site_brand.py).
 const LANGUAGES = JSON.parse(
   execFileSync('python3', [path.join(ROOT, 'tools', 'build_i18n.py'), '--languages'], {
@@ -157,6 +155,7 @@ function readPage(link) {
     html,
     lang: document.documentElement.lang,
     dir: document.documentElement.dir || 'ltr',
+    styles: [...document.querySelectorAll('link[rel="stylesheet"]')].map((l) => l.href),
   };
 }
 
@@ -205,14 +204,17 @@ async function main() {
   const families = new Map(); // top-level folder -> [{ path, html }], in tree order
   let next = 0;
   let pageLang = code,
-    pageDir = 'ltr';
+    pageDir = 'ltr',
+    // The stylesheets the PDF is printed with: the ones the record pages load, so it looks
+    // like the pages (tools/components/__init__.py lists the components' ones).
+    pageStyles = [];
   const started = Date.now();
   async function worker() {
     const page = await context.newPage();
     while (next < paths.length) {
       const here = paths[next++];
       await page.goto(origin + '/' + here, { waitUntil: 'load' });
-      // dist/lang.js keeps the page hidden (class i18n-wait) until the dictionary is in.
+      // dist/components/language-menu/language-menu.js keeps the page hidden (class i18n-wait) until the dictionary is in.
       await page.waitForFunction(
         (lang) =>
           document.documentElement.lang === lang &&
@@ -222,6 +224,7 @@ async function main() {
       const read = await page.evaluate(readPage, LINK);
       pageLang = read.lang;
       pageDir = read.dir;
+      pageStyles = read.styles;
       const file = path.join(out, 'records', here, 'index.md');
       fs.mkdirSync(path.dirname(file), { recursive: true });
       fs.writeFileSync(file, resolveLinks(read.markdown, here, records, false));
@@ -239,7 +242,7 @@ async function main() {
   // One PDF per top-level folder, its records in tree order, each starting on a new page.
   fs.mkdirSync(path.join(out, 'pdf'), { recursive: true });
   const printer = await context.newPage();
-  const styles = PDF_STYLES.map((s) => `<link rel="stylesheet" href="${origin}/${s}">`).join('');
+  const styles = pageStyles.map((s) => `<link rel="stylesheet" href="${escapeHtml(s)}">`).join('');
   for (const [family, pages] of [...families].sort()) {
     pages.sort((a, b) => (a.path < b.path ? -1 : 1));
     const body = pages

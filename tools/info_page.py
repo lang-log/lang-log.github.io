@@ -8,21 +8,21 @@ dist/stats/index.html, "" for dist/releases.html), so every link stays relative.
 
 from html import escape
 
+from components import script, stylesheets
+from components.footer import footer
+from components.header import header
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
-    COPYRIGHT,
     SITE_NAME_META,
     TITLE_SUFFIX,
-    by_yoshi,
-    contact_line,
     icon_links,
 )
 
 
 def page(title, body, up, scripts=()):
     """The whole HTML of an information page. `body` is already escaped HTML; `scripts`
-    are extra files from dist/ loaded in <head> after lang.js."""
+    are extra files from dist/ loaded in <head> after the language menu's script."""
     return (
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         + SECURITY_HEAD
@@ -31,14 +31,14 @@ def page(title, body, up, scripts=()):
         + icon_links(up)
         + SITE_NAME_META
         + pwa_head(up)
-        + f'<link rel="stylesheet" href="{up}style.css">'
-        f'<script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script>'
+        + stylesheets(up)
+        + script("theme-toggle", up)
+        + f'<script src="{up}i18n.js"></script>'
+        + script("language-menu", up)
         + "".join(f'<script src="{up}{escape(s)}"></script>' for s in scripts)
         + '</head><body class="info-page">\n'
-        f'<header><div class="brand"><a class="home" href="{up or "./"}"><svg class="logo" role="img" aria-label="LANG LOG"><use href="{up}logo.svg#logo"/></svg></a> '
-        + by_yoshi()
-        + "</div></header>\n"
-        f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n'
-        f"<footer><span>{COPYRIGHT}</span>{contact_line()}</footer>\n"
+        + header(up or "./", up)
+        + "\n"
+        f'<main class="info-main"><h1>{escape(title)}</h1>{body}</main>\n' + footer() + "\n"
         "</body></html>\n"
     )

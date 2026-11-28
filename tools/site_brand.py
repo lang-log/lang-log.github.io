@@ -8,7 +8,7 @@ carry the same text: `--check` (run by tools/build_site.sh) fails if one of
 them differs, and `--write` rewrites their "by yoshi" link and contact line from here.
 Every page has one footer with the contact line (contact_line()).
 
-dist/lang.js switches the profile link to the interface language by changing
+dist/components/language-menu/language-menu.js switches the profile link to the interface language by changing
 the language part of the link's own address, so it keeps no copy of
 PROFILE_URL; dist/record.js keeps the title suffix its page was built with.
 """
@@ -85,13 +85,13 @@ ANY_CONTACT = re.compile(r'<(span|p) class="contact">Contact: <a [^>]*>[^<]*</a>
 
 
 def by_yoshi(tag="span", cls="by"):
-    """The "by yoshi" line; "yoshi" links to the profile (class "profile", for dist/lang.js)."""
+    """The "by yoshi" line; "yoshi" links to the profile (class "profile", for dist/components/language-menu/language-menu.js)."""
     link = f'<a class="profile" href="{escape(PROFILE_URL)}" title="{escape(OWNER)}">yoshi</a>'
     return f'<{tag} class="{cls}">by {link}</{tag}>'
 
 
 def contact_line(tag="span"):
-    """The footer's contact line. "Contact:" is translated by dist/lang.js; the address is not."""
+    """The footer's contact line. "Contact:" is translated by dist/components/language-menu/language-menu.js; the address is not."""
     address = escape(CONTACT_EMAIL)
     return (
         f'<{tag} class="contact">Contact: '

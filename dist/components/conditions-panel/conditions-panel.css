@@ -1,113 +1,30 @@
-/* The two views of the top page and their conditions (dist/explore.js, tools/build_home.py).
-   Colours are the variables at the top of style.css. */
+/* The conditions panel of the explorer (tools/components/conditions_panel.py, run by
+   dist/components/explorer/explorer.js). Every page loads this file (STYLES in
+   tools/components/__init__.py). */
+/* The two views of the top page and the record pages, shown together (the map, then the
+   list), and their conditions (dist/components/explorer/explorer.js,
+   tools/components/explorer.py). Colours are the variables at the top of style.css. */
 .explore-filter {
-  margin: 0 0 16px;
+  margin: 16px 0;
+}
+.explore-view + .explore-view {
+  margin-top: 16px;
 }
 /* The conditions are in the page from the start, so they are drawn with it; they work only
-   with scripts, so without them only the list is shown (the switch: style.css). */
+   with scripts, so without them only the list is shown. */
 @media (scripting: none) {
   .explore-filter {
     display: none;
   }
-}
-.explore-view .continent h3 {
-  margin-top: 18px;
-}
-/* The map's frame, points and key are the record maps' (record.css); this box only holds
-   the map for the map view. */
-.wm-map {
-  position: relative;
-}
-.wm-hint {
-  position: absolute;
-  inset-inline-start: 10px;
-  bottom: 6px;
-  margin: 0;
-  font-size: 11px;
-  color: var(--muted);
-  pointer-events: none;
-  max-width: 60%;
-}
-.wm-legend {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 12px 14px;
-  background: var(--c-fafbf6);
 }
 .wm-count {
   margin: 0 0 10px;
   font-size: 13px;
   font-weight: 600;
 }
-.wm-legend section + section {
-  border-top: 1px solid var(--line);
-  margin-top: 12px;
-  padding-top: 10px;
-}
-.wm-legend h2 {
-  font-size: 13px;
-  line-height: 1.4;
-  margin: 0 0 6px;
-}
 .wm-legend .wm-selectall {
   font-weight: 600;
   border-bottom: 1px solid var(--line);
-}
-.wm-legend ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.wm-legend li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border-bottom: 1px solid var(--c-eef0e9);
-}
-.wm-legend label {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex: 1;
-  min-width: 0;
-  padding: 7px 0;
-  font-size: 13px;
-  line-height: 1.35;
-  cursor: pointer;
-}
-.wm-legend label span {
-  flex: 1;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-.wm-legend label small {
-  color: var(--muted);
-  font-size: 11px;
-}
-.wm-legend input {
-  accent-color: var(--teal);
-  margin: 0;
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
-.wm-ring {
-  border: 2px solid var(--muted);
-}
-@media (max-width: 700px) {
-  .wm-hint {
-    display: none;
-  }
-  .wm-legend label,
-  .wm-legend li {
-    min-height: 44px;
-  }
-}
-.wm-legend select {
-  font-size: 13px;
-  padding: 8px 6px;
-  min-height: 40px;
-  background: var(--c-ffffff);
 }
 .wm-legend .wm-colour {
   display: flex;
@@ -205,7 +122,7 @@
   margin-top: 6px;
 }
 /* NOT next to a condition's feature menu: pressed, the condition leaves out what it matches
-   (dist/explore.js condBox). Drawn like the AND / OR buttons. */
+   (dist/components/explorer/explorer.js condBox). Drawn like the AND / OR buttons. */
 .wm-not {
   font-size: 11px;
   padding: 5px 9px;
@@ -216,7 +133,7 @@
   color: var(--c-ffffff);
 }
 /* Minimum and Maximum of a number condition, the chosen language of a relative one, the
-   text of the Name condition and the minimum number of conditions (dist/explore.js). */
+   text of the Name condition and the minimum number of conditions (dist/components/explorer/explorer.js). */
 .wm-range {
   display: flex;
   flex-wrap: wrap;
@@ -244,24 +161,6 @@
 .wm-legend .wm-min[hidden] {
   display: none;
 }
-.wm-legend input[type='number'],
-.wm-legend input[type='search'] {
-  appearance: none;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  min-height: 40px;
-  padding: 8px 6px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--c-ffffff);
-  color: inherit;
-  /* 16px keeps iOS Safari from zooming into the box. */
-  font: inherit;
-  font-size: 16px;
-  font-weight: 400;
-  accent-color: auto;
-}
 .wm-legend .wm-find {
   margin-top: 6px;
 }
@@ -270,18 +169,4 @@
   max-height: 320px;
   overflow-y: auto;
   overscroll-behavior: contain;
-}
-.wm-legend li[hidden] {
-  display: none;
-}
-/* Map view: the map and its record box fill the window (record.css .lmap-full; relative above would win). */
-.wm-map.lmap-full {
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  border: 0;
-  border-radius: 0;
-}
-.lmap-full .wm-hint {
-  display: none;
 }

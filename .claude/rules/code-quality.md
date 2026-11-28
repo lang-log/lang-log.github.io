@@ -14,7 +14,7 @@ Prettier, ESLint and Ruff check every pull request and every push to `main` (the
 ## Before pushing
 
 - Run `npm run check`; run `npm run format` and `npm run format:python` on the files you changed. New files must pass from the start.
-- `tools/build_site.sh` rewrites `dist/lang.js` and `dist/*.html` (asset versions); run the checks on an unbuilt tree (`git checkout -- dist`), as CI does.
+- `tools/build_site.sh` rewrites `dist/components/language-menu/language-menu.js` and `dist/*.html` (asset versions); run the checks on an unbuilt tree (`git checkout -- dist`), as CI does.
 
 ## What the tools cover and why some files are left out
 

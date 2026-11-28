@@ -1,0 +1,149 @@
+/* The header (tools/components/header.py): the logo and "by yoshi" on the left, the
+   controls of the theme toggle and the language menu on the right. Every page loads this file
+   (STYLES in tools/components/__init__.py). */
+header {
+  height: 72px;
+  margin: 0 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mark {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--teal);
+}
+.edition {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-inline-start: 20px;
+  color: var(--muted);
+}
+header button {
+  border: 0;
+  font-size: 12px;
+}
+@media (max-width: 1100px) {
+  .edition {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  header {
+    margin: 0 16px;
+    height: 62px;
+  }
+  .brand {
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  .mark {
+    font-size: 28px;
+  }
+}
+@media (max-width: 700px) {
+  header {
+    min-height: 64px;
+    height: auto;
+    padding: 8px 0;
+    gap: 8px;
+  }
+  .brand {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    gap: 7px;
+    min-width: 0;
+  }
+  header button {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 8px 5px;
+  }
+}
+.brand .home {
+  display: flex;
+  align-items: center;
+  gap: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+.brand .by {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+/* "yoshi" links to the owner's profile */
+.brand .by a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+@media (hover: hover) {
+  .brand .by a:hover {
+    color: var(--teal);
+  }
+}
+/* Logo: asterisk and "LANG LOG" in one SVG (dist/logo.svg, written by build_logo.py), so the link is one rectangle */
+.logo {
+  display: block;
+  height: 26px;
+  width: auto;
+  aspect-ratio: 853/180;
+  color: var(--ink);
+  overflow: visible;
+}
+.brand .home {
+  line-height: 0;
+}
+@media (max-width: 700px) {
+  .brand .logo {
+    height: 22px;
+  }
+}
+/* Header controls (theme-toggle.js and language-menu.js add them): the page's own right-hand element, then the
+   theme toggle and the language menu, as on the profile site. The toggle stretches to the
+   height of the language pill; both are hidden without JavaScript, which they need. */
+header .tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+header .tools {
+  --ctl: 34px;
+}
+@media (max-width: 700px) {
+  header .tools {
+    gap: 6px;
+  }
+}
+/* Phones: the brand, the page link and both controls stay on one line; the language pill
+   shows a short code (EN, JA) instead of the full name. */
+header .brand,
+header .tools > a,
+header .tools > button {
+  white-space: nowrap;
+}
+@media (max-width: 560px) {
+  header .brand {
+    gap: 6px;
+  }
+  header .tools > a,
+  header .tools > button:not(.theme-toggle) {
+    font-size: 13px;
+  }
+  header .tools {
+    --ctl: 40px;
+  }
+}

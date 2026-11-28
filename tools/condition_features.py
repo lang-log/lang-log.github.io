@@ -5,7 +5,7 @@ returns into dist/data/features/ next to the WALS features.
 
 Each feature is one entry of features.json and one file f/<id>.json with one value
 per language of languages.json, in its order. A feature's "type" says how
-dist/explore.js reads that file:
+dist/components/explorer/explorer.js reads that file:
 
   (none)    a category: a value number (0 = no data) or, with "multi", a list of
             value numbers (empty = no data); "values" lists the numbers, their

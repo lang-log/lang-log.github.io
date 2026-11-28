@@ -1,0 +1,71 @@
+/* The segmented switches between views (the List / Tree switch of the tree toolbars). Every page loads this file (STYLES in tools/components/__init__.py). */
+.view-switch {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 13px;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.view-switch button {
+  font-size: 11px;
+  padding: 7px 9px;
+  border: 0;
+}
+.view-switch button.active {
+  background: var(--c-e0e9db);
+  color: var(--c-234741);
+}
+.view-switch span {
+  font-size: 9px;
+  color: var(--muted);
+  margin-inline-start: auto;
+}
+@media (max-width: 700px) {
+  .view-switch {
+    padding: 8px;
+  }
+  .view-switch span {
+    width: 100%;
+    margin-inline-start: 8px;
+  }
+}
+@media (max-width: 700px) {
+  .view-switch {
+    gap: 5px;
+  }
+  .view-switch button {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 10px 8px;
+  }
+  .view-switch span {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+/* The switch between views (.seg, one segmented control with aria-pressed buttons): the
+   List / Tree switch of the record
+   pages' and the sign and script atlas's toolbars (tools/build_paths.py,
+   dist/signs-and-scripts.html). It comes after the .toolbar button rule above, so its
+   buttons drop that rule's border and radius. */
+.seg {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.seg button {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+}
+.seg button + button {
+  border-inline-start: 1px solid var(--line);
+}
+.seg button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--c-ffffff);
+}
