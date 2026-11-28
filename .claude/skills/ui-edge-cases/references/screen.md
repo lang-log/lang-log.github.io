@@ -2,7 +2,7 @@
 
 ## Browser zoom and text size
 
-- From 25% to the largest zoom a browser offers (the map check goes to 710%), every control stays inside its frame: the map's key inside the map, menus and popups inside the window, nothing cut off at an edge. The map's buttons are checked by `tools/check_map_view.js` (2026-11-28: at 667% they stood out of the map).
+- From 25% to the largest zoom a browser offers (the map check goes to 710%), every control stays inside its frame: the map's key inside the map, menus and popups inside the window, nothing cut off at an edge. The map's buttons are checked by `tools/check_map_view.js` (seen: at 667% they stood out of the map).
 - After zooming in and back out, everything returns to where it was.
 - The map view keeps its buttons, key and lines the same size on the screen (`ui-design.md`, "Behaviour").
 - With a larger default font size in the browser settings, text wraps instead of overlapping or being cut.

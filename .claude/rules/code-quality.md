@@ -1,6 +1,6 @@
 # Code quality checks
 
-Prettier, ESLint and Ruff check every pull request and every push to `main` (the owner's request, 2026-11-07), and since issue #95 (2026-11-20) also markdownlint, html-validate, Stylelint (CSS syntax only) and ShellCheck. How to install and run them: "Code quality checks" in `README.md`.
+Prettier, ESLint, Ruff, markdownlint, html-validate, Stylelint (CSS syntax only) and ShellCheck check every pull request and every push to `main` (the owner's request). How to install and run them: "Code quality checks" in `README.md`.
 
 ## In CI
 
@@ -18,7 +18,7 @@ Prettier, ESLint and Ruff check every pull request and every push to `main` (the
 
 ## What the tools cover and why some files are left out
 
-- Prettier: JavaScript, CSS, JSON, YAML and Markdown (`.prettierrc.json`: single quotes in JavaScript, double quotes in YAML and Markdown, quoted object keys kept as written, lines of 100), and XML and SVG with `@prettier/plugin-xml`: one attribute per line when an element has more than one (`singleAttributePerLine`, the owner's choice, 2026-11-07), and text kept exactly as written (`xmlWhitespaceSensitivity: preserve`). HTML is a supported type, but `dist/*.html` is left out: `tools/security_policy.py --write` puts the policy `<meta>` tags after `<meta charset="utf-8">` as one exact string, and `--check` compares the text.
+- Prettier: JavaScript, CSS, JSON, YAML and Markdown (`.prettierrc.json`: single quotes in JavaScript, double quotes in YAML and Markdown, quoted object keys kept as written, lines of 100), and XML and SVG with `@prettier/plugin-xml`: one attribute per line when an element has more than one (`singleAttributePerLine`, the owner's choice), and text kept exactly as written (`xmlWhitespaceSensitivity: preserve`). HTML is a supported type, but `dist/*.html` is left out: `tools/security_policy.py --write` puts the policy `<meta>` tags after `<meta charset="utf-8">` as one exact string, and `--check` compares the text.
 - `.prettierignore` also leaves out `source-data/` (published datasets and saved pages, and hand-curated data the build reads as it is) and the committed files that scripts write (`dist/hf-iso-map.js`, `dist/logo.svg`, `dist/map/`). Prettier also skips `.gitignore`. Add a file there only when a script writes it or it is source data, and say why in the comment.
 - ESLint (`eslint.config.mjs`): the recommended rules only, no plugins. `dist/**/*.js` are classic browser scripts (`sourceType: script`, browser globals); `tools/**/*.js` are Node.js checks (CommonJS, Node globals).
 - Ruff (`pyproject.toml`): rules E, W, F, B and PLE for Python 3.12 (the version CI uses); E501 is off because the formatter sets line length and leaves long strings as they are.

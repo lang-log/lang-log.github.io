@@ -2,7 +2,7 @@
 
 ## Interface languages
 
-- Every interface language in `LANGS` (`dist/components/language-menu/language-menu.js`), not only English and Japanese: no English text left where a translation should be, including text a script writes, `aria-label`, `title` and `placeholder` (2026-11-27: labels stayed in English with Korean chosen).
+- Every interface language in `LANGS` (`dist/components/language-menu/language-menu.js`), not only English and Japanese: no English text left where a translation should be, including text a script writes, `aria-label`, `title` and `placeholder` (seen: labels stayed in English with Korean chosen).
 - The longest translations (German, Russian, Vietnamese and others) fit their buttons and menus at 390 px.
 - Switching the language on an open page changes every visible text, and the profile link under `yoshi` (`titles.md`).
 - Numbers and dates in each language's own style, Persian digits in Persian (`interface-text.md`).
@@ -11,7 +11,7 @@
 ## Fonts
 
 - Japanese, Chinese and Korean pages use their own glyphs and no letter-spacing (`fonts.md`).
-- Record names in rare scripts: on a device without a font for the script, the characters show as empty boxes (2026-11-27: Duployan names on an Android phone, not in CI). Check which scripts a page can show, and how the page looks when a font is missing.
+- Record names in rare scripts: on a device without a font for the script, the characters show as empty boxes (seen: Duployan names on an Android phone, not in CI). Check which scripts a page can show, and how the page looks when a font is missing.
 - Thai, Hindi and other scripts in the interface with the fonts a phone has.
 
 ## Data
