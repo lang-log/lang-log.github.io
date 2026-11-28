@@ -340,6 +340,8 @@ text:
     reset_view: "दृश्य रीसेट करें"
     map_view: "मानचित्र दृश्य"
     close_map_view: "मानचित्र दृश्य बंद करें"
+    list_view: "सूची दृश्य"
+    close_list_view: "सूची दृश्य बंद करें"
     previous_point: "पिछला बिंदु"
     next_point: "अगला बिंदु"
     download_the_map_as_png: "मानचित्र PNG के रूप में डाउनलोड करें"

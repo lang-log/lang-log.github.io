@@ -340,6 +340,8 @@ text:
     reset_view: "Đặt lại khung nhìn"
     map_view: "Chế độ bản đồ"
     close_map_view: "Đóng chế độ bản đồ"
+    list_view: "Chế độ danh sách"
+    close_list_view: "Đóng chế độ danh sách"
     previous_point: "Điểm trước"
     next_point: "Điểm tiếp theo"
     download_the_map_as_png: "Tải bản đồ xuống dạng PNG"

@@ -5,6 +5,7 @@ classes, not ids, so a page may hold more than one."""
 from html import escape
 
 from components.download_menu import download_menu
+from components.list_view import list_view_button
 
 
 def atlas_html(base, root=None, src=None, downloads=""):
@@ -36,6 +37,7 @@ def atlas_html(base, root=None, src=None, downloads=""):
         + download_menu(
             f'<button class="tree-export" type="button">SVG (current view)</button>{downloads}'
         )
+        + list_view_button()
         + "</div>"
         f"{outline}"
         f'<div class="tree-viewport"{"" if whole else " hidden"}><canvas class="tree-canvas" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
