@@ -18,6 +18,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - **Simple and loosely coupled.** Always keep the structure as simple and as loosely coupled as possible (`simple-structure.md` in `research-aide`). Behaviour needed on several pages, such as the maps, is written once and shared, not rewritten per page.
 - **Fix things once, at the source.** Page generators in `tools/`, each UI component in its own directory (`dist/components/<name>/` for its style and script, `tools/components/` for its markup), which pages only call; never patch one generated page.
 - **One look.** Every page is built from the same components; reuse one before adding a new one (`ui-design.md`).
+- **No guide needed.** Anyone can use every feature from the first visit, with no Get started page, tour or help text; a feature that needs explaining gets a better design (`no-guide.md` in `research-aide`).
 
 ## Where the rules are
 
