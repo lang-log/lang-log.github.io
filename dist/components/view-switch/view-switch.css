@@ -1,5 +1,4 @@
-/* The switch between views (tools/components/view_switch.py) and the other segmented
-   switches. Every page loads this file (STYLES in tools/components/__init__.py). */
+/* The segmented switches between views (the List / Tree switch of the tree toolbars). Every page loads this file (STYLES in tools/components/__init__.py). */
 .view-switch {
   display: flex;
   align-items: center;
@@ -46,8 +45,7 @@
   }
 }
 /* The switch between views (.seg, one segmented control with aria-pressed buttons): the
-   list / map switch of the top page and the record pages (view_switch() in
-   tools/components/explorer.py, run by dist/components/explorer/explorer.js), and the List / Tree switch of the record
+   List / Tree switch of the record
    pages' and the sign and script atlas's toolbars (tools/build_paths.py,
    dist/signs-and-scripts.html). It comes after the .toolbar button rule above, so its
    buttons drop that rule's border and radius. */
@@ -70,14 +68,4 @@
 .seg button[aria-pressed='true'] {
   background: var(--ink);
   color: var(--c-ffffff);
-}
-/* The list / map switch: its place on the page, and hidden without scripts (it works only
-   with them). */
-.explore-views {
-  margin: 16px 0 12px;
-}
-@media (scripting: none) {
-  .explore-views {
-    display: none;
-  }
 }

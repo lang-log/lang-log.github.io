@@ -1,13 +1,17 @@
 /* The conditions panel of the explorer (tools/components/conditions_panel.py, run by
    dist/components/explorer/explorer.js). Every page loads this file (STYLES in
    tools/components/__init__.py). */
-/* The two views of the top page and their conditions (dist/components/explorer/explorer.js, tools/build_home.py).
-   Colours are the variables at the top of style.css. */
+/* The two views of the top page and the record pages, shown together (the map, then the
+   list), and their conditions (dist/components/explorer/explorer.js,
+   tools/components/explorer.py). Colours are the variables at the top of style.css. */
 .explore-filter {
-  margin: 0 0 16px;
+  margin: 16px 0;
+}
+.explore-view + .explore-view {
+  margin-top: 16px;
 }
 /* The conditions are in the page from the start, so they are drawn with it; they work only
-   with scripts, so without them only the list is shown (the switch: style.css). */
+   with scripts, so without them only the list is shown. */
 @media (scripting: none) {
   .explore-filter {
     display: none;

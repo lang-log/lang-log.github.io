@@ -31,6 +31,6 @@ jobs:
         /stats/
         /sources/
         /releases.html
-        /?view=map&c=81A:1&c=6A:2,3,4&c=|7A:2&k=6A
+        /?c=81A:1&c=6A:2,3,4&c=|7A:2&k=6A
         /?c=conflicts:1
         /404.html
