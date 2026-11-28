@@ -1,5 +1,5 @@
-// Zoom and pan for the maps drawn by tools/languoid_map.py (svg.lmap on the record pages)
-// and for the map view of the top page (dist/explore.js). Without JavaScript the map is a still picture; this
+// Zoom and pan for the maps drawn by tools/components/map.py (svg.lmap on the record pages)
+// and for the map view of the top page (dist/components/explorer/explorer.js). Without JavaScript the map is a still picture; this
 // script only adds movement.
 //
 // - The map goes round the world: dragging east or west never reaches an edge. The
@@ -13,10 +13,10 @@
 // - Points keep one size on screen at every zoom and in the map view, by one rule on every
 //   map (pointPx()): a member point has radius POINT_PX in CSS pixels, smaller on a narrow
 //   map and when many points are shown. The other points keep their size relative to it
-//   (data-r on the svg is the member radius languoid_map.py wrote; without it, as on the top
+//   (data-r on the svg is the member radius tools/components/map.py wrote; without it, as on the top
 //   page, every point is a member point). Border lines keep their width (vector-effect in
 //   the map files), so nothing grows blurry or blobby.
-// - The locator (languoid_map.py) shows the whole world in the corner while the view is
+// - The locator (tools/components/map.py) shows the whole world in the corner while the view is
 //   narrower than half the world, on every map.
 // - Once the view is narrower than TILE_BELOW, the 1:10m tiles in map/tiles/<name>/ for the
 //   part in view are drawn over the 1:50m world map (see tools/build_land.py).
@@ -31,7 +31,7 @@
 //   when it opens and closes, and takes the shape of the window. The address gets
 //   #map-view (one history entry), so a shared link opens the map view at once.
 // - Points: a tap (or click) near a point (circle or square) with data-g (Glottocodes, written by
-//   languoid_map.py, and by dist/explore.js on the top page's map view), within TAP_PX on
+//   tools/components/map.py, and by dist/components/explorer/explorer.js on the top page's map view), within TAP_PX on
 //   screen, shows a box with the names of its records, each a link to the record's page.
 //   Names and addresses come from dist/atlas-data.js and dist/lineage-paths.js, loaded on
 //   the first tap. The box moves with its point when the view moves, and is out of sight
@@ -41,13 +41,13 @@
 // - Stepping through points (issue #94): the < and > buttons glide to the previous or next
 //   point, west to east, and show its box. A key entry under the map (data-points, a
 //   selector written by build_paths.py) or a legend entry of the top page's map
-//   (showGroup(), called by dist/explore.js) makes its points the ones stepped through, and
+//   (showGroup(), called by dist/components/explorer/explorer.js) makes its points the ones stepped through, and
 //   goes to the first of them.
 // - PNG: the PNG button downloads the map as it is on screen (land, borders, points), drawn
 //   on a canvas from the same map files and the colours the page's CSS gives them.
 //
 // Other pages can reuse it: window.LangLogMap.mount(svg) on an <svg> with the attributes
-// languoid_map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
+// tools/components/map.py writes (viewBox, data-map, data-base, data-min, data-world, data-r). The
 // svg receives an "lmap:view" event, detail {k, x, y, w, h}, after every change; k is the
 // view width divided by the starting width. A page that adds or replaces points, or the
 // entries of its key, after mounting calls refresh() on the object mount returns; this
@@ -86,7 +86,7 @@
   var PNG_SCALE = 2;
   var PNG_NAME = 'lang-log-map.png';
   // Points are circles, or squares (<rect>) for the other members of a record's parent
-  // (languoid_map.py). These read and change a point's centre and its radius (half the
+  // (tools/components/map.py). These read and change a point's centre and its radius (half the
   // side of a square), whichever shape it has.
   function isSquare(p) {
     return p.tagName.toLowerCase() === 'rect';
@@ -114,7 +114,7 @@
     if (isSquare(p)) p.setAttribute('x', +(x - pointR(p)).toFixed(2));
     else p.setAttribute('cx', x);
   }
-  // Every point a page draws: the circles, and the squares of languoid_map.py.
+  // Every point a page draws: the circles, and the squares of tools/components/map.py.
   var POINTS = 'circle, .lmap-ctx rect';
 
   var manifest = null,
@@ -229,7 +229,7 @@
     var full = false,
       px = 1,
       pageW = 0;
-    // Sizes come only from the attributes languoid_map.py writes; a map without them is not mounted.
+    // Sizes come only from the attributes tools/components/map.py writes; a map without them is not mounted.
     var name = svg.getAttribute('data-map');
     var base = svg.getAttribute('data-base');
     var minW = parseFloat(svg.getAttribute('data-min'));
@@ -237,7 +237,7 @@
     if (!name || base === null || !(minW > 0) || wb.length !== 4 || wb.some(isNaN)) return null;
     var world = { x: wb[0], y: wb[1], w: wb[2], h: wb[3] };
     var W = world.w;
-    // The starting view may lie east of the 180th meridian (languoid_map.py keeps a group of
+    // The starting view may lie east of the 180th meridian (tools/components/map.py keeps a group of
     // points together); measure it on the middle copy of the world, as clamp() does.
     home.x -= W * Math.floor((home.x + home.w / 2 - world.x) / W);
     var view = { x: home.x, y: home.y, w: home.w, h: home.h };
@@ -250,7 +250,7 @@
       bg = el('g', { 'class': 'lmap-bg' });
       svg.insertBefore(bg, svg.querySelector(':scope > use'));
     }
-    // The layers, in the order the page draws them (LAYERS in languoid_map.py): each <use>
+    // The layers, in the order the page draws them (LAYERS in tools/components/map.py): each <use>
     // names its file, its layer (#sphere, #land, ...) and its class. Copies of a layer share a class.
     var layers = [],
       seen = {};
@@ -745,7 +745,7 @@
     wrap.appendChild(svg);
     wrap.appendChild(bar);
     // The key under the map (written by build_paths.py on record pages, filled by
-    // dist/explore.js on the top page) moves into the box with it, so the map view shows it
+    // dist/components/explorer/explorer.js on the top page) moves into the box with it, so the map view shows it
     // too (record.css places it over the map there).
     var key = wrap.parentNode.querySelector(':scope > .lmap-key');
     if (key) wrap.appendChild(key);

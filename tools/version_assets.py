@@ -52,10 +52,10 @@ def rewrite(page):
     return False
 
 
-# lang.js loads the dictionary of the chosen language, i18n/<code>.js, itself. Its
+# The language menu's script (LANG_JS) loads the dictionary of the chosen language, i18n/<code>.js, itself. Its
 # placeholder `var VERSIONS = {};` gets the content hash of every dictionary, so a changed
 # dictionary also gets a new address. This runs before the pages are versioned, because
-# it changes lang.js and so its hash.
+# it changes that script and so its hash.
 VERSIONS = "var VERSIONS = {};"
 
 
@@ -65,10 +65,10 @@ def version_dictionaries():
     text = LANG_JS.read_text(encoding="utf-8")
     if VERSIONS not in text:
         raise SystemExit(
-            "tools/version_assets.py: placeholder 'var VERSIONS = {};' not found in dist/lang.js"
+            "tools/version_assets.py: placeholder 'var VERSIONS = {};' not found in dist/components/language-menu/language-menu.js"
         )
     LANG_JS.write_text(text.replace(VERSIONS, "var VERSIONS = {" + table + "};"), encoding="utf-8")
-    print(f"versioned {len(files)} dictionaries in lang.js")
+    print(f"versioned {len(files)} dictionaries in {LANG_JS.name}")
 
 
 def main():

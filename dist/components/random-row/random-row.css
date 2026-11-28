@@ -1,0 +1,41 @@
+/* The Random row of the top page (tools/components/random_row.py,
+   dist/components/random-row/random-row.js). Every page loads this file (STYLES in
+   tools/components/__init__.py). */
+.home-random {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.home-random[hidden] {
+  display: none;
+}
+.home-random button {
+  min-height: 44px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.home-random .random-any {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--c-ffffff);
+  font-weight: 700;
+}
+@media (hover: hover) {
+  .home-random .random-any:hover {
+    background: var(--teal);
+    opacity: 0.9;
+  }
+}
+.home-actions .home-random {
+  display: contents;
+}
+.home-actions .home-random[hidden] {
+  display: none;
+}

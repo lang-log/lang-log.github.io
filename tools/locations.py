@@ -12,4 +12,4 @@ DIST = ROOT / "dist"
 SOURCE_DATA = ROOT / "source-data"
 # The language menu script: its LANGS table lists the interface languages, and
 # tools/version_assets.py writes the dictionary versions into it.
-LANG_JS = DIST / "lang.js"
+LANG_JS = DIST / "components" / "language-menu" / "language-menu.js"

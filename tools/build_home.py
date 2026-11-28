@@ -9,10 +9,10 @@ The top page is also the top of the language-families tree (owner,
 2026-11-06): every Glottolog record and every source-only record has its own
 page below it (tools/build_paths.py), and this page lists the top-level
 families and isolates in two views: a list (works without JavaScript), whose
-rows open to show their members (dist/tree.js; the list and the former Tree
+rows open to show their members (dist/components/tree/tree.js; the list and the former Tree
 view were merged, owner 2026-11-20, issue #93), and a map of every language,
 with conditions on WALS and Lang Log features that both share
-(dist/explore.js; this replaced the separate feature map page and the "Whole
+(dist/components/explorer/explorer.js; this replaced the separate feature map page and the "Whole
 tree" section). There is no separate atlas page.
 
 Stats and sources are pages of their own, not sections of the top
@@ -23,7 +23,7 @@ links next to the Random button. Every count on the Stats page is counted from t
 data here, at build time; no number is typed by hand.
 
 The list and the texts work without JavaScript. The search box is a GET form to
-the search results page, dist/q.html at <site>/q?q=<terms> (dist/search.js,
+the search results page, dist/q.html at <site>/q?q=<terms> (dist/components/search-results/search-results.js,
 owner 2026-11-08). Top-page addresses with ?q=<terms> (old links, search shortcuts
 set up by hand) are sent there by dist/search-redirect.js, loaded in <head> so the top
 page is never drawn first.
@@ -33,7 +33,7 @@ the search box. "Random" itself is a button that picks any record (one of
 the pools at random, then a record in it), so tapping the word does
 something instead of selecting it as text. The buttons per domain and the
 row of links to the three atlases are gone (owner, 2026-11-07: Lang Log is
-one tree, not three domains). dist/home.js shows the row and, on a click, opens the page of a record
+one tree, not three domains). dist/components/random-row/random-row.js shows the row and, on a click, opens the page of a record
 drawn from dist/random.json, which this script writes (not committed):
 
 - language: page paths of Glottolog languages and dialects of every
@@ -47,22 +47,28 @@ import re
 import datetime
 import json
 
+from components import asset, script, stylesheets
+from components.big_logo import big_logo
+from components.family_list import continent_group, family_row
+from components.footer import footer
+from components.guide_row import guide_row
+from components.header import header
+from components.random_row import random_row
+from components.search_box import search_box
+from components.tree import atlas_html
 from locations import DIST
 import build_paths as bp
-from explore_panel import explore_open
+from components.explorer import explore_open
 from build_wals_map import condition_languages, glottolog
-from languoid_map import frame, world_view_box
+from components.map import frame, world_view_box
 import info_page
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
 from site_brand import (
-    COPYRIGHT,
-    contact_line,
     GOOGLE_SITE_VERIFICATION,
     HOME_TITLE,
     SITE_NAME_META,
     WEBSITE_JSONLD,
-    by_yoshi,
     icon_links,
 )
 from source_versions import GLOTTOLOG
@@ -91,29 +97,12 @@ def random_pools():
     }
 
 
-def random_row():
-    """One Random button. The three buttons per domain (language, sign
-    language, writing system) were removed with the three-way split (owner,
-    2026-11-07); see the git history to reuse them."""
-    button = (
-        '<button type="button" class="random-any" data-domain="any" '
-        'title="Choose a random language, sign language or writing system" '
-        'aria-label="Choose a random language, sign language or writing system">Random</button>'
-    )
-    return f'<div class="home-random" role="group" aria-label="Random" hidden>{button}</div>'
-
-
 # Links next to the Random button on the top page: (page, label).
 GUIDE_LINKS = [
     ("stats/", "Stats"),
     ("sources/", "Sources"),
     ("releases.html", "Releases"),
 ]
-
-
-def guide_row():
-    links = "".join(f'<a href="{escape(h)}">{escape(t)}</a>' for h, t in GUIDE_LINKS)
-    return f'<nav class="home-guide" aria-label="About Lang Log">{links}</nav>'
 
 
 # The continents of the top-page list, in the owner's order (2026-11-08), and
@@ -166,10 +155,9 @@ def families_html():
     continent_of = continent_of_roots()
     # No kind label (family, isolate) after the name: every record is a languoid.
     groups = "".join(
-        f'<div class="continent"><h3>{escape(continent)}</h3>'
-        '<ul class="record-links">'
-        + "".join(root_row(r) for r in roots if continent_of[r] == continent)
-        + "</ul></div>"
+        continent_group(
+            continent, "".join(root_row(r) for r in roots if continent_of[r] == continent)
+        )
         for continent in (*CONTINENTS, NO_CONTINENT)
         if continent in continent_of.values()
     )
@@ -184,11 +172,11 @@ def families_html():
         '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
     )
     # Two views of every top-level record, shown together (owner, 2026-11-28): the
-    # conditions shared by the views (tools/explore_panel.py), the map, then the list.
-    # dist/explore.js runs them; without JavaScript only the list is shown (the map's
-    # points are drawn by the script, so its view starts hidden). The list carries the
-    # tree's Download menu (issue #93); its canvas stays hidden on this page and is drawn
-    # only for the SVG export (dist/tree.js).
+    # conditions shared by the views (tools/components/explorer.py), the map, then the
+    # list. dist/components/explorer/explorer.js runs them; without JavaScript only the list
+    # is shown (the map's points are drawn by the script, so its view starts hidden). The
+    # list carries the tree's Download menu (issue #93); its canvas stays hidden on this
+    # page and is drawn only for the SVG export (dist/components/tree/tree.js).
     total = len(condition_languages(glottolog()))
     return (
         explore_open("home-section home-views", "", total, section_id="families")
@@ -200,11 +188,11 @@ def families_html():
             attrs=' id="map"',
             body='<g id="points"></g>',
         )
-        # The key of the colours, filled by dist/explore.js: the same key as under a record's
-        # map (tools/build_paths.py), which dist/map-zoom.js moves into the map box.
+        # The key of the colours, filled by dist/components/explorer/explorer.js: the same key as under a record's
+        # map (tools/build_paths.py), which dist/components/map/map.js moves into the map box.
         + '<ul id="colour-legend" class="lmap-key" hidden></ul>'
         "</div></div>"
-        + f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
+        + f'<div class="explore-view" data-view="list">{atlas_html("", downloads=downloads)}{groups}'
         '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
         f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
         "</section>"
@@ -220,7 +208,7 @@ def root_row(r):
     """A top-level record in the List view: its name linked to its page, then (as in
     the tree of the former whole-tree section) up to two native names, the number of
     sources that place it when more than one, and a flag when study trees conflict
-    over it. data-root lets dist/explore.js hide the records no matching language
+    over it. data-root lets dist/components/explorer/explorer.js hide the records no matching language
     belongs to."""
     n = bp.nodes[r]
     native = list(dict.fromkeys(x["text"] for x in n.get("nativeNames", [])))[:2]
@@ -233,16 +221,7 @@ def root_row(r):
         )
         if m
     )
-    return (
-        f'<li data-root="{escape(r)}"><a href="{escape(bp.path_of(r))}/">{escape(n["name"])}</a>'
-        + (
-            f' <span class="native-inline" dir="auto">{escape(" / ".join(native))}</span>'
-            if native
-            else ""
-        )
-        + (f' <span class="rowmeta">{escape(meta)}</span>' if meta else "")
-        + "</li>"
-    )
+    return family_row(r, f"{bp.path_of(r)}/", n["name"], " / ".join(native), meta)
 
 
 def sources_section():
@@ -423,7 +402,7 @@ def stats_body():
 
 def sub_page(slug, title, body, scripts=()):
     """A page one level below the root, such as dist/stats/index.html. `scripts` are
-    extra files from dist/ loaded in <head> after lang.js."""
+    extra files from dist/ loaded in <head> after the language menu's script."""
     (DIST / slug).mkdir(exist_ok=True)
     (DIST / slug / "index.html").write_text(
         info_page.page(title, body, "../", scripts), encoding="utf-8"
@@ -449,39 +428,37 @@ def main():
         + SITE_NAME_META
         + pwa_head("")
         + WEBSITE_JSONLD
-        + '<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="record.css"><link rel="stylesheet" href="explore.css">'
-        '<script src="theme.js"></script><script src="i18n.js"></script><script src="lang.js"></script>'
-        '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
-        '</head><body class="home-page">\n'
-        '<header><div class="brand"><a class="home" href="./" aria-current="page"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></a> '
-        + by_yoshi()
-        + "</div>"
-        "</header>\n"
+        + stylesheets()
+        + '<link rel="stylesheet" href="record.css">'
+        + script("theme-toggle")
+        + '<script src="i18n.js"></script>'
+        + script("language-menu")
+        + '<link rel="search" type="application/opensearchdescription+xml" title="Lang Log" href="opensearch.xml">'
+        '</head><body class="home-page">\n' + header("./", current=True) + "\n"
         '<main class="home-main">'
         '<section class="home-intro">'
-        '<h1 class="home-logo"><svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg></h1>'
-        + by_yoshi("p", "home-by")
-        + f'<form class="home-search" action="{SEARCH_PAGE}" method="get" role="search">'
-        '<label class="visually-hidden" for="home-q">Search languages and families</label>'
-        '<div class="search-pill">'
-        '<input id="home-q" name="q" type="search" placeholder="Name, ISO code, Glottocode…" autocomplete="off">'
-        '<button type="submit" aria-label="Search" title="Search">'
-        '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" '
-        'stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>'
-        "</button></div></form>"
-        f'<div class="home-actions">{random_row()}{guide_row()}</div>'
+        + big_logo()
+        + search_box(SEARCH_PAGE)
+        + f'<div class="home-actions">{random_row()}{guide_row(GUIDE_LINKS)}</div>'
         "</section>\n"
         f"{families_html()}"
         "</main>\n"
-        f"<footer><span>{GLOTTOLOG} + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}</span>"
-        "<span>Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license</span>"
-        f"<span>{COPYRIGHT}</span>{contact_line()}</footer>\n"
-        '<script src="home.js"></script><script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'
-        '<script src="map-zoom.js"></script><script src="tree.js"></script><script src="explore.js"></script>\n'
+        + footer(
+            f"{GLOTTOLOG} + WALS + {st['summaryTrees']} Phlorest summary trees · Retrieved {retrieved}",
+            "Sources: Glottolog, WALS, published study trees and script catalogs, each under its own license",
+        )
+        + "\n"
+        + script("random-row")
+        + script("search-box")
+        + '<script src="atlas-data.js"></script><script src="lineage-paths.js"></script>'
+        + script("map")
+        + script("tree")
+        + script("explorer")
+        + "\n"
         "</body></html>\n"
     )
     (DIST / "index.html").write_text(html, encoding="utf-8")
-    sub_page("stats", "Stats", stats_body(), scripts=("stats.js",))
+    sub_page("stats", "Stats", stats_body(), scripts=(asset("figures", "js"),))
     sub_page("sources", "Sources & scope", sources_section())
     (DIST / "random.json").write_text(
         json.dumps(random_pools(), separators=(",", ":")), encoding="utf-8"

@@ -1,0 +1,97 @@
+/* The language menu in the header (dist/components/language-menu/language-menu.js).
+   Every page loads this file (STYLES in tools/components/__init__.py). */
+.langmenu {
+  position: relative;
+}
+/* language-menu.js hides the page while a language's dictionary loads (at most 3 s), so English does not flash first. */
+html.i18n-wait body {
+  visibility: hidden;
+}
+header details.langmenu > summary {
+  list-style: none;
+  min-height: 0;
+  margin: 0;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-sizing: border-box;
+  height: var(--ctl);
+  padding: 0 14px;
+  white-space: nowrap;
+}
+header details.langmenu > summary::-webkit-details-marker {
+  display: none;
+}
+header details.langmenu > summary::after {
+  content: '\25BE';
+  margin-inline-start: 5px;
+  color: var(--muted);
+}
+@media (hover: hover) {
+  header details.langmenu > summary:hover {
+    background: var(--line);
+  }
+}
+.langmenu .panel {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 6px);
+  z-index: 50;
+  min-width: 180px;
+  max-height: 70vh;
+  max-height: 70dvh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px;
+}
+.langmenu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.langmenu li {
+  margin: 0;
+}
+.langmenu li button,
+.langmenu li span {
+  display: block;
+  width: 100%;
+  text-align: start;
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 14px;
+  color: var(--ink);
+  background: transparent;
+  min-height: 0;
+}
+@media (hover: hover) {
+  .langmenu li button:hover {
+    background: var(--line);
+  }
+}
+.langmenu li span {
+  font-weight: 700;
+  color: var(--teal);
+}
+.langmenu .short {
+  display: none;
+}
+@media (max-width: 560px) {
+  .langmenu .full {
+    display: none;
+  }
+  .langmenu .short {
+    display: inline;
+  }
+  header details.langmenu > summary {
+    padding: 0 10px;
+  }
+}

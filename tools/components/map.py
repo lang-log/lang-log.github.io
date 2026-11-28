@@ -3,13 +3,13 @@
 Each map is a small inline SVG: the shared background dist/map/land.svg
 (drawn by build_land.py) is referenced with <use>, so it is downloaded once
 and cached, and each page adds only its own points. The map works without
-JavaScript; dist/map-zoom.js adds zoom and pan, and draws the 1:10m tiles
+JavaScript; dist/components/map/map.js adds zoom and pan, and draws the 1:10m tiles
 (dist/map/tiles/) over this background for the part in view.
 
 Projection: Web Mercator (the projection of most web maps), cut at
 MAX_LAT north and south, so the whole world is a square WORLD_W wide.
 The map repeats to the east and west: the background is drawn once more on
-each side, so a view may cross the 180th meridian, and dist/map-zoom.js
+each side, so a view may cross the 180th meridian, and dist/components/map/map.js
 lets a visitor drag around the world without end. x = SCALE * longitude in
 radians; north is up (y grows downwards, as in SVG).
 
@@ -78,7 +78,7 @@ def unwrap(lons):
 
 ASPECT = 2.0  # width / height of every map
 MIN_W = 240.0  # smallest starting view, in SVG units (about 45 degrees of longitude at the equator)
-ZOOM_MIN_W = 30.0  # smallest view after zooming in (about 550 km across); written as data-min for dist/map-zoom.js
+ZOOM_MIN_W = 30.0  # smallest view after zooming in (about 550 km across); written as data-min for dist/components/map/map.js
 PAD = 0.12  # margin around the points, as a share of their extent
 
 
@@ -141,7 +141,7 @@ def locator(land, vx, vy, vw, vh):
 
     Every map gets one (record pages and the top page's map view), so they behave alike.
     It is hidden (lmap-inset-off) while the view is wider than half the world;
-    dist/map-zoom.js shows, hides and moves it as the view changes.
+    dist/components/map/map.js shows, hides and moves it as the view changes.
     """
     iw = vw * 0.22
     ih = iw / ASPECT
@@ -166,7 +166,7 @@ def map_svg(
     self_point: the record's own point, drawn largest.
     main_ids, context_ids, self_id: the Glottocodes of those points, written into each
     circle as data-g (space-separated when points that overlap are drawn as one), so
-    dist/map-zoom.js can show the records of a tapped point with links to their pages.
+    dist/components/map/map.js can show the records of a tapped point with links to their pages.
     """
     focus_ll = list(main) + ([self_point] if self_point else [])
     if not focus_ll:
@@ -180,7 +180,7 @@ def map_svg(
     context = [project(lon - 360.0 * round((lon - mid) / 360.0), lat) for lon, lat in context]
     vx, vy, vw, vh = _view(focus)
     # Radius of a member point in the starting view; the other points are drawn in proportion.
-    # dist/map-zoom.js resizes them all to the same size on screen at every zoom (data-r).
+    # dist/components/map/map.js resizes them all to the same size on screen at every zoom (data-r).
     r = vw / 200
     # The record's points and the points of the other members of its parent share one size;
     # the others are squares, so the two read apart by shape (owner, 2026-11-08).
@@ -203,7 +203,7 @@ def map_svg(
         for x, y, gids in cells.values():
             data = f' data-g="{escape(" ".join(gids))}"' if gids else ""
             if square:
-                # A square as wide as a circle of radius rad; dist/map-zoom.js keeps its centre.
+                # A square as wide as a circle of radius rad; dist/components/map/map.js keeps its centre.
                 out.append(
                     f'<rect x="{_num(x - rad)}" y="{_num(y - rad)}" width="{_num(2 * rad)}" '
                     f'height="{_num(2 * rad)}"{data}/>'
@@ -234,7 +234,7 @@ def map_svg(
 
 
 def frame(map_dir, view, label, attrs="", head="", body=""):
-    """The <svg> every map is drawn in: its attributes for dist/map-zoom.js, the background
+    """The <svg> every map is drawn in: its attributes for dist/components/map/map.js, the background
     and the locator, around the points in body.
 
     map_dir: relative URL of the map/ directory from the page, ending in "/".

@@ -4,7 +4,7 @@ GitHub Pages cannot send our own response headers, so the policies a browser
 accepts from a <meta> element are written into the <head> of every page:
 
 - Content-Security-Policy: only the site itself, plus https://huggingface.co
-  for the model list on record pages (dist/hf-models.js). The web app manifest
+  for the model list on record pages (dist/components/hf-models/hf-models.js). The web app manifest
   and the service worker come from the site itself. No inline scripts,
   inline styles allowed only for WebKit's <select> (see CSP), no plugins, no frames, no <base>.
 - referrer: same-origin (the owner's choice, 2026-11-23): requests inside the

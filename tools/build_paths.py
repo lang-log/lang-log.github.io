@@ -27,19 +27,26 @@ tools/build_site.sh runs them in order.
 - A top-level slug (family or source) must not equal another top-level slug
   or a name already used at the top of dist/ (RESERVED); the build stops if
   one does.
-- The pages need no JavaScript (dist/map-zoom.js only adds zoom and pan to
+- The pages need no JavaScript (dist/components/map/map.js only adds zoom and pan to
   the map). dist/lineage-paths.js uses the same rules to
   link to Glottolog records. Each page also has two parts that need it: the
-  tree of its branch (dist/tree.js, drawn when the visitor asks for it) and
-  the Hugging Face models (dist/hf-models.js).
+  tree of its branch (dist/components/tree/tree.js, drawn when the visitor asks for it) and
+  the Hugging Face models (dist/components/hf-models/hf-models.js).
 """
 
 from html import escape
 
+from components import asset, script, stylesheets
+from components.breadcrumb import breadcrumb
+from components.data_table import data_table, facts_table
+from components.header import header
+from components.hf_models import hf_html
+from components.source_credit import NEW_TAB, credit_line, source_credit
+from components.tree import atlas_html
 from locations import DIST, ROOT
 from pwa import head_tags as pwa_head
 from security_policy import HEAD as SECURITY_HEAD
-from site_brand import SITE_NAME_META, TITLE_SUFFIX, by_yoshi, contact_line, icon_links
+from site_brand import SITE_NAME_META, TITLE_SUFFIX, icon_links
 import csv
 import json
 import re
@@ -48,15 +55,15 @@ import sys
 import unicodedata
 
 from build_wals_map import condition_languages, glottolog
-from explore_panel import explore_open
-from languoid_map import map_svg
+from components.explorer import explore_open
+from components.map import map_svg
 from modality import labels, medium_words
 from record_facts import facts
 from source_versions import CLDR, GLOTTOLOG, SOURCE_TITLES
 
 OUT = DIST
 # Top-level names in dist/ that a family or source slug must not take.
-RESERVED = {"map", "data", "i18n", "stats", "sources", "features", "schema"}
+RESERVED = {"map", "data", "i18n", "stats", "sources", "features", "schema", "components"}
 # Directories of earlier builds that no longer exist; removed on each run.
 OLD_DIRS = {
     "families",
@@ -314,38 +321,6 @@ def record_link(depth, i):
     return f'<a href="{escape(href(depth, i))}">{escape(name)}</a>'
 
 
-def cell(content, label):
-    """One cell of a data table. The column's label is repeated inside the cell for
-    the phone layout (dist/record.css shows each row as a block there)."""
-    if not content:
-        return '<td class="data-empty"></td>'
-    return f'<td><span class="data-label" aria-hidden="true">{escape(label)}</span>{content}</td>'
-
-
-def data_table(head, rows):
-    """A table with a header row (the data table of record pages, dist/record.css).
-    Each row is (cells, row class): one HTML string per column, an empty string for an
-    empty cell, and "" when the row has no class of its own."""
-    thead = "".join(f'<th scope="col">{escape(h)}</th>' for h in head)
-    body = ""
-    for cells, cls in rows:
-        attr = f' class="{escape(cls)}"' if cls else ""
-        body += (
-            f"<tr{attr}>" + "".join(cell(x, h) for x, h in zip(cells, head, strict=True)) + "</tr>"
-        )
-    return f'<table class="data-table"><thead><tr>{thead}</tr></thead><tbody>{body}</tbody></table>'
-
-
-def facts_table(rows, header_html=False):
-    """A table of one fact per row: the label as a row header, then the value (HTML).
-    With header_html the labels are HTML too (links), otherwise plain text."""
-    body = "".join(
-        f'<tr><th scope="row">{k if header_html else escape(k)}</th><td>{v}</td></tr>'
-        for k, v in rows
-    )
-    return f'<table class="data-table facts-table"><tbody>{body}</tbody></table>'
-
-
 def classification_html(depth, i):
     """Every source's placement of a record, with its other direct members, and
     the other sources' trees attached below it, as tables."""
@@ -460,7 +435,7 @@ def conflicts_html(depth, i):
 
 
 def tree_html(depth, i, sid):
-    """The branch below a record, drawn by dist/tree.js when the visitor asks for it.
+    """The branch below a record, drawn by dist/components/tree/tree.js when the visitor asks for it.
     Hidden without JavaScript; the Members list gives the same records."""
     return (
         '<section id="tree-section" hidden><h3>Tree</h3>'
@@ -470,85 +445,17 @@ def tree_html(depth, i, sid):
     )
 
 
-def download_icon():
-    """The download symbol of the map's PNG button, drawn as icon() in dist/map-zoom.js
-    draws it; the path is read from ICON_DOWNLOAD there, so it is written once."""
-    m = re.search(r"ICON_DOWNLOAD = '([^']+)'", (DIST / "map-zoom.js").read_text())
-    if not m:
-        sys.exit("dist/map-zoom.js has no ICON_DOWNLOAD")
-    return (
-        '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">'
-        f'<path d="{escape(m[1])}" fill="none" stroke="currentColor" stroke-width="1.6" '
-        'stroke-linecap="round" stroke-linejoin="round"/></svg>'
-    )
-
-
-def atlas_html(base, root=None, src=None, downloads=""):
-    """The zoomable tree that dist/tree.js fills: the branch below a record (record
-    pages, with its outline and a List / Tree switch), or every root (the top page's
-    list, without them: only its Download menu shows there, and the canvas is drawn
-    for the SVG export, dist/tree.js)."""
-    whole = root is None
-    attrs = f' data-base="{escape(base)}"' + (
-        "" if whole else f' data-root="{escape(root)}" data-src="{escape(src)}"'
-    )
-    switch = (
-        ""
-        if whole
-        else (
-            '<div class="seg" role="group" aria-label="View"><button id="listview" type="button" aria-pressed="true">List</button>'
-            '<button id="chartview" type="button" aria-pressed="false">Tree</button></div><button id="collapse" type="button">Collapse all</button>'
-        )
-    )
-    outline = (
-        ""
-        if whole
-        else '<div id="outline" role="group" aria-label="Expandable classification outline"></div>'
-    )
-    # The Download menu's button is always the map's download symbol, never the word
-    # (the owner's rule, 2026-11-23). The top page shows only this menu, with no box.
-    summary = f'<summary aria-label="Download" title="Download">{download_icon()}</summary>'
-    return (
-        f'<div id="atlas" class="workspace atlas-embed{" atlas-whole" if whole else ""}"{attrs} hidden>'
-        f'<div class="toolbar">{switch}'
-        f'<details class="menu downloads">{summary}<div class="menu-panel"><button id="export" type="button">SVG (current view)</button>{downloads}</div></details></div>'
-        f"{outline}"
-        f'<div id="viewport"{"" if whole else " hidden"}><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'
-        '<div class="canvas-title"><span class="eyebrow">INTEGRATED · SOURCE-CONDITIONED</span><h2 id="view-title">Language families</h2>'
-        '<p id="view-count">Loading records…</p></div><div id="tooltip" hidden></div>'
-        '<div class="zoom"><button id="minus" type="button" aria-label="Zoom out">−</button><button id="fit" type="button">Fit</button>'
-        '<button id="plus" type="button" aria-label="Zoom in">+</button></div>'
-        "</div></div>"
-    )
-
-
-def hf_html(n):
-    """Hugging Face models, loaded from the Hub when the section scrolls into view (dist/record-page.js)."""
-    return (
-        f'<section class="hf-models" id="hf-models" hidden data-name="{escape(n["name"])}" '
-        f'data-level="{escape(n.get("level", ""))}" data-iso="{escape(n.get("iso", ""))}" aria-label="Hugging Face models"></section>'
-    )
-
-
-def breadcrumb(depth, ids, sid="glottolog"):
+def lineage_nav(depth, ids, sid="glottolog"):
     """Classification path from the top-level record down to (not including) this record;
     nothing for a top-level record. The header logo leads to the top page."""
-    title = escape(
+    label = (
         sources.get(sid, {}).get("title", sid).split(" ")[0]
         if sid == "glottolog"
         else sources.get(sid, {}).get("title", sid)
     )
-    items = ""
-    if sid != "glottolog":
-        items += f'<li><a href="{escape(href_source(depth, sid))}">{escape(sources[sid]["title"])}</a></li>'
-    items += "".join(
-        f'<li><a href="{escape(href(depth, a))}">{escape(rec(a)["name"])}</a></li>'
-        for a in ids
-        if a not in study_root
-    )
-    if not items:
-        return ""
-    return f'<nav class="lineage" aria-label="Classification according to {title}"><ol class="lineage-path">{items}</ol></nav>'
+    items = [(href_source(depth, sid), sources[sid]["title"])] if sid != "glottolog" else []
+    items += [(href(depth, a), rec(a)["name"]) for a in ids if a not in study_root]
+    return breadcrumb(items, label)
 
 
 def lang_log_lineage(depth, i):
@@ -800,7 +707,7 @@ def description_rows(f):
 def medium_rows(n, f):
     # Every languoid is labelled with its medium (tools/modality.py); records that
     # exist only in a study tree or WALS are spoken languages. Each word is its own
-    # element, so dist/lang.js translates them one by one.
+    # element, so dist/components/language-menu/language-menu.js translates them one by one.
     words = medium_words(n if "modality" in n else labels(None))
     rows = [("Medium", " · ".join(f"<span>{escape(w)}</span>" for w in words))]
     main = [s for s in f["scripts"] if s["use"] == "main"]
@@ -898,11 +805,11 @@ def record_body(depth, i, sid):
 
 def record_views(depth, i, sid, the_map, langs):
     """The top of a record page: its map and, when it has descendants, the same explorer as
-    the top page's (tools/explore_panel.py, run by dist/explore.js): the conditions, which
-    narrow both views to its languages, the map, and under it the tree of its descendants
-    (the list view), shown together (owner, 2026-11-28). Without scripts only the map is
-    shown (the tree is drawn by dist/tree.js, so its view starts hidden).
-    `langs`: languages_under(i)."""
+    the top page's (tools/components/explorer.py, run by dist/components/explorer/explorer.js):
+    the conditions, which narrow both views to its languages, the map, and under it the tree
+    of its descendants (the list view), shown together (owner, 2026-11-28). Without scripts
+    only the map is shown (the tree is drawn by dist/components/tree/tree.js, so its view
+    starts hidden). `langs`: languages_under(i)."""
     if not langs:
         return f'<section class="record-views">{the_map}</section>'
     return (
@@ -955,8 +862,8 @@ def map_html(depth, i):
     if not svg:
         return ""
     # The key: what each kind of point stands for, named by record (no kind labels).
-    # dist/map-zoom.js moves it into the map box, so the map view shows it too.
-    # data-points names the points of each entry; dist/map-zoom.js makes the entry a button
+    # dist/components/map/map.js moves it into the map box, so the map view shows it too.
+    # data-points names the points of each entry; dist/components/map/map.js makes the entry a button
     # that steps through them.
     main_points = escape(".lmap-main circle, .lmap-self circle")
     ctx_points = escape(".lmap-ctx rect")
@@ -980,86 +887,48 @@ def map_html(depth, i):
 # Credit for the data on every page: Glottolog and WALS (CC BY 4.0 requires it), the IANA
 # registry and Unicode CLDR (tools/record_facts.py; sources in source-data/sources.json).
 # One source per line (owner, 2026-11-24), then the contact line.
-_NEW = 'target="_blank" rel="noopener noreferrer"'
 CC_BY = "https://creativecommons.org/licenses/by/4.0/"
 
-
-def _credit(what, name, url, license_name=None, license_url=None, cite=""):
-    """One line of the credit: what the data is, its source, and the license it is used under.
-    The citation sits in its own span, so ", used under" stays a text node dist/lang.js knows."""
-    line = f'<li>{what} <a href="{url}" {_NEW}>{name}</a>'
-    if cite:
-        # A citation is data in English: kept left to right inside right-to-left pages.
-        line += f' <span class="cite" dir="ltr">({cite})</span>'
-    if license_name:
-        line += f', used under <a href="{license_url}" {_NEW}>{license_name}</a>'
-    return line + "</li>"
-
-
-FOOTER = (
-    '<footer class="credit"><ul class="credit-list">'
-    + _credit(
+FOOTER = source_credit(
+    credit_line(
         "Classification, names, endangerment and descriptions from",
         GLOTTOLOG,
         "https://glottolog.org/",
         "CC BY 4.0",
         CC_BY,
         "Hammarström, Forkel, Haspelmath &amp; Bank 2026, "
-        f'<a href="https://doi.org/10.5281/zenodo.18840935" {_NEW}>doi:10.5281/zenodo.18840935</a>',
+        f'<a href="https://doi.org/10.5281/zenodo.18840935" {NEW_TAB}>doi:10.5281/zenodo.18840935</a>',
     )
-    + _credit(
+    + credit_line(
         "Language tags from",
         "IANA Language Subtag Registry",
         "https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry",
     )
-    + _credit(
+    + credit_line(
         "Scripts, speakers and official status from",
         CLDR,
         "https://cldr.unicode.org/",
         "Unicode License v3",
         "https://www.unicode.org/license.txt",
     )
-    + _credit("Feature values from", "WALS Online", "https://wals.info/", "CC BY 4.0", CC_BY)
-    + _credit("Phoneme inventories from", "PHOIBLE", "https://phoible.org/", "CC BY 4.0", CC_BY)
+    + credit_line("Feature values from", "WALS Online", "https://wals.info/", "CC BY 4.0", CC_BY)
+    + credit_line("Phoneme inventories from", "PHOIBLE", "https://phoible.org/", "CC BY 4.0", CC_BY)
     # Share-alike and non-commercial data, named with their licenses (.claude/rules/license.md).
-    + _credit(
+    + credit_line(
         "Estimated speakers, scripts, endangerment and Wikidata items from",
         "LinguaMeta",
         "https://github.com/google-research/url-nlp/tree/main/linguameta",
         "CC BY-SA 4.0",
         "https://creativecommons.org/licenses/by-sa/4.0/",
     )
-    + _credit(
+    + credit_line(
         "Societies from",
         "D-PLACE",
         "https://d-place.org/",
         "CC BY-NC 4.0",
         "https://creativecommons.org/licenses/by-nc/4.0/",
     )
-    + "</ul>"
-    + contact_line("p")
-    + "</footer>"
 )
-
-
-# Links to the three atlases. No generated page shows them any more (owner, 2026-11-07:
-# Lang Log is one tree, not three domains); kept so the UI can be reused.
-def domain_nav(up, current="language"):
-    items = [
-        ("language", up, "Language families"),
-        ("sign", f"{up}signs-and-scripts.html?domain=sign", "Sign languages"),
-        ("scripts", f"{up}signs-and-scripts.html?domain=scripts", "Writing systems"),
-    ]
-    return (
-        '<nav class="domain-nav" aria-label="Atlas domains">'
-        + "".join(
-            f'<a href="{escape(h)}"'
-            + (' aria-current="page"' if k == current else "")
-            + f">{t}</a>"
-            for k, h, t in items
-        )
-        + "</nav>"
-    )
 
 
 # Scripts at the end of every record page: the branch tree, the explorer above it (the map
@@ -1071,9 +940,9 @@ def page_scripts(up):
             "atlas-data.js",
             "lineage-paths.js",
             "hf-iso-map.js",
-            "hf-models.js",
-            "tree.js",
-            "explore.js",
+            asset("hf-models", "js"),
+            asset("tree", "js"),
+            asset("explorer", "js"),
             "record-page.js",
         ]
     )
@@ -1089,9 +958,16 @@ def page(depth, title, body):
         + icon_links(up)
         + SITE_NAME_META
         + pwa_head(up)
-        + f'<link rel="stylesheet" href="{up}style.css"><link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css"><link rel="stylesheet" href="{up}explore.css"><script src="{up}theme.js"></script><script src="{up}i18n.js"></script><script src="{up}lang.js"></script><script src="{up}map-zoom.js" defer></script></head>'
-        f'<body class="variant-page"><header><div class="brand"><a class="home" href="{up}"><svg class="logo" role="img" aria-label="LANG LOG"><use href="{up}logo.svg#logo"/></svg></a> {by_yoshi()}</div></header>'
-        f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>"
+        + stylesheets(up)
+        + f'<link rel="stylesheet" href="{up}signs-and-scripts.css"><link rel="stylesheet" href="{up}record.css">'
+        + script("theme-toggle", up)
+        + f'<script src="{up}i18n.js"></script>'
+        + script("language-menu", up)
+        + script("map", up, " defer")
+        + "</head>"
+        '<body class="variant-page">'
+        + header(up, up)
+        + f"<main>{body}</main>{FOOTER}{page_scripts(up)}</body></html>"
     )
 
 
@@ -1230,7 +1106,7 @@ def write_source_pages():
         if i in study_root:
             body = source_page_body(sid) + group("Classification", children_html(depth, i))
         else:
-            body = breadcrumb(depth, extra_lineage(i)[:-1], sid) + record_body(depth, i, sid)
+            body = lineage_nav(depth, extra_lineage(i)[:-1], sid) + record_body(depth, i, sid)
         if i in study_root:  # a record page has these in its groups
             body += tree_html(depth, i, sid) + hf_html(n)
             body += '<p class="muted"><a href="record.json">This record as JSON</a></p>'
@@ -1272,7 +1148,9 @@ def main():
         target.mkdir(parents=True, exist_ok=True)
         anc = lineage(i)[:-1]
         body = (
-            breadcrumb(depth, anc) + lang_log_lineage(depth, i) + record_body(depth, i, "glottolog")
+            lineage_nav(depth, anc)
+            + lang_log_lineage(depth, i)
+            + record_body(depth, i, "glottolog")
         )
         (target / "index.html").write_text(page(depth, nodes[i]["name"], body), encoding="utf-8")
         (target / "record.json").write_text(

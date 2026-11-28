@@ -1,0 +1,31 @@
+/* The guide row of the top page (tools/components/guide_row.py). Every page loads this
+   file (STYLES in tools/components/__init__.py). */
+/* The guide row under the Random row on the top page, and the pages it links to
+   (dist/stats/ and dist/sources/, written by tools/build_home.py). */
+.home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.home-actions .home-guide {
+  display: contents;
+}
+.home-guide a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+}
+@media (hover: hover) {
+  .home-guide a:hover {
+    background: var(--c-e3e9df);
+  }
+}

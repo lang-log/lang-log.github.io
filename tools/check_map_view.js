@@ -1,6 +1,6 @@
 // Checks that the map view keeps its key, its buttons and its lines the same size on the
 // screen whatever the browser zoom, and that zooming the browser and the map in and back
-// out brings everything back (dist/map-zoom.js, dist/record.css; the owner's requests,
+// out brings everything back (dist/components/map/map.js, dist/components/map/map.css; the owner's requests,
 // 2026-11-23). Run after tools/build_site.sh, from the repository root, with Playwright and
 // its browsers installed (.github/workflows/browsers.yml):
 //   node tools/check_map_view.js [chromium firefox webkit]
@@ -35,9 +35,9 @@ const SAFARI_MIN_ZOOM = 0.5;
 // browsers offer.
 const INSIDE_ZOOMS = [...ZOOMS, 10, 15, 20];
 const PHONE = { width: 390, height: 844 }; // CSS pixels
-const FINGER_PX = 44; // buttons on a touch screen (record.css)
+const FINGER_PX = 44; // buttons on a touch screen (map.css)
 const PAGES = [
-  // A record's map and the top page's map, which share dist/map-zoom.js and dist/record.css.
+  // A record's map and the top page's map, which share dist/components/map/map.js and dist/components/map/map.css.
   { path: '/afro-asiatic/berber/#map-view', key: true },
   { path: '/#map-view', key: false },
 ];
@@ -74,7 +74,7 @@ function measure() {
 }
 
 // The map's buttons that are not wholly inside the map, as text, on the page or in the map
-// view (dist/record.css wraps them onto more rows and grows the map with them).
+// view (dist/components/map/map.css wraps them onto more rows and grows the map with them).
 function toolsOutside() {
   const out = [],
     SUBPIXEL = 0.5; // rounding of box edges, in CSS pixels
