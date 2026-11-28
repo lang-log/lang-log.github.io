@@ -1,0 +1,38 @@
+/* The List view of the top page: the top-level records under their continents
+   (tools/components/family_list.py). Every page loads this file (STYLES in
+   tools/components/__init__.py). */
+.home-section .record-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+.home-section .record-links > li {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  line-height: 1.5;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.home-section .record-links > li > a:first-child {
+  display: block;
+}
+/* A row of the top-page list that opens into its members (dist/components/explorer/explorer.js, issue #93): the
+   card's content becomes the summary of an outline row (.tree-node), and an opened row
+   takes the whole width of the grid so its members have room. */
+.home-section .record-links > li.openable {
+  padding: 0;
+}
+.home-section .record-links > li.openable:has(> .tree-node[open]) {
+  grid-column: 1 / -1;
+}
+@media (max-width: 700px) {
+  .home-section .record-links {
+    grid-template-columns: 1fr;
+  }
+}
+.explore-view .continent h3 {
+  margin-top: 18px;
+}

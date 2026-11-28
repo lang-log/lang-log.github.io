@@ -1,4 +1,4 @@
-"""Data for the top page's map view and its conditions (dist/explore.js).
+"""Data for the top page's map view and its conditions (dist/components/explorer/explorer.js).
 
 Two steps:
 
@@ -17,7 +17,7 @@ Two steps:
         languages.json  one entry per Glottolog language: Glottocode, name,
                         family, first WALS code (or ""), the point in the
                         map's SVG units (Web Mercator, as dist/map/land.svg;
-                        see languoid_map.py; null without coordinates) and
+                        see tools/components/map.py; null without coordinates) and
                         the top-level record it belongs to (its "root" in
                         dist/data.json), which the top-page list uses
         features.json   every feature: id, name, area, source ("wals" or
@@ -47,7 +47,7 @@ import urllib.request
 
 from condition_features import features as condition_features
 from locations import DIST, ROOT
-from languoid_map import project
+from components.map import project
 
 SRC = ROOT / "source-data" / "wals"
 OUT = ROOT / "dist" / "data" / "features"
@@ -201,7 +201,7 @@ def build():
         )
         write(OUT / "f" / f"{pid}.json", [got.get(i, 0) for i in range(len(langs))])
     # Every language's WALS values in one table, for the condition "WALS values shared
-    # with a language" (dist/explore.js): {"features": [ids], "rows": {index: [values]}}.
+    # with a language" (dist/components/explorer/explorer.js): {"features": [ids], "rows": {index: [values]}}.
     ids = [f["id"] for f in features]
     write(
         OUT / "wals.json",

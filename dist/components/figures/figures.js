@@ -8,8 +8,8 @@
 //   applies only under html.stats-motion, which this script sets.
 // - Loaded in <head> so the class is set before the first paint (no flash of full bars).
 // - Numbers are written in the build's English form ("30,885") as text-node values, so
-//   lang.js translates each step as it does any number it sees.
-// - While lang.js hides the page to load a dictionary (html.i18n-wait), the motion waits.
+//   the language menu's script translates each step as it does any number it sees.
+// - While the language menu's script hides the page to load a dictionary (html.i18n-wait), the motion waits.
 (function () {
   var root = document.documentElement;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;

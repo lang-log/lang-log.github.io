@@ -1,0 +1,43 @@
+/* The theme toggle in the header (dist/components/theme-toggle/theme-toggle.js). Every
+   page loads this file (STYLES in tools/components/__init__.py). */
+header .theme-toggle {
+  flex: none;
+  align-self: center;
+  box-sizing: border-box;
+  width: var(--ctl);
+  height: var(--ctl);
+  min-width: var(--ctl);
+  min-height: 0;
+  aspect-ratio: 1;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+@media (hover: hover) {
+  header .theme-toggle:hover {
+    background: var(--line);
+  }
+}
+.theme-toggle svg {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 0;
+}
+.theme-toggle .sun path {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.theme-toggle .sun,
+.theme-toggle[aria-pressed='true'] .moon {
+  display: none;
+}
+.theme-toggle[aria-pressed='true'] .sun {
+  display: block;
+}

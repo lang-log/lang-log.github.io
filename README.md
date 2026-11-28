@@ -49,7 +49,7 @@ Or one at a time:
 | `npm run format`              | Prettier: formats the files (writes them)        |
 | `npm run format:python`       | Ruff: formats the Python files (writes them)     |
 
-`tools/build_site.sh` adds asset versions to `dist/lang.js` and the hand-written pages in `dist/`, so run the checks before building, or restore those files first with `git checkout -- dist`.
+`tools/build_site.sh` adds asset versions to `dist/components/language-menu/language-menu.js` and the hand-written pages in `dist/`, so run the checks before building, or restore those files first with `git checkout -- dist`.
 
 Settings: `.prettierrc.json` and `.prettierignore` (Prettier), `eslint.config.mjs` (ESLint), `pyproject.toml` (Ruff). Pinned versions: `package-lock.json` and `requirements-dev.txt`.
 

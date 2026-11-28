@@ -16,7 +16,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - **Static pages for now.** The site is plain files on GitHub Pages, with no server or database (the owner's decision, 2026-11-07; it may change later).
 - **A progressive web app.** Lang Log is to become a progressive web app (PWA) (the owner's decision, 2026-11-08).
 - **Simple and loosely coupled.** Always keep the structure as simple and as loosely coupled as possible (`simple-structure.md` in `research-aide`). Behaviour needed on several pages, such as the maps, is written once and shared, not rewritten per page.
-- **Fix things once, at the source.** Page generators in `tools/`, shared style and scripts in `dist/`; never patch one generated page.
+- **Fix things once, at the source.** Page generators in `tools/`, each UI component in its own directory (`dist/components/<name>/` for its style and script, `tools/components/` for its markup), which pages only call; never patch one generated page.
 - **One look.** Every page is built from the same components; reuse one before adding a new one (`ui-design.md`).
 
 ## Where the rules are
@@ -33,7 +33,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - `.claude/rules/data.md` (`source-data/**`, `schema/**`, `tools/**`): Lang Log's own data, sources, languoids, features and classification.
 - `.claude/rules/interface-text.md` (`dist/**`, `tools/**`): interface text in every interface language, colours, header.
 - `.claude/rules/previews.md` (`.github/**`, `tools/build_site.sh`): pull request previews here.
-- `.claude/rules/ui-design.md` (`dist/**`, `tools/build_*.py`): reusing components, phone layout, pages without JavaScript, shareable state, accessible controls.
+- `.claude/rules/ui-design.md` (`dist/**`, `tools/build_*.py`, `tools/components/**`): reusing components, one directory per component, phone layout, pages without JavaScript, shareable state, accessible controls.
 - `.claude/skills/add-to-lang-log/`: the steps for adding a component, interface text or data (`SKILL.md` says which file in `references/` to read).
 - `docs/`: the documentation (no GitHub Wiki): `docs/site.md` (how the pages work), `docs/data.md` (how the data is built), `docs/urls.md` (every address and query parameter) and `docs/components.md` (every UI component by name).
 - Browsers: `.github/workflows/browsers.yml` runs the shared browser check (`browser-check.md` in `research-aide`) on every pull request; add a page there when a new kind of page appears.

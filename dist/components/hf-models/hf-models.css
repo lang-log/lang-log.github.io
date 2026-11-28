@@ -1,0 +1,125 @@
+/* The Hugging Face models section (tools/components/hf_models.py, dist/components/hf-
+   models/hf-models.js). Every page loads this file (STYLES in tools/components/__init__.py). */
+.hf-models {
+  margin: 20px 0;
+  padding: 14px;
+  border: 1px solid var(--c-d9d7bf);
+  border-radius: 7px;
+  background: var(--c-fffcf0);
+  scroll-margin-top: 16px;
+}
+.hf-models h3 {
+  margin: 0 0 12px;
+  letter-spacing: 1px;
+}
+.hf-intro {
+  margin: 0 0 12px;
+}
+.hf-task-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+}
+.hf-task {
+  margin-top: 6px;
+  font-size: 12px;
+  min-height: 42px;
+  background: var(--c-fffef9);
+}
+.hf-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+.hf-browse {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.hf-status {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--c-6b705e);
+  margin: 12px 0;
+}
+.hf-model {
+  padding: 12px 0;
+  border-top: 1px solid var(--c-e4dfcc);
+}
+.hf-model > a {
+  font-size: 12px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  display: block;
+}
+.hf-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0;
+}
+.hf-tags span {
+  font-size: 9px;
+  padding: 3px 5px;
+  background: var(--c-eeeddb);
+  border-radius: 3px;
+}
+.hf-model small {
+  font-size: 10px;
+  color: var(--c-707461);
+  line-height: 1.6;
+}
+.hf-retry {
+  font-size: 11px;
+  min-height: 40px;
+}
+.model-shortcut {
+  font-size: 11px;
+  min-height: 40px;
+  background: var(--c-fff8dd);
+  margin: 8px 0;
+}
+@media (max-width: 700px) {
+  .model-shortcut {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 9px 10px;
+    white-space: normal;
+  }
+  .hf-models {
+    padding: 14px 12px;
+  }
+  .hf-task-label {
+    font-size: 15px;
+  }
+  .hf-task {
+    font-size: 16px;
+    min-height: 48px;
+  }
+  .hf-browse {
+    font-size: 15px;
+    min-height: 44px;
+    padding: 8px 0;
+    display: inline-block;
+  }
+  .hf-status {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .hf-model > a {
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 44px;
+    padding: 7px 0;
+  }
+  .hf-tags span,
+  .hf-model small {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .hf-retry {
+    font-size: 15px;
+    min-height: 44px;
+  }
+}

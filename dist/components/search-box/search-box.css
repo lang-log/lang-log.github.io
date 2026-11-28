@@ -1,0 +1,58 @@
+/* The search box of the top page (tools/components/search_box.py,
+   dist/components/search-box/search-box.js). Every page loads this file (STYLES in
+   tools/components/__init__.py). */
+.home-search {
+  width: 100%;
+  max-width: 620px;
+}
+/* Search box and button form one pill; a vertical line divides them */
+.search-pill {
+  display: flex;
+  align-items: stretch;
+  background: var(--c-ffffff);
+  border: 1px solid var(--c-cdd6ce);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.search-pill:focus-within {
+  border-color: var(--teal);
+}
+.search-pill input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  padding: 12px 20px;
+  color: var(--ink);
+}
+.search-pill input::-webkit-search-cancel-button {
+  display: none;
+}
+.search-pill button {
+  border: 0;
+  border-inline-start: 1px solid var(--c-cdd6ce);
+  border-radius: 0;
+  background: transparent;
+  color: var(--teal);
+  padding: 0 20px;
+  min-width: 56px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (hover: hover) {
+  .search-pill button:hover {
+    background: var(--c-e3e9df);
+  }
+}
+@media (max-width: 700px) {
+  .search-pill input {
+    padding: 11px 16px;
+  }
+}
+.search-form {
+  max-width: 680px;
+}

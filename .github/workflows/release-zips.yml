@@ -15,7 +15,7 @@ concurrency:
   group: release-zips-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: false
 jobs:
-  # The interface languages, one ZIP each (LANGS in dist/lang.js, read by tools/build_i18n.py).
+  # The interface languages, one ZIP each (LANGS in dist/components/language-menu/language-menu.js, read by tools/build_i18n.py).
   languages:
     if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
