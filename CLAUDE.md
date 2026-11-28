@@ -13,7 +13,7 @@ If the shared rules are not in your context (the import above can be skipped, fo
 - **Only what was asked.** Do what the owner asked and nothing else (`only-what-was-asked.md` in `research-aide`). Never add page or interface text, descriptions, "coming soon" placeholders or features the owner did not ask for; when asked to explain or investigate, answer and stop, with no pull request.
 - **Show the sources.** Every classification says which source it follows; alternative hypotheses are shown side by side, not merged away.
 - **No source names in the interface.** Wording never names a data source such as WALS, Glottolog or PHOIBLE; sources are named only where they are credited or cited (`interface-text.md`).
-- **Static pages for now.** The site is plain files on GitHub Pages, with no server or database It may change later.
+- **Static pages for now.** The site is plain files on GitHub Pages, with no server or database; it may change later.
 - **A progressive web app.** Lang Log is to become a progressive web app (PWA).
 - **Simple and loosely coupled.** Always keep the structure as simple and as loosely coupled as possible (`simple-structure.md` in `research-aide`). Behaviour needed on several pages, such as the maps, is written once and shared, not rewritten per page.
 - **Fix things once, at the source.** Page generators in `tools/`, each UI component in its own directory (`dist/components/<name>/` for its style and script, `tools/components/` for its markup), which pages only call; never patch one generated page.
