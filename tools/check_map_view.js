@@ -39,7 +39,7 @@ const FINGER_PX = 44; // buttons on a touch screen (record.css)
 const PAGES = [
   // A record's map and the top page's map, which share dist/map-zoom.js and dist/record.css.
   { path: '/afro-asiatic/berber/#map-view', key: true },
-  { path: '/?view=map#map-view', key: false },
+  { path: '/#map-view', key: false },
 ];
 const VARIANTS = [
   { locale: 'en-US', colorScheme: 'light' },

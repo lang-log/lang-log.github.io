@@ -17,7 +17,7 @@
 // (dist/q.html, dist/search.js).
 //
 // URL state (query string): x/y/z (tree centre and zoom); on record pages also
-// view=tree (view=list for the outline inside the explorer's list view, dist/explore.js).
+// view=tree.
 // On the top page "view" belongs to dist/explore.js.
 (() => {
   const host = document.getElementById('atlas');
@@ -89,9 +89,6 @@
   function stateURL() {
     const p = new URLSearchParams(location.search);
     for (const k of branchPage ? ['view', 'x', 'y', 'z'] : ['x', 'y', 'z']) p.delete(k);
-    // The outline inside the explorer's list view (dist/explore.js) keeps that view.
-    if (branchPage && display !== 'chart' && host.closest('.explore-view[data-view="list"]'))
-      p.set('view', 'list');
     if (display === 'chart') {
       if (branchPage) p.set('view', 'tree');
       if (customView) {
@@ -647,8 +644,8 @@
   function members(id) {
     return load().then(() => membersOf(id));
   }
-  // Record pages start it when the visitor asks for the tree (dist/record-page.js) or shows the
-  // explorer's list (dist/explore.js); the top page when its list is shown (dist/explore.js),
-  // which shows the Download menu without data.
+  // Record pages start it when the visitor asks for the tree (dist/record-page.js) or when the
+  // explorer shows its list beside the map (dist/explore.js); the top page too, which shows
+  // the Download menu without data.
   window.LangLogTree = { start, setMatch, members };
 })();

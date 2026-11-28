@@ -1920,9 +1920,7 @@ body .domain-nav a:last-child {
   line-height: 1.4;
 }
 /* The switch between views (.seg, one segmented control with aria-pressed buttons): the
-   list / map switch of the top page and the record pages (view_switch() in
-   tools/explore_panel.py, run by dist/explore.js), and the List / Tree switch of the record
-   pages' and the sign and script atlas's toolbars (tools/build_paths.py,
+   List / Tree switch of the record pages' and the sign and script atlas's toolbars (tools/build_paths.py,
    dist/signs-and-scripts.html). It comes after the .toolbar button rule above, so its
    buttons drop that rule's border and radius. */
 .seg {
@@ -1944,16 +1942,6 @@ body .domain-nav a:last-child {
 .seg button[aria-pressed='true'] {
   background: var(--ink);
   color: var(--c-ffffff);
-}
-/* The list / map switch: its place on the page, and hidden without scripts (it works only
-   with them). */
-.explore-views {
-  margin: 16px 0 12px;
-}
-@media (scripting: none) {
-  .explore-views {
-    display: none;
-  }
 }
 .toolbar label {
   display: inline-flex;

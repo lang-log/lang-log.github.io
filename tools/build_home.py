@@ -183,18 +183,16 @@ def families_html():
         '<a class="exportlink" href="language-families.xml" download title="Complete Glottolog and WALS trees, all imported names and source tags">XML</a>'
         '<a class="exportlink" href="language-families.opml" download title="Complete outline for compatible outliner tools">OPML</a>'
     )
-    # Two views of every top-level record: a switch (1), the conditions shared by the
-    # views (2) and the view (3) (tools/explore_panel.py). dist/explore.js runs them;
-    # without JavaScript only the list is shown. The list carries the tree's Download menu
-    # (issue #93); its canvas stays hidden on this page and is drawn only for the SVG
-    # export (dist/tree.js).
+    # Two views of every top-level record, shown together (owner, 2026-11-28): the
+    # conditions shared by the views (tools/explore_panel.py), the map, then the list.
+    # dist/explore.js runs them; without JavaScript only the list is shown (the map's
+    # points are drawn by the script, so its view starts hidden). The list carries the
+    # tree's Download menu (issue #93); its canvas stays hidden on this page and is drawn
+    # only for the SVG export (dist/tree.js).
     total = len(condition_languages(glottolog()))
     return (
-        explore_open("home-section home-views", "", "list", total, section_id="families")
-        + f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
-        '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
-        f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
-        '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
+        explore_open("home-section home-views", "", total, section_id="families")
+        + '<div class="explore-view" data-view="map" hidden><div class="wm-map lmap-host">'
         + frame(
             "map/",
             world_view_box(),
@@ -206,6 +204,9 @@ def families_html():
         # map (tools/build_paths.py), which dist/map-zoom.js moves into the map box.
         + '<ul id="colour-legend" class="lmap-key" hidden></ul>'
         "</div></div>"
+        + f'<div class="explore-view" data-view="list">{bp.atlas_html("", downloads=downloads)}{groups}'
+        '<div class="outgroups"><h3>Cross-family / outgroup source trees</h3>'
+        f'<ul class="record-links">{rows_unplaced}</ul></div></div>'
         "</section>"
     )
 

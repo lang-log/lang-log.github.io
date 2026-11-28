@@ -1,23 +1,9 @@
 """The list / map explorer shared by the top page (tools/build_home.py) and the record
-pages (tools/build_paths.py): a switch between the views, and the conditions the views
-share. dist/explore.js runs it on the element marked `explorer`, which says where the site
+pages (tools/build_paths.py): the conditions the two views share. Both views are shown
+together, the map first (owner, 2026-11-28). dist/explore.js runs it on the element marked `explorer`, which says where the site
 root is (data-base) and, on a record page, which languages it narrows (data-langs)."""
 
 from html import escape
-
-# The views, in the order of the switch: (key, label). dist/explore.js reads the keys from
-# the buttons, and the pressed one is the view shown when the address names none.
-VIEWS = [("list", "List"), ("map", "Map")]
-
-
-def view_switch(current):
-    """The switch between the views (.seg.explore-views), with `current` pressed. It works
-    only with scripts, so style.css hides it when they are off."""
-    buttons = "".join(
-        f'<button type="button" data-view="{v}" aria-pressed="{str(v == current).lower()}">{label}</button>'
-        for v, label in VIEWS
-    )
-    return f'<div class="seg explore-views" role="group" aria-label="View">{buttons}</div>'
 
 
 def conditions_html(total):
@@ -40,11 +26,11 @@ def conditions_html(total):
     )
 
 
-def explore_open(classes, base, current, total, langs=None, section_id=""):
-    """The start of the explorer: its element, the switch and the conditions. The views
-    follow, each a `.explore-view` with its data-view."""
+def explore_open(classes, base, total, langs=None, section_id=""):
+    """The start of the explorer: its element and the conditions. The views follow, each a
+    `.explore-view` with its data-view, the map first."""
     attrs = f' id="{escape(section_id)}"' if section_id else ""
     attrs += f' data-base="{escape(base)}"'
     if langs is not None:
         attrs += f' data-langs="{escape(" ".join(langs))}"'
-    return f'<section class="{escape(classes)} explorer"{attrs}>{view_switch(current)}{conditions_html(total)}'
+    return f'<section class="{escape(classes)} explorer"{attrs}>{conditions_html(total)}'
