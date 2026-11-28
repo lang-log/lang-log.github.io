@@ -21,7 +21,7 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 
 ## No guide needed
 
-The owner's rule (2026-11-28, replacing the Get started page planned that day): anyone can use every feature from the first visit, without a guide.
+The owner's rule: anyone can use every feature from the first visit, without a guide.
 
 - No Get started page, guide, tour, tutorial, onboarding popup or help text that explains how to use the interface.
 - Design each control so the screen itself shows what it does and how to use it: controls in view rather than hidden gestures or menus, the patterns visitors already know from other sites, and a result that shows at once.
