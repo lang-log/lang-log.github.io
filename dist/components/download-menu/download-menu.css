@@ -1,0 +1,144 @@
+/* The Download menu and the other toolbar menus (tools/components/download_menu.py).
+   Every page loads this file (STYLES in tools/components/__init__.py). */
+.exportlink {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 10px;
+  padding: 7px 5px;
+}
+@media (max-width: 700px) {
+  .exportlink {
+    font-size: 9px;
+    padding: 7px 4px;
+  }
+}
+@media (max-width: 700px) {
+  .branch-menu .menu-status {
+    margin-inline-start: auto;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--teal);
+  }
+}
+@media (max-width: 700px) {
+  .branch-menu .menu-status {
+    font-size: 14px;
+  }
+  .exportlink {
+    font-size: 14px;
+    min-height: 44px;
+    padding: 10px 8px;
+    line-height: 1.6;
+  }
+}
+.toolbar .menu {
+  position: relative;
+}
+.toolbar .menu summary {
+  list-style: none;
+  cursor: pointer;
+  border-color: var(--line);
+}
+.toolbar .menu summary::-webkit-details-marker {
+  display: none;
+}
+.toolbar .menu summary::after {
+  content: ' ▾';
+  font-size: 10px;
+}
+.toolbar .menu[open] summary {
+  background: var(--c-e3e9df);
+}
+.toolbar .downloads {
+  margin-inline-start: auto;
+}
+.menu-panel {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 4px);
+  z-index: 20;
+  background: var(--c-fafbf6);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.menu-panel button,
+.menu-panel .exportlink {
+  text-align: start;
+  border: 0;
+  font-size: 12px;
+  padding: 8px 10px;
+}
+.help .menu-panel {
+  width: min(360px, 80vw);
+  padding: 6px 14px;
+  gap: 0;
+}
+.help .menu-panel p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-42594f);
+  margin: 8px 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+@media (max-width: 700px) {
+  .menu-panel {
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+  .help .menu-panel {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+  }
+  .menu-panel button,
+  .menu-panel .exportlink {
+    font-size: 14px;
+    min-height: 44px;
+  }
+  .help .menu-panel p {
+    font-size: 14px;
+  }
+}
+/* The Download menu's button: the map's download symbol (download_icon() in
+   tools/build_paths.py, the look of .lmap-tools buttons in record.css), never the word
+   (the owner's rule, 2026-11-23); 44 px on phones, for a finger. */
+.toolbar .downloads summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-color: var(--line);
+  background: var(--c-ffffff);
+  color: var(--ink);
+}
+.toolbar .downloads summary::after {
+  content: none;
+}
+@media (hover: hover) {
+  .toolbar .downloads summary:hover {
+    background: var(--c-e3e9df);
+  }
+}
+.toolbar .downloads[open] summary {
+  background: var(--c-e3e9df);
+}
+/* The menu opens from the button's end, which is the end of the line, so it stays inside the
+   page and the toolbar's box on phones too. */
+.toolbar .downloads .menu-panel {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+@media (max-width: 700px) {
+  .toolbar .downloads summary {
+    min-width: 44px;
+    height: 44px;
+  }
+}

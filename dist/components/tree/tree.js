@@ -10,15 +10,15 @@
 //   data-root  (record pages) the record whose branch is drawn;
 //   data-src   (record pages) the source of that branch: glottolog, wals or a study id.
 // The top page has no tree view of its own (issue #93: the list and the tree are one):
-// its list (dist/explore.js) opens each row into its members with members(), the
-// Download menu exports the whole tree, and explore.js narrows both to the languages
+// its list (dist/components/explorer/explorer.js) opens each row into its members with members(), the
+// Download menu exports the whole tree, and dist/components/explorer/explorer.js narrows both to the languages
 // that match its conditions (window.LangLogTree.setMatch). The data is loaded on the
 // first opened row or download. Search has its own page, <site>/q?q=<terms>
-// (dist/q.html, dist/search.js).
+// (dist/q.html, dist/components/search-results/search-results.js).
 //
 // URL state (query string): x/y/z (tree centre and zoom); on record pages also
-// view=tree (view=list for the outline inside the explorer's list view, dist/explore.js).
-// On the top page "view" belongs to dist/explore.js.
+// view=tree (view=list for the outline inside the explorer's list view, dist/components/explorer/explorer.js).
+// On the top page "view" belongs to dist/components/explorer/explorer.js.
 (() => {
   const host = document.getElementById('atlas');
   if (!host) return;
@@ -89,7 +89,7 @@
   function stateURL() {
     const p = new URLSearchParams(location.search);
     for (const k of branchPage ? ['view', 'x', 'y', 'z'] : ['x', 'y', 'z']) p.delete(k);
-    // The outline inside the explorer's list view (dist/explore.js) keeps that view.
+    // The outline inside the explorer's list view (dist/components/explorer/explorer.js) keeps that view.
     if (branchPage && display !== 'chart' && host.closest('.explore-view[data-view="list"]'))
       p.set('view', 'list');
     if (display === 'chart') {
@@ -648,7 +648,7 @@
     return load().then(() => membersOf(id));
   }
   // Record pages start it when the visitor asks for the tree (dist/record-page.js) or shows the
-  // explorer's list (dist/explore.js); the top page when its list is shown (dist/explore.js),
+  // explorer's list (dist/components/explorer/explorer.js); the top page when its list is shown (dist/components/explorer/explorer.js),
   // which shows the Download menu without data.
   window.LangLogTree = { start, setMatch, members };
 })();

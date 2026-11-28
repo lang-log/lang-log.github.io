@@ -54,7 +54,8 @@
   // browser never uses an old cached dictionary.
   var VERSIONS = {};
   var script = document.currentScript;
-  var BASE = script && script.src ? script.src.replace(/[^/]*$/, '') : '';
+  // The site root: this script is at components/language-menu/ under it.
+  var BASE = script && script.src ? script.src.replace(/components\/[^/]*\/[^/]*$/, '') : '';
 
   function info(code) {
     for (var i = 0; i < LANGS.length; i++) if (LANGS[i][0] === code) return LANGS[i];

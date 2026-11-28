@@ -29,7 +29,9 @@ from locations import DIST
 
 WEIGHT = 700  # Bold, on the variable font's wght axis
 OUT = DIST / "logo.svg"
-CSS = OUT.with_name("style.css")  # its .logo rule carries the same aspect ratio
+CSS = (
+    OUT.parent / "components" / "header" / "header.css"
+)  # its .logo rule carries the same aspect ratio
 TEXT = "LANG LOG"
 SIZE = 100  # font size in logo units
 TRACKING = 13  # extra space after each letter (about 2px at 13px)

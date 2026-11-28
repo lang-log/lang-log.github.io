@@ -1,6 +1,6 @@
 // Checks that the map view keeps its key, its buttons and its lines the same size on the
 // screen whatever the browser zoom, and that zooming the browser and the map in and back
-// out brings everything back (dist/map-zoom.js, dist/record.css; the owner's requests,
+// out brings everything back (dist/components/map/map.js, dist/components/map/map.css; the owner's requests,
 // 2026-11-23). Run after tools/build_site.sh, from the repository root, with Playwright and
 // its browsers installed (.github/workflows/browsers.yml):
 //   node tools/check_map_view.js [chromium firefox webkit]
@@ -29,10 +29,15 @@ const SNAP_PX = 0.6;
 // in Playwright stops resizing the page once it has been made 11520 device pixels wide, so
 // its series of zooms starts at this one.
 const SAFARI_MIN_ZOOM = 0.5;
+// Zooms the map's buttons must stay inside the map at, on the page and in the map view (the
+// owner's request, 2026-11-28, after the bar spilled out of a record's map at 667% on a
+// screen 1280 CSS pixels wide, which is 1000% here): every zoom above, and far past what
+// browsers offer.
+const INSIDE_ZOOMS = [...ZOOMS, 10, 15, 20];
 const PHONE = { width: 390, height: 844 }; // CSS pixels
-const FINGER_PX = 44; // buttons on a touch screen (record.css)
+const FINGER_PX = 44; // buttons on a touch screen (map.css)
 const PAGES = [
-  // A record's map and the top page's map, which share dist/map-zoom.js and dist/record.css.
+  // A record's map and the top page's map, which share dist/components/map/map.js and dist/components/map/map.css.
   { path: '/afro-asiatic/berber/#map-view', key: true },
   { path: '/?view=map#map-view', key: false },
 ];
@@ -66,6 +71,28 @@ function measure() {
     button: box(button),
     line: parseFloat(getComputedStyle(line).strokeWidth) * d,
   };
+}
+
+// The map's buttons that are not wholly inside the map, as text, on the page or in the map
+// view (dist/components/map/map.css wraps them onto more rows and grows the map with them).
+function toolsOutside() {
+  const out = [],
+    SUBPIXEL = 0.5; // rounding of box edges, in CSS pixels
+  document.querySelectorAll('.lmap-wrap').forEach((wrap) => {
+    const m = wrap.querySelector('svg.lmap').getBoundingClientRect();
+    wrap.querySelectorAll('.lmap-tools button').forEach((b) => {
+      if (!b.offsetWidth) return; // hidden, such as Reset before the map moves
+      const r = b.getBoundingClientRect();
+      if (
+        r.left < m.left - SUBPIXEL ||
+        r.right > m.right + SUBPIXEL ||
+        r.top < m.top - SUBPIXEL ||
+        r.bottom > m.bottom + SUBPIXEL
+      )
+        out.push(b.getAttribute('aria-label'));
+    });
+  });
+  return out;
 }
 
 // A point of the map view that a click reaches (not under the key or the buttons), as
@@ -135,7 +162,7 @@ function compare(where, m, ref) {
   near(`${where}: border line`, m.line, ref.line);
 }
 
-async function open(browser, page, variant, zoom) {
+async function open(browser, page, variant, zoom, mapView = true) {
   const ctx = await browser.newContext({
     viewport: { width: Math.round(SCREEN.width / zoom), height: Math.round(SCREEN.height / zoom) },
     deviceScaleFactor: zoom,
@@ -145,7 +172,11 @@ async function open(browser, page, variant, zoom) {
   const tab = await ctx.newPage();
   tab.on('pageerror', (e) => failures.push(`${page.path}: ${e.message}`));
   await tab.goto(base + page.path, { waitUntil: 'networkidle' });
-  await tab.waitForFunction(() => document.querySelector('.lmap-full'), null, { timeout: 15000 });
+  await tab.waitForFunction(
+    (sel) => document.querySelector(sel),
+    mapView ? '.lmap-full' : '.lmap-tools',
+    { timeout: 15000 },
+  );
   await tab.waitForTimeout(300);
   return { ctx, tab };
 }
@@ -185,6 +216,17 @@ let base = '';
                 );
           await ctx.close();
         }
+        // The buttons stay inside the map, on the page and in the map view, at every zoom.
+        for (const zoom of INSIDE_ZOOMS)
+          for (const path of [page.path.replace('#map-view', ''), page.path]) {
+            ({ ctx, tab } = await open(browser, { path }, variant, zoom, false));
+            const out = await tab.evaluate(toolsOutside);
+            if (out.length)
+              failures.push(
+                `${name} ${path} ${variant.locale} at ${zoom * 100}%: outside the map: ${out.join(', ')}`,
+              );
+            await ctx.close();
+          }
         // One map view through a series of browser zooms, then the map's own zoom in and
         // out, and back to the start. The device pixel ratio of a page cannot change in
         // every engine, so the window's size plays the zoom and sizes are compared in CSS

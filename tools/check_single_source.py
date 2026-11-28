@@ -29,9 +29,12 @@ CONFIG = json.loads((ROOT / "tools" / "single-source.json").read_text(encoding="
 CODE = [
     "dist/*.js",
     "dist/*.css",
+    "dist/components/*/*.js",
+    "dist/components/*/*.css",
     "dist/*.html",
     "i18n/*.yaml",
     "tools/*.py",
+    "tools/components/*.py",
     "tools/*.js",
     "tools/*.sh",
 ]

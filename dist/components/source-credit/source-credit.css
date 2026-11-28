@@ -1,0 +1,41 @@
+/* The source credit at the foot of the record pages
+   (tools/components/source_credit.py). Every page loads this file (STYLES in
+   tools/components/__init__.py). */
+.variant-page footer.credit {
+  display: block;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 30px 40px;
+  color: var(--c-526762);
+}
+/* Source credit (FOOTER in tools/build_paths.py): one source per line, then the contact line. */
+.variant-page footer.credit .credit-list {
+  list-style: none;
+  margin: 0 auto 20px;
+  padding: 0;
+  max-width: 72ch;
+}
+.variant-page footer.credit li,
+.variant-page footer.credit p {
+  margin: 0 auto;
+  max-width: 72ch;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.variant-page footer.credit li a {
+  /* A source or license name never breaks across lines ("CC / BY 4.0"). */
+  white-space: nowrap;
+}
+.variant-page footer.credit li + li {
+  margin-top: 6px;
+}
+@media (max-width: 700px) {
+  .variant-page footer.credit {
+    margin: 0 12px;
+    padding: 18px 16px 32px;
+  }
+  .variant-page footer.credit li,
+  .variant-page footer.credit p {
+    font-size: 15px;
+  }
+}
