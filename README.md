@@ -82,8 +82,6 @@ The workflow `.github/workflows/pages.yml` publishes `dist/` to <https://lang-lo
 
 `site.yml` builds and checks each pull request and uploads its preview; `.github/workflows/previews.yml` (shared workflow `cloudflare-previews.yml` of `nguekwang/research-aide`) publishes it on Cloudflare Pages at `https://pr-<number>.lang-log-preview.pages.dev/`, links it on the pull request, and deletes it when the pull request is closed. One-time setup: a Cloudflare Pages project `lang-log-preview` made with Direct Upload, and the repository secrets `CLOUDFLARE_API_TOKEN` (a token with only "Account / Cloudflare Pages / Edit") and `CLOUDFLARE_ACCOUNT_ID`. `.github/workflows/progress.yml` keeps one more comment on each pull request that lists the groups of checks (code, build and content, browsers, preview) as they end (`tools/ci_progress.py`). The other workflows need no secrets: they use the `GITHUB_TOKEN` GitHub gives each job, with the permissions set in each workflow.
 
-The beta site, <https://lang-log-beta.pages.dev/>, is the `beta` branch: `site.yml` builds and checks each push to it, and `.github/workflows/beta.yml` uploads part of the site (`tools/make_preview.sh`) to the Cloudflare Pages project `lang-log-beta`, which it creates on its first run. It needs the repository secrets `CLOUDFLARE_API_TOKEN` (only "Account / Cloudflare Pages / Edit") and `CLOUDFLARE_ACCOUNT_ID`.
-
 ## Releases
 
 A release is a version tag on a commit of `main`; GitHub Releases hold the release information, and the site shows it on `releases.html`. The rules are in `.claude/rules/releases.md`.

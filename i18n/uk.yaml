@@ -340,6 +340,8 @@ text:
     reset_view: "Скинути вигляд"
     map_view: "Режим мапи"
     close_map_view: "Закрити режим мапи"
+    list_view: "Режим списку"
+    close_list_view: "Закрити режим списку"
     previous_point: "Попередня точка"
     next_point: "Наступна точка"
     download_the_map_as_png: "Завантажити мапу у PNG"

@@ -30,7 +30,7 @@
   accent-color: var(--teal);
   vertical-align: middle;
 }
-#viewport {
+.tree-viewport {
   position: relative;
   flex: 1;
   min-height: 300px;
@@ -93,7 +93,7 @@ canvas:active {
   color: var(--muted);
   pointer-events: none;
 }
-#tooltip {
+.tree-tooltip {
   position: absolute;
   background: var(--c-243c3bee);
   color: var(--c-ffffff);
@@ -136,7 +136,7 @@ canvas:active {
     font-size: 8px;
   }
 }
-#outline {
+.tree-outline {
   flex: 1;
   overflow: auto;
   min-height: 250px;
@@ -274,7 +274,7 @@ canvas:active {
   color: var(--muted);
 }
 @media (max-width: 700px) {
-  #outline {
+  .tree-outline {
     padding: 8px 8px 30px;
   }
   .node-children {
@@ -398,7 +398,7 @@ canvas:active {
   .workspace {
     height: max(780px, 85svh);
   }
-  #outline {
+  .tree-outline {
     padding: 10px 8px 30px;
     overscroll-behavior: contain;
   }
@@ -572,12 +572,12 @@ canvas:active {
   padding: 0;
   border-bottom: 0;
 }
-.atlas-embed #outline {
+.atlas-embed .tree-outline {
   flex: none;
   max-height: 70vh;
   min-height: 200px;
 }
-.atlas-embed #viewport {
+.atlas-embed .tree-viewport {
   flex: none;
   height: min(70vh, 640px);
 }

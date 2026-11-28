@@ -5,20 +5,18 @@
 # the artifact "preview"; previews.yml publishes it on Cloudflare Pages at
 # https://pr-<number>.lang-log-preview.pages.dev/ and links it on the pull request (shared rule:
 # research-aide .claude/rules/pr-previews.md).
-# For pushes to the beta branch it uploads the same part of the site, with Cloudflare's _headers
-# file, as the artifact "beta"; beta.yml publishes it at https://lang-log-beta.pages.dev/.
-# The preview and the beta hold only part of the site (tools/make_preview.sh says which and why).
+# The preview holds only part of the site (tools/make_preview.sh says which and why).
 # progress.yml reads the names of the jobs and steps below to report each group of checks on the
 # pull request (tools/ci_progress.py); rename a step there too.
 name: site
 on:
   pull_request:
   push:
-    branches: [main, beta]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
-# A newer push to a pull request cancels the older run. Every run on main or beta gets a group of its own,
+# A newer push to a pull request cancels the older run. Every run on main gets a group of its own,
 # so none is cancelled or replaced and every commit on main gets a result (a cancelled run shows as
 # "failing" on the README badge).
 concurrency:
@@ -69,16 +67,3 @@ jobs:
           name: preview
           path: _preview
           retention-days: 90
-      # The beta site: the same part of the site, plus the response headers Cloudflare sends
-      # (tools/security_policy.py HEADERS, with noindex).
-      - name: Make the beta site
-        if: github.event_name == 'push' && github.ref == 'refs/heads/beta'
-        run: |
-          bash tools/make_preview.sh _beta
-          python3 tools/security_policy.py --headers _beta
-      - if: github.event_name == 'push' && github.ref == 'refs/heads/beta'
-        uses: actions/upload-artifact@v7
-        with:
-          name: beta
-          path: _beta
-          retention-days: 7

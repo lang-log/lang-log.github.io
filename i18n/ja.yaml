@@ -339,6 +339,8 @@ text:
     reset_view: "元の表示に戻す"
     map_view: "マップビュー"
     close_map_view: "マップビューを閉じる"
+    list_view: "リストビュー"
+    close_list_view: "リストビューを閉じる"
     previous_point: "前の点"
     next_point: "次の点"
     download_the_map_as_png: "地図を PNG でダウンロード"

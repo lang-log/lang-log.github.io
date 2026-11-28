@@ -17,7 +17,9 @@ footer {
     display: block;
     line-height: 1.8;
   }
-  footer span {
+  /* Only the footer's own parts (footer()), never a span inside a part or in the
+     source credit, whose citation must stay inline with the comma after it. */
+  footer > span {
     display: block;
   }
 }

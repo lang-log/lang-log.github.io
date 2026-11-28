@@ -1,0 +1,50 @@
+/* The list view (dist/components/list-view/list-view.js, tools/components/list_view.py): the
+   explorer's list, or a record page's tree box, fills the window, as the map view does
+   (dist/components/map/map.css). */
+.toolbar .list-view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  border-color: var(--line);
+  background: var(--c-ffffff);
+  color: var(--ink);
+}
+@media (hover: hover) {
+  .toolbar .list-view-btn:hover {
+    background: var(--c-e3e9df);
+  }
+}
+/* One symbol at a time: open while closed, close while open. */
+.list-view-btn[aria-expanded='false'] .list-view-close,
+.list-view-btn[aria-expanded='true'] .list-view-open {
+  display: none;
+}
+.list-full-open,
+.list-full-open body {
+  overflow: hidden;
+}
+.list-full {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  margin: 0;
+  padding: 12px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: var(--c-f9faf7);
+}
+.explore-view.list-full {
+  margin-top: 0;
+}
+@media (max-width: 700px) {
+  .toolbar .list-view-btn {
+    min-width: 44px;
+    height: 44px;
+  }
+}

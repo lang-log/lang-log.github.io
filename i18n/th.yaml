@@ -340,6 +340,8 @@ text:
     reset_view: "รีเซ็ตมุมมอง"
     map_view: "มุมมองแผนที่"
     close_map_view: "ปิดมุมมองแผนที่"
+    list_view: "มุมมองรายการ"
+    close_list_view: "ปิดมุมมองรายการ"
     previous_point: "จุดก่อนหน้า"
     next_point: "จุดถัดไป"
     download_the_map_as_png: "ดาวน์โหลดแผนที่เป็น PNG"

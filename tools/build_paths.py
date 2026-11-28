@@ -943,6 +943,7 @@ def page_scripts(up):
             asset("hf-models", "js"),
             asset("tree", "js"),
             asset("explorer", "js"),
+            asset("list-view", "js"),
             "record-page.js",
         ]
     )

@@ -15,9 +15,7 @@ X-Frame-Options, Strict-Transport-Security, X-Content-Type-Options,
 Permissions-Policy, Cross-Origin-*-Policy) are listed in
 .claude/rules/security.md and written once below (LIVE_HEADERS). Cloudflare sends
 them in front of GitHub Pages for the live site (`--live` prints them for its
-Transform Rule, `--check-live <url>` checks what the site sends), and the beta
-site on Cloudflare Pages sends them too: `--headers <dir>` writes <dir>/_headers
-(Cloudflare's header file) from HEADERS below.
+Transform Rule, `--check-live <url>` checks what the site sends).
 
 The page generators (tools/build_home.py, tools/build_paths.py) write HEAD
 from here. The hand-written pages in dist/ carry the same text; run
@@ -30,7 +28,6 @@ inline script, which the policy would block.
 import re
 import sys
 import urllib.request
-from pathlib import Path
 
 from locations import DIST
 
@@ -68,10 +65,6 @@ HEAD = (
     f'<meta name="referrer" content="{REFERRER}">'
 )
 
-# Response headers for a host that can send them (research-aide
-# .claude/rules/web-security.md), used by the beta site on Cloudflare Pages
-# (.claude/rules/previews.md). The beta is the production deployment of its
-# Cloudflare project, which gets no noindex of its own, so it is added here.
 # The response headers of the live site, sent by Cloudflare in front of GitHub Pages (one
 # Response Header Transform Rule; the owner's choice, 2026-11-24, to proxy lang-log.com).
 # `--live` prints them for that rule and `--check-live <url>` compares what the site sends.
@@ -111,8 +104,6 @@ LIVE_HEADERS = {
     "Cross-Origin-Opener-Policy": "same-origin",
     "Cross-Origin-Resource-Policy": "same-origin",
 }
-# The beta site (Cloudflare Pages' _headers file, --headers): the same, and kept out of search engines.
-HEADERS = {"X-Robots-Tag": "noindex", **LIVE_HEADERS}
 
 CHARSET = '<meta charset="utf-8">'
 ANY_POLICY = re.compile(
@@ -148,12 +139,6 @@ def write(page):
         page.write_text(new, encoding="utf-8")
 
 
-def write_headers(directory):
-    """Write Cloudflare Pages' _headers file: every header on every path."""
-    lines = ["/*"] + [f"  {name}: {value}" for name, value in HEADERS.items()]
-    (Path(directory) / "_headers").write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-
 def check_live(url):
     """Compare the headers the live site sends with LIVE_HEADERS; the number of differences."""
     request = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "lang-log-check"})
@@ -175,16 +160,13 @@ def main(argv):
         return 0
     if len(argv) == 3 and argv[1] == "--check-live":
         return 1 if check_live(argv[2]) else 0
-    if len(argv) == 3 and argv[1] == "--headers":
-        write_headers(argv[2])
-        return 0
     if argv[1:] == ["--write"]:
         for page in sorted(DIST.glob("*.html")):
             write(page)
         return 0
     if argv[1:] != ["--check"]:
         print(
-            "usage: security_policy.py --check | --write | --headers <dir> | --live | --check-live <url>",
+            "usage: security_policy.py --check | --write | --live | --check-live <url>",
             file=sys.stderr,
         )
         return 2

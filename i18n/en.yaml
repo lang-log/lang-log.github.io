@@ -356,6 +356,8 @@ text:
     reset_view: "Reset view"
     map_view: "Map view"
     close_map_view: "Close map view"
+    list_view: "List view"
+    close_list_view: "Close list view"
     previous_point: "Previous point"
     next_point: "Next point"
     download_the_map_as_png: "Download the map as PNG"
