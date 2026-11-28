@@ -5,10 +5,14 @@ import json
 import re
 import hashlib
 import collections
+import shutil
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from html.parser import HTMLParser
 
+from glyph_images import OUT as GLYPH_DIR
+from glyph_images import Glyphs
+from glyph_images import draw as draw_glyphs
 from modality import MODALITY_OF_DOMAIN
 from source_versions import GLOTTOLOG
 
@@ -517,9 +521,16 @@ for line in (P / "Scripts.txt").read_text().splitlines():
             break
         if cp in letters:
             samples[i].append(chr(cp))
+# Each sample is also drawn as a picture from the Noto fonts (tools/glyph_images.py), because
+# most devices have no font for most scripts; the pages show only the picture.
+glyph_fonts = Glyphs()
+shutil.rmtree(GLYPH_DIR, ignore_errors=True)
 for i, chars in samples.items():
     N[i]["glyphSample"] = " ".join(chars)
     N[i]["glyphSource"] = "ucd"
+    image = draw_glyphs(glyph_fonts, i, chars)
+    if image:
+        N[i]["glyphImage"] = image
 for e in E:
     for i in [e["parent"], e["child"]]:
         if e["source"] not in N[i]["sources"]:

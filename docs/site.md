@@ -35,6 +35,10 @@ Records that exist only in another source's tree (WALS genera and families, stud
 
 The header logo (asterisk and "LANG LOG") is one SVG symbol, `dist/logo.svg`, drawn on every page with `<use href="logo.svg#logo">`, so the logo link is one rectangle. `tools/build_logo.py` writes it from Montserrat Bold outlines and updates the `.logo` aspect ratio in `dist/style.css`; it needs `fontTools` and the Montserrat variable font file (not in the repository; the script says where to get it) and is run only when the logo changes. Every place that shows the logo uses this SVG, including the not-found page `dist/404.html`; the logo is never written as text (`.claude/rules/logo.md`; `tools/build_site.sh` checks it).
 
+## Script samples
+
+A writing system's record shows a few of its letters. Most devices have no font for most scripts, so the letters would show as empty boxes; they are therefore pictures. `tools/build_visual.py` draws each sample with `tools/glyph_images.py` from the Noto fonts listed in `tools/glyph-fonts.json` (one fixed release of notofonts.github.io, each file checked by its SHA-256) into `dist/glyphs/<id>.svg`, one `<symbol id="glyphs">` filled with `currentColor`, and records its address and size as `glyphImage` in `dist/signs-and-scripts.json`. `dist/record.js` and `dist/signs-and-scripts.js` show it as `<svg role="img" aria-label="<the letters>"><use href="glyphs/<id>.svg#glyphs"/></svg>`, in the text colour of either theme. A sample with a letter no listed font has gets no picture and is not shown (`.claude/rules/fonts.md`).
+
 ## Interface language and theme
 
 The right end of the header on every page has a light/dark theme toggle and a language menu with the same languages as the owner's profile site, in the same order (`LANGS` in `dist/components/language-menu/language-menu.js`).

@@ -146,8 +146,10 @@
             )
             .join('')
         : '');
-    if (n.glyphSample)
-      html += `<p class="v-glyphs" dir="auto">${esc(n.glyphSample)}</p><p class="muted">${sl('ucd')}</p>`;
+    // The sample is a picture drawn at build time (tools/glyph_images.py), never text: most
+    // devices have no font for most scripts. No picture, no sample.
+    if (n.glyphImage)
+      html += `<p class="v-glyphs"><svg viewBox="0 0 ${esc(n.glyphImage.width)} ${esc(n.glyphImage.height)}" role="img" aria-label="${esc(n.glyphSample)}"><use href="${esc(n.glyphImage.src)}#glyphs"/></svg></p><p class="muted">${sl('ucd')}</p>`;
     html += `<details><summary>Aliases and spellings · ${aliases.length}</summary><ul class="name-list">${aliases.map((a) => `<li dir="auto">${esc(a.text || a.name || a)} <span class="muted">${esc(a.lang || '')} · ${esc(a.provider || a.source || '')}</span></li>`).join('')}</ul></details></section>`;
     if (n.area || n.region || n.silType)
       html += `<section><h2>Record information</h2>${n.area ? '<p>Macroarea: ' + esc(n.area) + '</p>' : ''}${n.region ? '<p>Region: ' + esc(n.region) + '</p>' : ''}${n.silType ? '<p>SIL-reported type: ' + esc(n.silType) + '<br>Direction: ' + esc(n.direction) + '<br>Status: ' + esc(n.silStatus) + '</p>' : ''}</section>`;
