@@ -805,16 +805,17 @@ def record_body(depth, i, sid):
 
 def record_views(depth, i, sid, the_map, langs):
     """The top of a record page: its map and, when it has descendants, the same explorer as
-    the top page's (tools/components/explorer.py, run by dist/components/explorer/explorer.js): the switch between the
-    map and the tree of its descendants (the list view), and the conditions, which narrow
-    both to its languages. The map is shown first (?view=list for the tree). Without
-    scripts only the map is shown. `langs`: languages_under(i)."""
+    the top page's (tools/components/explorer.py, run by dist/components/explorer/explorer.js):
+    the conditions, which narrow both views to its languages, the map, and under it the tree
+    of its descendants (the list view), shown together (owner, 2026-11-28). Without scripts
+    only the map is shown (the tree is drawn by dist/components/tree/tree.js, so its view
+    starts hidden). `langs`: languages_under(i)."""
     if not langs:
         return f'<section class="record-views">{the_map}</section>'
     return (
-        explore_open("record-views", "../" * depth, "map", len(langs), langs)
-        + f'<div class="explore-view" data-view="list" hidden>{atlas_html("../" * depth, root=i, src=sid)}</div>'
-        + f'<div class="explore-view" data-view="map">{the_map}</div></section>'
+        explore_open("record-views", "../" * depth, len(langs), langs)
+        + f'<div class="explore-view" data-view="map">{the_map}</div>'
+        + f'<div class="explore-view" data-view="list" hidden>{atlas_html("../" * depth, root=i, src=sid)}</div></section>'
     )
 
 
