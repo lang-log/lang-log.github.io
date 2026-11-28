@@ -340,6 +340,8 @@ text:
     reset_view: "Görünümü sıfırla"
     map_view: "Harita görünümü"
     close_map_view: "Harita görünümünü kapat"
+    list_view: "Liste görünümü"
+    close_list_view: "Liste görünümünü kapat"
     previous_point: "Önceki nokta"
     next_point: "Sonraki nokta"
     download_the_map_as_png: "Haritayı PNG olarak indir"

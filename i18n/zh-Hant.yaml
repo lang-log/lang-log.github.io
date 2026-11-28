@@ -340,6 +340,8 @@ text:
     reset_view: "恢復原始檢視"
     map_view: "地圖檢視"
     close_map_view: "關閉地圖檢視"
+    list_view: "清單檢視"
+    close_list_view: "關閉清單檢視"
     previous_point: "上一個點"
     next_point: "下一個點"
     download_the_map_as_png: "將地圖下載為 PNG"

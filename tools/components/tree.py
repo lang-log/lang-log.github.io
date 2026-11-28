@@ -4,6 +4,7 @@ dist/components/tree/tree.js fills, with its toolbar and Download menu."""
 from html import escape
 
 from components.download_menu import download_menu
+from components.list_view import list_view_button
 
 
 def atlas_html(base, root=None, src=None, downloads=""):
@@ -33,6 +34,7 @@ def atlas_html(base, root=None, src=None, downloads=""):
         f'<div id="atlas" class="workspace atlas-embed{" atlas-whole" if whole else ""}"{attrs} hidden>'
         f'<div class="toolbar">{switch}'
         + download_menu(f'<button id="export" type="button">SVG (current view)</button>{downloads}')
+        + list_view_button()
         + "</div>"
         f"{outline}"
         f'<div id="viewport"{"" if whole else " hidden"}><canvas id="tree" aria-label="Interactive language classification tree. Click a node to open its page."></canvas>'

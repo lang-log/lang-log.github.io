@@ -340,6 +340,8 @@ text:
     reset_view: "처음 보기로"
     map_view: "지도 보기"
     close_map_view: "지도 보기 닫기"
+    list_view: "목록 보기"
+    close_list_view: "목록 보기 닫기"
     previous_point: "이전 지점"
     next_point: "다음 지점"
     download_the_map_as_png: "지도를 PNG로 내려받기"
