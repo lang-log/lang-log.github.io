@@ -8,6 +8,8 @@
 # For pushes to the beta branch it uploads the same part of the site, with Cloudflare's _headers
 # file, as the artifact "beta"; beta.yml publishes it at https://lang-log-beta.pages.dev/.
 # The preview and the beta hold only part of the site (tools/make_preview.sh says which and why).
+# progress.yml reads the names of the jobs and steps below to report each group of checks on the
+# pull request (tools/ci_progress.py); rename a step there too.
 name: site
 on:
   pull_request:
@@ -38,25 +40,30 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
       - run: python3 -m pip install --require-hashes -r requirements.txt
-      - run: bash tools/build_site.sh
+      - name: Build and check the site
+        run: bash tools/build_site.sh
       # The built pages are valid HTML (.htmlvalidate.json): the top page, the Releases page, the
       # info pages, every top-level record page and every record page of one family.
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
       - run: npm ci --ignore-scripts
-      - run: npx html-validate dist/index.html dist/releases.html "dist/*/index.html" "dist/afro-asiatic/**/index.html"
+      - name: Validate the built pages
+        run: npx html-validate dist/index.html dist/releases.html "dist/*/index.html" "dist/afro-asiatic/**/index.html"
       # The map view keeps its key, buttons and lines the same size on screen at every browser
       # zoom, in Chromium, Firefox and WebKit (tools/check_map_view.js).
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: node tools/check_map_view.js
+      - name: Check the map view
+        run: node tools/check_map_view.js
       # The release's ZIP builder still works: one family, in a right-to-left language
       # (tools/offline_zip.js; the release builds every family in every language).
-      - run: node tools/offline_zip.js ar japonic
+      - name: Try the release ZIP builder
+        run: node tools/offline_zip.js ar japonic
       - name: Make the preview (all but the record pages of other families)
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         run: bash tools/make_preview.sh _preview
-      - if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+      - name: Upload the preview
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
         uses: actions/upload-artifact@v7
         with:
           name: preview

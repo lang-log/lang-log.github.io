@@ -1,0 +1,44 @@
+# Keep one comment on each pull request from this repository that says which groups of checks
+# have ended (the owner's request, 2026-11-28): "1. Code checks: done", "2. Build and content
+# checks: done", "3. Browser checks: done", "4. Publishing the preview: done", added one by one
+# as each group ends. tools/ci_progress.py reads the jobs and steps of site.yml, the run of
+# browsers.yml and the preview comment of previews.yml, once a minute, until every group has
+# ended. Rules: .claude/rules/previews.md.
+#
+# workflow_run uses the default branch's files: no pull request code is checked out or run.
+# Forks and Dependabot get no comment (their site.yml runs make no preview either).
+name: progress
+on:
+  workflow_run:
+    workflows: [site]
+    types: [requested]
+permissions: {}
+# A newer commit of the same pull request replaces the report of the older one.
+concurrency:
+  group: progress-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: true
+jobs:
+  report:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.actor.login != 'dependabot[bot]' &&
+      github.event.workflow_run.pull_requests[0].number
+    runs-on: ubuntu-latest
+    # site.yml, browsers.yml and the preview usually end within 40 minutes.
+    timeout-minutes: 120
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - run: python3 tools/ci_progress.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          SITE_RUN_ID: ${{ github.event.workflow_run.id }}
