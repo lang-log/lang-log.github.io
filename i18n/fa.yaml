@@ -340,6 +340,8 @@ text:
     reset_view: "بازنشانی نما"
     map_view: "نمای نقشه"
     close_map_view: "بستن نمای نقشه"
+    list_view: "نمای فهرست"
+    close_list_view: "بستن نمای فهرست"
     previous_point: "نقطهٔ قبلی"
     next_point: "نقطهٔ بعدی"
     download_the_map_as_png: "بارگیری نقشه به‌صورت PNG"

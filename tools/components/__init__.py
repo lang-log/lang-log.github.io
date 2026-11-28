@@ -44,6 +44,7 @@ STYLES = [
     "map",
     "data-table",
     "conditions-panel",
+    "list-view",
 ]
 
 

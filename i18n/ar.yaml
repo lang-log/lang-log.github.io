@@ -340,6 +340,8 @@ text:
     reset_view: "إعادة العرض"
     map_view: "عرض الخريطة"
     close_map_view: "إغلاق عرض الخريطة"
+    list_view: "عرض القائمة"
+    close_list_view: "إغلاق عرض القائمة"
     previous_point: "النقطة السابقة"
     next_point: "النقطة التالية"
     download_the_map_as_png: "تنزيل الخريطة بصيغة PNG"

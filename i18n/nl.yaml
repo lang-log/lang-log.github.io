@@ -340,6 +340,8 @@ text:
     reset_view: "Weergave herstellen"
     map_view: "Kaartweergave"
     close_map_view: "Kaartweergave sluiten"
+    list_view: "Lijstweergave"
+    close_list_view: "Lijstweergave sluiten"
     previous_point: "Vorig punt"
     next_point: "Volgend punt"
     download_the_map_as_png: "Kaart downloaden als PNG"

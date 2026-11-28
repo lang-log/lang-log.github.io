@@ -340,6 +340,8 @@ text:
     reset_view: "Atur ulang tampilan"
     map_view: "Tampilan peta"
     close_map_view: "Tutup tampilan peta"
+    list_view: "Tampilan daftar"
+    close_list_view: "Tutup tampilan daftar"
     previous_point: "Titik sebelumnya"
     next_point: "Titik berikutnya"
     download_the_map_as_png: "Unduh peta sebagai PNG"

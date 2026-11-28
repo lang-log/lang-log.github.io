@@ -340,6 +340,8 @@ text:
     reset_view: "Restablecer la vista"
     map_view: "Vista de mapa"
     close_map_view: "Cerrar la vista de mapa"
+    list_view: "Vista de lista"
+    close_list_view: "Cerrar la vista de lista"
     previous_point: "Punto anterior"
     next_point: "Punto siguiente"
     download_the_map_as_png: "Descargar el mapa en PNG"

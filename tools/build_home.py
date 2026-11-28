@@ -454,6 +454,7 @@ def main():
         + script("map")
         + script("tree")
         + script("explorer")
+        + script("list-view")
         + "\n"
         "</body></html>\n"
     )
