@@ -1,6 +1,6 @@
 # Logo
 
-The owner's rule (2026-11-06): the Lang Log logo, the asterisk and the word mark "LANG LOG", is always the one SVG, everywhere in this repository.
+The owner's rule: the Lang Log logo, the asterisk and the word mark "LANG LOG", is always the one SVG, everywhere in this repository.
 
 - Draw it only with `<svg class="logo" role="img" aria-label="LANG LOG"><use href="logo.svg#logo"/></svg>` (with `../` as needed). This covers every page and page generator (`tools/build_home.py`, `tools/build_paths.py`, the atlas pages, `404.html`), the header and the large logo on the top page, both themes and both interface languages.
 - Never write the logo as text, an emoji or a character (`✱ LANG LOG`, `★ LANG LOG`), and never draw the asterisk and the word mark separately.

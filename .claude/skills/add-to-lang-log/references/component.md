@@ -1,6 +1,6 @@
 # A UI component
 
-Steps for adding a ui component to Lang Log, moved from `SKILL.md` without changes (2026-11-24). Do the steps in `SKILL.md` under "Before any of the three" first.
+Steps for adding a ui component to Lang Log, moved from `SKILL.md` without changes. Do the steps in `SKILL.md` under "Before any of the three" first.
 
 1. Look for an existing component that does the job (`docs/components.md`; `ui-design.md`, "Reuse before adding"). If one exists, use it and stop here.
 2. Give it its own directory (`ui-design.md`, "Reuse before adding"): write its markup in `tools/components/<snake_name>.py` (called by the page generators) or its script in `dist/components/<name>/<name>.js`, never in one generated page, and add it to `STYLES` in `tools/components/__init__.py`. Hand-written pages (`dist/*.html`) keep the security policy: run `python3 tools/security_policy.py --write` if their `<head>` changed.
