@@ -19,14 +19,6 @@ How a new or changed piece of interface (a page, view, control, menu, popup, map
 - `docs/components.md` names every component with its markup and the files that build and style it; a new or renamed component is added there in the same pull request.
 - A new component gets its own directory: `dist/components/<name>/` with a comment at the top of its stylesheet that names it and the file that writes its markup, an entry in `STYLES` in `tools/components/__init__.py` (the place in the list is its place in the cascade), and its markup function in `tools/components/` when the build writes it. `dist/style.css` holds only the colour tokens, the fonts, the defaults of plain elements and the layout of the pages.
 
-## No guide needed
-
-The owner's rule: anyone can use every feature from the first visit, without a guide.
-
-- No Get started page, guide, tour, tutorial, onboarding popup or help text that explains how to use the interface.
-- Design each control so the screen itself shows what it does and how to use it: controls in view rather than hidden gestures or menus, the patterns visitors already know from other sites, and a result that shows at once.
-- When a feature seems to need explaining, change its design instead. If the new design needs new wording, ask the owner for it (`only-what-was-asked.md` in `research-aide`).
-
 ## Layout
 
 - Design the phone layout (390 px wide) together with the desktop one; the phone rules sit in the `@media (max-width: 700px)` blocks next to the desktop rules they change. Nothing may scroll sideways.
